@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 export default function ScrollZigzagLine() {
   const [pageHeight, setPageHeight] = useState(0);
@@ -100,15 +100,15 @@ export default function ScrollZigzagLine() {
         {/* Subtle background static guide line */}
         <path
           d={pathData}
-          stroke="#009ee3"
+          stroke="#4a6fa5"
           strokeWidth="1.5"
           strokeOpacity="0.05"
         />
 
-        {/* Scroll-drawing active brand-blue line */}
+        {/* Scroll-drawing active brand line */}
         <motion.path
           d={pathData}
-          stroke="#009ee3"
+          stroke="#4a6fa5"
           strokeWidth="1.5"
           strokeOpacity="0.3"
           strokeLinecap="round"
@@ -116,14 +116,14 @@ export default function ScrollZigzagLine() {
           style={{ pathLength }}
         />
 
-        {/* Turn point indicators alternating in brand blue/orange */}
+        {/* Turn point indicators alternating in light navy and yellow */}
         {points.slice(1, points.length - 1).map((pt, idx) => (
           <motion.circle
             key={idx}
             cx={pt.x}
             cy={pt.y}
             r="4.5"
-            fill={idx % 2 === 0 ? "#009ee3" : "#ef7c00"}
+            fill={idx % 2 === 0 ? "#4a6fa5" : "#f5c842"}
             className="opacity-50"
             initial={{ scale: 0.8 }}
             whileInView={{ scale: 1 }}

@@ -12,6 +12,7 @@ export default function Footer() {
         { name: 'About Lambda', href: '/overview/about' },
         { name: 'Leadership', href: '/overview/leadership' },
         { name: 'Facility', href: '/overview/facility' },
+        { name: 'Integrated Development', href: '/overview/integrated' },
         { name: 'Careers', href: '/overview/careers' },
       ],
     },
@@ -46,39 +47,39 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-white border-t border-neutral-200 select-none">
+    <footer className="bg-white text-neutral-900 border-t border-neutral-200 select-none">
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-20">
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-20">
           
-          {/* Left: Branding & Description */}
-          <div className="lg:max-w-sm">
+          {/* Left: Branding */}
+          <div className="lg:shrink-0">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image
-                src="/images/lambda-logo.svg"
+                src="/images/Lambda & Novum Logo.png"
                 alt="Lambda CDMO"
-                width={136}
-                height={40}
-                className="h-8 w-auto"
+                width={2991}
+                height={358}
+                className="h-12 w-auto"
               />
             </Link>
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6">
+            <p className="text-sm text-neutral-500 leading-relaxed mb-6 lg:max-w-sm">
               Lambda CDMO is an integrated biologics solutions provider, accelerating therapeutic programs from cell line engineering to GMP drug product release.
             </p>
             <div className="flex items-center gap-4">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-400 hover:text-brand-orange hover:border-brand-orange transition-colors">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-500 hover:text-brand-teal hover:border-brand-teal transition-colors">
                 <Globe className="w-4 h-4" />
               </a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X" className="w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-400 hover:text-brand-orange hover:border-brand-orange transition-colors">
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X" className="w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-500 hover:text-brand-teal hover:border-brand-teal transition-colors">
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
-              <a href="mailto:info@lambdacdmo.com" aria-label="Email" className="w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-400 hover:text-brand-orange hover:border-brand-orange transition-colors">
+              <a href="mailto:info@lambdacdmo.com" aria-label="Email" className="w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-500 hover:text-brand-teal hover:border-brand-teal transition-colors">
                 <Mail className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Right: Link Sections */}
+          {/* Right: Links */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
             {sections.map((section) => (
               <div key={section.title}>
@@ -90,7 +91,7 @@ export default function Footer() {
                     <li key={link.name}>
                       <Link
                         href={link.href}
-                        className="text-sm text-neutral-500 hover:text-brand-orange transition-colors"
+                        className="text-sm text-neutral-500 hover:text-brand-blue transition-colors"
                       >
                         {link.name}
                       </Link>
@@ -107,23 +108,23 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
               <div className="flex items-center gap-2 text-sm text-neutral-500">
-                <MapPin className="w-4 h-4 text-neutral-400" />
-                <span>Tallinn, Estonia</span>
+                <MapPin className="w-4 h-4 text-brand-teal" />
+                <span>Ahmedabad, India</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-neutral-500">
-                <Phone className="w-4 h-4 text-neutral-400" />
-                <span>+372 5555 1234</span>
+                <Phone className="w-4 h-4 text-brand-teal" />
+                <span>+91 79 0000 0000</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-neutral-500">
-                <Mail className="w-4 h-4 text-neutral-400" />
+                <Mail className="w-4 h-4 text-brand-teal" />
                 <span>info@lambdacdmo.com</span>
               </div>
             </div>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-gradient-to-b from-brand-blue to-sky-500 hover:from-brand-blue-hover hover:to-sky-600 border border-brand-blue/20 text-white font-medium text-xs shadow-sm hover:shadow active:scale-98 transition-all"
+              className="inline-flex items-center justify-center px-6 py-2.5 rounded-[10px] border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white font-medium text-xs uppercase tracking-wider shadow-sm hover:shadow active:scale-98 transition-all"
             >
-              Get in touch
+              GET IN TOUCH
             </Link>
           </div>
         </div>

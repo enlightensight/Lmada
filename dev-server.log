@@ -1,0 +1,177 @@
+
+> mica-website-temp@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.44.1:3000
+✓ Ready in 1218ms
+
+○ Compiling / ...
+ HEAD / 200 in 223ms (next.js: 11ms, application-code: 212ms)
+ GET / 200 in 253ms (next.js: 10ms, application-code: 243ms)
+ GET / 200 in 268ms (next.js: 11ms, application-code: 257ms)
+ GET / 200 in 286ms (next.js: 29ms, application-code: 257ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET /modalities/bispecifics 200 in 1931ms (next.js: 1825ms, generate-params: 1514ms, application-code: 106ms)
+ GET /modalities/mabs 200 in 2.6s (next.js: 2.4s, generate-params: 1446ms, application-code: 215ms)
+ GET / 200 in 54ms (next.js: 9ms, application-code: 45ms)
+ GET / 200 in 228ms (next.js: 13ms, application-code: 215ms)
+✓ Compiled in 358ms
+✓ Compiled in 206ms
+✓ Compiled in 211ms
+ GET /manufacturing/drug-substance 200 in 127ms (next.js: 26ms, generate-params: 14ms, application-code: 100ms)
+ GET /manufacturing/drug-substance 200 in 104ms (next.js: 19ms, generate-params: 11ms, application-code: 85ms)
+ GET /manufacturing/drug-substance 200 in 98ms (next.js: 21ms, generate-params: 13ms, application-code: 77ms)
+ GET /manufacturing/drug-substance 200 in 96ms (next.js: 16ms, generate-params: 8ms, application-code: 80ms)
+✓ Compiled in 166ms
+ GET / 200 in 778ms (next.js: 343ms, application-code: 435ms)
+ GET / 200 in 782ms (next.js: 212ms, application-code: 570ms)
+ GET / 200 in 331ms (next.js: 13ms, application-code: 317ms)
+ GET / 200 in 331ms (next.js: 93ms, application-code: 238ms)
+ GET / 200 in 164ms (next.js: 12ms, application-code: 151ms)
+ GET / 200 in 163ms (next.js: 78ms, application-code: 85ms)
+ HEAD / 200 in 432ms (next.js: 8ms, application-code: 423ms)
+ GET / 200 in 24ms (next.js: 8ms, application-code: 15ms)
+ GET / 200 in 44ms (next.js: 8ms, application-code: 36ms)
+ GET / 200 in 236ms (next.js: 10ms, application-code: 227ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 21ms (next.js: 8ms, application-code: 14ms)
+ GET / 200 in 19ms (next.js: 7ms, application-code: 11ms)
+ GET / 200 in 59ms (next.js: 7ms, application-code: 52ms)
+ GET / 200 in 20ms (next.js: 7ms, application-code: 13ms)
+ GET / 200 in 39ms (next.js: 7ms, application-code: 32ms)
+ GET /contact 200 in 891ms (next.js: 842ms, application-code: 49ms)
+✓ Compiled in 157ms
+ GET /contact 200 in 733ms (next.js: 182ms, application-code: 551ms)
+ GET / 200 in 732ms (next.js: 593ms, application-code: 139ms)
+ GET / 200 in 43ms (next.js: 8ms, application-code: 35ms)
+ GET /services/cell-line 200 in 357ms (next.js: 213ms, generate-params: 13ms, application-code: 144ms)
+ HEAD / 200 in 451ms (next.js: 7ms, application-code: 444ms)
+ GET / 200 in 215ms (next.js: 9ms, application-code: 206ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET /modalities/mabs 200 in 93ms (next.js: 15ms, generate-params: 9ms, application-code: 78ms)
+ GET /manufacturing/drug-substance 200 in 90ms (next.js: 20ms, generate-params: 8ms, application-code: 71ms)
+ GET /manufacturing/drug-product 200 in 101ms (next.js: 15ms, generate-params: 7ms, application-code: 86ms)
+ GET / 200 in 38ms (next.js: 8ms, application-code: 30ms)
+✓ Compiled in 151ms
+ GET / 200 in 407ms (next.js: 182ms, application-code: 225ms)
+ GET / 200 in 109ms (next.js: 11ms, application-code: 99ms)
+[browser] Uncaught ReferenceError: Beaker is not defined
+    at Home (src/app/page.tsx:35:55)
+  33 | ...: '/images/hero_cleanroom.png',
+  34 | ...: [
+> 35 | ...ame: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance...
+     |                                               ^
+  36 | ...ame: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+  37 | ...
+  38 | ... '/manufacturing/drug-substance',
+[browser] Uncaught ReferenceError: Beaker is not defined
+    at Home (src/app/page.tsx:35:55)
+  33 | ...: '/images/hero_cleanroom.png',
+  34 | ...: [
+> 35 | ...ame: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance...
+     |                                               ^
+  36 | ...ame: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+  37 | ...
+  38 | ... '/manufacturing/drug-substance',
+✓ Compiled in 243ms
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ReferenceError: Beaker is not defined
+    at Home (src\app\page.tsx:35:55)
+  33 | ...: '/images/hero_cleanroom.png',
+  34 | ...: [
+> 35 | ...ame: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance...
+     |                                               ^
+  36 | ...ame: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+  37 | ...
+  38 | ... '/manufacturing/drug-substance', {
+  digest: '548477296'
+}
+⨯ ReferenceError: Beaker is not defined
+    at Home (src\app\page.tsx:35:55)
+  33 | ...: '/images/hero_cleanroom.png',
+  34 | ...: [
+> 35 | ...ame: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance...
+     |                                               ^
+  36 | ...ame: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+  37 | ...
+  38 | ... '/manufacturing/drug-substance', {
+  digest: '548477296'
+}
+[browser] Uncaught ReferenceError: Beaker is not defined
+    at Home (src/app/page.tsx:35:55)
+    at Set.forEach (<anonymous>)
+  33 | ...: '/images/hero_cleanroom.png',
+  34 | ...: [
+> 35 | ...ame: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance...
+     |                                               ^
+  36 | ...ame: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+  37 | ...
+  38 | ... '/manufacturing/drug-substance',
+ GET / 500 in 1611ms (next.js: 576ms, application-code: 1035ms)
+ GET / 500 in 1620ms (next.js: 340ms, application-code: 1280ms)
+[browser] Uncaught ReferenceError: Beaker is not defined
+    at Home (src/app/page.tsx:35:55)
+  33 | ...: '/images/hero_cleanroom.png',
+  34 | ...: [
+> 35 | ...ame: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance...
+     |                                               ^
+  36 | ...ame: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+  37 | ...
+  38 | ... '/manufacturing/drug-substance',
+⨯ ReferenceError: Beaker is not defined
+    at Home (src\app\page.tsx:35:55)
+  33 | ...: '/images/hero_cleanroom.png',
+  34 | ...: [
+> 35 | ...ame: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance...
+     |                                               ^
+  36 | ...ame: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+  37 | ...
+  38 | ... '/manufacturing/drug-substance', {
+  digest: '548477296'
+}
+ HEAD / 500 in 206ms (next.js: 10ms, application-code: 196ms)
+✓ Compiled in 190ms
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 1700ms (next.js: 290ms, application-code: 1410ms)
+ GET / 200 in 1705ms (next.js: 1123ms, application-code: 581ms)
+ HEAD / 200 in 237ms (next.js: 10ms, application-code: 227ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 229ms (next.js: 9ms, application-code: 220ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET /manufacturing/drug-substance 200 in 188ms (next.js: 66ms, generate-params: 15ms, application-code: 122ms)
+ GET / 200 in 237ms (next.js: 9ms, application-code: 227ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+✓ Compiled in 88ms
+ GET / 200 in 523ms (next.js: 326ms, application-code: 196ms)
+ GET / 200 in 527ms (next.js: 194ms, application-code: 333ms)
+ HEAD / 200 in 492ms (next.js: 8ms, application-code: 484ms)
+ GET /insights/blogs 200 in 152ms (next.js: 63ms, generate-params: 9ms, application-code: 89ms)
+ GET /manufacturing/drug-substance 200 in 93ms (next.js: 16ms, generate-params: 9ms, application-code: 77ms)
+ GET / 200 in 45ms (next.js: 8ms, application-code: 37ms)
+ GET / 200 in 214ms (next.js: 9ms, application-code: 206ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET /services/cell-line 200 in 111ms (next.js: 17ms, generate-params: 9ms, application-code: 94ms)
+ GET / 200 in 243ms (next.js: 8ms, application-code: 234ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+✓ Compiled in 144ms
+ GET / 200 in 508ms (next.js: 200ms, application-code: 307ms)
+ GET / 200 in 508ms (next.js: 356ms, application-code: 152ms)
+ HEAD / 200 in 456ms (next.js: 9ms, application-code: 447ms)
+ GET / 200 in 203ms (next.js: 14ms, application-code: 190ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 205ms (next.js: 9ms, application-code: 197ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 220ms (next.js: 8ms, application-code: 212ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 216ms (next.js: 8ms, application-code: 208ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET / 200 in 202ms (next.js: 9ms, application-code: 193ms)
+[browser] Image with src "/images/hero_cleanroom.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET /modalities/bispecifics 200 in 170ms (next.js: 62ms, generate-params: 13ms, application-code: 108ms)
+✓ Compiled in 147ms
+ GET / 200 in 268ms (next.js: 181ms, application-code: 87ms)
+[?25h

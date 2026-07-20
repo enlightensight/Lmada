@@ -20,11 +20,11 @@ export default function Button({
   type = 'button',
   disabled = false,
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center px-6 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-300 select-none';
+  const baseStyles = 'inline-flex items-center justify-center px-6 py-3 rounded-[10px] text-sm font-medium tracking-wide transition-all duration-300 select-none';
   
   const variantStyles = {
-    primary: 'bg-gradient-to-b from-brand-blue to-sky-500 hover:from-brand-blue-hover hover:to-sky-600 text-white border border-brand-blue/20 shadow-md hover:shadow-lg active:scale-98 disabled:opacity-50 disabled:pointer-events-none',
-    secondary: 'bg-brand-blue-light hover:bg-brand-blue/10 text-brand-blue border border-brand-blue/15 shadow-sm hover:shadow active:scale-98 disabled:opacity-50 disabled:pointer-events-none',
+    primary: 'bg-brand-navy hover:bg-brand-navy-light text-white border border-brand-navy/20 shadow-md hover:shadow-lg active:scale-98 disabled:opacity-50 disabled:pointer-events-none',
+    secondary: 'bg-brand-yellow/10 hover:bg-brand-yellow/20 text-brand-navy border border-brand-yellow/30 shadow-sm hover:shadow active:scale-98 disabled:opacity-50 disabled:pointer-events-none',
   };
 
   const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${className}`;

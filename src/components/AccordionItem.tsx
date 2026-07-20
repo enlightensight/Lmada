@@ -17,18 +17,22 @@ export default function AccordionItem({
   onToggle,
 }: AccordionItemProps) {
   return (
-    <div className="border-b border-neutral-200 py-4 select-none">
+    <div className="border-b border-neutral-200 last:border-b-0 py-4 select-none">
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between py-2 text-left focus:outline-none group cursor-pointer"
       >
-        <span className="text-base md:text-lg font-serif font-medium text-neutral-900 group-hover:text-neutral-600 transition-colors">
+        <span className={`text-base md:text-lg font-semibold transition-colors ${isOpen ? 'text-brand-blue' : 'text-black group-hover:text-brand-blue'}`}>
           {question}
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 135 : 0 }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
-          className="flex-shrink-0 ml-4 w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-800 transition-colors group-hover:bg-neutral-200"
+          className={`flex-shrink-0 ml-4 w-9 h-9 rounded-[10px] flex items-center justify-center transition-colors duration-300 ${
+            isOpen
+              ? 'bg-brand-yellow text-black'
+              : 'bg-brand-blue text-white group-hover:bg-brand-yellow group-hover:text-black'
+          }`}
         >
           <Plus className="w-4 h-4" />
         </motion.div>
@@ -38,16 +42,16 @@ export default function AccordionItem({
         {isOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ 
-              height: 'auto', 
+            animate={{
+              height: 'auto',
               opacity: 1,
               transition: {
                 height: { duration: 0.35, ease: 'easeOut' },
                 opacity: { duration: 0.25, delay: 0.05 }
               }
             }}
-            exit={{ 
-              height: 0, 
+            exit={{
+              height: 0,
               opacity: 0,
               transition: {
                 height: { duration: 0.3, ease: 'easeIn' },
@@ -56,7 +60,7 @@ export default function AccordionItem({
             }}
             className="overflow-hidden"
           >
-            <p className="text-sm md:text-base text-muted pt-2 pb-4 leading-relaxed font-normal">
+            <p className="text-sm md:text-base text-neutral-600 pt-2 pb-4 leading-relaxed font-normal border-l-2 border-brand-yellow pl-4">
               {answer}
             </p>
           </motion.div>

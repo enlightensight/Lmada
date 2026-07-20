@@ -1,16 +1,8 @@
 import type { Metadata } from "next";
-import { Crimson_Text, Source_Sans_3 } from "next/font/google";
+import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
-
-const crimsonText = Crimson_Text({
-  variable: "--font-crimson",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  weight: ["400", "600", "700"],
-});
 
 const sourceSans3 = Source_Sans_3({
   variable: "--font-source-sans",
@@ -51,11 +43,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${crimsonText.variable} ${sourceSans3.variable}`}>
-      <body className="font-sans antialiased text-foreground bg-background selection:bg-neutral-200">
-        <CustomCursor />
+    <html lang="en" className={`${sourceSans3.variable}`}>
+      <body className="font-sans antialiased text-foreground bg-background selection:bg-brand-blue/20">
         <Navigation />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow pt-16 lg:pt-20">{children}</main>
         <Footer />
       </body>
     </html>

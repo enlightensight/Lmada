@@ -2,11 +2,8 @@
 
 import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, MapPin, Clock, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, Check, ArrowRight, Clock, Shield } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import Badge from '@/components/Badge';
-import FormButton from '@/components/FormButton';
-import CinematicCTA from '@/components/CinematicCTA';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -24,8 +21,7 @@ export default function Contact() {
     if (!formData.name || !formData.email || !formData.message) return;
 
     setStatus('loading');
-    
-    // Simulate API request call
+
     setTimeout(() => {
       setStatus('success');
       setFormData({
@@ -38,214 +34,267 @@ export default function Contact() {
     }, 1800);
   };
 
+  const inputClass =
+    'w-full px-4 py-3 rounded-[10px] border border-neutral-200 bg-neutral-50 text-black text-sm focus:outline-none focus:border-brand-blue focus:bg-white transition-colors';
+
+  const labelClass = 'text-xs font-semibold text-black tracking-wider uppercase';
+
   return (
-    <div className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto select-none">
-      
-      {/* Page Header */}
-      <div className="max-w-2xl text-left mb-12 md:mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Badge className="mb-4">Contact</Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-neutral-900 leading-[1.1] mb-4">
-            Let&apos;s talk about your biologics program
-          </h1>
-          <p className="text-sm sm:text-base text-muted font-normal leading-relaxed">
-            Have a cell line, process scale-up, or cGMP manufacturing requirement? Share a few details and our scientific team will get back to you soon.
-          </p>
-        </motion.div>
-      </div>
+    <div className="select-none">
+      {/* HERO — blue band with grid overlay */}
+      <section className="relative bg-brand-blue text-white overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
+            backgroundSize: '44px 44px',
+          }}
+        />
+        <div className="relative max-w-[1400px] mx-auto px-6 py-20 md:py-28">
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl"
+          >
+            <span className="inline-block px-3 py-1.5 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-yellow text-black mb-6">
+              Contact
+            </span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1] mb-4">
+              Let&apos;s Advance Your <span className="text-brand-yellow">Next Biologics</span> Program
+            </h1>
+            {/* animated yellow underline */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+              className="h-1 w-24 bg-brand-yellow rounded-full origin-left mb-5"
+            />
+            <p className="text-base text-white/70 leading-relaxed">
+              Whether you&apos;re developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start mt-10">
-        
-        {/* Left Column: Interactive Form Card */}
-        <div className="lg:col-span-7">
-          <Reveal>
-            <div className="bg-white border border-neutral-200 p-6 md:p-8 rounded-2xl sm:rounded-3xl shadow-sm relative overflow-hidden">
-              <AnimatePresence mode="wait">
-                {status === 'success' ? (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    className="py-12 flex flex-col items-center text-center justify-center"
-                  >
-                    <CheckCircle className="w-16 h-16 text-neutral-400 mb-4" />
-                    <h3 className="text-2xl font-serif font-medium text-neutral-900 mb-2">Technical Inquiry Received</h3>
-                    <p className="text-sm text-muted font-normal max-w-sm leading-relaxed">
-                      Thank you for sharing your project specifications. Our development directors will evaluate your requirements and contact you within 24 hours.
-                    </p>
-                    <button
-                      onClick={() => setStatus('idle')}
-                      className="mt-6 text-xs font-semibold tracking-wider text-neutral-500 uppercase border-b border-neutral-300/35 pb-0.5 hover:text-neutral-900 hover:border-neutral-900 cursor-pointer font-mono"
+      <div className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+
+          {/* Left Column: Form */}
+          <div className="lg:col-span-7">
+            <Reveal>
+              <div className="relative bg-white border border-neutral-200 rounded-[10px] p-6 md:p-8 shadow-sm overflow-hidden">
+                {/* yellow top accent */}
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow" />
+                <AnimatePresence mode="wait">
+                  {status === 'success' ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      className="py-12 flex flex-col items-center text-center justify-center"
                     >
-                      Submit another inquiry
-                    </button>
-                  </motion.div>
-                ) : (
-                  <motion.form
-                    key="form"
-                    onSubmit={handleSubmit}
-                    className="flex flex-col gap-5 select-none"
-                  >
-                    {/* Name Input */}
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="name" className="text-xs font-semibold text-neutral-800 tracking-wider uppercase font-mono">Contact Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        required
-                        placeholder="Jane Smith"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-900 text-sm focus:outline-none focus:border-brand-blue focus:bg-white transition-colors"
-                      />
-                    </div>
-
-                    {/* Email Input */}
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="email" className="text-xs font-semibold text-neutral-800 tracking-wider uppercase font-mono">Corporate Email</label>
-                      <input
-                        type="email"
-                        id="email"
-                        required
-                        placeholder="jane@company.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-900 text-sm focus:outline-none focus:border-brand-blue focus:bg-white transition-colors"
-                      />
-                    </div>
-
-                    {/* Service Type & Scale Dropdowns */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 18, delay: 0.1 }}
+                        className="w-20 h-20 rounded-[10px] bg-brand-yellow flex items-center justify-center mb-6"
+                      >
+                        <Check className="w-10 h-10 text-black" strokeWidth={3} />
+                      </motion.div>
+                      <h3 className="text-2xl font-semibold text-black mb-2">Technical Inquiry Received</h3>
+                      <p className="text-sm text-neutral-600 font-normal max-w-sm leading-relaxed">
+                        Thank you for sharing your project specifications. Our development directors will evaluate your requirements and contact you within 24 hours.
+                      </p>
+                      <button
+                        onClick={() => setStatus('idle')}
+                        className="group mt-6 inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-brand-blue uppercase"
+                      >
+                        <span className="w-6 h-0.5 bg-brand-yellow group-hover:w-10 transition-all duration-300" />
+                        Submit another inquiry
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <motion.form
+                      key="form"
+                      onSubmit={handleSubmit}
+                      className="flex flex-col gap-5 select-none"
+                    >
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="projectType" className="text-xs font-semibold text-neutral-800 tracking-wider uppercase font-mono">Service Requested</label>
-                        <select
-                          id="projectType"
-                          value={formData.projectType}
-                          onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-900 text-sm focus:outline-none focus:border-brand-blue focus:bg-white transition-colors cursor-pointer"
-                        >
-                          <option value="">Select...</option>
-                          <option value="cell-line">Cell Line Engineering</option>
-                          <option value="process-scale">Process Development & Scaling</option>
-                          <option value="gmp-substance">cGMP Drug Substance Manufacturing</option>
-                          <option value="aseptic-fill">Aseptic Drug Product Fill/Finish</option>
-                          <option value="analytical-testing">Analytical Validation & Characterization</option>
-                        </select>
+                        <label htmlFor="name" className={labelClass}>Contact Name</label>
+                        <input
+                          type="text"
+                          id="name"
+                          required
+                          placeholder="Jane Smith"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className={inputClass}
+                        />
                       </div>
 
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="scale" className="text-xs font-semibold text-neutral-800 tracking-wider uppercase font-mono">Project Phase / Scale</label>
-                        <select
-                          id="scale"
-                          value={formData.scale}
-                          onChange={(e) => setFormData({ ...formData, scale: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-900 text-sm focus:outline-none focus:border-brand-blue focus:bg-white transition-colors cursor-pointer"
-                        >
-                          <option value="">Select...</option>
-                          <option value="pilot">Early Pilot / Pre-clinical run</option>
-                          <option value="phase-1">Phase I Clinical Batch</option>
-                          <option value="phase-2-3">Phase II / III Clinical Quantities</option>
-                          <option value="commercial">Commercial Supply</option>
-                        </select>
+                        <label htmlFor="email" className={labelClass}>Corporate Email</label>
+                        <input
+                          type="email"
+                          id="email"
+                          required
+                          placeholder="jane@company.com"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className={inputClass}
+                        />
                       </div>
-                    </div>
 
-                    {/* Message Box */}
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="message" className="text-xs font-semibold text-neutral-800 tracking-wider uppercase font-mono">Technical Specifications</label>
-                      <textarea
-                        id="message"
-                        required
-                        rows={5}
-                        placeholder="Tell us about your lead molecule target format, expression titers, and timeline expectations..."
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-900 text-sm focus:outline-none focus:border-brand-blue focus:bg-white transition-colors resize-none"
-                      />
-                    </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="projectType" className={labelClass}>Service Requested</label>
+                          <select
+                            id="projectType"
+                            value={formData.projectType}
+                            onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                            className={`${inputClass} cursor-pointer`}
+                          >
+                            <option value="">Select...</option>
+                            <option value="cell-line">Cell Line Engineering</option>
+                            <option value="process-scale">Process Development & Scaling</option>
+                            <option value="gmp-substance">cGMP Drug Substance Manufacturing</option>
+                            <option value="aseptic-fill">Aseptic Drug Product Fill/Finish</option>
+                            <option value="analytical-testing">Analytical Validation & Characterization</option>
+                          </select>
+                        </div>
 
-                    {/* Form Submit Button */}
-                    <div className="mt-2">
-                      <FormButton loading={status === 'loading'}>
-                        Submit Technical Inquiry
-                      </FormButton>
-                    </div>
-                  </motion.form>
-                )}
-              </AnimatePresence>
-            </div>
-          </Reveal>
-        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="scale" className={labelClass}>Project Phase / Scale</label>
+                          <select
+                            id="scale"
+                            value={formData.scale}
+                            onChange={(e) => setFormData({ ...formData, scale: e.target.value })}
+                            className={`${inputClass} cursor-pointer`}
+                          >
+                            <option value="">Select...</option>
+                            <option value="pilot">Early Pilot / Pre-clinical run</option>
+                            <option value="phase-1">Phase I Clinical Batch</option>
+                            <option value="phase-2-3">Phase II / III Clinical Quantities</option>
+                            <option value="commercial">Commercial Supply</option>
+                          </select>
+                        </div>
+                      </div>
 
-        {/* Right Column: Dark Contact Information Card */}
-        <div className="lg:col-span-5">
-          <Reveal delay={0.1}>
-            <div className="rounded-2xl sm:rounded-3xl dark-glass-card text-white p-6 md:p-8 flex flex-col justify-between min-h-[460px] relative overflow-hidden select-none">
-              <div className="absolute inset-0 radial-glow opacity-80 pointer-events-none" />
-              
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-[9px] font-semibold tracking-widest text-neutral-400 uppercase font-mono">Available slots</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-serif font-medium text-white mb-2">Booking slots for May - June 2026</h3>
-                <p className="text-xs sm:text-sm text-neutral-400 font-normal leading-relaxed mb-6">
-                  Get in touch with our technical directors to map out equipment trains and technology transfer schedules.
-                </p>
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="message" className={labelClass}>Technical Specifications</label>
+                        <textarea
+                          id="message"
+                          required
+                          rows={5}
+                          placeholder="Tell us about your lead molecule target format, expression titers, and timeline expectations..."
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          className={`${inputClass} resize-none`}
+                        />
+                      </div>
+
+                      <div className="mt-2">
+                        <button
+                          type="submit"
+                          disabled={status === 'loading'}
+                          className="group w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {status === 'loading' ? (
+                            <>
+                              <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                              Submitting...
+                            </>
+                          ) : (
+                            <>
+                              Submit Technical Inquiry
+                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
               </div>
+            </Reveal>
+          </div>
 
-              {/* Rows contact */}
-              <div className="flex flex-col gap-5 border-t border-white/10 pt-6 mt-8 relative z-10 font-sans">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-300">
-                    <Mail className="w-4.5 h-4.5" />
+          {/* Right Column: Contact Information — blue card */}
+          <div className="lg:col-span-5">
+            <Reveal delay={0.1}>
+              <div className="relative bg-brand-blue rounded-[10px] text-white p-6 md:p-8 flex flex-col justify-between min-h-[460px] overflow-hidden select-none shadow-sm">
+                {/* grid overlay */}
+                <div
+                  className="absolute inset-0 opacity-10 pointer-events-none"
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
+                    backgroundSize: '44px 44px',
+                  }}
+                />
+                <div className="relative z-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="w-2 h-2 bg-brand-yellow rounded-full animate-pulse" />
+                    <span className="text-[10px] font-semibold tracking-widest text-white/60 uppercase">Available for discussion</span>
                   </div>
-                  <div>
-                    <span className="text-[8px] font-semibold text-neutral-500 uppercase tracking-widest font-mono">Email</span>
-                    <p className="text-xs sm:text-sm font-semibold text-neutral-200">hello@lambda-cdmo.com</p>
+                  <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
+                    Connect with our <span className="text-brand-yellow">scientific team</span>
+                  </h3>
+                  <p className="text-sm text-white/70 font-normal leading-relaxed mb-6">
+                    Get in touch with our technical directors to map out development strategies, equipment trains, and technology transfer schedules.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-5 border-t border-white/10 pt-6 mt-8 relative z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-[10px] bg-brand-yellow flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-4 h-4 text-black" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Email</span>
+                      <p className="text-sm font-semibold text-white">info@lambdacdmo.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-[10px] bg-brand-yellow flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-4 h-4 text-black" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Location</span>
+                      <p className="text-sm font-semibold text-white">Ahmedabad, India</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-[10px] bg-brand-yellow flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-4 h-4 text-black" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Phone</span>
+                      <p className="text-sm font-semibold text-white">+91 79 0000 0000</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-300">
-                    <MapPin className="w-4.5 h-4.5" />
-                  </div>
-                  <div>
-                    <span className="text-[8px] font-semibold text-neutral-500 uppercase tracking-widest font-mono">Location</span>
-                    <p className="text-xs sm:text-sm font-semibold text-neutral-200">Tallinn, Estonia / Remote</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-300">
-                    <Clock className="w-4.5 h-4.5" />
-                  </div>
-                  <div>
-                    <span className="text-[8px] font-semibold text-neutral-500 uppercase tracking-widest font-mono">Responsive time</span>
-                    <p className="text-xs sm:text-sm font-semibold text-neutral-200">Within 24 hours (Business Days)</p>
-                  </div>
+
+                {/* assurance chips */}
+                <div className="flex flex-wrap gap-3 mt-8 relative z-10">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[10px] bg-white/10 border border-white/20 text-white text-[11px] font-semibold">
+                    <Clock className="w-3.5 h-3.5 text-brand-yellow" />
+                    Response within 24 hours
+                  </span>
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[10px] bg-white/10 border border-white/20 text-white text-[11px] font-semibold">
+                    <Shield className="w-3.5 h-3.5 text-brand-yellow" />
+                    NDA on request
+                  </span>
                 </div>
               </div>
-            </div>
-          </Reveal>
-        </div>
+            </Reveal>
+          </div>
 
+        </div>
       </div>
-
-      {/* CINEMATIC CTA SECTION */}
-      <CinematicCTA
-        headingLine1="EXPLORE OUR"
-        headingLine2="CAPABILITIES"
-        subtitle="Discover our integrated approach to biologics development — from cell line construction through cGMP manufacturing to regulatory filing support."
-        ctaLabel="View Services"
-        ctaHref="/services/cell-line"
-        secondaryLabel="About Lambda"
-        secondaryHref="/overview/about"
-      />
-
     </div>
   );
 }

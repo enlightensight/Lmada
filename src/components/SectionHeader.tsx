@@ -20,11 +20,11 @@ export default function SectionHeader({
           {badge}
         </Badge>
       )}
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight text-neutral-900 leading-[1.15] mb-4">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-4">
         {title}
       </h2>
       {description && (
-        <p className="text-sm sm:text-base text-muted font-normal leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-600 font-normal leading-relaxed">
           {description}
         </p>
       )}

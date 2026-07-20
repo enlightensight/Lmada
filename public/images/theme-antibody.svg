@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3d5d8c"/>
+      <stop offset="1" stop-color="#4a6fa5"/>
+    </linearGradient>
+    <pattern id="dots" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="2" fill="#ffffff" opacity="0.12"/>
+    </pattern>
+    <g id="ab">
+      <line x1="0" y1="0" x2="0" y2="70" stroke-width="12" stroke-linecap="round"/>
+      <line x1="0" y1="0" x2="-40" y2="-48" stroke-width="12" stroke-linecap="round"/>
+      <line x1="0" y1="0" x2="40" y2="-48" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="-40" cy="-48" r="16" stroke="none"/>
+      <circle cx="40" cy="-48" r="16" stroke="none"/>
+    </g>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#dots)"/>
+
+  <!-- large yellow antibodies -->
+  <g stroke="#f5c842" fill="#f5c842">
+    <use href="#ab" transform="translate(300,420) scale(1.6) rotate(-14)"/>
+    <use href="#ab" transform="translate(880,300) scale(1.2) rotate(18)"/>
+    <use href="#ab" transform="translate(640,680) scale(1.9) rotate(6)"/>
+  </g>
+  <!-- white outline antibodies -->
+  <g stroke="#ffffff" fill="#ffffff" opacity="0.85">
+    <use href="#ab" transform="translate(160,720) scale(0.9) rotate(24)"/>
+    <use href="#ab" transform="translate(1020,600) scale(1.1) rotate(-20)"/>
+    <use href="#ab" transform="translate(520,220) scale(0.8) rotate(40)"/>
+  </g>
+  <!-- faint background antibodies -->
+  <g stroke="#ffffff" fill="#ffffff" opacity="0.2">
+    <use href="#ab" transform="translate(90,260) scale(1.3) rotate(-30)"/>
+    <use href="#ab" transform="translate(1080,160) scale(1.5) rotate(10)"/>
+    <use href="#ab" transform="translate(420,820) scale(1.1) rotate(-8)"/>
+    <use href="#ab" transform="translate(760,120) scale(0.7) rotate(30)"/>
+  </g>
+
+  <!-- connecting molecule bonds -->
+  <g stroke="#f5c842" stroke-width="4" opacity="0.5">
+    <line x1="220" y1="150" x2="330" y2="210"/>
+    <circle cx="220" cy="150" r="8" fill="#f5c842" stroke="none"/>
+    <circle cx="330" cy="210" r="8" fill="#f5c842" stroke="none"/>
+    <line x1="950" y1="760" x2="1060" y2="700"/>
+    <circle cx="950" cy="760" r="8" fill="#f5c842" stroke="none"/>
+    <circle cx="1060" cy="700" r="8" fill="#f5c842" stroke="none"/>
+  </g>
+</svg>

@@ -25,7 +25,7 @@ export const articles: Article[] = [
       name: 'Sevora Vale',
       avatar: 'https://framerusercontent.com/images/cgXwgj75ijDSBCwJjLkPHR8f8.png',
     },
-    image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/default_scientist.png',
     content: `
 In the ever-changing landscape of digital design, user experience (UX) design stands as a pillar of creating experiences that resonate. A well-designed user experience bridges the gap between technology and human interaction, making digital interfaces feel natural, fluid, and intuitive.
 
@@ -54,7 +54,7 @@ By combining these principles, we elevate simple digital interactions into polis
       name: 'Sevora Vale',
       avatar: 'https://framerusercontent.com/images/cgXwgj75ijDSBCwJjLkPHR8f8.png',
     },
-    image: 'https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/benefit_accelerate.png',
     content: `
 User Interface (UI) design is the craft of creating the visual wrapper of an application. From color palettes to typography choices, UI determines how a brand feels on screen.
 
@@ -78,7 +78,7 @@ Consistency is the most vital asset of a digital product. By building design tok
       name: 'Sevora Vale',
       avatar: 'https://framerusercontent.com/images/cgXwgj75ijDSBCwJjLkPHR8f8.png',
     },
-    image: 'https://images.unsplash.com/photo-1561070791-26c113006238?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/benefit_succeed.png',
     content: `
 The digital space has shifted. We no longer just build functional software; we create experiences. This revolution places the human user at the center of all technical architectures.
     `,

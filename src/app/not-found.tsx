@@ -12,12 +12,12 @@ export default function NotFound() {
       <Badge className="mb-6">404 error</Badge>
 
       {/* Heading */}
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-medium tracking-tight text-neutral-900 leading-tight mb-4">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-neutral-900 leading-tight mb-4">
         Page not found
       </h1>
 
       {/* Description */}
-      <p className="text-sm sm:text-base text-muted font-normal max-w-md leading-relaxed mb-8">
+      <p className="text-sm sm:text-base text-neutral-600 font-normal max-w-md leading-relaxed mb-8">
         We&apos;re sorry, but the page you&apos;re looking for could not be found. It may have been moved, deleted, or never existed in the first place.
       </p>
 

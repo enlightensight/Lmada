@@ -1,782 +1,664 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { motion, motion as framerMotion } from 'framer-motion';
-import { ArrowRight, Check, ArrowUpRight, Shield, Database, Cpu, Award } from 'lucide-react';
-import Reveal from '@/components/Reveal';
-import Button from '@/components/Button';
-import Badge from '@/components/Badge';
-import SectionHeader from '@/components/SectionHeader';
-import FeatureCard from '@/components/FeatureCard';
-import ServicesTabs from '@/components/ServicesTabs';
-import AccordionItem from '@/components/AccordionItem';
-import { faqs } from '@/data/faqs';
-import CinematicCTA from '@/components/CinematicCTA';
-import Parallax3DCard from '@/components/Parallax3DCard';
-import ScrollZigzagLine from '@/components/ScrollZigzagLine';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, Check, FlaskConical, Factory, Microscope, Dna, Activity, HeartPulse, Bug, Shield, BookOpen, FileText, Globe, Users, Building2, Award, MapPin, Search, Settings, Package, Scale, Target, GitMerge, Syringe, Calendar, Newspaper, FileDown, Beaker } from 'lucide-react';
 import { HeroSection } from '@/components/ui/hero-section-5';
+import Reveal from '@/components/Reveal';
+import SectionHeader from '@/components/SectionHeader';
+import CinematicCTA from '@/components/CinematicCTA';
+import { articles } from '@/data/articles';
+import { faqs } from '@/data/faqs';
+import AccordionItem from '@/components/AccordionItem';
 
 export default function Home() {
   const [openFaqId, setOpenFaqId] = useState<number | null>(null);
 
-  // Client partner logos/texts
-  const clients = ['Biotech Innovators', 'Therapeutics Labs', 'BioPharma Global', 'GeneScaffolds', 'OncoMabs Inc.', 'Estonia BioLink'];
+  // Scroll-linked parallax for the Integrated Partner service cards
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: servicesRef,
+    offset: ['start end', 'end start'],
+  });
+  // Single shared offset — cards move together, staying aligned in one row
+  const cardsY = useTransform(scrollYProgress, [0, 1], [60, -40]);
 
-  // Modalities List
+  const serviceCards = [
+    {
+      title: 'Development Services',
+      icon: FlaskConical,
+      image: '/images/benefit_accelerate.png',
+      items: [
+        { name: 'Cell Line Development', icon: Dna, href: '/services/cell-line' },
+        { name: 'Process Development', icon: Activity, href: '/services/process' },
+        { name: 'Analytical Development', icon: Search, href: '/services/analytical' },
+      ],
+      href: '/services/cell-line',
+    },
+    {
+      title: 'Manufacturing Services',
+      icon: Factory,
+      image: '/images/hero_cleanroom.png',
+      items: [
+        { name: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance' },
+        { name: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+      ],
+      href: '/manufacturing/drug-substance',
+    },
+    {
+      title: 'Analytical Characterization & Testing',
+      icon: Microscope,
+      image: '/images/default_analytics.png',
+      items: [
+        { name: 'Analytical Testing', icon: Search, href: '/characterization/analytical-testing' },
+        { name: 'Physicochemical Characterization', icon: Scale, href: '/characterization/physicochemical' },
+        { name: 'Bioassays & Immunogenicity Testing', icon: HeartPulse, href: '/characterization/bioassays' },
+        { name: 'Microbiological Testing', icon: Bug, href: '/characterization/microbiological' },
+      ],
+      href: '/characterization/analytical-testing',
+    },
+  ];
+
   const modalities = [
     {
       title: 'Monoclonal Antibodies',
       slug: 'mabs',
-      desc: 'Process science and GMP production for IgG1, IgG2, and IgG4 antibody classes.',
-      image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80',
+      desc: 'Platform capabilities for IgG1, IgG2, and IgG4 subclasses.',
+      image: '/images/modality_mabs.png',
+      icon: Target,
     },
     {
       title: 'Bispecific Antibodies',
       slug: 'bispecifics',
-      desc: 'Solving mispairing and chain assembly challenges with tailored downstream recovery.',
-      image: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&q=80',
+      desc: 'Addressing chain pairing, homodimer, and mispairing challenges.',
+      image: '/images/modality_bispecifics.png',
+      icon: GitMerge,
     },
     {
       title: 'Antibody-Drug Conjugates',
       slug: 'adcs',
-      desc: 'DAR ratio mapping and high-resolution payload distribution analysis validation.',
-      image: 'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=800',
+      desc: 'Conjugation process development, DAR characterization, and GMP manufacturing.',
+      image: '/images/modality_adcs.png',
+      icon: Syringe,
     },
     {
       title: 'Proteins & Peptides',
       slug: 'proteins-peptides',
-      desc: 'Custom Upstream expressions and analytical profiling of novel recombinant formats.',
-      image: 'https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?auto=format&fit=crop&w=800&q=80',
+      desc: 'Recombinant proteins, fusion proteins, and synthetic peptides.',
+      image: '/images/modality_proteins.png',
+      icon: Dna,
     },
   ];
 
+  const advantages = [
+    { title: 'Integrated development, analytical, and manufacturing capabilities', icon: Check },
+    { title: 'Purpose-built biologics development and manufacturing facility', icon: Building2 },
+    { title: 'Unified quality management system', icon: Shield },
+    { title: 'Scalable development and manufacturing approach', icon: Activity },
+    { title: 'Global regulatory-focused quality framework', icon: Globe },
+    { title: "Backed by Lambda's clinical research and bioanalytical capabilities", icon: Award },
+  ];
+
+  const stats = [
+    { value: '20k', label: 'Sqm Facility', desc: 'Purpose-built biologics development and manufacturing campus' },
+    { value: '25+', label: 'Years Legacy', desc: 'Built on Lambda Therapeutic Research expertise' },
+    { value: 'End-to-End', label: 'Integration', desc: 'From cell line development to GMP clinical supply' },
+    { value: 'Global', label: 'Regulatory Support', desc: 'Aligned with US, EU, Japan, and Australia expectations' },
+  ];
+
+  const locations = [
+    { name: 'Toronto', x: '24.4%', y: '16.8%' },
+    { name: 'London', x: '46.9%', y: '10.9%' },
+    { name: 'Warsaw', x: '52.8%', y: '10.2%' },
+    { name: 'Barcelona', x: '47.6%', y: '21.4%' },
+    { name: 'Ahmedabad & Mehsana', x: '67.6%', y: '36.4%' },
+    { name: 'Las Vegas', x: '15%', y: '25%' },
+  ];
+
   return (
-    <div className="relative overflow-hidden pb-20 select-none">
-      {/* Scroll-linked Winding Vector Line Background */}
-      <ScrollZigzagLine />
-      
-      {/* 0. NEW HERO SECTION */}
+    <div className="relative overflow-hidden pb-0 select-none">
+      {/* HERO */}
       <HeroSection />
-      
-      {/* 1. HERO SECTION */}
-      <section className="relative px-6 pt-8 pb-24 md:pt-12 md:pb-32 max-w-[1400px] mx-auto">
-        <div className="relative rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200 p-8 md:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[580px] shadow-sm">
-          {/* Background grid texture */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808007_1px,transparent_1px),linear-gradient(to_bottom,#80808007_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
-          {/* Left Column: Copy details */}
-          <div className="lg:col-span-7 relative z-10 flex flex-col justify-center">
-            <div className="mb-4">
-              <Badge>Contract Development & Manufacturing Organization</Badge>
-            </div>
-            {/* Title / Heading */}
-            <framerMotion.h1
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.44, 0, 0.56, 1] }}
-              className="text-4xl sm:text-5xl lg:text-6.5xl font-serif font-medium tracking-tight text-neutral-900 leading-[1.05]"
-            >
-              Integrated Solutions for Biologics Development
-              <framerMotion.span 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="block text-brand-blue font-normal mt-2 text-xl sm:text-2xl lg:text-3xl"
-              >
-                Accelerating Clinical FIH Trials
-              </framerMotion.span>
-            </framerMotion.h1>
-
-            {/* Sub/Body text */}
-            <framerMotion.p
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5, ease: [0.44, 0, 0.56, 1] }}
-              className="text-sm sm:text-base text-muted font-normal mt-6 max-w-xl leading-relaxed"
-            >
-              Serving as a dedicated global partner for biologics drug development, cGMP manufacturing, and IND-enabling clinical trial batches.
-            </framerMotion.p>
-
-            {/* Action CTAs */}
-            <framerMotion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5, ease: [0.44, 0, 0.56, 1] }}
-              className="flex flex-wrap items-center gap-4 mt-8"
-            >
-              <Button href="/services/cell-line" variant="primary">
-                Explore Services
-              </Button>
-              <Button href="/contact" variant="secondary">
-                Get in touch
-              </Button>
-            </framerMotion.div>
-
-            {/* Metrics Row */}
-            <framerMotion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="grid grid-cols-3 gap-6 border-t border-neutral-200/80 mt-12 pt-8"
-            >
-              <div>
-                <div className="text-2xl sm:text-3xl font-serif font-semibold text-neutral-900">20k</div>
-                <div className="text-[10px] sm:text-xs font-semibold tracking-wider text-neutral-400 uppercase mt-1">Sqft GMP Facility</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-serif font-semibold text-neutral-900">FIH</div>
-                <div className="text-[10px] sm:text-xs font-semibold tracking-wider text-neutral-400 uppercase mt-1">First In Human Ready</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-serif font-semibold text-neutral-900">Global</div>
-                <div className="text-[10px] sm:text-xs font-semibold tracking-wider text-neutral-400 uppercase mt-1">IND Regulations Support</div>
-              </div>
-            </framerMotion.div>
-          </div>
-
-          {/* Right Column: Large portrait image */}
-          <div className="lg:col-span-5 relative h-full w-full flex items-center justify-center">
-            <framerMotion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="relative w-full aspect-[4/5] max-w-sm rounded-2xl overflow-hidden border border-neutral-200 shadow-md bg-neutral-200"
-            >
-              <img
-                src="/images/hero_cleanroom.png"
-                alt="Lambda Laboratory cleanroom"
-                className="w-full h-full object-cover transition-all duration-700"
-              />
-
-              {/* Floating Capacity Card */}
-              <framerMotion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-                className="absolute bottom-4 left-4 right-4 bg-neutral-955/90 backdrop-blur-md border border-white/10 p-4 rounded-xl text-white shadow-xl flex items-center justify-between"
-              >
-                <div>
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-[9px] font-semibold tracking-widest text-neutral-400 uppercase font-mono">Available slots</span>
-                  </div>
-                  <h4 className="text-xs font-serif font-medium">GMP Batch Capacity</h4>
-                  <p className="text-[10px] text-neutral-400 mt-0.5 line-clamp-1 max-w-[200px]">Booking for Q2/Q3 2026 clinic trials.</p>
-                </div>
-                <Link
-                  href="/contact"
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors"
-                >
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </framerMotion.div>
-            </framerMotion.div>
-          </div>
-        </div>
-
-        {/* Logo Cloud ribbon */}
-        <framerMotion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="mt-12 overflow-hidden py-4 border-b border-neutral-200/50"
-        >
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 md:justify-between px-4">
-            {clients.map((client) => (
-              <span
-                key={client}
-                className="font-serif text-sm font-semibold tracking-tight text-neutral-400 select-none hover:text-brand-orange transition-colors cursor-default"
-              >
-                {client}
-              </span>
-            ))}
-          </div>
-        </framerMotion.div>
-      </section>
-
-      {/* 2. BENEFITS SECTION (THE THREE PILLARS) */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
-        <Reveal>
-          <SectionHeader
-            badge="The Pillars of Engagement"
-            title="Accelerate, Simplify, and Succeed"
-            description="Our flexible capacity and equipment trains, combined with our agile, collaborative approach, accelerate clinical timelines and reduce technical risks."
-          />
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-          {/* Benefit Card 1 (Left: Animates Leftward from center) */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5, ease: [0.44, 0, 0.56, 1] }}
-          >
-            <FeatureCard>
-              <div className="relative aspect-[4/3] rounded-2xl bg-neutral-50 border border-neutral-100 flex items-center justify-center overflow-hidden mb-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/benefit_accelerate.png"
-                  alt="Biotechnology Cell Culture"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-serif font-medium text-neutral-900 mb-2">Accelerate</h3>
-                <p className="text-sm text-muted leading-relaxed">Advance your biologics project from gene concept to clinical trials with our streamlined process science and vector workflows.</p>
-              </div>
-            </FeatureCard>
-          </motion.div>
-
-          {/* Benefit Card 2 (Center: Animates Upward) */}
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5, ease: [0.44, 0, 0.56, 1] }}
-          >
-            <FeatureCard>
-              <div className="relative aspect-[4/3] rounded-2xl bg-neutral-50 border border-neutral-100 flex items-center justify-center overflow-hidden mb-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/hero_cleanroom.png"
-                  alt="Bioprocessing Facility"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-serif font-medium text-neutral-900 mb-2">Simplify</h3>
-                <p className="text-sm text-muted leading-relaxed">Simplifying complex tech transfers and cell line processes to enhance yield efficiency and reduce operational client overheads.</p>
-              </div>
-            </FeatureCard>
-          </motion.div>
-
-          {/* Benefit Card 3 (Right: Animates Rightward from center) */}
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5, ease: [0.44, 0, 0.56, 1] }}
-          >
-            <FeatureCard>
-              <div className="relative aspect-[4/3] rounded-2xl bg-neutral-50 border border-neutral-100 flex items-center justify-center overflow-hidden mb-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/benefit_succeed.png"
-                  alt="Quality Assurance lab"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-serif font-medium text-neutral-900 mb-2">Succeed</h3>
-                <p className="text-sm text-muted leading-relaxed">Achieve your development goals with our tailored analytical methodologies and expert regulatory filing support.</p>
-              </div>
-            </FeatureCard>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 3. SELECTED MODALITIES (Replaces Selected Work) */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
-        <Reveal>
-          <SectionHeader
-            badge="Biologics Modalities"
-            title="Biotherapeutic pipelines with clarity"
-            description="Proven platform methods and process sciences optimized for lead molecule formats."
-          />
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 mt-10">
-          {modalities.map((modal, idx) => (
-            <motion.div
-              key={modal.slug}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? 80 : -80, y: 32 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: false, amount: 0.25 }}
-              transition={{ duration: 0.5, ease: [0.44, 0, 0.56, 1], delay: idx * 0.05 }}
-              className="w-full h-full"
-            >
-              <Parallax3DCard className="w-full h-full">
-                <Link href={`/modalities/${modal.slug}`} className="group block select-none cursor-pointer">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-neutral-100 border border-neutral-200 shadow-sm">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={modal.image}
-                      alt={modal.title}
-                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-103"
-                    />
-                    <div className="absolute inset-0 bg-neutral-900/5 group-hover:bg-transparent transition-colors duration-300" />
-                  </div>
-                  <div className="flex items-center justify-between mt-4 px-1">
-                    <div>
-                      <h3 className="text-xl font-serif font-medium text-neutral-900 transition-colors group-hover:text-brand-orange">
-                        {modal.title}
-                      </h3>
-                      <p className="text-xs text-neutral-500 mt-1 font-sans">{modal.desc}</p>
-                    </div>
-                    <div className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-800 bg-white group-hover:bg-brand-blue group-hover:border-brand-blue group-hover:text-white transition-all duration-300">
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </Link>
-              </Parallax3DCard>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. WHY CHOOSE ME SECTION (WHY CHOOSE LAMBDA) */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
-        <Reveal>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-baseline mb-12 border-b border-neutral-200 pb-10">
-            <div className="lg:col-span-5">
-              <Badge className="mb-4">Why choose Lambda</Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight text-neutral-900 leading-[1.15]">
-                Process sciences shaped around lasting quality
-              </h2>
-            </div>
-            <div className="lg:col-span-7">
-              <p className="text-base sm:text-lg text-muted font-normal leading-relaxed">
-                We bring together advanced technology, global GMP compliance, and an agile, scientific team to accelerate early-phase clinical batches.
-              </p>
-            </div>
-          </div>
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-10">
-          {/* Asymmetrical Bento Grid */}
-          <div className="md:col-span-7 flex flex-col gap-6">
-            {/* Card 1 (Top Left): Drops down first */}
-            <motion.div
-              initial={{ opacity: 0, y: -64 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ type: 'spring', stiffness: 220, damping: 18, delay: 0.1 }}
-            >
-              <FeatureCard className="flex flex-col gap-6">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 bg-brand-blue rounded-full" />
-                  <span className="text-[10px] tracking-widest font-semibold text-neutral-400 uppercase font-mono">Expertise</span>
-                </div>
-                <h3 className="text-xl md:text-2xl font-serif font-medium text-neutral-900 leading-snug">
-                  Co-development focus aligned with accelerated IND timelines.
-                </h3>
-              </FeatureCard>
-            </motion.div>
-
-            <div className="grid grid-cols-2 gap-6">
-              {/* Card 2 (Middle Left): Drops down second */}
-              <motion.div
-                initial={{ opacity: 0, y: -64 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 18, delay: 0.25 }}
-              >
-                <FeatureCard className="text-center flex flex-col justify-center items-center py-8">
-                  <span className="text-3xl md:text-4xl font-serif font-semibold text-neutral-900 mb-1">100%</span>
-                  <span className="text-[10px] font-semibold text-neutral-400 tracking-wider uppercase font-mono">IP & Data Integrity</span>
-                </FeatureCard>
-              </motion.div>
-
-              {/* Card 3 (Middle Right): Drops down third */}
-              <motion.div
-                initial={{ opacity: 0, y: -64 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 18, delay: 0.4 }}
-              >
-                <FeatureCard className="text-center flex flex-col justify-center items-center py-8">
-                  <span className="text-3xl md:text-4xl font-serif font-semibold text-neutral-900 mb-1">20k</span>
-                  <span className="text-[10px] font-semibold text-neutral-400 tracking-wider uppercase font-mono">Sqft CDMO Facility</span>
-                </FeatureCard>
-              </motion.div>
-            </div>
-            
-            {/* Card 4 (Bottom Left): Drops down last in the left column */}
-            <motion.div
-              initial={{ opacity: 0, y: -64 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ type: 'spring', stiffness: 220, damping: 18, delay: 0.55 }}
-            >
-              <FeatureCard className="flex flex-row items-center gap-3 py-5">
-                <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-xs font-semibold text-neutral-800 tracking-wider uppercase font-mono">Booking batch runs for mid-2026</span>
-              </FeatureCard>
-            </motion.div>
-          </div>
-
-          {/* Card 5 (Right Column): Drops down in parallel after first card */}
-          <div className="md:col-span-5 h-full">
-            <motion.div
-              initial={{ opacity: 0, y: -64 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ type: 'spring', stiffness: 220, damping: 18, delay: 0.3 }}
-              className="h-full"
-            >
-              <FeatureCard variant="dark" className="h-full flex flex-col justify-between min-h-[340px]">
-                <div className="flex flex-col gap-4">
-                  <div className="flex gap-1 text-white opacity-80">
-                    <Shield className="w-5 h-5" />
-                    <Database className="w-5 h-5" />
-                    <Cpu className="w-5 h-5" />
-                    <Award className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-serif font-medium text-white leading-tight">
-                    We help developers, biotechnology startups, and clinical teams turn therapeutic targets into high-purity biological drug substances.
-                  </h3>
-                </div>
-                <div className="border-t border-white/10 pt-6 mt-8 flex justify-between items-center">
-                  <div>
-                    <span className="text-3xl font-serif font-semibold text-white">GMP</span>
-                    <span className="text-[10px] font-semibold text-neutral-400 tracking-wider uppercase ml-2 font-mono">Regulatory standards</span>
-                  </div>
-                  <span className="text-[10px] font-semibold text-neutral-400 tracking-wider uppercase font-mono">Tallinn cleanrooms</span>
-                </div>
-              </FeatureCard>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. SERVICES SECTION */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
-        <Reveal>
-          <SectionHeader
-            badge="Technical Offerings"
-            title="End-to-end development pathways"
-            description="Focused biologics service workflows from cell culture sciences to GMP batch release."
-          />
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="mt-10">
-            <ServicesTabs />
-          </div>
-        </Reveal>
-      </section>
-
-      {/* 6. PROCESS SECTION */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto border-t border-neutral-100 mt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left sticky column */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 h-fit">
-            <Badge className="mb-4">Development Flow</Badge>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight text-neutral-900 leading-[1.15] mb-4">
-              How the process flows with clarity
+      {/* AN INTEGRATED PARTNER */}
+      <section className="px-6 py-12 md:py-20 bg-neutral-50">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-10 md:mb-14">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block mb-4">An Integrated Partner</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15]">
+              An Integrated Partner for Biologics Development and Manufacturing
             </h2>
-            <p className="text-sm sm:text-base text-muted font-normal leading-relaxed">
-              A collaborative and structured workflow moving biologic products safely from tech evaluation to clinical drug product delivery.
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
+              Integrated Services Across the Biologics Development Lifecycle - From cell line development to GMP manufacturing, our multidisciplinary teams work together to support every stage of biologics development.
             </p>
           </div>
+          <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {serviceCards.map((card, idx) => {
+              const Icon = card.icon;
+              return (
+                <motion.div
+                  key={card.title}
+                  style={{ y: cardsY }}
+                >
+                  <div className="h-full bg-white border border-neutral-200 rounded-[10px] p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center">
+                    <div className="w-24 h-24 bg-brand-yellow rounded-[10px] flex items-center justify-center mb-6 group-hover:bg-brand-blue transition-colors duration-300">
+                      <Icon className="w-12 h-12 text-black group-hover:text-white transition-colors duration-300" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-black mb-6 group-hover:text-brand-yellow transition-colors">
+                      {card.title}
+                    </h3>
+                    <ul className="space-y-4 text-left w-full">
+                      {card.items.map((item) => {
+                        const ItemIcon = item.icon;
+                        return (
+                          <li key={item.name}>
+                            <Link href={item.href} className="flex items-center gap-4 text-base text-neutral-700 hover:text-brand-yellow transition-colors group/item">
+                              <div className="w-12 h-12 bg-brand-blue rounded-[10px] flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-yellow transition-colors">
+                                <ItemIcon className="w-6 h-6 text-white group-hover/item:text-black transition-colors" />
+                              </div>
+                              {item.name}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-          {/* Right vertical timeline steps */}
-          <div className="lg:col-span-7 flex flex-col gap-12 relative border-l border-neutral-200/80 pl-6 md:pl-10 ml-2">
-            {[
-              {
-                step: '01',
-                title: 'Discovery & Tech Transfer',
-                text: 'We review existing expression protocols or gene targets under NDA, defining the parameters for process scaling.',
-              },
-              {
-                step: '02',
-                title: 'Cell Line Engineering',
-                text: 'Developing high-yield clonal systems (CHO-K1) with high genetic stability and titer productivity.',
-              },
-              {
-                step: '03',
-                title: 'Upstream Optimization',
-                text: 'Refining perfusion or fed-batch feeds and cultivation criteria to maximize active protein titers.',
-              },
-              {
-                step: '04',
-                title: 'Downstream Purification',
-                text: 'Formulating multi-step chromatography lines to remove host cell contaminants and achieve >99% purity.',
-              },
-              {
-                step: '05',
-                title: 'Analytical Characterization',
-                text: 'Performing physicochemical structure confirmations, ELISA, bioassays, and sterility validation panels.',
-              },
-              {
-                step: '06',
-                title: 'cGMP Sterile Fill & Release',
-                text: 'Aseptic vial filling inside Grade A environments, with complete quality dossiers to support IND filings.',
-              },
-            ].map((stepObj, idx) => (
+      {/* SUPPORTING DIVERSE BIOLOGIC MODALITIES */}
+      <section className="px-6 py-12 md:py-20 bg-white border-y border-neutral-100">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-10 md:mb-14">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+              <span className="text-brand-yellow">Therapeutic</span> Excellence
+            </h2>
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+              Advancing vital therapies across diverse therapeutic areas
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {modalities.map((modal, idx) => {
+              const Icon = modal.icon;
+              return (
+                <motion.div
+                  key={modal.slug}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                >
+                  <Link href={`/modalities/${modal.slug}`} className="group block h-full">
+                    <div className="h-full p-6 rounded-[10px] flex flex-col items-center justify-center text-center transition-all duration-300 bg-brand-blue text-white hover:bg-brand-yellow hover:text-black">
+                      <Icon className="w-10 h-10 mb-4 opacity-90" />
+                      <h3 className="text-lg font-medium">{modal.title}</h3>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* LAMBDA CDMO ADVANTAGE GRID */}
+      <section className="px-6 py-12 md:py-20 bg-neutral-50 border-y border-neutral-100">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block mb-4">Advantage</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
+                <span className="text-brand-yellow">Lambda CDMO</span> Advantage
+              </h2>
+              <p className="text-sm text-neutral-600 leading-relaxed">
+                Our integrated development and manufacturing platform is designed to support a range of biologic modalities with scientific, analytical, and manufacturing capabilities tailored to each molecule.
+              </p>
+            </div>
+
+            <div className="lg:col-span-8 relative">
+              <div className="absolute left-[27px] top-2 bottom-2 w-0.5 bg-brand-blue/20" />
+              <div className="flex flex-col gap-8">
+                {advantages.map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <Reveal key={idx} delay={idx * 0.08}>
+                      <div className="relative flex gap-6 md:gap-8 items-start">
+                        <div className="relative z-10 w-14 h-14 rounded-[10px] bg-brand-yellow flex items-center justify-center flex-shrink-0 shadow-sm">
+                          <Icon className="w-7 h-7 text-black" />
+                        </div>
+                        <div className="flex-1 bg-white border border-neutral-200 rounded-[10px] p-6 shadow-sm">
+                          <h3 className="text-xl font-semibold text-black leading-snug">
+                            {item.title}
+                          </h3>
+                        </div>
+                      </div>
+                    </Reveal>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PURPOSE-BUILT FACILITY CTA */}
+      <section className="relative px-6 py-12 md:py-16 bg-brand-blue overflow-hidden">
+        {/* subtle white grid overlay */}
+        <div
+          className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
+            backgroundSize: '44px 44px',
+          }}
+        />
+        <div className="relative max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+          <div className="max-w-2xl">
+            <Reveal>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Purpose-Built Facility</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-[1.15] mb-4">
+                Purpose-Built Facility for <span className="text-brand-yellow">Biologics Development</span> and Manufacturing
+              </h2>
+              {/* animated yellow underline */}
               <motion.div
-                key={stepObj.step}
-                initial={{ opacity: 0, y: 192 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 30, delay: idx * 0.05 }}
-                className="relative flex flex-col md:flex-row gap-4 md:gap-8 items-start"
-              >
-                {/* Timeline dot step placeholder */}
-                <div className="absolute -left-[31px] md:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-white border-2 border-neutral-900 z-10 flex items-center justify-center" />
-                
-                <span className="font-mono text-xs font-semibold text-neutral-400 tracking-wider">
-                  {stepObj.step}
-                </span>
-                <div>
-                  <h3 className="text-xl font-serif font-medium text-neutral-900 mb-2">
-                    {stepObj.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-muted leading-relaxed font-normal">
-                    {stepObj.text}
-                  </p>
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+                className="h-1 w-24 bg-brand-yellow rounded-full origin-left mb-5"
+              />
+              <p className="text-sm sm:text-base text-white/70 leading-relaxed">
+                Our approximately 20,000 sqm biologics development and manufacturing facility integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={0.2} className="flex-shrink-0">
+            <Link
+              href="/overview/facility"
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black text-sm font-semibold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              Explore our Facility
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* LAMBDA CDMO ADVANTAGE */}
+      <section className="px-6 py-12 md:py-20 bg-neutral-50">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <Reveal>
+              <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm">
+                <img
+                  src="/images/theme-antibody.svg"
+                  alt="Biosimilar development"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-6">
+                  Accelerating Biosimilar Development
+                </h2>
+                <p className="text-base text-neutral-600 leading-relaxed mb-8">
+                  Lambda holds a strong legacy in biosimilar development, covering a broad portfolio of molecules such as Adalimumab, Bevacizumab, Denosumab, Pertuzumab, Rituximab, Daratumumab, Trastuzumab, Trastuzumab Emtansine, Vedolizumab, Ranibizumab, Teriparatide, Aflibercept, Filgrastim, and Pegfilgrastim.
+                </p>
+                <div className="space-y-4">
+                  {advantages.slice(0, 2).map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={idx} className="flex items-start gap-4 p-4 rounded-[10px] bg-brand-blue shadow-sm">
+                        <div className="w-10 h-10 bg-brand-yellow rounded-[10px] flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-5 h-5 text-black" />
+                        </div>
+                        <div>
+                          <h3 className="text-base font-semibold text-white">{item.title.split(',')[0]}</h3>
+                          <p className="text-sm text-white/80">{item.title}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* WHY LAMBDA */}
+      <section className="px-6 py-12 md:py-20 bg-neutral-50 border-y border-neutral-100">
+        <div className="max-w-[1400px] mx-auto">
+          <Reveal>
+            <div className="text-center mb-10 md:mb-14">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block mb-4">Why Us</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+                <span className="text-brand-yellow">Why</span> Lambda?
+              </h2>
+              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                We bring together integrated capabilities and global operations to support biotech and pharmaceutical companies across clinical development and resource support needs.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="relative max-w-4xl mx-auto">
+            {/* Center spine (desktop) / left spine (mobile) */}
+            <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-neutral-200 md:-translate-x-1/2" />
+
+            <div className="flex flex-col gap-8 md:gap-12">
+              {stats.map((stat, idx) => {
+                const isLeft = idx % 2 === 0;
+                return (
+                  <Reveal key={stat.label} delay={idx * 0.05}>
+                    <div className={`relative flex items-start gap-6 md:gap-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                      {/* Step node */}
+                      <div className="absolute left-5 md:left-1/2 top-6 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 rounded-[10px] bg-brand-yellow border-2 border-brand-blue flex items-center justify-center z-10">
+                        <span className="text-sm md:text-base font-semibold text-black">{String(idx + 1).padStart(2, '0')}</span>
+                      </div>
+                      {/* Card */}
+                      <div className={`ml-14 md:ml-0 md:w-1/2 ${isLeft ? 'md:pr-14' : 'md:pl-14'}`}>
+                        <div className="bg-white border border-neutral-200 rounded-[10px] shadow-sm hover:shadow-xl transition-all duration-300 p-6 md:p-8">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block mb-2">
+                            {stat.label}
+                          </span>
+                          <h3 className="text-xl font-semibold text-black mb-2">{stat.value}</h3>
+                          <p className="text-sm text-neutral-600 leading-relaxed">{stat.desc}</p>
+                        </div>
+                      </div>
+                      <div className="hidden md:block md:w-1/2" />
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PURPOSE-BUILT FACILITY */}
+      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
+        <Reveal>
+          <article className="group relative bg-white border border-neutral-200 rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-neutral-100">
+                <img
+                  src="/images/theme-facility.svg"
+                  alt="Lambda CDMO facility in Ahmedabad"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <span className="absolute top-4 left-4 px-3 py-1.5 rounded-[10px] bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-wider">
+                  Our Facility
+                </span>
+              </div>
+              <div className="p-8 md:p-12 flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue">
+                    Purpose-Built Facility
+                  </span>
+                  <span className="h-px flex-1 bg-neutral-200" />
+                  <Building2 className="w-4 h-4 text-brand-blue" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-5 group-hover:text-brand-blue transition-colors">
+                  Purpose-built facility for biologics development and manufacturing
+                </h3>
+                <p className="text-base text-neutral-600 leading-relaxed mb-8">
+                  Our approximately 20,000 sqm biologics development and manufacturing facility integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
+                    <div className="text-2xl font-semibold text-brand-blue">20k</div>
+                    <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Sqm Campus</div>
+                  </div>
+                  <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
+                    <div className="text-2xl font-semibold text-brand-blue">GMP</div>
+                    <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Manufacturing Suites</div>
+                  </div>
+                </div>
+                <Link href="/overview/facility" className="flex items-center gap-2 text-sm font-semibold text-brand-blue">
+                  <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
+                  Explore our Facility
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </article>
+        </Reveal>
+      </section>
+
+      {/* FEATURED INSIGHTS */}
+      <section className="relative px-6 py-12 md:py-20 bg-white border-y border-neutral-100 overflow-hidden">
+        <div className="relative max-w-[1400px] mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 md:mb-14">
+            <Reveal>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block mb-4">Insights</span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+                  Featured <span className="text-brand-yellow">Research</span> and Insights
+                </h2>
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <Link
+                href="/insights/blogs"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-[10px] border border-brand-blue text-brand-blue text-sm font-semibold hover:bg-brand-blue hover:text-white transition-all duration-300"
+              >
+                View all insights
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Reveal>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Featured big card */}
+            <motion.div
+              initial={{ opacity: 0, x: -32 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ y: -6 }}
+              className="h-full"
+            >
+              <Link href="/insights/blogs" className="group relative flex flex-col h-full bg-white border border-neutral-200 rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-300">
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
+                <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+                  <img
+                    src={articles[0].image}
+                    alt={articles[0].title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <span className="absolute top-4 left-4 px-3 py-1.5 rounded-[10px] bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-wider">
+                    Featured
+                  </span>
+                </div>
+                <div className="flex flex-col flex-1 p-6 md:p-8">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-brand-blue mb-3">{articles[0].category}</div>
+                  <h3 className="text-xl md:text-2xl font-semibold text-black mb-3 group-hover:text-brand-blue transition-colors leading-snug">
+                    {articles[0].title}
+                  </h3>
+                  <p className="text-sm text-neutral-500 leading-relaxed line-clamp-2 mb-6">{articles[0].subtitle}</p>
+                  <div className="mt-auto flex items-center justify-between">
+                    <span className="text-xs text-neutral-500">{articles[0].date} &middot; {articles[0].readingTime}</span>
+                    <span className="w-10 h-10 rounded-full border border-neutral-200 flex items-center justify-center text-black group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-all duration-300">
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+
+            {/* Two stacked horizontal cards */}
+            <div className="flex flex-col gap-6">
+              {articles.slice(1, 3).map((article, idx) => (
+                <motion.div
+                  key={article.slug}
+                  initial={{ opacity: 0, x: 32 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6, delay: 0.15 + idx * 0.12 }}
+                  whileHover={{ y: -6 }}
+                  className="flex-1"
+                >
+                  <Link href="/insights/blogs" className="group relative flex h-full bg-white border border-neutral-200 rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-300">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
+                    <div className="relative w-2/5 overflow-hidden bg-neutral-100">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-1 p-5 md:p-6">
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-brand-blue mb-2">{article.category}</div>
+                      <h3 className="text-base md:text-lg font-semibold text-black mb-2 group-hover:text-brand-blue transition-colors leading-snug line-clamp-2">
+                        {article.title}
+                      </h3>
+                      <p className="text-sm text-neutral-500 leading-relaxed line-clamp-2 mb-4">{article.subtitle}</p>
+                      <div className="mt-auto flex items-center justify-between">
+                        <span className="text-xs text-neutral-500">{article.readingTime}</span>
+                        <span className="w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-black group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-all duration-300">
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OUR PRESENCE */}
+      <section className="px-6 py-12 md:py-20 bg-neutral-50">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-10 md:mb-14">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block mb-4">Global Reach</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+              <span className="text-brand-yellow">Our</span> Presence
+            </h2>
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+              We are aggressively expanding globally and are confident in our research initiatives, propelling us toward a trajectory of excellence.
+            </p>
+          </div>
+          <Reveal>
+            <div className="relative w-full bg-white border border-neutral-200 rounded-[10px] overflow-hidden shadow-sm">
+              {/* World map: blue countries, location countries in yellow */}
+              <img
+                src="/images/world-map.svg"
+                alt="World map with Lambda locations highlighted"
+                className="w-full h-auto block"
+              />
+              {/* Floating count badge */}
+              <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3.5 py-2 rounded-[10px] bg-brand-blue text-white shadow-md">
+                <span className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse" />
+                <span className="text-xs font-semibold uppercase tracking-wider">{locations.length} Global Locations</span>
+              </div>
+              {locations.map((loc, idx) => (
+                <motion.div
+                  key={loc.name}
+                  className="absolute z-10"
+                  style={{ left: loc.x, top: loc.y }}
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    repeatType: 'loop',
+                    delay: idx * 0.3,
+                    ease: 'easeInOut',
+                  }}
+                >
+                  {/* Location pin in a white badge — visible on both blue and yellow countries */}
+                  <div className="relative -translate-x-1/2 -translate-y-1/2 w-9 h-9">
+                    <span
+                      className="absolute inset-0 rounded-full bg-white opacity-70 animate-ping"
+                      style={{ animationDelay: `${idx * 0.3}s` }}
+                    />
+                    <div className="relative w-9 h-9 bg-white rounded-full border-2 border-brand-blue shadow-lg flex items-center justify-center">
+                      <MapPin className="w-5 h-5 text-brand-blue" strokeWidth={2.5} />
+                    </div>
+                  </div>
+                  {/* Label in a white pill for readability over the map */}
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 whitespace-nowrap px-2.5 py-1 bg-white/95 border border-neutral-200 rounded-md text-xs font-semibold text-black shadow-md">
+                    {loc.name}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </Reveal>
+          {/* Location chips */}
+          <div className="flex flex-wrap justify-center gap-3 mt-8">
+            {locations.map((loc, idx) => (
+              <motion.div
+                key={loc.name}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                className="group flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-brand-blue text-white text-sm font-medium cursor-default hover:bg-brand-yellow hover:text-black transition-colors duration-300 shadow-sm"
+              >
+                <span className="w-2 h-2 rounded-full bg-brand-yellow group-hover:bg-brand-blue transition-colors duration-300" />
+                {loc.name}
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 7. FEATURES SECTION (CDMO EXPERTISE) */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto border-t border-neutral-100">
-        <Reveal>
-          <SectionHeader
-            badge="Expertise"
-            title="Design support with clear direction"
-            description="Our scientific leadership operates under key frameworks to expedite client programs to the clinical market safely."
-          />
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-10">
-          {[
-            { title: 'Quality Focus', text: 'Rigorous compliance standards satisfying US FDA and EU EMA regulations.' },
-            { title: 'Robust IP Protection', text: 'Partitioned systems ensuring absolute confidentiality for molecular vectors.' },
-            { title: 'Continuous Improvement', text: 'Process intensification to reduce manufacturing and materials costs.' },
-            { title: 'Data Integrity', text: 'GAMP 5 electronic tracking logs ensuring trace compliance.' },
-            { title: 'Phase-Specific Design', text: 'Accelerating early-stage runs to achieve First-in-Human clinical data.' },
-            { title: 'Project Management', text: 'Proactive and transparent milestones reporting with direct scientific contacts.' },
-            { title: 'Problem Solving', text: 'Rapid risk assessments to resolve upstream/downstream bottlenecks.' },
-          ].map((feat, idx) => (
-            <Reveal key={feat.title} delay={idx * 0.05}>
-              <FeatureCard className="h-full flex flex-col justify-between py-6">
-                <div>
-                  <h4 className="font-serif font-medium text-lg text-neutral-900 mb-2">{feat.title}</h4>
-                  <p className="text-xs text-muted leading-relaxed">{feat.text}</p>
-                </div>
-              </FeatureCard>
-            </Reveal>
-          ))}
-
-          {/* Featured Dark Bento - Speed */}
-          <Reveal delay={0.35} className="md:col-span-1">
-            <FeatureCard variant="dark" className="h-full min-h-[160px]">
-              <div>
-                <h4 className="font-serif font-medium text-lg text-white mb-2 font-mono">Speed</h4>
-                <p className="text-xs text-neutral-400 leading-relaxed">
-                  Accelerated timelines from DNA-to-RCB and rapid tech transfers to launch clinical batches without delay.
-                </p>
-              </div>
-            </FeatureCard>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 8. TESTIMONIALS */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto border-t border-neutral-100">
-        <Reveal>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-baseline mb-12">
-            <div className="lg:col-span-5">
-              <Badge className="mb-4">Case Feedbacks</Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight text-neutral-900 leading-[1.15]">
-                What partners say
-              </h2>
-            </div>
-            <div className="lg:col-span-7">
-              <p className="text-base sm:text-lg text-muted font-normal leading-relaxed">
-                Feedback from biotechnology directors and product founders who transitioned their biological programs to Lambda CDMO.
-              </p>
-            </div>
-          </div>
-        </Reveal>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10 items-stretch">
-          {/* Left Column: Large dark testimonial card with glow */}
-          <Reveal className="h-full">
-            <FeatureCard variant="dark" className="h-full min-h-[360px] justify-between flex flex-col">
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-6 font-normal text-white">
-                &ldquo;Lambda&apos;s collaborative team took our complex bispecific target molecule and established a high-yield cell culture process. We initiated cGMP manufacturing within 14 weeks, accelerating our clinical trial filing.&rdquo;
-              </p>
-              <div className="border-t border-white/10 pt-4 flex justify-between items-center">
-                <div>
-                  <h4 className="text-sm font-semibold tracking-wide text-white">Dr. Ethan Brooks</h4>
-                  <p className="text-xs text-neutral-400 mt-0.5">Biotech Director @ GeneScaffolds</p>
-                </div>
-                <span className="text-[10px] font-semibold text-neutral-500 uppercase tracking-widest font-mono">Featured</span>
-              </div>
-            </FeatureCard>
-          </Reveal>
-
-          {/* Middle Column: Stacked white card and trusted strip */}
-          <div className="flex flex-col gap-6 h-full justify-between">
-            <Reveal className="flex-grow">
-              <FeatureCard className="h-full justify-between flex flex-col min-h-[220px]">
-                <p className="text-sm sm:text-base leading-relaxed mb-6 font-normal text-neutral-800">
-                  &ldquo;Rigorous data integrity and secure network segmentations gave us total peace of mind regarding our monoclonal antibody sequences. Their analytical verification was flawless.&rdquo;
-                </p>
-                <div className="border-t border-neutral-100 pt-4">
-                  <h4 className="text-sm font-semibold tracking-wide text-neutral-900">Dr. Maya Chen</h4>
-                  <p className="text-xs text-neutral-400 mt-0.5">Lead Scientist @ Aura AI Therapeutics</p>
-                </div>
-              </FeatureCard>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="p-5 rounded-2xl border border-neutral-200 bg-white shadow-sm flex items-center justify-between text-[10px] sm:text-[11px] font-semibold text-neutral-400 tracking-wider uppercase select-none font-mono">
-                <span>Accredits:</span>
-                <span>GMP</span>
-                <span>•</span>
-                <span>FDA Ready</span>
-                <span>•</span>
-                <span>EMA Compliant</span>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Right Column: Card with dark CTA button on top */}
-          <div className="flex flex-col gap-6 h-full justify-between">
+      {/* FAQ */}
+      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
             <Reveal>
-              <div className="p-6 rounded-2xl border border-neutral-200 bg-white shadow-sm flex flex-col gap-4">
-                <h4 className="text-sm font-serif font-medium text-neutral-900">Ready to start?</h4>
-                <Button href="/contact" variant="primary" className="w-full text-xs py-2 px-4 rounded-lg">
-                  Submit Tech Request
-                </Button>
-              </div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block mb-4">FAQ</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
+                <span className="text-brand-yellow">Common</span> Questions
+              </h2>
+              <p className="text-sm text-neutral-600 leading-relaxed mb-6">
+                Answers to questions about process, tech transfers, timelines, and facility validations.
+              </p>
+              <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-blue">
+                <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
+                Still have questions? Talk to us
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Reveal>
+          </div>
 
-            <Reveal delay={0.1} className="flex-grow">
-              <FeatureCard className="h-full justify-between flex flex-col min-h-[220px]">
-                <p className="text-sm sm:text-base leading-relaxed mb-6 font-normal text-neutral-800">
-                  &ldquo;Their single-use bioreactor trains allowed us to scale up our biosimilar product from pilot batch to clinical quantities under a single, unified technology transfer.&rdquo;
-                </p>
-                <div className="border-t border-neutral-100 pt-4">
-                  <h4 className="text-sm font-semibold tracking-wide text-neutral-900">Dr. Liam Carter</h4>
-                  <p className="text-xs text-neutral-400 mt-0.5">Clinical Manufacturing Lead @ OncoMabs Inc.</p>
-                </div>
-              </FeatureCard>
+          <div className="lg:col-span-8">
+            <Reveal delay={0.1}>
+              <div className="bg-white border border-neutral-200 rounded-[10px] px-6 md:px-8 py-4 shadow-sm">
+                {faqs.slice(0, 5).map((faq) => (
+                  <AccordionItem
+                    key={faq.id}
+                    question={faq.question}
+                    answer={faq.answer}
+                    isOpen={openFaqId === faq.id}
+                    onToggle={() => setOpenFaqId(openFaqId === faq.id ? null : faq.id)}
+                  />
+                ))}
+              </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* 9. SERVICE INQUIRIES (Replaces Pricing Packages) */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto border-t border-neutral-100">
-        <Reveal>
-          <SectionHeader
-            badge="Clinical Packaging"
-            title="Service packages with defined outcomes"
-            description="Technical options for early-phase biological development and aseptic manufacturing."
-          />
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-10">
-          {/* Clinical Pilot Program */}
-          <Reveal>
-            <div className="p-8 rounded-3xl border border-neutral-200 bg-white shadow-sm flex flex-col justify-between h-full hover:shadow-md transition-all duration-300">
-              <div>
-                <span className="text-xs font-semibold text-neutral-400 tracking-widest uppercase font-mono">Option 01</span>
-                <h3 className="text-2xl font-serif font-medium text-neutral-900 mt-2 mb-3">Clinical Pilot Program</h3>
-                <p className="text-sm text-muted leading-relaxed mb-6 font-normal">
-                  Focused cell culture scaling and pilot purification runs to characterize yield dynamics and target specifications.
-                </p>
-                <div className="text-3xl font-serif font-bold text-neutral-900 mb-8">Pilot scale <span className="text-xs font-sans font-semibold text-neutral-400 uppercase tracking-wider">Batches</span></div>
-                
-                {/* Features list */}
-                <ul className="flex flex-col gap-4 border-t border-neutral-100 pt-6">
-                  {['Cell line verification', 'Upstream process adaptation', 'Downstream column profiling', 'Physicochemical characterization', 'Technology transfer report'].map((feat) => (
-                    <li key={feat} className="flex items-center gap-3 text-sm text-neutral-700 font-medium">
-                      <Check className="w-4 h-4 text-neutral-900" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-8">
-                <Button href="/contact" variant="secondary" className="w-full">
-                  Request Pilot Quote
-                </Button>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Full IND Enablement */}
-          <Reveal delay={0.1}>
-            <div className="p-8 rounded-3xl dark-glass-card text-white flex flex-col justify-between h-full shadow-lg relative overflow-hidden">
-              <div className="absolute inset-0 radial-glow opacity-80 pointer-events-none" />
-              <div className="relative z-10">
-                <span className="text-xs font-semibold text-neutral-500 tracking-widest uppercase font-mono">Option 02</span>
-                <h3 className="text-2xl font-serif font-medium text-white mt-2 mb-3">Full IND Enablement</h3>
-                <p className="text-sm text-neutral-400 leading-relaxed mb-6 font-normal">
-                  A complete development package from gene synthesis, cell line engineering, cGMP substance runs, to aseptic DP fills.
-                </p>
-                <div className="text-3xl font-serif font-bold text-white mb-8">Clinical cGMP <span className="text-xs font-sans font-semibold text-neutral-500 uppercase tracking-wider">Quantities</span></div>
-                
-                {/* Features list */}
-                <ul className="flex flex-col gap-4 border-t border-white/10 pt-6">
-                  {['Host CHO clonal cell line engineering', 'Upstream & downstream scaling', 'GMP drug substance production', 'Aseptic drug product filling', 'Validation and regulatory dossier'].map((feat) => (
-                    <li key={feat} className="flex items-center gap-3 text-sm text-neutral-200 font-medium">
-                      <Check className="w-4 h-4 text-white" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-8 relative z-10">
-                <button
-                  onClick={() => window.location.href = '/contact'}
-                  className="w-full inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white hover:bg-neutral-100 text-black font-semibold text-sm border border-white shadow-md active:scale-98 transition-all duration-300 cursor-pointer"
-                >
-                  Contact CDMO Expert
-                </button>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 10. FAQs */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto border-t border-neutral-100">
-        <Reveal>
-          <SectionHeader
-            title="Explore our FAQs"
-            description="Answers to questions about process, tech transfers, timelines, and facility validations."
-          />
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="max-w-3xl mx-auto mt-10">
-            {faqs.map((faq) => (
-              <AccordionItem
-                key={faq.id}
-                question={faq.question}
-                answer={faq.answer}
-                isOpen={openFaqId === faq.id}
-                onToggle={() => setOpenFaqId(openFaqId === faq.id ? null : faq.id)}
-              />
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      {/* CINEMATIC CTA SECTION */}
+      {/* CTA */}
       <CinematicCTA
-        headingLine1="ACCELERATE YOUR"
-        headingLine2="BIOLOGICS PATHWAY"
-        subtitle="From cell line engineering to GMP drug product release — partner with Lambda to bring your biotherapeutics to First in Human clinical trials faster."
+        headingLine1="LET'S ADVANCE YOUR"
+        headingLine2="NEXT BIOLOGICS PROGRAM"
+        subtitle="Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements."
         ctaLabel="Start a Project"
         ctaHref="/contact"
         secondaryLabel="Explore Services"
         secondaryHref="/services/cell-line"
       />
-
     </div>
   );
 }

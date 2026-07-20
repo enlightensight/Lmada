@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import Link from 'next/link';
 
 /* ─── Staggered character-reveal ─── */
@@ -15,9 +15,9 @@ function StaggeredFade({ text, className }: { text: string; className?: string }
       {text.split('').map((char, i) => (
         <motion.span
           key={i}
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0 }}
-          transition={{ duration: 0.4, delay: i * 0.07, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{ duration: 0.4, delay: i * 0.04, ease: 'easeOut' }}
           className="inline-block"
           style={{ whiteSpace: char === ' ' ? 'pre' : undefined }}
         >
@@ -32,7 +32,7 @@ function StaggeredFade({ text, className }: { text: string; className?: string }
 interface CinematicCTAProps {
   /** First line of the heading */
   headingLine1?: string;
-  /** Second line of the heading (renders in muted/italic) */
+  /** Second line of the heading (renders in yellow) */
   headingLine2?: string;
   /** Body text below the heading */
   subtitle?: string;
@@ -45,6 +45,8 @@ interface CinematicCTAProps {
   secondaryHref?: string;
 }
 
+const trustChips = ['Integrated Development', 'GMP Manufacturing', 'Global Quality Systems'];
+
 export default function CinematicCTA({
   headingLine1 = 'ACCELERATE YOUR',
   headingLine2 = 'BIOLOGICS PATHWAY',
@@ -55,41 +57,60 @@ export default function CinematicCTA({
   secondaryHref = '/services/cell-line',
 }: CinematicCTAProps) {
   return (
-    <section className="relative w-full overflow-hidden" style={{ background: '#010101' }}>
-      {/* ── Video Background ── */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover object-center opacity-100"
-        src="/cta-bg-video.mp4"
+    <section className="relative w-full overflow-hidden bg-brand-blue">
+      {/* white grid overlay */}
+      <div
+        className="absolute inset-0 opacity-10 pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
+          backgroundSize: '44px 44px',
+        }}
       />
-
-      {/* ── Gradient overlays for readability ── */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-black/5 to-black/10 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/5 to-transparent pointer-events-none" />
+      {/* yellow corner accents */}
+      <div className="absolute top-0 left-0 w-24 h-24 border-t-4 border-l-4 border-brand-yellow rounded-tl-[10px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-24 h-24 border-b-4 border-r-4 border-brand-yellow rounded-br-[10px] pointer-events-none" />
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-5 sm:px-8 py-24 sm:py-32 md:py-40 min-h-[520px] md:min-h-[600px]">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-5 sm:px-8 py-20 sm:py-28 md:py-32">
+        {/* Label pill */}
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 0.5 }}
+          className="inline-block px-4 py-2 rounded-[10px] bg-brand-yellow text-black text-[11px] font-bold uppercase tracking-wider mb-8"
+        >
+          Ready When You Are
+        </motion.span>
+
         {/* Heading */}
-        <h2 className="font-serif font-normal text-white leading-[1.08] tracking-tight mb-6 sm:mb-8
-                        text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+        <h2 className="font-semibold text-white leading-[1.1] tracking-tight mb-6
+                        text-3xl sm:text-5xl md:text-6xl lg:text-7xl max-w-5xl">
           <span className="block">
             <StaggeredFade text={headingLine1} />
           </span>
-          <span className="block text-white/50 italic mt-1">
+          <span className="block text-brand-yellow mt-1">
             <StaggeredFade text={headingLine2} />
           </span>
         </h2>
+
+        {/* Animated underline */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.9 }}
+          className="h-1 w-24 bg-brand-yellow rounded-full origin-center mb-8"
+        />
 
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 1.6 }}
-          className="text-white/60 font-light leading-relaxed max-w-xs sm:max-w-md md:max-w-lg mb-8 sm:mb-10
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="text-white/70 leading-relaxed max-w-md md:max-w-xl mb-10
                      text-sm sm:text-base md:text-lg"
         >
           {subtitle}
@@ -100,29 +121,48 @@ export default function CinematicCTA({
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 2.0 }}
-          className="flex flex-col sm:flex-row items-center gap-4"
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="flex flex-col sm:flex-row items-center gap-4 mb-12"
         >
-          {/* Primary CTA — liquid glass */}
+          {/* Primary CTA */}
           <Link
             href={ctaHref}
-            className="liquid-glass rounded-full px-7 sm:px-10 py-3.5 sm:py-4 text-white/90 uppercase text-xs sm:text-sm font-light inline-flex items-center gap-2.5 group"
-            style={{ letterSpacing: '0.18em' }}
+            className="group rounded-[10px] px-8 sm:px-10 py-4 bg-brand-yellow hover:bg-brand-yellow-hover text-black uppercase text-xs sm:text-sm font-semibold inline-flex items-center gap-2.5 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.03]"
+            style={{ letterSpacing: '0.15em' }}
           >
             {ctaLabel}
-            <ArrowRight className="w-4 h-4 text-white/50 group-hover:text-white transition-colors duration-300 group-hover:translate-x-0.5" />
+            <ArrowRight className="w-4 h-4 text-black/60 group-hover:text-black group-hover:translate-x-1 transition-all duration-300" />
           </Link>
 
           {/* Secondary */}
           {secondaryLabel && (
             <Link
               href={secondaryHref ?? '#'}
-              className="rounded-full px-7 sm:px-10 py-3.5 sm:py-4 text-white/60 uppercase text-xs sm:text-sm font-light border border-white/10 hover:border-white/25 hover:text-white/90 transition-all duration-300 inline-flex items-center gap-2"
-              style={{ letterSpacing: '0.18em' }}
+              className="rounded-[10px] px-8 sm:px-10 py-4 text-white uppercase text-xs sm:text-sm font-semibold border border-white/40 hover:bg-white hover:text-brand-blue transition-all duration-300 inline-flex items-center gap-2"
+              style={{ letterSpacing: '0.15em' }}
             >
               {secondaryLabel}
             </Link>
           )}
+        </motion.div>
+
+        {/* Trust chips */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.7, delay: 1.4 }}
+          className="flex flex-wrap justify-center gap-3"
+        >
+          {trustChips.map((chip) => (
+            <span
+              key={chip}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-[10px] bg-white/10 border border-white/20 text-white text-xs font-medium"
+            >
+              <Check className="w-3.5 h-3.5 text-brand-yellow" strokeWidth={3} />
+              {chip}
+            </span>
+          ))}
         </motion.div>
       </div>
     </section>
