@@ -144,14 +144,14 @@ export default function Navigation() {
       <header className="fixed top-0 z-50 w-full bg-white border-b border-neutral-200 select-none">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 lg:h-20 flex items-center justify-between">
           
-          {/* Left Logo - always visible */}
+          {/* Left Logo */}
           <Link href="/" className="flex items-center shrink-0">
             <Image
-              src="/images/Novum_Logo.png"
-              alt="Novum Pharmaceutical Research Services"
-              width={1422}
+              src="/images/Lambda%20%26%20Novum%20Logo.png"
+              alt="Lambda & Novum"
+              width={2991}
               height={358}
-              className="h-10 sm:h-11 md:h-12 w-auto"
+              className="h-8 sm:h-9 md:h-10 w-auto max-w-[220px] sm:max-w-[260px] md:max-w-[300px] object-contain"
               priority
             />
           </Link>
@@ -255,17 +255,14 @@ export default function Navigation() {
             })}
           </nav>
 
-          {/* Right side - desktop: Novum logo, mobile: hamburger */}
+          {/* Right side - desktop CTA, mobile hamburger */}
           <div className="flex items-center">
-            {/* Right Logo - desktop only */}
-            <Link href="/" className="hidden xl:flex items-center shrink-0">
-              <Image
-                src="/images/Lambda_Logo.png"
-                alt="Lambda CDMO"
-                width={1197}
-                height={358}
-                className="h-10 sm:h-11 md:h-12 w-auto"
-              />
+            {/* Desktop CTA */}
+            <Link
+              href="/contact"
+              className="hidden xl:inline-flex items-center justify-center px-5 py-2 rounded-full border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white text-[13px] font-medium tracking-wide transition-all"
+            >
+              Contact Us
             </Link>
 
             {/* Mobile Menu Trigger */}
