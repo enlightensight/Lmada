@@ -13,6 +13,11 @@ const sourceSans3 = Source_Sans_3({
 export const metadata: Metadata = {
   title: "Lambda CDMO — Integrated Biologics Solutions & GMP Manufacturing",
   description: "Lambda operates as an integrated solutions provider for biologics drug development, cGMP manufacturing, cell line engineering, and clinical trials enablement globally.",
+  icons: {
+    icon: "/images/fav.png",
+    shortcut: "/images/fav.png",
+    apple: "/images/fav.png",
+  },
   keywords: [
     "biologics CDMO",
     "GMP manufacturing",
