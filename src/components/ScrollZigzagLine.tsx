@@ -100,7 +100,7 @@ export default function ScrollZigzagLine() {
         {/* Subtle background static guide line */}
         <path
           d={pathData}
-          stroke="#4a6fa5"
+          stroke="#00aeef"
           strokeWidth="1.5"
           strokeOpacity="0.05"
         />
@@ -108,7 +108,7 @@ export default function ScrollZigzagLine() {
         {/* Scroll-drawing active brand line */}
         <motion.path
           d={pathData}
-          stroke="#4a6fa5"
+          stroke="#00aeef"
           strokeWidth="1.5"
           strokeOpacity="0.3"
           strokeLinecap="round"
@@ -123,7 +123,7 @@ export default function ScrollZigzagLine() {
             cx={pt.x}
             cy={pt.y}
             r="4.5"
-            fill={idx % 2 === 0 ? "#4a6fa5" : "#f5c842"}
+            fill={idx % 2 === 0 ? "#00aeef" : "#f58634"}
             className="opacity-50"
             initial={{ scale: 0.8 }}
             whileInView={{ scale: 1 }}

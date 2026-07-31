@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
-const sourceSans3 = Source_Sans_3({
-  variable: "--font-source-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   title: "Lambda CDMO — Integrated Biologics Solutions & GMP Manufacturing",
@@ -48,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sourceSans3.variable}`}>
+    <html lang="en">
       <body className="font-sans antialiased text-foreground bg-background selection:bg-brand-blue/20">
         <Navigation />
         <main className="flex-grow pt-16 lg:pt-20">{children}</main>

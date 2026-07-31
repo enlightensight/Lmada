@@ -29,7 +29,7 @@ Key characteristics:
 | UI Components | shadcn/ui-style | Radix Slot + `class-variance-authority` |
 | Animation | Framer Motion | Also `motion` package alias |
 | Icons | Lucide React | `lucide-react` |
-| Font | Google Fonts | Crimson Text (serif), Source Sans 3 (sans) |
+| Font | Self-hosted woff | D-DIN (regular, italic, bold) from `public/fonts/` |
 | Package Manager | npm | `package-lock.json` present |
 
 ---
@@ -147,11 +147,11 @@ npm run lint
   - `--brand-navy: #0f2231`
   - `--brand-navy-light: #1b3a4f`
   - `--brand-navy-muted: #3a5a6f`
-  - `--brand-blue: #4a6fa5` (mapped to light navy for compatibility)
-  - `--brand-blue-hover: #3d5d8c`
-  - `--brand-orange: #f5c842` (mapped to yellow for compatibility)
-  - `--brand-orange-hover: #e3b73a`
-  - `--brand-yellow: #f5c842`
+  - `--brand-blue: #00aeef` (logo blue)
+  - `--brand-blue-hover: #0099d0`
+  - `--brand-orange: #f58634` (logo orange)
+  - `--brand-orange-hover: #d9731f`
+  - `--brand-yellow: #f58634` (mapped to logo orange)
 - Custom utility classes (e.g., `.dark-glass-card`, `.liquid-glass`, `.mobile-menu-glass`) live in `globals.css`.
 
 ### Components

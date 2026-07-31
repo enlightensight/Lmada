@@ -1,33 +1,56 @@
 @import "tailwindcss";
 
+/* ─── D-DIN webfont (matches logo typography) ─── */
+@font-face {
+  font-family: 'D-DIN';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/D-DIN.woff') format('woff');
+}
+@font-face {
+  font-family: 'D-DIN';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/D-DIN-Italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'D-DIN';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/D-DIN-Bold.woff') format('woff');
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
   --muted: #525252;
-  --border-muted: rgba(74, 111, 165, 0.08);
+  --border-muted: rgba(0, 174, 239, 0.08);
 
-  /* Lambda brand colors — navy, blue, and yellow accent (from logo) */
-  --brand-blue: #4a6fa5;
-  --brand-blue-light: #eef3fa;
-  --brand-blue-hover: #3d5d8c;
-  --brand-orange: #f5c842;
-  --brand-orange-light: #fff9e6;
-  --brand-orange-hover: #e3b73a;
+  /* Lambda brand colors — logo blue and logo orange */
+  --brand-blue: #00aeef;
+  --brand-blue-light: #e5f7fd;
+  --brand-blue-hover: #0099d0;
+  --brand-orange: #f58634;
+  --brand-orange-light: #fdf1e6;
+  --brand-orange-hover: #d9731f;
 
   /* Novum brand colors — mapped to the same palette for consistency */
-  --brand-teal: #4a6fa5;
-  --brand-teal-light: #eef3fa;
-  --brand-teal-hover: #3d5d8c;
-  --brand-yellow: #f5c842;
-  --brand-yellow-hover: #e3b73a;
+  --brand-teal: #00aeef;
+  --brand-teal-light: #e5f7fd;
+  --brand-teal-hover: #0099d0;
+  --brand-yellow: #f58634;
+  --brand-yellow-hover: #d9731f;
   --brand-navy: #0f2231;
   --brand-navy-light: #1b3a4f;
   --brand-navy-muted: #3a5a6f;
 }
 
 @theme {
-  --font-serif: var(--font-source-sans), -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: var(--font-source-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'D-DIN', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'D-DIN', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -71,22 +94,22 @@ body {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(74, 111, 165, 0.2);
+  background: rgba(0, 174, 239, 0.2);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(74, 111, 165, 0.35);
+  background: rgba(0, 174, 239, 0.35);
 }
 
 /* Subtle selection color */
 ::selection {
-  background-color: rgba(74, 111, 165, 0.12);
+  background-color: rgba(0, 174, 239, 0.12);
 }
 
 /* Glassmorphism utility for dark navy cards */
 .dark-glass-card {
   background: linear-gradient(135deg, rgba(15, 34, 49, 0.98) 0%, rgba(11, 24, 35, 0.99) 100%);
-  border: 1px solid rgba(74, 111, 165, 0.15);
+  border: 1px solid rgba(0, 174, 239, 0.15);
   box-shadow: 0 8px 32px 0 rgba(15, 34, 49, 0.35);
 }
 
@@ -94,7 +117,7 @@ body {
 .radial-glow {
   background: radial-gradient(
     600px circle at var(--x, 0px) var(--y, 0px),
-    rgba(74, 111, 165, 0.12),
+    rgba(0, 174, 239, 0.12),
     transparent 45%
   );
 }
