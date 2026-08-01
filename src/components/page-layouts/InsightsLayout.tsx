@@ -91,9 +91,6 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
                       alt={featured.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <span className="absolute top-4 left-4 px-3 py-1.5 rounded-[10px] bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-wider">
-                      Cover Story
-                    </span>
                   </div>
                   <div className={`p-8 md:p-12 flex flex-col justify-center ${meta.featuredImageLeft ? '' : 'lg:order-1'}`}>
                     <div className="flex items-center gap-3 mb-5">

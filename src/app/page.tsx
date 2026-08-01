@@ -136,9 +136,6 @@ export default function Home() {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
-                    <span className="absolute bottom-4 left-4 px-3 py-1.5 rounded-[10px] bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-wider shadow-md">
-                      {card.step}
-                    </span>
                   </div>
                   {/* Body */}
                   <div className="p-6 md:p-7 flex flex-col flex-1">
@@ -263,9 +260,6 @@ export default function Home() {
                   alt="Lambda CDMO facility in Ahmedabad"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <span className="absolute top-4 left-4 px-3 py-1.5 rounded-[10px] bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-wider">
-                  Our Facility
-                </span>
               </div>
               <div className="p-8 md:p-12 flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-5">
@@ -393,9 +387,6 @@ export default function Home() {
                     alt={articles[0].title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <span className="absolute top-4 left-4 px-3 py-1.5 rounded-[10px] bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-wider">
-                    Featured
-                  </span>
                 </div>
                 <div className="flex flex-col flex-1 p-6 md:p-8">
                   <div className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow mb-3">{articles[0].category}</div>

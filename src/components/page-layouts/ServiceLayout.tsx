@@ -98,9 +98,6 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                           className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                         />
                       )}
-                      <span className="absolute bottom-4 left-4 px-3 py-1.5 rounded-[10px] bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-wider shadow-md">
-                        {String(idx + 1).padStart(2, '0')} — Capability
-                      </span>
                     </div>
                     {/* Body */}
                     <div className="p-6 md:p-7 flex flex-col flex-1">
