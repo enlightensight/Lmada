@@ -19,7 +19,7 @@ export function HeroSection() {
                 />
             </div>
 
-            <div className="relative z-10 max-w-[1400px] mx-auto px-6 py-24 md:py-32 lg:py-40 flex items-center min-h-[70vh]">
+            <div className="relative z-10 w-full px-6 py-24 md:py-32 lg:py-40 flex items-center min-h-[70vh]">
                 {/* Left: Text */}
                 <div className="text-left max-w-2xl">
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.08]">

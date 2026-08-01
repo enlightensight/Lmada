@@ -31,7 +31,7 @@ const equipment = [
 export default function FacilityGallery() {
   return (
     <section className="px-6 py-12 md:py-20">
-      <div className="max-w-[1400px] mx-auto">
+      <div className="w-full">
         <Reveal>
           <div className="mb-10 md:mb-14">
             <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">

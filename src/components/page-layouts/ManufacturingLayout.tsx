@@ -25,7 +25,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
     <>
       {/* HERO — light industrial band with image + stats bar */}
       <section className="relative bg-molecules-hero overflow-hidden">
-        <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-16">
+        <div className="relative w-full px-6 pt-16 pb-12 md:pt-20 md:pb-16">
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-8">
             <Link href="/" className="hover:text-black transition-colors">Home</Link>
             <span>/</span>
@@ -67,7 +67,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         {/* STATS BAR */}
         {content.stats.length > 0 && (
           <div className="border-t border-neutral-200">
-            <div className="max-w-[1400px] mx-auto px-6 py-10 md:py-14">
+            <div className="w-full px-6 py-10 md:py-14">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
                 {content.stats.map((stat, idx) => (
                   <Reveal key={idx} delay={idx * 0.08}>
@@ -92,7 +92,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
 
       {/* CAPABILITIES — split sections with accent icon boxes */}
       <section className="px-6 py-12 md:py-20">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <div className="text-center mb-10 md:mb-14">
             <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
               Manufacturing capabilities
@@ -143,7 +143,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       {/* SPECS TABLE — blue header row, alternating rows */}
       {content.specs && content.specs.length > 0 && (
         <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 Equipment & specs
@@ -178,7 +178,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
 
       {/* PROCESS FLOW — horizontal step cards */}
       <section className="px-6 py-12 md:py-20">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <div className="text-center mb-10 md:mb-14">
             <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
               Manufacturing workflow
@@ -210,7 +210,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       {/* ADVANTAGES — blue / yellow cards */}
       {content.advantages && content.advantages.length > 0 && (
         <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 Why Lambda manufacturing
@@ -252,7 +252,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
         <section className="px-6 py-12 md:py-20">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 FAQ
@@ -286,7 +286,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-16 md:py-24">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 max-w-[1400px] mx-auto text-center">
+        <div className="relative z-10 w-full text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
             <span className="text-white">Ready</span> to advance your biologics program?
           </h2>

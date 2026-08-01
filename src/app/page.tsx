@@ -107,7 +107,7 @@ export default function Home() {
 
       {/* AN INTEGRATED PARTNER */}
       <section className="px-6 py-12 md:py-20 bg-molecules">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <div className="text-center mb-10 md:mb-14">
             <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">An Integrated Partner</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15]">
@@ -168,7 +168,7 @@ export default function Home() {
 
       {/* SUPPORTING DIVERSE BIOLOGIC MODALITIES */}
       <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <div className="text-center mb-10 md:mb-14">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
               <span className="text-black">Supporting</span> Diverse Biologic Modalities
@@ -210,7 +210,7 @@ export default function Home() {
 
       {/* LAMBDA CDMO ADVANTAGE GRID */}
       <section className="px-6 py-12 md:py-20 bg-molecules border-y border-neutral-100">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
               <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Advantage</span>
@@ -249,7 +249,7 @@ export default function Home() {
       </section>
 
       {/* PURPOSE-BUILT FACILITY */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
+      <section className="px-6 py-12 md:py-20 w-full">
         <Reveal>
           <article className="group relative glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
@@ -298,7 +298,7 @@ export default function Home() {
 
       {/* HOW WE WORK */}
       <section className="px-6 py-12 md:py-20 bg-molecules border-y border-neutral-100">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
               <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">How We Work</span>
@@ -345,7 +345,7 @@ export default function Home() {
 
       {/* FEATURED INSIGHTS */}
       <section className="relative px-6 py-12 md:py-20 border-y border-neutral-100 overflow-hidden">
-        <div className="relative max-w-[1400px] mx-auto">
+        <div className="relative w-full">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 md:mb-14">
             <Reveal>
               <div>
@@ -447,7 +447,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
+      <section className="px-6 py-12 md:py-20 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
             <Reveal>
@@ -488,7 +488,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-12 md:py-20">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 max-w-[1400px] mx-auto text-center">
+        <div className="relative z-10 w-full text-center">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
               <span className="text-brand-blue">Ready</span> to advance your biologics program?

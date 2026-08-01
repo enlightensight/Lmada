@@ -124,7 +124,7 @@ export default function Navigation() {
   return (
     <>
       <header className="fixed top-0 z-50 w-full bg-white border-b border-neutral-200 select-none">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 lg:h-20 flex items-center justify-between">
+        <div className="w-full px-4 sm:px-6 h-16 lg:h-20 flex items-center justify-between">
           
           {/* Left Logo */}
           <Link href="/" className="flex items-center shrink-0">

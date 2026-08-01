@@ -150,7 +150,6 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Hero variant — molecules slightly more visible (90% white overlay) */
 .bg-molecules-hero {
   background-color: transparent;
   background-image:

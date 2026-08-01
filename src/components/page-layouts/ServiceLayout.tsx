@@ -32,7 +32,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.15)_1px,transparent_1px)] bg-[size:32px_32px]" />
         </div>
 
-        <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-16">
+        <div className="relative w-full px-6 pt-16 pb-12 md:pt-20 md:pb-16">
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-8">
             <Link href="/" className="hover:text-black transition-colors">Home</Link>
             <span>/</span>
@@ -70,7 +70,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
       {/* CAPABILITY CARDS */}
       <section className="px-6 py-12 md:py-20">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
               <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Capabilities</span>
@@ -123,7 +123,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
       {/* NUMBERED PROCESS TIMELINE */}
       <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
               <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Workflow</span>
@@ -166,7 +166,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
       {/* SPECS — biological workflow strip */}
       <section className="px-6 py-12 md:py-20">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           {content.specs && content.specs.length > 0 && (
             <>
               <Reveal>
@@ -189,7 +189,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
       {/* ADVANTAGES */}
       {content.advantages && content.advantages.length > 0 && (
         <section className="bg-molecules px-6 py-12 md:py-20">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
@@ -225,7 +225,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
         <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
               <div className="lg:col-span-4">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
@@ -254,7 +254,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
       <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-12 md:py-20">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 max-w-[1400px] mx-auto text-center">
+        <div className="relative z-10 w-full text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
             <span className="text-white">Ready</span> to advance your biologics program?
           </h2>

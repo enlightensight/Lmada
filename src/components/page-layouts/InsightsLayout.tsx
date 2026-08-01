@@ -28,7 +28,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
       {/* HERO — masthead style */}
       <section className="relative bg-molecules-hero overflow-hidden">
         <div className="absolute inset-x-0 bottom-0 h-1.5 bg-brand-yellow" />
-        <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-14 md:pt-20 md:pb-18">
+        <div className="relative w-full px-6 pt-16 pb-14 md:pt-20 md:pb-18">
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-10">
             <Link href="/" className="hover:text-black transition-colors">Home</Link>
             <span>/</span>
@@ -72,7 +72,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
       {/* FEATURED STORY — large magazine card, image side varies per slug */}
       {featured && (
         <section className="px-6 py-12 md:py-20">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
@@ -122,7 +122,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
       {/* MORE STORIES — smaller content cards */}
       {rest.length > 0 && (
         <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
@@ -165,7 +165,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
       {/* TOPICS / ACCESS INDEX */}
       {content.specs && content.specs.length > 0 && (
         <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
               <div className="lg:col-span-4">
                 <Reveal>
@@ -208,7 +208,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
       <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-12 md:py-20">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 max-w-[1400px] mx-auto text-center">
+        <div className="relative z-10 w-full text-center">
           <Reveal>
             <div className="inline-flex w-14 h-14 rounded-[10px] bg-brand-yellow items-center justify-center mb-8">
               <SlugIcon className="w-7 h-7 text-black" />

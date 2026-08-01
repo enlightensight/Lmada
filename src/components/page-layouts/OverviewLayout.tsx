@@ -36,7 +36,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
           // Blue quote / highlight block
           return (
             <section key={idx} className="px-6 py-12 md:py-20 bg-molecules">
-              <div className="max-w-[1400px] mx-auto">
+              <div className="w-full">
                 <Reveal>
                   <div className="max-w-4xl mx-auto text-center">
                     <div className="w-14 h-14 mx-auto mb-8 rounded-[10px] bg-brand-yellow flex items-center justify-center">
@@ -62,7 +62,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         return (
           <div key={idx}>
             <section className={`px-6 py-12 md:py-20 ${idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}>
-              <div className="max-w-[1400px] mx-auto">
+              <div className="w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
                   <Reveal className={imageRight ? 'lg:order-2' : ''}>
                     <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm">
@@ -96,7 +96,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
   const processBlock = content.processSteps.length > 0 && (
     <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-      <div className="max-w-[1400px] mx-auto">
+      <div className="w-full">
         <Reveal>
           <div className="text-center mb-10 md:mb-14">
             <AccentHeading text="How We Work" />
@@ -127,7 +127,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
   const advantagesBlock = content.advantages.length > 0 && (
     <section className="px-6 py-12 md:py-20">
-      <div className="max-w-[1400px] mx-auto">
+      <div className="w-full">
         <Reveal>
           <div className="text-center mb-10 md:mb-14">
             <AccentHeading text="The Lambda Advantage" />
@@ -166,7 +166,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
   const specsBlock = content.specs.length > 0 && (
     <section className="px-6 py-12 md:py-20">
-      <div className="max-w-[1400px] mx-auto">
+      <div className="w-full">
         <Reveal>
           <div className="text-center mb-10 md:mb-14">
             <AccentHeading text="Key Facts" className="mb-4" />
@@ -187,7 +187,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         <div className="absolute inset-0 opacity-[0.07]">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#000000_1px,transparent_1px),linear-gradient(to_bottom,#000000_1px,transparent_1px)] bg-[size:40px_40px]" />
         </div>
-        <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-16">
+        <div className="relative w-full px-6 pt-16 pb-12 md:pt-20 md:pb-16">
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-8">
             <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
             <span>/</span>
@@ -244,7 +244,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
         <section className="px-6 py-12 md:py-20 border-t border-neutral-100">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
               <div className="lg:col-span-4">
                 <Reveal>
@@ -275,7 +275,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
       <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-12 md:py-20">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 max-w-[1400px] mx-auto text-center">
+        <div className="relative z-10 w-full text-center">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
               <span className="text-white">Ready</span> to advance your biologics program?

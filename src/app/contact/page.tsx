@@ -51,7 +51,7 @@ export default function Contact() {
             backgroundSize: '44px 44px',
           }}
         />
-        <div className="relative max-w-[1400px] mx-auto px-6 py-16 md:py-20">
+        <div className="relative w-full px-6 py-16 md:py-20">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <div className="px-6 py-12 md:py-20 max-w-[1400px] mx-auto">
+      <div className="px-6 py-12 md:py-20 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
 
           {/* Left Column: Form */}

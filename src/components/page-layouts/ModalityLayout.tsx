@@ -30,7 +30,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
     <>
       {/* HERO — molecule-focused: large rounded image with floating yellow stat chips */}
       <section className="relative bg-molecules-hero overflow-hidden">
-        <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-14 md:pt-20 md:pb-18">
+        <div className="relative w-full px-6 pt-16 pb-14 md:pt-20 md:pb-18">
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-10">
             <Link href="/" className="hover:text-black transition-colors">Home</Link>
             <span>/</span>
@@ -89,7 +89,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
 
       {/* PLATFORM CAPABILITIES — all-blue cards, yellow on hover (like home modality cards) */}
       <section className="px-6 py-12 md:py-20">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
               <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Platform</span>
@@ -135,7 +135,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
       {/* SPECS GRID — one yellow accent card per page, position varies by slug */}
       {content.specs && content.specs.length > 0 && (
         <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Platform Summary</span>
@@ -155,7 +155,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
 
       {/* PROCESS — numbered pathway with blue step chips */}
       <section className="px-6 py-12 md:py-20">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
               <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Process</span>
@@ -187,7 +187,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
         <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
@@ -217,7 +217,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
       <section className="relative overflow-hidden bg-brand-navy text-white py-20 md:py-28">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 text-center">
+        <div className="relative z-10 w-full px-6 text-center">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
               <span className="text-white">Ready</span> to Advance Your Biologics Program?
