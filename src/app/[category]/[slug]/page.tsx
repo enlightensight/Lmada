@@ -62,39 +62,39 @@ function getDynamicContent(
   function getUniqueBentoImage(cat: string, pageSlug: string, idx: number) {
     if (cat === 'overview' && pageSlug === 'about') {
       const imgs = [
-        'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1582719471384-894fbb16e074.jpg',
+        '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
+        '/images/default_scientist.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'overview' && pageSlug === 'leadership') {
       const imgs = [
         '/images/development.jpg',
-        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1522071820081-009f0129c71c.jpg',
+        '/images/cdn/unsplash-1552664730-d307ca884978.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'overview' && pageSlug === 'facility') {
       const imgs = [
-        '/images/development.jpg',
-        'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=600',
-        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
+        '/images/CDMOblue.png',
+        '/images/cdn/pexels-3938022.jpg',
+        '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'overview' && pageSlug === 'integrated') {
       const imgs = [
         '/images/development.jpg',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
+        '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'overview' && pageSlug === 'quality') {
       const imgs = [
-        'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=600',
+        '/images/cdn/pexels-3938022.jpg',
         '/images/development.jpg',
         '/images/default_scientist.jpg',
       ];
@@ -102,104 +102,104 @@ function getDynamicContent(
     }
     if (cat === 'overview' && pageSlug === 'careers') {
       const imgs = [
-        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
+        '/images/cdn/unsplash-1522071820081-009f0129c71c.jpg',
+        '/images/cdn/unsplash-1552664730-d307ca884978.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'services' && pageSlug === 'cell-line') {
       const imgs = [
-        '/images/Mammalian.png',
-        '/images/gene_construct.png',
-        '/images/cGMP.png',
+        '/images/cdn/unsplash-1576086213369-97a306d36557.jpg',
+        '/images/cdn/unsplash-1628595351029-c2bf17511435.jpg',
+        '/images/cdn/unsplash-1576671081837-49000212a370.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'services' && pageSlug === 'process') {
       const imgs = [
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1606206873764-fd15e242df52?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1628595351029-c2bf17511435?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
+        '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
+        '/images/cdn/unsplash-1628595351029-c2bf17511435.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'services' && pageSlug === 'analytical') {
       const imgs = [
-        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1606206873764-fd15e242df52?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
+        '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
+        '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'manufacturing' && pageSlug === 'drug-substance') {
       const imgs = [
-        'https://images.unsplash.com/photo-1606206873764-fd15e242df52?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
-        'https://images.pexels.com/photos/3938023/pexels-photo-3938023.jpeg?auto=compress&cs=tinysrgb&w=600',
+        '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
+        '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
+        '/images/cdn/pexels-3938023.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'manufacturing' && pageSlug === 'drug-product') {
       const imgs = [
-        'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1622227922682-56c92e523e58?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1587854692152-cbe660dbde88.jpg',
+        '/images/cdn/unsplash-1622227922682-56c92e523e58.jpg',
+        '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'analytical-testing') {
       const imgs = [
-        'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=600',
-        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/pexels-3938022.jpg',
+        '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
+        '/images/cdn/unsplash-1576671081837-49000212a370.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'physicochemical') {
       const imgs = [
-        'https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=600',
-        'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1628595351029-c2bf17511435?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/pexels-2280571.jpg',
+        '/images/cdn/unsplash-1582719471384-894fbb16e074.jpg',
+        '/images/cdn/unsplash-1628595351029-c2bf17511435.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'bioassays') {
       const imgs = [
-        'https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600',
-        'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/pexels-4033148.jpg',
+        '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
+        '/images/cdn/unsplash-1582719471384-894fbb16e074.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'microbiological') {
       const imgs = [
-        'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=600&q=80',
-        'https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600',
-        'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1576086213369-97a306d36557.jpg',
+        '/images/cdn/pexels-4033148.jpg',
+        '/images/cdn/unsplash-1576671081837-49000212a370.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'modalities' && pageSlug === 'mabs') {
       const imgs = [
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
+        '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
+        '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'modalities' && pageSlug === 'bispecifics') {
       const imgs = [
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
+        '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
+        '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'modalities' && pageSlug === 'adcs') {
       const imgs = [
-        'https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&w=600',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/pexels-3825586.jpg',
+        '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
         '/images/default_scientist.jpg',
       ];
       return imgs[idx % imgs.length];
@@ -207,48 +207,48 @@ function getDynamicContent(
     if (cat === 'modalities' && pageSlug === 'proteins-peptides') {
       const imgs = [
         '/images/development.jpg',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
         '/images/default_scientist.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'insights' && pageSlug === 'blogs') {
       const imgs = [
-        'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
+        '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
+        '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'insights' && pageSlug === 'case-studies') {
       const imgs = [
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
+        '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
+        '/images/cdn/unsplash-1582719471384-894fbb16e074.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'insights' && pageSlug === 'brochures') {
       const imgs = [
-        'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=600',
-        'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1576671081837-49000212a370.jpg',
+        '/images/cdn/unsplash-1628595351029-c2bf17511435.jpg',
+        '/images/cdn/pexels-2280571.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'insights' && pageSlug === 'news') {
       const imgs = [
-        'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/unsplash-1576086213369-97a306d36557.jpg',
+        '/images/cdn/pexels-3938022.jpg',
+        '/images/cdn/pexels-3938023.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'insights' && pageSlug === 'events') {
       const imgs = [
-        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=600&q=80',
+        '/images/cdn/pexels-4033148.jpg',
+        '/images/cdn/unsplash-1587854692152-cbe660dbde88.jpg',
+        '/images/cdn/unsplash-1622227922682-56c92e523e58.jpg',
       ];
       return imgs[idx % imgs.length];
     }

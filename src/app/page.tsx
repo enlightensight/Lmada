@@ -34,7 +34,7 @@ export default function Home() {
       step: '02 — Manufacturing',
       desc: 'cGMP drug substance and drug product manufacturing in purpose-built cleanroom suites, designed for clinical supply.',
       icon: Factory,
-      image: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
+      image: '/images/CDMOblue.png',
       items: [
         { name: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance' },
         { name: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },

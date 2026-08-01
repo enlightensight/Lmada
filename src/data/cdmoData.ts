@@ -198,7 +198,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Quality',
     heading: 'Quality Built Into Every Stage.',
     description: 'Quality is embedded throughout every stage of biologics development and manufacturing at Lambda CDMO. Our integrated quality management system is designed to ensure product quality, process consistency, data integrity, and regulatory compliance.',
-    image: 'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/cdn/pexels-3938022.jpg',
     stats: [
       { value: 'cGMP', label: 'Aligned Operations', sublabel: 'Quality systems aligned with current global requirements.' },
       { value: 'Global', label: 'Markets', sublabel: 'Designed to support US, EU, Japan, and Australia.' },
@@ -241,7 +241,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Careers',
     heading: 'Shape the Future of Biologics.',
     description: 'Join a team committed to advancing biologics through science, innovation, and collaboration. At Lambda CDMO, you will work alongside experienced scientists and industry experts on programs that support next-generation biologics for global markets.',
-    image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80',
+    image: '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
     sections: [
       {
         title: 'Work with Experienced Scientists',
@@ -280,7 +280,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Development',
     heading: 'The right clone changes everything downstream. We find it.',
     description: 'A well-engineered cell line forms the foundation of a successful biologics program. Lambda CDMO develops stable, high-producing cell lines designed to deliver consistent product quality, process scalability, and manufacturing performance.',
-    image: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&q=80',
+    image: '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
     stats: [
       { value: 'mAb', label: 'Modalities', sublabel: 'Monoclonal antibodies, bispecifics, and recombinant biologics.' },
       { value: 'RCB', label: 'Cell Banking', sublabel: 'Research and Master Cell Bank generation under cGMP.' },
@@ -400,7 +400,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Manufacturing',
     heading: 'Clinical-grade drug substance built on development knowledge.',
     description: 'Lambda CDMO provides cGMP drug substance manufacturing services for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase clinical programs. Our manufacturing teams work closely with development and analytical scientists to ensure a seamless transition from process development to GMP production while maintaining product quality and process consistency.',
-    image: 'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/cdn/pexels-3938022.jpg',
     sections: [
       {
         title: 'Seamless Development to GMP Transfer',
@@ -441,7 +441,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Manufacturing',
     heading: 'Reliable Drug Product Manufacturing for Clinical Supply.',
     description: 'Lambda CDMO provides integrated drug product manufacturing services designed to support the transition from bulk drug substance to finished clinical products. Our capabilities include formulation development, aseptic fill-finish, packaging, and quality control, ensuring consistent product quality throughout the manufacturing process.',
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=800&q=80',
+    image: '/images/cdn/unsplash-1587854692152-cbe660dbde88.jpg',
     sections: [
       {
         title: 'Integrated Drug Product Capabilities',
@@ -519,7 +519,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Characterization',
     heading: 'Comprehensive Molecular Characterization for Biologics.',
     description: 'Comprehensive molecular characterization is essential for understanding critical quality attributes, establishing product comparability, and supporting regulatory submissions. Lambda CDMO provides orthogonal analytical characterization for biologics, enabling detailed evaluation of product identity, structure, purity, heterogeneity, and stability.',
-    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80',
+    image: '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
     sections: [
       {
         title: 'Detailed Molecular Evaluation',
@@ -557,7 +557,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Characterization',
     heading: 'Functional Bioassays That Demonstrate Biological Activity.',
     description: 'Functional bioassays are essential for evaluating biological activity, potency, and mechanism of action throughout biologics development. Lambda CDMO develops and performs bioassays that support product characterization, process development, comparability assessments, batch release, and regulatory submissions.',
-    image: 'https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/cdn/pexels-4033148.jpg',
     sections: [
       {
         title: 'Bioassay Capabilities',
@@ -788,7 +788,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Insights',
     heading: 'Blogs & Articles.',
     description: 'Explore the latest perspectives from our scientists on biologics development, manufacturing, and regulatory topics.',
-    image: 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=800&q=80',
+    image: '/images/cdn/unsplash-1456324504439-367cee3b3c32.jpg',
     sections: [
       {
         title: 'Scientific Perspectives',
@@ -816,7 +816,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Insights',
     heading: 'Case Studies.',
     description: 'Learn how Lambda CDMO has supported biologics development programs from cell line engineering through clinical manufacturing.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+    image: '/images/cdn/unsplash-1551288049-bebda4e38f71.jpg',
     sections: [
       {
         title: 'Program Success Stories',
@@ -844,7 +844,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Insights',
     heading: 'Brochures & Resources.',
     description: 'Download detailed brochures and resources about Lambda CDMO\'s integrated biologics development and manufacturing services.',
-    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/cdn/pexels-590022.jpg',
     sections: [
       {
         title: 'Service Overviews',
@@ -872,7 +872,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Insights',
     heading: 'News & Press.',
     description: 'Stay updated with the latest news, announcements, and press releases from Lambda CDMO.',
-    image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
+    image: '/images/cdn/unsplash-1504711434969-e33886168f5c.jpg',
     sections: [
       {
         title: 'Company Announcements',
@@ -900,7 +900,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Insights',
     heading: 'Events & Webinars.',
     description: 'Meet Lambda CDMO at scientific conferences and register for technical webinars covering biologics development, manufacturing, and regulatory topics.',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80',
+    image: '/images/cdn/unsplash-1540575467063-178a50c2df87.jpg',
     sections: [
       {
         title: 'Scientific Conferences',

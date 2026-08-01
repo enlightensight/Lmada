@@ -25,7 +25,7 @@ export const articles: Article[] = [
       name: 'Lambda CDMO Scientific Team',
       avatar: '/images/lambda-symbol.svg',
     },
-    image: 'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
     content: `
 Stable, high-producing mammalian cell lines are the foundation of every successful biologics program. The choices made during cell line development echo through process development, analytical characterization, and GMP manufacturing for years.
 
@@ -77,7 +77,7 @@ For sponsors, this means earlier entry into process development and a cleaner ha
       name: 'Lambda CDMO Scientific Team',
       avatar: '/images/lambda-symbol.svg',
     },
-    image: 'https://images.unsplash.com/photo-1606206873764-fd15e242df52?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
     content: `
 Upstream process development is where productivity is won or lost. A robust fed-batch or perfusion process balances titer, cell health, and product quality attributes — all within a design space that survives scale-up.
 
