@@ -57,7 +57,18 @@ export default function CinematicCTA({
   secondaryHref = '/services/cell-line',
 }: CinematicCTAProps) {
   return (
-    <section className="relative w-full overflow-hidden bg-brand-blue">
+    <section className="relative w-full overflow-hidden bg-brand-navy">
+      {/* background video */}
+      <video
+        src="/videos/Floating-Molecule-Video.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      {/* 50% navy blue overlay */}
+      <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
       {/* white grid overlay */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
@@ -86,7 +97,7 @@ export default function CinematicCTA({
 
         {/* Heading */}
         <h2 className="font-semibold text-white leading-[1.1] tracking-tight mb-6
-                        text-3xl sm:text-5xl md:text-6xl lg:text-7xl max-w-5xl">
+                        text-4xl sm:text-5xl lg:text-6xl max-w-5xl">
           <span className="block">
             <StaggeredFade text={headingLine1} />
           </span>

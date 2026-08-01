@@ -41,17 +41,17 @@ export default function Contact() {
 
   return (
     <div className="select-none">
-      {/* HERO — blue band with grid overlay */}
-      <section className="relative bg-brand-blue text-white overflow-hidden">
+      {/* HERO — light band with grid overlay */}
+      <section className="relative bg-molecules-hero overflow-hidden">
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
+              'linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px)',
             backgroundSize: '44px 44px',
           }}
         />
-        <div className="relative max-w-[1400px] mx-auto px-6 py-20 md:py-28">
+        <div className="relative max-w-[1400px] mx-auto px-6 py-16 md:py-20">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
@@ -61,8 +61,8 @@ export default function Contact() {
             <span className="inline-block px-3 py-1.5 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-yellow text-black mb-6">
               Contact
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1] mb-4">
-              Let&apos;s Advance Your <span className="text-brand-yellow">Next Biologics</span> Program
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.1] mb-4">
+              Let&apos;s Advance Your <span className="text-black">Next Biologics</span> Program
             </h1>
             {/* animated yellow underline */}
             <motion.div
@@ -71,7 +71,7 @@ export default function Contact() {
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
               className="h-1 w-24 bg-brand-yellow rounded-full origin-left mb-5"
             />
-            <p className="text-base text-white/70 leading-relaxed">
+            <p className="text-base text-neutral-600 leading-relaxed">
               Whether you&apos;re developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.
             </p>
           </motion.div>
@@ -84,7 +84,7 @@ export default function Contact() {
           {/* Left Column: Form */}
           <div className="lg:col-span-7">
             <Reveal>
-              <div className="relative bg-white border border-neutral-200 rounded-[10px] p-6 md:p-8 shadow-sm overflow-hidden">
+              <div className="relative glass-card rounded-[10px] p-6 md:p-8 shadow-sm overflow-hidden">
                 {/* yellow top accent */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow" />
                 <AnimatePresence mode="wait">
@@ -241,7 +241,7 @@ export default function Contact() {
                     <span className="text-[10px] font-semibold tracking-widest text-white/60 uppercase">Available for discussion</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
-                    Connect with our <span className="text-brand-yellow">scientific team</span>
+                    Connect with our <span className="text-black">scientific team</span>
                   </h3>
                   <p className="text-sm text-white/70 font-normal leading-relaxed mb-6">
                     Get in touch with our technical directors to map out development strategies, equipment trains, and technology transfer schedules.

@@ -62,7 +62,7 @@ function getDynamicContent(
   function getUniqueBentoImage(cat: string, pageSlug: string, idx: number) {
     if (cat === 'overview' && pageSlug === 'about') {
       const imgs = [
-        '/images/development.jpg',
+        'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=600&q=80',
         'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
         'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
       ];
@@ -79,8 +79,8 @@ function getDynamicContent(
     if (cat === 'overview' && pageSlug === 'facility') {
       const imgs = [
         '/images/development.jpg',
-        '/images/development.jpg',
-        '/images/default_scientist.jpg',
+        'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=600',
+        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
@@ -88,7 +88,7 @@ function getDynamicContent(
       const imgs = [
         '/images/development.jpg',
         'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        '/images/development.jpg',
+        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
@@ -110,89 +110,89 @@ function getDynamicContent(
     }
     if (cat === 'services' && pageSlug === 'cell-line') {
       const imgs = [
-        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        '/images/development.jpg',
+        '/images/Mammalian.png',
+        '/images/gene_construct.png',
+        '/images/cGMP.png',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'services' && pageSlug === 'process') {
       const imgs = [
-        '/images/development.jpg',
-        '/images/default_scientist.jpg',
-        '/images/development.jpg',
+        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1606206873764-fd15e242df52?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1628595351029-c2bf17511435?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'services' && pageSlug === 'analytical') {
       const imgs = [
-        '/images/development.jpg',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        '/images/default_scientist.jpg',
+        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1606206873764-fd15e242df52?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'manufacturing' && pageSlug === 'drug-substance') {
       const imgs = [
-        'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=600',
-        '/images/development.jpg',
-        '/images/development.jpg',
+        'https://images.unsplash.com/photo-1606206873764-fd15e242df52?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
+        'https://images.pexels.com/photos/3938023/pexels-photo-3938023.jpeg?auto=compress&cs=tinysrgb&w=600',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'manufacturing' && pageSlug === 'drug-product') {
       const imgs = [
         'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
-        '/images/development.jpg',
-        '/images/default_scientist.jpg',
+        'https://images.unsplash.com/photo-1622227922682-56c92e523e58?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'analytical-testing') {
       const imgs = [
-        '/images/default_scientist.jpg',
-        '/images/development.jpg',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
+        'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=600',
+        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'physicochemical') {
       const imgs = [
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        '/images/development.jpg',
-        '/images/default_scientist.jpg',
+        'https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=600',
+        'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1628595351029-c2bf17511435?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'bioassays') {
       const imgs = [
         'https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        '/images/development.jpg',
+        'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'microbiological') {
       const imgs = [
-        '/images/default_scientist.jpg',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        '/images/development.jpg',
+        'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=600&q=80',
+        'https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600',
+        'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'modalities' && pageSlug === 'mabs') {
       const imgs = [
         'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        '/images/default_scientist.jpg',
+        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'modalities' && pageSlug === 'bispecifics') {
       const imgs = [
         'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
-        '/images/default_scientist.jpg',
+        'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
       ];
       return imgs[idx % imgs.length];
     }
@@ -320,35 +320,8 @@ function getDynamicContent(
     ];
   }
 
-  let advantages = [];
-  if (category === "characterization") {
-    advantages = [
-      { badge: "Resolution", title: "State-of-the-art variant profiling.", desc: "We map critical quality attributes including glycosylation, oxidation, and charge isoform profiling to confirm biosimilar comparability." },
-      { badge: "Precision", value: "99.8%", desc: "Sequence coverage resolved via LC-MS/MS peptide mapping." },
-      { badge: "Standards", value: "ICH Q2", desc: "FDA & EMA inspection-ready validation protocols." }
-    ];
-  } else if (category === "manufacturing") {
-    advantages = [
-      { badge: "Flexibility", title: "Disposable single-use campaigns.", desc: "Preventing cross-contamination and increasing turnaround speed using state-of-the-art single-use bioreactors." },
-      { badge: "Aseptic", value: "Grade A", desc: "Sterile filling under barrier isolator containment environments." },
-      { badge: "Documentation", value: "CMC", desc: "Rigorous quality dossiers supporting IND filings." }
-    ];
-  } else if (category === "overview") {
-    advantages = [
-      { badge: "01", title: "Unified Quality System", desc: "Integrated biologics development and manufacturing under a unified quality system." },
-      { badge: "02", title: "Scientific Expertise", desc: "Scientific expertise spanning development, manufacturing, analytical characterization, and quality control." },
-      { badge: "03", title: "Phase-Aligned Strategies", desc: "Development strategies aligned to the requirements of each clinical phase." },
-      { badge: "04", title: "Global GMP", desc: "GMP manufacturing designed to support global regulatory submissions." },
-      { badge: "05", title: "Flexible Capacity", desc: "Flexible manufacturing capacity from pilot batches to clinical supply." },
-      { badge: "06", title: "Clinical Integration", desc: "Opportunity to integrate manufacturing with Lambda's clinical research and bioanalytical capabilities." }
-    ];
-  } else {
-    advantages = [
-      { badge: "Throughput", title: "Automated clonal screening arrays.", desc: "Robotic screening systems evaluating hundreds of clone targets to isolate high-expressing lines." },
-      { badge: "Efficiency", value: "16 Wk", desc: "Timeline from DNA sequence receipt to Research Cell Bank." },
-      { badge: "Yield", value: "8.2 g/L", desc: "Expression titer achieved in fed-batch CHO cultivation." }
-    ];
-  }
+  // Advantages ("The Lambda Edge") section removed — not required
+  const advantages: { badge: string; title?: string; value?: string; desc: string }[] = [];
 
   let stats = [...(existingStats || [])];
   if (stats.length === 0) {
@@ -458,7 +431,7 @@ export default async function CDMODynamicPage({ params }: PageProps) {
             href={`/${category}/${nextPage.slug}`}
             className="block w-full bg-white hover:bg-neutral-50 transition-colors duration-500 py-16 md:py-24 text-center cursor-pointer group"
           >
-            <span className="text-[11px] uppercase tracking-widest text-brand-blue font-bold block mb-3">
+            <span className="text-[11px] uppercase tracking-widest text-brand-yellow font-bold block mb-3">
               Next: {category}
             </span>
             <h3 className="text-3xl md:text-5xl font-semibold text-neutral-900 group-hover:text-brand-blue transition-colors duration-500 tracking-tight leading-none max-w-4xl mx-auto px-6">

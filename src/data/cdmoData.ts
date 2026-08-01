@@ -327,7 +327,7 @@ export const cdmoData: CDMOPage[] = [
     sections: [
       {
         title: 'Upstream Process Development',
-        text: 'We optimize upstream processes through media and feed strategy development, bioreactor parameter optimization, and process characterization using Design of Experiments (DoE). Key performance attributes such as cell growth, productivity, and product quality are continuously evaluated.',
+        text: 'We optimize upstream processes through media and feed optimization, shake flask and bioreactor process development, cell culture optimization, and process characterization using Design of Experiments (DoE). Key performance attributes such as cell growth, productivity, and product quality are continuously evaluated, supported by process scalability assessment and continuous process intensification for monoclonal antibodies.',
         dark: false,
       },
       {
@@ -634,7 +634,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Modalities',
     heading: 'Platform Capabilities for Monoclonal Antibodies.',
     description: 'Monoclonal antibodies (mAbs) continue to be one of the most widely developed biologic modalities, driving innovation across oncology, immunology, and other therapeutic areas. Lambda CDMO offers integrated development and manufacturing capabilities for monoclonal antibodies, supporting sponsors from cell line development and process optimization through analytical characterization and GMP manufacturing.',
-    image: '/images/modality_mabs.png',
+    image: '/images/Monoclonal_Antibodies.png',
     sections: [
       {
         title: 'Innovator and Biosimilar Support',
@@ -672,7 +672,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Modalities',
     heading: 'Addressing the Complexity of Bispecific Antibodies.',
     description: 'Bispecific antibodies present unique development and manufacturing challenges due to their structural complexity, product heterogeneity, and analytical requirements. Lambda CDMO offers integrated development and manufacturing capabilities designed to address these challenges through coordinated process development, analytical characterization, and manufacturing under a unified quality framework.',
-    image: '/images/modality_bispecifics.png',
+    image: '/images/Bispecific_Antibodies.png',
     sections: [
       {
         title: 'Coordinated Development',
@@ -710,7 +710,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Modalities',
     heading: 'Integrated Capabilities for Antibody-Drug Conjugates.',
     description: 'Antibody-drug conjugates (ADCs) combine monoclonal antibodies with highly potent payloads, requiring specialized development, analytical characterization, and manufacturing strategies. Lambda CDMO offers integrated capabilities to support ADC development through antibody production, conjugation process development, analytical characterization, and GMP manufacturing.',
-    image: '/images/modality_adcs.png',
+    image: '/images/Antibody-Drug_Conjugates.png',
     sections: [
       {
         title: 'Specialized ADC Development',
@@ -748,7 +748,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Modalities',
     heading: 'Development and Manufacturing for Proteins and Peptides.',
     description: 'Lambda CDMO offers development and manufacturing capabilities for recombinant proteins and therapeutic peptides across a range of biologic applications. Our integrated platform combines process development, analytical characterization, quality control, and manufacturing to support the development of protein- and peptide-based therapeutics.',
-    image: '/images/modality_proteins.png',
+    image: '/images/Proteins_%26_Peptides.png',
     sections: [
       {
         title: 'Diverse Biologic Applications',

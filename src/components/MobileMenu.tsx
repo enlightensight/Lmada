@@ -52,7 +52,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const pathname = usePathname();
 
   const groups: MobileGroup[] = [
-    { label: 'Home', href: '/' },
     {
       label: 'Overview',
       columns: [
@@ -75,44 +74,29 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       ],
     },
     {
-      label: 'Development',
+      label: 'Services',
       columns: [
         {
-          title: 'Services',
+          title: 'Development',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line' },
             { label: 'Process Development', href: '/services/process' },
             { label: 'Analytical Development', href: '/services/analytical' },
           ],
         },
-      ],
-    },
-    {
-      label: 'Manufacturing',
-      columns: [
         {
-          title: 'GMP Manufacturing',
+          title: 'Manufacturing',
           links: [
             { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance' },
             { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product' },
           ],
         },
-      ],
-    },
-    {
-      label: 'Characterization',
-      columns: [
         {
-          title: 'Analytical Services',
+          title: 'Analytical Characterization and Testing',
           links: [
             { label: 'Analytical Testing', href: '/characterization/analytical-testing' },
-            { label: 'Physicochemical Analysis', href: '/characterization/physicochemical' },
-          ],
-        },
-        {
-          title: 'Bio & Micro',
-          links: [
-            { label: 'Bioassays & Immunogenicity', href: '/characterization/bioassays' },
+            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical' },
+            { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays' },
             { label: 'Microbiological Testing', href: '/characterization/microbiological' },
           ],
         },

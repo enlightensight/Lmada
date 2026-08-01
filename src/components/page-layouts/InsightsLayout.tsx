@@ -26,56 +26,63 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
   return (
     <>
       {/* HERO — masthead style */}
-      <section className="relative bg-brand-blue text-white overflow-hidden">
+      <section className="relative bg-molecules-hero overflow-hidden">
         <div className="absolute inset-x-0 bottom-0 h-1.5 bg-brand-yellow" />
-        <div className="relative max-w-[1400px] mx-auto px-6 pt-32 pb-20 md:pt-40 md:pb-24">
-          <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-white/50 mb-10">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+        <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-14 md:pt-20 md:pb-18">
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-10">
+            <Link href="/" className="hover:text-black transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-white/50">{page.category}</span>
+            <span className="text-neutral-500">{page.category}</span>
             <span>/</span>
             <span className="text-brand-yellow">{page.slug}</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-11 h-11 rounded-[10px] bg-brand-yellow flex items-center justify-center">
                   <SlugIcon className="w-5 h-5 text-black" />
                 </div>
                 {page.badge && (
-                  <span className="inline-block px-3 py-1.5 rounded-[10px] text-[10px] uppercase font-semibold tracking-wider bg-white/10 text-white border border-white/30">
+                  <span className="inline-block px-3 py-1.5 rounded-[10px] text-[10px] uppercase font-semibold tracking-wider bg-black/5 text-black border border-black/20">
                     {page.badge}
                   </span>
                 )}
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[1.05]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05]">
                 {page.heading}
               </h1>
-            </div>
-            <div className="lg:col-span-4">
-              <p className="text-base text-white/70 leading-relaxed border-l-2 border-brand-yellow pl-5">
+              <p className="text-base text-neutral-600 leading-relaxed border-l-2 border-brand-yellow pl-5 mt-6 max-w-xl">
                 {page.description}
               </p>
             </div>
+            <Reveal delay={0.1}>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
+                <img
+                  src={page.image || '/images/hero_cleanroom.png'}
+                  alt={page.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* FEATURED STORY — large magazine card, image side varies per slug */}
       {featured && (
-        <section className="px-6 py-12 md:py-20 bg-white">
+        <section className="px-6 py-12 md:py-20">
           <div className="max-w-[1400px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-brand-yellow">Featured</span> Story
+                  <span className="text-black">Featured</span> Story
                 </h2>
               </div>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <article className="group relative bg-white border border-neutral-200 rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+              <article className="group relative glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                   <div className={`relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-neutral-100 ${meta.featuredImageLeft ? '' : 'lg:order-2'}`}>
@@ -90,7 +97,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
                   </div>
                   <div className={`p-8 md:p-12 flex flex-col justify-center ${meta.featuredImageLeft ? '' : 'lg:order-1'}`}>
                     <div className="flex items-center gap-3 mb-5">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow">
                         {meta.label}
                       </span>
                       <span className="h-px flex-1 bg-neutral-200" />
@@ -117,12 +124,12 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
 
       {/* MORE STORIES — smaller content cards */}
       {rest.length > 0 && (
-        <section className="px-6 py-12 md:py-20 bg-neutral-50 border-y border-neutral-100">
+        <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
           <div className="max-w-[1400px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-brand-yellow">More</span> From This Desk
+                  <span className="text-black">More</span> From This Desk
                 </h2>
               </div>
             </Reveal>
@@ -130,7 +137,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
             <div className={`grid grid-cols-1 gap-6 md:gap-8 ${rest.length > 1 ? 'sm:grid-cols-2' : 'max-w-2xl mx-auto'}`}>
               {rest.map((section, idx) => (
                 <Reveal key={idx} delay={idx * 0.08}>
-                  <article className="group relative h-full bg-white border border-neutral-200 rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                  <article className="group relative h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
                     <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
                       <img
@@ -140,7 +147,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
                       />
                     </div>
                     <div className="p-6 md:p-8">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block mb-3">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-3">
                         {meta.label}
                       </span>
                       <h3 className="text-xl font-semibold text-black leading-snug mb-3 group-hover:text-brand-blue transition-colors">
@@ -158,42 +165,15 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
         </section>
       )}
 
-      {/* STATS STRIP — light, magazine byline numbers */}
-      {content.stats && content.stats.length > 0 && (
-        <section className="px-6 py-12 md:py-20 bg-white">
-          <div className="max-w-[1400px] mx-auto">
-            <Reveal>
-              <div className="bg-white border border-neutral-200 rounded-[10px] shadow-sm grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-neutral-200 overflow-hidden">
-                {content.stats.map((stat, idx) => (
-                  <div key={idx} className="p-8 md:p-10 text-center">
-                    <div className="text-3xl md:text-4xl font-semibold tracking-tight text-brand-blue">
-                      {stat.value}
-                    </div>
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-black mt-2">
-                      {stat.label}
-                    </div>
-                    {stat.sublabel && (
-                      <p className="text-xs text-neutral-600 leading-relaxed mt-3 max-w-xs mx-auto">
-                        {stat.sublabel}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      )}
-
       {/* TOPICS / ACCESS INDEX */}
       {content.specs && content.specs.length > 0 && (
-        <section className="px-6 py-12 md:py-20 bg-neutral-50 border-y border-neutral-100">
+        <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
           <div className="max-w-[1400px] mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
               <div className="lg:col-span-4">
                 <Reveal>
                   <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
-                    <span className="text-brand-yellow">Index</span> of Topics
+                    <span className="text-black">Index</span> of Topics
                   </h2>
                   <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
                     A quick reference for what this section covers and how to access it.
@@ -228,14 +208,16 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
       )}
 
       {/* SUBSCRIBE / CTA */}
-      <section className="bg-brand-blue text-white px-6 py-12 md:py-20">
-        <div className="max-w-[1400px] mx-auto text-center">
+      <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-12 md:py-20">
+        <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
+        <div className="relative z-10 max-w-[1400px] mx-auto text-center">
           <Reveal>
             <div className="inline-flex w-14 h-14 rounded-[10px] bg-brand-yellow items-center justify-center mb-8">
               <SlugIcon className="w-7 h-7 text-black" />
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
-              <span className="text-brand-yellow">Stay</span> Informed on Lambda CDMO
+              <span className="text-white">Stay</span> Informed on Lambda CDMO
             </h2>
             <p className="text-base text-white/70 max-w-2xl mx-auto mb-10">
               Connect with our team for the latest updates, event invitations, and scientific insights.

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, FlaskConical, ShieldCheck, Factory, Settings2 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
+import { getStepIcon } from '@/lib/stepIcon';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -22,13 +23,13 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
 
   return (
     <>
-      {/* HERO — blue industrial band with image + stats bar */}
-      <section className="relative bg-brand-blue text-white overflow-hidden">
-        <div className="relative max-w-[1400px] mx-auto px-6 pt-32 pb-16 md:pt-40 md:pb-20">
-          <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-white/50 mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+      {/* HERO — light industrial band with image + stats bar */}
+      <section className="relative bg-molecules-hero overflow-hidden">
+        <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-16">
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-8">
+            <Link href="/" className="hover:text-black transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-white/50">{page.category}</span>
+            <span className="text-neutral-500">{page.category}</span>
             <span>/</span>
             <span className="text-brand-yellow">{page.slug}</span>
           </div>
@@ -38,49 +39,47 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
               {page.badge && (
                 <span className={`inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-semibold tracking-wider mb-6 ${
                   isSubstance
-                    ? 'bg-white/10 text-white border border-white/30'
+                    ? 'bg-black/5 text-black border border-black/20'
                     : 'bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/30'
                 }`}>
                   {page.badge}
                 </span>
               )}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[1.05] mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05] mb-6">
                 {page.heading}
               </h1>
-              <p className="text-base text-white/70 leading-relaxed max-w-xl">
+              <p className="text-base text-neutral-600 leading-relaxed max-w-xl">
                 {page.description}
               </p>
             </div>
-            {page.image && (
-              <Reveal>
-                <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-white/10 shadow-2xl">
-                  <img
-                    src={page.image}
-                    alt={page.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </Reveal>
-            )}
+            <Reveal>
+              <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white">
+                <img
+                  src={page.image || '/images/hero_cleanroom.png'}
+                  alt={page.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Reveal>
           </div>
         </div>
 
-        {/* STATS BAR — dark bar with big white numbers */}
+        {/* STATS BAR */}
         {content.stats.length > 0 && (
-          <div className="border-t border-white/10">
+          <div className="border-t border-neutral-200">
             <div className="max-w-[1400px] mx-auto px-6 py-10 md:py-14">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
                 {content.stats.map((stat, idx) => (
                   <Reveal key={idx} delay={idx * 0.08}>
-                    <div className="sm:border-l sm:border-white/10 sm:pl-8 first:border-0 first:pl-0">
-                      <span className="text-4xl md:text-5xl font-semibold text-white tracking-tight block">
+                    <div className="sm:border-l sm:border-neutral-200 sm:pl-8 first:border-0 first:pl-0">
+                      <span className="text-4xl md:text-5xl font-semibold text-black tracking-tight block">
                         {stat.value}
                       </span>
                       <span className={`text-[11px] font-bold uppercase tracking-wider block mt-3 ${accentTextOnBlue}`}>
                         {stat.label}
                       </span>
                       {stat.sublabel && (
-                        <p className="text-xs text-white/70 leading-relaxed mt-2">{stat.sublabel}</p>
+                        <p className="text-xs text-neutral-600 leading-relaxed mt-2">{stat.sublabel}</p>
                       )}
                     </div>
                   </Reveal>
@@ -92,14 +91,14 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       </section>
 
       {/* CAPABILITIES — split sections with accent icon boxes */}
-      <section className="px-6 py-12 md:py-20 bg-white">
+      <section className="px-6 py-12 md:py-20">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
               Manufacturing capabilities
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-              <span className="text-brand-yellow">Built</span> for clinical-grade production
+              <span className="text-black">Built</span> for clinical-grade production
             </h2>
           </div>
           <div className="flex flex-col gap-12 md:gap-20">
@@ -143,14 +142,14 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
 
       {/* SPECS TABLE — blue header row, alternating rows */}
       {content.specs && content.specs.length > 0 && (
-        <section className="px-6 py-12 md:py-20 bg-neutral-50 border-y border-neutral-100">
+        <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
           <div className="max-w-[1400px] mx-auto">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 Equipment & specs
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-brand-yellow">Technical</span> operations summary
+                <span className="text-black">Technical</span> operations summary
               </h2>
               <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
                 Equipment, capacity, and environmental specifications that underpin clinical-grade manufacturing.
@@ -178,43 +177,46 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       )}
 
       {/* PROCESS FLOW — horizontal step cards */}
-      <section className="px-6 py-12 md:py-20 bg-white">
+      <section className="px-6 py-12 md:py-20">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
               Manufacturing workflow
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-              <span className="text-brand-yellow">From</span> process transfer to aseptic filling
+              <span className="text-black">From</span> process transfer to aseptic filling
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {content.processSteps.map((stepObj, idx) => (
-              <Reveal key={idx} delay={idx * 0.08} className="h-full">
-                <div className="relative h-full bg-white border border-neutral-200 rounded-[10px] p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
-                  <div className={`absolute top-0 left-0 right-0 h-1 ${accentBox}`} />
-                  <span className={`text-4xl font-semibold tracking-tight block mb-4 ${accentText}`}>
-                    {stepObj.step}
-                  </span>
-                  <h3 className="text-lg font-semibold text-black mb-2">{stepObj.title}</h3>
-                  <p className="text-sm text-neutral-600 leading-relaxed">{stepObj.text}</p>
-                </div>
-              </Reveal>
-            ))}
+            {content.processSteps.map((stepObj, idx) => {
+              const StepIcon = getStepIcon(stepObj.title);
+              return (
+                <Reveal key={idx} delay={idx * 0.08} className="h-full">
+                  <div className="relative h-full glass-card rounded-[10px] p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div className={`absolute top-0 left-0 right-0 h-1 ${accentBox}`} />
+                    <div className="w-12 h-12 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-4">
+                      <StepIcon className="w-6 h-6 text-brand-blue" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-black mb-2">{stepObj.title}</h3>
+                    <p className="text-sm text-neutral-600 leading-relaxed">{stepObj.text}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ADVANTAGES — blue / yellow cards */}
       {content.advantages && content.advantages.length > 0 && (
-        <section className="px-6 py-12 md:py-20 bg-neutral-50 border-y border-neutral-100">
+        <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
           <div className="max-w-[1400px] mx-auto">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 Why Lambda manufacturing
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-brand-yellow">Operational</span> advantages
+                <span className="text-black">Operational</span> advantages
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -249,18 +251,18 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
-        <section className="px-6 py-12 md:py-20 bg-white">
+        <section className="px-6 py-12 md:py-20">
           <div className="max-w-[1400px] mx-auto">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 FAQ
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-brand-yellow">Frequently</span> asked questions
+                <span className="text-black">Frequently</span> asked questions
               </h2>
             </div>
             <Reveal>
-              <div className="max-w-3xl mx-auto rounded-[10px] border border-neutral-200 bg-neutral-50 p-6 md:p-10">
+              <div className="max-w-3xl mx-auto rounded-[10px] glass-card p-6 md:p-10">
                 <div className="flex flex-col">
                   {page.faqs.map((faq, idx) => (
                     <div key={idx} className="py-5 border-b border-neutral-200 last:border-0">
@@ -280,11 +282,13 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         </section>
       )}
 
-      {/* CTA — blue band */}
-      <section className="bg-brand-blue text-white px-6 py-16 md:py-24">
-        <div className="max-w-[1400px] mx-auto text-center">
+      {/* CTA — navy band with video background */}
+      <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-16 md:py-24">
+        <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
+        <div className="relative z-10 max-w-[1400px] mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
-            <span className="text-brand-yellow">Ready</span> to advance your biologics program?
+            <span className="text-white">Ready</span> to advance your biologics program?
           </h2>
           <p className="text-base text-white/70 max-w-2xl mx-auto mb-8">
             Connect with our scientific team to discuss your development and manufacturing requirements.

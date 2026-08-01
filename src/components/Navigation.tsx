@@ -21,7 +21,6 @@ export default function Navigation() {
   const pathname = usePathname();
 
   const navigationItems: NavItem[] = [
-    { label: 'Home', href: '/' },
     {
       label: 'Overview',
       description: 'Who we are, our leadership, and our integrated approach.',
@@ -45,47 +44,30 @@ export default function Navigation() {
       ],
     },
     {
-      label: 'Development',
-      description: 'From cell line engineering to process optimization.',
+      label: 'Services',
+      description: 'From cell line engineering to GMP manufacturing and QC testing.',
       columns: [
         {
-          title: 'Services',
+          title: 'Development',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line', icon: Dna },
             { label: 'Process Development', href: '/services/process', icon: Settings },
             { label: 'Analytical Development', href: '/services/analytical', icon: Search },
           ],
         },
-      ],
-    },
-    {
-      label: 'Manufacturing',
-      description: 'cGMP drug substance and drug product manufacturing.',
-      columns: [
         {
-          title: 'GMP Manufacturing',
+          title: 'Manufacturing',
           links: [
             { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance', icon: Beaker },
             { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product', icon: Package },
           ],
         },
-      ],
-    },
-    {
-      label: 'Characterization',
-      description: 'Comprehensive analytical and QC testing capabilities.',
-      columns: [
         {
-          title: 'Analytical Services',
+          title: 'Analytical Characterization and Testing',
           links: [
             { label: 'Analytical Testing', href: '/characterization/analytical-testing', icon: Microscope },
-            { label: 'Physicochemical Analysis', href: '/characterization/physicochemical', icon: Scale },
-          ],
-        },
-        {
-          title: 'Bio & Micro',
-          links: [
-            { label: 'Bioassays & Immunogenicity', href: '/characterization/bioassays', icon: HeartPulse },
+            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Scale },
+            { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays', icon: HeartPulse },
             { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: Bug },
           ],
         },
@@ -151,7 +133,7 @@ export default function Navigation() {
               alt="Lambda & Novum"
               width={2991}
               height={358}
-              className="h-8 sm:h-9 md:h-10 w-auto max-w-[220px] sm:max-w-[260px] md:max-w-[300px] object-contain"
+              className="h-10 sm:h-11 md:h-12 w-auto max-w-[260px] sm:max-w-[320px] md:max-w-[360px] object-contain"
               priority
             />
           </Link>
@@ -166,7 +148,7 @@ export default function Navigation() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`relative h-full flex items-center px-4 text-[13px] font-medium tracking-wide transition-colors ${
+                    className={`relative h-full flex items-center px-4 text-[15px] font-medium tracking-wide transition-colors ${
                       active ? 'text-brand-blue' : 'text-neutral-700 hover:text-brand-navy'
                     }`}
                   >
@@ -186,7 +168,7 @@ export default function Navigation() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <button
-                    className={`relative h-full flex items-center gap-1 px-4 text-[13px] font-medium tracking-wide focus:outline-none transition-colors cursor-pointer ${
+                    className={`relative h-full flex items-center gap-1 px-4 text-[15px] font-medium tracking-wide focus:outline-none transition-colors cursor-pointer ${
                       active ? 'text-brand-blue' : 'text-neutral-700 hover:text-brand-navy'
                     }`}
                   >
@@ -206,20 +188,28 @@ export default function Navigation() {
                         transition={{ duration: 0.18, ease: [0.25, 1, 0.5, 1] }}
                         className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
                       >
-                        <div className="bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[520px] max-w-[720px]">
+                        <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[520px] max-w-[960px] ${
+                          item.columns && item.columns.length >= 3 ? 'w-[880px]' : ''
+                        }`}>
                           <div className="p-6">
                             <div className="mb-5 pb-4 border-b border-neutral-100">
-                              <span className="text-brand-blue text-xs font-semibold uppercase tracking-wider">
+                              <span className="text-brand-yellow text-xs font-semibold uppercase tracking-wider">
                                 {item.label}
                               </span>
                               <p className="text-sm text-neutral-500 mt-1">
                                 {item.description}
                               </p>
                             </div>
-                            <div className={`grid gap-6 ${item.columns && item.columns.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                            <div className={`grid gap-12 ${
+                              item.columns && item.columns.length >= 3
+                                ? 'grid-cols-3'
+                                : item.columns && item.columns.length === 2
+                                  ? 'grid-cols-2'
+                                  : 'grid-cols-1'
+                            }`}>
                               {item.columns?.map((column) => (
                                 <div key={column.title}>
-                                  <h4 className="text-xs font-semibold text-brand-blue uppercase tracking-wider mb-3">
+                                  <h4 className="text-xs font-semibold text-brand-yellow uppercase tracking-wider mb-3">
                                     {column.title}
                                   </h4>
                                   <ul className="space-y-2">
