@@ -24,7 +24,7 @@ export function HeroSection() {
                 <div className="text-left max-w-2xl">
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.08]">
                         Biologics Development and Manufacturing
-                        <span className="block text-brand-blue text-2xl sm:text-3xl lg:text-4xl font-medium mt-3">
+                        <span className="block text-black text-2xl sm:text-3xl lg:text-4xl font-medium mt-3">
                             From Cell Line to Clinical Supply.
                         </span>
                     </h1>
