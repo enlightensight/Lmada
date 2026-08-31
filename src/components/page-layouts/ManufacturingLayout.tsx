@@ -1,13 +1,46 @@
 import Link from 'next/link';
-import { ArrowRight, FlaskConical, ShieldCheck, Factory, Settings2 } from 'lucide-react';
+import { 
+  ArrowRight, 
+  FlaskConical, 
+  ShieldCheck, 
+  Factory, 
+  Settings2,
+  Dna,
+  Filter,
+  Eye,
+  FileCheck2,
+  Sparkles,
+  Package,
+  Snowflake,
+  Timer
+} from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import { getStepIcon } from '@/lib/stepIcon';
+import IntegratedTimeline from '@/components/IntegratedTimeline';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
 interface ManufacturingLayoutProps {
   page: CDMOPage;
   content: PageContent;
+}
+
+function getMfgCapabilityIcon(text: string, index: number) {
+  const lower = text.toLowerCase();
+  if (lower.includes('seed train') || lower.includes('bioreactor') || lower.includes('cell culture')) return Dna;
+  if (lower.includes('upstream') || lower.includes('downstream')) return FlaskConical;
+  if (lower.includes('chromatographic') || lower.includes('purification') || lower.includes('filtration') || lower.includes('uf/df')) return Filter;
+  if (lower.includes('in-process') || lower.includes('monitoring') || lower.includes('visual inspection')) return Eye;
+  if (lower.includes('batch record') || lower.includes('documentation') || lower.includes('batch release')) return FileCheck2;
+  if (lower.includes('chain of custody') || lower.includes('chain of identity') || lower.includes('sample management')) return ShieldCheck;
+  if (lower.includes('clinical supply') || lower.includes('phase')) return Factory;
+  if (lower.includes('formulation') || lower.includes('excipient')) return FlaskConical;
+  if (lower.includes('aseptic') || lower.includes('fill-finish')) return Sparkles;
+  if (lower.includes('lyophilized') || lower.includes('lyophilization')) return Snowflake;
+  if (lower.includes('vial') || lower.includes('container') || lower.includes('packaging') || lower.includes('labelling')) return Package;
+  if (lower.includes('stability')) return Timer;
+  
+  const fallbacks = [Factory, FlaskConical, Filter, ShieldCheck, Package, Sparkles];
+  return fallbacks[index % fallbacks.length];
 }
 
 export default function ManufacturingLayout({ page, content }: ManufacturingLayoutProps) {
@@ -24,8 +57,8 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
   return (
     <>
       {/* HERO — light industrial band with image + stats bar */}
-      <section className="relative bg-molecules-hero overflow-hidden">
-        <div className="relative w-full px-6 pt-16 pb-12 md:pt-20 md:pb-16">
+      <section className="relative bg-molecules-hero overflow-hidden px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <div className="relative w-full max-w-[1700px] mx-auto pt-16 pb-12 md:pt-20 md:pb-16">
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-8">
             <Link href="/" className="hover:text-black transition-colors">Home</Link>
             <span>/</span>
@@ -67,7 +100,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         {/* STATS BAR */}
         {content.stats.length > 0 && (
           <div className="border-t border-neutral-200">
-            <div className="w-full px-6 py-10 md:py-14">
+            <div className="w-full max-w-[1700px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 md:py-14">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
                 {content.stats.map((stat, idx) => (
                   <Reveal key={idx} delay={idx * 0.08}>
@@ -90,12 +123,114 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         )}
       </section>
 
+      {/* MANUFACTURING CAPABILITIES CHECKLIST GRID WITH RESEARCH SYMBOLS */}
+      {page.capabilities && page.capabilities.length > 0 && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
+            <Reveal>
+              <div className="text-center mb-10 md:mb-14">
+                <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
+                  Scope of Operations
+                </span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+                  <span className="text-black">Manufacturing</span> Capabilities
+                </h2>
+                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                  cGMP cleanroom workflows, validated containment, and precision production systems for {page.title.split('—')[0].trim()}.
+                </p>
+              </div>
+            </Reveal>
+
+            {page.slug === 'drug-product' ? (
+              <Reveal>
+                <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    
+                    {/* Left Image Box */}
+                    <div className="lg:col-span-5">
+                      <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-white border border-neutral-200/90 shadow-inner group">
+                        <img
+                          src={page.image || '/images/hero_cleanroom.png'}
+                          alt={page.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Right Content Box */}
+                    <div className="lg:col-span-7">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                          <Package className="w-6 h-6 text-brand-blue" />
+                        </span>
+                        <h3 className="text-2xl sm:text-3xl font-semibold text-black">
+                          Aseptic Fill-Finish &amp; Drug Product Operations
+                        </h3>
+                      </div>
+
+                      <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
+                        Lambda CDMO provides integrated drug product manufacturing services designed to support the transition from bulk drug substance to finished clinical products. Our capabilities include formulation development, aseptic fill-finish, packaging, and quality control, ensuring consistent product quality throughout the manufacturing process.
+                      </p>
+
+                      <div className="pt-5 border-t border-neutral-100">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                          Key Capabilities
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {page.capabilities.map((cap, idx) => {
+                            const Icon = getMfgCapabilityIcon(cap, idx);
+                            return (
+                              <div
+                                key={idx}
+                                className="group/pill flex items-center gap-3 p-3 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+                              >
+                                <div className="w-8 h-8 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
+                                  <Icon className="w-4 h-4 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                </div>
+                                <span className="text-xs font-medium text-neutral-800 leading-snug group-hover/pill:text-black">
+                                  {cap}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </Reveal>
+            ) : (
+              <div className={`grid grid-cols-1 sm:grid-cols-2 ${page.slug === 'drug-substance' ? 'lg:grid-cols-3' : 'lg:grid-cols-3 xl:grid-cols-4'} gap-4 sm:gap-6`}>
+                {page.capabilities.map((cap, idx) => {
+                  const Icon = getMfgCapabilityIcon(cap, idx);
+                  return (
+                    <Reveal key={idx} delay={idx * 0.03} className="h-full">
+                      <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
+                        <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                          <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-sm font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
+                            {cap}
+                          </h4>
+                        </div>
+                      </div>
+                    </Reveal>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* CAPABILITIES — split sections with accent icon boxes */}
-      <section className="px-6 py-12 md:py-20">
-        <div className="w-full">
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
+        <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
-              Manufacturing capabilities
+              Operational Deep Dives
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
               <span className="text-black">Built</span> for clinical-grade production
@@ -108,11 +243,11 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                 <Reveal key={idx} delay={idx * 0.05}>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                     <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                      <div className="rounded-[10px] overflow-hidden border border-neutral-200 bg-neutral-100 aspect-[4/3] shadow-sm">
+                      <div className={`rounded-[10px] overflow-hidden border border-neutral-200 ${section.image?.endsWith('.png') || section.image?.endsWith('.svg') || section.image?.includes('cGMP') || section.image?.includes('equipment') || section.image?.includes('Fermenters') || section.image?.includes('Spray_Dryer') || section.image?.includes('Akta') || section.image?.includes('ChromXact') || section.image?.includes('Batch_Centrifuge') ? 'bg-white p-3 sm:p-5' : 'bg-neutral-100'} aspect-[4/3] shadow-sm flex items-center justify-center`}>
                         <img
                           src={section.image}
                           alt={section.title}
-                          className="w-full h-full object-cover"
+                          className={`w-full h-full ${section.image?.endsWith('.png') || section.image?.endsWith('.svg') || section.image?.includes('cGMP') || section.image?.includes('equipment') || section.image?.includes('Fermenters') || section.image?.includes('Spray_Dryer') || section.image?.includes('Akta') || section.image?.includes('ChromXact') || section.image?.includes('Batch_Centrifuge') ? 'object-contain' : 'object-cover'}`}
                         />
                       </div>
                     </div>
@@ -142,8 +277,8 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
 
       {/* SPECS TABLE — blue header row, alternating rows */}
       {content.specs && content.specs.length > 0 && (
-        <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full">
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 Equipment & specs
@@ -176,41 +311,13 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         </section>
       )}
 
-      {/* PROCESS FLOW — horizontal step cards */}
-      <section className="px-6 py-12 md:py-20">
-        <div className="w-full">
-          <div className="text-center mb-10 md:mb-14">
-            <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
-              Manufacturing workflow
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-              <span className="text-black">From</span> process transfer to aseptic filling
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {content.processSteps.map((stepObj, idx) => {
-              const StepIcon = getStepIcon(stepObj.title);
-              return (
-                <Reveal key={idx} delay={idx * 0.08} className="h-full">
-                  <div className="relative h-full glass-card rounded-[10px] p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
-                    <div className={`absolute top-0 left-0 right-0 h-1 ${accentBox}`} />
-                    <div className="w-12 h-12 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-4">
-                      <StepIcon className="w-6 h-6 text-brand-blue" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-black mb-2">{stepObj.title}</h3>
-                    <p className="text-sm text-neutral-600 leading-relaxed">{stepObj.text}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* INTEGRATED TIMELINE */}
+      <IntegratedTimeline />
 
       {/* ADVANTAGES — blue / yellow cards */}
       {content.advantages && content.advantages.length > 0 && (
-        <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full">
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 Why Lambda manufacturing
@@ -251,8 +358,8 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
-        <section className="px-6 py-12 md:py-20">
-          <div className="w-full">
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
+          <div className="w-full max-w-[1700px] mx-auto">
             <div className="text-center mb-10 md:mb-14">
               <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
                 FAQ
@@ -283,10 +390,10 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       )}
 
       {/* CTA — navy band with video background */}
-      <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-16 md:py-24">
+      <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 w-full text-center">
+        <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
             <span className="text-white">Ready</span> to advance your biologics program?
           </h2>

@@ -123,18 +123,18 @@ export default function Navigation() {
 
   return (
     <>
-      <header className="fixed top-0 z-50 w-full bg-white border-b border-neutral-200 select-none">
-        <div className="w-full px-4 sm:px-6 h-16 lg:h-20 flex items-center justify-between">
-          
-          {/* Left Logo */}
+      <header className="fixed top-0 z-50 w-full bg-white border-b border-neutral-200 select-none px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <div className="w-full max-w-[1700px] mx-auto h-16 lg:h-20 flex items-center justify-between">
+
           <Link href="/" className="flex items-center shrink-0">
             <Image
-              src="/images/Lambda%20%26%20Novum%20Logo.png"
+              src="/images/lambda_novum_logo.png"
               alt="Lambda & Novum"
               width={2991}
               height={358}
               className="h-10 sm:h-11 md:h-12 w-auto max-w-[260px] sm:max-w-[320px] md:max-w-[360px] object-contain"
               priority
+              unoptimized
             />
           </Link>
 
@@ -148,9 +148,8 @@ export default function Navigation() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`relative h-full flex items-center px-4 text-[15px] font-medium tracking-wide transition-colors ${
-                      active ? 'text-brand-blue' : 'text-neutral-700 hover:text-brand-navy'
-                    }`}
+                    className={`relative h-full flex items-center px-4 text-[17px] font-medium tracking-wide transition-colors ${active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
+                      }`}
                   >
                     {item.label}
                     {active && (
@@ -168,12 +167,11 @@ export default function Navigation() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <button
-                    className={`relative h-full flex items-center gap-1 px-4 text-[15px] font-medium tracking-wide focus:outline-none transition-colors cursor-pointer ${
-                      active ? 'text-brand-blue' : 'text-neutral-700 hover:text-brand-navy'
-                    }`}
+                    className={`relative h-full flex items-center gap-1.5 px-4 text-[17px] font-medium tracking-wide focus:outline-none transition-colors cursor-pointer ${active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
+                      }`}
                   >
                     {item.label}
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
                     {active && (
                       <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-blue" />
                     )}
@@ -188,9 +186,8 @@ export default function Navigation() {
                         transition={{ duration: 0.18, ease: [0.25, 1, 0.5, 1] }}
                         className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
                       >
-                        <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[520px] max-w-[960px] ${
-                          item.columns && item.columns.length >= 3 ? 'w-[880px]' : ''
-                        }`}>
+                        <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[520px] max-w-[960px] ${item.columns && item.columns.length >= 3 ? 'w-[880px]' : ''
+                          }`}>
                           <div className="p-6">
                             <div className="mb-5 pb-4 border-b border-neutral-100">
                               <span className="text-brand-yellow text-xs font-semibold uppercase tracking-wider">
@@ -200,30 +197,28 @@ export default function Navigation() {
                                 {item.description}
                               </p>
                             </div>
-                            <div className={`grid gap-12 ${
-                              item.columns && item.columns.length >= 3
-                                ? 'grid-cols-3'
-                                : item.columns && item.columns.length === 2
-                                  ? 'grid-cols-2'
-                                  : 'grid-cols-1'
-                            }`}>
-                              {item.columns?.map((column) => (
-                                <div key={column.title}>
-                                  <h4 className="text-xs font-semibold text-brand-yellow uppercase tracking-wider mb-3">
+                            <div className={`grid gap-12 ${item.columns && item.columns.length >= 3
+                              ? 'grid-cols-3'
+                              : item.columns && item.columns.length === 2
+                                ? 'grid-cols-2'
+                                : 'grid-cols-1'
+                              }`}>
+                              {item.columns?.map((column, colIdx) => (
+                                <div key={colIdx}>
+                                  <h4 className="text-xs font-semibold uppercase tracking-wider text-black mb-3">
                                     {column.title}
                                   </h4>
                                   <ul className="space-y-2">
                                     {column.links.map((link) => {
-                                      const linkActive = pathname === link.href;
+                                      const isLinkActive = pathname === link.href;
                                       return (
                                         <li key={link.href}>
-                                      <Link
+                                          <Link
                                             href={link.href}
-                                            className={`flex items-center gap-2.5 text-sm transition-colors ${
-                                              linkActive
-                                                ? 'text-brand-blue font-medium'
-                                                : 'text-neutral-600 hover:text-brand-blue'
-                                            }`}
+                                            className={`text-sm flex items-center gap-2 transition-colors ${isLinkActive
+                                              ? 'text-brand-blue font-semibold'
+                                              : 'text-neutral-600 hover:text-brand-blue'
+                                              }`}
                                           >
                                             <link.icon className="w-4 h-4 text-brand-blue flex-shrink-0" />
                                             {link.label}
@@ -250,7 +245,7 @@ export default function Navigation() {
             {/* Desktop CTA */}
             <Link
               href="/contact"
-              className="hidden xl:inline-flex items-center justify-center px-5 py-2 rounded-full border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white text-[13px] font-medium tracking-wide transition-all"
+              className="hidden xl:inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white text-[15px] font-semibold tracking-wide transition-all"
             >
               Contact Us
             </Link>

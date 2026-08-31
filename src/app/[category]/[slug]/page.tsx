@@ -79,8 +79,10 @@ function getDynamicContent(
     if (cat === 'overview' && pageSlug === 'facility') {
       const imgs = [
         '/images/CDMOblue.png',
-        '/images/cdn/pexels-3938022.jpg',
-        '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
+        '/images/equipment1.png',
+        '/images/equipment2.png',
+        '/images/equipment3.png',
+        '/images/cGMP.png',
       ];
       return imgs[idx % imgs.length];
     }
@@ -255,34 +257,6 @@ function getDynamicContent(
     return defaultImages[idx % defaultImages.length];
   }
 
-  if (sections.length < 3) {
-    if (category === "characterization") {
-      sections.push({
-        title: "Orthogonal Instrumentation",
-        text: "Deploying high-resolution tools including SEC-MALS, CE-SDS, and QTOF mass spectrometers to confirm higher-order molecular structures.",
-      });
-    } else if (category === "services") {
-      sections.push({
-        title: "Upstream Cultivation",
-        text: "Engineering feed strategies and bioreactor parameters in scale-down modules to optimize peptide titer and product stability.",
-      });
-    } else if (category === "manufacturing") {
-      sections.push({
-        title: "Sterile Fill & Finish",
-        text: "Operating fully automated vial filling and stopper lines inside aseptic Grade A isolation barriers to ensure purity.",
-      });
-    } else if (category === "modalities") {
-      sections.push({
-        title: "Process Scaling",
-        text: "Optimizing downstream columns and recovery protocols to guarantee high-yield extraction for novel biologic therapeutics.",
-      });
-    } else {
-      sections.push({
-        title: "Regulatory Release Dossiers",
-        text: "Compiling quality releases, certificates of analysis, and technical reports to enable global clinical trial entries.",
-      });
-    }
-  }
 
   const enrichedSections = sections.map((sec, idx) => ({
     ...sec,

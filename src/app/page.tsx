@@ -7,6 +7,8 @@ import { ArrowRight, FlaskConical, Factory, Microscope, Dna, Activity, HeartPuls
 import { HeroSection } from '@/components/ui/hero-section-5';
 import Reveal from '@/components/Reveal';
 import SectionHeader from '@/components/SectionHeader';
+import IntegratedTimeline from '@/components/IntegratedTimeline';
+import UpstreamProcessAnimation from '@/components/UpstreamProcessAnimation';
 import { articles } from '@/data/articles';
 import { faqs } from '@/data/faqs';
 import AccordionItem from '@/components/AccordionItem';
@@ -106,8 +108,8 @@ export default function Home() {
       <HeroSection />
 
       {/* AN INTEGRATED PARTNER */}
-      <section className="px-6 py-12 md:py-20 bg-molecules">
-        <div className="w-full">
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules">
+        <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">An Integrated Partner</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15]">
@@ -139,24 +141,34 @@ export default function Home() {
                   </div>
                   {/* Body */}
                   <div className="p-6 md:p-7 flex flex-col flex-1">
-                    <h3 className="text-xl font-semibold text-black mb-2 group-hover:text-brand-blue transition-colors">
-                      {card.title}
-                    </h3>
-                    <p className="text-sm text-neutral-600 leading-relaxed mb-6">
-                      {card.desc}
-                    </p>
-                    <ul className="mt-auto border-t border-neutral-100">
-                      {card.items.map((item) => (
-                        <li key={item.name} className="border-b border-neutral-100 last:border-0">
-                          <Link
-                            href={item.href}
-                            className="group/link flex items-center justify-between gap-3 py-3 text-sm font-medium text-neutral-700 hover:text-brand-blue transition-colors"
-                          >
-                            {item.name}
-                            <ArrowRight className="w-4 h-4 flex-shrink-0 text-brand-yellow group-hover/link:text-brand-blue group-hover/link:translate-x-1 transition-all" />
-                          </Link>
-                        </li>
-                      ))}
+                    <div className="min-h-[110px] md:min-h-[120px] mb-5">
+                      <h3 className="text-xl font-semibold text-black mb-2 group-hover:text-brand-blue transition-colors">
+                        {card.title}
+                      </h3>
+                      <p className="text-sm text-neutral-600 leading-relaxed">
+                        {card.desc}
+                      </p>
+                    </div>
+                    <ul className="border-t border-neutral-100 pt-1">
+                      {card.items.map((item) => {
+                        const ItemIcon = item.icon;
+                        return (
+                          <li key={item.name} className="border-b border-neutral-100 last:border-0">
+                            <Link
+                              href={item.href}
+                              className="group/link flex items-center justify-between gap-3 py-2.5 text-sm font-medium text-neutral-700 hover:text-brand-blue transition-colors"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/link:bg-brand-blue group-hover/link:border-brand-blue transition-colors duration-200">
+                                  <ItemIcon className="w-4 h-4 text-brand-blue group-hover/link:text-white transition-colors duration-200" />
+                                </div>
+                                <span className="truncate group-hover/link:text-brand-blue transition-colors">{item.name}</span>
+                              </div>
+                              <ArrowRight className="w-4 h-4 flex-shrink-0 text-brand-yellow group-hover/link:text-brand-blue group-hover/link:translate-x-1 transition-all" />
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
@@ -166,15 +178,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* UPSTREAM PROCESS DEVELOPMENT WORKFLOW ANIMATION */}
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 md:py-14 bg-neutral-50/60 border-b border-neutral-100">
+        <div className="w-full max-w-[1700px] mx-auto">
+          <Reveal>
+            <div className="border border-neutral-200/80 rounded-[12px] shadow-sm bg-white p-2 sm:p-4">
+              <UpstreamProcessAnimation />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* SUPPORTING DIVERSE BIOLOGIC MODALITIES */}
-      <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-        <div className="w-full">
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
+        <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Modalities / Platform Capabilities</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-              <span className="text-black">Supporting</span> Diverse Biologic Modalities
+              <span className="text-black">Platform Capabilities for</span> Next-Generation Biologics
             </h2>
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
-              Our integrated development and manufacturing platform is designed to support a range of biologic modalities with scientific, analytical, and manufacturing capabilities tailored to each molecule.
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
+              Lambda CDMO is building platform capabilities to support the development and manufacture of diverse biologic modalities. Our integrated approach combines development, analytical characterization, quality systems, and GMP manufacturing to address the unique scientific and regulatory requirements of each modality.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -209,8 +233,8 @@ export default function Home() {
       </section>
 
       {/* LAMBDA CDMO ADVANTAGE GRID */}
-      <section className="px-6 py-12 md:py-20 bg-molecules border-y border-neutral-100">
-        <div className="w-full">
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules border-y border-neutral-100">
+        <div className="w-full max-w-[1700px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
               <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Advantage</span>
@@ -249,103 +273,61 @@ export default function Home() {
       </section>
 
       {/* PURPOSE-BUILT FACILITY */}
-      <section className="px-6 py-12 md:py-20 w-full">
-        <Reveal>
-          <article className="group relative glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-neutral-100">
-                <img
-                  src="/images/development.jpg"
-                  alt="Lambda CDMO facility in Ahmedabad"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-8 md:p-12 flex flex-col justify-center">
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow">
-                    Purpose-Built Facility
-                  </span>
-                  <span className="h-px flex-1 bg-neutral-200" />
-                  <Building2 className="w-4 h-4 text-brand-blue" />
-                </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-5 group-hover:text-brand-blue transition-colors">
-                  Purpose-built facility for biologics development and manufacturing
-                </h3>
-                <p className="text-base text-neutral-600 leading-relaxed mb-8">
-                  Our approximately 20,000 sqm biologics development and manufacturing facility integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
-                </p>
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
-                    <div className="text-2xl font-semibold text-brand-blue">20k</div>
-                    <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Sqm Campus</div>
-                  </div>
-                  <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
-                    <div className="text-2xl font-semibold text-brand-blue">GMP</div>
-                    <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Manufacturing Suites</div>
-                  </div>
-                </div>
-                <Link href="/overview/facility" className="flex items-center gap-2 text-sm font-semibold text-brand-blue">
-                  <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
-                  Explore our Facility
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
-          </article>
-        </Reveal>
-      </section>
-
-      {/* HOW WE WORK */}
-      <section className="px-6 py-12 md:py-20 bg-molecules border-y border-neutral-100">
-        <div className="w-full">
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 w-full">
+        <div className="w-full max-w-[1700px] mx-auto">
           <Reveal>
-            <div className="text-center mb-10 md:mb-14">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">How We Work</span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">How</span> We Work
-              </h2>
-              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
-                A structured engagement model that keeps every program transparent and on schedule.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="relative max-w-4xl mx-auto">
-            {/* Center spine (desktop) / left spine (mobile) */}
-            <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-brand-blue md:-translate-x-1/2" />
-
-            <div className="flex flex-col gap-8 md:gap-12">
-              {steps.map((step, idx) => {
-                const isLeft = idx % 2 === 0;
-                const StepIcon = getStepIcon(step.title);
-                return (
-                  <Reveal key={step.title} delay={idx * 0.05}>
-                    <div className={`relative flex items-start gap-6 md:gap-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                      {/* Step node */}
-                      <div className="absolute left-5 md:left-1/2 top-6 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 rounded-[10px] bg-white border-2 border-brand-blue flex items-center justify-center z-10">
-                        <StepIcon className="w-5 h-5 md:w-6 md:h-6 text-brand-blue" />
-                      </div>
-                      {/* Card */}
-                      <div className={`ml-14 md:ml-0 md:w-1/2 ${isLeft ? 'md:pr-14' : 'md:pl-14'}`}>
-                        <div className="glass-card rounded-[10px] shadow-sm hover:shadow-xl transition-all duration-300 p-6 md:p-8">
-                          <h3 className="text-xl font-semibold text-black mb-2">{step.title}</h3>
-                          <p className="text-sm text-neutral-600 leading-relaxed">{step.desc}</p>
-                        </div>
-                      </div>
-                      <div className="hidden md:block md:w-1/2" />
+            <article className="group relative glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-neutral-100">
+                  <img
+                    src="/images/development.jpg"
+                    alt="Lambda CDMO facility in Ahmedabad"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-8 md:p-12 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-5">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow">
+                      Purpose-Built Facility
+                    </span>
+                    <span className="h-px flex-1 bg-neutral-200" />
+                    <Building2 className="w-4 h-4 text-brand-blue" />
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-5 group-hover:text-brand-blue transition-colors">
+                    Purpose-built facility for biologics development and manufacturing
+                  </h3>
+                  <p className="text-base text-neutral-600 leading-relaxed mb-8">
+                    Our approximately 20,000 sqm biologics development and manufacturing facility integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                    <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
+                      <div className="text-2xl font-semibold text-brand-blue">20k</div>
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Sqm Campus</div>
                     </div>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
+                    <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
+                      <div className="text-2xl font-semibold text-brand-blue">GMP</div>
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Manufacturing Suites</div>
+                    </div>
+                  </div>
+                  <Link href="/overview/facility" className="flex items-center gap-2 text-sm font-semibold text-brand-blue">
+                    <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
+                    Explore our Facility
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </div>
+            </article>
+          </Reveal>
         </div>
       </section>
 
+      {/* INTEGRATED BIOLOGICS DEVELOPMENT, MANUFACTURING AND CLINICAL SUPPORT TIMELINE */}
+      <IntegratedTimeline />
+
       {/* FEATURED INSIGHTS */}
-      <section className="relative px-6 py-12 md:py-20 border-y border-neutral-100 overflow-hidden">
-        <div className="relative w-full">
+      <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100 overflow-hidden">
+        <div className="relative w-full max-w-[1700px] mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 md:mb-14">
             <Reveal>
               <div>
@@ -447,48 +429,50 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="px-6 py-12 md:py-20 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
-            <Reveal>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
-                <span className="text-black">Common</span> Questions
-              </h2>
-              <p className="text-sm text-neutral-600 leading-relaxed mb-6">
-                Answers to questions about process, tech transfers, timelines, and facility validations.
-              </p>
-              <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-blue">
-                <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
-                Still have questions? Talk to us
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Reveal>
-          </div>
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 w-full">
+        <div className="w-full max-w-[1700px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
+              <Reveal>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
+                  <span className="text-black">Common</span> Questions
+                </h2>
+                <p className="text-sm text-neutral-600 leading-relaxed mb-6">
+                  Answers to questions about process, tech transfers, timelines, and facility validations.
+                </p>
+                <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-blue">
+                  <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
+                  Still have questions? Talk to us
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Reveal>
+            </div>
 
-          <div className="lg:col-span-8">
-            <Reveal delay={0.1}>
-              <div className="glass-card rounded-[10px] px-6 md:px-8 py-4 shadow-sm">
-                {faqs.slice(0, 5).map((faq) => (
-                  <AccordionItem
-                    key={faq.id}
-                    question={faq.question}
-                    answer={faq.answer}
-                    isOpen={openFaqId === faq.id}
-                    onToggle={() => setOpenFaqId(openFaqId === faq.id ? null : faq.id)}
-                  />
-                ))}
-              </div>
-            </Reveal>
+            <div className="lg:col-span-8">
+              <Reveal delay={0.1}>
+                <div className="glass-card rounded-[10px] px-6 md:px-8 py-4 shadow-sm">
+                  {faqs.slice(0, 5).map((faq) => (
+                    <AccordionItem
+                      key={faq.id}
+                      question={faq.question}
+                      answer={faq.answer}
+                      isOpen={openFaqId === faq.id}
+                      onToggle={() => setOpenFaqId(openFaqId === faq.id ? null : faq.id)}
+                    />
+                  ))}
+                </div>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-brand-navy text-white px-6 py-12 md:py-20">
+      <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 w-full text-center">
+        <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
               <span className="text-brand-blue">Ready</span> to advance your biologics program?

@@ -1,8 +1,23 @@
 import Link from 'next/link';
-import { ArrowRight, Dna, Atom, FlaskConical, Microscope } from 'lucide-react';
+import { 
+  ArrowRight, 
+  Dna, 
+  Atom, 
+  FlaskConical, 
+  Microscope, 
+  ShieldCheck, 
+  Activity, 
+  GitMerge, 
+  Syringe, 
+  Filter, 
+  TrendingUp, 
+  Boxes, 
+  TestTubes,
+  Sparkles
+} from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import SpecFlow from '@/components/SpecFlow';
-import { getStepIcon } from '@/lib/stepIcon';
+import IntegratedTimeline from '@/components/IntegratedTimeline';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -12,6 +27,24 @@ interface ModalityLayoutProps {
 }
 
 const capabilityIcons = [Dna, Atom, FlaskConical, Microscope];
+
+function getCapabilityIcon(text: string, index: number) {
+  const lower = text.toLowerCase();
+  if (lower.includes('cell line') || lower.includes('expression')) return Dna;
+  if (lower.includes('upstream') || lower.includes('downstream')) return FlaskConical;
+  if (lower.includes('homodimer') || lower.includes('mispairing') || lower.includes('bispecific')) return GitMerge;
+  if (lower.includes('conjugation') || lower.includes('dar') || lower.includes('payload') || lower.includes('adc')) return Syringe;
+  if (lower.includes('purification') || lower.includes('refolding') || lower.includes('peptide')) return Filter;
+  if (lower.includes('analytical') || lower.includes('characterization') || lower.includes('subclasses')) return Microscope;
+  if (lower.includes('bioassay') || lower.includes('potency') || lower.includes('immunogenicity')) return Activity;
+  if (lower.includes('scale-up') || lower.includes('transfer')) return TrendingUp;
+  if (lower.includes('manufacturing') || lower.includes('substance') || lower.includes('product')) return Boxes;
+  if (lower.includes('quality') || lower.includes('testing') || lower.includes('degradation') || lower.includes('stability')) return ShieldCheck;
+  if (lower.includes('clinical')) return Sparkles;
+  
+  const fallbacks = [Dna, FlaskConical, Microscope, Atom, TestTubes, ShieldCheck, Activity];
+  return fallbacks[index % fallbacks.length];
+}
 
 function rotate<T>(arr: T[], by: number): T[] {
   if (arr.length === 0) return arr;
@@ -29,8 +62,8 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
   return (
     <>
       {/* HERO — molecule-focused: large rounded image with floating yellow stat chips */}
-      <section className="relative bg-molecules-hero overflow-hidden">
-        <div className="relative w-full px-6 pt-16 pb-14 md:pt-20 md:pb-18">
+      <section className="relative bg-molecules-hero overflow-hidden px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <div className="relative w-full max-w-[1700px] mx-auto pt-16 pb-14 md:pt-20 md:pb-18">
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-10">
             <Link href="/" className="hover:text-black transition-colors">Home</Link>
             <span>/</span>
@@ -87,17 +120,56 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
         </div>
       </section>
 
-      {/* PLATFORM CAPABILITIES — all-blue cards, yellow on hover (like home modality cards) */}
-      <section className="px-6 py-12 md:py-20">
-        <div className="w-full">
+      {/* PLATFORM CAPABILITIES — dedicated capability checklist grid with research symbols */}
+      {page.capabilities && page.capabilities.length > 0 && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
+            <Reveal>
+              <div className="text-center mb-10 md:mb-14">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Core Platform</span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+                  <span className="text-black">Platform</span> Capabilities
+                </h2>
+                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                  End-to-end scientific and manufacturing infrastructure designed to address the specific requirements of {page.title.split('—')[0].trim()}.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+              {page.capabilities.map((cap, idx) => {
+                const Icon = getCapabilityIcon(cap, idx);
+                return (
+                  <Reveal key={idx} delay={idx * 0.04} className="h-full">
+                    <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
+                      <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                        <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
+                          {cap}
+                        </h4>
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* INTEGRATED APPROACH & DEEP DIVES */}
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
+        <div className="w-full max-w-[1700px] mx-auto">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Platform</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Integrated Approach</span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">Integrated</span> Capabilities for This Modality
+                <span className="text-black">Scientific</span> & Operational Focus
               </h2>
               <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
-                Development, analytical, and manufacturing capabilities tailored to the molecule.
+                Development, analytical, and manufacturing workflows tailored to ensure rapid clinical progression.
               </p>
             </div>
           </Reveal>
@@ -134,8 +206,8 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
 
       {/* SPECS GRID — one yellow accent card per page, position varies by slug */}
       {content.specs && content.specs.length > 0 && (
-        <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full">
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Platform Summary</span>
@@ -153,41 +225,13 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
         </section>
       )}
 
-      {/* PROCESS — numbered pathway with blue step chips */}
-      <section className="px-6 py-12 md:py-20">
-        <div className="w-full">
-          <Reveal>
-            <div className="text-center mb-10 md:mb-14">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Process</span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">Development</span> Pathway
-              </h2>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {content.processSteps.slice(0, 4).map((stepObj, idx) => {
-              const StepIcon = getStepIcon(stepObj.title);
-              return (
-                <Reveal key={idx} delay={idx * 0.05} className="h-full">
-                  <div className="h-full glass-card rounded-[10px] p-6 shadow-sm hover:shadow-xl transition-all duration-300">
-                    <div className="w-10 h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-4">
-                      <StepIcon className="w-5 h-5 text-brand-blue" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-black mb-2">{stepObj.title}</h3>
-                    <p className="text-sm text-neutral-600 leading-relaxed">{stepObj.text}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* INTEGRATED TIMELINE */}
+      <IntegratedTimeline />
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
-        <section className="px-6 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full">
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
@@ -214,10 +258,10 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
       )}
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-brand-navy text-white py-20 md:py-28">
+      <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-20 md:py-28">
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 w-full px-6 text-center">
+        <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
               <span className="text-white">Ready</span> to Advance Your Biologics Program?

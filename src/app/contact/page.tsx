@@ -41,17 +41,9 @@ export default function Contact() {
 
   return (
     <div className="select-none">
-      {/* HERO — light band with grid overlay */}
-      <section className="relative bg-molecules-hero overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-10 pointer-events-none"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px)',
-            backgroundSize: '44px 44px',
-          }}
-        />
-        <div className="relative w-full px-6 py-16 md:py-20">
+      {/* HERO — sleek gradient band */}
+      <section className="relative bg-molecules-hero overflow-hidden px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <div className="relative w-full max-w-[1700px] mx-auto py-16 md:py-20">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,13 +70,14 @@ export default function Contact() {
         </div>
       </section>
 
-      <div className="px-6 py-12 md:py-20 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 w-full">
+        <div className="w-full max-w-[1700px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
 
           {/* Left Column: Form */}
           <div className="lg:col-span-7">
             <Reveal>
-              <div className="relative glass-card rounded-[10px] p-6 md:p-8 shadow-sm overflow-hidden">
+              <div className="relative glass-card rounded-[10px] p-6 md:p-8 shadow-sm overflow-hidden border border-neutral-200/90 bg-white/95">
                 {/* yellow top accent */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow" />
                 <AnimatePresence mode="wait">
@@ -222,71 +215,92 @@ export default function Contact() {
             </Reveal>
           </div>
 
-          {/* Right Column: Contact Information — blue card */}
+          {/* Right Column: Contact Information — Premium Ultra-Modern Card */}
           <div className="lg:col-span-5">
             <Reveal delay={0.1}>
-              <div className="relative bg-brand-blue rounded-[10px] text-white p-6 md:p-8 flex flex-col justify-between min-h-[460px] overflow-hidden select-none shadow-sm">
-                {/* grid overlay */}
-                <div
-                  className="absolute inset-0 opacity-10 pointer-events-none"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
-                    backgroundSize: '44px 44px',
-                  }}
-                />
+              <div className="relative bg-white/95 backdrop-blur-xl border border-neutral-200/90 rounded-[10px] p-6 sm:p-8 lg:p-9 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden select-none flex flex-col justify-between min-h-[500px] group">
+                {/* Soft ambient lighting glow (No grid) */}
+                <div className="absolute -top-24 -right-24 w-60 h-60 bg-brand-blue/10 rounded-full blur-3xl pointer-events-none group-hover:bg-brand-blue/15 transition-all duration-500" />
+                <div className="absolute -bottom-24 -left-24 w-60 h-60 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none transition-all duration-500" />
+
+                {/* Top Accent Blue Bar */}
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-blue" />
+
                 <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="w-2 h-2 bg-brand-yellow rounded-full animate-pulse" />
-                    <span className="text-[10px] font-semibold tracking-widest text-white/60 uppercase">Available for discussion</span>
+                  {/* Status Indicator */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/5 border border-brand-blue/20 mb-5">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue" />
+                    </span>
+                    <span className="text-[10px] font-bold tracking-widest text-brand-navy uppercase">
+                      Available for Technical Discussion
+                    </span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
-                    Connect with our <span className="text-black">scientific team</span>
+
+                  <h3 className="text-2xl sm:text-3xl font-semibold text-black tracking-tight leading-tight mb-3">
+                    Connect with our <span className="text-brand-blue font-bold">scientific team</span>
                   </h3>
-                  <p className="text-sm text-white/70 font-normal leading-relaxed mb-6">
-                    Get in touch with our technical directors to map out development strategies, equipment trains, and technology transfer schedules.
+                  
+                  <p className="text-sm text-neutral-600 font-normal leading-relaxed mb-6">
+                    Get in touch directly with our technical directors to map out development strategies, equipment trains, and technology transfer schedules.
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-5 border-t border-white/10 pt-6 mt-8 relative z-10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-[10px] bg-brand-yellow flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-4 h-4 text-black" />
+                {/* Contact Channels Cards */}
+                <div className="flex flex-col gap-3.5 my-6 relative z-10">
+                  <a
+                    href="mailto:info@lambdacdmo.com"
+                    className="group/item flex items-center gap-4 p-3.5 rounded-[10px] bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue hover:bg-brand-blue/[0.03] transition-all duration-200"
+                  >
+                    <div className="w-11 h-11 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-blue group-hover/item:text-white transition-all duration-200">
+                      <Mail className="w-5 h-5 text-brand-blue group-hover/item:text-white transition-colors duration-200" />
                     </div>
-                    <div>
-                      <span className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Email</span>
-                      <p className="text-sm font-semibold text-white">info@lambdacdmo.com</p>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block">Corporate Email</span>
+                      <p className="text-sm font-semibold text-neutral-900 group-hover/item:text-brand-blue transition-colors duration-200 truncate">
+                        info@lambdacdmo.com
+                      </p>
+                    </div>
+                  </a>
+
+                  <div className="flex items-center gap-4 p-3.5 rounded-[10px] bg-neutral-50/80 border border-neutral-200/80">
+                    <div className="w-11 h-11 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-5 h-5 text-brand-blue" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block">Facility Location</span>
+                      <p className="text-sm font-semibold text-neutral-900 truncate">
+                        Ahmedabad, Gujarat, India
+                      </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-[10px] bg-brand-yellow flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-4 h-4 text-black" />
+
+                  <a
+                    href="tel:+917900000000"
+                    className="group/item flex items-center gap-4 p-3.5 rounded-[10px] bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue hover:bg-brand-blue/[0.03] transition-all duration-200"
+                  >
+                    <div className="w-11 h-11 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0 group-hover/item:bg-brand-blue group-hover/item:text-white transition-all duration-200">
+                      <Phone className="w-5 h-5 text-brand-blue group-hover/item:text-white transition-colors duration-200" />
                     </div>
-                    <div>
-                      <span className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Location</span>
-                      <p className="text-sm font-semibold text-white">Ahmedabad, India</p>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block">Direct Phone</span>
+                      <p className="text-sm font-semibold text-neutral-900 group-hover/item:text-brand-blue transition-colors duration-200 truncate">
+                        +91 79 0000 0000
+                      </p>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-[10px] bg-brand-yellow flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-4 h-4 text-black" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Phone</span>
-                      <p className="text-sm font-semibold text-white">+91 79 0000 0000</p>
-                    </div>
-                  </div>
+                  </a>
                 </div>
 
-                {/* assurance chips */}
-                <div className="flex flex-wrap gap-3 mt-8 relative z-10">
-                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[10px] bg-white/10 border border-white/20 text-white text-[11px] font-semibold">
-                    <Clock className="w-3.5 h-3.5 text-brand-yellow" />
+                {/* Assurance Chips */}
+                <div className="flex flex-wrap gap-2.5 pt-4 border-t border-neutral-100 relative z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] bg-brand-blue/5 border border-brand-blue/15 text-neutral-800 text-[11px] font-semibold">
+                    <Clock className="w-3.5 h-3.5 text-brand-blue" />
                     Response within 24 hours
                   </span>
-                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[10px] bg-white/10 border border-white/20 text-white text-[11px] font-semibold">
-                    <Shield className="w-3.5 h-3.5 text-brand-yellow" />
-                    NDA on request
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] bg-brand-blue/5 border border-brand-blue/15 text-neutral-800 text-[11px] font-semibold">
+                    <Shield className="w-3.5 h-3.5 text-brand-blue" />
+                    Mutual NDA on request
                   </span>
                 </div>
               </div>
@@ -295,6 +309,7 @@ export default function Contact() {
 
         </div>
       </div>
-    </div>
-  );
+    </section>
+  </div>
+);
 }
