@@ -711,7 +711,7 @@ export default function IntegratedTimeline() {
     setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
   };
 
-  // Pinned scroll-hijack: step through stages 1 to 5 on scroll down, and 5 to 1 on scroll up
+  // Pinned scroll-lock: locks the section in optimal view (Image 2), steps 1->5 on scroll down and 5->1 on scroll up
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -721,14 +721,21 @@ export default function IntegratedTimeline() {
     let deltaAccumulator = 0;
     let touchStartY = 0;
 
+    const getTargetScrollY = () => {
+      // Navbar height offset is 70px on desktop
+      return Math.max(0, section.offsetTop - 70);
+    };
+
     const handleWheelEvent = (e: WheelEvent) => {
+      const targetY = getTargetScrollY();
+      const currentScrollY = window.scrollY;
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Interception active when section header/content is in prime viewing zone
-      const isInInterceptionZone = rect.top <= 120 && rect.bottom >= windowHeight * 0.45;
+      // Active zone: when scroll position is near target or section is framed in viewport
+      const isNearTarget = Math.abs(currentScrollY - targetY) < 180 || (rect.top <= 100 && rect.bottom >= windowHeight * 0.4);
 
-      if (!isInInterceptionZone) {
+      if (!isNearTarget) {
         deltaAccumulator = 0;
         return;
       }
@@ -739,9 +746,14 @@ export default function IntegratedTimeline() {
       if (e.deltaY > 0) {
         if (currentStage < 5) {
           e.preventDefault();
-          deltaAccumulator += e.deltaY;
 
-          if (Math.abs(deltaAccumulator) >= 25 && !isLocked) {
+          // Lock scroll position at the ideal view (Image 2)
+          if (Math.abs(window.scrollY - targetY) > 2) {
+            window.scrollTo({ top: targetY, behavior: 'instant' });
+          }
+
+          deltaAccumulator += e.deltaY;
+          if (Math.abs(deltaAccumulator) >= 20 && !isLocked) {
             isLocked = true;
             deltaAccumulator = 0;
             setActiveStageId((prev) => {
@@ -753,7 +765,7 @@ export default function IntegratedTimeline() {
             if (lockTimeout) clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
               isLocked = false;
-            }, 380);
+            }, 320);
           }
         } else {
           // Finished all 5 stages: allow natural page scroll down
@@ -764,9 +776,14 @@ export default function IntegratedTimeline() {
       else if (e.deltaY < 0) {
         if (currentStage > 1) {
           e.preventDefault();
-          deltaAccumulator += e.deltaY;
 
-          if (Math.abs(deltaAccumulator) >= 25 && !isLocked) {
+          // Lock scroll position at the ideal view (Image 2)
+          if (Math.abs(window.scrollY - targetY) > 2) {
+            window.scrollTo({ top: targetY, behavior: 'instant' });
+          }
+
+          deltaAccumulator += e.deltaY;
+          if (Math.abs(deltaAccumulator) >= 20 && !isLocked) {
             isLocked = true;
             deltaAccumulator = 0;
             setActiveStageId((prev) => {
@@ -778,7 +795,7 @@ export default function IntegratedTimeline() {
             if (lockTimeout) clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
               isLocked = false;
-            }, 380);
+            }, 320);
           }
         } else {
           // At stage 1: allow natural page scroll up to hero
@@ -792,20 +809,25 @@ export default function IntegratedTimeline() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      const targetY = getTargetScrollY();
+      const currentScrollY = window.scrollY;
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const isInInterceptionZone = rect.top <= 120 && rect.bottom >= windowHeight * 0.45;
+      const isNearTarget = Math.abs(currentScrollY - targetY) < 180 || (rect.top <= 100 && rect.bottom >= windowHeight * 0.4);
 
-      if (!isInInterceptionZone) return;
+      if (!isNearTarget) return;
 
       const currentY = e.touches[0].clientY;
       const diffY = touchStartY - currentY; // positive = swipe up = scroll down
       const currentStage = activeStageRef.current;
 
-      if (diffY > 35) {
+      if (diffY > 25) {
         // Scrolling DOWN
         if (currentStage < 5) {
           e.preventDefault();
+          if (Math.abs(window.scrollY - targetY) > 2) {
+            window.scrollTo({ top: targetY, behavior: 'instant' });
+          }
           if (!isLocked) {
             isLocked = true;
             touchStartY = currentY;
@@ -817,13 +839,16 @@ export default function IntegratedTimeline() {
             if (lockTimeout) clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
               isLocked = false;
-            }, 380);
+            }, 320);
           }
         }
-      } else if (diffY < -35) {
+      } else if (diffY < -25) {
         // Scrolling UP
         if (currentStage > 1) {
           e.preventDefault();
+          if (Math.abs(window.scrollY - targetY) > 2) {
+            window.scrollTo({ top: targetY, behavior: 'instant' });
+          }
           if (!isLocked) {
             isLocked = true;
             touchStartY = currentY;
@@ -835,7 +860,7 @@ export default function IntegratedTimeline() {
             if (lockTimeout) clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
               isLocked = false;
-            }, 380);
+            }, 320);
           }
         }
       }
@@ -860,47 +885,47 @@ export default function IntegratedTimeline() {
     <section
       ref={sectionRef}
       id="integrated-timeline"
-      className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 md:py-16 bg-white border-y border-neutral-100 overflow-hidden select-none"
+      className="relative px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 py-6 sm:py-8 md:py-10 bg-white border-y border-neutral-100 overflow-hidden select-none"
     >
       {/* Background Molecule Pattern Grid */}
       <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
 
-      <div className="relative w-full max-w-[1700px] mx-auto">
+      <div className="relative w-full max-w-[1600px] mx-auto">
         
         {/* Section Header */}
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-center mb-5 sm:mb-6 md:mb-8">
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs sm:text-sm font-bold tracking-wide uppercase mb-3"
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs sm:text-[13px] font-bold tracking-wide uppercase mb-2"
           >
-            <Zap className="w-4 h-4 text-brand-orange" />
+            <Zap className="w-3.5 h-3.5 text-brand-orange" />
             <span>End-to-End CDMO Pipeline</span>
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] max-w-4xl mx-auto"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-neutral-900 leading-[1.18] max-w-4xl mx-auto"
           >
             Integrated biologics development, manufacturing and clinical support
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-2 sm:mt-3"
+            className="text-xs sm:text-sm md:text-[15px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-1.5"
           >
             An end-to-end continuum connecting cell line engineering, process scale-up, analytical rigor, and cGMP supply to accelerate clinical milestones.
           </motion.p>
         </div>
 
-        {/* ================= CLEAN HORIZONTAL TIMELINE TRACK (NO POPUP BUBBLES) ================= */}
-        <div className="relative max-w-5xl mx-auto mb-8 md:mb-10">
+        {/* ================= CLEAN HORIZONTAL TIMELINE TRACK ================= */}
+        <div className="relative max-w-5xl mx-auto mb-5 sm:mb-6 md:mb-7">
           
           {/* The Road Track with Live Fill */}
           <div className="relative py-2 flex items-center">
@@ -997,23 +1022,23 @@ export default function IntegratedTimeline() {
 
         {/* ================= FEATURED ACTIVE STAGE INTERACTIVE ANIMATION SHOWCASE ================= */}
         <div className="max-w-5xl mx-auto">
-          <div className="bg-neutral-50/95 rounded-[16px] border border-neutral-200/90 p-5 sm:p-7 lg:p-8 shadow-lg">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+          <div className="bg-neutral-50/95 rounded-[16px] border border-neutral-200/90 p-4 sm:p-6 lg:p-6 shadow-md">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
               
               {/* Left Column: Live Animated Process Engine */}
-              <div className="lg:col-span-6 bg-white rounded-[14px] border border-neutral-200/90 p-4 sm:p-5 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[260px] sm:min-h-[290px]">
-                <div className="w-full flex items-center justify-between pb-2.5 mb-2 border-b border-neutral-100">
+              <div className="lg:col-span-6 bg-white rounded-[14px] border border-neutral-200/90 p-3 sm:p-4 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[230px] sm:min-h-[260px]">
+                <div className="w-full flex items-center justify-between pb-2 mb-1.5 border-b border-neutral-100">
                   <div className="flex items-center gap-2">
                     <span
                       className="w-2.5 h-2.5 rounded-full animate-pulse"
                       style={{ backgroundColor: currentStage.color }}
                     />
-                    <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900">
+                    <span className="text-xs sm:text-[13px] font-bold uppercase tracking-wider text-neutral-900">
                       Live Simulation: {currentStage.shortName}
                     </span>
                   </div>
                   <span
-                    className="text-xs font-bold px-3 py-1 rounded-full border shadow-xs"
+                    className="text-[11px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full border shadow-xs"
                     style={{
                       backgroundColor: `${currentStage.color}15`,
                       borderColor: `${currentStage.color}30`,
@@ -1025,14 +1050,14 @@ export default function IntegratedTimeline() {
                 </div>
 
                 {/* Animated Dynamic SVG Simulation */}
-                <div className="w-full flex items-center justify-center my-1">
+                <div className="w-full flex items-center justify-center my-0.5">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentStage.id}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.25 }}
                       className="w-full flex justify-center"
                     >
                       <ActiveVisual />
@@ -1044,9 +1069,9 @@ export default function IntegratedTimeline() {
               {/* Right Column: Stage Description & Key Deliverables */}
               <div className="lg:col-span-6 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-2 mb-2.5">
+                  <div className="flex items-center gap-2 mb-2">
                     <span
-                      className="text-xs sm:text-sm font-bold uppercase tracking-wider px-3 py-1 rounded-md"
+                      className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md"
                       style={{
                         backgroundColor: `${currentStage.color}15`,
                         color: currentStage.color,
@@ -1056,23 +1081,23 @@ export default function IntegratedTimeline() {
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 leading-tight mb-2.5">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900 leading-snug mb-2">
                     {currentStage.headline}
                   </h3>
 
-                  <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-5">
+                  <p className="text-xs sm:text-sm md:text-[15px] text-neutral-600 leading-relaxed mb-3.5">
                     {currentStage.description}
                   </p>
 
                   {/* 3 Key Deliverables */}
-                  <div className="space-y-2 mb-6">
+                  <div className="space-y-1.5 mb-4">
                     {currentStage.deliverables.map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5">
+                      <div key={idx} className="flex items-start gap-2">
                         <CheckCircle2
-                          className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0 mt-0.5"
+                          className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 mt-0.5"
                           style={{ color: currentStage.color }}
                         />
-                        <span className="text-xs sm:text-sm md:text-[15px] font-medium text-neutral-800 leading-snug">
+                        <span className="text-xs sm:text-[13px] md:text-sm font-medium text-neutral-800 leading-snug">
                           {item}
                         </span>
                       </div>
@@ -1081,14 +1106,14 @@ export default function IntegratedTimeline() {
                 </div>
 
                 {/* Action Button & Step Guide */}
-                <div className="pt-3.5 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="pt-2.5 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-2.5">
                   <Link
                     href={currentStage.link}
-                    className="inline-flex items-center justify-center px-6 py-3 rounded-[10px] text-white font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
+                    className="inline-flex items-center justify-center px-5 py-2.5 rounded-[10px] text-white font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
                     style={{ backgroundColor: currentStage.color }}
                   >
                     <span>Explore {currentStage.shortName}</span>
-                    <ArrowRight className="ml-2 w-4 h-4" />
+                    <ArrowRight className="ml-2 w-3.5 h-3.5" />
                   </Link>
 
                   {/* Stepper Navigation Controls */}
@@ -1098,7 +1123,7 @@ export default function IntegratedTimeline() {
                         type="button"
                         onClick={handlePrev}
                         aria-label="Previous Stage"
-                        className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer"
+                        className="w-7 h-7 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-xs"
                       >
                         ‹
                       </button>
@@ -1106,7 +1131,7 @@ export default function IntegratedTimeline() {
                         type="button"
                         onClick={handleNext}
                         aria-label="Next Stage"
-                        className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer"
+                        className="w-7 h-7 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-xs"
                       >
                         ›
                       </button>
@@ -1119,7 +1144,7 @@ export default function IntegratedTimeline() {
                           style={{ width: `${(activeStageId / 5) * 100}%` }}
                         />
                       </div>
-                      <span>Stage {activeStageId} of 5</span>
+                      <span className="text-[11px] sm:text-xs">Stage {activeStageId} of 5</span>
                     </div>
                   </div>
                 </div>
