@@ -697,498 +697,508 @@ const ANIMATION_COMPONENTS = [
 ];
 
 export default function IntegratedTimeline() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeStageId, setActiveStageId] = useState(1);
-  const activeStageRef = useRef(activeStageId);
-  activeStageRef.current = activeStageId;
+  const [isLocked, setIsLocked] = useState(false);
 
-  // Manual button click handlers
-  const handlePrev = () => {
-    setActiveStageId((prev) => (prev <= 1 ? 5 : prev - 1));
-  };
+  const isLockedRef = useRef(false);
+  const activeStageRef = useRef(1);
+  const isAnimatingRef = useRef(false);
+  const unlockCooldownRef = useRef(false);
 
-  const handleNext = () => {
-    setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
-  };
-
-  // Pinned scroll-lock: allows scrolling past the hero so header touches navbar, then steps 1->5 on scroll down and 5->1 on scroll up with momentum isolation
+  // Sync ref with state
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
+    activeStageRef.current = activeStageId;
+  }, [activeStageId]);
 
-    let isLocked = false;
-    let lockTimeout: NodeJS.Timeout | null = null;
-    let idleTimeout: NodeJS.Timeout | null = null;
-    let isMomentumAbsorbedAtEnd = false;
-    let touchStartY = 0;
+  useEffect(() => {
+    isLockedRef.current = isLocked;
+  }, [isLocked]);
 
-    const getTargetScrollY = () => {
-      const navHeight = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 80 : 64;
-      if (sectionRef.current) {
-        return Math.max(0, sectionRef.current.offsetTop - navHeight + 8);
+  // Helper for navbar height & target scroll offset
+  const getNavHeight = () => (typeof window !== 'undefined' && window.innerWidth >= 1024 ? 80 : 64);
+  const getTargetTop = () => {
+    if (!containerRef.current || typeof window === 'undefined') return 0;
+    return containerRef.current.offsetTop - getNavHeight();
+  };
+
+  // Scroll listener to detect entering the section and locking into place
+  useEffect(() => {
+    let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
+
+    const handleScroll = () => {
+      if (unlockCooldownRef.current) return;
+      if (isLockedRef.current) return;
+
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY;
+      const targetTop = getTargetTop();
+
+      // Scrolling DOWN into the section: lock at Stage 1
+      if (scrollingDown && currentScrollY >= targetTop - 50 && currentScrollY <= targetTop + 120) {
+        window.scrollTo({ top: targetTop, behavior: 'instant' });
+        isLockedRef.current = true;
+        setIsLocked(true);
+        activeStageRef.current = 1;
+        setActiveStageId(1);
       }
-      return 0;
+      // Scrolling UP from below into the section: lock at Stage 5
+      else if (!scrollingDown && currentScrollY <= targetTop + 50 && currentScrollY >= targetTop - 120) {
+        window.scrollTo({ top: targetTop, behavior: 'instant' });
+        isLockedRef.current = true;
+        setIsLocked(true);
+        activeStageRef.current = 5;
+        setActiveStageId(5);
+      }
+
+      lastScrollY = currentScrollY;
     };
 
-    const handleWheelEvent = (e: WheelEvent) => {
-      const targetY = getTargetScrollY();
-      const currentScrollY = window.scrollY;
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Window-wide Non-Passive Wheel Event Interception (Rock-solid zero jiggle)
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (!isLockedRef.current) return;
+
+      // Prevent native browser scroll 100% while locked
+      e.preventDefault();
+      e.stopPropagation();
+
+      const targetTop = getTargetTop();
+      if (Math.abs(window.scrollY - targetTop) > 2) {
+        window.scrollTo({ top: targetTop, behavior: 'instant' });
+      }
+
+      // Filter out micro-jitter
+      if (Math.abs(e.deltaY) < 18) return;
+
+      // Honor transition cooldown
+      if (isAnimatingRef.current) return;
+
+      const scrollingDown = e.deltaY > 0;
       const currentStage = activeStageRef.current;
 
-      // Reset idle timer: when wheel stops for 220ms, mark momentum as settled
-      if (idleTimeout) clearTimeout(idleTimeout);
-      idleTimeout = setTimeout(() => {
-        isMomentumAbsorbedAtEnd = true;
-      }, 220);
+      if (scrollingDown) {
+        if (currentStage < 5) {
+          isAnimatingRef.current = true;
+          const nextStage = currentStage + 1;
+          activeStageRef.current = nextStage;
+          setActiveStageId(nextStage);
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+          }, 450);
+        } else {
+          // Finished Stage 5 -> Unlock and scroll down to next section
+          isAnimatingRef.current = true;
+          isLockedRef.current = false;
+          setIsLocked(false);
+          unlockCooldownRef.current = true;
 
-      // SCROLLING DOWN (deltaY > 0)
-      if (e.deltaY > 0) {
-        // Active as soon as user reaches the timeline section from above
-        const isAtSection = currentScrollY >= targetY - 80;
+          const targetScroll = targetTop + window.innerHeight * 0.85;
+          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
 
-        if (isAtSection) {
-          if (currentStage < 5) {
-            // UNCONDITIONALLY prevent page from scrolling down while on stages 1, 2, 3, 4
-            e.preventDefault();
-
-            // Hold view rigidly at targetY
-            if (Math.abs(window.scrollY - targetY) > 1) {
-              window.scrollTo({ top: targetY, behavior: 'instant' });
-            }
-
-            if (Math.abs(e.deltaY) >= 12 && !isLocked) {
-              isLocked = true;
-              isMomentumAbsorbedAtEnd = false;
-              setActiveStageId((prev) => {
-                const next = Math.min(prev + 1, 5);
-                activeStageRef.current = next;
-                return next;
-              });
-
-              if (lockTimeout) clearTimeout(lockTimeout);
-              lockTimeout = setTimeout(() => {
-                isLocked = false;
-              }, 380); // 380ms cooldown to absorb residual swipe momentum
-            }
-          } else if (currentStage === 5) {
-            // At stage 5: absorb residual swipe momentum first
-            if (!isMomentumAbsorbedAtEnd) {
-              e.preventDefault();
-              if (Math.abs(window.scrollY - targetY) > 1) {
-                window.scrollTo({ top: targetY, behavior: 'instant' });
-              }
-            }
-            // If momentum settled, allow natural page scroll down to proceed!
-          }
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+            unlockCooldownRef.current = false;
+          }, 900);
         }
-      }
-      // SCROLLING UP (deltaY < 0)
-      else if (e.deltaY < 0) {
-        // Active when user is at or below targetY
-        const isAtSection = currentScrollY <= targetY + 80;
+      } else {
+        // Scrolling UP
+        if (currentStage > 1) {
+          isAnimatingRef.current = true;
+          const prevStage = currentStage - 1;
+          activeStageRef.current = prevStage;
+          setActiveStageId(prevStage);
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+          }, 450);
+        } else {
+          // At Stage 1 and scrolling UP -> Unlock and scroll up to Hero
+          isAnimatingRef.current = true;
+          isLockedRef.current = false;
+          setIsLocked(false);
+          unlockCooldownRef.current = true;
 
-        if (isAtSection) {
-          if (currentStage > 1) {
-            // UNCONDITIONALLY prevent page from scrolling up while on stages 5, 4, 3, 2
-            e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Hold view rigidly at targetY
-            if (Math.abs(window.scrollY - targetY) > 1) {
-              window.scrollTo({ top: targetY, behavior: 'instant' });
-            }
-
-            if (Math.abs(e.deltaY) >= 12 && !isLocked) {
-              isLocked = true;
-              isMomentumAbsorbedAtEnd = false;
-              setActiveStageId((prev) => {
-                const next = Math.max(prev - 1, 1);
-                activeStageRef.current = next;
-                return next;
-              });
-
-              if (lockTimeout) clearTimeout(lockTimeout);
-              lockTimeout = setTimeout(() => {
-                isLocked = false;
-              }, 380); // 380ms cooldown
-            }
-          } else if (currentStage === 1) {
-            // At stage 1: absorb residual swipe momentum first
-            if (!isMomentumAbsorbedAtEnd) {
-              e.preventDefault();
-              if (Math.abs(window.scrollY - targetY) > 1) {
-                window.scrollTo({ top: targetY, behavior: 'instant' });
-              }
-            }
-            // If momentum settled, allow natural page scroll up to proceed!
-          }
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+            unlockCooldownRef.current = false;
+          }, 900);
         }
       }
     };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
+  // Touch Swipe Support for Tablets / Mobile Devices
+  useEffect(() => {
+    let touchStartY = 0;
 
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY = e.touches[0].clientY;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      const targetY = getTargetScrollY();
-      const currentScrollY = window.scrollY;
-      const currentY = e.touches[0].clientY;
-      const diffY = touchStartY - currentY; // positive = swipe up = scroll down
-      const currentStage = activeStageRef.current;
+      if (!isLockedRef.current) return;
+      const touchEndY = e.touches[0].clientY;
+      const deltaY = touchStartY - touchEndY; // > 0 means swipe UP (scrolling DOWN)
 
-      if (diffY > 20) {
-        // Scrolling DOWN
-        const isAtSection = currentScrollY >= targetY - 80;
-        if (isAtSection && currentStage < 5) {
-          e.preventDefault();
-          if (Math.abs(window.scrollY - targetY) > 1) {
-            window.scrollTo({ top: targetY, behavior: 'instant' });
-          }
-          if (!isLocked) {
-            isLocked = true;
-            touchStartY = currentY;
-            setActiveStageId((prev) => {
-              const next = Math.min(prev + 1, 5);
-              activeStageRef.current = next;
-              return next;
-            });
-            if (lockTimeout) clearTimeout(lockTimeout);
-            lockTimeout = setTimeout(() => {
-              isLocked = false;
-            }, 380);
-          }
+      if (Math.abs(deltaY) < 30) return;
+      if (isAnimatingRef.current) return;
+
+      e.preventDefault();
+
+      const scrollingDown = deltaY > 0;
+      const currentStage = activeStageRef.current;
+      const targetTop = getTargetTop();
+
+      if (scrollingDown) {
+        if (currentStage < 5) {
+          isAnimatingRef.current = true;
+          const next = currentStage + 1;
+          activeStageRef.current = next;
+          setActiveStageId(next);
+          touchStartY = touchEndY;
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+          }, 450);
+        } else {
+          isAnimatingRef.current = true;
+          isLockedRef.current = false;
+          setIsLocked(false);
+          unlockCooldownRef.current = true;
+          window.scrollTo({ top: targetTop + window.innerHeight * 0.85, behavior: 'smooth' });
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+            unlockCooldownRef.current = false;
+          }, 900);
         }
-      } else if (diffY < -20) {
-        // Scrolling UP
-        const isAtSection = currentScrollY <= targetY + 80;
-        if (isAtSection && currentStage > 1) {
-          e.preventDefault();
-          if (Math.abs(window.scrollY - targetY) > 1) {
-            window.scrollTo({ top: targetY, behavior: 'instant' });
-          }
-          if (!isLocked) {
-            isLocked = true;
-            touchStartY = currentY;
-            setActiveStageId((prev) => {
-              const next = Math.max(prev - 1, 1);
-              activeStageRef.current = next;
-              return next;
-            });
-            if (lockTimeout) clearTimeout(lockTimeout);
-            lockTimeout = setTimeout(() => {
-              isLocked = false;
-            }, 380);
-          }
+      } else {
+        if (currentStage > 1) {
+          isAnimatingRef.current = true;
+          const prev = currentStage - 1;
+          activeStageRef.current = prev;
+          setActiveStageId(prev);
+          touchStartY = touchEndY;
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+          }, 450);
+        } else {
+          isAnimatingRef.current = true;
+          isLockedRef.current = false;
+          setIsLocked(false);
+          unlockCooldownRef.current = true;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+            unlockCooldownRef.current = false;
+          }, 900);
         }
       }
     };
 
-    // Scroll correction fallback
-    const handleScroll = () => {
-      const targetY = getTargetScrollY();
-      const currentScrollY = window.scrollY;
-      const currentStage = activeStageRef.current;
-
-      // If user somehow scrolled past targetY while on stages 1-4, immediately restore to targetY
-      if (currentStage < 5 && currentScrollY > targetY + 20 && currentScrollY < targetY + 400) {
-        window.scrollTo({ top: targetY, behavior: 'instant' });
-      }
-    };
-
-    window.addEventListener('wheel', handleWheelEvent, { passive: false, capture: true });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true, capture: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false, capture: true });
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     return () => {
-      window.removeEventListener('wheel', handleWheelEvent, { capture: true });
-      window.removeEventListener('touchstart', handleTouchStart, { capture: true });
-      window.removeEventListener('touchmove', handleTouchMove, { capture: true });
-      window.removeEventListener('scroll', handleScroll);
-      if (lockTimeout) clearTimeout(lockTimeout);
-      if (idleTimeout) clearTimeout(idleTimeout);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, []);
+
+  const handleJumpToStage = (id: number) => {
+    activeStageRef.current = id;
+    setActiveStageId(id);
+    const targetTop = getTargetTop();
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    isLockedRef.current = true;
+    setIsLocked(true);
+  };
+
+  const handlePrev = () => {
+    const prevId = activeStageId <= 1 ? 5 : activeStageId - 1;
+    handleJumpToStage(prevId);
+  };
+
+  const handleNext = () => {
+    const nextId = activeStageId >= 5 ? 1 : activeStageId + 1;
+    handleJumpToStage(nextId);
+  };
 
   const currentStage = CONTINUUM_STAGES[activeStageId - 1];
   const ActiveVisual = ANIMATION_COMPONENTS[activeStageId - 1];
 
   return (
-    <section
-      ref={sectionRef}
-      id="integrated-timeline"
-      className="relative px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 pt-2 sm:pt-3 md:pt-4 pb-6 sm:pb-8 md:pb-10 bg-white border-y border-neutral-100 overflow-hidden select-none"
+    <div
+      ref={containerRef}
+      id="integrated-timeline-container"
+      className="relative min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] w-full flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 py-3 sm:py-4 bg-white border-y border-neutral-100 overflow-hidden select-none"
     >
-      {/* Background Molecule Pattern Grid */}
-      <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
-
-      <div className="relative w-full max-w-[1600px] mx-auto">
         
-        {/* Section Header */}
-        <div ref={headerRef} className="text-center mb-4 sm:mb-5 md:mb-6">
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs sm:text-[13px] font-bold tracking-wide uppercase mb-2"
-          >
-            <Zap className="w-3.5 h-3.5 text-brand-orange" />
-            <span>End-to-End CDMO Pipeline</span>
-          </motion.div>
+        {/* Background Molecule Pattern Grid */}
+        <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
 
-          <motion.h2
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-[38px] font-semibold tracking-tight text-neutral-900 leading-[1.18] max-w-4xl mx-auto"
-          >
-            Integrated biologics development, manufacturing and clinical support
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-xs sm:text-sm md:text-[15px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-1.5"
-          >
-            An end-to-end continuum connecting cell line engineering, process scale-up, analytical rigor, and cGMP supply to accelerate clinical milestones.
-          </motion.p>
-        </div>
-
-        {/* ================= CLEAN HORIZONTAL TIMELINE TRACK ================= */}
-        <div className="relative max-w-5xl mx-auto mb-5 sm:mb-6 md:mb-7">
+        <div className="relative w-full max-w-[1600px] mx-auto flex flex-col justify-center">
           
-          {/* The Road Track with Live Fill */}
-          <div className="relative py-2 flex items-center">
-            {/* Background Track Strip */}
-            <div className="absolute left-[8%] right-[8%] sm:left-[10%] sm:right-[10%] h-4 sm:h-5 bg-neutral-100 rounded-full border border-neutral-200 overflow-hidden flex items-center z-0 shadow-inner">
-              {/* White dashed highway centerline */}
-              <div className="w-full border-t-2 border-dashed border-neutral-300 scale-y-110" />
+          {/* Section Header */}
+          <div className="text-center mb-3 sm:mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold tracking-wide uppercase mb-1.5"
+            >
+              <Zap className="w-3.5 h-3.5 text-brand-orange" />
+              <span>End-to-End CDMO Pipeline</span>
+            </motion.div>
 
-              {/* Animated Progress Fill Gradient */}
-              <motion.div
-                className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#00aeef] via-[#f58634] to-[#00aeef] rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${((activeStageId - 1) / 4) * 100}%` }}
-              />
-            </div>
-
-            {/* 5 Circular Stage Node Buttons */}
-            <div className="relative z-10 w-full grid grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
-              {CONTINUUM_STAGES.map((step) => {
-                const IconComponent = step.icon;
-                const isActive = activeStageId === step.id;
-                const isPassed = activeStageId > step.id;
-
-                return (
-                  <div key={step.id} className="flex flex-col items-center">
-                    <button
-                      type="button"
-                      onClick={() => setActiveStageId(step.id)}
-                      className="group relative flex items-center justify-center cursor-pointer outline-none mb-2"
-                      title={step.title}
-                    >
-                      {/* Active Expanding Pulse Waves */}
-                      {isActive && (
-                        <>
-                          <motion.div
-                            className="absolute -inset-2.5 sm:-inset-3 rounded-full opacity-40 pointer-events-none"
-                            style={{ backgroundColor: step.color }}
-                            animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
-                            transition={{ repeat: Infinity, duration: 2 }}
-                          />
-                          <motion.div
-                            className="absolute -inset-1 sm:-inset-1.5 rounded-full ring-2 pointer-events-none"
-                            style={{ borderColor: step.color }}
-                            animate={{ scale: [1, 1.15, 1] }}
-                            transition={{ repeat: Infinity, duration: 1.5 }}
-                          />
-                        </>
-                      )}
-
-                      {/* Main Node Button */}
-                      <div
-                        className={`w-12 h-12 sm:w-16 sm:h-16 lg:w-18 lg:h-18 rounded-full border-3 sm:border-4 border-white shadow-md transition-all duration-300 flex items-center justify-center relative z-10 ${
-                          isActive
-                            ? `${step.bgClass} scale-110 shadow-xl ring-4 ring-neutral-900/10`
-                            : isPassed
-                            ? `${step.bgClass} opacity-95`
-                            : 'bg-neutral-200 text-neutral-500 hover:bg-neutral-300'
-                        }`}
-                      >
-                        <IconComponent
-                          className={`w-5 h-5 sm:w-7 sm:h-7 lg:w-8 lg:h-8 transition-transform duration-300 group-hover:scale-110 ${
-                            isActive || isPassed ? 'text-white' : 'text-neutral-600'
-                          }`}
-                        />
-                      </div>
-                    </button>
-
-                    {/* Clean Under-Node Label */}
-                    <button
-                      type="button"
-                      onClick={() => setActiveStageId(step.id)}
-                      className={`text-center transition-colors cursor-pointer hidden sm:block ${
-                        isActive
-                          ? 'text-neutral-900 font-bold'
-                          : 'text-neutral-500 hover:text-neutral-800 font-medium'
-                      }`}
-                    >
-                      <span
-                        className={`block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-0.5 ${
-                          isActive ? 'text-[#00aeef]' : 'text-neutral-400'
-                        }`}
-                      >
-                        {step.stepNum}
-                      </span>
-                      <span className="text-xs sm:text-[13px] leading-tight block truncate max-w-[110px] lg:max-w-[140px]">
-                        {step.shortName.replace(/^\d+\.\s*/, '')}
-                      </span>
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] font-semibold tracking-tight text-neutral-900 leading-tight max-w-4xl mx-auto">
+              Integrated biologics development, manufacturing and clinical support
+            </h2>
+            <p className="text-xs sm:text-sm md:text-[14px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-1">
+              An end-to-end continuum connecting cell line engineering, process scale-up, analytical rigor, and cGMP supply to accelerate clinical milestones.
+            </p>
           </div>
-        </div>
 
-        {/* ================= FEATURED ACTIVE STAGE INTERACTIVE ANIMATION SHOWCASE ================= */}
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-neutral-50/95 rounded-[16px] border border-neutral-200/90 p-4 sm:p-6 lg:p-6 shadow-md">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
-              
-              {/* Left Column: Live Animated Process Engine */}
-              <div className="lg:col-span-6 bg-white rounded-[14px] border border-neutral-200/90 p-3 sm:p-4 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[230px] sm:min-h-[260px]">
-                <div className="w-full flex items-center justify-between pb-2 mb-1.5 border-b border-neutral-100">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="w-2.5 h-2.5 rounded-full animate-pulse"
-                      style={{ backgroundColor: currentStage.color }}
-                    />
-                    <span className="text-xs sm:text-[13px] font-bold uppercase tracking-wider text-neutral-900">
-                      Live Simulation: {currentStage.shortName}
-                    </span>
-                  </div>
-                  <span
-                    className="text-[11px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full border shadow-xs"
-                    style={{
-                      backgroundColor: `${currentStage.color}15`,
-                      borderColor: `${currentStage.color}30`,
-                      color: currentStage.color,
-                    }}
-                  >
-                    {currentStage.metric}
-                  </span>
-                </div>
+          {/* ================= CLEAN HORIZONTAL TIMELINE TRACK ================= */}
+          <div className="relative max-w-5xl mx-auto mb-3 sm:mb-4 w-full">
+            
+            {/* The Road Track with Live Fill */}
+            <div className="relative py-2 flex items-center">
+              {/* Background Track Strip */}
+              <div className="absolute left-[8%] right-[8%] sm:left-[10%] sm:right-[10%] h-4 sm:h-5 bg-neutral-100 rounded-full border border-neutral-200 overflow-hidden flex items-center z-0 shadow-inner">
+                {/* White dashed highway centerline */}
+                <div className="w-full border-t-2 border-dashed border-neutral-300 scale-y-110" />
 
-                {/* Animated Dynamic SVG Simulation */}
-                <div className="w-full flex items-center justify-center my-0.5">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentStage.id}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.25 }}
-                      className="w-full flex justify-center"
-                    >
-                      <ActiveVisual />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
+                {/* Animated Progress Fill Gradient */}
+                <motion.div
+                  className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#00aeef] via-[#f58634] to-[#00aeef] rounded-full transition-all duration-300 ease-out"
+                  style={{ width: `${((activeStageId - 1) / 4) * 100}%` }}
+                />
               </div>
 
-              {/* Right Column: Stage Description & Key Deliverables */}
-              <div className="lg:col-span-6 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
+              {/* 5 Circular Stage Node Buttons */}
+              <div className="relative z-10 w-full grid grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+                {CONTINUUM_STAGES.map((step) => {
+                  const IconComponent = step.icon;
+                  const isActive = activeStageId === step.id;
+                  const isPassed = activeStageId > step.id;
+
+                  return (
+                    <div key={step.id} className="flex flex-col items-center">
+                      <button
+                        type="button"
+                        onClick={() => handleJumpToStage(step.id)}
+                        className="group relative flex items-center justify-center cursor-pointer outline-none mb-1.5"
+                        title={step.title}
+                      >
+                        {/* Active Expanding Pulse Waves */}
+                        {isActive && (
+                          <>
+                            <motion.div
+                              className="absolute -inset-2.5 sm:-inset-3 rounded-full opacity-40 pointer-events-none"
+                              style={{ backgroundColor: step.color }}
+                              animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
+                              transition={{ repeat: Infinity, duration: 2 }}
+                            />
+                            <motion.div
+                              className="absolute -inset-1 sm:-inset-1.5 rounded-full ring-2 pointer-events-none"
+                              style={{ borderColor: step.color }}
+                              animate={{ scale: [1, 1.15, 1] }}
+                              transition={{ repeat: Infinity, duration: 1.5 }}
+                            />
+                          </>
+                        )}
+
+                        {/* Main Node Button */}
+                        <div
+                          className={`w-11 h-11 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border-3 sm:border-4 border-white shadow-md transition-all duration-300 flex items-center justify-center relative z-10 ${
+                            isActive
+                              ? `${step.bgClass} scale-110 shadow-xl ring-4 ring-neutral-900/10`
+                              : isPassed
+                              ? `${step.bgClass} opacity-95`
+                              : 'bg-neutral-200 text-neutral-500 hover:bg-neutral-300'
+                          }`}
+                        >
+                          <IconComponent
+                            className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 transition-transform duration-300 group-hover:scale-110 ${
+                              isActive || isPassed ? 'text-white' : 'text-neutral-600'
+                            }`}
+                          />
+                        </div>
+                      </button>
+
+                      {/* Clean Under-Node Label */}
+                      <button
+                        type="button"
+                        onClick={() => handleJumpToStage(step.id)}
+                        className={`text-center transition-colors cursor-pointer hidden sm:block ${
+                          isActive
+                            ? 'text-neutral-900 font-bold'
+                            : 'text-neutral-500 hover:text-neutral-800 font-medium'
+                        }`}
+                      >
+                        <span
+                          className={`block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-0.5 ${
+                            isActive ? 'text-[#00aeef]' : 'text-neutral-400'
+                          }`}
+                        >
+                          {step.stepNum}
+                        </span>
+                        <span className="text-xs sm:text-[12px] leading-tight block truncate max-w-[100px] lg:max-w-[130px]">
+                          {step.shortName.replace(/^\d+\.\s*/, '')}
+                        </span>
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* ================= FEATURED ACTIVE STAGE INTERACTIVE ANIMATION SHOWCASE ================= */}
+          <div className="max-w-5xl mx-auto w-full">
+            <div className="bg-neutral-50/95 rounded-[16px] border border-neutral-200/90 p-3.5 sm:p-5 lg:p-5 shadow-md">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-7 items-center">
+                
+                {/* Left Column: Live Animated Process Engine */}
+                <div className="lg:col-span-6 bg-white rounded-[14px] border border-neutral-200/90 p-3 sm:p-3.5 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[210px] sm:min-h-[235px]">
+                  <div className="w-full flex items-center justify-between pb-1.5 mb-1 border-b border-neutral-100">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="w-2.5 h-2.5 rounded-full animate-pulse"
+                        style={{ backgroundColor: currentStage.color }}
+                      />
+                      <span className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                        Live Simulation: {currentStage.shortName}
+                      </span>
+                    </div>
                     <span
-                      className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md"
+                      className="text-[11px] font-bold px-2 py-0.5 rounded-full border shadow-xs"
                       style={{
                         backgroundColor: `${currentStage.color}15`,
+                        borderColor: `${currentStage.color}30`,
                         color: currentStage.color,
                       }}
                     >
-                      {currentStage.tag}
+                      {currentStage.metric}
                     </span>
                   </div>
 
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900 leading-snug mb-2">
-                    {currentStage.headline}
-                  </h3>
-
-                  <p className="text-xs sm:text-sm md:text-[15px] text-neutral-600 leading-relaxed mb-3.5">
-                    {currentStage.description}
-                  </p>
-
-                  {/* 3 Key Deliverables */}
-                  <div className="space-y-1.5 mb-4">
-                    {currentStage.deliverables.map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2">
-                        <CheckCircle2
-                          className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 mt-0.5"
-                          style={{ color: currentStage.color }}
-                        />
-                        <span className="text-xs sm:text-[13px] md:text-sm font-medium text-neutral-800 leading-snug">
-                          {item}
-                        </span>
-                      </div>
-                    ))}
+                  {/* Animated Dynamic SVG Simulation */}
+                  <div className="w-full flex items-center justify-center my-0.5">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentStage.id}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="w-full flex justify-center"
+                      >
+                        <ActiveVisual />
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 </div>
 
-                {/* Action Button & Step Guide */}
-                <div className="pt-2.5 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-2.5">
-                  <Link
-                    href={currentStage.link}
-                    className="inline-flex items-center justify-center px-5 py-2.5 rounded-[10px] text-white font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
-                    style={{ backgroundColor: currentStage.color }}
-                  >
-                    <span>Explore {currentStage.shortName}</span>
-                    <ArrowRight className="ml-2 w-3.5 h-3.5" />
-                  </Link>
-
-                  {/* Stepper Navigation Controls */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      <button
-                        type="button"
-                        onClick={handlePrev}
-                        aria-label="Previous Stage"
-                        className="w-7 h-7 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-xs"
+                {/* Right Column: Stage Description & Key Deliverables */}
+                <div className="lg:col-span-6 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span
+                        className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md"
+                        style={{
+                          backgroundColor: `${currentStage.color}15`,
+                          color: currentStage.color,
+                        }}
                       >
-                        ‹
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleNext}
-                        aria-label="Next Stage"
-                        className="w-7 h-7 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-xs"
-                      >
-                        ›
-                      </button>
+                        {currentStage.tag}
+                      </span>
                     </div>
 
-                    <div className="flex items-center gap-2 text-xs text-neutral-500 font-medium">
-                      <div className="w-14 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-[#00aeef] rounded-full transition-all duration-300"
-                          style={{ width: `${(activeStageId / 5) * 100}%` }}
-                        />
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-neutral-900 leading-snug mb-1.5">
+                      {currentStage.headline}
+                    </h3>
+
+                    <p className="text-xs sm:text-[13px] md:text-sm text-neutral-600 leading-relaxed mb-3">
+                      {currentStage.description}
+                    </p>
+
+                    {/* 3 Key Deliverables */}
+                    <div className="space-y-1 mb-3.5">
+                      {currentStage.deliverables.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <CheckCircle2
+                            className="w-4 h-4 shrink-0 mt-0.5"
+                            style={{ color: currentStage.color }}
+                          />
+                          <span className="text-xs sm:text-[13px] font-medium text-neutral-800 leading-snug">
+                            {item}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action Button & Step Guide */}
+                  <div className="pt-2 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-2">
+                    <Link
+                      href={currentStage.link}
+                      className="inline-flex items-center justify-center px-4 py-2 rounded-[8px] text-white font-semibold text-xs uppercase tracking-wider shadow-sm hover:shadow-md active:scale-95 transition-all w-full sm:w-auto"
+                      style={{ backgroundColor: currentStage.color }}
+                    >
+                      <span>Explore {currentStage.shortName}</span>
+                      <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+                    </Link>
+
+                    {/* Stepper Navigation Controls */}
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={handlePrev}
+                          aria-label="Previous Stage"
+                          className="w-6 h-6 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-xs"
+                        >
+                          ‹
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleNext}
+                          aria-label="Next Stage"
+                          className="w-6 h-6 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-xs"
+                        >
+                          ›
+                        </button>
                       </div>
-                      <span className="text-[11px] sm:text-xs">Stage {activeStageId} of 5</span>
+
+                      <div className="flex items-center gap-2 text-xs text-neutral-500 font-medium">
+                        <div className="w-12 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-[#00aeef] rounded-full transition-all duration-300"
+                            style={{ width: `${(activeStageId / 5) * 100}%` }}
+                          />
+                        </div>
+                        <span className="text-[11px]">Stage {activeStageId} of 5</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+
               </div>
-
             </div>
           </div>
-        </div>
 
-      </div>
-    </section>
+        </div>
+    </div>
   );
 }
 
