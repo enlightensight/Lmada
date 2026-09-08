@@ -195,7 +195,7 @@ const CONTINUUM_STAGES = [
 
 function Stage1Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
       <defs>
         <radialGradient id="cellGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#00aeef" stopOpacity="0.25" />
@@ -284,7 +284,7 @@ function Stage1Animation() {
 
 function Stage2Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
       <defs>
         <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.8" />
@@ -421,7 +421,7 @@ function Stage2Animation() {
 
 function Stage3Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
       <defs>
         <linearGradient id="specGrad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#00aeef" />
@@ -512,7 +512,7 @@ function Stage3Animation() {
 
 function Stage4Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
       <defs>
         <linearGradient id="vialLiquid" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#bae6fd" />
@@ -612,7 +612,7 @@ function Stage4Animation() {
 
 function Stage5Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
       <defs>
         <radialGradient id="globeGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#00aeef" stopOpacity="0.2" />
@@ -1258,24 +1258,24 @@ export default function IntegratedTimeline() {
           </div>
 
           {/* ================= FEATURED ACTIVE STAGE INTERACTIVE ANIMATION SHOWCASE ================= */}
-          <div className="max-w-5xl mx-auto w-full">
-            <div className="bg-neutral-50/95 rounded-[16px] border border-neutral-200/90 p-3.5 sm:p-5 lg:p-5 shadow-md">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-7 items-center">
+          <div className="max-w-6xl mx-auto w-full">
+            <div className="bg-neutral-50/95 rounded-[20px] border border-neutral-200/90 p-4 sm:p-6 lg:p-7 shadow-lg">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
                 
                 {/* Left Column: Live Animated Process Engine */}
-                <div className="lg:col-span-6 bg-white rounded-[14px] border border-neutral-200/90 p-3 sm:p-3.5 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[210px] sm:min-h-[235px]">
-                  <div className="w-full flex items-center justify-between pb-1.5 mb-1 border-b border-neutral-100">
+                <div className="lg:col-span-6 bg-white rounded-[16px] border border-neutral-200/90 p-4 sm:p-5 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[260px] sm:min-h-[295px]">
+                  <div className="w-full flex items-center justify-between pb-2 mb-2 border-b border-neutral-100">
                     <div className="flex items-center gap-2">
                       <span
                         className="w-2.5 h-2.5 rounded-full animate-pulse"
                         style={{ backgroundColor: currentStage.color }}
                       />
-                      <span className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                      <span className="text-xs sm:text-[13px] font-bold uppercase tracking-wider text-neutral-900">
                         Live Simulation: {currentStage.shortName}
                       </span>
                     </div>
                     <span
-                      className="text-[11px] font-bold px-2 py-0.5 rounded-full border shadow-xs"
+                      className="text-[11px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full border shadow-xs"
                       style={{
                         backgroundColor: `${currentStage.color}15`,
                         borderColor: `${currentStage.color}30`,
@@ -1287,7 +1287,7 @@ export default function IntegratedTimeline() {
                   </div>
 
                   {/* Animated Dynamic SVG Simulation */}
-                  <div className="w-full flex items-center justify-center my-0.5">
+                  <div className="w-full flex items-center justify-center my-1">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={currentStage.id}
@@ -1306,9 +1306,9 @@ export default function IntegratedTimeline() {
                 {/* Right Column: Stage Description & Key Deliverables */}
                 <div className="lg:col-span-6 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center gap-2 mb-1.5">
+                    <div className="flex items-center gap-2 mb-2">
                       <span
-                        className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md"
+                        className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md"
                         style={{
                           backgroundColor: `${currentStage.color}15`,
                           color: currentStage.color,
@@ -1318,23 +1318,23 @@ export default function IntegratedTimeline() {
                       </span>
                     </div>
 
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-neutral-900 leading-snug mb-1.5">
+                    <h3 className="text-lg sm:text-xl md:text-[22px] font-bold text-neutral-900 leading-snug mb-2">
                       {currentStage.headline}
                     </h3>
 
-                    <p className="text-xs sm:text-[13px] md:text-sm text-neutral-600 leading-relaxed mb-3">
+                    <p className="text-xs sm:text-[14px] md:text-[15px] text-neutral-600 leading-relaxed mb-3.5">
                       {currentStage.description}
                     </p>
 
                     {/* 3 Key Deliverables */}
-                    <div className="space-y-1 mb-3.5">
+                    <div className="space-y-1.5 mb-4">
                       {currentStage.deliverables.map((item, idx) => (
-                        <div key={idx} className="flex items-start gap-2">
+                        <div key={idx} className="flex items-start gap-2.5">
                           <CheckCircle2
-                            className="w-4 h-4 shrink-0 mt-0.5"
+                            className="w-4.5 h-4.5 shrink-0 mt-0.5"
                             style={{ color: currentStage.color }}
                           />
-                          <span className="text-xs sm:text-[13px] font-medium text-neutral-800 leading-snug">
+                          <span className="text-xs sm:text-sm font-medium text-neutral-800 leading-snug">
                             {item}
                           </span>
                         </div>
@@ -1343,25 +1343,25 @@ export default function IntegratedTimeline() {
                   </div>
 
                   {/* Action Button & Step Guide */}
-                  <div className="pt-2 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-2">
+                  <div className="pt-2.5 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <Link
                       href={currentStage.link}
                       onClick={() => unlockScroll()}
-                      className="inline-flex items-center justify-center px-4 py-2 rounded-[8px] text-white font-semibold text-xs uppercase tracking-wider shadow-sm hover:shadow-md active:scale-95 transition-all w-full sm:w-auto"
+                      className="inline-flex items-center justify-center px-5 py-2.5 rounded-[9px] text-white font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:shadow-md active:scale-95 transition-all w-full sm:w-auto"
                       style={{ backgroundColor: currentStage.color }}
                     >
                       <span>Explore {currentStage.shortName}</span>
-                      <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+                      <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
 
                     {/* Stepper Navigation Controls */}
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-3">
                       <div className="flex items-center gap-1">
                         <button
                           type="button"
                           onClick={handlePrev}
                           aria-label="Previous Stage"
-                          className="w-6 h-6 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-xs"
+                          className="w-7 h-7 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-sm"
                         >
                           ‹
                         </button>
@@ -1369,20 +1369,20 @@ export default function IntegratedTimeline() {
                           type="button"
                           onClick={handleNext}
                           aria-label="Next Stage"
-                          className="w-6 h-6 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-xs"
+                          className="w-7 h-7 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer text-sm"
                         >
                           ›
                         </button>
                       </div>
 
                       <div className="flex items-center gap-2 text-xs text-neutral-500 font-medium">
-                        <div className="w-12 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+                        <div className="w-14 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
                           <div
                             className="h-full bg-[#00aeef] rounded-full transition-all duration-300"
                             style={{ width: `${(activeStageId / 5) * 100}%` }}
                           />
                         </div>
-                        <span className="text-[11px]">Stage {activeStageId} of 5</span>
+                        <span className="text-xs">Stage {activeStageId} of 5</span>
                       </div>
                     </div>
                   </div>
