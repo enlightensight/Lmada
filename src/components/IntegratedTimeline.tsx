@@ -734,24 +734,28 @@ export default function IntegratedTimeline() {
     const handleWheelEvent = (e: WheelEvent) => {
       const targetY = getTargetScrollY();
       const currentScrollY = window.scrollY;
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
       const currentStage = activeStageRef.current;
 
       // Scrolling DOWN (deltaY > 0)
       if (e.deltaY > 0) {
-        // Only engage when the user has scrolled down enough so hero is off-screen and header reaches navbar
-        const isAtSection = currentScrollY >= targetY - 45 && currentScrollY <= targetY + 350;
+        // Active when user scrolls into the section from anywhere on the screen
+        const isInRange =
+          (currentScrollY >= targetY - 140 && currentScrollY <= targetY + 300) ||
+          (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
 
-        if (isAtSection) {
+        if (isInRange) {
           if (currentStage < 5) {
             e.preventDefault();
 
-            // Lock scroll position so header touches navbar
+            // Snap view so header sits directly under navbar with hero fully scrolled off
             if (Math.abs(window.scrollY - targetY) > 2) {
               window.scrollTo({ top: targetY, behavior: 'instant' });
             }
 
             deltaAccumulator += e.deltaY;
-            if (Math.abs(deltaAccumulator) >= 20 && !isLocked) {
+            if (Math.abs(deltaAccumulator) >= 18 && !isLocked) {
               isLocked = true;
               deltaAccumulator = 0;
               setActiveStageId((prev) => {
@@ -763,7 +767,7 @@ export default function IntegratedTimeline() {
               if (lockTimeout) clearTimeout(lockTimeout);
               lockTimeout = setTimeout(() => {
                 isLocked = false;
-              }, 320);
+              }, 300);
             }
           } else {
             // Finished all 5 stages: allow natural page scroll down
@@ -773,20 +777,22 @@ export default function IntegratedTimeline() {
       }
       // Scrolling UP (deltaY < 0)
       else if (e.deltaY < 0) {
-        // Only engage when scrolling up into the section
-        const isAtSection = currentScrollY <= targetY + 45 && currentScrollY >= targetY - 120;
+        // Active when user scrolls back up into the section from anywhere on the screen
+        const isInRange =
+          (currentScrollY <= targetY + 180 && currentScrollY >= targetY - 80) ||
+          (rect.top >= -80 && rect.bottom >= windowHeight * 0.35);
 
-        if (isAtSection) {
+        if (isInRange) {
           if (currentStage > 1) {
             e.preventDefault();
 
-            // Lock scroll position so header touches navbar
+            // Snap view so header sits directly under navbar
             if (Math.abs(window.scrollY - targetY) > 2) {
               window.scrollTo({ top: targetY, behavior: 'instant' });
             }
 
             deltaAccumulator += e.deltaY;
-            if (Math.abs(deltaAccumulator) >= 20 && !isLocked) {
+            if (Math.abs(deltaAccumulator) >= 18 && !isLocked) {
               isLocked = true;
               deltaAccumulator = 0;
               setActiveStageId((prev) => {
@@ -798,7 +804,7 @@ export default function IntegratedTimeline() {
               if (lockTimeout) clearTimeout(lockTimeout);
               lockTimeout = setTimeout(() => {
                 isLocked = false;
-              }, 320);
+              }, 300);
             }
           } else {
             // At stage 1: allow natural page scroll up to hero
@@ -815,14 +821,19 @@ export default function IntegratedTimeline() {
     const handleTouchMove = (e: TouchEvent) => {
       const targetY = getTargetScrollY();
       const currentScrollY = window.scrollY;
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
       const currentY = e.touches[0].clientY;
       const diffY = touchStartY - currentY; // positive = swipe up = scroll down
       const currentStage = activeStageRef.current;
 
-      if (diffY > 25) {
+      if (diffY > 20) {
         // Scrolling DOWN
-        const isAtSection = currentScrollY >= targetY - 45 && currentScrollY <= targetY + 350;
-        if (isAtSection && currentStage < 5) {
+        const isInRange =
+          (currentScrollY >= targetY - 140 && currentScrollY <= targetY + 300) ||
+          (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
+
+        if (isInRange && currentStage < 5) {
           e.preventDefault();
           if (Math.abs(window.scrollY - targetY) > 2) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
@@ -838,13 +849,16 @@ export default function IntegratedTimeline() {
             if (lockTimeout) clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
               isLocked = false;
-            }, 320);
+            }, 300);
           }
         }
-      } else if (diffY < -25) {
+      } else if (diffY < -20) {
         // Scrolling UP
-        const isAtSection = currentScrollY <= targetY + 45 && currentScrollY >= targetY - 120;
-        if (isAtSection && currentStage > 1) {
+        const isInRange =
+          (currentScrollY <= targetY + 180 && currentScrollY >= targetY - 80) ||
+          (rect.top >= -80 && rect.bottom >= windowHeight * 0.35);
+
+        if (isInRange && currentStage > 1) {
           e.preventDefault();
           if (Math.abs(window.scrollY - targetY) > 2) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
@@ -860,20 +874,20 @@ export default function IntegratedTimeline() {
             if (lockTimeout) clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
               isLocked = false;
-            }, 320);
+            }, 300);
           }
         }
       }
     };
 
-    window.addEventListener('wheel', handleWheelEvent, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('wheel', handleWheelEvent, { passive: false, capture: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true, capture: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false, capture: true });
 
     return () => {
-      window.removeEventListener('wheel', handleWheelEvent);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('wheel', handleWheelEvent, { capture: true });
+      window.removeEventListener('touchstart', handleTouchStart, { capture: true });
+      window.removeEventListener('touchmove', handleTouchMove, { capture: true });
       if (lockTimeout) clearTimeout(lockTimeout);
     };
   }, []);
