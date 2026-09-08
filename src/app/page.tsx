@@ -8,7 +8,6 @@ import { HeroSection } from '@/components/ui/hero-section-5';
 import Reveal from '@/components/Reveal';
 import SectionHeader from '@/components/SectionHeader';
 import IntegratedTimeline from '@/components/IntegratedTimeline';
-import UpstreamProcessAnimation from '@/components/UpstreamProcessAnimation';
 import { articles } from '@/data/articles';
 import { faqs } from '@/data/faqs';
 import FAQSection from '@/components/FAQSection';
@@ -180,16 +179,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* UPSTREAM PROCESS DEVELOPMENT WORKFLOW ANIMATION */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 md:py-14 bg-neutral-50/60 border-b border-neutral-100">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="border border-neutral-200/80 rounded-[12px] shadow-sm bg-white p-2 sm:p-4">
-              <UpstreamProcessAnimation />
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* SUPPORTING DIVERSE BIOLOGIC MODALITIES */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
