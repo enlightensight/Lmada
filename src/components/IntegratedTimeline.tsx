@@ -722,9 +722,8 @@ export default function IntegratedTimeline() {
     let touchStartY = 0;
 
     const getTargetScrollY = () => {
-      // Header is 80px on desktop (lg+), 64px on mobile/tablet
-      const navHeight = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 80 : 64;
-      return Math.max(0, section.offsetTop - navHeight);
+      // Snaps section to top of viewport so Hero is 100% hidden and header sits right below navbar
+      return section.offsetTop;
     };
 
     const handleWheelEvent = (e: WheelEvent) => {
@@ -734,7 +733,7 @@ export default function IntegratedTimeline() {
       const windowHeight = window.innerHeight;
 
       // Active zone: when scroll position is near target or section is framed in viewport
-      const isNearTarget = Math.abs(currentScrollY - targetY) < 160 || (rect.top <= 100 && rect.bottom >= windowHeight * 0.4);
+      const isNearTarget = Math.abs(currentScrollY - targetY) < 220 || (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
 
       if (!isNearTarget) {
         deltaAccumulator = 0;
@@ -748,7 +747,7 @@ export default function IntegratedTimeline() {
         if (currentStage < 5) {
           e.preventDefault();
 
-          // Lock scroll position at the ideal view (Image 3: header right under navbar)
+          // Lock scroll position at the ideal view (Hero 100% offscreen, header directly under navbar)
           if (Math.abs(window.scrollY - targetY) > 2) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
           }
@@ -778,7 +777,7 @@ export default function IntegratedTimeline() {
         if (currentStage > 1) {
           e.preventDefault();
 
-          // Lock scroll position at the ideal view (Image 3: header right under navbar)
+          // Lock scroll position at the ideal view
           if (Math.abs(window.scrollY - targetY) > 2) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
           }
@@ -814,7 +813,7 @@ export default function IntegratedTimeline() {
       const currentScrollY = window.scrollY;
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const isNearTarget = Math.abs(currentScrollY - targetY) < 160 || (rect.top <= 100 && rect.bottom >= windowHeight * 0.4);
+      const isNearTarget = Math.abs(currentScrollY - targetY) < 220 || (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
 
       if (!isNearTarget) return;
 
@@ -886,7 +885,7 @@ export default function IntegratedTimeline() {
     <section
       ref={sectionRef}
       id="integrated-timeline"
-      className="relative px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 pt-2 sm:pt-3 md:pt-4 pb-6 sm:pb-8 md:pb-10 bg-white border-y border-neutral-100 overflow-hidden select-none"
+      className="relative px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 pt-20 lg:pt-[86px] pb-6 sm:pb-8 md:pb-10 bg-white border-y border-neutral-100 overflow-hidden select-none"
     >
       {/* Background Molecule Pattern Grid */}
       <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
