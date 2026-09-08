@@ -712,14 +712,15 @@ export default function IntegratedTimeline() {
     setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
   };
 
-  // Pinned scroll-lock: allows scrolling past the hero so header touches navbar, then steps 1->5 on scroll down and 5->1 on scroll up
+  // Pinned scroll-lock: allows scrolling past the hero so header touches navbar, then steps 1->5 on scroll down and 5->1 on scroll up with momentum isolation
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     let isLocked = false;
     let lockTimeout: NodeJS.Timeout | null = null;
-    let deltaAccumulator = 0;
+    let idleTimeout: NodeJS.Timeout | null = null;
+    let isMomentumAbsorbedAtEnd = false;
     let touchStartY = 0;
 
     const getTargetScrollY = () => {
@@ -738,78 +739,92 @@ export default function IntegratedTimeline() {
       const windowHeight = window.innerHeight;
       const currentStage = activeStageRef.current;
 
+      // Active when user scrolls into the section from anywhere on the screen
+      const isInRange =
+        (currentScrollY >= targetY - 140 && currentScrollY <= targetY + 300) ||
+        (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
+
+      if (!isInRange) {
+        isMomentumAbsorbedAtEnd = false;
+        return;
+      }
+
+      // Reset idle timer: when wheel stops for 220ms, mark momentum as settled
+      if (idleTimeout) clearTimeout(idleTimeout);
+      idleTimeout = setTimeout(() => {
+        isMomentumAbsorbedAtEnd = true;
+      }, 220);
+
       // Scrolling DOWN (deltaY > 0)
       if (e.deltaY > 0) {
-        // Active when user scrolls into the section from anywhere on the screen
-        const isInRange =
-          (currentScrollY >= targetY - 140 && currentScrollY <= targetY + 300) ||
-          (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
+        if (currentStage < 5) {
+          // ALWAYS prevent default page scrolling while stages are in progress (prevents flickering)
+          e.preventDefault();
 
-        if (isInRange) {
-          if (currentStage < 5) {
+          // Keep view solidly pinned at targetY
+          if (Math.abs(window.scrollY - targetY) > 2) {
+            window.scrollTo({ top: targetY, behavior: 'instant' });
+          }
+
+          if (Math.abs(e.deltaY) >= 15 && !isLocked) {
+            isLocked = true;
+            isMomentumAbsorbedAtEnd = false;
+            setActiveStageId((prev) => {
+              const next = Math.min(prev + 1, 5);
+              activeStageRef.current = next;
+              return next;
+            });
+
+            if (lockTimeout) clearTimeout(lockTimeout);
+            lockTimeout = setTimeout(() => {
+              isLocked = false;
+            }, 380); // 380ms cooldown to absorb remaining swipe ticks
+          }
+        } else if (currentStage === 5) {
+          // At stage 5: absorb residual swipe momentum first, only allow scrolling down on a fresh scroll gesture
+          if (!isMomentumAbsorbedAtEnd) {
             e.preventDefault();
-
-            // Snap view so header sits directly under navbar with hero fully scrolled off
             if (Math.abs(window.scrollY - targetY) > 2) {
               window.scrollTo({ top: targetY, behavior: 'instant' });
             }
-
-            deltaAccumulator += e.deltaY;
-            if (Math.abs(deltaAccumulator) >= 18 && !isLocked) {
-              isLocked = true;
-              deltaAccumulator = 0;
-              setActiveStageId((prev) => {
-                const next = Math.min(prev + 1, 5);
-                activeStageRef.current = next;
-                return next;
-              });
-
-              if (lockTimeout) clearTimeout(lockTimeout);
-              lockTimeout = setTimeout(() => {
-                isLocked = false;
-              }, 300);
-            }
-          } else {
-            // Finished all 5 stages: allow natural page scroll down
-            deltaAccumulator = 0;
           }
+          // If momentum settled, allow natural page scroll down to proceed!
         }
       }
       // Scrolling UP (deltaY < 0)
       else if (e.deltaY < 0) {
-        // Active when user scrolls back up into the section from anywhere on the screen
-        const isInRange =
-          (currentScrollY <= targetY + 180 && currentScrollY >= targetY - 80) ||
-          (rect.top >= -80 && rect.bottom >= windowHeight * 0.35);
+        if (currentStage > 1) {
+          // ALWAYS prevent default page scrolling while reverse stages are in progress
+          e.preventDefault();
 
-        if (isInRange) {
-          if (currentStage > 1) {
+          // Keep view solidly pinned at targetY
+          if (Math.abs(window.scrollY - targetY) > 2) {
+            window.scrollTo({ top: targetY, behavior: 'instant' });
+          }
+
+          if (Math.abs(e.deltaY) >= 15 && !isLocked) {
+            isLocked = true;
+            isMomentumAbsorbedAtEnd = false;
+            setActiveStageId((prev) => {
+              const next = Math.max(prev - 1, 1);
+              activeStageRef.current = next;
+              return next;
+            });
+
+            if (lockTimeout) clearTimeout(lockTimeout);
+            lockTimeout = setTimeout(() => {
+              isLocked = false;
+            }, 380); // 380ms cooldown
+          }
+        } else if (currentStage === 1) {
+          // At stage 1: absorb residual swipe momentum first, only allow scrolling up on a fresh scroll gesture
+          if (!isMomentumAbsorbedAtEnd) {
             e.preventDefault();
-
-            // Snap view so header sits directly under navbar
             if (Math.abs(window.scrollY - targetY) > 2) {
               window.scrollTo({ top: targetY, behavior: 'instant' });
             }
-
-            deltaAccumulator += e.deltaY;
-            if (Math.abs(deltaAccumulator) >= 18 && !isLocked) {
-              isLocked = true;
-              deltaAccumulator = 0;
-              setActiveStageId((prev) => {
-                const next = Math.max(prev - 1, 1);
-                activeStageRef.current = next;
-                return next;
-              });
-
-              if (lockTimeout) clearTimeout(lockTimeout);
-              lockTimeout = setTimeout(() => {
-                isLocked = false;
-              }, 300);
-            }
-          } else {
-            // At stage 1: allow natural page scroll up to hero
-            deltaAccumulator = 0;
           }
+          // If momentum settled, allow natural page scroll up to proceed!
         }
       }
     };
@@ -827,13 +842,15 @@ export default function IntegratedTimeline() {
       const diffY = touchStartY - currentY; // positive = swipe up = scroll down
       const currentStage = activeStageRef.current;
 
-      if (diffY > 20) {
-        // Scrolling DOWN
-        const isInRange =
-          (currentScrollY >= targetY - 140 && currentScrollY <= targetY + 300) ||
-          (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
+      const isInRange =
+        (currentScrollY >= targetY - 140 && currentScrollY <= targetY + 300) ||
+        (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
 
-        if (isInRange && currentStage < 5) {
+      if (!isInRange) return;
+
+      if (diffY > 25) {
+        // Scrolling DOWN
+        if (currentStage < 5) {
           e.preventDefault();
           if (Math.abs(window.scrollY - targetY) > 2) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
@@ -849,16 +866,12 @@ export default function IntegratedTimeline() {
             if (lockTimeout) clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
               isLocked = false;
-            }, 300);
+            }, 380);
           }
         }
-      } else if (diffY < -20) {
+      } else if (diffY < -25) {
         // Scrolling UP
-        const isInRange =
-          (currentScrollY <= targetY + 180 && currentScrollY >= targetY - 80) ||
-          (rect.top >= -80 && rect.bottom >= windowHeight * 0.35);
-
-        if (isInRange && currentStage > 1) {
+        if (currentStage > 1) {
           e.preventDefault();
           if (Math.abs(window.scrollY - targetY) > 2) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
@@ -874,7 +887,7 @@ export default function IntegratedTimeline() {
             if (lockTimeout) clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
               isLocked = false;
-            }, 300);
+            }, 380);
           }
         }
       }
@@ -889,6 +902,7 @@ export default function IntegratedTimeline() {
       window.removeEventListener('touchstart', handleTouchStart, { capture: true });
       window.removeEventListener('touchmove', handleTouchMove, { capture: true });
       if (lockTimeout) clearTimeout(lockTimeout);
+      if (idleTimeout) clearTimeout(idleTimeout);
     };
   }, []);
 
