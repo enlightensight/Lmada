@@ -751,11 +751,13 @@ export default function IntegratedTimeline() {
     if (typeof window === 'undefined' || !containerRef.current) return;
     const targetScrollY = getTargetScrollY();
 
-    // Dual positioning: exact scrollTo + native scrollIntoView guarantee
     window.scrollTo({ top: targetScrollY, behavior: 'instant' });
-    if (containerRef.current) {
-      containerRef.current.scrollIntoView({ behavior: 'instant', block: 'start' });
-    }
+
+    // Freeze body position completely so browser kinetic inertia / fast scrolling CANNOT scroll the page down
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${targetScrollY}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflowY = 'scroll'; // Preserves scrollbar track so zero horizontal layout shift
 
     isLockedRef.current = true;
     setIsLocked(true);
@@ -767,11 +769,22 @@ export default function IntegratedTimeline() {
     isAnimatingRef.current = true;
     setTimeout(() => {
       isAnimatingRef.current = false;
-    }, 500);
+    }, 450);
   };
 
   const unlockScroll = () => {
     if (typeof window === 'undefined') return;
+    const targetScrollY = getTargetScrollY();
+
+    // Release body freeze
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflowY = '';
+
+    // Instantly restore the exact window scroll offset
+    window.scrollTo({ top: targetScrollY, behavior: 'instant' });
+
     isLockedRef.current = false;
     setIsLocked(false);
   };
@@ -782,34 +795,26 @@ export default function IntegratedTimeline() {
 
     const handleScroll = () => {
       if (unlockCooldownRef.current) return;
+      if (isLockedRef.current) return;
       if (!containerRef.current) return;
 
       const currentScrollY = window.scrollY;
       const scrollingDown = currentScrollY > lastScrollY;
       const targetScrollY = getTargetScrollY();
 
-      // If currently locked in timeline, firmly clamp scroll position
-      if (isLockedRef.current) {
-        if (Math.abs(currentScrollY - targetScrollY) > 3) {
-          window.scrollTo({ top: targetScrollY, behavior: 'instant' });
-        }
-        return;
-      }
-
       // Entering from ABOVE (Hero section): ANY downward scroll reaching flush position locks at Stage 1
       if (positionRef.current === 'above') {
-        if (scrollingDown && currentScrollY >= targetScrollY - 20) {
+        if (scrollingDown && currentScrollY >= targetScrollY - 25) {
           lockScroll(1);
           return;
         }
       }
       // Entering from BELOW (Services, Modalities, Articles, FAQs): lock at Stage 5 when scrolling UP
       else if (positionRef.current === 'below') {
-        if (!scrollingDown && currentScrollY <= targetScrollY + 20) {
+        if (!scrollingDown && currentScrollY <= targetScrollY + 25) {
           lockScroll(5);
           return;
         }
-        // When scrollingDown while 'below': DO NOTHING! Allow smooth, uninterrupted downward scrolling!
       }
 
       lastScrollY = currentScrollY;
@@ -818,6 +823,12 @@ export default function IntegratedTimeline() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (typeof window !== 'undefined') {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflowY = '';
+      }
     };
   }, []);
 
@@ -826,8 +837,8 @@ export default function IntegratedTimeline() {
     const handleResize = () => {
       if (isLockedRef.current && containerRef.current) {
         const target = getTargetScrollY();
+        document.body.style.top = `-${target}px`;
         window.scrollTo({ top: target, behavior: 'instant' });
-        containerRef.current.scrollIntoView({ behavior: 'instant', block: 'start' });
       }
     };
     window.addEventListener('resize', handleResize);
@@ -1132,7 +1143,7 @@ export default function IntegratedTimeline() {
     <div
       ref={containerRef}
       id="integrated-timeline-container"
-      className="scroll-mt-16 lg:scroll-mt-20 relative min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] w-full flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 py-3 sm:py-4 bg-white border-y border-neutral-100 overflow-hidden select-none"
+      className="scroll-mt-16 lg:scroll-mt-20 relative min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] w-full flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 pt-6 pb-6 sm:pt-8 sm:pb-8 lg:pt-10 lg:pb-10 bg-white border-y border-neutral-100 overflow-hidden select-none"
     >
         
         {/* Background Molecule Pattern Grid */}
