@@ -701,36 +701,36 @@ const ANIMATION_COMPONENTS = [
 /* --- MAIN INTEGRATED TIMELINE ROADMAP COMPONENT --- */
 
 export default function IntegratedTimeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [activeStageId, setActiveStageId] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Bind scroll progress across the container
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
+  // Auto-advance stages every 4.5 seconds when not paused/hovered
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
-  // Track progress bar width (0% to 100%)
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  const handlePrev = () => {
+    setActiveStageId((prev) => (prev <= 1 ? 5 : prev - 1));
+  };
 
-  // Change active stage on scroll
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const stageIndex = Math.min(
-      Math.floor(latest * CONTINUUM_STAGES.length),
-      CONTINUUM_STAGES.length - 1
-    );
-    const targetId = CONTINUUM_STAGES[stageIndex].id;
-    setActiveStageId(targetId);
-  });
+  const handleNext = () => {
+    setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
+  };
 
-  // Manual click to scroll to stage
-  const handleStageClick = (id: number) => {
-    setActiveStageId(id);
-    if (containerRef.current) {
-      const containerTop = containerRef.current.getBoundingClientRect().top + window.scrollY;
-      const totalScrollable = containerRef.current.offsetHeight - window.innerHeight;
-      const targetScroll = containerTop + (totalScrollable * (id - 1)) / (CONTINUUM_STAGES.length - 1);
-      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+  // Optional: subtle wheel listener to step when mouse is over the container
+  const handleWheel = (e: React.WheelEvent) => {
+    if (Math.abs(e.deltaY) > 30) {
+      if (e.deltaY > 0 && activeStageId < 5) {
+        // Scrolling down steps forward
+        setActiveStageId((prev) => Math.min(prev + 1, 5));
+      } else if (e.deltaY < 0 && activeStageId > 1) {
+        // Scrolling up steps backward
+        setActiveStageId((prev) => Math.max(prev - 1, 1));
+      }
     }
   };
 
@@ -739,260 +739,278 @@ export default function IntegratedTimeline() {
 
   return (
     <section
-      ref={containerRef}
-      className="relative h-[280vh] md:h-[320vh] bg-white border-y border-neutral-100 select-none"
+      className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-y border-neutral-100 overflow-hidden select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onWheel={handleWheel}
     >
       {/* Background Molecule Pattern Grid */}
       <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
 
-      {/* Sticky Viewport Container */}
-      <div className="sticky top-14 md:top-16 min-h-[calc(100vh-64px)] flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 md:py-10 overflow-hidden">
-        <div className="relative w-full max-w-[1700px] mx-auto">
+      <div className="relative w-full max-w-[1700px] mx-auto">
+        
+        {/* Section Header */}
+        <div className="text-center mb-8 md:mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs sm:text-sm font-bold tracking-wide uppercase mb-3"
+          >
+            <Zap className="w-4 h-4 text-brand-orange" />
+            <span>End-to-End CDMO Pipeline</span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] max-w-4xl mx-auto"
+          >
+            Integrated biologics development, manufacturing and clinical support
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-2 sm:mt-3"
+          >
+            An end-to-end continuum connecting cell line engineering, process scale-up, analytical rigor, and cGMP supply to accelerate clinical milestones.
+          </motion.p>
+        </div>
+
+        {/* ================= CLEAN HORIZONTAL TIMELINE TRACK (NO POPUP BUBBLES) ================= */}
+        <div className="relative max-w-5xl mx-auto mb-8 md:mb-10">
           
-          {/* Section Header */}
-          <div className="text-center mb-6 md:mb-10">
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs sm:text-sm font-bold tracking-wide uppercase mb-3"
-            >
-              <Zap className="w-4 h-4 text-brand-orange" />
-              <span>End-to-End CDMO Pipeline</span>
-            </motion.div>
+          {/* The Road Track with Live Fill */}
+          <div className="relative py-2 flex items-center">
+            {/* Background Track Strip */}
+            <div className="absolute left-0 right-0 h-4 sm:h-5 bg-neutral-100 rounded-full border border-neutral-200 overflow-hidden flex items-center z-0 shadow-inner">
+              {/* White dashed highway centerline */}
+              <div className="w-full border-t-2 border-dashed border-neutral-300 scale-y-110" />
 
-            <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] max-w-4xl mx-auto"
-            >
-              Integrated biologics development, manufacturing and clinical support
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-2 sm:mt-3"
-            >
-              An end-to-end continuum connecting cell line engineering, process scale-up, analytical rigor, and cGMP supply to accelerate clinical milestones.
-            </motion.p>
-          </div>
+              {/* Animated Progress Fill Gradient */}
+              <motion.div
+                className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#00aeef] via-[#f58634] to-[#00aeef] rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${((activeStageId - 1) / 4) * 100}%` }}
+              />
+            </div>
 
-          {/* ================= CLEAN HORIZONTAL TIMELINE TRACK (NO POPUP BUBBLES) ================= */}
-          <div className="relative max-w-5xl mx-auto mb-8 md:mb-10">
-            
-            {/* The Road Track with Live Scroll Progress Fill */}
-            <div className="relative py-2 flex items-center">
-              {/* Background Track Strip */}
-              <div className="absolute left-0 right-0 h-4 sm:h-5 bg-neutral-100 rounded-full border border-neutral-200 overflow-hidden flex items-center z-0 shadow-inner">
-                {/* White dashed highway centerline */}
-                <div className="w-full border-t-2 border-dashed border-neutral-300 scale-y-110" />
+            {/* 5 Circular Stage Node Buttons */}
+            <div className="relative z-10 w-full grid grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+              {CONTINUUM_STAGES.map((step) => {
+                const IconComponent = step.icon;
+                const isActive = activeStageId === step.id;
+                const isPassed = activeStageId > step.id;
 
-                {/* Animated Scroll Progress Fill Gradient */}
-                <motion.div
-                  className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#00aeef] via-[#f58634] to-[#00aeef] rounded-full"
-                  style={{ width: progressWidth }}
-                />
-              </div>
-
-              {/* 5 Circular Stage Node Buttons */}
-              <div className="relative z-10 w-full grid grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
-                {CONTINUUM_STAGES.map((step) => {
-                  const IconComponent = step.icon;
-                  const isActive = activeStageId === step.id;
-                  const isPassed = activeStageId > step.id;
-
-                  return (
-                    <div key={step.id} className="flex flex-col items-center">
-                      <button
-                        type="button"
-                        onClick={() => handleStageClick(step.id)}
-                        className="group relative flex items-center justify-center cursor-pointer outline-none mb-2"
-                        title={step.title}
-                      >
-                        {/* Active Expanding Pulse Waves */}
-                        {isActive && (
-                          <>
-                            <motion.div
-                              className="absolute -inset-2.5 sm:-inset-3 rounded-full opacity-40 pointer-events-none"
-                              style={{ backgroundColor: step.color }}
-                              animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
-                              transition={{ repeat: Infinity, duration: 2 }}
-                            />
-                            <motion.div
-                              className="absolute -inset-1 sm:-inset-1.5 rounded-full ring-2 pointer-events-none"
-                              style={{ borderColor: step.color }}
-                              animate={{ scale: [1, 1.15, 1] }}
-                              transition={{ repeat: Infinity, duration: 1.5 }}
-                            />
-                          </>
-                        )}
-
-                        {/* Main Node Button */}
-                        <div
-                          className={`w-12 h-12 sm:w-16 sm:h-16 lg:w-18 lg:h-18 rounded-full border-3 sm:border-4 border-white shadow-md transition-all duration-300 flex items-center justify-center relative z-10 ${
-                            isActive
-                              ? `${step.bgClass} scale-110 shadow-xl ring-4 ring-neutral-900/10`
-                              : isPassed
-                              ? `${step.bgClass} opacity-95`
-                              : 'bg-neutral-200 text-neutral-500 hover:bg-neutral-300'
-                          }`}
-                        >
-                          <IconComponent
-                            className={`w-5 h-5 sm:w-7 sm:h-7 lg:w-8 lg:h-8 transition-transform duration-300 group-hover:scale-110 ${
-                              isActive || isPassed ? 'text-white' : 'text-neutral-600'
-                            }`}
+                return (
+                  <div key={step.id} className="flex flex-col items-center">
+                    <button
+                      type="button"
+                      onClick={() => setActiveStageId(step.id)}
+                      className="group relative flex items-center justify-center cursor-pointer outline-none mb-2"
+                      title={step.title}
+                    >
+                      {/* Active Expanding Pulse Waves */}
+                      {isActive && (
+                        <>
+                          <motion.div
+                            className="absolute -inset-2.5 sm:-inset-3 rounded-full opacity-40 pointer-events-none"
+                            style={{ backgroundColor: step.color }}
+                            animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
+                            transition={{ repeat: Infinity, duration: 2 }}
                           />
-                        </div>
-                      </button>
+                          <motion.div
+                            className="absolute -inset-1 sm:-inset-1.5 rounded-full ring-2 pointer-events-none"
+                            style={{ borderColor: step.color }}
+                            animate={{ scale: [1, 1.15, 1] }}
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                          />
+                        </>
+                      )}
 
-                      {/* Clean Under-Node Label */}
-                      <button
-                        type="button"
-                        onClick={() => handleStageClick(step.id)}
-                        className={`text-center transition-colors cursor-pointer hidden sm:block ${
+                      {/* Main Node Button */}
+                      <div
+                        className={`w-12 h-12 sm:w-16 sm:h-16 lg:w-18 lg:h-18 rounded-full border-3 sm:border-4 border-white shadow-md transition-all duration-300 flex items-center justify-center relative z-10 ${
                           isActive
-                            ? 'text-neutral-900 font-bold'
-                            : 'text-neutral-500 hover:text-neutral-800 font-medium'
+                            ? `${step.bgClass} scale-110 shadow-xl ring-4 ring-neutral-900/10`
+                            : isPassed
+                            ? `${step.bgClass} opacity-95`
+                            : 'bg-neutral-200 text-neutral-500 hover:bg-neutral-300'
                         }`}
                       >
-                        <span
-                          className={`block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-0.5 ${
-                            isActive ? 'text-[#00aeef]' : 'text-neutral-400'
+                        <IconComponent
+                          className={`w-5 h-5 sm:w-7 sm:h-7 lg:w-8 lg:h-8 transition-transform duration-300 group-hover:scale-110 ${
+                            isActive || isPassed ? 'text-white' : 'text-neutral-600'
                           }`}
-                        >
-                          {step.stepNum}
-                        </span>
-                        <span className="text-xs sm:text-[13px] leading-tight block truncate max-w-[110px] lg:max-w-[140px]">
-                          {step.shortName.replace(/^\d+\.\s*/, '')}
-                        </span>
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
+                        />
+                      </div>
+                    </button>
+
+                    {/* Clean Under-Node Label */}
+                    <button
+                      type="button"
+                      onClick={() => setActiveStageId(step.id)}
+                      className={`text-center transition-colors cursor-pointer hidden sm:block ${
+                        isActive
+                          ? 'text-neutral-900 font-bold'
+                          : 'text-neutral-500 hover:text-neutral-800 font-medium'
+                      }`}
+                    >
+                      <span
+                        className={`block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-0.5 ${
+                          isActive ? 'text-[#00aeef]' : 'text-neutral-400'
+                        }`}
+                      >
+                        {step.stepNum}
+                      </span>
+                      <span className="text-xs sm:text-[13px] leading-tight block truncate max-w-[110px] lg:max-w-[140px]">
+                        {step.shortName.replace(/^\d+\.\s*/, '')}
+                      </span>
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
+        </div>
 
-          {/* ================= FEATURED ACTIVE STAGE INTERACTIVE ANIMATION SHOWCASE ================= */}
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-neutral-50/95 rounded-[16px] border border-neutral-200/90 p-5 sm:p-7 lg:p-8 shadow-lg">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-                
-                {/* Left Column: Live Animated Process Engine */}
-                <div className="lg:col-span-6 bg-white rounded-[14px] border border-neutral-200/90 p-4 sm:p-5 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[260px] sm:min-h-[290px]">
-                  <div className="w-full flex items-center justify-between pb-2.5 mb-2 border-b border-neutral-100">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full animate-pulse"
-                        style={{ backgroundColor: currentStage.color }}
-                      />
-                      <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900">
-                        Live Simulation: {currentStage.shortName}
-                      </span>
-                    </div>
+        {/* ================= FEATURED ACTIVE STAGE INTERACTIVE ANIMATION SHOWCASE ================= */}
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-neutral-50/95 rounded-[16px] border border-neutral-200/90 p-5 sm:p-7 lg:p-8 shadow-lg">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+              
+              {/* Left Column: Live Animated Process Engine */}
+              <div className="lg:col-span-6 bg-white rounded-[14px] border border-neutral-200/90 p-4 sm:p-5 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[260px] sm:min-h-[290px]">
+                <div className="w-full flex items-center justify-between pb-2.5 mb-2 border-b border-neutral-100">
+                  <div className="flex items-center gap-2">
                     <span
-                      className="text-xs font-bold px-3 py-1 rounded-full border shadow-xs"
+                      className="w-2.5 h-2.5 rounded-full animate-pulse"
+                      style={{ backgroundColor: currentStage.color }}
+                    />
+                    <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900">
+                      Live Simulation: {currentStage.shortName}
+                    </span>
+                  </div>
+                  <span
+                    className="text-xs font-bold px-3 py-1 rounded-full border shadow-xs"
+                    style={{
+                      backgroundColor: `${currentStage.color}15`,
+                      borderColor: `${currentStage.color}30`,
+                      color: currentStage.color,
+                    }}
+                  >
+                    {currentStage.metric}
+                  </span>
+                </div>
+
+                {/* Animated Dynamic SVG Simulation */}
+                <div className="w-full flex items-center justify-center my-1">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentStage.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-full flex justify-center"
+                    >
+                      <ActiveVisual />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Right Column: Stage Description & Key Deliverables */}
+              <div className="lg:col-span-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <span
+                      className="text-xs sm:text-sm font-bold uppercase tracking-wider px-3 py-1 rounded-md"
                       style={{
                         backgroundColor: `${currentStage.color}15`,
-                        borderColor: `${currentStage.color}30`,
                         color: currentStage.color,
                       }}
                     >
-                      {currentStage.metric}
+                      {currentStage.tag}
                     </span>
                   </div>
 
-                  {/* Animated Dynamic SVG Simulation */}
-                  <div className="w-full flex items-center justify-center my-1">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={currentStage.id}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.3 }}
-                        className="w-full flex justify-center"
-                      >
-                        <ActiveVisual />
-                      </motion.div>
-                    </AnimatePresence>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 leading-tight mb-2.5">
+                    {currentStage.headline}
+                  </h3>
+
+                  <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-5">
+                    {currentStage.description}
+                  </p>
+
+                  {/* 3 Key Deliverables */}
+                  <div className="space-y-2 mb-6">
+                    {currentStage.deliverables.map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5">
+                        <CheckCircle2
+                          className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0 mt-0.5"
+                          style={{ color: currentStage.color }}
+                        />
+                        <span className="text-xs sm:text-sm md:text-[15px] font-medium text-neutral-800 leading-snug">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Right Column: Stage Description & Key Deliverables */}
-                <div className="lg:col-span-6 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-2 mb-2.5">
-                      <span
-                        className="text-xs sm:text-sm font-bold uppercase tracking-wider px-3 py-1 rounded-md"
-                        style={{
-                          backgroundColor: `${currentStage.color}15`,
-                          color: currentStage.color,
-                        }}
+                {/* Action Button & Step Guide */}
+                <div className="pt-3.5 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <Link
+                    href={currentStage.link}
+                    className="inline-flex items-center justify-center px-6 py-3 rounded-[10px] text-white font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
+                    style={{ backgroundColor: currentStage.color }}
+                  >
+                    <span>Explore {currentStage.shortName}</span>
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+
+                  {/* Stepper Navigation Controls */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={handlePrev}
+                        aria-label="Previous Stage"
+                        className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer"
                       >
-                        {currentStage.tag}
-                      </span>
+                        ‹
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleNext}
+                        aria-label="Next Stage"
+                        className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors cursor-pointer"
+                      >
+                        ›
+                      </button>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 leading-tight mb-2.5">
-                      {currentStage.headline}
-                    </h3>
-
-                    <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-5">
-                      {currentStage.description}
-                    </p>
-
-                    {/* 3 Key Deliverables */}
-                    <div className="space-y-2 mb-6">
-                      {currentStage.deliverables.map((item, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5">
-                          <CheckCircle2
-                            className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0 mt-0.5"
-                            style={{ color: currentStage.color }}
-                          />
-                          <span className="text-xs sm:text-sm md:text-[15px] font-medium text-neutral-800 leading-snug">
-                            {item}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Action Button & Scroll Guide */}
-                  <div className="pt-3.5 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <Link
-                      href={currentStage.link}
-                      className="inline-flex items-center justify-center px-6 py-3 rounded-[10px] text-white font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
-                      style={{ backgroundColor: currentStage.color }}
-                    >
-                      <span>Explore {currentStage.shortName}</span>
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Link>
-
-                    {/* Scroll Telemetry Indicator */}
-                    <div className="flex items-center gap-2.5 text-xs text-neutral-500 font-medium">
-                      <div className="w-16 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+                    <div className="flex items-center gap-2 text-xs text-neutral-500 font-medium">
+                      <div className="w-14 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-brand-blue rounded-full transition-all duration-300"
+                          className="h-full bg-[#00aeef] rounded-full transition-all duration-300"
                           style={{ width: `${(activeStageId / 5) * 100}%` }}
                         />
                       </div>
                       <span>Stage {activeStageId} of 5</span>
-                      <span className="text-neutral-300">•</span>
-                      <span className="text-[#00aeef] font-semibold">Scroll to advance</span>
                     </div>
                   </div>
                 </div>
-
               </div>
+
             </div>
           </div>
-
         </div>
+
       </div>
     </section>
   );
