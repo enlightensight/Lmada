@@ -107,6 +107,9 @@ export default function Home() {
       {/* HERO */}
       <HeroSection />
 
+      {/* INTEGRATED BIOLOGICS DEVELOPMENT, MANUFACTURING AND CLINICAL SUPPORT TIMELINE */}
+      <IntegratedTimeline />
+
       {/* AN INTEGRATED PARTNER */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules">
         <div className="w-full max-w-[1700px] mx-auto">
@@ -322,8 +325,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* INTEGRATED BIOLOGICS DEVELOPMENT, MANUFACTURING AND CLINICAL SUPPORT TIMELINE */}
-      <IntegratedTimeline />
+
 
       {/* FEATURED INSIGHTS */}
       <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100 overflow-hidden">

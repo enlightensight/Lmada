@@ -33,7 +33,7 @@ export function HeroSection() {
                         </h1>
 
                         <p className="text-sm sm:text-base text-neutral-100 font-normal mt-8 sm:mt-10 max-w-xl leading-relaxed drop-shadow-sm">
-                            Integrated development, analytical characterization, and GMP manufacturing services for biologics, supporting innovators and biosimilar developers from early development through clinical manufacturing.
+                            Supporting biopharmaceutical companies with integrated biologics development, analytical characterization, GMP manufacturing, and clinical development solutions to accelerate the journey from molecule to market.
                         </p>
 
                         <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-start gap-4">
