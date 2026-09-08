@@ -750,6 +750,12 @@ export default function IntegratedTimeline() {
     positionRef.current = 'locked';
     activeStageRef.current = stage;
     setActiveStageId(stage);
+
+    // Cooldown prevents trailing momentum from the entry scroll from advancing stages
+    isAnimatingRef.current = true;
+    setTimeout(() => {
+      isAnimatingRef.current = false;
+    }, 600);
   };
 
   const unlockScroll = () => {
@@ -773,25 +779,19 @@ export default function IntegratedTimeline() {
       const navHeight = window.innerWidth >= 1024 ? 80 : 64;
       const rect = containerRef.current.getBoundingClientRect();
 
-      // Entering from ABOVE (Hero section): lock at Stage 1 when reaching flush position
+      // Entering from ABOVE (Hero section): ANY downward scroll reaching flush position locks at Stage 1
       if (positionRef.current === 'above') {
         if (scrollingDown) {
-          if (rect.top <= navHeight + 30 && rect.top >= navHeight - 120) {
+          if (rect.top <= navHeight + 30) {
             lockScroll(1);
-          } else if (rect.top < navHeight - 120) {
-            // User scrolled or jumped fast all the way past the timeline
-            positionRef.current = 'below';
           }
         }
       }
       // Entering from BELOW (Services, Modalities, Articles, FAQs): lock at Stage 5 when scrolling UP
       else if (positionRef.current === 'below') {
         if (!scrollingDown) {
-          if (rect.top >= navHeight - 30 && rect.top <= navHeight + 120) {
+          if (rect.top >= navHeight - 30) {
             lockScroll(5);
-          } else if (rect.top > navHeight + 120) {
-            // User jumped or dragged all the way up into the Hero
-            positionRef.current = 'above';
           }
         }
         // When scrollingDown while 'below': DO NOTHING! Allow smooth, uninterrupted downward scrolling!
@@ -812,73 +812,106 @@ export default function IntegratedTimeline() {
   // Window-wide Non-Passive Capture Wheel Interception (Rock-solid zero jiggle, zero fighting)
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (!isLockedRef.current) return;
+      // 1. When locked in stages 1..5:
+      if (isLockedRef.current) {
+        // Prevent native browser scroll 100% while locked (capture phase stops any child scroll)
+        e.preventDefault();
+        e.stopPropagation();
 
-      // Prevent native browser scroll 100% while locked (capture phase stops any child scroll)
-      e.preventDefault();
-      e.stopPropagation();
+        // Filter out micro-jitter (finger resting tremors)
+        if (Math.abs(e.deltaY) < 15) return;
 
-      // Filter out micro-jitter (finger resting tremors)
-      if (Math.abs(e.deltaY) < 15) return;
+        // Honor transition cooldown
+        if (isAnimatingRef.current) return;
 
-      // Honor transition cooldown
-      if (isAnimatingRef.current) return;
+        const scrollingDown = e.deltaY > 0;
+        const currentStage = activeStageRef.current;
+        const targetScrollY = getTargetScrollY();
+
+        if (scrollingDown) {
+          if (currentStage < 5) {
+            isAnimatingRef.current = true;
+            const nextStage = currentStage + 1;
+            activeStageRef.current = nextStage;
+            setActiveStageId(nextStage);
+            setTimeout(() => {
+              isAnimatingRef.current = false;
+            }, 450);
+          } else {
+            // Deliberate scroll down on Stage 5 -> Unlock and smoothly scroll to next section
+            isAnimatingRef.current = true;
+            unlockScroll();
+            positionRef.current = 'below';
+            unlockCooldownRef.current = true;
+
+            const nextSection = document.getElementById('an-integrated-partner');
+            if (nextSection) {
+              nextSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              window.scrollTo({ top: targetScrollY + window.innerHeight, behavior: 'smooth' });
+            }
+
+            setTimeout(() => {
+              isAnimatingRef.current = false;
+              unlockCooldownRef.current = false;
+            }, 1200);
+          }
+        } else {
+          // Scrolling UP
+          if (currentStage > 1) {
+            isAnimatingRef.current = true;
+            const prevStage = currentStage - 1;
+            activeStageRef.current = prevStage;
+            setActiveStageId(prevStage);
+            setTimeout(() => {
+              isAnimatingRef.current = false;
+            }, 450);
+          } else {
+            // Deliberate scroll up on Stage 1 -> Unlock and smoothly scroll to Hero
+            isAnimatingRef.current = true;
+            unlockScroll();
+            positionRef.current = 'above';
+            unlockCooldownRef.current = true;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            setTimeout(() => {
+              isAnimatingRef.current = false;
+              unlockCooldownRef.current = false;
+            }, 1200);
+          }
+        }
+        return;
+      }
+
+      // 2. When NOT locked: intercept fast scroll BEFORE the browser overshoots the timeline
+      if (unlockCooldownRef.current) return;
 
       const scrollingDown = e.deltaY > 0;
-      const currentStage = activeStageRef.current;
-      const targetScrollY = getTargetScrollY();
 
-      if (scrollingDown) {
-        if (currentStage < 5) {
-          isAnimatingRef.current = true;
-          const nextStage = currentStage + 1;
-          activeStageRef.current = nextStage;
-          setActiveStageId(nextStage);
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 450);
-        } else {
-          // Deliberate scroll down on Stage 5 -> Unlock and smoothly scroll to next section
-          isAnimatingRef.current = true;
-          unlockScroll();
-          positionRef.current = 'below';
-          unlockCooldownRef.current = true;
+      // Scrolling DOWN on HeroSection: intercept and lock at Stage 1 before it can scroll ahead
+      if (positionRef.current === 'above' && scrollingDown) {
+        const currentScrollY = window.scrollY;
+        const targetScrollY = getTargetScrollY();
 
-          const nextSection = document.getElementById('an-integrated-partner');
-          if (nextSection) {
-            nextSection.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            window.scrollTo({ top: targetScrollY + window.innerHeight, behavior: 'smooth' });
-          }
-
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-            unlockCooldownRef.current = false;
-          }, 1200);
+        if (currentScrollY + e.deltaY >= targetScrollY - 30) {
+          e.preventDefault();
+          e.stopPropagation();
+          lockScroll(1);
+          return;
         }
-      } else {
-        // Scrolling UP
-        if (currentStage > 1) {
-          isAnimatingRef.current = true;
-          const prevStage = currentStage - 1;
-          activeStageRef.current = prevStage;
-          setActiveStageId(prevStage);
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 450);
-        } else {
-          // Deliberate scroll up on Stage 1 -> Unlock and smoothly scroll to Hero
-          isAnimatingRef.current = true;
-          unlockScroll();
-          positionRef.current = 'above';
-          unlockCooldownRef.current = true;
+      }
 
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Scrolling UP from below: intercept and lock at Stage 5 before it can overshoot to Hero
+      if (positionRef.current === 'below' && !scrollingDown) {
+        const currentScrollY = window.scrollY;
+        const targetScrollY = getTargetScrollY();
 
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-            unlockCooldownRef.current = false;
-          }, 1200);
+        if (currentScrollY + e.deltaY <= targetScrollY + 30) {
+          e.preventDefault();
+          e.stopPropagation();
+          lockScroll(5);
+          return;
         }
       }
     };
@@ -960,11 +993,33 @@ export default function IntegratedTimeline() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!isLockedRef.current) return;
       const touchEndY = e.touches[0].clientY;
       const deltaY = touchStartY - touchEndY; // > 0 means swipe UP (scrolling DOWN)
 
       if (Math.abs(deltaY) < 30) return;
+
+      if (!isLockedRef.current) {
+        if (unlockCooldownRef.current) return;
+        const scrollingDown = deltaY > 0;
+        const currentScrollY = window.scrollY;
+        const targetScrollY = getTargetScrollY();
+
+        if (positionRef.current === 'above' && scrollingDown) {
+          if (currentScrollY + deltaY >= targetScrollY - 30) {
+            e.preventDefault();
+            lockScroll(1);
+            return;
+          }
+        } else if (positionRef.current === 'below' && !scrollingDown) {
+          if (currentScrollY + deltaY <= targetScrollY + 30) {
+            e.preventDefault();
+            lockScroll(5);
+            return;
+          }
+        }
+        return;
+      }
+
       if (isAnimatingRef.current) return;
 
       e.preventDefault();
