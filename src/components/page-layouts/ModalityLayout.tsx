@@ -25,8 +25,6 @@ interface ModalityLayoutProps {
   content: PageContent;
 }
 
-const capabilityIcons = [Dna, Atom, FlaskConical, Microscope];
-
 function getCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
   if (lower.includes('cell line') || lower.includes('expression')) return Dna;
@@ -45,17 +43,7 @@ function getCapabilityIcon(text: string, index: number) {
   return fallbacks[index % fallbacks.length];
 }
 
-function rotate<T>(arr: T[], by: number): T[] {
-  if (arr.length === 0) return arr;
-  const shift = by % arr.length;
-  return [...arr.slice(shift), ...arr.slice(0, shift)];
-}
-
 export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
-  // Deterministic per-slug variation so sibling modality pages don't look identical
-  const slugHash = page.slug.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
-  const capabilitySections = rotate(content.sections, slugHash);
-
   const [firstWord, ...restWords] = page.heading.split(' ');
 
   return (
@@ -155,49 +143,34 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
         </section>
       )}
 
-      {/* INTEGRATED APPROACH & DEEP DIVES */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-10 md:mb-14">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">Scientific</span> & Operational Focus
-              </h2>
-              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
-                Development, analytical, and manufacturing workflows tailored to ensure rapid clinical progression.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {capabilitySections.map((section, idx) => {
-              const Icon = capabilityIcons[idx % capabilityIcons.length];
-              return (
-                <Reveal key={idx} delay={idx * 0.05} className="h-full">
-                  <div className="group h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-                    {section.image && (
-                      <div className="relative aspect-[16/10] overflow-hidden">
-                        <img
-                          src={section.image}
-                          alt={section.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                    )}
-                    <div className="p-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <Icon className="w-6 h-6 text-brand-yellow flex-shrink-0 transition-colors duration-300" />
-                        <h3 className="text-lg font-semibold text-black group-hover:text-brand-blue transition-colors duration-300">{section.title}</h3>
-                      </div>
-                      <p className="text-sm text-neutral-600 leading-relaxed transition-colors duration-300">{section.text}</p>
-                    </div>
+      {/* FEATURED MODALITY FOCUS */}
+      {content.sections && content.sections.length > 0 && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
+          <div className="w-full max-w-5xl mx-auto">
+            <Reveal>
+              <div className="group glass-card rounded-[14px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200/80">
+                {content.sections[0].image && (
+                  <div className="relative aspect-[16/9] sm:aspect-[21/9] md:aspect-[16/8] w-full overflow-hidden bg-neutral-100">
+                    <img
+                      src={content.sections[0].image}
+                      alt={content.sections[0].title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
                   </div>
-                </Reveal>
-              );
-            })}
+                )}
+                <div className="p-8 sm:p-10 md:p-12 text-center max-w-3xl mx-auto">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-4 tracking-tight leading-snug group-hover:text-brand-blue transition-colors duration-300">
+                    {content.sections[0].title}
+                  </h3>
+                  <p className="text-base sm:text-lg text-neutral-600 leading-relaxed">
+                    {content.sections[0].text}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
 
 
