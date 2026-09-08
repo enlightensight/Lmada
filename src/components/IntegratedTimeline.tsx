@@ -699,225 +699,33 @@ const ANIMATION_COMPONENTS = [
 export default function IntegratedTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeStageId, setActiveStageId] = useState(1);
-  const [isLocked, setIsLocked] = useState(false);
 
-  const isLockedRef = useRef(false);
-  const activeStageRef = useRef(1);
-  const isAnimatingRef = useRef(false);
-  const unlockCooldownRef = useRef(false);
+  // Native Framer Motion scroll progress inside the pinned container (zero jiggle, 60fps)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
 
-  // Sync ref with state
-  useEffect(() => {
-    activeStageRef.current = activeStageId;
-  }, [activeStageId]);
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    let stage = 1;
+    if (latest < 0.20) stage = 1;
+    else if (latest < 0.40) stage = 2;
+    else if (latest < 0.60) stage = 3;
+    else if (latest < 0.80) stage = 4;
+    else stage = 5;
 
-  useEffect(() => {
-    isLockedRef.current = isLocked;
-  }, [isLocked]);
-
-  // Helper for navbar height & target scroll offset (exact document coordinate)
-  const getTargetScrollY = () => {
-    if (!containerRef.current || typeof window === 'undefined') return 0;
-    const navHeight = window.innerWidth >= 1024 ? 80 : 64;
-    const rect = containerRef.current.getBoundingClientRect();
-    return Math.round(window.scrollY + rect.top - navHeight);
-  };
-
-  // Scroll listener to detect entering the section and locking into place
-  useEffect(() => {
-    let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-
-    const handleScroll = () => {
-      if (unlockCooldownRef.current) return;
-      if (isLockedRef.current) return;
-
-      const currentScrollY = window.scrollY;
-      const scrollingDown = currentScrollY > lastScrollY;
-      const targetScrollY = getTargetScrollY();
-
-      // Scrolling DOWN into the section: lock at Stage 1 when reaching flush navbar position
-      if (scrollingDown && lastScrollY <= targetScrollY && currentScrollY >= targetScrollY - 30) {
-        window.scrollTo({ top: targetScrollY, behavior: 'instant' });
-        isLockedRef.current = true;
-        setIsLocked(true);
-        activeStageRef.current = 1;
-        setActiveStageId(1);
-      }
-      // Scrolling UP from below into the section: lock at Stage 5
-      else if (!scrollingDown && lastScrollY >= targetScrollY && currentScrollY <= targetScrollY + 30) {
-        window.scrollTo({ top: targetScrollY, behavior: 'instant' });
-        isLockedRef.current = true;
-        setIsLocked(true);
-        activeStageRef.current = 5;
-        setActiveStageId(5);
-      }
-
-      lastScrollY = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Window-wide Non-Passive Capture Wheel Interception (Rock-solid zero jiggle, zero fighting)
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (!isLockedRef.current) return;
-
-      // Prevent native browser scroll 100% while locked (capture phase stops any child scroll)
-      e.preventDefault();
-      e.stopPropagation();
-
-      // Filter out micro-jitter (finger resting tremors)
-      if (Math.abs(e.deltaY) < 16) return;
-
-      // Honor transition cooldown
-      if (isAnimatingRef.current) return;
-
-      const scrollingDown = e.deltaY > 0;
-      const currentStage = activeStageRef.current;
-      const targetScrollY = getTargetScrollY();
-
-      if (scrollingDown) {
-        if (currentStage < 5) {
-          isAnimatingRef.current = true;
-          const nextStage = currentStage + 1;
-          activeStageRef.current = nextStage;
-          setActiveStageId(nextStage);
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 500);
-        } else {
-          // Deliberate scroll down on Stage 5 -> Unlock and scroll to next section
-          isAnimatingRef.current = true;
-          isLockedRef.current = false;
-          setIsLocked(false);
-          unlockCooldownRef.current = true;
-
-          const nextScrollY = targetScrollY + (containerRef.current?.offsetHeight || window.innerHeight);
-          window.scrollTo({ top: nextScrollY, behavior: 'smooth' });
-
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-            unlockCooldownRef.current = false;
-          }, 1200);
-        }
-      } else {
-        // Scrolling UP
-        if (currentStage > 1) {
-          isAnimatingRef.current = true;
-          const prevStage = currentStage - 1;
-          activeStageRef.current = prevStage;
-          setActiveStageId(prevStage);
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 500);
-        } else {
-          // Deliberate scroll up on Stage 1 -> Unlock and scroll to Hero
-          isAnimatingRef.current = true;
-          isLockedRef.current = false;
-          setIsLocked(false);
-          unlockCooldownRef.current = true;
-
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-            unlockCooldownRef.current = false;
-          }, 1200);
-        }
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
-    return () => {
-      window.removeEventListener('wheel', handleWheel, { capture: true });
-    };
-  }, []);
-
-  // Touch Swipe Support for Tablets / Mobile Devices
-  useEffect(() => {
-    let touchStartY = 0;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isLockedRef.current) return;
-      const touchEndY = e.touches[0].clientY;
-      const deltaY = touchStartY - touchEndY; // > 0 means swipe UP (scrolling DOWN)
-
-      if (Math.abs(deltaY) < 30) return;
-      if (isAnimatingRef.current) return;
-
-      e.preventDefault();
-
-      const scrollingDown = deltaY > 0;
-      const currentStage = activeStageRef.current;
-      const targetScrollY = getTargetScrollY();
-
-      if (scrollingDown) {
-        if (currentStage < 5) {
-          isAnimatingRef.current = true;
-          const next = currentStage + 1;
-          activeStageRef.current = next;
-          setActiveStageId(next);
-          touchStartY = touchEndY;
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 500);
-        } else {
-          isAnimatingRef.current = true;
-          isLockedRef.current = false;
-          setIsLocked(false);
-          unlockCooldownRef.current = true;
-          window.scrollTo({ top: targetScrollY + (containerRef.current?.offsetHeight || window.innerHeight), behavior: 'smooth' });
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-            unlockCooldownRef.current = false;
-          }, 1200);
-        }
-      } else {
-        if (currentStage > 1) {
-          isAnimatingRef.current = true;
-          const prev = currentStage - 1;
-          activeStageRef.current = prev;
-          setActiveStageId(prev);
-          touchStartY = touchEndY;
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 500);
-        } else {
-          isAnimatingRef.current = true;
-          isLockedRef.current = false;
-          setIsLocked(false);
-          unlockCooldownRef.current = true;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-            unlockCooldownRef.current = false;
-          }, 1200);
-        }
-      }
-    };
-
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false, capture: true });
-
-    return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove, { capture: true });
-    };
-  }, []);
+    setActiveStageId(stage);
+  });
 
   const handleJumpToStage = (id: number) => {
-    activeStageRef.current = id;
     setActiveStageId(id);
-    const targetScrollY = getTargetScrollY();
-    window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-    isLockedRef.current = true;
-    setIsLocked(true);
+    if (containerRef.current) {
+      const container = containerRef.current;
+      const navHeight = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 80 : 64;
+      const scrollableDist = container.offsetHeight - (window.innerHeight - navHeight);
+      const targetScroll = container.offsetTop - navHeight + ((id - 1) / 4) * scrollableDist;
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    }
   };
 
   const handlePrev = () => {
@@ -937,8 +745,10 @@ export default function IntegratedTimeline() {
     <div
       ref={containerRef}
       id="integrated-timeline-container"
-      className="relative min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] w-full flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 py-3 sm:py-4 bg-white border-y border-neutral-100 overflow-hidden select-none"
+      className="relative h-[380vh] bg-white select-none"
     >
+      {/* Sticky Viewport-Locked Canvas - Pins directly below fixed navigation bar with zero jiggle */}
+      <div className="sticky top-[64px] lg:top-[80px] h-[calc(100vh-64px)] lg:h-[calc(100vh-80px)] w-full flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 py-2 sm:py-3 bg-white border-y border-neutral-100 overflow-hidden">
         
         {/* Background Molecule Pattern Grid */}
         <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
@@ -1186,6 +996,7 @@ export default function IntegratedTimeline() {
           </div>
 
         </div>
+      </div>
     </div>
   );
 }

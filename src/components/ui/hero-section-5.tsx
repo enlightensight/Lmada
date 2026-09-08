@@ -6,8 +6,8 @@ import { ChevronRight } from 'lucide-react'
 
 export function HeroSection() {
     return (
-        <section className="relative w-full px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-6 sm:pt-8 pb-4">
-            <div className="relative w-full max-w-[1700px] mx-auto rounded-[10px] overflow-hidden border border-neutral-200 shadow-sm min-h-[60vh] lg:min-h-[70vh] flex items-center bg-brand-navy">
+        <section className="relative w-full px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-4 min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] flex flex-col justify-center">
+            <div className="relative w-full max-w-[1700px] mx-auto rounded-[10px] overflow-hidden border border-neutral-200 shadow-sm min-h-[calc(100vh-96px)] lg:min-h-[calc(100vh-120px)] flex items-center bg-brand-navy">
                 {/* Background Video confined within container */}
                 <div className="absolute inset-0 z-0">
                     <video
