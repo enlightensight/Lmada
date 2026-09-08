@@ -950,15 +950,6 @@ export default function IntegratedTimeline() {
           
           {/* Section Header */}
           <div className="text-center mb-3 sm:mb-4">
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold tracking-wide uppercase mb-1.5"
-            >
-              <Zap className="w-3.5 h-3.5 text-brand-orange" />
-              <span>End-to-End CDMO Pipeline</span>
-            </motion.div>
-
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] font-semibold tracking-tight text-neutral-900 leading-tight max-w-4xl mx-auto">
               Integrated biologics development, manufacturing and clinical support
             </h2>
