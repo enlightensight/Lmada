@@ -42,8 +42,6 @@ const SLUG_ICONS: Record<string, typeof FlaskConical[]> = {
   microbiological: [Bug, Beaker, Shield],
 };
 
-const SLUG_ORDER = ['analytical-testing', 'physicochemical', 'bioassays', 'microbiological'];
-
 function getCharCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
   if (lower.includes('peptide mapping') || lower.includes('primary structure') || lower.includes('mass analysis')) return Dna;
@@ -73,7 +71,6 @@ function splitHeading(heading: string) {
 }
 
 export default function CharacterizationLayout({ page, content }: CharacterizationLayoutProps) {
-  const slugIndex = Math.max(0, SLUG_ORDER.indexOf(page.slug));
   const icons = SLUG_ICONS[page.slug] ?? SLUG_ICONS['analytical-testing'];
   const heroHeading = splitHeading(page.heading);
 
@@ -159,19 +156,19 @@ export default function CharacterizationLayout({ page, content }: Characterizati
         </section>
       )}
 
-      {/* CAPABILITY CARDS — lab icon squares, arrangement varies per slug */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-10 md:mb-14">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">Orthogonal</span> Methods for Comprehensive Characterization
-              </h2>
-            </div>
-          </Reveal>
+      {/* CAPABILITY CARDS */}
+      {page.slug === 'bioassays' ? (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
+          <div className="w-full max-w-[1700px] mx-auto">
+            <Reveal>
+              <div className="text-center mb-10 md:mb-14">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+                  <span className="text-black">Orthogonal</span> Methods for Comprehensive Characterization
+                </h2>
+              </div>
+            </Reveal>
 
-          {slugIndex === 2 ? (
-            /* Bioassays: Technical Focus Cards matching Image 3 */
+            {/* Bioassays: Technical Focus Cards */}
             <div className="flex flex-col gap-10 md:gap-14">
               {content.sections.map((section, idx) => {
                 const Icon = icons[idx % icons.length];
@@ -243,88 +240,38 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                 );
               })}
             </div>
-          ) : slugIndex === 1 ? (
-            /* Physicochemical: horizontal lab-bench rows */
-            <div className="flex flex-col gap-6">
-              {content.sections.map((section, idx) => {
-                const Icon = icons[idx % icons.length];
-                return (
-                  <Reveal key={idx} delay={idx * 0.05}>
-                    <div className="group glass-card rounded-[10px] shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden grid grid-cols-1 md:grid-cols-12 min-h-[140px] md:h-36">
-                      <div className="md:col-span-4 relative aspect-[16/10] md:aspect-auto md:h-full overflow-hidden bg-neutral-100">
-                        <img
-                          src={section.image}
-                          alt={section.title}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="md:col-span-8 p-5 md:p-6 lg:p-7 flex items-center gap-5">
-                        <div className="w-14 h-14 bg-brand-blue rounded-[10px] border-2 border-brand-yellow flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-7 h-7 text-white" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-lg font-semibold text-black mb-1.5 leading-snug">{section.title}</h3>
-                          <p className="text-sm text-neutral-600 leading-relaxed line-clamp-2">{section.text}</p>
-                        </div>
-                      </div>
+          </div>
+        </section>
+      ) : (
+        /* Analytical Testing, Physicochemical, Microbiological: Centered big first image & below content */
+        content.sections && content.sections.length > 0 && (
+          <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
+            <div className="w-full max-w-5xl mx-auto">
+              <Reveal>
+                <div className="group glass-card rounded-[14px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200/80">
+                  {content.sections[0].image && (
+                    <div className="relative aspect-[16/9] sm:aspect-[21/9] md:aspect-[16/8] w-full overflow-hidden bg-neutral-100">
+                      <img
+                        src={content.sections[0].image}
+                        alt={content.sections[0].title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
                     </div>
-                  </Reveal>
-                );
-              })}
+                  )}
+                  <div className="p-8 sm:p-10 md:p-12 text-center max-w-3xl mx-auto">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-4 tracking-tight leading-snug group-hover:text-brand-blue transition-colors duration-300">
+                      {content.sections[0].title}
+                    </h3>
+                    <p className="text-base sm:text-lg text-neutral-600 leading-relaxed">
+                      {content.sections[0].text}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
             </div>
-          ) : (
-            <div className={`grid grid-cols-1 md:grid-cols-2 ${slugIndex === 3 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'} gap-6`}>
-              {content.sections.map((section, idx) => {
-                const Icon = icons[idx % icons.length];
-                if (slugIndex === 3) {
-                  /* Microbiological: staggered two-column cards with offset rhythm */
-                  return (
-                    <Reveal key={idx} delay={idx * 0.05} className={idx % 2 === 1 ? 'lg:mt-12' : ''}>
-                      <div className="group h-full glass-card rounded-[10px] shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
-                        <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-                          <img
-                            src={section.image}
-                            alt={section.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                          <div className="absolute bottom-4 left-4 w-14 h-14 bg-brand-yellow rounded-[10px] border-2 border-brand-blue flex items-center justify-center">
-                            <Icon className="w-7 h-7 text-brand-blue" />
-                          </div>
-                        </div>
-                        <div className="p-6 md:p-8">
-                          <h3 className="text-lg font-semibold text-black mb-2">{section.title}</h3>
-                          <p className="text-sm text-neutral-600 leading-relaxed">{section.text}</p>
-                        </div>
-                      </div>
-                    </Reveal>
-                  );
-                }
-                /* Analytical Testing (default): image top with centered overlapping icon square */
-                return (
-                  <Reveal key={idx} delay={idx * 0.05}>
-                    <div className="group h-full glass-card rounded-[10px] shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
-                      <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
-                        <img
-                          src={section.image}
-                          alt={section.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="p-6 md:p-8 pt-0 flex-1 flex flex-col items-center text-center">
-                        <div className="w-16 h-16 -mt-8 mb-5 bg-brand-blue rounded-[10px] border-2 border-brand-yellow flex items-center justify-center relative z-10">
-                          <Icon className="w-8 h-8 text-white" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-black mb-2">{section.title}</h3>
-                        <p className="text-sm text-neutral-600 leading-relaxed">{section.text}</p>
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
+          </section>
+        )
+      )}
 
 
 
