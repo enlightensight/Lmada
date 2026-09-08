@@ -1,10 +1,26 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Dna, Microscope } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Dna,
+  Microscope,
+  Sparkles,
+  ArrowRight,
+  Activity,
+  CheckCircle2,
+  Layers,
+  FlaskConical,
+  ShieldCheck,
+  Zap,
+  Gauge,
+  Droplets,
+  Building2,
+  FileCheck,
+} from 'lucide-react';
 
+/* --- CUSTOM SVG ICONS FOR ROADMAP NODES --- */
 function BioreactorIcon({ className = "w-7 h-7 text-white" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -46,83 +62,679 @@ function ClinicalIcon({ className = "w-7 h-7 text-white" }: { className?: string
   );
 }
 
-const TIMELINE_STEPS = [
+/* --- CONTINUUM STAGES DATA --- */
+const CONTINUUM_STAGES = [
   {
     id: 1,
+    stepNum: '01',
     title: 'Cell Line Development',
+    shortName: '1. Cell Line',
     position: 'top' as const,
     color: '#00aeef',
+    secondaryColor: '#f58634',
     bgClass: 'bg-[#00aeef]',
     bubbleBg: 'bg-[#e7f5fd]',
     bubbleBorder: 'border-[#c4e5f7]',
-    arrowColor: 'border-t-[#c4e5f7]',
-    hoverBorder: 'hover:border-[#00aeef]',
+    tag: 'Stage 01 • Molecular Engineering',
+    headline: 'High-Producing CHO Cell Lines & Monoclonality Assurance',
+    description:
+      'Engineered host cell lines utilizing proprietary expression vectors and automated single-cell deposition to deliver robust, high-titer production clones with guaranteed genetic stability.',
+    deliverables: [
+      'CHO-K1 & CHO-S expression platforms',
+      'Image-verified single-cell cloning (>99.9%)',
+      '60+ generation stability & cGMP RCB/MCB banking',
+    ],
+    metric: 'Titer: 4.8 – 8.5 g/L',
+    metricLabel: 'Fed-Batch Yield',
     link: '/services/cell-line',
     icon: Dna,
   },
   {
     id: 2,
+    stepNum: '02',
     title: 'Upstream & Downstream Process Development',
+    shortName: '2. Process Dev',
     position: 'bottom' as const,
     color: '#f58634',
+    secondaryColor: '#00aeef',
     bgClass: 'bg-[#f58634]',
     bubbleBg: 'bg-[#fff4e8]',
     bubbleBorder: 'border-[#fedcb8]',
-    arrowColor: 'border-b-[#fedcb8]',
-    hoverBorder: 'hover:border-[#f58634]',
+    tag: 'Stage 02 • Bioprocess Scale-Up',
+    headline: 'Scalable Upstream Bioreactors & High-Recovery Downstream Purification',
+    description:
+      'Design of Experiments (DoE) driven media optimization, automated bioreactor parameter control, and multi-stage chromatography purification trains designed for seamless tech transfer.',
+    deliverables: [
+      'Single-use bioreactors from 3L benchtop to 2,000L',
+      'Multi-column chromatography (Protein A, IEX, HIC)',
+      'Viral clearance & Tangential Flow Filtration (TFF)',
+    ],
+    metric: 'Recovery: >88.5%',
+    metricLabel: 'Purification Yield',
     link: '/services/process',
     icon: BioreactorIcon,
   },
   {
     id: 3,
+    stepNum: '03',
     title: 'Analytical Characterization & Testing',
+    shortName: '3. Analytical',
     position: 'top' as const,
     color: '#00aeef',
+    secondaryColor: '#f58634',
     bgClass: 'bg-[#00aeef]',
     bubbleBg: 'bg-[#e7f5fd]',
     bubbleBorder: 'border-[#c4e5f7]',
-    arrowColor: 'border-t-[#c4e5f7]',
-    hoverBorder: 'hover:border-[#00aeef]',
+    tag: 'Stage 03 • Quality & Assays',
+    headline: 'Comprehensive Physicochemical, Structural & In Vitro Bioassays',
+    description:
+      'Orthogonal analytical suites providing high-resolution mass spectrometry, purity profiling, glycan mapping, and cGMP release testing to ensure product critical quality attributes (CQAs).',
+    deliverables: [
+      'SEC-HPLC, CEX, RP-HPLC & Capillary Electrophoresis',
+      'Intact Mass & Peptide Mapping by LC-MS/MS',
+      'Cell-based potency bioassays & SPR/BLI binding kinetics',
+    ],
+    metric: 'Purity: >98.5%',
+    metricLabel: 'Monomer SEC-HPLC',
     link: '/services/analytical',
     icon: Microscope,
   },
   {
     id: 4,
+    stepNum: '04',
     title: 'Drug Substance & Drug Product Manufacturing',
+    shortName: '4. cGMP Mfg',
     position: 'bottom' as const,
     color: '#f58634',
+    secondaryColor: '#00aeef',
     bgClass: 'bg-[#f58634]',
     bubbleBg: 'bg-[#fff4e8]',
     bubbleBorder: 'border-[#fedcb8]',
-    arrowColor: 'border-b-[#fedcb8]',
-    hoverBorder: 'hover:border-[#f58634]',
+    tag: 'Stage 04 • Clinical Production',
+    headline: 'cGMP Bulk Drug Substance & Automated Aseptic Fill-Finish',
+    description:
+      'State-of-the-art cleanroom suites equipped with single-use bioreactor trains and automated vial filling/stoppering systems supporting Phase I–III clinical supply and commercial readiness.',
+    deliverables: [
+      'Single-use 200L, 500L & 2,000L cGMP production lines',
+      'Automated barrier isolator filling (liquid & lyophilized)',
+      'Comprehensive in-process controls & QP batch release',
+    ],
+    metric: 'Capacity: 10,000+',
+    metricLabel: 'Vials / cGMP Batch',
     link: '/manufacturing/drug-substance',
     icon: ManufacturingVialIcon,
   },
   {
     id: 5,
-    title: 'Clinical Development',
+    stepNum: '05',
+    title: 'Clinical Development & Supply',
+    shortName: '5. Clinical Supply',
     position: 'top' as const,
     color: '#00aeef',
+    secondaryColor: '#f58634',
     bgClass: 'bg-[#00aeef]',
     bubbleBg: 'bg-[#e7f5fd]',
     bubbleBorder: 'border-[#c4e5f7]',
-    arrowColor: 'border-t-[#c4e5f7]',
-    hoverBorder: 'hover:border-[#00aeef]',
+    tag: 'Stage 05 • Regulatory & Global Supply',
+    headline: 'End-to-End Regulatory Dossiers, Stability & Cold-Chain Logistics',
+    description:
+      'ICH-compliant stability programs, CMC technical dossier preparation for IND/CTA/BLA filings, and secure temperature-controlled global distribution for clinical trial sites.',
+    deliverables: [
+      'ICH real-time & accelerated stability programs',
+      'CMC dossier writing & regulatory audit support',
+      'Ultra-low -80°C & 2–8°C global cold chain tracking',
+    ],
+    metric: 'Compliance: 100%',
+    metricLabel: 'IND/BLA Ready',
     link: '/contact',
     icon: ClinicalIcon,
   },
 ];
 
-export default function IntegratedTimeline() {
+/* --- ANIMATED SVG ENGINE COMPONENTS FOR EACH STAGE --- */
+
+function Stage1Animation() {
   return (
-    <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-white border-y border-neutral-100 overflow-hidden">
-      {/* Subtle Background Molecule grid */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#00aeef_1px,transparent_1px)] [background-size:24px_24px]" />
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+      <defs>
+        <radialGradient id="cellGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#00aeef" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="dnaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#00aeef" />
+          <stop offset="50%" stopColor="#f58634" />
+          <stop offset="100%" stopColor="#00aeef" />
+        </linearGradient>
+      </defs>
+
+      {/* Outer Petri dish / Reticle field */}
+      <circle cx="230" cy="130" r="115" fill="url(#cellGlow)" stroke="#00aeef" strokeWidth="2.5" strokeDasharray="8 4" opacity="0.6" />
+      <circle cx="230" cy="130" r="100" fill="#f8fcff" stroke="#00aeef" strokeWidth="2" />
+
+      {/* Target Reticle Crosshairs */}
+      <line x1="230" y1="18" x2="230" y2="45" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
+      <line x1="230" y1="215" x2="230" y2="242" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
+      <line x1="118" y1="130" x2="145" y2="130" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
+      <line x1="315" y1="130" x2="342" y2="130" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
+
+      {/* High-Performance Clonal Cell in Center */}
+      <motion.g
+        animate={{ scale: [1, 1.05, 1], rotate: [0, 5, -5, 0] }}
+        transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+      >
+        <circle cx="230" cy="130" r="48" fill="#e0f4fd" stroke="#00aeef" strokeWidth="3" />
+        <circle cx="230" cy="130" r="34" fill="#00aeef" fillOpacity="0.15" stroke="#00aeef" strokeWidth="1.5" strokeDasharray="4 2" />
+        <circle cx="230" cy="130" r="16" fill="#00aeef" fillOpacity="0.3" />
+      </motion.g>
+
+      {/* Rotating DNA Double Helix strands */}
+      <g transform="translate(190, 85)">
+        {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+          <motion.g
+            key={i}
+            animate={{ y: [0, -4, 0], opacity: [0.7, 1, 0.7] }}
+            transition={{ repeat: Infinity, duration: 2, delay: i * 0.15 }}
+          >
+            <circle cx={i * 13} cy={Math.sin(i * 0.9) * 22 + 45} r="4" fill="#00aeef" />
+            <circle cx={i * 13} cy={-Math.sin(i * 0.9) * 22 + 45} r="4" fill="#f58634" />
+            <line
+              x1={i * 13}
+              y1={Math.sin(i * 0.9) * 22 + 45}
+              x2={i * 13}
+              y2={-Math.sin(i * 0.9) * 22 + 45}
+              stroke="#0f2231"
+              strokeWidth="1.5"
+              strokeOpacity="0.35"
+            />
+          </motion.g>
+        ))}
+      </g>
+
+      {/* Gene Delivery Vector Particles */}
+      <motion.circle
+        cx="160"
+        cy="90"
+        r="6"
+        fill="#f58634"
+        animate={{ cx: [150, 215], cy: [75, 115], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.5] }}
+        transition={{ repeat: Infinity, duration: 2.5, ease: 'easeIn' }}
+      />
+      <motion.circle
+        cx="295"
+        cy="170"
+        r="6"
+        fill="#f58634"
+        animate={{ cx: [305, 245], cy: [180, 145], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.5] }}
+        transition={{ repeat: Infinity, duration: 2.8, delay: 0.8, ease: 'easeIn' }}
+      />
+
+      {/* Verified Monoclonality Stamp Badge */}
+      <motion.g
+        transform="translate(305, 135)"
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ repeat: Infinity, duration: 2.5 }}
+      >
+        <circle cx="20" cy="20" r="22" fill="#00aeef" />
+        <path d="M 12 20 L 18 26 L 28 14" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+      </motion.g>
+    </svg>
+  );
+}
+
+function Stage2Animation() {
+  return (
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+      <defs>
+        <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#00aeef" stopOpacity="0.95" />
+        </linearGradient>
+        <linearGradient id="resinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#00aeef" />
+          <stop offset="50%" stopColor="#f58634" />
+          <stop offset="100%" stopColor="#00aeef" />
+        </linearGradient>
+      </defs>
+
+      {/* UPSTREAM BIOREACTOR (Left Side) */}
+      <g transform="translate(60, 25)">
+        {/* Motor Top */}
+        <rect x="36" y="0" width="22" height="16" rx="3" fill="#00aeef" />
+        <rect x="18" y="16" width="58" height="10" rx="3" fill="#0f2231" />
+
+        {/* Bioreactor Vessel Shell */}
+        <path
+          d="M 20 26 H 74 V 135 C 74 150 63 162 47 162 C 31 162 20 150 20 135 Z"
+          fill="#f8fcff"
+          stroke="#00aeef"
+          strokeWidth="3"
+        />
+
+        {/* Dynamic Bubbling Liquid */}
+        <motion.path
+          d="M 22 55 Q 35 50 47 55 T 72 55 V 135 C 72 148 62 159 47 159 C 32 159 22 148 22 135 Z"
+          fill="url(#liquidGrad)"
+          animate={{
+            d: [
+              "M 22 55 Q 35 50 47 55 T 72 55 V 135 C 72 148 62 159 47 159 C 32 159 22 148 22 135 Z",
+              "M 22 52 Q 35 57 47 52 T 72 52 V 135 C 72 148 62 159 47 159 C 32 159 22 148 22 135 Z",
+              "M 22 55 Q 35 50 47 55 T 72 55 V 135 C 72 148 62 159 47 159 C 32 159 22 148 22 135 Z",
+            ],
+          }}
+          transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+        />
+
+        {/* Agitator Impeller Shaft & Blades */}
+        <line x1="47" y1="26" x2="47" y2="135" stroke="#0f2231" strokeWidth="3" />
+        <motion.g
+          animate={{ scaleX: [1, -1, 1] }}
+          transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
+          style={{ transformOrigin: '47px 115px' }}
+        >
+          <path d="M 28 115 Q 47 110 66 115" stroke="#f58634" strokeWidth="4" strokeLinecap="round" />
+          <path d="M 32 90 Q 47 85 62 90" stroke="#f58634" strokeWidth="3.5" strokeLinecap="round" />
+        </motion.g>
+
+        {/* Rising Aeration Bubbles */}
+        {[
+          { cx: 34, delay: 0 },
+          { cx: 58, delay: 0.5 },
+          { cx: 42, delay: 1.0 },
+          { cx: 52, delay: 1.5 },
+        ].map((b, i) => (
+          <motion.circle
+            key={i}
+            cx={b.cx}
+            cy="140"
+            r="3"
+            fill="#ffffff"
+            animate={{ cy: [140, 58], opacity: [0.2, 0.9, 0] }}
+            transition={{ repeat: Infinity, duration: 1.8, delay: b.delay, ease: 'easeOut' }}
+          />
+        ))}
+      </g>
+
+      {/* CONNECTING TRANSFER PIPELINE */}
+      <g>
+        <path d="M 134 110 H 220" stroke="#00aeef" strokeWidth="4" strokeDasharray="6 4" />
+        <motion.circle
+          cx="134"
+          cy="110"
+          r="5"
+          fill="#f58634"
+          animate={{ cx: [134, 220] }}
+          transition={{ repeat: Infinity, duration: 1.6, ease: 'linear' }}
+        />
+        {/* Flow Direction Arrow */}
+        <polygon points="220,105 230,110 220,115" fill="#00aeef" />
+      </g>
+
+      {/* DOWNSTREAM CHROMATOGRAPHY PURIFICATION COLUMN (Right Side) */}
+      <g transform="translate(235, 25)">
+        {/* Column Inlets & Flanges */}
+        <rect x="25" y="10" width="40" height="12" rx="2" fill="#0f2231" />
+        <rect x="25" y="158" width="40" height="12" rx="2" fill="#0f2231" />
+
+        {/* Column Cylinder */}
+        <rect x="30" y="22" width="30" height="136" rx="4" fill="#ffffff" stroke="#00aeef" strokeWidth="3" />
+
+        {/* Resin Packed Bed with Flow Waves */}
+        <rect x="33" y="45" width="24" height="90" fill="url(#resinGrad)" opacity="0.85" rx="2" />
+
+        {/* Purified Elution Droplets Exiting Bottom */}
+        <motion.circle
+          cx="45"
+          cy="175"
+          r="4.5"
+          fill="#00aeef"
+          animate={{ cy: [175, 205], opacity: [1, 0], scale: [1, 0.6] }}
+          transition={{ repeat: Infinity, duration: 1.4, ease: 'easeIn' }}
+        />
+        <motion.circle
+          cx="45"
+          cy="175"
+          r="4.5"
+          fill="#f58634"
+          animate={{ cy: [175, 205], opacity: [1, 0], scale: [1, 0.6] }}
+          transition={{ repeat: Infinity, duration: 1.4, delay: 0.7, ease: 'easeIn' }}
+        />
+
+        {/* Collection Erlenmeyer Flask */}
+        <path d="M 35 210 L 25 235 H 65 L 55 210 Z" fill="#e0f4fd" stroke="#00aeef" strokeWidth="2" />
+        <rect x="41" y="202" width="8" height="8" fill="#00aeef" />
+      </g>
+
+      {/* High Recovery Yield Badge */}
+      <motion.g
+        transform="translate(340, 110)"
+        animate={{ y: [-3, 3, -3] }}
+        transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+      >
+        <rect x="0" y="0" width="105" height="42" rx="8" fill="#ffffff" stroke="#f58634" strokeWidth="2" />
+        <text x="12" y="18" fill="#f58634" fontSize="10" fontWeight="bold" fontFamily="sans-serif">DO CONTROL</text>
+        <text x="12" y="32" fill="#0f2231" fontSize="11" fontWeight="bold" fontFamily="sans-serif">40.0% ± 2%</text>
+      </motion.g>
+    </svg>
+  );
+}
+
+function Stage3Animation() {
+  return (
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+      <defs>
+        <linearGradient id="specGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#00aeef" />
+          <stop offset="60%" stopColor="#f58634" />
+          <stop offset="100%" stopColor="#00aeef" />
+        </linearGradient>
+      </defs>
+
+      {/* Chromatography Screen Chassis */}
+      <rect x="40" y="25" width="380" height="210" rx="12" fill="#ffffff" stroke="#00aeef" strokeWidth="2.5" />
+      <rect x="52" y="37" width="356" height="145" rx="8" fill="#0a1926" />
+
+      {/* Grid Lines on Spectrum Display */}
+      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        <line
+          key={`v-${i}`}
+          x1={70 + i * 50}
+          y1="45"
+          x2={70 + i * 50}
+          y2="175"
+          stroke="#00aeef"
+          strokeWidth="1"
+          strokeOpacity="0.15"
+        />
+      ))}
+      {[0, 1, 2, 3].map((i) => (
+        <line
+          key={`h-${i}`}
+          x1="60"
+          y1={55 + i * 35}
+          x2="395"
+          y2={55 + i * 35}
+          stroke="#00aeef"
+          strokeWidth="1"
+          strokeOpacity="0.15"
+        />
+      ))}
+
+      {/* SEC-HPLC Analytical Peak Wave Trace */}
+      <motion.path
+        d="M 60 160 L 130 160 Q 150 160 165 145 L 185 85 Q 195 52 205 85 L 225 145 Q 235 160 250 160 L 270 160 Q 280 160 290 135 L 305 110 Q 312 95 320 110 L 335 145 Q 345 160 360 160 L 395 160"
+        fill="none"
+        stroke="url(#specGrad)"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+      />
+
+      {/* Dynamic Laser Scanning Vertical Line */}
+      <motion.line
+        x1="60"
+        y1="45"
+        x2="60"
+        y2="175"
+        stroke="#f58634"
+        strokeWidth="2.5"
+        strokeDasharray="4 2"
+        animate={{ x1: [60, 395, 60], x2: [60, 395, 60] }}
+        transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
+      />
+
+      {/* Monomer Peak Callout */}
+      <g transform="translate(160, 38)">
+        <rect x="0" y="0" width="85" height="22" rx="4" fill="#00aeef" />
+        <text x="8" y="15" fill="#ffffff" fontSize="10" fontWeight="bold" fontFamily="sans-serif">
+          Main Peak: 98.7%
+        </text>
+      </g>
+
+      {/* Bottom Telemetry Bar */}
+      <g transform="translate(60, 195)">
+        <circle cx="10" cy="18" r="6" fill="#00aeef" />
+        <text x="24" y="22" fill="#0f2231" fontSize="12" fontWeight="bold" fontFamily="sans-serif">
+          SEC-HPLC / Mass Spec Verified
+        </text>
+
+        <circle cx="230" cy="18" r="6" fill="#f58634" />
+        <text x="244" y="22" fill="#0f2231" fontSize="12" fontWeight="bold" fontFamily="sans-serif">
+          HCP &lt; 10 ppm
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+function Stage4Animation() {
+  return (
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+      <defs>
+        <linearGradient id="vialLiquid" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#bae6fd" />
+          <stop offset="100%" stopColor="#00aeef" />
+        </linearGradient>
+      </defs>
+
+      {/* Cleanroom Wall Frame */}
+      <rect x="30" y="25" width="400" height="210" rx="12" fill="#ffffff" stroke="#f58634" strokeWidth="2.5" />
+
+      {/* HEPA Filter Laminar Airflow Streamers */}
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+        <motion.line
+          key={i}
+          x1={60 + i * 45}
+          y1="35"
+          x2={60 + i * 45}
+          y2="75"
+          stroke="#00aeef"
+          strokeWidth="2"
+          strokeDasharray="4 4"
+          animate={{ y1: [35, 45, 35], y2: [75, 85, 75], opacity: [0.3, 0.8, 0.3] }}
+          transition={{ repeat: Infinity, duration: 2, delay: i * 0.2 }}
+        />
+      ))}
+
+      {/* Conveyor Belt Track */}
+      <rect x="50" y="165" width="360" height="20" rx="4" fill="#0f2231" />
+      <line x1="50" y1="175" x2="410" y2="175" stroke="#f58634" strokeWidth="2" strokeDasharray="12 6" />
+
+      {/* Moving Sterile Glass Vials */}
+      {[
+        { x: 90, filled: true },
+        { x: 165, filled: true },
+        { x: 240, filling: true },
+        { x: 315, filled: false },
+      ].map((v, i) => (
+        <g key={i} transform={`translate(${v.x}, 105)`}>
+          {/* Glass Vial Body */}
+          <rect x="0" y="15" width="34" height="48" rx="4" fill="#f0f9ff" stroke="#00aeef" strokeWidth="2" />
+          {/* Vial Neck & Stopper */}
+          <rect x="8" y="5" width="18" height="10" rx="1" fill="#0f2231" />
+          <rect x="4" y="0" width="26" height="5" rx="2" fill="#f58634" />
+
+          {/* Liquid Level */}
+          {v.filled && (
+            <rect x="3" y="32" width="28" height="28" rx="2" fill="url(#vialLiquid)" opacity="0.9" />
+          )}
+
+          {v.filling && (
+            <motion.rect
+              x="3"
+              y="32"
+              width="28"
+              rx="2"
+              fill="url(#vialLiquid)"
+              initial={{ height: 5, y: 55 }}
+              animate={{ height: [5, 28, 5], y: [55, 32, 55] }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
+            />
+          )}
+        </g>
+      ))}
+
+      {/* Automated Filling Needle Dispenser */}
+      <g transform="translate(247, 45)">
+        <rect x="4" y="0" width="12" height="35" rx="2" fill="#0f2231" />
+        <line x1="10" y1="35" x2="10" y2="65" stroke="#00aeef" strokeWidth="3" strokeLinecap="round" />
+
+        {/* Liquid Droplet Dispensing into Vial */}
+        <motion.circle
+          cx="10"
+          cy="68"
+          r="3.5"
+          fill="#00aeef"
+          animate={{ cy: [68, 95], opacity: [1, 0], scale: [1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 0.8, ease: 'easeIn' }}
+        />
+      </g>
+
+      {/* cGMP ISO 5 Cleanroom Class Badge */}
+      <g transform="translate(60, 198)">
+        <rect x="0" y="0" width="130" height="24" rx="4" fill="#f58634" />
+        <text x="12" y="16" fill="#ffffff" fontSize="11" fontWeight="bold" fontFamily="sans-serif">
+          GRADE A / ISO 5 cGMP
+        </text>
+      </g>
+
+      <g transform="translate(260, 198)">
+        <text x="0" y="16" fill="#0f2231" fontSize="12" fontWeight="bold" fontFamily="sans-serif">
+          High-Speed Aseptic Stoppering
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+function Stage5Animation() {
+  return (
+    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[250px]" fill="none">
+      <defs>
+        <radialGradient id="globeGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#00aeef" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* Global Distribution Map Ring */}
+      <circle cx="230" cy="130" r="105" fill="url(#globeGlow)" stroke="#00aeef" strokeWidth="2" strokeDasharray="6 4" />
+      <circle cx="230" cy="130" r="80" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.4" />
+
+      {/* Latitude / Longitude Arcs */}
+      <ellipse cx="230" cy="130" rx="80" ry="35" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.35" />
+      <ellipse cx="230" cy="130" rx="35" ry="80" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.35" />
+
+      {/* Central Certified Release Shield */}
+      <motion.g
+        transform="translate(195, 80)"
+        animate={{ scale: [1, 1.06, 1] }}
+        transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+      >
+        <path
+          d="M 35 0 L 70 15 V 55 C 70 80 35 100 35 100 C 35 100 0 80 0 55 V 15 Z"
+          fill="#00aeef"
+          stroke="#ffffff"
+          strokeWidth="3"
+        />
+        {/* Glowing Checkmark */}
+        <path
+          d="M 22 48 L 32 58 L 50 36"
+          stroke="#ffffff"
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </motion.g>
+
+      {/* Global Clinical Site Trajectory Arcs */}
+      {[
+        { x: 90, y: 80, label: 'North America' },
+        { x: 370, y: 75, label: 'Europe' },
+        { x: 360, y: 190, label: 'Asia-Pacific' },
+      ].map((site, i) => (
+        <g key={i}>
+          {/* Arc to Center */}
+          <motion.path
+            d={`M 230 130 Q ${(230 + site.x) / 2} ${site.y - 20} ${site.x} ${site.y}`}
+            stroke="#f58634"
+            strokeWidth="2"
+            strokeDasharray="4 4"
+            animate={{ strokeDashoffset: [0, -16] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
+          />
+
+          {/* Pulse Pin */}
+          <circle cx={site.x} cy={site.y} r="8" fill="#f58634" fillOpacity="0.3" />
+          <circle cx={site.x} cy={site.y} r="4.5" fill="#f58634" />
+          <text x={site.x - 25} y={site.y + 18} fill="#0f2231" fontSize="10" fontWeight="bold" fontFamily="sans-serif">
+            {site.label}
+          </text>
+        </g>
+      ))}
+
+      {/* Cold Chain Status Floating Pill */}
+      <g transform="translate(60, 195)">
+        <rect x="0" y="0" width="135" height="26" rx="6" fill="#ffffff" stroke="#00aeef" strokeWidth="1.5" />
+        <circle cx="14" cy="13" r="5" fill="#00aeef" />
+        <text x="26" y="17" fill="#0f2231" fontSize="11" fontWeight="bold" fontFamily="sans-serif">
+          -80°C Cryo Monitored
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+const ANIMATION_COMPONENTS = [
+  Stage1Animation,
+  Stage2Animation,
+  Stage3Animation,
+  Stage4Animation,
+  Stage5Animation,
+];
+
+/* --- MAIN INTEGRATED TIMELINE ROADMAP COMPONENT --- */
+
+export default function IntegratedTimeline() {
+  const [activeStageId, setActiveStageId] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-cycle stages every 4.5 seconds when not hovered
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
+  const currentStage = CONTINUUM_STAGES[activeStageId - 1];
+  const ActiveVisual = ANIMATION_COMPONENTS[activeStageId - 1];
+
+  return (
+    <section
+      className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-white border-y border-neutral-100 overflow-hidden select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Background Molecule Pattern Grid */}
+      <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
 
       <div className="relative w-full max-w-[1700px] mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-14 md:mb-20">
+        <div className="text-center mb-12 md:mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs sm:text-sm font-bold tracking-wide uppercase mb-4"
+          >
+            <Zap className="w-4 h-4 text-brand-orange" />
+            <span>End-to-End CDMO Pipeline</span>
+          </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 15 }}
@@ -138,186 +750,291 @@ export default function IntegratedTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4"
+            className="text-base sm:text-lg text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4"
           >
             An end-to-end continuum connecting cell line engineering, process scale-up, analytical rigor, and cGMP supply to accelerate clinical milestones.
           </motion.p>
         </div>
 
         {/* ================= DESKTOP / TABLET HORIZONTAL ROADMAP ================= */}
-        <div className="hidden md:block relative max-w-6xl mx-auto py-6">
-          
-          {/* TOP ROW: Bubbles for Steps 1, 3, 5 */}
-          <div className="grid grid-cols-5 gap-4 lg:gap-6 items-end mb-6">
-            {TIMELINE_STEPS.map((step, idx) => {
+        <div className="hidden md:block relative max-w-6xl mx-auto mb-12">
+          {/* TOP ROW: Speech Bubbles for Odd Steps 1, 3, 5 */}
+          <div className="grid grid-cols-5 gap-4 lg:gap-6 items-end mb-4">
+            {CONTINUUM_STAGES.map((step) => {
               if (step.position !== 'top') {
-                return <div key={step.id} className="h-24" aria-hidden="true" />;
+                return <div key={step.id} className="h-28" aria-hidden="true" />;
               }
 
+              const isActive = activeStageId === step.id;
+
               return (
-                <motion.div
+                <div
                   key={step.id}
-                  initial={{ opacity: 0, y: -20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.12 }}
+                  onClick={() => setActiveStageId(step.id)}
                   className="flex flex-col items-center group cursor-pointer"
                 >
-                  <Link href={step.link} className="w-full">
-                    <div
-                      className={`relative w-full ${step.bubbleBg} border ${step.bubbleBorder} ${step.hoverBorder} rounded-[14px] p-4 lg:p-5 shadow-xs hover:shadow-lg transition-all duration-300 min-h-[86px] flex items-center justify-center text-center`}
-                    >
-                      <span className="text-xs lg:text-sm font-semibold text-neutral-900 leading-snug group-hover:text-black">
-                        {step.title}
-                      </span>
+                  <div
+                    className={`relative w-full ${step.bubbleBg} border transition-all duration-300 rounded-[14px] p-4 lg:p-5 shadow-xs flex flex-col justify-center text-center min-h-[96px] ${
+                      isActive
+                        ? 'border-[#00aeef] ring-2 ring-[#00aeef]/30 shadow-lg scale-105 bg-white'
+                        : 'border-[#c4e5f7] hover:border-[#00aeef] hover:shadow-md'
+                    }`}
+                  >
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#00aeef] mb-1">
+                      {step.stepNum}
+                    </span>
+                    <span className="text-sm lg:text-base font-semibold text-neutral-900 leading-snug group-hover:text-black">
+                      {step.title}
+                    </span>
 
-                      {/* Downward Pointer Triangle */}
-                      <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-[#c4e5f7]" />
-                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[9px] border-t-[#e7f5fd]" />
-                    </div>
-                  </Link>
-                </motion.div>
+                    {/* Downward Pointer Triangle */}
+                    <div
+                      className={`absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] transition-colors ${
+                        isActive ? 'border-t-[#00aeef]' : 'border-t-[#c4e5f7]'
+                      }`}
+                    />
+                  </div>
+                </div>
               );
             })}
           </div>
 
-          {/* MIDDLE ROW: The Highway / Road Track + 5 Circular Nodes */}
+          {/* MIDDLE ROW: The Continuous Highway / Track + 5 Interactive Nodes */}
           <div className="relative py-4 my-2 flex items-center">
-            {/* The Road Strip */}
-            <div className="absolute left-0 right-0 h-9 bg-[#d0eef7] rounded-full border border-[#b6e4f1] overflow-hidden flex items-center z-0 shadow-inner">
+            {/* The Road Strip with Energetic Particle Beam */}
+            <div className="absolute left-0 right-0 h-10 bg-gradient-to-r from-[#d0eef7] via-[#ffe8d6] to-[#d0eef7] rounded-full border border-neutral-300/80 overflow-hidden flex items-center z-0 shadow-inner">
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}
-                className="w-full h-full origin-left flex items-center"
+                className="w-full h-full origin-left flex items-center relative"
               >
                 {/* White dashed highway stripe */}
-                <div className="w-full border-t-2 border-dashed border-white/90 scale-y-110" />
+                <div className="w-full border-t-2 border-dashed border-white/95 scale-y-110" />
+
+                {/* Animated Pulsing Energy Flow Beam */}
+                <motion.div
+                  className="absolute top-0 bottom-0 w-40 bg-gradient-to-r from-transparent via-[#00aeef]/40 to-transparent"
+                  animate={{ x: ['-100%', '1100%'] }}
+                  transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
+                />
               </motion.div>
             </div>
 
-            {/* 5 Circular Nodes Grid */}
+            {/* 5 Circular Stage Nodes Grid */}
             <div className="relative z-10 w-full grid grid-cols-5 gap-4 lg:gap-6">
-              {TIMELINE_STEPS.map((step, idx) => {
+              {CONTINUUM_STAGES.map((step) => {
                 const IconComponent = step.icon;
+                const isActive = activeStageId === step.id;
+
                 return (
-                  <motion.div
-                    key={step.id}
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 260,
-                      damping: 20,
-                      delay: 0.2 + idx * 0.12,
-                    }}
-                    className="flex justify-center"
-                  >
-                    <Link
-                      href={step.link}
-                      className="group relative flex items-center justify-center"
+                  <div key={step.id} className="flex justify-center">
+                    <button
+                      type="button"
+                      onClick={() => setActiveStageId(step.id)}
+                      className="group relative flex items-center justify-center cursor-pointer outline-none"
                       title={step.title}
                     >
-                      {/* Pulse ring on hover */}
-                      <div
-                        className="absolute inset-0 rounded-full scale-100 group-hover:scale-130 opacity-0 group-hover:opacity-40 transition-all duration-300 pointer-events-none"
-                        style={{ backgroundColor: step.color }}
-                      />
+                      {/* Active Expanding Pulse Waves */}
+                      {isActive && (
+                        <>
+                          <motion.div
+                            className="absolute -inset-3 rounded-full opacity-40 pointer-events-none"
+                            style={{ backgroundColor: step.color }}
+                            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
+                            transition={{ repeat: Infinity, duration: 2 }}
+                          />
+                          <motion.div
+                            className="absolute -inset-1.5 rounded-full ring-2 pointer-events-none"
+                            style={{ borderColor: step.color }}
+                            animate={{ scale: [1, 1.15, 1] }}
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                          />
+                        </>
+                      )}
 
-                      {/* Main Node Circle */}
+                      {/* Main Node Button */}
                       <div
-                        className={`w-16 h-16 lg:w-20 lg:h-20 rounded-full ${step.bgClass} border-4 border-white shadow-md group-hover:shadow-xl group-hover:scale-110 transition-all duration-300 flex items-center justify-center relative z-10`}
+                        className={`w-16 h-16 lg:w-20 lg:h-20 rounded-full ${step.bgClass} border-4 border-white shadow-md transition-all duration-300 flex items-center justify-center relative z-10 ${
+                          isActive
+                            ? 'scale-115 shadow-xl ring-4 ring-neutral-900/10'
+                            : 'group-hover:scale-105 group-hover:shadow-lg opacity-90 group-hover:opacity-100'
+                        }`}
                       >
                         <IconComponent className="w-8 h-8 lg:w-9 lg:h-9 text-white transition-transform duration-300 group-hover:scale-110" />
                       </div>
-                    </Link>
-                  </motion.div>
+                    </button>
+                  </div>
                 );
               })}
             </div>
           </div>
 
-          {/* BOTTOM ROW: Bubbles for Steps 2, 4 */}
-          <div className="grid grid-cols-5 gap-4 lg:gap-6 items-start mt-6">
-            {TIMELINE_STEPS.map((step, idx) => {
+          {/* BOTTOM ROW: Speech Bubbles for Even Steps 2, 4 */}
+          <div className="grid grid-cols-5 gap-4 lg:gap-6 items-start mt-4">
+            {CONTINUUM_STAGES.map((step) => {
               if (step.position !== 'bottom') {
-                return <div key={step.id} className="h-24" aria-hidden="true" />;
+                return <div key={step.id} className="h-28" aria-hidden="true" />;
               }
 
+              const isActive = activeStageId === step.id;
+
               return (
-                <motion.div
+                <div
                   key={step.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.12 }}
+                  onClick={() => setActiveStageId(step.id)}
                   className="flex flex-col items-center group cursor-pointer"
                 >
-                  <Link href={step.link} className="w-full">
+                  <div
+                    className={`relative w-full ${step.bubbleBg} border transition-all duration-300 rounded-[14px] p-4 lg:p-5 shadow-xs flex flex-col justify-center text-center min-h-[96px] ${
+                      isActive
+                        ? 'border-[#f58634] ring-2 ring-[#f58634]/30 shadow-lg scale-105 bg-white'
+                        : 'border-[#fedcb8] hover:border-[#f58634] hover:shadow-md'
+                    }`}
+                  >
+                    {/* Upward Pointer Triangle */}
                     <div
-                      className={`relative w-full ${step.bubbleBg} border ${step.bubbleBorder} ${step.hoverBorder} rounded-[14px] p-4 lg:p-5 shadow-xs hover:shadow-lg transition-all duration-300 min-h-[86px] flex items-center justify-center text-center`}
-                    >
-                      {/* Upward Pointer Triangle */}
-                      <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[10px] border-b-[#fedcb8]" />
-                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-b-[9px] border-b-[#fff4e8]" />
+                      className={`absolute -top-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[10px] transition-colors ${
+                        isActive ? 'border-b-[#f58634]' : 'border-b-[#fedcb8]'
+                      }`}
+                    />
 
-                      <span className="text-xs lg:text-sm font-semibold text-neutral-900 leading-snug group-hover:text-black">
-                        {step.title}
-                      </span>
-                    </div>
-                  </Link>
-                </motion.div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#f58634] mb-1">
+                      {step.stepNum}
+                    </span>
+                    <span className="text-sm lg:text-base font-semibold text-neutral-900 leading-snug group-hover:text-black">
+                      {step.title}
+                    </span>
+                  </div>
+                </div>
               );
             })}
           </div>
-
         </div>
 
-        {/* ================= MOBILE VIEW (RESPONSIVE VERTICAL ROADMAP) ================= */}
-        <div className="block md:hidden relative max-w-md mx-auto py-4">
-          {/* Vertical Road Track */}
-          <div className="absolute left-7 top-6 bottom-6 w-7 bg-[#d0eef7] rounded-full border border-[#b6e4f1] overflow-hidden flex justify-center z-0 shadow-inner">
-            <div className="h-full border-l-2 border-dashed border-white" />
-          </div>
+        {/* ================= MOBILE / TABLET STEP SELECTOR BUTTONS ================= */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 md:hidden mb-8">
+          {CONTINUUM_STAGES.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => setActiveStageId(s.id)}
+              className={`py-3 px-3 rounded-[10px] text-center transition-all duration-200 cursor-pointer text-xs sm:text-sm font-bold flex flex-col items-center gap-1 ${
+                activeStageId === s.id
+                  ? 'bg-neutral-900 text-white shadow-md'
+                  : 'bg-neutral-100/90 text-neutral-800 border border-neutral-200'
+              }`}
+            >
+              <span className="text-[10px] opacity-75">{s.stepNum}</span>
+              <span className="truncate">{s.shortName}</span>
+            </button>
+          ))}
+        </div>
 
-          <div className="flex flex-col gap-6 relative z-10">
-            {TIMELINE_STEPS.map((step, idx) => {
-              const IconComponent = step.icon;
-              return (
-                <motion.div
-                  key={step.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="flex items-center gap-4"
-                >
-                  {/* Node Circle */}
-                  <Link href={step.link} className="shrink-0 group">
-                    <div
-                      className={`w-14 h-14 rounded-full ${step.bgClass} border-4 border-white shadow-md flex items-center justify-center group-hover:scale-105 transition-transform`}
+        {/* ================= FEATURED ACTIVE STAGE INTERACTIVE ANIMATION SHOWCASE ================= */}
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-neutral-50/95 rounded-[18px] border border-neutral-200/90 p-6 sm:p-8 lg:p-10 shadow-lg">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              
+              {/* Left Column: Live Animated Process Engine */}
+              <div className="lg:col-span-6 bg-white rounded-[14px] border border-neutral-200/90 p-4 sm:p-6 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
+                <div className="w-full flex items-center justify-between pb-3 mb-2 border-b border-neutral-100">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="w-3 h-3 rounded-full animate-pulse"
+                      style={{ backgroundColor: currentStage.color }}
+                    />
+                    <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900">
+                      Live Simulation: {currentStage.shortName}
+                    </span>
+                  </div>
+                  <span
+                    className="text-xs font-bold px-3 py-1 rounded-full border shadow-xs"
+                    style={{
+                      backgroundColor: `${currentStage.color}15`,
+                      borderColor: `${currentStage.color}30`,
+                      color: currentStage.color,
+                    }}
+                  >
+                    {currentStage.metric}
+                  </span>
+                </div>
+
+                {/* Animated Dynamic SVG Simulation */}
+                <div className="w-full flex items-center justify-center my-2">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentStage.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.35 }}
+                      className="w-full flex justify-center"
                     >
-                      <IconComponent className="w-6 h-6 text-white" />
-                    </div>
+                      <ActiveVisual />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Right Column: Stage Description & Key Deliverables */}
+              <div className="lg:col-span-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span
+                      className="text-xs sm:text-sm font-bold uppercase tracking-wider px-3 py-1 rounded-md"
+                      style={{
+                        backgroundColor: `${currentStage.color}15`,
+                        color: currentStage.color,
+                      }}
+                    >
+                      {currentStage.tag}
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight mb-3">
+                    {currentStage.headline}
+                  </h3>
+
+                  <p className="text-base sm:text-lg text-neutral-600 leading-relaxed mb-6">
+                    {currentStage.description}
+                  </p>
+
+                  {/* 3 Key Deliverables */}
+                  <div className="space-y-2.5 mb-8">
+                    {currentStage.deliverables.map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <CheckCircle2
+                          className="w-5 h-5 shrink-0 mt-0.5"
+                          style={{ color: currentStage.color }}
+                        />
+                        <span className="text-sm sm:text-base font-medium text-neutral-800 leading-snug">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Button */}
+                <div className="pt-4 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <Link
+                    href={currentStage.link}
+                    className="inline-flex items-center justify-center px-7 py-3.5 rounded-[10px] text-white font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
+                    style={{ backgroundColor: currentStage.color }}
+                  >
+                    <span>Explore {currentStage.shortName}</span>
+                    <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
 
-                  {/* Speech Bubble */}
-                  <Link href={step.link} className="flex-1">
-                    <div
-                      className={`relative ${step.bubbleBg} border ${step.bubbleBorder} ${step.hoverBorder} rounded-[12px] p-3.5 shadow-xs hover:shadow-md transition-all flex items-center`}
-                    >
-                      {/* Left pointer */}
-                      <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[8px] border-r-[#c4e5f7]" />
-                      <span className="text-xs sm:text-sm font-semibold text-neutral-900 leading-tight">
-                        {step.title}
-                      </span>
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
+                  <div className="flex items-center gap-2 text-xs text-neutral-500 font-medium">
+                    <Sparkles className="w-3.5 h-3.5 text-[#f58634]" />
+                    <span>Auto-advancing continuum</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
 
