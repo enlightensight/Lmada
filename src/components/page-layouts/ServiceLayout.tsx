@@ -28,6 +28,9 @@ import {
 import Reveal from '@/components/Reveal';
 import DownstreamProcessAnimation from '@/components/DownstreamProcessAnimation';
 import UpstreamProcessAnimation from '@/components/UpstreamProcessAnimation';
+import CellLineHeroAnimation from '@/components/hero-animations/CellLineHeroAnimation';
+import ProcessHeroAnimation from '@/components/hero-animations/ProcessHeroAnimation';
+import AnalyticalHeroAnimation from '@/components/hero-animations/AnalyticalHeroAnimation';
 import FAQSection from '@/components/FAQSection';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
@@ -104,14 +107,22 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 {page.description}
               </p>
             </div>
-            <Reveal delay={0.1}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
-                <img
-                  src={page.image || '/images/hero_cleanroom.png'}
-                  alt={page.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <Reveal delay={0.1} className="w-full">
+              {page.slug === 'cell-line' ? (
+                <CellLineHeroAnimation />
+              ) : page.slug === 'process' ? (
+                <ProcessHeroAnimation />
+              ) : page.slug === 'analytical' ? (
+                <AnalyticalHeroAnimation />
+              ) : (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
+                  <img
+                    src={page.image || '/images/hero_cleanroom.png'}
+                    alt={page.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
             </Reveal>
           </div>
         </div>
