@@ -723,6 +723,24 @@ export default function IntegratedTimeline() {
     return Math.round(window.scrollY + rect.top - navHeight);
   };
 
+  const lockScroll = (stage: number) => {
+    if (typeof window === 'undefined' || !containerRef.current) return;
+    const targetScrollY = getTargetScrollY();
+    window.scrollTo({ top: targetScrollY, behavior: 'instant' });
+    document.body.style.overflow = 'hidden';
+    isLockedRef.current = true;
+    setIsLocked(true);
+    activeStageRef.current = stage;
+    setActiveStageId(stage);
+  };
+
+  const unlockScroll = () => {
+    if (typeof window === 'undefined') return;
+    document.body.style.overflow = '';
+    isLockedRef.current = false;
+    setIsLocked(false);
+  };
+
   // Scroll listener to detect entering the section and locking into place
   useEffect(() => {
     let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
@@ -734,32 +752,28 @@ export default function IntegratedTimeline() {
 
       const currentScrollY = window.scrollY;
       const scrollingDown = currentScrollY > lastScrollY;
-      const targetScrollY = getTargetScrollY();
       const navHeight = window.innerWidth >= 1024 ? 80 : 64;
       const rect = containerRef.current.getBoundingClientRect();
 
       // Scrolling DOWN into the section: lock at Stage 1 when reaching flush navbar position
-      if (scrollingDown && rect.top <= navHeight + 80 && rect.top >= navHeight - 120) {
-        window.scrollTo({ top: targetScrollY, behavior: 'instant' });
-        isLockedRef.current = true;
-        setIsLocked(true);
-        activeStageRef.current = 1;
-        setActiveStageId(1);
+      if (scrollingDown && rect.top <= navHeight + 80) {
+        lockScroll(1);
       }
       // Scrolling UP from below into the section: lock at Stage 5
-      else if (!scrollingDown && rect.top <= navHeight + 80 && rect.top >= navHeight - 80) {
-        window.scrollTo({ top: targetScrollY, behavior: 'instant' });
-        isLockedRef.current = true;
-        setIsLocked(true);
-        activeStageRef.current = 5;
-        setActiveStageId(5);
+      else if (!scrollingDown && rect.top >= navHeight - 80 && rect.top <= navHeight + 150) {
+        lockScroll(5);
       }
 
       lastScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (typeof window !== 'undefined') {
+        document.body.style.overflow = '';
+      }
+    };
   }, []);
 
   // Window-wide Non-Passive Capture Wheel Interception (Rock-solid zero jiggle, zero fighting)
@@ -793,8 +807,7 @@ export default function IntegratedTimeline() {
         } else {
           // Deliberate scroll down on Stage 5 -> Unlock and smoothly scroll to next section
           isAnimatingRef.current = true;
-          isLockedRef.current = false;
-          setIsLocked(false);
+          unlockScroll();
           unlockCooldownRef.current = true;
 
           const nextSection = document.getElementById('an-integrated-partner');
@@ -822,8 +835,7 @@ export default function IntegratedTimeline() {
         } else {
           // Deliberate scroll up on Stage 1 -> Unlock and smoothly scroll to Hero
           isAnimatingRef.current = true;
-          isLockedRef.current = false;
-          setIsLocked(false);
+          unlockScroll();
           unlockCooldownRef.current = true;
 
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -876,8 +888,7 @@ export default function IntegratedTimeline() {
           }, 450);
         } else {
           isAnimatingRef.current = true;
-          isLockedRef.current = false;
-          setIsLocked(false);
+          unlockScroll();
           unlockCooldownRef.current = true;
           const nextSection = document.getElementById('an-integrated-partner');
           if (nextSection) {
@@ -902,8 +913,7 @@ export default function IntegratedTimeline() {
           }, 450);
         } else {
           isAnimatingRef.current = true;
-          isLockedRef.current = false;
-          setIsLocked(false);
+          unlockScroll();
           unlockCooldownRef.current = true;
           window.scrollTo({ top: 0, behavior: 'smooth' });
           setTimeout(() => {
@@ -926,10 +936,7 @@ export default function IntegratedTimeline() {
   const handleJumpToStage = (id: number) => {
     activeStageRef.current = id;
     setActiveStageId(id);
-    const targetScrollY = getTargetScrollY();
-    window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-    isLockedRef.current = true;
-    setIsLocked(true);
+    lockScroll(id);
   };
 
   const handlePrev = () => {

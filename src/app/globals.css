@@ -23,6 +23,10 @@
   src: url('/fonts/D-DIN-Bold.woff') format('woff');
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
