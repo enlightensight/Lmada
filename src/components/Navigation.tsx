@@ -148,7 +148,7 @@ export default function Navigation() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`relative h-full flex items-center px-4 text-[17px] font-medium tracking-wide transition-colors ${active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
+                    className={`relative h-full flex items-center px-4 text-[19px] font-medium tracking-wide transition-colors ${active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
                       }`}
                   >
                     {item.label}
@@ -167,11 +167,11 @@ export default function Navigation() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <button
-                    className={`relative h-full flex items-center gap-1.5 px-4 text-[17px] font-medium tracking-wide focus:outline-none transition-colors cursor-pointer ${active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
+                    className={`relative h-full flex items-center gap-1.5 px-4 text-[19px] font-medium tracking-wide focus:outline-none transition-colors cursor-pointer ${active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
                       }`}
                   >
                     {item.label}
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-[18px] h-[18px] transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
                     {active && (
                       <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-blue" />
                     )}
@@ -186,14 +186,14 @@ export default function Navigation() {
                         transition={{ duration: 0.18, ease: [0.25, 1, 0.5, 1] }}
                         className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
                       >
-                        <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[520px] max-w-[960px] ${item.columns && item.columns.length >= 3 ? 'w-[880px]' : ''
+                        <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[560px] max-w-[980px] ${item.columns && item.columns.length >= 3 ? 'w-[920px]' : ''
                           }`}>
                           <div className="p-6">
                             <div className="mb-5 pb-4 border-b border-neutral-100">
-                              <span className="text-brand-yellow text-xs font-semibold uppercase tracking-wider">
+                              <span className="text-brand-yellow text-[14px] font-semibold uppercase tracking-wider">
                                 {item.label}
                               </span>
-                              <p className="text-sm text-neutral-500 mt-1">
+                              <p className="text-[16px] text-neutral-500 mt-1">
                                 {item.description}
                               </p>
                             </div>
@@ -205,22 +205,22 @@ export default function Navigation() {
                               }`}>
                               {item.columns?.map((column, colIdx) => (
                                 <div key={colIdx}>
-                                  <h4 className="text-xs font-semibold uppercase tracking-wider text-black mb-3">
+                                  <h4 className="text-[14px] font-semibold uppercase tracking-wider text-black mb-3.5">
                                     {column.title}
                                   </h4>
-                                  <ul className="space-y-2">
+                                  <ul className="space-y-2.5">
                                     {column.links.map((link) => {
                                       const isLinkActive = pathname === link.href;
                                       return (
                                         <li key={link.href}>
                                           <Link
                                             href={link.href}
-                                            className={`text-sm flex items-center gap-2 transition-colors ${isLinkActive
+                                            className={`text-[16px] flex items-center gap-2.5 transition-colors ${isLinkActive
                                               ? 'text-brand-blue font-semibold'
                                               : 'text-neutral-600 hover:text-brand-blue'
                                               }`}
                                           >
-                                            <link.icon className="w-4 h-4 text-brand-blue flex-shrink-0" />
+                                            <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
                                             {link.label}
                                           </Link>
                                         </li>
@@ -245,7 +245,7 @@ export default function Navigation() {
             {/* Desktop CTA */}
             <Link
               href="/contact"
-              className="hidden xl:inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white text-[15px] font-semibold tracking-wide transition-all"
+              className="hidden xl:inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white text-[17px] font-semibold tracking-wide transition-all"
             >
               Contact Us
             </Link>

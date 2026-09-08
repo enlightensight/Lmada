@@ -26,10 +26,9 @@ import {
   Workflow
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import SpecFlow from '@/components/SpecFlow';
-import IntegratedTimeline from '@/components/IntegratedTimeline';
 import DownstreamProcessAnimation from '@/components/DownstreamProcessAnimation';
 import UpstreamProcessAnimation from '@/components/UpstreamProcessAnimation';
+import FAQSection from '@/components/FAQSection';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -106,11 +105,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
               </p>
             </div>
             <Reveal delay={0.1}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white p-3 sm:p-5 flex items-center justify-center">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                 <img
                   src={page.image || '/images/hero_cleanroom.png'}
                   alt={page.title}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </Reveal>
@@ -124,7 +123,6 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-12">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-3">Core Scope</span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Key</span> Capabilities
                 </h2>
@@ -159,18 +157,6 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
       {/* TECHNICAL FOCUS AREAS — HORIZONTAL SECTIONS WITH KEY CAPABILITIES ICONS */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
         <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-12 md:mb-16">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Deep Dives</span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">Technical</span> Focus Areas
-              </h2>
-              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
-                Detailed service offerings engineered to move your biologics program forward.
-              </p>
-            </div>
-          </Reveal>
-
           <div className="flex flex-col gap-10 md:gap-14">
             {content.sections.map((section, idx) => {
               const Icon = section.title.toLowerCase().includes('upstream')
@@ -291,12 +277,12 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         
                         {/* Image Box */}
                         <div className={`lg:col-span-5 ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
-                          <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-white border border-neutral-200/90 p-4 sm:p-5 flex items-center justify-center shadow-inner group">
+                          <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-100 border border-neutral-200/90 shadow-inner group">
                             {section.image && (
                               <img
                                 src={section.image}
                                 alt={section.title}
-                                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                                className={`w-full h-full ${section.image.endsWith('.png') && (section.image.includes('equipment') || section.image.includes('CDMO') || section.image.includes('cGMP')) ? 'object-contain p-4' : 'object-cover'} transition-transform duration-700 group-hover:scale-105`}
                               />
                             )}
                           </div>
@@ -354,93 +340,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
         </div>
       </section>
 
-      {/* INTEGRATED TIMELINE */}
-      <IntegratedTimeline />
 
-      {/* SPECS — biological workflow strip */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-        <div className="w-full max-w-[1700px] mx-auto">
-          {content.specs && content.specs.length > 0 && (
-            <>
-              <Reveal>
-                <div className="text-center mb-10 md:mb-14">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Impact</span>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                    <span className="text-black">Key</span> Parameters
-                  </h2>
-                  <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
-                    Performance metrics that define our development approach and de-risk your program.
-                  </p>
-                </div>
-              </Reveal>
-              <SpecFlow specs={content.specs} />
-            </>
-          )}
-        </div>
-      </section>
-
-      {/* ADVANTAGES */}
-      {content.advantages && content.advantages.length > 0 && (
-        <section className="bg-molecules px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  The Lambda Edge
-                </h2>
-                <p className="text-sm sm:text-base text-black/70 leading-relaxed max-w-2xl mx-auto mt-4">
-                  What sets our {page.category === 'services' ? 'development services' : page.category} apart.
-                </p>
-              </div>
-            </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {content.advantages.map((adv, idx) => (
-                <Reveal key={idx} delay={idx * 0.08} className="h-full">
-                  <div className="h-full bg-brand-blue rounded-[10px] p-7 shadow-sm hover:shadow-xl transition-all duration-300">
-                    <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-semibold tracking-wider bg-brand-yellow text-black mb-4">
-                      {adv.badge}
-                    </span>
-                    {adv.value && (
-                      <div className="text-3xl font-semibold text-white tracking-tight mb-2">{adv.value}</div>
-                    )}
-                    {adv.title && (
-                      <h3 className="text-lg font-semibold text-white mb-2">{adv.title}</h3>
-                    )}
-                    <p className="text-sm text-white/80 leading-relaxed">{adv.desc}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-4">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Common</span> Questions
-                </h2>
-              </div>
-              <div className="lg:col-span-8">
-                <div className="border border-neutral-200 bg-white rounded-[10px] p-6 md:p-10 shadow-sm">
-                  <div className="flex flex-col gap-4">
-                    {page.faqs.map((faq, idx) => (
-                      <div key={idx} className="py-4 border-b border-neutral-100 last:border-0">
-                        <h4 className="text-sm font-semibold text-black mb-2">{faq.question}</h4>
-                        <p className="text-sm text-neutral-600 leading-relaxed">{faq.answer}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <FAQSection faqs={page.faqs} />
       )}
 
       {/* CTA */}

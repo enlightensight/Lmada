@@ -35,9 +35,8 @@ import {
   User
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import SpecFlow from '@/components/SpecFlow';
 import FacilityGallery from '@/components/FacilityGallery';
-import IntegratedTimeline from '@/components/IntegratedTimeline';
+import FAQSection from '@/components/FAQSection';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -291,62 +290,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
     </>
   );
 
-  const processBlock = <IntegratedTimeline />;
 
-  const advantagesBlock = content.advantages.length > 0 && (
-    <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-      <div className="w-full max-w-[1700px] mx-auto">
-        <Reveal>
-          <div className="text-center mb-10 md:mb-14">
-            <AccentHeading text="The Lambda Advantage" />
-          </div>
-        </Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {content.advantages.map((adv, idx) => {
-            const blue = idx % 2 === 0;
-            return (
-              <Reveal key={idx} delay={idx * 0.08} className="h-full">
-                <div className={`h-full p-7 rounded-[10px] shadow-sm hover:shadow-xl transition-all duration-300 ${blue ? 'bg-brand-blue hover:bg-brand-blue-hover' : 'bg-brand-yellow hover:bg-brand-yellow-hover'}`}>
-                  <span className={`inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-semibold tracking-wider mb-5 ${blue ? 'bg-brand-yellow text-black' : 'bg-brand-blue text-white'}`}>
-                    {adv.badge}
-                  </span>
-                  {adv.value && (
-                    <div className={`text-3xl md:text-4xl font-semibold tracking-tight mb-2 ${blue ? 'text-white' : 'text-black'}`}>
-                      {adv.value}
-                    </div>
-                  )}
-                  {adv.title && (
-                    <h3 className={`text-lg font-semibold mb-2 ${blue ? 'text-white' : 'text-black'}`}>
-                      {adv.title}
-                    </h3>
-                  )}
-                  <p className={`text-sm leading-relaxed ${blue ? 'text-white/80' : 'text-black/70'}`}>
-                    {adv.desc}
-                  </p>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-
-  const specsBlock = content.specs.length > 0 && (
-    <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-      <div className="w-full max-w-[1700px] mx-auto">
-        <Reveal>
-          <div className="text-center mb-10 md:mb-14">
-            <AccentHeading text="Key Facts" className="mb-4" />
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto">
-              Essential details about this aspect of Lambda CDMO, at a glance.
-            </p>
-          </div>
-        </Reveal>
-        <SpecFlow specs={content.specs} />
-      </div>
-    </section>
-  );
 
   return (
     <>
@@ -414,13 +358,6 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   </div>
                 ) : (
                   <>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">
-                      {page.slug === 'leadership'
-                        ? 'Working Commitments'
-                        : page.slug === 'quality'
-                        ? 'Quality & Compliance Pillars'
-                        : 'Integrated Capabilities'}
-                    </span>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                       {page.slug === 'leadership' ? (
                         <>
@@ -429,6 +366,10 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       ) : page.slug === 'quality' ? (
                         <>
                           <span className="text-black">Quality</span> & Regulatory Framework
+                        </>
+                      ) : page.slug === 'integrated' ? (
+                        <>
+                          <span className="text-black">Integrated</span> Services
                         </>
                       ) : (
                         <>
@@ -544,7 +485,6 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-12 md:mb-16">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Scientific Leadership</span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Executive</span> & Scientific Team
                 </h2>
@@ -591,50 +531,12 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         </section>
       )}
 
-      {/* Section order varies per slug so sibling pages don't look identical */}
-      {flip ? (
-        <>
-          {narrative}
-          {processBlock}
-          {specsBlock}
-          {advantagesBlock}
-        </>
-      ) : (
-        <>
-          {narrative}
-          {processBlock}
-          {advantagesBlock}
-          {specsBlock}
-        </>
-      )}
+      {/* Narrative Editorial Sections */}
+      {narrative}
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-t border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-4">
-                <Reveal>
-                  <AccentHeading text="Frequently Asked Questions" className="mb-4" />
-                </Reveal>
-              </div>
-              <div className="lg:col-span-8">
-                <Reveal delay={0.1}>
-                  <div className="border border-neutral-200 bg-white rounded-[10px] p-6 md:p-10 shadow-sm">
-                    <div className="flex flex-col gap-4">
-                      {page.faqs.map((faq, idx) => (
-                        <div key={idx} className="py-4 border-b border-neutral-100 last:border-0">
-                          <h4 className="text-sm font-semibold text-black mb-2">{faq.question}</h4>
-                          <p className="text-sm text-neutral-600 leading-relaxed">{faq.answer}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </Reveal>
-              </div>
-            </div>
-          </div>
-        </section>
+        <FAQSection faqs={page.faqs} />
       )}
 
       {/* CTA */}

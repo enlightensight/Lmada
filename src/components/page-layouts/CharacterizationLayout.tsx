@@ -25,8 +25,7 @@ import {
   PackageCheck
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import SpecFlow from '@/components/SpecFlow';
-import IntegratedTimeline from '@/components/IntegratedTimeline';
+import FAQSection from '@/components/FAQSection';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -128,7 +127,6 @@ export default function CharacterizationLayout({ page, content }: Characterizati
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Testing Capabilities</span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Analytical</span> & Testing Scope
                 </h2>
@@ -166,7 +164,6 @@ export default function CharacterizationLayout({ page, content }: Characterizati
         <div className="w-full max-w-[1700px] mx-auto">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Deep Dives</span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                 <span className="text-black">Orthogonal</span> Methods for Comprehensive Characterization
               </h2>
@@ -329,86 +326,11 @@ export default function CharacterizationLayout({ page, content }: Characterizati
         </div>
       </section>
 
-      {/* INTEGRATED TIMELINE */}
-      <IntegratedTimeline />
 
-      {/* SPECS — biological workflow strip */}
-      {content.specs && content.specs.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Method Sheet</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Platform</span> Specifications
-                </h2>
-              </div>
-            </Reveal>
-            <SpecFlow specs={content.specs} />
-          </div>
-        </section>
-      )}
-
-      {/* ADVANTAGES — checklist with yellow check icons */}
-      {content.advantages && content.advantages.length > 0 && (
-        <section className="border-y border-neutral-100 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Why Lambda</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Analytical</span> Confidence Built on Expertise
-                </h2>
-              </div>
-            </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {content.advantages.map((adv, idx) => (
-                <Reveal key={idx} delay={idx * 0.05}>
-                  <div className="h-full glass-card rounded-[10px] shadow-sm hover:shadow-xl transition-all duration-300 p-6 md:p-8">
-                    <div className="w-12 h-12 bg-brand-yellow rounded-[10px] flex items-center justify-center mb-5">
-                      <Check className="w-6 h-6 text-black" />
-                    </div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-yellow block mb-3">{adv.badge}</span>
-                    {adv.value ? (
-                      <span className="text-3xl font-semibold tracking-tight text-black block mb-3">{adv.value}</span>
-                    ) : (
-                      <h3 className="text-xl font-semibold tracking-tight text-black mb-3">{adv.title}</h3>
-                    )}
-                    <p className="text-sm text-neutral-600 leading-relaxed">{adv.desc}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-4">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Frequently</span> Asked Questions
-                </h2>
-              </div>
-              <div className="lg:col-span-8">
-                <div className="glass-card rounded-[10px] p-6 md:p-10 shadow-sm">
-                  <div className="flex flex-col gap-4">
-                    {page.faqs.map((faq, idx) => (
-                      <div key={idx} className="py-4 border-b border-neutral-200 last:border-0">
-                        <h4 className="text-sm font-semibold text-black mb-2">{faq.question}</h4>
-                        <p className="text-sm text-neutral-600 leading-relaxed">{faq.answer}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <FAQSection faqs={page.faqs} />
       )}
 
       {/* CTA */}

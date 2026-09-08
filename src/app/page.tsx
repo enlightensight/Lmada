@@ -11,7 +11,7 @@ import IntegratedTimeline from '@/components/IntegratedTimeline';
 import UpstreamProcessAnimation from '@/components/UpstreamProcessAnimation';
 import { articles } from '@/data/articles';
 import { faqs } from '@/data/faqs';
-import AccordionItem from '@/components/AccordionItem';
+import FAQSection from '@/components/FAQSection';
 import { getStepIcon } from '@/lib/stepIcon';
 
 export default function Home() {
@@ -114,7 +114,6 @@ export default function Home() {
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">An Integrated Partner</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15]">
               An Integrated Partner for Biologics Development and Manufacturing
             </h2>
@@ -196,7 +195,6 @@ export default function Home() {
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Modalities / Platform Capabilities</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
               <span className="text-black">Platform Capabilities for</span> Next-Generation Biologics
             </h2>
@@ -240,7 +238,6 @@ export default function Home() {
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Advantage</span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
                 <span className="text-black">Lambda CDMO</span> Advantage
               </h2>
@@ -333,7 +330,6 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 md:mb-14">
             <Reveal>
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Insights</span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   Featured <span className="text-black">Research</span> and Insights
                 </h2>
@@ -431,44 +427,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 w-full">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
-              <Reveal>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
-                  <span className="text-black">Common</span> Questions
-                </h2>
-                <p className="text-sm text-neutral-600 leading-relaxed mb-6">
-                  Answers to questions about process, tech transfers, timelines, and facility validations.
-                </p>
-                <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-blue">
-                  <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
-                  Still have questions? Talk to us
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Reveal>
-            </div>
-
-            <div className="lg:col-span-8">
-              <Reveal delay={0.1}>
-                <div className="glass-card rounded-[10px] px-6 md:px-8 py-4 shadow-sm">
-                  {faqs.slice(0, 5).map((faq) => (
-                    <AccordionItem
-                      key={faq.id}
-                      question={faq.question}
-                      answer={faq.answer}
-                      isOpen={openFaqId === faq.id}
-                      onToggle={() => setOpenFaqId(openFaqId === faq.id ? null : faq.id)}
-                    />
-                  ))}
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FAQSection faqs={faqs.slice(0, 5)} />
 
       {/* CTA */}
       <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">

@@ -15,7 +15,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       className="group block w-full select-none"
      data-cursor="project"
     >
-     <div className="relative overflow-hidden border border-neutral-200 bg-neutral-100 aspect-[4/3] transition-all duration-500 shadow-sm hover:shadow-md">
+     <div className="relative overflow-hidden rounded-[10px] border border-neutral-200 bg-neutral-100 aspect-[4/3] transition-all duration-500 shadow-sm hover:shadow-md">
         {/* Project Image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

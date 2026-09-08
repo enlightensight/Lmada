@@ -13,7 +13,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       href={`/article/${article.slug}`}
       className="group block w-full select-none"
     >
-     <div className="overflow-hidden border border-neutral-200 bg-neutral-100 aspect-[16/10] shadow-sm hover:shadow-md transition-all duration-300">
+     <div className="overflow-hidden rounded-[10px] border border-neutral-200 bg-neutral-100 aspect-[16/10] shadow-sm hover:shadow-md transition-all duration-300">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={article.image}

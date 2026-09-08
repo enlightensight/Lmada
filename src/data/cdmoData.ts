@@ -102,16 +102,6 @@ export const cdmoData: CDMOPage[] = [
         title: 'Dedicated Client Partnership',
         text: 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery.',
         dark: false,
-      },
-      {
-        title: 'Six Core Commitments',
-        text: 'Our working model is built around six core commitments: Scientific excellence, Product quality, Flexible collaboration, Transparent project management, Data integrity and IP protection, and Continuous improvement.',
-        dark: true,
-      },
-      {
-        title: 'Collaborative Governance & Knowledge Transfer',
-        text: 'We maintain open, transparent scientific dialogues through scheduled technical review milestones, ensuring sponsors retain full visibility and data ownership at every phase.',
-        dark: false,
       }
     ],
     specs: [
@@ -233,11 +223,6 @@ export const cdmoData: CDMOPage[] = [
         dark: false,
       },
       {
-        title: 'Comprehensive Development & Manufacturing Scope',
-        text: 'Our integrated services include cell line development, upstream and downstream process development, analytical development and characterization, drug substance manufacturing, drug product manufacturing, bioassays and immunogenicity testing, microbiological testing, and quality control and batch release support.',
-        dark: true,
-      },
-      {
         title: 'Reduced Technology Transfer Risk & Operational Simplicity',
         text: 'By bringing scientific, analytical, manufacturing, and quality expertise together under one quality framework, we help sponsors simplify development, reduce operational complexity, and minimize risks associated with technology transfer. This integrated approach enables efficient progression from early development to clinical supply while maintaining product quality and regulatory readiness.',
         dark: false,
@@ -320,11 +305,6 @@ export const cdmoData: CDMOPage[] = [
         title: 'Advance Your Career',
         text: 'We offer opportunities to contribute across cell line development, process development, analytical characterization, GMP manufacturing, quality, and regulatory functions in a collaborative and scientifically rigorous environment.',
         dark: true,
-      },
-      {
-        title: 'Explore Open Roles',
-        text: 'Visit the Lambda career portal to view current openings across research, manufacturing, quality control, and regulatory affairs, and submit your application.',
-        dark: false,
       }
     ],
     specs: [

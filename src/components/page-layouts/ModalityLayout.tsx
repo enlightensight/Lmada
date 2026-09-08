@@ -16,8 +16,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import SpecFlow from '@/components/SpecFlow';
-import IntegratedTimeline from '@/components/IntegratedTimeline';
+import FAQSection from '@/components/FAQSection';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -104,15 +103,13 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
             </div>
 
             {page.image && (
-              <Reveal>
-                <div className="relative px-4 md:px-8 py-6">
-                  <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white">
-                    <img
-                      src={page.image}
-                      alt={page.title}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
+              <Reveal delay={0.1}>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
+                  <img
+                    src={page.image}
+                    alt={page.title}
+                    className={`w-full h-full ${page.image.endsWith('.png') ? 'object-contain p-6' : 'object-cover'}`}
+                  />
                 </div>
               </Reveal>
             )}
@@ -126,7 +123,6 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Core Platform</span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Platform</span> Capabilities
                 </h2>
@@ -164,7 +160,6 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
         <div className="w-full max-w-[1700px] mx-auto">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Integrated Approach</span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                 <span className="text-black">Scientific</span> & Operational Focus
               </h2>
@@ -204,57 +199,11 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
         </div>
       </section>
 
-      {/* SPECS GRID — one yellow accent card per page, position varies by slug */}
-      {content.specs && content.specs.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">Platform Summary</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Technical</span> Scope
-                </h2>
-                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
-                  Expression systems, manufacturing scope, and analytical support tailored to the modality.
-                </p>
-              </div>
-            </Reveal>
 
-            <SpecFlow specs={content.specs} />
-          </div>
-        </section>
-      )}
-
-      {/* INTEGRATED TIMELINE */}
-      <IntegratedTimeline />
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">FAQ</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Frequently</span> Asked Questions
-                </h2>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="max-w-3xl mx-auto border border-neutral-200 bg-white rounded-[10px] p-6 md:p-10 shadow-sm">
-                <div className="flex flex-col gap-4">
-                  {page.faqs.map((faq, idx) => (
-                    <div key={idx} className="py-4 border-b border-neutral-100 last:border-0">
-                      <h4 className="text-sm font-semibold text-brand-blue mb-2">{faq.question}</h4>
-                      <p className="text-sm text-neutral-600 leading-relaxed">{faq.answer}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
+        <FAQSection faqs={page.faqs} />
       )}
 
       {/* CTA */}

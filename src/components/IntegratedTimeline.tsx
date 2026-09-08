@@ -123,14 +123,7 @@ export default function IntegratedTimeline() {
       <div className="relative w-full max-w-[1700px] mx-auto">
         {/* Section Header */}
         <div className="text-center mb-14 md:mb-20">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[11px] font-bold uppercase tracking-wider text-brand-orange block mb-3"
-          >
-            Integrated Lifecycle
-          </motion.span>
+
           <motion.h2
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -15,7 +15,7 @@ import {
   Timer
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import IntegratedTimeline from '@/components/IntegratedTimeline';
+import FAQSection from '@/components/FAQSection';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -129,9 +129,6 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
-                  Scope of Operations
-                </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Manufacturing</span> Capabilities
                 </h2>
@@ -229,9 +226,6 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
-            <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
-              Operational Deep Dives
-            </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
               <span className="text-black">Built</span> for clinical-grade production
             </h2>
@@ -275,118 +269,9 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         </div>
       </section>
 
-      {/* SPECS TABLE — blue header row, alternating rows */}
-      {content.specs && content.specs.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <div className="text-center mb-10 md:mb-14">
-              <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
-                Equipment & specs
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">Technical</span> operations summary
-              </h2>
-              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
-                Equipment, capacity, and environmental specifications that underpin clinical-grade manufacturing.
-              </p>
-            </div>
-            <Reveal>
-              <div className="max-w-4xl mx-auto rounded-[10px] border border-neutral-200 overflow-hidden shadow-sm">
-                <div className="grid grid-cols-2 bg-brand-blue text-white">
-                  <span className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Specification</span>
-                  <span className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Detail</span>
-                </div>
-                {content.specs.map((spec, idx) => (
-                  <div
-                    key={idx}
-                    className={`grid grid-cols-2 border-t border-neutral-200 ${idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}
-                  >
-                    <span className="px-6 py-4 text-sm font-semibold text-black">{spec.label}</span>
-                    <span className="px-6 py-4 text-sm text-neutral-600">{spec.value}</span>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      )}
-
-      {/* INTEGRATED TIMELINE */}
-      <IntegratedTimeline />
-
-      {/* ADVANTAGES — blue / yellow cards */}
-      {content.advantages && content.advantages.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <div className="text-center mb-10 md:mb-14">
-              <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
-                Why Lambda manufacturing
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">Operational</span> advantages
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {content.advantages.map((adv, idx) => (
-                <Reveal key={idx} delay={idx * 0.08} className="h-full">
-                  <div className={`h-full rounded-[10px] p-7 shadow-sm hover:shadow-xl transition-all duration-300 ${
-                    idx % 2 === 0 ? 'bg-brand-blue text-white' : 'bg-brand-yellow text-black'
-                  }`}>
-                    <span className={`inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-bold tracking-wider mb-5 ${
-                      idx % 2 === 0 ? 'bg-brand-yellow text-black' : 'bg-brand-blue text-white'
-                    }`}>
-                      {adv.badge}
-                    </span>
-                    {adv.value && (
-                      <span className="text-3xl md:text-4xl font-semibold tracking-tight block mb-3">
-                        {adv.value}
-                      </span>
-                    )}
-                    {adv.title && (
-                      <h3 className="text-lg font-semibold mb-2">{adv.title}</h3>
-                    )}
-                    <p className={`text-sm leading-relaxed ${idx % 2 === 0 ? 'text-white/80' : 'text-black/70'}`}>
-                      {adv.desc}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <div className="text-center mb-10 md:mb-14">
-              <span className={`text-[11px] font-bold uppercase tracking-wider block mb-4 ${accentText}`}>
-                FAQ
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                <span className="text-black">Frequently</span> asked questions
-              </h2>
-            </div>
-            <Reveal>
-              <div className="max-w-3xl mx-auto rounded-[10px] glass-card p-6 md:p-10">
-                <div className="flex flex-col">
-                  {page.faqs.map((faq, idx) => (
-                    <div key={idx} className="py-5 border-b border-neutral-200 last:border-0">
-                      <div className="flex items-start gap-3">
-                        <span className={`mt-0.5 w-2 h-2 rounded-full flex-shrink-0 ${accentBox}`} />
-                        <div>
-                          <h4 className="text-sm font-semibold text-black mb-2">{faq.question}</h4>
-                          <p className="text-sm text-neutral-600 leading-relaxed">{faq.answer}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
+        <FAQSection faqs={page.faqs} />
       )}
 
       {/* CTA — navy band with video background */}

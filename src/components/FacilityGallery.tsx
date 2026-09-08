@@ -34,9 +34,6 @@ export default function FacilityGallery() {
       <div className="w-full">
         <Reveal>
           <div className="mb-10 md:mb-14">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow block mb-4">
-              Equipment & Infrastructure
-            </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
               Inside the Facility
             </h2>
