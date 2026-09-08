@@ -110,7 +110,7 @@ export default function Home() {
       <IntegratedTimeline />
 
       {/* AN INTEGRATED PARTNER */}
-      <section id="an-integrated-partner" className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules">
+      <section id="an-integrated-partner" className="scroll-mt-20 lg:scroll-mt-24 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15]">

@@ -706,6 +706,9 @@ export default function IntegratedTimeline() {
   const isAnimatingRef = useRef(false);
   const unlockCooldownRef = useRef(false);
 
+  type PagePosition = 'above' | 'locked' | 'below';
+  const positionRef = useRef<PagePosition>('above');
+
   // Sync ref with state
   useEffect(() => {
     activeStageRef.current = activeStageId;
@@ -714,6 +717,20 @@ export default function IntegratedTimeline() {
   useEffect(() => {
     isLockedRef.current = isLocked;
   }, [isLocked]);
+
+  // Determine initial position relative to timeline on mount
+  useEffect(() => {
+    if (typeof window === 'undefined' || !containerRef.current) return;
+    const navHeight = window.innerWidth >= 1024 ? 80 : 64;
+    const rect = containerRef.current.getBoundingClientRect();
+    if (rect.top < navHeight - 60) {
+      positionRef.current = 'below';
+    } else if (rect.top > navHeight + 60) {
+      positionRef.current = 'above';
+    } else {
+      positionRef.current = 'above';
+    }
+  }, []);
 
   // Helper for navbar height & target scroll offset (exact document coordinate)
   const getTargetScrollY = () => {
@@ -730,6 +747,7 @@ export default function IntegratedTimeline() {
     document.body.style.overflow = 'hidden';
     isLockedRef.current = true;
     setIsLocked(true);
+    positionRef.current = 'locked';
     activeStageRef.current = stage;
     setActiveStageId(stage);
   };
@@ -755,13 +773,28 @@ export default function IntegratedTimeline() {
       const navHeight = window.innerWidth >= 1024 ? 80 : 64;
       const rect = containerRef.current.getBoundingClientRect();
 
-      // Scrolling DOWN into the section: lock at Stage 1 when reaching flush navbar position
-      if (scrollingDown && rect.top <= navHeight + 80) {
-        lockScroll(1);
+      // Entering from ABOVE (Hero section): lock at Stage 1 when reaching flush position
+      if (positionRef.current === 'above') {
+        if (scrollingDown) {
+          if (rect.top <= navHeight + 30 && rect.top >= navHeight - 120) {
+            lockScroll(1);
+          } else if (rect.top < navHeight - 120) {
+            // User scrolled or jumped fast all the way past the timeline
+            positionRef.current = 'below';
+          }
+        }
       }
-      // Scrolling UP from below into the section: lock at Stage 5
-      else if (!scrollingDown && rect.top >= navHeight - 80 && rect.top <= navHeight + 150) {
-        lockScroll(5);
+      // Entering from BELOW (Services, Modalities, Articles, FAQs): lock at Stage 5 when scrolling UP
+      else if (positionRef.current === 'below') {
+        if (!scrollingDown) {
+          if (rect.top >= navHeight - 30 && rect.top <= navHeight + 120) {
+            lockScroll(5);
+          } else if (rect.top > navHeight + 120) {
+            // User jumped or dragged all the way up into the Hero
+            positionRef.current = 'above';
+          }
+        }
+        // When scrollingDown while 'below': DO NOTHING! Allow smooth, uninterrupted downward scrolling!
       }
 
       lastScrollY = currentScrollY;
@@ -808,6 +841,7 @@ export default function IntegratedTimeline() {
           // Deliberate scroll down on Stage 5 -> Unlock and smoothly scroll to next section
           isAnimatingRef.current = true;
           unlockScroll();
+          positionRef.current = 'below';
           unlockCooldownRef.current = true;
 
           const nextSection = document.getElementById('an-integrated-partner');
@@ -836,6 +870,7 @@ export default function IntegratedTimeline() {
           // Deliberate scroll up on Stage 1 -> Unlock and smoothly scroll to Hero
           isAnimatingRef.current = true;
           unlockScroll();
+          positionRef.current = 'above';
           unlockCooldownRef.current = true;
 
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -851,6 +886,68 @@ export default function IntegratedTimeline() {
     window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
     return () => {
       window.removeEventListener('wheel', handleWheel, { capture: true });
+    };
+  }, []);
+
+  // Keyboard navigation support when locked
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isLockedRef.current) return;
+      if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key)) {
+        e.preventDefault();
+        if (isAnimatingRef.current) return;
+        const currentStage = activeStageRef.current;
+        if (currentStage < 5) {
+          isAnimatingRef.current = true;
+          const next = currentStage + 1;
+          activeStageRef.current = next;
+          setActiveStageId(next);
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+          }, 450);
+        } else {
+          isAnimatingRef.current = true;
+          unlockScroll();
+          positionRef.current = 'below';
+          unlockCooldownRef.current = true;
+          const nextSection = document.getElementById('an-integrated-partner');
+          if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+          }
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+            unlockCooldownRef.current = false;
+          }, 1200);
+        }
+      } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+        e.preventDefault();
+        if (isAnimatingRef.current) return;
+        const currentStage = activeStageRef.current;
+        if (currentStage > 1) {
+          isAnimatingRef.current = true;
+          const prev = currentStage - 1;
+          activeStageRef.current = prev;
+          setActiveStageId(prev);
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+          }, 450);
+        } else {
+          isAnimatingRef.current = true;
+          unlockScroll();
+          positionRef.current = 'above';
+          unlockCooldownRef.current = true;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => {
+            isAnimatingRef.current = false;
+            unlockCooldownRef.current = false;
+          }, 1200);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
@@ -889,6 +986,7 @@ export default function IntegratedTimeline() {
         } else {
           isAnimatingRef.current = true;
           unlockScroll();
+          positionRef.current = 'below';
           unlockCooldownRef.current = true;
           const nextSection = document.getElementById('an-integrated-partner');
           if (nextSection) {
@@ -914,6 +1012,7 @@ export default function IntegratedTimeline() {
         } else {
           isAnimatingRef.current = true;
           unlockScroll();
+          positionRef.current = 'above';
           unlockCooldownRef.current = true;
           window.scrollTo({ top: 0, behavior: 'smooth' });
           setTimeout(() => {
@@ -936,6 +1035,7 @@ export default function IntegratedTimeline() {
   const handleJumpToStage = (id: number) => {
     activeStageRef.current = id;
     setActiveStageId(id);
+    positionRef.current = 'locked';
     lockScroll(id);
   };
 
@@ -1159,6 +1259,7 @@ export default function IntegratedTimeline() {
                   <div className="pt-2 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between gap-2">
                     <Link
                       href={currentStage.link}
+                      onClick={() => unlockScroll()}
                       className="inline-flex items-center justify-center px-4 py-2 rounded-[8px] text-white font-semibold text-xs uppercase tracking-wider shadow-sm hover:shadow-md active:scale-95 transition-all w-full sm:w-auto"
                       style={{ backgroundColor: currentStage.color }}
                     >
