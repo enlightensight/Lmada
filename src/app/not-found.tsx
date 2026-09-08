@@ -17,7 +17,7 @@ export default function NotFound() {
       </h1>
 
       {/* Description */}
-      <p className="text-sm sm:text-base text-neutral-600 font-normal max-w-md leading-relaxed mb-8">
+      <p className="text-[15px] sm:text-[17px] text-neutral-600 font-normal max-w-md leading-relaxed mb-8">
         We&apos;re sorry, but the page you&apos;re looking for could not be found. It may have been moved, deleted, or never existed in the first place.
       </p>
 

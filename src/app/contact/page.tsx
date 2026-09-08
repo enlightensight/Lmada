@@ -63,7 +63,7 @@ export default function Contact() {
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
               className="h-1 w-24 bg-brand-yellow rounded-full origin-left mb-5"
             />
-            <p className="text-base text-neutral-600 leading-relaxed">
+            <p className="text-[17px] text-neutral-600 leading-relaxed">
               Whether you&apos;re developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.
             </p>
           </motion.div>
@@ -98,7 +98,7 @@ export default function Contact() {
                         <Check className="w-10 h-10 text-black" strokeWidth={3} />
                       </motion.div>
                       <h3 className="text-2xl font-semibold text-black mb-2">Technical Inquiry Received</h3>
-                      <p className="text-sm text-neutral-600 font-normal max-w-sm leading-relaxed">
+                      <p className="text-[15px] text-neutral-600 font-normal max-w-sm leading-relaxed">
                         Thank you for sharing your project specifications. Our development directors will evaluate your requirements and contact you within 24 hours.
                       </p>
                       <button
@@ -242,7 +242,7 @@ export default function Contact() {
                     Connect with our <span className="text-brand-blue font-bold">scientific team</span>
                   </h3>
                   
-                  <p className="text-sm text-neutral-600 font-normal leading-relaxed mb-6">
+                  <p className="text-[15px] text-neutral-600 font-normal leading-relaxed mb-6">
                     Get in touch directly with our technical directors to map out development strategies, equipment trains, and technology transfer schedules.
                   </p>
                 </div>

@@ -194,7 +194,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       <span className="text-black">{section.title.split(' ')[0]}</span>
                       {` ${section.title.split(' ').slice(1).join(' ')}`}
                     </h3>
-                    <p className="text-base md:text-lg text-neutral-600 leading-relaxed">
+                    <p className="text-[17px] md:text-[19px] text-neutral-600 leading-relaxed">
                       {section.text}
                     </p>
                     {page.slug === 'careers' ? (
@@ -262,7 +262,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         {section.title}
                       </h3>
                       <div className="h-1 w-12 bg-brand-blue rounded-full mb-5" />
-                      <p className="text-sm md:text-base text-neutral-600 leading-relaxed">
+                      <p className="text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
                         {section.text}
                       </p>
                       {page.slug === 'careers' && (
@@ -319,7 +319,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <span className="text-black">{page.heading.split(' ')[0]}</span>
                 {` ${page.heading.split(' ').slice(1).join(' ')}`}
               </h1>
-              <p className="text-base text-neutral-600 leading-relaxed mt-6 max-w-xl">
+              <p className="text-[17px] text-neutral-600 leading-relaxed mt-6 max-w-xl">
                 {page.description}
               </p>
             </div>
@@ -350,7 +350,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-6">
                       <span className="text-black">The Lambda</span> Advantage
                     </h2>
-                    <p className="text-base md:text-lg text-neutral-600 leading-relaxed max-w-3xl mx-auto">
+                    <p className="text-[17px] md:text-[19px] text-neutral-600 leading-relaxed max-w-3xl mx-auto">
                       {page.sections?.find((s) => s.title === 'The Lambda Advantage')?.text ||
                         'Every biologic program presents unique scientific, manufacturing, and regulatory challenges. Our role is to provide integrated expertise across development and manufacturing while maintaining the flexibility needed to support evolving program requirements. Our approach combines scientific knowledge, scalable manufacturing, and quality systems designed to support global regulatory expectations.'}
                     </p>
@@ -377,7 +377,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         </>
                       )}
                     </h2>
-                    <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                    <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
                       {page.slug === 'leadership'
                         ? 'Our working model is built around six core commitments to client success.'
                         : page.slug === 'quality'
@@ -390,8 +390,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             </Reveal>
 
             {page.slug === 'about' ? (
-              <div className="flex flex-col gap-5 sm:gap-6 max-w-6xl mx-auto w-full">
-                {/* Row 1: 3 Cards */}
+              <div className="flex flex-col gap-6 max-w-5xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
                   {page.capabilities.slice(0, 3).map((cap, idx) => {
                     const Icon = getOverviewCapabilityIcon(cap, idx);
@@ -488,7 +487,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Executive</span> & Scientific Team
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
                   Led by experienced biopharma executives, bioprocess engineers, bioanalytical chemists, and regulatory specialists.
                 </p>
               </div>
@@ -519,7 +518,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       <span className="text-xs font-semibold text-brand-yellow uppercase tracking-wider mb-4 block">
                         {leader.title}
                       </span>
-                      <p className="text-sm text-neutral-600 leading-relaxed">
+                      <p className="text-[15px] text-neutral-600 leading-relaxed">
                         {leader.bio}
                       </p>
                     </div>

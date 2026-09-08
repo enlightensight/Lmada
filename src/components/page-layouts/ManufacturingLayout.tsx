@@ -81,7 +81,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05] mb-6">
                 {page.heading}
               </h1>
-              <p className="text-base text-neutral-600 leading-relaxed max-w-xl">
+              <p className="text-[17px] text-neutral-600 leading-relaxed max-w-xl">
                 {page.description}
               </p>
             </div>
@@ -132,7 +132,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Manufacturing</span> Capabilities
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
                   cGMP cleanroom workflows, validated containment, and precision production systems for {page.title.split('—')[0].trim()}.
                 </p>
               </div>
@@ -165,7 +165,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                         </h3>
                       </div>
 
-                      <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
+                      <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
                         Lambda CDMO provides integrated drug product manufacturing services designed to support the transition from bulk drug substance to finished clinical products. Our capabilities include formulation development, aseptic fill-finish, packaging, and quality control, ensuring consistent product quality throughout the manufacturing process.
                       </p>
 
@@ -257,7 +257,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                       <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-black mb-4">
                         {section.title}
                       </h3>
-                      <p className="text-sm md:text-base text-neutral-600 leading-relaxed">
+                      <p className="text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
                         {section.text}
                       </p>
                     </div>

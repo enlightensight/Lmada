@@ -37,7 +37,7 @@ export default function FacilityGallery() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
               Inside the Facility
             </h2>
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mt-4">
+            <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mt-4">
               Purpose-built process and analytical equipment supporting development through GMP manufacturing.
             </p>
           </div>

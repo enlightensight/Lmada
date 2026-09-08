@@ -70,7 +70,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                 <span className="text-black">{firstWord}</span>{' '}
                 {restWords.join(' ')}
               </h1>
-              <p className="text-base text-neutral-600 leading-relaxed max-w-xl mb-10">
+              <p className="text-[17px] text-neutral-600 leading-relaxed max-w-xl mb-10">
                 {page.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -114,7 +114,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Platform</span> Capabilities
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
                   End-to-end scientific and manufacturing infrastructure designed to address the specific requirements of {page.title.split('—')[0].trim()}.
                 </p>
               </div>
@@ -162,7 +162,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-4 tracking-tight leading-snug group-hover:text-brand-blue transition-colors duration-300">
                     {content.sections[0].title}
                   </h3>
-                  <p className="text-base sm:text-lg text-neutral-600 leading-relaxed">
+                  <p className="text-[17px] sm:text-[19px] text-neutral-600 leading-relaxed">
                     {content.sections[0].text}
                   </p>
                 </div>

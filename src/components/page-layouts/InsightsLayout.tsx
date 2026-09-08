@@ -52,7 +52,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05]">
                 {page.heading}
               </h1>
-              <p className="text-base text-neutral-600 leading-relaxed border-l-2 border-brand-yellow pl-5 mt-6 max-w-xl">
+              <p className="text-[17px] text-neutral-600 leading-relaxed border-l-2 border-brand-yellow pl-5 mt-6 max-w-xl">
                 {page.description}
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-5 group-hover:text-brand-blue transition-colors">
                       {featured.title}
                     </h3>
-                    <p className="text-base text-neutral-600 leading-relaxed mb-8">
+                    <p className="text-[17px] text-neutral-600 leading-relaxed mb-8">
                       {featured.text}
                     </p>
                     <div className="flex items-center gap-2 text-sm font-semibold text-brand-blue">
@@ -150,7 +150,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
                       <h3 className="text-xl font-semibold text-black leading-snug mb-3 group-hover:text-brand-blue transition-colors">
                         {section.title}
                       </h3>
-                      <p className="text-sm text-neutral-600 leading-relaxed">
+                      <p className="text-[15px] text-neutral-600 leading-relaxed">
                         {section.text}
                       </p>
                     </div>
@@ -172,7 +172,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
                   <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
                     <span className="text-black">Index</span> of Topics
                   </h2>
-                  <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
+                  <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed">
                     A quick reference for what this section covers and how to access it.
                   </p>
                 </Reveal>

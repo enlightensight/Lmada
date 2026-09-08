@@ -103,7 +103,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 <span className="text-black">{page.heading.split(' ')[0]}</span>
                 {` ${page.heading.split(' ').slice(1).join(' ')}`}
               </h1>
-              <p className="text-base text-neutral-600 leading-relaxed mt-6 max-w-xl">
+              <p className="text-[17px] text-neutral-600 leading-relaxed mt-6 max-w-xl">
                 {page.description}
               </p>
             </div>
@@ -137,7 +137,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Key</span> Capabilities
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-3">
+                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-3">
                   Comprehensive analytical testing, assay validation, and characterization platforms supporting biologics across development and QC release.
                 </p>
               </div>
@@ -200,7 +200,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         </h3>
                       </div>
 
-                      <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-6 max-w-4xl">
+                      <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6 max-w-4xl">
                         {section.text}
                       </p>
 
@@ -247,7 +247,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         </h3>
                       </div>
 
-                      <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-6 max-w-4xl">
+                      <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6 max-w-4xl">
                         {section.text}
                       </p>
 
@@ -310,7 +310,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                             </h3>
                           </div>
 
-                          <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
+                          <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
                             {section.text}
                           </p>
 

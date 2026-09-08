@@ -122,7 +122,7 @@ export default function CinematicCTA({
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 1.0 }}
           className="text-white/70 leading-relaxed max-w-md md:max-w-xl mb-10
-                     text-sm sm:text-base md:text-lg"
+                     text-[15px] sm:text-[17px] md:text-[19px]"
         >
           {subtitle}
         </motion.p>

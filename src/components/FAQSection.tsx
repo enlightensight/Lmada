@@ -39,7 +39,7 @@ export default function FAQSection({
                 <span className="text-black">{firstWord}</span>
                 {remainingWords.length > 0 ? ` ${remainingWords.join(' ')}` : ''}
               </h2>
-              <p className="text-sm text-neutral-600 leading-relaxed mb-6">
+              <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
                 {subtitle}
               </p>
               <Link

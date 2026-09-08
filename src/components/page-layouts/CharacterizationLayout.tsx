@@ -101,7 +101,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05]">
                 <span className="text-black">{heroHeading.first}</span> {heroHeading.rest}
               </h1>
-              <p className="text-base text-neutral-600 leading-relaxed max-w-xl mt-6">
+              <p className="text-[17px] text-neutral-600 leading-relaxed max-w-xl mt-6">
                 {page.description}
               </p>
             </div>
@@ -127,7 +127,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   <span className="text-black">Analytical</span> & Testing Scope
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
                   Validated methodologies, qualified instrumentation, and cGMP-compliant testing suites for {page.title.split('—')[0].trim()}.
                 </p>
               </div>
@@ -203,7 +203,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                             </h3>
                           </div>
 
-                          <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
+                          <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
                             {section.text}
                           </p>
 
@@ -262,7 +262,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-4 tracking-tight leading-snug group-hover:text-brand-blue transition-colors duration-300">
                       {content.sections[0].title}
                     </h3>
-                    <p className="text-base sm:text-lg text-neutral-600 leading-relaxed">
+                    <p className="text-[17px] sm:text-[19px] text-neutral-600 leading-relaxed">
                       {content.sections[0].text}
                     </p>
                   </div>

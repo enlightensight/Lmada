@@ -24,7 +24,7 @@ export default function SectionHeader({
         {title}
       </h2>
       {description && (
-        <p className="text-sm sm:text-base text-neutral-600 font-normal leading-relaxed">
+        <p className="text-[15px] sm:text-[17px] text-neutral-600 font-normal leading-relaxed">
           {description}
         </p>
       )}

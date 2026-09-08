@@ -32,7 +32,7 @@ export function HeroSection() {
                             </span>
                         </h1>
 
-                        <p className="text-sm sm:text-base text-neutral-100 font-normal mt-8 sm:mt-10 max-w-xl leading-relaxed drop-shadow-sm">
+                        <p className="text-[15px] sm:text-[17px] text-neutral-100 font-normal mt-8 sm:mt-10 max-w-xl leading-relaxed drop-shadow-sm">
                             Supporting biopharmaceutical companies with integrated biologics development, analytical characterization, GMP manufacturing, and clinical development solutions to accelerate the journey from molecule to market.
                         </p>
 

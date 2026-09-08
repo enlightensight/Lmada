@@ -750,7 +750,7 @@ export default function IntegratedTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4"
+            className="text-[17px] sm:text-[19px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4"
           >
             An end-to-end continuum connecting cell line engineering, process scale-up, analytical rigor, and cGMP supply to accelerate clinical milestones.
           </motion.p>

@@ -116,7 +116,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15]">
               An Integrated Partner for Biologics Development and Manufacturing
             </h2>
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
+            <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
               Integrated Services Across the Biologics Development Lifecycle - From cell line development to GMP manufacturing, our multidisciplinary teams work together to support every stage of biologics development.
             </p>
           </div>
@@ -146,7 +146,7 @@ export default function Home() {
                       <h3 className="text-xl font-semibold text-black mb-2 group-hover:text-brand-blue transition-colors">
                         {card.title}
                       </h3>
-                      <p className="text-sm text-neutral-600 leading-relaxed">
+                      <p className="text-[15px] text-neutral-600 leading-relaxed">
                         {card.desc}
                       </p>
                     </div>
@@ -187,7 +187,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
               <span className="text-black">Platform Capabilities for</span> Next-Generation Biologics
             </h2>
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
+            <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
               Lambda CDMO is building platform capabilities to support the development and manufacture of diverse biologic modalities. Our integrated approach combines development, analytical characterization, quality systems, and GMP manufacturing to address the unique scientific and regulatory requirements of each modality.
             </p>
           </div>
@@ -230,7 +230,7 @@ export default function Home() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
                 <span className="text-black">Lambda CDMO</span> Advantage
               </h2>
-              <p className="text-sm text-neutral-600 leading-relaxed">
+              <p className="text-[15px] text-neutral-600 leading-relaxed">
                 Our integrated development and manufacturing platform is designed to support a range of biologic modalities with scientific, analytical, and manufacturing capabilities tailored to each molecule.
               </p>
             </div>
@@ -286,7 +286,7 @@ export default function Home() {
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-5 group-hover:text-brand-blue transition-colors">
                     Purpose-built facility for biologics development and manufacturing
                   </h3>
-                  <p className="text-base text-neutral-600 leading-relaxed mb-8">
+                  <p className="text-[17px] text-neutral-600 leading-relaxed mb-8">
                     Our approximately 20,000 sqm biologics development and manufacturing facility integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
                   </p>
                   <div className="grid grid-cols-2 gap-4 mb-8">
@@ -322,7 +322,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
                   Featured <span className="text-black">Research</span> and Insights
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mt-4">
+                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mt-4">
                   Explore the latest perspectives from our scientists — blogs, news, and upcoming events.
                 </p>
               </div>
