@@ -698,6 +698,7 @@ const ANIMATION_COMPONENTS = [
 
 export default function IntegratedTimeline() {
   const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
   const [activeStageId, setActiveStageId] = useState(1);
   const activeStageRef = useRef(activeStageId);
   activeStageRef.current = activeStageId;
@@ -711,7 +712,7 @@ export default function IntegratedTimeline() {
     setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
   };
 
-  // Pinned scroll-lock: locks the section in optimal view (Image 2), steps 1->5 on scroll down and 5->1 on scroll up
+  // Pinned scroll-lock: allows scrolling past the hero so header touches navbar, then steps 1->5 on scroll down and 5->1 on scroll up
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -722,84 +723,87 @@ export default function IntegratedTimeline() {
     let touchStartY = 0;
 
     const getTargetScrollY = () => {
-      // Snaps section to top of viewport so Hero is 100% hidden and header sits right below navbar
-      return section.offsetTop;
+      const navHeight = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 80 : 64;
+      if (headerRef.current) {
+        const headerTop = headerRef.current.getBoundingClientRect().top + window.scrollY;
+        return Math.max(0, Math.round(headerTop - navHeight - 8));
+      }
+      return Math.max(0, section.offsetTop + 30);
     };
 
     const handleWheelEvent = (e: WheelEvent) => {
       const targetY = getTargetScrollY();
       const currentScrollY = window.scrollY;
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Active zone: when scroll position is near target or section is framed in viewport
-      const isNearTarget = Math.abs(currentScrollY - targetY) < 220 || (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
-
-      if (!isNearTarget) {
-        deltaAccumulator = 0;
-        return;
-      }
-
       const currentStage = activeStageRef.current;
 
       // Scrolling DOWN (deltaY > 0)
       if (e.deltaY > 0) {
-        if (currentStage < 5) {
-          e.preventDefault();
+        // Only engage when the user has scrolled down enough so hero is off-screen and header reaches navbar
+        const isAtSection = currentScrollY >= targetY - 45 && currentScrollY <= targetY + 350;
 
-          // Lock scroll position at the ideal view (Hero 100% offscreen, header directly under navbar)
-          if (Math.abs(window.scrollY - targetY) > 2) {
-            window.scrollTo({ top: targetY, behavior: 'instant' });
-          }
+        if (isAtSection) {
+          if (currentStage < 5) {
+            e.preventDefault();
 
-          deltaAccumulator += e.deltaY;
-          if (Math.abs(deltaAccumulator) >= 20 && !isLocked) {
-            isLocked = true;
+            // Lock scroll position so header touches navbar
+            if (Math.abs(window.scrollY - targetY) > 2) {
+              window.scrollTo({ top: targetY, behavior: 'instant' });
+            }
+
+            deltaAccumulator += e.deltaY;
+            if (Math.abs(deltaAccumulator) >= 20 && !isLocked) {
+              isLocked = true;
+              deltaAccumulator = 0;
+              setActiveStageId((prev) => {
+                const next = Math.min(prev + 1, 5);
+                activeStageRef.current = next;
+                return next;
+              });
+
+              if (lockTimeout) clearTimeout(lockTimeout);
+              lockTimeout = setTimeout(() => {
+                isLocked = false;
+              }, 320);
+            }
+          } else {
+            // Finished all 5 stages: allow natural page scroll down
             deltaAccumulator = 0;
-            setActiveStageId((prev) => {
-              const next = Math.min(prev + 1, 5);
-              activeStageRef.current = next;
-              return next;
-            });
-
-            if (lockTimeout) clearTimeout(lockTimeout);
-            lockTimeout = setTimeout(() => {
-              isLocked = false;
-            }, 320);
           }
-        } else {
-          // Finished all 5 stages: allow natural page scroll down
-          deltaAccumulator = 0;
         }
       }
       // Scrolling UP (deltaY < 0)
       else if (e.deltaY < 0) {
-        if (currentStage > 1) {
-          e.preventDefault();
+        // Only engage when scrolling up into the section
+        const isAtSection = currentScrollY <= targetY + 45 && currentScrollY >= targetY - 120;
 
-          // Lock scroll position at the ideal view
-          if (Math.abs(window.scrollY - targetY) > 2) {
-            window.scrollTo({ top: targetY, behavior: 'instant' });
-          }
+        if (isAtSection) {
+          if (currentStage > 1) {
+            e.preventDefault();
 
-          deltaAccumulator += e.deltaY;
-          if (Math.abs(deltaAccumulator) >= 20 && !isLocked) {
-            isLocked = true;
+            // Lock scroll position so header touches navbar
+            if (Math.abs(window.scrollY - targetY) > 2) {
+              window.scrollTo({ top: targetY, behavior: 'instant' });
+            }
+
+            deltaAccumulator += e.deltaY;
+            if (Math.abs(deltaAccumulator) >= 20 && !isLocked) {
+              isLocked = true;
+              deltaAccumulator = 0;
+              setActiveStageId((prev) => {
+                const next = Math.max(prev - 1, 1);
+                activeStageRef.current = next;
+                return next;
+              });
+
+              if (lockTimeout) clearTimeout(lockTimeout);
+              lockTimeout = setTimeout(() => {
+                isLocked = false;
+              }, 320);
+            }
+          } else {
+            // At stage 1: allow natural page scroll up to hero
             deltaAccumulator = 0;
-            setActiveStageId((prev) => {
-              const next = Math.max(prev - 1, 1);
-              activeStageRef.current = next;
-              return next;
-            });
-
-            if (lockTimeout) clearTimeout(lockTimeout);
-            lockTimeout = setTimeout(() => {
-              isLocked = false;
-            }, 320);
           }
-        } else {
-          // At stage 1: allow natural page scroll up to hero
-          deltaAccumulator = 0;
         }
       }
     };
@@ -811,19 +815,14 @@ export default function IntegratedTimeline() {
     const handleTouchMove = (e: TouchEvent) => {
       const targetY = getTargetScrollY();
       const currentScrollY = window.scrollY;
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const isNearTarget = Math.abs(currentScrollY - targetY) < 220 || (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
-
-      if (!isNearTarget) return;
-
       const currentY = e.touches[0].clientY;
       const diffY = touchStartY - currentY; // positive = swipe up = scroll down
       const currentStage = activeStageRef.current;
 
       if (diffY > 25) {
         // Scrolling DOWN
-        if (currentStage < 5) {
+        const isAtSection = currentScrollY >= targetY - 45 && currentScrollY <= targetY + 350;
+        if (isAtSection && currentStage < 5) {
           e.preventDefault();
           if (Math.abs(window.scrollY - targetY) > 2) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
@@ -844,7 +843,8 @@ export default function IntegratedTimeline() {
         }
       } else if (diffY < -25) {
         // Scrolling UP
-        if (currentStage > 1) {
+        const isAtSection = currentScrollY <= targetY + 45 && currentScrollY >= targetY - 120;
+        if (isAtSection && currentStage > 1) {
           e.preventDefault();
           if (Math.abs(window.scrollY - targetY) > 2) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
@@ -885,7 +885,7 @@ export default function IntegratedTimeline() {
     <section
       ref={sectionRef}
       id="integrated-timeline"
-      className="relative px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 pt-20 lg:pt-[86px] pb-6 sm:pb-8 md:pb-10 bg-white border-y border-neutral-100 overflow-hidden select-none"
+      className="relative px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 pt-2 sm:pt-3 md:pt-4 pb-6 sm:pb-8 md:pb-10 bg-white border-y border-neutral-100 overflow-hidden select-none"
     >
       {/* Background Molecule Pattern Grid */}
       <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
@@ -893,7 +893,7 @@ export default function IntegratedTimeline() {
       <div className="relative w-full max-w-[1600px] mx-auto">
         
         {/* Section Header */}
-        <div className="text-center mb-4 sm:mb-5 md:mb-6">
+        <div ref={headerRef} className="text-center mb-4 sm:mb-5 md:mb-6">
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             whileInView={{ opacity: 1, y: 0 }}
