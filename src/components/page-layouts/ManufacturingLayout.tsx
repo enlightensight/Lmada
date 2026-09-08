@@ -170,21 +170,21 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                       </p>
 
                       <div className="pt-5 border-t border-neutral-100">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                        <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
                           Key Capabilities
                         </span>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                           {page.capabilities.map((cap, idx) => {
                             const Icon = getMfgCapabilityIcon(cap, idx);
                             return (
                               <div
                                 key={idx}
-                                className="group/pill flex items-center gap-3 p-3 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+                                className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                               >
-                                <div className="w-8 h-8 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                  <Icon className="w-4 h-4 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
+                                  <Icon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
                                 </div>
-                                <span className="text-xs font-medium text-neutral-800 leading-snug group-hover/pill:text-black">
+                                <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                   {cap}
                                 </span>
                               </div>
@@ -204,11 +204,11 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                   return (
                     <Reveal key={idx} delay={idx * 0.03} className="h-full">
                       <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                        <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                          <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                          <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
+                          <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
                             {cap}
                           </h4>
                         </div>

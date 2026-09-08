@@ -150,10 +150,10 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 return (
                   <Reveal key={cIdx} delay={cIdx * 0.05} className={isLastAndOdd ? 'sm:col-span-2' : ''}>
                     <div className="group flex items-center gap-4 p-4 sm:p-5 rounded-[10px] bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-yellow hover:bg-white hover:shadow-md transition-all duration-300 h-full">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200">
-                        <CapIcon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-200" />
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200">
+                        <CapIcon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-blue group-hover:text-black transition-colors duration-200" />
                       </div>
-                      <span className="text-sm sm:text-base font-medium text-neutral-800 leading-snug group-hover:text-black">
+                      <span className="text-base sm:text-lg font-medium text-neutral-900 leading-snug group-hover:text-black">
                         {cap}
                       </span>
                     </div>
@@ -206,21 +206,21 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
                       {section.bullets && section.bullets.length > 0 && (
                         <div className="pt-5 pb-8 border-t border-neutral-100">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
                             Key Capabilities
                           </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
                             {section.bullets.map((b, bIdx) => {
                               const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                               return (
                                 <div
                                   key={bIdx}
-                                  className="group/pill flex items-center gap-3 p-3 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+                                  className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                 >
-                                  <div className="w-8 h-8 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                    <BulletIcon className="w-4 h-4 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
+                                    <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
                                   </div>
-                                  <span className="text-xs font-medium text-neutral-800 leading-snug group-hover/pill:text-black">
+                                  <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                     {b}
                                   </span>
                                 </div>
@@ -253,21 +253,21 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
                       {section.bullets && section.bullets.length > 0 && (
                         <div className="pt-5 pb-8 border-t border-neutral-100">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
                             Key Capabilities
                           </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                             {section.bullets.map((b, bIdx) => {
                               const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                               return (
                                 <div
                                   key={bIdx}
-                                  className="group/pill flex items-center gap-3 p-3 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+                                  className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                 >
-                                  <div className="w-8 h-8 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                    <BulletIcon className="w-4 h-4 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
+                                    <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
                                   </div>
-                                  <span className="text-xs font-medium text-neutral-800 leading-snug group-hover/pill:text-black">
+                                  <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                     {b}
                                   </span>
                                 </div>
@@ -316,21 +316,21 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
                           {section.bullets && section.bullets.length > 0 && (
                             <div className="pt-5 border-t border-neutral-100">
-                              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
                                 Key Capabilities
                               </span>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 {section.bullets.map((b, bIdx) => {
                                   const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                                   return (
                                     <div
                                       key={bIdx}
-                                      className="group/pill flex items-center gap-3 p-3 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+                                      className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                     >
-                                      <div className="w-8 h-8 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                        <BulletIcon className="w-4 h-4 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
+                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
                                       </div>
-                                      <span className="text-xs font-medium text-neutral-800 leading-snug group-hover/pill:text-black">
+                                      <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                         {b}
                                       </span>
                                     </div>

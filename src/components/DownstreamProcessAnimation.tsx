@@ -467,7 +467,7 @@ export default function DownstreamProcessAnimation() {
                 whileHover={{ y: -4 }}
               >
                 {/* Stage Heading */}
-                <h4 className="text-xs xl:text-sm font-bold text-neutral-900 tracking-tight text-center mb-4 min-h-[38px] flex items-center justify-center">
+                <h4 className="text-sm xl:text-base font-bold text-neutral-900 tracking-tight text-center mb-4 min-h-[42px] flex items-center justify-center">
                   <span>
                     <span className="text-[#00aeef] mr-1">{stage.stepNumber}.</span>
                     {stage.title}
@@ -480,10 +480,10 @@ export default function DownstreamProcessAnimation() {
                 </div>
 
                 {/* Bullet Points */}
-                <ul className="mt-4 space-y-1.5 w-full text-left">
+                <ul className="mt-4 space-y-2 w-full text-left">
                   {stage.bullets.map((bullet, bIdx) => (
-                    <li key={bIdx} className="flex items-start gap-1.5 text-[11px] xl:text-xs text-neutral-700 leading-snug">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#f58634] shrink-0 mt-1" />
+                    <li key={bIdx} className="flex items-start gap-2 text-xs xl:text-sm text-neutral-800 font-medium leading-snug">
+                      <span className="w-2 h-2 rounded-full bg-[#f58634] shrink-0 mt-1" />
                       <span>{bullet}</span>
                     </li>
                   ))}
@@ -516,7 +516,7 @@ export default function DownstreamProcessAnimation() {
               }`}
               whileTap={{ scale: 0.98 }}
             >
-              <h4 className="text-xs sm:text-sm font-bold text-neutral-900 tracking-tight text-center mb-3">
+              <h4 className="text-sm sm:text-base font-bold text-neutral-900 tracking-tight text-center mb-3">
                 <span className="text-[#00aeef] mr-1">{stage.stepNumber}.</span>
                 {stage.title}
               </h4>
@@ -525,10 +525,10 @@ export default function DownstreamProcessAnimation() {
                 <IconComp active={isActive} />
               </div>
 
-              <ul className="mt-3 space-y-1.5 w-full text-left">
+              <ul className="mt-3 space-y-2 w-full text-left">
                 {stage.bullets.map((bullet, bIdx) => (
-                  <li key={bIdx} className="flex items-start gap-1.5 text-xs text-neutral-700 leading-snug">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#f58634] shrink-0 mt-1" />
+                  <li key={bIdx} className="flex items-start gap-2 text-sm text-neutral-800 font-medium leading-snug">
+                    <span className="w-2 h-2 rounded-full bg-[#f58634] shrink-0 mt-1" />
                     <span>{bullet}</span>
                   </li>
                 ))}

@@ -126,11 +126,11 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                 return (
                   <Reveal key={idx} delay={idx * 0.04} className="h-full">
                     <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                      <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                        <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                      <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                        <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
+                        <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
                           {cap}
                         </h4>
                       </div>

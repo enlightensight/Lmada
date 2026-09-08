@@ -402,7 +402,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                             <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="text-sm sm:text-base font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
+                            <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
                               {cap}
                             </h4>
                           </div>
@@ -424,7 +424,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                             <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="text-sm sm:text-base font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
+                            <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
                               {cap}
                             </h4>
                           </div>
@@ -445,7 +445,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm sm:text-base font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
+                          <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
                             {cap}
                           </h4>
                         </div>
@@ -465,7 +465,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm sm:text-base font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
+                          <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
                             {cap}
                           </h4>
                         </div>
