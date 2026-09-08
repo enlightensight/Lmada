@@ -696,23 +696,13 @@ const ANIMATION_COMPONENTS = [
   Stage5Animation,
 ];
 
-/* --- MAIN INTEGRATED TIMELINE ROADMAP COMPONENT --- */
-
-/* --- MAIN INTEGRATED TIMELINE ROADMAP COMPONENT --- */
-
 export default function IntegratedTimeline() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [activeStageId, setActiveStageId] = useState(1);
-  const [isPaused, setIsPaused] = useState(false);
+  const activeStageRef = useRef(activeStageId);
+  activeStageRef.current = activeStageId;
 
-  // Auto-advance stages every 4.5 seconds when not paused/hovered
-  useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [isPaused]);
-
+  // Manual button click handlers
   const handlePrev = () => {
     setActiveStageId((prev) => (prev <= 1 ? 5 : prev - 1));
   };
@@ -721,28 +711,156 @@ export default function IntegratedTimeline() {
     setActiveStageId((prev) => (prev >= 5 ? 1 : prev + 1));
   };
 
-  // Optional: subtle wheel listener to step when mouse is over the container
-  const handleWheel = (e: React.WheelEvent) => {
-    if (Math.abs(e.deltaY) > 30) {
-      if (e.deltaY > 0 && activeStageId < 5) {
-        // Scrolling down steps forward
-        setActiveStageId((prev) => Math.min(prev + 1, 5));
-      } else if (e.deltaY < 0 && activeStageId > 1) {
-        // Scrolling up steps backward
-        setActiveStageId((prev) => Math.max(prev - 1, 1));
+  // Pinned scroll-hijack: step through stages 1 to 5 on scroll down, and 5 to 1 on scroll up
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let isLocked = false;
+    let lockTimeout: NodeJS.Timeout | null = null;
+    let deltaAccumulator = 0;
+    let touchStartY = 0;
+
+    const handleWheelEvent = (e: WheelEvent) => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Interception active when section header/content is in prime viewing zone
+      const isInInterceptionZone = rect.top <= 120 && rect.bottom >= windowHeight * 0.45;
+
+      if (!isInInterceptionZone) {
+        deltaAccumulator = 0;
+        return;
       }
-    }
-  };
+
+      const currentStage = activeStageRef.current;
+
+      // Scrolling DOWN (deltaY > 0)
+      if (e.deltaY > 0) {
+        if (currentStage < 5) {
+          e.preventDefault();
+          deltaAccumulator += e.deltaY;
+
+          if (Math.abs(deltaAccumulator) >= 25 && !isLocked) {
+            isLocked = true;
+            deltaAccumulator = 0;
+            setActiveStageId((prev) => {
+              const next = Math.min(prev + 1, 5);
+              activeStageRef.current = next;
+              return next;
+            });
+
+            if (lockTimeout) clearTimeout(lockTimeout);
+            lockTimeout = setTimeout(() => {
+              isLocked = false;
+            }, 380);
+          }
+        } else {
+          // Finished all 5 stages: allow natural page scroll down
+          deltaAccumulator = 0;
+        }
+      }
+      // Scrolling UP (deltaY < 0)
+      else if (e.deltaY < 0) {
+        if (currentStage > 1) {
+          e.preventDefault();
+          deltaAccumulator += e.deltaY;
+
+          if (Math.abs(deltaAccumulator) >= 25 && !isLocked) {
+            isLocked = true;
+            deltaAccumulator = 0;
+            setActiveStageId((prev) => {
+              const next = Math.max(prev - 1, 1);
+              activeStageRef.current = next;
+              return next;
+            });
+
+            if (lockTimeout) clearTimeout(lockTimeout);
+            lockTimeout = setTimeout(() => {
+              isLocked = false;
+            }, 380);
+          }
+        } else {
+          // At stage 1: allow natural page scroll up to hero
+          deltaAccumulator = 0;
+        }
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const isInInterceptionZone = rect.top <= 120 && rect.bottom >= windowHeight * 0.45;
+
+      if (!isInInterceptionZone) return;
+
+      const currentY = e.touches[0].clientY;
+      const diffY = touchStartY - currentY; // positive = swipe up = scroll down
+      const currentStage = activeStageRef.current;
+
+      if (diffY > 35) {
+        // Scrolling DOWN
+        if (currentStage < 5) {
+          e.preventDefault();
+          if (!isLocked) {
+            isLocked = true;
+            touchStartY = currentY;
+            setActiveStageId((prev) => {
+              const next = Math.min(prev + 1, 5);
+              activeStageRef.current = next;
+              return next;
+            });
+            if (lockTimeout) clearTimeout(lockTimeout);
+            lockTimeout = setTimeout(() => {
+              isLocked = false;
+            }, 380);
+          }
+        }
+      } else if (diffY < -35) {
+        // Scrolling UP
+        if (currentStage > 1) {
+          e.preventDefault();
+          if (!isLocked) {
+            isLocked = true;
+            touchStartY = currentY;
+            setActiveStageId((prev) => {
+              const next = Math.max(prev - 1, 1);
+              activeStageRef.current = next;
+              return next;
+            });
+            if (lockTimeout) clearTimeout(lockTimeout);
+            lockTimeout = setTimeout(() => {
+              isLocked = false;
+            }, 380);
+          }
+        }
+      }
+    };
+
+    window.addEventListener('wheel', handleWheelEvent, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheelEvent);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      if (lockTimeout) clearTimeout(lockTimeout);
+    };
+  }, []);
 
   const currentStage = CONTINUUM_STAGES[activeStageId - 1];
   const ActiveVisual = ANIMATION_COMPONENTS[activeStageId - 1];
 
   return (
     <section
-      className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-y border-neutral-100 overflow-hidden select-none"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onWheel={handleWheel}
+      ref={sectionRef}
+      id="integrated-timeline"
+      className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 md:py-16 bg-white border-y border-neutral-100 overflow-hidden select-none"
     >
       {/* Background Molecule Pattern Grid */}
       <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
@@ -787,7 +905,7 @@ export default function IntegratedTimeline() {
           {/* The Road Track with Live Fill */}
           <div className="relative py-2 flex items-center">
             {/* Background Track Strip */}
-            <div className="absolute left-0 right-0 h-4 sm:h-5 bg-neutral-100 rounded-full border border-neutral-200 overflow-hidden flex items-center z-0 shadow-inner">
+            <div className="absolute left-[8%] right-[8%] sm:left-[10%] sm:right-[10%] h-4 sm:h-5 bg-neutral-100 rounded-full border border-neutral-200 overflow-hidden flex items-center z-0 shadow-inner">
               {/* White dashed highway centerline */}
               <div className="w-full border-t-2 border-dashed border-neutral-300 scale-y-110" />
 
