@@ -725,29 +725,16 @@ export default function IntegratedTimeline() {
 
     const getTargetScrollY = () => {
       const navHeight = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 80 : 64;
-      if (headerRef.current) {
-        const headerTop = headerRef.current.getBoundingClientRect().top + window.scrollY;
-        return Math.max(0, Math.round(headerTop - navHeight - 8));
+      if (sectionRef.current) {
+        return Math.max(0, sectionRef.current.offsetTop - navHeight + 8);
       }
-      return Math.max(0, section.offsetTop + 30);
+      return 0;
     };
 
     const handleWheelEvent = (e: WheelEvent) => {
       const targetY = getTargetScrollY();
       const currentScrollY = window.scrollY;
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
       const currentStage = activeStageRef.current;
-
-      // Active when user scrolls into the section from anywhere on the screen
-      const isInRange =
-        (currentScrollY >= targetY - 140 && currentScrollY <= targetY + 300) ||
-        (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
-
-      if (!isInRange) {
-        isMomentumAbsorbedAtEnd = false;
-        return;
-      }
 
       // Reset idle timer: when wheel stops for 220ms, mark momentum as settled
       if (idleTimeout) clearTimeout(idleTimeout);
@@ -755,76 +742,86 @@ export default function IntegratedTimeline() {
         isMomentumAbsorbedAtEnd = true;
       }, 220);
 
-      // Scrolling DOWN (deltaY > 0)
+      // SCROLLING DOWN (deltaY > 0)
       if (e.deltaY > 0) {
-        if (currentStage < 5) {
-          // ALWAYS prevent default page scrolling while stages are in progress (prevents flickering)
-          e.preventDefault();
+        // Active as soon as user reaches the timeline section from above
+        const isAtSection = currentScrollY >= targetY - 80;
 
-          // Keep view solidly pinned at targetY
-          if (Math.abs(window.scrollY - targetY) > 2) {
-            window.scrollTo({ top: targetY, behavior: 'instant' });
-          }
-
-          if (Math.abs(e.deltaY) >= 15 && !isLocked) {
-            isLocked = true;
-            isMomentumAbsorbedAtEnd = false;
-            setActiveStageId((prev) => {
-              const next = Math.min(prev + 1, 5);
-              activeStageRef.current = next;
-              return next;
-            });
-
-            if (lockTimeout) clearTimeout(lockTimeout);
-            lockTimeout = setTimeout(() => {
-              isLocked = false;
-            }, 380); // 380ms cooldown to absorb remaining swipe ticks
-          }
-        } else if (currentStage === 5) {
-          // At stage 5: absorb residual swipe momentum first, only allow scrolling down on a fresh scroll gesture
-          if (!isMomentumAbsorbedAtEnd) {
+        if (isAtSection) {
+          if (currentStage < 5) {
+            // UNCONDITIONALLY prevent page from scrolling down while on stages 1, 2, 3, 4
             e.preventDefault();
-            if (Math.abs(window.scrollY - targetY) > 2) {
+
+            // Hold view rigidly at targetY
+            if (Math.abs(window.scrollY - targetY) > 1) {
               window.scrollTo({ top: targetY, behavior: 'instant' });
             }
+
+            if (Math.abs(e.deltaY) >= 12 && !isLocked) {
+              isLocked = true;
+              isMomentumAbsorbedAtEnd = false;
+              setActiveStageId((prev) => {
+                const next = Math.min(prev + 1, 5);
+                activeStageRef.current = next;
+                return next;
+              });
+
+              if (lockTimeout) clearTimeout(lockTimeout);
+              lockTimeout = setTimeout(() => {
+                isLocked = false;
+              }, 380); // 380ms cooldown to absorb residual swipe momentum
+            }
+          } else if (currentStage === 5) {
+            // At stage 5: absorb residual swipe momentum first
+            if (!isMomentumAbsorbedAtEnd) {
+              e.preventDefault();
+              if (Math.abs(window.scrollY - targetY) > 1) {
+                window.scrollTo({ top: targetY, behavior: 'instant' });
+              }
+            }
+            // If momentum settled, allow natural page scroll down to proceed!
           }
-          // If momentum settled, allow natural page scroll down to proceed!
         }
       }
-      // Scrolling UP (deltaY < 0)
+      // SCROLLING UP (deltaY < 0)
       else if (e.deltaY < 0) {
-        if (currentStage > 1) {
-          // ALWAYS prevent default page scrolling while reverse stages are in progress
-          e.preventDefault();
+        // Active when user is at or below targetY
+        const isAtSection = currentScrollY <= targetY + 80;
 
-          // Keep view solidly pinned at targetY
-          if (Math.abs(window.scrollY - targetY) > 2) {
-            window.scrollTo({ top: targetY, behavior: 'instant' });
-          }
-
-          if (Math.abs(e.deltaY) >= 15 && !isLocked) {
-            isLocked = true;
-            isMomentumAbsorbedAtEnd = false;
-            setActiveStageId((prev) => {
-              const next = Math.max(prev - 1, 1);
-              activeStageRef.current = next;
-              return next;
-            });
-
-            if (lockTimeout) clearTimeout(lockTimeout);
-            lockTimeout = setTimeout(() => {
-              isLocked = false;
-            }, 380); // 380ms cooldown
-          }
-        } else if (currentStage === 1) {
-          // At stage 1: absorb residual swipe momentum first, only allow scrolling up on a fresh scroll gesture
-          if (!isMomentumAbsorbedAtEnd) {
+        if (isAtSection) {
+          if (currentStage > 1) {
+            // UNCONDITIONALLY prevent page from scrolling up while on stages 5, 4, 3, 2
             e.preventDefault();
-            if (Math.abs(window.scrollY - targetY) > 2) {
+
+            // Hold view rigidly at targetY
+            if (Math.abs(window.scrollY - targetY) > 1) {
               window.scrollTo({ top: targetY, behavior: 'instant' });
             }
+
+            if (Math.abs(e.deltaY) >= 12 && !isLocked) {
+              isLocked = true;
+              isMomentumAbsorbedAtEnd = false;
+              setActiveStageId((prev) => {
+                const next = Math.max(prev - 1, 1);
+                activeStageRef.current = next;
+                return next;
+              });
+
+              if (lockTimeout) clearTimeout(lockTimeout);
+              lockTimeout = setTimeout(() => {
+                isLocked = false;
+              }, 380); // 380ms cooldown
+            }
+          } else if (currentStage === 1) {
+            // At stage 1: absorb residual swipe momentum first
+            if (!isMomentumAbsorbedAtEnd) {
+              e.preventDefault();
+              if (Math.abs(window.scrollY - targetY) > 1) {
+                window.scrollTo({ top: targetY, behavior: 'instant' });
+              }
+            }
+            // If momentum settled, allow natural page scroll up to proceed!
           }
-          // If momentum settled, allow natural page scroll up to proceed!
         }
       }
     };
@@ -836,23 +833,16 @@ export default function IntegratedTimeline() {
     const handleTouchMove = (e: TouchEvent) => {
       const targetY = getTargetScrollY();
       const currentScrollY = window.scrollY;
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
       const currentY = e.touches[0].clientY;
       const diffY = touchStartY - currentY; // positive = swipe up = scroll down
       const currentStage = activeStageRef.current;
 
-      const isInRange =
-        (currentScrollY >= targetY - 140 && currentScrollY <= targetY + 300) ||
-        (rect.top <= 120 && rect.bottom >= windowHeight * 0.35);
-
-      if (!isInRange) return;
-
-      if (diffY > 25) {
+      if (diffY > 20) {
         // Scrolling DOWN
-        if (currentStage < 5) {
+        const isAtSection = currentScrollY >= targetY - 80;
+        if (isAtSection && currentStage < 5) {
           e.preventDefault();
-          if (Math.abs(window.scrollY - targetY) > 2) {
+          if (Math.abs(window.scrollY - targetY) > 1) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
           }
           if (!isLocked) {
@@ -869,11 +859,12 @@ export default function IntegratedTimeline() {
             }, 380);
           }
         }
-      } else if (diffY < -25) {
+      } else if (diffY < -20) {
         // Scrolling UP
-        if (currentStage > 1) {
+        const isAtSection = currentScrollY <= targetY + 80;
+        if (isAtSection && currentStage > 1) {
           e.preventDefault();
-          if (Math.abs(window.scrollY - targetY) > 2) {
+          if (Math.abs(window.scrollY - targetY) > 1) {
             window.scrollTo({ top: targetY, behavior: 'instant' });
           }
           if (!isLocked) {
@@ -893,14 +884,28 @@ export default function IntegratedTimeline() {
       }
     };
 
+    // Scroll correction fallback
+    const handleScroll = () => {
+      const targetY = getTargetScrollY();
+      const currentScrollY = window.scrollY;
+      const currentStage = activeStageRef.current;
+
+      // If user somehow scrolled past targetY while on stages 1-4, immediately restore to targetY
+      if (currentStage < 5 && currentScrollY > targetY + 20 && currentScrollY < targetY + 400) {
+        window.scrollTo({ top: targetY, behavior: 'instant' });
+      }
+    };
+
     window.addEventListener('wheel', handleWheelEvent, { passive: false, capture: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true, capture: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: false, capture: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('wheel', handleWheelEvent, { capture: true });
       window.removeEventListener('touchstart', handleTouchStart, { capture: true });
       window.removeEventListener('touchmove', handleTouchMove, { capture: true });
+      window.removeEventListener('scroll', handleScroll);
       if (lockTimeout) clearTimeout(lockTimeout);
       if (idleTimeout) clearTimeout(idleTimeout);
     };
