@@ -1,6 +1,4 @@
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { cdmoData } from '@/data/cdmoData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
@@ -370,12 +368,6 @@ export default async function CDMODynamicPage({ params }: PageProps) {
     page.specs || []
   ) as PageContent;
 
-  const relatedPages = cdmoData
-    .filter((p) => p.category === category && p.slug !== slug)
-    .slice(0, 3);
-
-  const nextPage = relatedPages[0] || null;
-
   const LayoutComponent = (() => {
     switch (category) {
       case 'overview':
@@ -398,23 +390,6 @@ export default async function CDMODynamicPage({ params }: PageProps) {
   return (
     <div className="bg-white text-neutral-900 min-h-screen font-sans pb-0 select-none">
       <LayoutComponent page={page} content={content} />
-
-      {nextPage && (
-        <div className="w-full border-t border-neutral-200">
-          <Link
-            href={`/${category}/${nextPage.slug}`}
-            className="block w-full bg-white hover:bg-neutral-50 transition-colors duration-500 py-16 md:py-24 text-center cursor-pointer group"
-          >
-            <span className="text-[11px] uppercase tracking-widest text-brand-yellow font-bold block mb-3">
-              Next: {category}
-            </span>
-            <h3 className="text-3xl md:text-5xl font-semibold text-neutral-900 group-hover:text-brand-blue transition-colors duration-500 tracking-tight leading-none max-w-4xl mx-auto px-6">
-              {nextPage.heading.replace(/\.$/, '')}
-            </h3>
-            <ArrowRight className="w-6 h-6 mx-auto mt-6 text-brand-blue group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-      )}
     </div>
   );
 }
