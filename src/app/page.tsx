@@ -121,35 +121,42 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {serviceCards.map((card, idx) => (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.55, delay: idx * 0.12, ease: 'easeOut' }}
-                className="h-full"
-              >
-                <div className="group h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col">
-                  {/* Photo header */}
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
-                  </div>
-                  {/* Body */}
-                  <div className="p-6 md:p-7 flex flex-col flex-1">
-                    <div className="min-h-[110px] md:min-h-[120px] mb-5">
-                      <h3 className="text-xl font-semibold text-black mb-2 group-hover:text-brand-blue transition-colors">
-                        {card.title}
-                      </h3>
-                      <p className="text-[15px] text-neutral-600 leading-relaxed">
-                        {card.desc}
-                      </p>
+            {serviceCards.map((card, idx) => {
+              const CardIcon = card.icon;
+              return (
+                <motion.div
+                  key={card.title}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.55, delay: idx * 0.12, ease: 'easeOut' }}
+                  className="h-full"
+                >
+                  <div className="group h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col">
+                    {/* Photo header */}
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
                     </div>
+                    {/* Body */}
+                    <div className="p-6 md:p-7 flex flex-col flex-1">
+                      <div className="min-h-[130px] md:min-h-[140px] mb-5">
+                        <div className="flex items-start gap-3 mb-2.5">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-brand-orange/10 border border-brand-orange/25 flex items-center justify-center shrink-0 text-brand-orange group-hover:bg-brand-orange group-hover:text-white group-hover:border-brand-orange group-hover:shadow-md group-hover:shadow-brand-orange/20 transition-all duration-300 shadow-xs mt-0.5">
+                            <CardIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                          </div>
+                          <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
+                            {card.title}
+                          </h3>
+                        </div>
+                        <p className="text-[15px] text-neutral-600 leading-relaxed">
+                          {card.desc}
+                        </p>
+                      </div>
                     <ul className="border-t border-neutral-100 pt-1">
                       {card.items.map((item) => {
                         const ItemIcon = item.icon;
@@ -174,7 +181,8 @@ export default function Home() {
                   </div>
                 </div>
               </motion.div>
-            ))}
+            );
+          })}
           </div>
         </div>
       </section>
