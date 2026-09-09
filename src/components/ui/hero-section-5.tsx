@@ -25,9 +25,9 @@ export function HeroSection() {
                 <div className="relative z-10 w-full px-8 sm:px-12 md:px-16 lg:px-20 py-16 md:py-24 lg:py-28 flex items-center">
                     {/* Left: Text */}
                     <div className="text-left max-w-2xl">
-                        <h1 className="text-[34px] sm:text-[46px] lg:text-[58px] font-semibold tracking-tight text-white leading-[1.12] drop-shadow-sm">
+                        <h1 className="text-[34px] sm:text-[46px] lg:text-[58px] font-normal tracking-tight text-white leading-[1.12] drop-shadow-sm">
                             Biologics Development and Manufacturing
-                            <span className="block text-white/95 text-2xl sm:text-3xl lg:text-4xl font-medium mt-5 sm:mt-6">
+                            <span className="block text-white/95 text-2xl sm:text-3xl lg:text-4xl font-light mt-5 sm:mt-6">
                                 From Cell Line to Clinical Supply.
                             </span>
                         </h1>

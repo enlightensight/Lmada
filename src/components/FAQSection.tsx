@@ -35,11 +35,11 @@ export default function FAQSection({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
             <Reveal>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
-                <span className="text-black">{firstWord}</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
+                <span className="text-neutral-900">{firstWord}</span>
                 {remainingWords.length > 0 ? ` ${remainingWords.join(' ')}` : ''}
               </h2>
-              <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
+              <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
                 {subtitle}
               </p>
               <Link

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ─── D-DIN webfont (matches logo typography) ─── */
+/* ─── D-DIN webfont (fallback/logo typography) ─── */
 @font-face {
   font-family: 'D-DIN';
   font-style: normal;
@@ -53,8 +53,8 @@ html {
 }
 
 @theme {
-  --font-serif: 'D-DIN', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: 'D-DIN', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

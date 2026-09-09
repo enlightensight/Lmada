@@ -53,8 +53,8 @@ export default function Contact() {
             <span className="inline-block px-3 py-1.5 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-yellow text-black mb-6">
               Contact
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.1] mb-4">
-              Let&apos;s Advance Your <span className="text-black">Next Biologics</span> Program
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.1] mb-4">
+              Let&apos;s Advance Your <span className="text-neutral-900">Next Biologics</span> Program
             </h1>
             {/* animated yellow underline */}
             <motion.div
@@ -63,7 +63,7 @@ export default function Contact() {
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
               className="h-1 w-24 bg-brand-yellow rounded-full origin-left mb-5"
             />
-            <p className="text-[17px] text-neutral-600 leading-relaxed">
+            <p className="text-[17px] text-slate-500 font-normal leading-relaxed">
               Whether you&apos;re developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.
             </p>
           </motion.div>

@@ -49,10 +49,10 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
                   </span>
                 )}
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05]">
                 {page.heading}
               </h1>
-              <p className="text-[17px] text-neutral-600 leading-relaxed border-l-2 border-brand-yellow pl-5 mt-6 max-w-xl">
+              <p className="text-[17px] text-slate-500 font-normal leading-relaxed border-l-2 border-brand-yellow pl-5 mt-6 max-w-xl">
                 {page.description}
               </p>
             </div>
@@ -75,8 +75,8 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Featured</span> Story
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                  <span className="text-neutral-900">Featured</span> Story
                 </h2>
               </div>
             </Reveal>
@@ -100,10 +100,10 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
                       <span className="h-px flex-1 bg-neutral-200" />
                       <SlugIcon className="w-4 h-4 text-brand-blue" />
                     </div>
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-5 group-hover:text-brand-blue transition-colors">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-5 group-hover:text-brand-blue transition-colors">
                       {featured.title}
                     </h3>
-                    <p className="text-[17px] text-neutral-600 leading-relaxed mb-8">
+                    <p className="text-[17px] text-slate-500 font-normal leading-relaxed mb-8">
                       {featured.text}
                     </p>
                     <div className="flex items-center gap-2 text-sm font-semibold text-brand-blue">
@@ -125,8 +125,8 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">More</span> From This Desk
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                  <span className="text-neutral-900">More</span> From This Desk
                 </h2>
               </div>
             </Reveal>
@@ -169,10 +169,10 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
               <div className="lg:col-span-4">
                 <Reveal>
-                  <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-4">
-                    <span className="text-black">Index</span> of Topics
+                  <h2 className="text-3xl sm:text-4xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
+                    <span className="text-neutral-900">Index</span> of Topics
                   </h2>
-                  <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed">
+                  <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
                     A quick reference for what this section covers and how to access it.
                   </p>
                 </Reveal>
@@ -213,7 +213,7 @@ export default function InsightsLayout({ page, content }: InsightsLayoutProps) {
             <div className="inline-flex w-14 h-14 rounded-[10px] bg-brand-yellow items-center justify-center mb-8">
               <SlugIcon className="w-7 h-7 text-black" />
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight leading-[1.15] mb-6">
               <span className="text-white">Stay</span> Informed on Lambda CDMO
             </h2>
             <p className="text-base text-white/70 max-w-2xl mx-auto mb-10">

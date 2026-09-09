@@ -99,11 +99,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                   {page.badge}
                 </span>
               )}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05]">
-                <span className="text-black">{page.heading.split(' ')[0]}</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05]">
+                <span className="text-neutral-900">{page.heading.split(' ')[0]}</span>
                 {` ${page.heading.split(' ').slice(1).join(' ')}`}
               </h1>
-              <p className="text-[17px] text-neutral-600 leading-relaxed mt-6 max-w-xl">
+              <p className="text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl">
                 {page.description}
               </p>
             </div>
@@ -134,10 +134,10 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-12">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Key</span> Capabilities
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                  Key Capabilities
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-3">
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-3">
                   Comprehensive analytical testing, assay validation, and characterization platforms supporting biologics across development and QC release.
                 </p>
               </div>
@@ -195,12 +195,12 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
                           <Icon className="w-6 h-6 text-brand-blue" />
                         </span>
-                        <h3 className="text-2xl sm:text-3xl font-semibold text-black">
+                        <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
                           {section.title}
                         </h3>
                       </div>
 
-                      <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6 max-w-4xl">
+                      <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6 max-w-4xl">
                         {section.text}
                       </p>
 
@@ -242,12 +242,12 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
                           <Icon className="w-6 h-6 text-brand-blue" />
                         </span>
-                        <h3 className="text-2xl sm:text-3xl font-semibold text-black">
+                        <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
                           {section.title}
                         </h3>
                       </div>
 
-                      <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6 max-w-4xl">
+                      <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6 max-w-4xl">
                         {section.text}
                       </p>
 
@@ -305,12 +305,12 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                             <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
                               <Icon className="w-6 h-6 text-brand-blue" />
                             </span>
-                            <h3 className="text-2xl sm:text-3xl font-semibold text-black">
+                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
                               {section.title}
                             </h3>
                           </div>
 
-                          <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
+                          <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
                             {section.text}
                           </p>
 
@@ -363,7 +363,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
         <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight leading-[1.15] mb-6">
             <span className="text-white">Ready</span> to advance your biologics program?
           </h2>
           <p className="text-base text-white/70 max-w-2xl mx-auto mb-8">

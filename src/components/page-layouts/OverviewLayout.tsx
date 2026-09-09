@@ -161,8 +161,8 @@ function getOverviewCapabilityIcon(text: string, index: number) {
 function AccentHeading({ text, className = '' }: { text: string; className?: string }) {
   const [first, ...rest] = text.split(' ');
   return (
-    <h2 className={`text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] ${className}`}>
-      <span className="text-black">{first}</span>
+    <h2 className={`text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] ${className}`}>
+      <span className="text-neutral-900">{first}</span>
       {rest.length > 0 ? ` ${rest.join(' ')}` : ''}
     </h2>
   );
@@ -190,11 +190,11 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     <div className="w-14 h-14 mx-auto mb-8 rounded-[10px] bg-brand-yellow flex items-center justify-center">
                       <Quote className="w-7 h-7 text-black" />
                     </div>
-                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-6">
-                      <span className="text-black">{section.title.split(' ')[0]}</span>
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-6">
+                      <span className="text-neutral-900">{section.title.split(' ')[0]}</span>
                       {` ${section.title.split(' ').slice(1).join(' ')}`}
                     </h3>
-                    <p className="text-[17px] md:text-[19px] text-neutral-600 leading-relaxed">
+                    <p className="text-[17px] md:text-[19px] text-slate-500 font-normal leading-relaxed">
                       {section.text}
                     </p>
                     {page.slug === 'careers' ? (
@@ -315,11 +315,11 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   {page.badge}
                 </span>
               )}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05]">
-                <span className="text-black">{page.heading.split(' ')[0]}</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05]">
+                <span className="text-neutral-900">{page.heading.split(' ')[0]}</span>
                 {` ${page.heading.split(' ').slice(1).join(' ')}`}
               </h1>
-              <p className="text-[17px] text-neutral-600 leading-relaxed mt-6 max-w-xl">
+              <p className="text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl">
                 {page.description}
               </p>
             </div>
@@ -347,10 +347,10 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     <div className="w-14 h-14 mx-auto mb-8 rounded-[10px] bg-brand-yellow flex items-center justify-center">
                       <Quote className="w-7 h-7 text-black" />
                     </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15] mb-6">
-                      <span className="text-black">The Lambda</span> Advantage
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-6">
+                      <span className="text-neutral-900">The Lambda</span> Advantage
                     </h2>
-                    <p className="text-[17px] md:text-[19px] text-neutral-600 leading-relaxed max-w-3xl mx-auto">
+                    <p className="text-[17px] md:text-[19px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto">
                       {page.sections?.find((s) => s.title === 'The Lambda Advantage')?.text ||
                         'Every biologic program presents unique scientific, manufacturing, and regulatory challenges. Our role is to provide integrated expertise across development and manufacturing while maintaining the flexibility needed to support evolving program requirements. Our approach combines scientific knowledge, scalable manufacturing, and quality systems designed to support global regulatory expectations.'}
                     </p>
@@ -358,7 +358,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   </div>
                 ) : (
                   <>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                       {page.slug === 'leadership' ? (
                         <>
                           <span className="text-black">Operational</span> Commitments
@@ -484,10 +484,10 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-12 md:mb-16">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Executive</span> & Scientific Team
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                  <span className="text-neutral-900">Executive</span> & Scientific Team
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
                   Led by experienced biopharma executives, bioprocess engineers, bioanalytical chemists, and regulatory specialists.
                 </p>
               </div>
@@ -544,7 +544,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
         <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
           <Reveal>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight leading-[1.15] mb-6">
               <span className="text-white">{page.slug === 'careers' ? 'Join' : 'Ready'}</span>{' '}
               {page.slug === 'careers' ? 'our world-class team of biologics scientists' : 'to advance your biologics program?'}
             </h2>

@@ -78,10 +78,10 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                   {page.badge}
                 </span>
               )}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05] mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05] mb-6">
                 {page.heading}
               </h1>
-              <p className="text-[17px] text-neutral-600 leading-relaxed max-w-xl">
+              <p className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl">
                 {page.description}
               </p>
             </div>
@@ -129,10 +129,10 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Manufacturing</span> Capabilities
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                  Manufacturing Capabilities
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
                   cGMP cleanroom workflows, validated containment, and precision production systems for {page.title.split('—')[0].trim()}.
                 </p>
               </div>
@@ -226,8 +226,8 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-              <span className="text-black">Built</span> for clinical-grade production
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+              Built for clinical-grade production
             </h2>
           </div>
           <div className="flex flex-col gap-12 md:gap-20">
@@ -254,10 +254,10 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                           {String(idx + 1).padStart(2, '0')} — {idx % 2 === 0 ? 'Operations' : 'Quality'}
                         </span>
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-black mb-4">
+                      <h3 className="text-2xl md:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4">
                         {section.title}
                       </h3>
-                      <p className="text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
+                      <p className="text-[15px] md:text-[17px] text-slate-500 font-normal leading-relaxed">
                         {section.text}
                       </p>
                     </div>
@@ -279,7 +279,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
         <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight leading-[1.15] mb-6">
             <span className="text-white">Ready</span> to advance your biologics program?
           </h2>
           <p className="text-base text-white/70 max-w-2xl mx-auto mb-8">

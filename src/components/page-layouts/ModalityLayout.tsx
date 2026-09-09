@@ -67,11 +67,11 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                   {page.badge}
                 </span>
               )}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-[1.05] mb-6">
-                <span className="text-black">{firstWord}</span>{' '}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05] mb-6">
+                <span className="text-neutral-900">{firstWord}</span>{' '}
                 {restWords.join(' ')}
               </h1>
-              <p className="text-[17px] text-neutral-600 leading-relaxed max-w-xl mb-10">
+              <p className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl mb-10">
                 {page.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -112,10 +112,10 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-                  <span className="text-black">Platform</span> Capabilities
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                  Platform Capabilities
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
                   End-to-end scientific and manufacturing infrastructure designed to address the specific requirements of {page.title.split('—')[0].trim()}.
                 </p>
               </div>
@@ -181,7 +181,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
         <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
           <Reveal>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight leading-[1.15] mb-6">
               <span className="text-white">Ready</span> to Advance Your Biologics Program?
             </h2>
             <p className="text-base text-white/70 max-w-2xl mx-auto mb-10">

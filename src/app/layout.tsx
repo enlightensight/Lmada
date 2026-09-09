@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Lambda CDMO — Integrated Biologics Solutions & GMP Manufacturing",
@@ -41,8 +48,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased text-foreground bg-background selection:bg-brand-blue/20">
+    <html lang="en" className={inter.variable}>
+      <body className={`${inter.className} font-sans antialiased text-foreground bg-background selection:bg-brand-blue/20`}>
         <Navigation />
         <main className="flex-grow pt-16 lg:pt-20">{children}</main>
         <Footer />
