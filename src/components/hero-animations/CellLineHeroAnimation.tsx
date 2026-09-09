@@ -1,41 +1,41 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Dna, CheckCircle2, FlaskConical, Target, ShieldCheck } from 'lucide-react';
 
 const STAGES = [
   {
     id: 1,
-    title: 'Transfection & Gene Delivery',
-    subtitle: 'High-efficiency plasmid vector delivery into CHO host cell lines',
+    tabLabel: 'Gene Delivery',
+    fullTitle: 'Transfection & Gene Delivery into CHO Host',
+    subtitle: 'High-efficiency electroporation and chemical plasmid vector delivery into suspension-adapted CHO-K1/CHO-S host cell lines.',
     tag: 'Stage 01',
     metric: 'Transfection Efficiency: >94%',
-    shortName: '1. Transfection',
   },
   {
     id: 2,
-    title: 'Single-Cell Deposition & Imaging',
-    subtitle: 'Verified single-cell isolation with monoclonality proof for regulatory filings',
+    tabLabel: 'Single-Cell Isolation',
+    fullTitle: 'Single-Cell Deposition & Verified Monoclonality',
+    subtitle: 'High-speed FACS or microfluidic single-cell printing with automated whole-well imaging documenting zero-time monoclonality proof.',
     tag: 'Stage 02',
     metric: 'Monoclonality: >99.9%',
-    shortName: '2. Single-Cell',
   },
   {
     id: 3,
-    title: 'High-Titer Clone Selection',
-    subtitle: 'Screening top clonal producers for robust cell growth and target quality attributes',
+    tabLabel: 'High-Titer Selection',
+    fullTitle: 'High-Titer Clonal Screening & Outgrowth',
+    subtitle: 'Multi-parameter high-throughput screening identifying top clonal producers with robust doubling times and high specific productivity.',
     tag: 'Stage 03',
     metric: 'Titer Yield: 4.8 - 8.5 g/L',
-    shortName: '3. Clone Selection',
   },
   {
     id: 4,
-    title: 'Master Cell Bank Cryopreservation',
-    subtitle: 'Establishment of cGMP Master Cell Bank with 60+ generations genetic stability',
+    tabLabel: 'cGMP Cell Banking',
+    fullTitle: 'Master Cell Bank (MCB) Cryopreservation',
+    subtitle: 'Establishment of cGMP Master and Working Cell Banks with 60+ generations of confirmed phenotypic and genetic stability.',
     tag: 'Stage 04',
     metric: 'Stability: 60+ Generations',
-    shortName: '4. Cell Banking',
   },
 ];
 
@@ -47,13 +47,15 @@ export default function CellLineHeroAnimation() {
     if (isPaused) return;
     const timer = setInterval(() => {
       setActiveStage((prev) => (prev >= 4 ? 1 : prev + 1));
-    }, 4000);
+    }, 4500);
     return () => clearInterval(timer);
   }, [isPaused]);
 
+  const current = STAGES[activeStage - 1];
+
   return (
     <div
-      className="relative w-full min-h-[460px] lg:min-h-[500px] bg-white rounded-[16px] border border-neutral-200/90 shadow-xl overflow-hidden flex flex-col justify-between p-5 sm:p-7 select-none"
+      className="relative w-full min-h-[490px] md:min-h-[520px] bg-white rounded-[16px] border border-neutral-200/90 shadow-xl overflow-hidden flex flex-col justify-between p-5 sm:p-7 select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -63,7 +65,10 @@ export default function CellLineHeroAnimation() {
       {/* Top Header & Live Telemetry Badge */}
       <div className="relative z-10 flex items-center justify-between border-b border-neutral-100 pb-4">
         <div className="flex items-center gap-2.5">
-          <span className="w-3 h-3 rounded-full bg-[#00aeef] animate-pulse" />
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00aeef] opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00aeef]" />
+          </span>
           <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900">
             Cell Line Engineering Platform
           </span>
@@ -74,9 +79,9 @@ export default function CellLineHeroAnimation() {
         </div>
       </div>
 
-      {/* Center Animated Microscopic Stage (Scaled Up & Prominent) */}
-      <div className="relative z-10 flex-1 my-4 flex items-center justify-center min-h-[220px]">
-        <svg viewBox="0 0 440 240" className="w-full h-full max-h-[230px]" fill="none">
+      {/* Center Animated Microscopic Stage */}
+      <div className="relative z-10 flex-1 my-3 flex items-center justify-center min-h-[240px]">
+        <svg viewBox="0 0 440 240" className="w-full h-full max-h-[250px]" fill="none">
           <defs>
             <radialGradient id="dishGlowLarge" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#00aeef" stopOpacity="0.2" />
@@ -98,7 +103,9 @@ export default function CellLineHeroAnimation() {
           <line x1="114" y1="120" x2="142" y2="120" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
           <line x1="298" y1="120" x2="326" y2="120" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
 
-          {/* STAGE 1: DNA Vector Plasmid & Delivery */}
+          {/* ======================================================== */}
+          {/* STAGE 1: DNA VECTOR PLASMID & DELIVERY                   */}
+          {/* ======================================================== */}
           {activeStage === 1 && (
             <g>
               {/* DNA Double Helix Strands */}
@@ -163,10 +170,15 @@ export default function CellLineHeroAnimation() {
                 animate={{ scale: [1, 1.45, 1] }}
                 transition={{ repeat: Infinity, duration: 1.4 }}
               />
+              <text x="220" y="180" textAnchor="middle" fill="#00aeef" fontSize="9" fontWeight="bold">
+                Host CHO Uptake
+              </text>
             </g>
           )}
 
-          {/* STAGE 2: Single-Cell Deposition & Isolation */}
+          {/* ======================================================== */}
+          {/* STAGE 2: SINGLE-CELL DEPOSITION & ISOLATION              */}
+          {/* ======================================================== */}
           {activeStage === 2 && (
             <g>
               {/* 96-Well Microplate Grid Overlay */}
@@ -216,10 +228,15 @@ export default function CellLineHeroAnimation() {
                 <line x1="245" y1="95" x2="245" y2="108" stroke="#f58634" strokeWidth="2.5" strokeLinecap="round" />
                 <line x1="245" y1="132" x2="245" y2="145" stroke="#f58634" strokeWidth="2.5" strokeLinecap="round" />
               </motion.g>
+              <text x="245" y="160" textAnchor="middle" fill="#f58634" fontSize="8.5" fontWeight="bold">
+                Monoclonality Verified
+              </text>
             </g>
           )}
 
-          {/* STAGE 3: High-Titer Clonal Outgrowth */}
+          {/* ======================================================== */}
+          {/* STAGE 3: HIGH-TITER CLONAL OUTGROWTH                     */}
+          {/* ======================================================== */}
           {activeStage === 3 && (
             <g>
               {/* Central Robust Colony */}
@@ -241,8 +258,8 @@ export default function CellLineHeroAnimation() {
                 { cx: 250, cy: 102, r: 16, fill: '#00aeef', delay: 0.2 },
                 { cx: 195, cy: 144, r: 15, fill: '#00aeef', delay: 0.4 },
                 { cx: 248, cy: 142, r: 16, fill: '#00aeef', delay: 0.6 },
-                { cx: 220, cy: 78, r: 14, fill: '#f58634', delay: 0.3 }, // High producer marker
-                { cx: 220, cy: 162, r: 14, fill: '#f58634', delay: 0.5 }, // High producer marker
+                { cx: 220, cy: 78, r: 14, fill: '#f58634', delay: 0.3 },
+                { cx: 220, cy: 162, r: 14, fill: '#f58634', delay: 0.5 },
               ].map((cell, idx) => (
                 <motion.g
                   key={idx}
@@ -272,10 +289,15 @@ export default function CellLineHeroAnimation() {
                   transition={{ repeat: Infinity, duration: 1.5, delay: idx * 0.2 }}
                 />
               ))}
+              <text x="220" y="200" textAnchor="middle" fill="#00aeef" fontSize="9" fontWeight="bold">
+                Titer Yield: 4.8 - 8.5 g/L
+              </text>
             </g>
           )}
 
-          {/* STAGE 4: Research & Master Cell Bank */}
+          {/* ======================================================== */}
+          {/* STAGE 4: RESEARCH & MASTER CELL BANK CRYOPRESERVATION    */}
+          {/* ======================================================== */}
           {activeStage === 4 && (
             <g>
               {/* Cryovial 1 */}
@@ -321,43 +343,65 @@ export default function CellLineHeroAnimation() {
                 <circle cx="20" cy="20" r="20" fill="#f58634" />
                 <path d="M 12 20 L 18 26 L 28 14" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
               </motion.g>
+              <text x="220" y="165" textAnchor="middle" fill="#0f2231" fontSize="9" fontWeight="bold">
+                60+ Generations Stability Verified
+              </text>
             </g>
           )}
         </svg>
       </div>
 
-      {/* ACTIVE STAGE DESCRIPTION & PERFORMANCE METRIC (BIG & HIGH-VISIBILITY) */}
-      <div className="relative z-10 bg-neutral-50/95 rounded-[12px] p-4 sm:p-5 border border-neutral-200/90 shadow-sm mb-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2">
-          <span className="text-xs sm:text-sm font-bold uppercase text-[#f58634] tracking-wider">
-            {STAGES[activeStage - 1].tag}
-          </span>
-          <span className="inline-flex items-center text-xs sm:text-sm font-bold text-[#00aeef] bg-white px-3 py-1 rounded-full border border-[#00aeef]/30 shadow-xs">
-            {STAGES[activeStage - 1].metric}
-          </span>
-        </div>
-        <h4 className="text-base sm:text-lg md:text-xl font-bold text-neutral-900 leading-snug">
-          {STAGES[activeStage - 1].title}
-        </h4>
-        <p className="text-xs sm:text-sm md:text-base text-neutral-700 leading-relaxed mt-1">
-          {STAGES[activeStage - 1].subtitle}
-        </p>
-      </div>
+      {/* Stage Narrative Callout */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeStage}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25 }}
+          className="relative z-10 bg-neutral-50/95 rounded-[12px] p-4 sm:p-5 border border-neutral-200/90 shadow-sm mb-2"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-1.5">
+            <span className="text-xs sm:text-sm font-bold uppercase text-[#f58634] tracking-wider">
+              {current.tag}
+            </span>
+            <span className="inline-flex items-center text-xs sm:text-sm font-bold text-[#00aeef] bg-white px-3 py-1 rounded-full border border-[#00aeef]/30 shadow-xs">
+              {current.metric}
+            </span>
+          </div>
+          <h4 className="text-base sm:text-lg font-bold text-neutral-900 leading-snug">
+            {current.fullTitle}
+          </h4>
+          <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mt-1">
+            {current.subtitle}
+          </p>
+        </motion.div>
+      </AnimatePresence>
 
-      {/* INTERACTIVE 4-STEP PROGRESS NAVIGATION BUTTONS (BIG & READABLE) */}
-      <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-neutral-100">
+      {/* Interactive 4-Stage Progress Navigation Buttons */}
+      <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 pt-2 border-t border-neutral-100">
         {STAGES.map((s) => (
           <button
             key={s.id}
             onClick={() => setActiveStage(s.id)}
-            className={`py-2.5 px-3 rounded-[10px] text-center transition-all duration-200 cursor-pointer text-xs sm:text-sm font-bold ${
+            className={`px-3 py-2.5 rounded-[10px] text-left transition-all duration-200 cursor-pointer flex flex-col justify-between border ${
               activeStage === s.id
-                ? 'bg-[#00aeef] text-white shadow-md ring-2 ring-[#00aeef]/40'
-                : 'bg-neutral-100/90 hover:bg-neutral-200 text-neutral-800 border border-neutral-200/80'
+                ? 'bg-neutral-900 text-white border-neutral-900 shadow-md ring-2 ring-neutral-900/20'
+                : 'bg-white/90 hover:bg-neutral-100 text-neutral-700 border-neutral-200/90'
             }`}
           >
-            <span className="truncate block">
-              {s.shortName}
+            <div className="flex items-center justify-between w-full mb-0.5">
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${activeStage === s.id ? 'text-[#f58634]' : 'text-neutral-400'}`}>
+                {s.tag}
+              </span>
+              <span
+                className={`w-2 h-2 rounded-full shrink-0 ${
+                  activeStage === s.id ? 'bg-[#f58634]' : 'bg-neutral-300'
+                }`}
+              />
+            </div>
+            <span className="text-xs sm:text-[13px] font-semibold leading-tight truncate w-full">
+              {s.tabLabel}
             </span>
           </button>
         ))}
@@ -365,3 +409,4 @@ export default function CellLineHeroAnimation() {
     </div>
   );
 }
+

@@ -1,41 +1,41 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Microscope, Search, ShieldCheck, Scale, LineChart, FileCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Microscope, Search, ShieldCheck, Scale, LineChart, FileCheck, CheckCircle2 } from 'lucide-react';
 
 const ANALYTICAL_STAGES = [
   {
     id: 1,
-    title: 'SEC-UPLC Purity & Aggregation Analysis',
-    subtitle: 'High-resolution size-exclusion chromatography resolving monomer purity and high-molecular-weight species',
-    tag: 'Chromatography',
+    tabLabel: 'SEC-UPLC Purity',
+    fullTitle: 'SEC-UPLC Purity & Aggregation Species Quantification',
+    subtitle: 'High-resolution size-exclusion chromatography resolving monomer purity and high-molecular-weight (HMW) aggregates down to 0.1%.',
+    tag: 'Stage 01',
     metric: 'Purity (SEC): 99.4%',
-    shortName: '1. SEC Purity',
   },
   {
     id: 2,
-    title: 'LC-MS/MS Intact Mass & Peptide Mapping',
-    subtitle: 'High-resolution QTOF mass spectrometry confirming sequence identity and post-translational modifications',
-    tag: 'Mass Spectrometry',
+    tabLabel: 'LC-MS/MS Intact Mass',
+    fullTitle: 'LC-MS/MS Intact Mass & High-Coverage Peptide Mapping',
+    subtitle: 'High-resolution QTOF mass spectrometry confirming primary sequence fidelity, glycosylation micro-heterogeneity, and deamidation sites.',
+    tag: 'Stage 02',
     metric: 'Mass Error: < 3.5 ppm',
-    shortName: '2. LC-MS/MS',
   },
   {
     id: 3,
-    title: 'Cell-Based Potency & Functional Bioassays',
-    subtitle: 'Reporter gene and ligand-binding assays demonstrating biological activity and mechanism of action',
-    tag: 'Functional Bioassay',
+    tabLabel: 'Cell Potency Bioassay',
+    fullTitle: 'Cell-Based Potency & Functional Mechanism of Action Bioassays',
+    subtitle: 'Reporter gene, target-engagement, and ligand-binding bioassays demonstrating biological activity against international reference standards.',
+    tag: 'Stage 03',
     metric: 'Relative Potency: 104%',
-    shortName: '3. Bioassays',
   },
   {
     id: 4,
-    title: 'ICH Q2(R1) Method Validation & QC Release',
-    subtitle: 'Full analytical method validation under ICH guidelines supporting IND/BLA dossier filings and cGMP release',
-    tag: 'Quality Standard',
+    tabLabel: 'ICH Q2(R1) Validation',
+    fullTitle: 'ICH Q2(R1) Full Method Validation & cGMP QC Release',
+    subtitle: 'Complete analytical method validation across linearity, precision, accuracy, and robustness supporting IND/BLA dossier filings and batch release.',
+    tag: 'Stage 04',
     metric: 'Compliance: ICH Q2 / 21 CFR',
-    shortName: '4. Validation',
   },
 ];
 
@@ -47,13 +47,15 @@ export default function AnalyticalHeroAnimation() {
     if (isPaused) return;
     const timer = setInterval(() => {
       setActiveStage((prev) => (prev >= 4 ? 1 : prev + 1));
-    }, 4000);
+    }, 4500);
     return () => clearInterval(timer);
   }, [isPaused]);
 
+  const current = ANALYTICAL_STAGES[activeStage - 1];
+
   return (
     <div
-      className="relative w-full min-h-[460px] lg:min-h-[500px] bg-white rounded-[16px] border border-neutral-200/90 shadow-xl overflow-hidden flex flex-col justify-between p-5 sm:p-7 select-none"
+      className="relative w-full min-h-[490px] md:min-h-[520px] bg-white rounded-[16px] border border-neutral-200/90 shadow-xl overflow-hidden flex flex-col justify-between p-5 sm:p-7 select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -63,7 +65,10 @@ export default function AnalyticalHeroAnimation() {
       {/* Top Header & Live Telemetry Badge */}
       <div className="relative z-10 flex items-center justify-between border-b border-neutral-100 pb-4">
         <div className="flex items-center gap-2.5">
-          <span className="w-3 h-3 rounded-full bg-[#00aeef] animate-pulse" />
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00aeef] opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00aeef]" />
+          </span>
           <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900">
             Orthogonal Analytical Architecture
           </span>
@@ -74,9 +79,9 @@ export default function AnalyticalHeroAnimation() {
         </div>
       </div>
 
-      {/* Center Animated High-Res Analytical Stage (Scaled Up & Prominent) */}
-      <div className="relative z-10 flex-1 my-4 flex items-center justify-center min-h-[220px]">
-        <svg viewBox="0 0 440 240" className="w-full h-full max-h-[230px]" fill="none">
+      {/* Center Animated High-Res Analytical Stage */}
+      <div className="relative z-10 flex-1 my-3 flex items-center justify-center min-h-[240px]">
+        <svg viewBox="0 0 440 240" className="w-full h-full max-h-[250px]" fill="none">
           <defs>
             <linearGradient id="chromPeakGradLarge" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#00aeef" stopOpacity="0.9" />
@@ -105,10 +110,12 @@ export default function AnalyticalHeroAnimation() {
 
           {/* Axis Labels */}
           <text x="32" y="24" fill="#0f2231" fontSize="9" fontWeight="bold" fontFamily="monospace">mAU</text>
-          <text x="375" y="202" fill="#0f2231" fontSize="9" fontWeight="bold" fontFamily="monospace">Time (min)</text>
+          <text x="370" y="202" fill="#0f2231" fontSize="9" fontWeight="bold" fontFamily="monospace">Time (min)</text>
 
-          {/* STAGE 1: SEC-HPLC Monomer Peak & Impurities */}
-          {(activeStage === 1 || activeStage === 4) && (
+          {/* ======================================================== */}
+          {/* STAGE 1: SEC-HPLC MONOMER PEAK & IMPURITIES             */}
+          {/* ======================================================== */}
+          {activeStage === 1 && (
             <g>
               {/* Baseline curve with small HMW Aggregate Peak (Orange) */}
               <motion.path
@@ -134,7 +141,7 @@ export default function AnalyticalHeroAnimation() {
                 }}
                 transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
               />
-              <text x="195" y="20" fill="#00aeef" fontSize="10" fontWeight="bold">Monomer 99.4% (RT 8.42m)</text>
+              <text x="195" y="22" fill="#00aeef" fontSize="10" fontWeight="bold">Monomer 99.4% (RT 8.42m)</text>
 
               {/* Small LMW Fragment Peak (Orange) */}
               <motion.path
@@ -160,7 +167,9 @@ export default function AnalyticalHeroAnimation() {
             </g>
           )}
 
-          {/* STAGE 2: LC-MS/MS Mass Spectrum & Peptide Fingerprint */}
+          {/* ======================================================== */}
+          {/* STAGE 2: LC-MS/MS MASS SPECTRUM & PEPTIDE FINGERPRINT    */}
+          {/* ======================================================== */}
           {activeStage === 2 && (
             <g>
               {/* Mass Spectrum Vertical Spectral Lines */}
@@ -199,12 +208,15 @@ export default function AnalyticalHeroAnimation() {
                 </g>
               ))}
 
-              {/* High-accuracy envelope */}
-              <text x="55" y="42" fill="#00aeef" fontSize="10" fontWeight="bold">Intact Mass Verification: 148,254.2 Da (Δ 1.8 ppm)</text>
+              <text x="55" y="42" fill="#00aeef" fontSize="10" fontWeight="bold">
+                Intact Mass Verification: 148,254.2 Da (Δ 1.8 ppm)
+              </text>
             </g>
           )}
 
-          {/* STAGE 3: Potency & Sigmoidal Bioassay Dose-Response Curve */}
+          {/* ======================================================== */}
+          {/* STAGE 3: POTENCY & SIGMOIDAL BIOASSAY DOSE-RESPONSE      */}
+          {/* ======================================================== */}
           {activeStage === 3 && (
             <g>
               {/* Reference Standard Sigmoidal Curve (Blue) */}
@@ -215,7 +227,9 @@ export default function AnalyticalHeroAnimation() {
                 fill="none"
                 strokeLinecap="round"
               />
-              <text x="250" y="38" fill="#00aeef" fontSize="9" fontWeight="bold">Reference Standard (EC₅₀ = 1.18 nM)</text>
+              <text x="250" y="38" fill="#00aeef" fontSize="9" fontWeight="bold">
+                Reference Standard (EC₅₀ = 1.18 nM)
+              </text>
 
               {/* Sample Batch Sigmoidal Curve (Orange) */}
               <motion.path
@@ -226,7 +240,9 @@ export default function AnalyticalHeroAnimation() {
                 fill="none"
                 strokeLinecap="round"
               />
-              <text x="250" y="64" fill="#f58634" fontSize="9" fontWeight="bold">Batch Sample (Relative Potency = 104%)</text>
+              <text x="250" y="64" fill="#f58634" fontSize="9" fontWeight="bold">
+                Batch Sample (Relative Potency = 104%)
+              </text>
 
               {/* Data points along curve */}
               {[
@@ -252,41 +268,97 @@ export default function AnalyticalHeroAnimation() {
               ))}
             </g>
           )}
+
+          {/* ======================================================== */}
+          {/* STAGE 4: ICH Q2(R1) VALIDATION & RELEASE CHECKLIST       */}
+          {/* ======================================================== */}
+          {activeStage === 4 && (
+            <g transform="translate(60, 35)">
+              {/* Validation Grid Matrix */}
+              <rect x="0" y="0" width="320" height="145" rx="8" fill="#ffffff" stroke="#00aeef" strokeWidth="2" />
+              <text x="160" y="24" textAnchor="middle" fill="#0f2231" fontSize="11" fontWeight="bold">
+                ICH Q2(R1) Method Validation & cGMP Release
+              </text>
+              <line x1="15" y1="34" x2="305" y2="34" stroke="#e0f2fe" strokeWidth="1.5" />
+
+              {/* Validation Parameters */}
+              {[
+                { name: 'Linearity & Range', val: 'R² = 0.9998 (50% - 150%)', status: 'PASS' },
+                { name: 'Repeatability Precision', val: 'RSD = 0.42% (n=6 preps)', status: 'PASS' },
+                { name: 'Accuracy & Spike Recovery', val: '100.2% ± 0.8% mean recovery', status: 'PASS' },
+                { name: 'Robustness (pH / Temp)', val: 'Δ RT < 0.05 min across variations', status: 'PASS' },
+              ].map((param, i) => (
+                <g key={i} transform={`translate(20, ${50 + i * 22})`}>
+                  <circle cx="6" cy="4" r="5" fill="#22c55e" />
+                  <path d="M 4 4 L 5.5 6 L 8.5 2.5" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <text x="18" y="7" fill="#0f2231" fontSize="8.5" fontWeight="bold">
+                    {param.name}:
+                  </text>
+                  <text x="135" y="7" fill="#64748b" fontSize="8">
+                    {param.val}
+                  </text>
+                  <rect x="250" y="-3" width="32" height="14" rx="3" fill="#22c55e" fillOpacity="0.15" />
+                  <text x="266" y="7" textAnchor="middle" fill="#16a34a" fontSize="7.5" fontWeight="bold">
+                    {param.status}
+                  </text>
+                </g>
+              ))}
+            </g>
+          )}
         </svg>
       </div>
 
-      {/* ACTIVE STAGE DESCRIPTION & PERFORMANCE METRIC (BIG & HIGH-VISIBILITY) */}
-      <div className="relative z-10 bg-neutral-50/95 rounded-[12px] p-4 sm:p-5 border border-neutral-200/90 shadow-sm mb-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2">
-          <span className="text-xs sm:text-sm font-bold uppercase text-[#f58634] tracking-wider">
-            {ANALYTICAL_STAGES[activeStage - 1].tag}
-          </span>
-          <span className="inline-flex items-center text-xs sm:text-sm font-bold text-[#00aeef] bg-white px-3 py-1 rounded-full border border-[#00aeef]/30 shadow-xs">
-            {ANALYTICAL_STAGES[activeStage - 1].metric}
-          </span>
-        </div>
-        <h4 className="text-base sm:text-lg md:text-xl font-bold text-neutral-900 leading-snug">
-          {ANALYTICAL_STAGES[activeStage - 1].title}
-        </h4>
-        <p className="text-xs sm:text-sm md:text-base text-neutral-700 leading-relaxed mt-1">
-          {ANALYTICAL_STAGES[activeStage - 1].subtitle}
-        </p>
-      </div>
+      {/* Stage Narrative Callout */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeStage}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25 }}
+          className="relative z-10 bg-neutral-50/95 rounded-[12px] p-4 sm:p-5 border border-neutral-200/90 shadow-sm mb-2"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-1.5">
+            <span className="text-xs sm:text-sm font-bold uppercase text-[#f58634] tracking-wider">
+              {current.tag}
+            </span>
+            <span className="inline-flex items-center text-xs sm:text-sm font-bold text-[#00aeef] bg-white px-3 py-1 rounded-full border border-[#00aeef]/30 shadow-xs">
+              {current.metric}
+            </span>
+          </div>
+          <h4 className="text-base sm:text-lg font-bold text-neutral-900 leading-snug">
+            {current.fullTitle}
+          </h4>
+          <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mt-1">
+            {current.subtitle}
+          </p>
+        </motion.div>
+      </AnimatePresence>
 
-      {/* INTERACTIVE 4-STEP PROGRESS NAVIGATION BUTTONS (BIG & READABLE) */}
-      <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-neutral-100">
+      {/* Interactive 4-Stage Progress Navigation Buttons */}
+      <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 pt-2 border-t border-neutral-100">
         {ANALYTICAL_STAGES.map((s) => (
           <button
             key={s.id}
             onClick={() => setActiveStage(s.id)}
-            className={`py-2.5 px-3 rounded-[10px] text-center transition-all duration-200 cursor-pointer text-xs sm:text-sm font-bold ${
+            className={`px-3 py-2.5 rounded-[10px] text-left transition-all duration-200 cursor-pointer flex flex-col justify-between border ${
               activeStage === s.id
-                ? 'bg-[#00aeef] text-white shadow-md ring-2 ring-[#00aeef]/40'
-                : 'bg-neutral-100/90 hover:bg-neutral-200 text-neutral-800 border border-neutral-200/80'
+                ? 'bg-neutral-900 text-white border-neutral-900 shadow-md ring-2 ring-neutral-900/20'
+                : 'bg-white/90 hover:bg-neutral-100 text-neutral-700 border-neutral-200/90'
             }`}
           >
-            <span className="truncate block">
-              {s.shortName}
+            <div className="flex items-center justify-between w-full mb-0.5">
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${activeStage === s.id ? 'text-[#f58634]' : 'text-neutral-400'}`}>
+                {s.tag}
+              </span>
+              <span
+                className={`w-2 h-2 rounded-full shrink-0 ${
+                  activeStage === s.id ? 'bg-[#f58634]' : 'bg-neutral-300'
+                }`}
+              />
+            </div>
+            <span className="text-xs sm:text-[13px] font-semibold leading-tight truncate w-full">
+              {s.tabLabel}
             </span>
           </button>
         ))}
@@ -294,3 +366,4 @@ export default function AnalyticalHeroAnimation() {
     </div>
   );
 }
+
