@@ -1161,25 +1161,31 @@ export default function IntegratedTimeline() {
             </p>
           </div>
 
-          {/* ================= CLEAN HORIZONTAL TIMELINE TRACK ================= */}
-          <div className="relative max-w-5xl mx-auto mb-3 sm:mb-4 w-full">
+          {/* ================= CLEAN MINIMALIST HORIZONTAL TIMELINE TRACK (ACCORDING TO IMAGE 2) ================= */}
+          <div className="relative max-w-5xl mx-auto mb-6 sm:mb-8 w-full px-2 sm:px-4">
             
-            {/* The Road Track with Live Fill */}
-            <div className="relative py-2 flex items-center">
-              {/* Background Track Strip */}
-              <div className="absolute left-[8%] right-[8%] sm:left-[10%] sm:right-[10%] h-4 sm:h-5 bg-neutral-100 rounded-full border border-neutral-200 overflow-hidden flex items-center z-0 shadow-inner">
-                {/* White dashed highway centerline */}
-                <div className="w-full border-t-2 border-dashed border-neutral-300 scale-y-110" />
+            {/* The Connecting Line Track */}
+            <div className="relative flex items-center">
+              {/* Thin Base Grey Track Line */}
+              <div className="absolute left-[10%] right-[10%] top-[28px] sm:top-[32px] -translate-y-1/2 h-[1.5px] bg-slate-200/90 z-0" />
 
-                {/* Animated Progress Fill Gradient */}
-                <motion.div
-                  className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#00aeef] via-[#f58634] to-[#00aeef] rounded-full transition-all duration-300 ease-out"
-                  style={{ width: `${((activeStageId - 1) / 4) * 100}%` }}
-                />
-              </div>
+              {/* Active Cyan Progress Line with Leading Dot */}
+              <motion.div
+                className="absolute left-[10%] top-[28px] sm:top-[32px] -translate-y-1/2 h-[2px] bg-[#00aeef] z-0"
+                initial={false}
+                animate={{
+                  width: activeStageId === 5 
+                    ? '80%' 
+                    : `calc(${((activeStageId - 1) / 4) * 80}% + 10%)`,
+                }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+              >
+                {/* Glowing Indicator Dot at the Tip of the Line */}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#00aeef] shadow-[0_0_8px_rgba(0,174,239,0.8)]" />
+              </motion.div>
 
               {/* 5 Circular Stage Node Buttons */}
-              <div className="relative z-10 w-full grid grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+              <div className="relative z-10 w-full grid grid-cols-5">
                 {CONTINUUM_STAGES.map((step) => {
                   const IconComponent = step.icon;
                   const isActive = activeStageId === step.id;
@@ -1190,63 +1196,56 @@ export default function IntegratedTimeline() {
                       <button
                         type="button"
                         onClick={() => handleJumpToStage(step.id)}
-                        className="group relative flex items-center justify-center cursor-pointer outline-none mb-1.5"
+                        className="group relative flex items-center justify-center cursor-pointer outline-none h-14 sm:h-16"
                         title={step.title}
                       >
-                        {/* Active Expanding Pulse Waves */}
-                        {isActive && (
-                          <>
-                            <motion.div
-                              className="absolute -inset-2.5 sm:-inset-3 rounded-full opacity-40 pointer-events-none"
-                              style={{ backgroundColor: step.color }}
-                              animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
-                              transition={{ repeat: Infinity, duration: 2 }}
-                            />
-                            <motion.div
-                              className="absolute -inset-1 sm:-inset-1.5 rounded-full ring-2 pointer-events-none"
-                              style={{ borderColor: step.color }}
-                              animate={{ scale: [1, 1.15, 1] }}
-                              transition={{ repeat: Infinity, duration: 1.5 }}
-                            />
-                          </>
+                        {isActive ? (
+                          /* Active Stage: Multi-layer Glowing Halo + Cyan Filled Circle */
+                          <div className="relative flex items-center justify-center">
+                            {/* Outer diffuse cyan aura ring */}
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#00aeef]/12 border border-[#00aeef]/30 flex items-center justify-center shadow-[0_0_18px_rgba(0,174,239,0.28)] transition-all duration-300">
+                              {/* Inner crisp white spacer ring */}
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white p-[2.5px] shadow-sm flex items-center justify-center">
+                                {/* Solid vibrant cyan core */}
+                                <div className="w-full h-full rounded-full bg-[#00aeef] flex items-center justify-center text-white shadow-xs">
+                                  <IconComponent className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-white stroke-[2.2]" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : isPassed ? (
+                          /* Passed Stage: Clean White Circle with Cyan Border & Icon */
+                          <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white border border-[#00aeef]/60 flex items-center justify-center shadow-xs transition-all duration-300 group-hover:border-[#00aeef] group-hover:scale-105">
+                            <IconComponent className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#00aeef] stroke-[2]" />
+                          </div>
+                        ) : (
+                          /* Inactive Stage: Clean Pure White Circle with Subtle Grey Border & Muted Icon */
+                          <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white border border-slate-200/90 flex items-center justify-center shadow-xs transition-all duration-300 group-hover:border-[#00aeef]/50 group-hover:text-[#00aeef] group-hover:scale-105 group-hover:shadow-sm">
+                            <IconComponent className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-slate-400 group-hover:text-[#00aeef] transition-colors stroke-[1.8]" />
+                          </div>
                         )}
-
-                        {/* Main Node Button */}
-                        <div
-                          className={`w-11 h-11 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border-3 sm:border-4 border-white shadow-md transition-all duration-300 flex items-center justify-center relative z-10 ${
-                            isActive
-                              ? `${step.bgClass} scale-110 shadow-xl ring-4 ring-neutral-900/10`
-                              : isPassed
-                              ? `${step.bgClass} opacity-95`
-                              : 'bg-neutral-200 text-neutral-500 hover:bg-neutral-300'
-                          }`}
-                        >
-                          <IconComponent
-                            className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 transition-transform duration-300 group-hover:scale-110 ${
-                              isActive || isPassed ? 'text-white' : 'text-neutral-600'
-                            }`}
-                          />
-                        </div>
                       </button>
 
-                      {/* Clean Under-Node Label */}
+                      {/* Clean Step Number and Title Labels */}
                       <button
                         type="button"
                         onClick={() => handleJumpToStage(step.id)}
-                        className={`text-center transition-colors cursor-pointer hidden sm:block ${
-                          isActive
-                            ? 'text-neutral-900 font-bold'
-                            : 'text-neutral-500 hover:text-neutral-800 font-medium'
-                        }`}
+                        className="text-center transition-colors cursor-pointer mt-1 sm:mt-1.5"
                       >
                         <span
-                          className={`block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-0.5 ${
-                            isActive ? 'text-[#00aeef]' : 'text-neutral-400'
+                          className={`block text-[11px] sm:text-xs font-semibold tracking-wider mb-0.5 transition-colors ${
+                            isActive ? 'text-[#00aeef] font-bold' : 'text-slate-400'
                           }`}
                         >
                           {step.stepNum}
                         </span>
-                        <span className="text-xs sm:text-[12px] leading-tight block truncate max-w-[100px] lg:max-w-[130px]">
+                        <span
+                          className={`text-xs sm:text-[13px] leading-tight block truncate max-w-[90px] sm:max-w-[120px] transition-colors ${
+                            isActive
+                              ? 'text-neutral-900 font-bold'
+                              : 'text-slate-500 font-medium hover:text-neutral-800'
+                          }`}
+                        >
                           {step.shortName.replace(/^\d+\.\s*/, '')}
                         </span>
                       </button>
