@@ -1307,13 +1307,13 @@ export default function IntegratedTimeline() {
     <div
       ref={containerRef}
       id="integrated-timeline-container"
-      className="scroll-mt-16 lg:scroll-mt-20 relative min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] w-full flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-18 pt-6 pb-6 sm:pt-8 sm:pb-8 lg:pt-10 lg:pb-10 bg-white border-y border-neutral-100 overflow-hidden select-none"
+      className="scroll-mt-16 lg:scroll-mt-20 relative min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] w-full flex flex-col justify-center px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 md:py-16 bg-white border-y border-neutral-100 overflow-hidden select-none"
     >
         
         {/* Background Molecule Pattern Grid */}
         <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#00aeef_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
 
-        <div className="relative w-full max-w-[1600px] mx-auto flex flex-col justify-center">
+        <div className="relative w-full max-w-[1700px] mx-auto flex flex-col justify-center">
           
           {/* Section Header */}
           <div className="text-center mb-5 sm:mb-6 md:mb-8">
@@ -1421,7 +1421,7 @@ export default function IntegratedTimeline() {
           </div>
 
           {/* ================= FEATURED ACTIVE STAGE INTERACTIVE ANIMATION SHOWCASE ================= */}
-          <div className="max-w-6xl mx-auto w-full">
+          <div className="w-full mx-auto">
             <div className="bg-neutral-50/95 rounded-[20px] border border-neutral-200/90 p-4 sm:p-6 lg:p-7 shadow-lg">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
                 
