@@ -37,6 +37,7 @@ import {
 import Reveal from '@/components/Reveal';
 import FacilityGallery from '@/components/FacilityGallery';
 import FAQSection from '@/components/FAQSection';
+import DnaScrollBackground from '@/components/DnaScrollBackground';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -338,8 +339,9 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
       {/* CAPABILITIES / THE LAMBDA ADVANTAGE SECTION */}
       {page.capabilities && page.capabilities.length > 0 && page.slug !== 'facility' && (
-        <section className={`px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${page.slug === 'about' ? 'bg-molecules' : 'bg-neutral-50/60'} border-b border-neutral-100`}>
-          <div className="w-full max-w-[1700px] mx-auto">
+        <section className={`relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${page.slug === 'about' ? 'bg-molecules' : 'bg-neutral-50/60'} border-b border-neutral-100 overflow-hidden`}>
+          {page.slug === 'about' && <DnaScrollBackground />}
+          <div className="relative z-10 w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 {page.slug === 'about' ? (
