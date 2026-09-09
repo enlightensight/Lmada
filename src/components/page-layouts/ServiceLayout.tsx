@@ -173,14 +173,14 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
               const Icon = section.title.toLowerCase().includes('upstream')
                 ? FlaskConical
                 : section.title.toLowerCase().includes('downstream')
-                ? Filter
-                : section.title.toLowerCase().includes('analytical')
-                ? Microscope
-                : section.title.toLowerCase().includes('cell line') || section.title.toLowerCase().includes('clone')
-                ? Dna
-                : section.title.toLowerCase().includes('formulation')
-                ? Beaker
-                : CAPABILITY_ICONS[idx % CAPABILITY_ICONS.length];
+                  ? Filter
+                  : section.title.toLowerCase().includes('analytical')
+                    ? Microscope
+                    : section.title.toLowerCase().includes('cell line') || section.title.toLowerCase().includes('clone')
+                      ? Dna
+                      : section.title.toLowerCase().includes('formulation')
+                        ? Beaker
+                        : CAPABILITY_ICONS[idx % CAPABILITY_ICONS.length];
 
               const isUpstreamProcess = page.slug === 'process' && section.title.toLowerCase().includes('upstream');
               const isDownstreamProcess = page.slug === 'process' && section.title.toLowerCase().includes('downstream');
@@ -285,7 +285,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                   ) : (
                     <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                        
+
                         {/* Image Box */}
                         <div className={`lg:col-span-5 ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
                           <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-100 border border-neutral-200/90 shadow-inner group">

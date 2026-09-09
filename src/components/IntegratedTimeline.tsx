@@ -1152,11 +1152,11 @@ export default function IntegratedTimeline() {
         <div className="relative w-full max-w-[1600px] mx-auto flex flex-col justify-center">
           
           {/* Section Header */}
-          <div className="text-center mb-3 sm:mb-4">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] font-semibold tracking-tight text-neutral-900 leading-tight max-w-4xl mx-auto">
+          <div className="text-center mb-5 sm:mb-6 md:mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] max-w-5xl mx-auto">
               Integrated biologics development, manufacturing and clinical support
             </h2>
-            <p className="text-xs sm:text-sm md:text-[14px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-1">
+            <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-3 sm:mt-4">
               An end-to-end continuum connecting cell line engineering, process scale-up, analytical rigor, and cGMP supply to accelerate clinical milestones.
             </p>
           </div>
