@@ -60,11 +60,12 @@ function pointsToPath(pts: Point[]): string {
 
 // Individual DNA Base-Pair Rung that reveals and lights up on scroll
 function DnaRungItem({ rung, progress }: { rung: RungData; progress: MotionValue<number> }) {
-  // Reveal when scroll progress approaches rung's t position
+  // Reveal when scroll progress approaches rung's t position, tapering at the tip
+  const maxOpacity = rung.t > 0.85 ? Math.max(0.1, ((1 - rung.t) / 0.15) * 0.72) : 0.72;
   const opacity = useTransform(
     progress,
     [Math.max(0, rung.t - 0.08), Math.min(1, rung.t + 0.02)],
-    [0, 0.72]
+    [0, maxOpacity]
   );
   const scale = useTransform(
     progress,
@@ -136,34 +137,24 @@ export default function DnaScrollBackground() {
     restDelta: 0.001,
   });
 
-  // Calculate DNA geometry matching the user's crossing X trajectories
-  const { helix1A, helix1B, helix2A, helix2B, rungs1, rungs2 } = useMemo(() => {
-    // Trajectory 1: Top-Left to Bottom-Right (as drawn by user)
-    const P0 = { x: 50, y: 20 };
-    const P1 = { x: 440, y: 240 };
-    const P2 = { x: 1000, y: 640 };
-    const P3 = { x: 1390, y: 880 };
-
-    // Trajectory 2: Top-Right to Bottom-Left (as drawn by user)
-    const Q0 = { x: 1390, y: 20 };
-    const Q1 = { x: 1000, y: 240 };
-    const Q2 = { x: 440, y: 640 };
-    const Q3 = { x: 50, y: 880 };
+  // Calculate single DNA double-helix geometry focused exclusively on the left side
+  const { helix1A, helix1B, rungs1 } = useMemo(() => {
+    // Single trajectory: Top-Left swooping down gracefully to center-left
+    const P0 = { x: 50, y: 25 };
+    const P1 = { x: 280, y: 180 };
+    const P2 = { x: 520, y: 460 };
+    const P3 = { x: 680, y: 570 };
 
     const N_POINTS = 64;
-    const N_RUNGS = 26;
-    const AMPLITUDE = 26; // Width of double helix ladder
-    const NUM_TURNS = 4.2; // Number of helical twist cycles
+    const N_RUNGS = 22;
+    const AMPLITUDE = 25; // Width of double helix ladder
+    const NUM_TURNS = 3.2; // Number of helical twist cycles
 
     const pts1A: Point[] = [];
     const pts1B: Point[] = [];
-    const pts2A: Point[] = [];
-    const pts2B: Point[] = [];
-
     const rungsArr1: RungData[] = [];
-    const rungsArr2: RungData[] = [];
 
-    // Sample Helix 1 points
+    // Sample Helix points
     for (let i = 0; i <= N_POINTS; i++) {
       const t = i / N_POINTS;
       const c = cubicBezier(P0, P1, P2, P3, t);
@@ -180,25 +171,7 @@ export default function DnaScrollBackground() {
       pts1B.push(s2);
     }
 
-    // Sample Helix 2 points
-    for (let i = 0; i <= N_POINTS; i++) {
-      const t = i / N_POINTS;
-      const c = cubicBezier(Q0, Q1, Q2, Q3, t);
-      const d = cubicBezierDerivative(Q0, Q1, Q2, Q3, t);
-      const len = Math.hypot(d.x, d.y) || 1;
-      const nx = -d.y / len;
-      const ny = d.x / len;
-      // Inverted phase for dynamic visual contrast at crossover
-      const phi = t * (NUM_TURNS * 2 * Math.PI) + Math.PI * 0.4;
-
-      const s1 = { x: c.x + nx * AMPLITUDE * Math.sin(phi), y: c.y + ny * AMPLITUDE * Math.sin(phi) };
-      const s2 = { x: c.x - nx * AMPLITUDE * Math.sin(phi), y: c.y - ny * AMPLITUDE * Math.sin(phi) };
-
-      pts2A.push(s1);
-      pts2B.push(s2);
-    }
-
-    // Generate Base-Pair Rungs for Helix 1
+    // Generate Base-Pair Rungs
     for (let j = 1; j <= N_RUNGS; j++) {
       const t = j / (N_RUNGS + 1);
       const c = cubicBezier(P0, P1, P2, P3, t);
@@ -222,37 +195,10 @@ export default function DnaScrollBackground() {
       });
     }
 
-    // Generate Base-Pair Rungs for Helix 2
-    for (let j = 1; j <= N_RUNGS; j++) {
-      const t = j / (N_RUNGS + 1);
-      const c = cubicBezier(Q0, Q1, Q2, Q3, t);
-      const d = cubicBezierDerivative(Q0, Q1, Q2, Q3, t);
-      const len = Math.hypot(d.x, d.y) || 1;
-      const nx = -d.y / len;
-      const ny = d.x / len;
-      const phi = t * (NUM_TURNS * 2 * Math.PI) + Math.PI * 0.4;
-
-      const s1 = { x: c.x + nx * AMPLITUDE * Math.sin(phi), y: c.y + ny * AMPLITUDE * Math.sin(phi) };
-      const s2 = { x: c.x - nx * AMPLITUDE * Math.sin(phi), y: c.y - ny * AMPLITUDE * Math.sin(phi) };
-
-      rungsArr2.push({
-        id: `h2-${j}`,
-        t,
-        s1,
-        s2,
-        center: c,
-        color1: '#00aeef',
-        color2: '#f58634',
-      });
-    }
-
     return {
       helix1A: pointsToPath(pts1A),
       helix1B: pointsToPath(pts1B),
-      helix2A: pointsToPath(pts2A),
-      helix2B: pointsToPath(pts2B),
       rungs1: rungsArr1,
-      rungs2: rungsArr2,
     };
   }, []);
 
@@ -285,17 +231,19 @@ export default function DnaScrollBackground() {
             </feMerge>
           </filter>
 
-          {/* Gradients */}
+          {/* Gradients with subtle fade out at the tip */}
           <linearGradient id="cyanStrandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#00aeef" stopOpacity="0.9" />
-            <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#00aeef" stopOpacity="0.9" />
+            <stop offset="70%" stopColor="#38bdf8" stopOpacity="0.85" />
+            <stop offset="92%" stopColor="#00aeef" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#00aeef" stopOpacity="0" />
           </linearGradient>
 
-          <linearGradient id="orangeStrandGradient" x1="100%" y1="0%" x2="0%" y2="100%">
+          <linearGradient id="orangeStrandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#f58634" stopOpacity="0.9" />
-            <stop offset="50%" stopColor="#fb923c" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#f58634" stopOpacity="0.9" />
+            <stop offset="70%" stopColor="#fb923c" stopOpacity="0.85" />
+            <stop offset="92%" stopColor="#f58634" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#f58634" stopOpacity="0" />
           </linearGradient>
 
           <linearGradient id="rungGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -305,17 +253,12 @@ export default function DnaScrollBackground() {
           </linearGradient>
         </defs>
 
-        {/* 1. Base-pair Rungs for Helix 1 */}
+        {/* 1. Base-pair Rungs for Left-Side Helix */}
         {rungs1.map((rung) => (
           <DnaRungItem key={rung.id} rung={rung} progress={smoothProgress} />
         ))}
 
-        {/* 2. Base-pair Rungs for Helix 2 */}
-        {rungs2.map((rung) => (
-          <DnaRungItem key={rung.id} rung={rung} progress={smoothProgress} />
-        ))}
-
-        {/* 3. Helix 1 Strands (Top-Left to Bottom-Right) */}
+        {/* 2. Left-Side Helix Strands (Top-Left to Center-Bottom) */}
         {/* Strand 1A: Cyan Primary Backbone */}
         <motion.path
           d={helix1A}
@@ -337,36 +280,6 @@ export default function DnaScrollBackground() {
           filter="url(#orangeGlow)"
           style={{ pathLength: smoothProgress }}
         />
-
-        {/* 4. Helix 2 Strands (Top-Right to Bottom-Left) */}
-        {/* Strand 2A: Cyan Primary Backbone */}
-        <motion.path
-          d={helix2A}
-          fill="none"
-          stroke="url(#cyanStrandGradient)"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          filter="url(#cyanGlow)"
-          style={{ pathLength: smoothProgress }}
-        />
-
-        {/* Strand 2B: Orange Complementary Backbone */}
-        <motion.path
-          d={helix2B}
-          fill="none"
-          stroke="url(#orangeStrandGradient)"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          filter="url(#orangeGlow)"
-          style={{ pathLength: smoothProgress }}
-        />
-
-        {/* 5. Central Nexus Halo at Intersection Crossover (x: 720, y: 440) */}
-        <g transform="translate(720, 440)">
-          <circle cx="0" cy="0" r="45" fill="#00aeef" opacity="0.04" />
-          <circle cx="0" cy="0" r="24" fill="#f58634" opacity="0.06" />
-          <circle cx="0" cy="0" r="8" fill="none" stroke="#00aeef" strokeWidth="1" strokeDasharray="3 3" opacity="0.35" />
-        </g>
       </svg>
     </div>
   );
