@@ -195,11 +195,15 @@ const CONTINUUM_STAGES = [
 
 function Stage1Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
+    <svg viewBox="0 0 460 230" className="w-full h-auto max-h-[280px] select-none" fill="none">
       <defs>
         <radialGradient id="cellGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.25" />
+          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.22" />
           <stop offset="100%" stopColor="#00aeef" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="nucleusGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#00aeef" stopOpacity="0.05" />
         </radialGradient>
         <linearGradient id="dnaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#00aeef" />
@@ -208,86 +212,129 @@ function Stage1Animation() {
         </linearGradient>
       </defs>
 
-      {/* Outer Petri dish / Reticle field */}
-      <circle cx="230" cy="130" r="115" fill="url(#cellGlow)" stroke="#00aeef" strokeWidth="2.5" strokeDasharray="8 4" opacity="0.6" />
-      <circle cx="230" cy="130" r="100" fill="#f8fcff" stroke="#00aeef" strokeWidth="2" />
+      {/* Optical Cytometer Viewfinder Reticle Corners */}
+      <path d="M 24 38 V 22 H 40" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.75" />
+      <path d="M 436 38 V 22 H 420" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.75" />
+      <path d="M 24 182 V 198 H 40" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.75" />
+      <path d="M 436 182 V 198 H 420" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.75" />
 
-      {/* Target Reticle Crosshairs */}
-      <line x1="230" y1="18" x2="230" y2="45" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
-      <line x1="230" y1="215" x2="230" y2="242" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
-      <line x1="118" y1="130" x2="145" y2="130" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
-      <line x1="315" y1="130" x2="342" y2="130" stroke="#00aeef" strokeWidth="2" strokeOpacity="0.5" />
+      {/* Telemetry Header Labels */}
+      <text x="44" y="32" fill="#00aeef" fontSize="9" fontWeight="700" fontFamily="sans-serif" letterSpacing="0.8">
+        OPTICAL CYTOMETER // CLONE MATRIX
+      </text>
+      <text x="416" y="32" textAnchor="end" fill="#0f2231" fontSize="9" fontWeight="700" fontFamily="monospace">
+        WELL: [A04-H8]
+      </text>
 
-      {/* High-Performance Clonal Cell in Center */}
+      {/* Concentric Radar / Reticle Target Rings (Center x=230, y=105) */}
+      <circle cx="230" cy="105" r="92" fill="url(#cellGlow)" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.25" />
+      <motion.circle
+        cx="230"
+        cy="105"
+        r="78"
+        stroke="#00aeef"
+        strokeWidth="1.5"
+        strokeDasharray="6 4"
+        strokeOpacity="0.4"
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 24, ease: 'linear' }}
+        style={{ transformOrigin: '230px 105px' }}
+      />
+      <circle cx="230" cy="105" r="60" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.3" />
+
+      {/* Precision Axis Crosshairs & Scale Ticks */}
+      <line x1="230" y1="18" x2="230" y2="40" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.6" />
+      <line x1="230" y1="170" x2="230" y2="192" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.6" />
+      <line x1="140" y1="105" x2="162" y2="105" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.6" />
+      <line x1="298" y1="105" x2="320" y2="105" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.6" />
+
+      {/* High-Performance Clonal Host Cell Membrane */}
       <motion.g
-        animate={{ scale: [1, 1.05, 1], rotate: [0, 5, -5, 0] }}
-        transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+        animate={{ scale: [1, 1.04, 1] }}
+        transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+        style={{ transformOrigin: '230px 105px' }}
       >
-        <circle cx="230" cy="130" r="48" fill="#e0f4fd" stroke="#00aeef" strokeWidth="3" />
-        <circle cx="230" cy="130" r="34" fill="#00aeef" fillOpacity="0.15" stroke="#00aeef" strokeWidth="1.5" strokeDasharray="4 2" />
-        <circle cx="230" cy="130" r="16" fill="#00aeef" fillOpacity="0.3" />
+        <circle cx="230" cy="105" r="42" fill="#f0f9ff" stroke="#00aeef" strokeWidth="2.5" />
+        <circle cx="230" cy="105" r="30" fill="url(#nucleusGlow)" stroke="#00aeef" strokeWidth="1.5" strokeDasharray="4 2" />
+        <circle cx="230" cy="105" r="14" fill="#00aeef" fillOpacity="0.2" />
       </motion.g>
 
-      {/* Rotating DNA Double Helix strands */}
-      <g transform="translate(190, 85)">
-        {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+      {/* Dynamic DNA Base-Pair Oscillators */}
+      <g transform="translate(196, 75)">
+        {[0, 1, 2, 3, 4, 5].map((i) => (
           <motion.g
             key={i}
-            animate={{ y: [0, -4, 0], opacity: [0.7, 1, 0.7] }}
-            transition={{ repeat: Infinity, duration: 2, delay: i * 0.15 }}
+            animate={{ y: [0, -3.5, 0], opacity: [0.75, 1, 0.75] }}
+            transition={{ repeat: Infinity, duration: 2, delay: i * 0.18, ease: 'easeInOut' }}
           >
-            <circle cx={i * 13} cy={Math.sin(i * 0.9) * 22 + 45} r="4" fill="#00aeef" />
-            <circle cx={i * 13} cy={-Math.sin(i * 0.9) * 22 + 45} r="4" fill="#f58634" />
+            <circle cx={i * 13.5} cy={Math.sin(i * 0.95) * 18 + 30} r="3.5" fill="#00aeef" />
+            <circle cx={i * 13.5} cy={-Math.sin(i * 0.95) * 18 + 30} r="3.5" fill="#f58634" />
             <line
-              x1={i * 13}
-              y1={Math.sin(i * 0.9) * 22 + 45}
-              x2={i * 13}
-              y2={-Math.sin(i * 0.9) * 22 + 45}
+              x1={i * 13.5}
+              y1={Math.sin(i * 0.95) * 18 + 30}
+              x2={i * 13.5}
+              y2={-Math.sin(i * 0.95) * 18 + 30}
               stroke="#0f2231"
               strokeWidth="1.5"
-              strokeOpacity="0.35"
+              strokeOpacity="0.3"
             />
           </motion.g>
         ))}
       </g>
 
-      {/* Gene Delivery Vector Particles */}
+      {/* Gene Delivery Vector Orbiting Particles */}
       <motion.circle
         cx="160"
-        cy="90"
-        r="6"
+        cy="75"
+        r="4.5"
         fill="#f58634"
-        animate={{ cx: [150, 215], cy: [75, 115], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.5] }}
-        transition={{ repeat: Infinity, duration: 2.5, ease: 'easeIn' }}
+        animate={{ cx: [155, 215], cy: [65, 95], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.6] }}
+        transition={{ repeat: Infinity, duration: 2.4, ease: 'easeIn' }}
       />
       <motion.circle
         cx="295"
-        cy="170"
-        r="6"
+        cy="135"
+        r="4.5"
         fill="#f58634"
-        animate={{ cx: [305, 245], cy: [180, 145], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.5] }}
-        transition={{ repeat: Infinity, duration: 2.8, delay: 0.8, ease: 'easeIn' }}
+        animate={{ cx: [305, 245], cy: [145, 115], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.6] }}
+        transition={{ repeat: Infinity, duration: 2.7, delay: 0.9, ease: 'easeIn' }}
       />
 
-      {/* Verified Monoclonality Stamp Badge */}
-      <motion.g
-        transform="translate(305, 135)"
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ repeat: Infinity, duration: 2.5 }}
-      >
-        <circle cx="20" cy="20" r="22" fill="#00aeef" />
-        <path d="M 12 20 L 18 26 L 28 14" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-      </motion.g>
+      {/* Left Specs Footer */}
+      <g transform="translate(36, 172)">
+        <text x="0" y="8" fill="#64748b" fontSize="9.5" fontFamily="monospace" fontWeight="600">
+          TITER TARGET: 4.8 - 8.5 g/L
+        </text>
+        <text x="0" y="21" fill="#0f2231" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+          CHO-K1 GS Knockout Platform
+        </text>
+      </g>
+
+      {/* Right Verified Monoclonality Stamp Badge (Static wrapper g for coordinate safety) */}
+      <g transform="translate(286, 168)">
+        <motion.g
+          animate={{ scale: [1, 1.04, 1] }}
+          transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut' }}
+          style={{ transformOrigin: '70px 14px' }}
+        >
+          <rect x="0" y="0" width="144" height="28" rx="14" fill="#0f2231" stroke="#00aeef" strokeWidth="1.5" />
+          <circle cx="16" cy="14" r="8.5" fill="#00aeef" />
+          <path d="M 12 14 L 15 17 L 20 11" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          <text x="31" y="17.5" fill="#ffffff" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+            Verified Monoclonal
+          </text>
+        </motion.g>
+      </g>
     </svg>
   );
 }
 
 function Stage2Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
+    <svg viewBox="0 0 460 230" className="w-full h-auto max-h-[280px] select-none" fill="none">
       <defs>
         <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.8" />
+          <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.85" />
           <stop offset="100%" stopColor="#00aeef" stopOpacity="0.95" />
         </linearGradient>
         <linearGradient id="resinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -297,213 +344,275 @@ function Stage2Animation() {
         </linearGradient>
       </defs>
 
-      {/* UPSTREAM BIOREACTOR (Left Side) */}
-      <g transform="translate(60, 25)">
-        {/* Motor Top */}
-        <rect x="36" y="0" width="22" height="16" rx="3" fill="#00aeef" />
-        <rect x="18" y="16" width="58" height="10" rx="3" fill="#0f2231" />
+      {/* Upstream Single-Use Bioreactor (Left Side, x=45 to 135) */}
+      <g transform="translate(50, 16)">
+        {/* Top Motor Drive */}
+        <rect x="28" y="0" width="22" height="15" rx="3" fill="#00aeef" />
+        <circle cx="39" cy="7" r="2.5" fill="#ffffff" />
+        <rect x="14" y="15" width="50" height="9" rx="3" fill="#0f2231" />
 
-        {/* Bioreactor Vessel Shell */}
+        {/* Vessel Shell */}
         <path
-          d="M 20 26 H 74 V 135 C 74 150 63 162 47 162 C 31 162 20 150 20 135 Z"
+          d="M 16 24 H 62 V 110 C 62 122 52 132 39 132 C 26 132 16 122 16 110 Z"
           fill="#f8fcff"
           stroke="#00aeef"
-          strokeWidth="3"
+          strokeWidth="2.5"
         />
 
         {/* Dynamic Bubbling Liquid */}
         <motion.path
-          d="M 22 55 Q 35 50 47 55 T 72 55 V 135 C 72 148 62 159 47 159 C 32 159 22 148 22 135 Z"
+          d="M 18 50 Q 28 46 39 50 T 60 50 V 110 C 60 120 51 129 39 129 C 27 129 18 120 18 110 Z"
           fill="url(#liquidGrad)"
           animate={{
             d: [
-              "M 22 55 Q 35 50 47 55 T 72 55 V 135 C 72 148 62 159 47 159 C 32 159 22 148 22 135 Z",
-              "M 22 52 Q 35 57 47 52 T 72 52 V 135 C 72 148 62 159 47 159 C 32 159 22 148 22 135 Z",
-              "M 22 55 Q 35 50 47 55 T 72 55 V 135 C 72 148 62 159 47 159 C 32 159 22 148 22 135 Z",
+              "M 18 50 Q 28 46 39 50 T 60 50 V 110 C 60 120 51 129 39 129 C 27 129 18 120 18 110 Z",
+              "M 18 47 Q 28 52 39 47 T 60 47 V 110 C 60 120 51 129 39 129 C 27 129 18 120 18 110 Z",
+              "M 18 50 Q 28 46 39 50 T 60 50 V 110 C 60 120 51 129 39 129 C 27 129 18 120 18 110 Z",
             ],
           }}
-          transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+          transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
         />
 
         {/* Agitator Impeller Shaft & Blades */}
-        <line x1="47" y1="26" x2="47" y2="135" stroke="#0f2231" strokeWidth="3" />
+        <line x1="39" y1="24" x2="39" y2="110" stroke="#0f2231" strokeWidth="2.5" />
         <motion.g
           animate={{ scaleX: [1, -1, 1] }}
           transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
-          style={{ transformOrigin: '47px 115px' }}
+          style={{ transformOrigin: '39px 96px' }}
         >
-          <path d="M 28 115 Q 47 110 66 115" stroke="#f58634" strokeWidth="4" strokeLinecap="round" />
-          <path d="M 32 90 Q 47 85 62 90" stroke="#f58634" strokeWidth="3.5" strokeLinecap="round" />
+          <path d="M 24 96 Q 39 92 54 96" stroke="#f58634" strokeWidth="3.5" strokeLinecap="round" />
+          <path d="M 27 75 Q 39 71 51 75" stroke="#f58634" strokeWidth="3" strokeLinecap="round" />
         </motion.g>
 
-        {/* Rising Aeration Bubbles */}
+        {/* Rising Aeration Sparging Microbubbles */}
         {[
-          { cx: 34, delay: 0 },
-          { cx: 58, delay: 0.5 },
-          { cx: 42, delay: 1.0 },
-          { cx: 52, delay: 1.5 },
+          { cx: 27, delay: 0 },
+          { cx: 48, delay: 0.4 },
+          { cx: 34, delay: 0.9 },
+          { cx: 44, delay: 1.4 },
         ].map((b, i) => (
           <motion.circle
             key={i}
             cx={b.cx}
-            cy="140"
-            r="3"
+            cy="115"
+            r="2.5"
             fill="#ffffff"
-            animate={{ cy: [140, 58], opacity: [0.2, 0.9, 0] }}
-            transition={{ repeat: Infinity, duration: 1.8, delay: b.delay, ease: 'easeOut' }}
+            animate={{ cy: [115, 52], opacity: [0.2, 0.95, 0] }}
+            transition={{ repeat: Infinity, duration: 1.7, delay: b.delay, ease: 'easeOut' }}
           />
         ))}
+
+        {/* Vessel Label */}
+        <text x="39" y="150" textAnchor="middle" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
+          BIOREACTOR (500L)
+        </text>
       </g>
 
-      {/* CONNECTING TRANSFER PIPELINE */}
+      {/* Connecting Flow Pipeline with In-line Sensor */}
       <g>
-        <path d="M 134 110 H 220" stroke="#00aeef" strokeWidth="4" strokeDasharray="6 4" />
+        <path d="M 112 85 H 226" stroke="#00aeef" strokeWidth="3" strokeDasharray="5 3" />
         <motion.circle
-          cx="134"
-          cy="110"
-          r="5"
+          cx="112"
+          cy="85"
+          r="4.5"
           fill="#f58634"
-          animate={{ cx: [134, 220] }}
+          animate={{ cx: [112, 226] }}
           transition={{ repeat: Infinity, duration: 1.6, ease: 'linear' }}
         />
-        {/* Flow Direction Arrow */}
-        <polygon points="220,105 230,110 220,115" fill="#00aeef" />
+        {/* Inline Flow Direction Arrow */}
+        <polygon points="224,80 234,85 224,90" fill="#00aeef" />
+
+        {/* Inline PAT Raman Sensor Node */}
+        <g transform="translate(154, 60)">
+          <rect x="0" y="0" width="34" height="18" rx="4" fill="#0f2231" />
+          <text x="17" y="12.5" textAnchor="middle" fill="#00aeef" fontSize="8" fontWeight="700" fontFamily="monospace">
+            PAT
+          </text>
+          <line x1="17" y1="18" x2="17" y2="25" stroke="#0f2231" strokeWidth="1.5" />
+        </g>
       </g>
 
-      {/* DOWNSTREAM CHROMATOGRAPHY PURIFICATION COLUMN (Right Side) */}
-      <g transform="translate(235, 25)">
+      {/* Downstream Continuous Chromatography Column (Center-Right, x=235 to 295) */}
+      <g transform="translate(235, 16)">
         {/* Column Inlets & Flanges */}
-        <rect x="25" y="10" width="40" height="12" rx="2" fill="#0f2231" />
-        <rect x="25" y="158" width="40" height="12" rx="2" fill="#0f2231" />
+        <rect x="18" y="8" width="34" height="10" rx="2" fill="#0f2231" />
+        <rect x="18" y="122" width="34" height="10" rx="2" fill="#0f2231" />
 
-        {/* Column Cylinder */}
-        <rect x="30" y="22" width="30" height="136" rx="4" fill="#ffffff" stroke="#00aeef" strokeWidth="3" />
+        {/* Glass Column Shell */}
+        <rect x="22" y="18" width="26" height="104" rx="4" fill="#ffffff" stroke="#00aeef" strokeWidth="2.5" />
 
         {/* Resin Packed Bed with Flow Waves */}
-        <rect x="33" y="45" width="24" height="90" fill="url(#resinGrad)" opacity="0.85" rx="2" />
+        <rect x="25" y="36" width="20" height="70" fill="url(#resinGrad)" opacity="0.9" rx="2" />
 
-        {/* Purified Elution Droplets Exiting Bottom */}
+        {/* Purified Elution Droplets */}
         <motion.circle
-          cx="45"
-          cy="175"
-          r="4.5"
+          cx="35"
+          cy="134"
+          r="3.5"
           fill="#00aeef"
-          animate={{ cy: [175, 205], opacity: [1, 0], scale: [1, 0.6] }}
-          transition={{ repeat: Infinity, duration: 1.4, ease: 'easeIn' }}
+          animate={{ cy: [134, 158], opacity: [1, 0], scale: [1, 0.6] }}
+          transition={{ repeat: Infinity, duration: 1.3, ease: 'easeIn' }}
         />
         <motion.circle
-          cx="45"
-          cy="175"
-          r="4.5"
+          cx="35"
+          cy="134"
+          r="3.5"
           fill="#f58634"
-          animate={{ cy: [175, 205], opacity: [1, 0], scale: [1, 0.6] }}
-          transition={{ repeat: Infinity, duration: 1.4, delay: 0.7, ease: 'easeIn' }}
+          animate={{ cy: [134, 158], opacity: [1, 0], scale: [1, 0.6] }}
+          transition={{ repeat: Infinity, duration: 1.3, delay: 0.65, ease: 'easeIn' }}
         />
 
-        {/* Collection Erlenmeyer Flask */}
-        <path d="M 35 210 L 25 235 H 65 L 55 210 Z" fill="#e0f4fd" stroke="#00aeef" strokeWidth="2" />
-        <rect x="41" y="202" width="8" height="8" fill="#00aeef" />
+        {/* Collection Receiver Flask */}
+        <path d="M 27 160 L 18 180 H 52 L 43 160 Z" fill="#e0f4fd" stroke="#00aeef" strokeWidth="1.8" />
+        <rect x="31" y="153" width="8" height="7" fill="#00aeef" />
+
+        {/* Column Label */}
+        <text x="35" y="196" textAnchor="middle" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
+          DSP COLUMN
+        </text>
       </g>
 
-      {/* High Recovery Yield Badge */}
-      <motion.g
-        transform="translate(340, 110)"
-        animate={{ y: [-3, 3, -3] }}
-        transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-      >
-        <rect x="0" y="0" width="105" height="42" rx="8" fill="#ffffff" stroke="#f58634" strokeWidth="2" />
-        <text x="12" y="18" fill="#f58634" fontSize="10" fontWeight="bold" fontFamily="sans-serif">DO CONTROL</text>
-        <text x="12" y="32" fill="#0f2231" fontSize="11" fontWeight="bold" fontFamily="sans-serif">40.0% ± 2%</text>
-      </motion.g>
+      {/* Floating Modern Process Telemetry Card (Right Side, x=315 to 435) */}
+      <g transform="translate(315, 45)">
+        <rect x="0" y="0" width="122" height="76" rx="8" fill="#ffffff" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.5" />
+        <rect x="0" y="0" width="122" height="20" rx="8" fill="#0f2231" />
+        <text x="10" y="14" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="sans-serif" letterSpacing="0.6">
+          DSP TELEMETRY
+        </text>
+
+        <text x="10" y="36" fill="#64748b" fontSize="8.5" fontWeight="600" fontFamily="sans-serif">
+          PURITY YIELD
+        </text>
+        <text x="10" y="49" fill="#00aeef" fontSize="12" fontWeight="800" fontFamily="sans-serif">
+          &gt; 88.5%
+        </text>
+
+        <text x="10" y="65" fill="#f58634" fontSize="8.5" fontWeight="700" fontFamily="sans-serif">
+          DO: 40% ± 2% | pH 7.15
+        </text>
+      </g>
+
+      {/* Bottom Status Row */}
+      <g transform="translate(45, 206)">
+        <text x="0" y="8" fill="#64748b" fontSize="9.5" fontFamily="monospace" fontWeight="600">
+          PROCESS ARCHITECTURE:
+        </text>
+        <text x="145" y="8" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
+          Single-Use Bioreactor Train + Multi-Column Continuous Purification
+        </text>
+      </g>
     </svg>
   );
 }
 
 function Stage3Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
+    <svg viewBox="0 0 460 230" className="w-full h-auto max-h-[280px] select-none" fill="none">
       <defs>
         <linearGradient id="specGrad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#00aeef" />
-          <stop offset="60%" stopColor="#f58634" />
+          <stop offset="50%" stopColor="#38bdf8" />
+          <stop offset="70%" stopColor="#f58634" />
           <stop offset="100%" stopColor="#00aeef" />
+        </linearGradient>
+        <linearGradient id="peakFill" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#00aeef" stopOpacity="0.02" />
         </linearGradient>
       </defs>
 
-      {/* Chromatography Screen Chassis */}
-      <rect x="40" y="25" width="380" height="210" rx="12" fill="#ffffff" stroke="#00aeef" strokeWidth="2.5" />
-      <rect x="52" y="37" width="356" height="145" rx="8" fill="#0a1926" />
+      {/* High-Tech Chromatography Chassis Frame */}
+      <rect x="25" y="14" width="410" height="202" rx="12" fill="#071624" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.5" />
 
-      {/* Grid Lines on Spectrum Display */}
+      {/* Instrument Display Screen */}
+      <rect x="36" y="24" width="388" height="136" rx="8" fill="#0a1c2d" />
+
+      {/* Screen Header Bar */}
+      <g transform="translate(48, 38)">
+        <text x="0" y="8" fill="#00aeef" fontSize="9" fontWeight="700" fontFamily="monospace" letterSpacing="0.8">
+          SEC-HPLC // UV 280nm SPECTRUM
+        </text>
+        <text x="210" y="8" fill="#64748b" fontSize="8.5" fontWeight="600" fontFamily="monospace">
+          SAMPLE: BATCH-mAb-04
+        </text>
+        <circle cx="342" cy="5" r="3.5" fill="#10b981" />
+        <text x="350" y="8" fill="#10b981" fontSize="8.5" fontWeight="700" fontFamily="sans-serif">
+          ONLINE
+        </text>
+      </g>
+
+      {/* Fine Background Coordinate Grid Lines */}
       {[0, 1, 2, 3, 4, 5, 6].map((i) => (
         <line
           key={`v-${i}`}
-          x1={70 + i * 50}
-          y1="45"
-          x2={70 + i * 50}
-          y2="175"
+          x1={56 + i * 50}
+          y1="50"
+          x2={56 + i * 50}
+          y2="150"
           stroke="#00aeef"
           strokeWidth="1"
-          strokeOpacity="0.15"
+          strokeOpacity="0.12"
         />
       ))}
       {[0, 1, 2, 3].map((i) => (
         <line
           key={`h-${i}`}
-          x1="60"
-          y1={55 + i * 35}
-          x2="395"
-          y2={55 + i * 35}
+          x1="46"
+          y1={60 + i * 28}
+          x2="414"
+          y2={60 + i * 28}
           stroke="#00aeef"
           strokeWidth="1"
-          strokeOpacity="0.15"
+          strokeOpacity="0.12"
         />
       ))}
 
-      {/* SEC-HPLC Analytical Peak Wave Trace */}
+      {/* Filled Area Under Primary Apex */}
+      <path
+        d="M 160 144 L 180 120 L 210 58 L 240 120 L 260 144 Z"
+        fill="url(#peakFill)"
+      />
+
+      {/* SEC-HPLC Analytical Peak Waveform Trace */}
       <motion.path
-        d="M 60 160 L 130 160 Q 150 160 165 145 L 185 85 Q 195 52 205 85 L 225 145 Q 235 160 250 160 L 270 160 Q 280 160 290 135 L 305 110 Q 312 95 320 110 L 335 145 Q 345 160 360 160 L 395 160"
+        d="M 46 144 L 105 144 Q 120 144 130 132 L 140 118 Q 148 108 155 125 L 165 144 L 180 144 Q 192 144 200 110 L 210 58 Q 218 110 226 144 L 245 144 Q 255 144 265 128 L 275 110 Q 282 98 290 120 L 300 144 L 414 144"
         fill="none"
         stroke="url(#specGrad)"
-        strokeWidth="3.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
-        transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+        transition={{ repeat: Infinity, duration: 3.6, ease: 'easeInOut' }}
       />
 
-      {/* Dynamic Laser Scanning Vertical Line */}
-      <motion.line
-        x1="60"
-        y1="45"
-        x2="60"
-        y2="175"
-        stroke="#f58634"
-        strokeWidth="2.5"
-        strokeDasharray="4 2"
-        animate={{ x1: [60, 395, 60], x2: [60, 395, 60] }}
-        transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
-      />
+      {/* Vertical Laser Scanline Sweep */}
+      <motion.g
+        animate={{ x: [46, 410, 46] }}
+        transition={{ repeat: Infinity, duration: 4.2, ease: 'linear' }}
+      >
+        <line x1="0" y1="50" x2="0" y2="150" stroke="#f58634" strokeWidth="1.8" strokeDasharray="3 2" />
+        <circle cx="0" cy="50" r="2.5" fill="#f58634" />
+      </motion.g>
 
-      {/* Monomer Peak Callout */}
-      <g transform="translate(160, 38)">
-        <rect x="0" y="0" width="85" height="22" rx="4" fill="#00aeef" />
-        <text x="8" y="15" fill="#ffffff" fontSize="10" fontWeight="bold" fontFamily="sans-serif">
-          Main Peak: 98.7%
+      {/* Monomer Peak Annotation Tag */}
+      <g transform="translate(162, 38)">
+        <rect x="0" y="0" width="98" height="20" rx="4" fill="#00aeef" />
+        <text x="8" y="14" fill="#ffffff" fontSize="9.5" fontWeight="700" fontFamily="sans-serif">
+          Monomer: 98.7%
         </text>
       </g>
 
-      {/* Bottom Telemetry Bar */}
-      <g transform="translate(60, 195)">
-        <circle cx="10" cy="18" r="6" fill="#00aeef" />
-        <text x="24" y="22" fill="#0f2231" fontSize="12" fontWeight="bold" fontFamily="sans-serif">
+      {/* Bottom Telemetry Status Bar (Safe inside chassis at y=172, chassis ends at y=216) */}
+      <g transform="translate(48, 172)">
+        <circle cx="6" cy="12" r="4.5" fill="#00aeef" />
+        <text x="18" y="16" fill="#e0f2fe" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
           SEC-HPLC / Mass Spec Verified
         </text>
 
-        <circle cx="230" cy="18" r="6" fill="#f58634" />
-        <text x="244" y="22" fill="#0f2231" fontSize="12" fontWeight="bold" fontFamily="sans-serif">
-          HCP &lt; 10 ppm
+        <circle cx="225" cy="12" r="4.5" fill="#f58634" />
+        <text x="237" y="16" fill="#e0f2fe" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+          HCP &lt; 10 ppm | HCD &lt; 10 pg/dose
         </text>
       </g>
     </svg>
@@ -512,7 +621,7 @@ function Stage3Animation() {
 
 function Stage4Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
+    <svg viewBox="0 0 460 230" className="w-full h-auto max-h-[280px] select-none" fill="none">
       <defs>
         <linearGradient id="vialLiquid" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#bae6fd" />
@@ -520,90 +629,111 @@ function Stage4Animation() {
         </linearGradient>
       </defs>
 
-      {/* Cleanroom Wall Frame */}
-      <rect x="30" y="25" width="400" height="210" rx="12" fill="#ffffff" stroke="#f58634" strokeWidth="2.5" />
+      {/* Grade A Cleanroom Enclosure Frame */}
+      <rect x="25" y="14" width="410" height="202" rx="12" fill="#ffffff" stroke="#f58634" strokeWidth="2" strokeOpacity="0.85" />
 
-      {/* HEPA Filter Laminar Airflow Streamers */}
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+      {/* HEPA Filter Air Distribution Ceiling Plenum */}
+      <rect x="35" y="24" width="390" height="14" rx="3" fill="#0f2231" />
+
+      {/* Laminar Airflow Streamers */}
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
         <motion.line
           key={i}
-          x1={60 + i * 45}
-          y1="35"
-          x2={60 + i * 45}
-          y2="75"
+          x1={52 + i * 44}
+          y1="40"
+          x2={52 + i * 44}
+          y2="76"
           stroke="#00aeef"
-          strokeWidth="2"
+          strokeWidth="1.8"
           strokeDasharray="4 4"
-          animate={{ y1: [35, 45, 35], y2: [75, 85, 75], opacity: [0.3, 0.8, 0.3] }}
-          transition={{ repeat: Infinity, duration: 2, delay: i * 0.2 }}
+          animate={{ y1: [40, 48, 40], y2: [76, 84, 76], opacity: [0.25, 0.75, 0.25] }}
+          transition={{ repeat: Infinity, duration: 1.8, delay: i * 0.16 }}
         />
       ))}
 
       {/* Conveyor Belt Track */}
-      <rect x="50" y="165" width="360" height="20" rx="4" fill="#0f2231" />
-      <line x1="50" y1="175" x2="410" y2="175" stroke="#f58634" strokeWidth="2" strokeDasharray="12 6" />
+      <rect x="42" y="126" width="376" height="18" rx="4" fill="#0f2231" />
+      <motion.line
+        x1="42"
+        y1="135"
+        x2="418"
+        y2="135"
+        stroke="#f58634"
+        strokeWidth="2"
+        strokeDasharray="10 6"
+        animate={{ strokeDashoffset: [0, -32] }}
+        transition={{ repeat: Infinity, duration: 1.6, ease: 'linear' }}
+      />
 
       {/* Moving Sterile Glass Vials */}
       {[
-        { x: 90, filled: true },
-        { x: 165, filled: true },
-        { x: 240, filling: true },
-        { x: 315, filled: false },
+        { x: 74, filled: true, stoppered: true, label: 'Capped' },
+        { x: 156, filling: true, label: 'Filling' },
+        { x: 238, filled: true, stoppered: true, label: 'Stoppered' },
+        { x: 320, filled: true, crimped: true, label: 'Inspection' },
       ].map((v, i) => (
-        <g key={i} transform={`translate(${v.x}, 105)`}>
+        <g key={i} transform={`translate(${v.x}, 72)`}>
           {/* Glass Vial Body */}
-          <rect x="0" y="15" width="34" height="48" rx="4" fill="#f0f9ff" stroke="#00aeef" strokeWidth="2" />
+          <rect x="0" y="14" width="32" height="42" rx="4" fill="#f0f9ff" stroke="#00aeef" strokeWidth="2" />
           {/* Vial Neck & Stopper */}
-          <rect x="8" y="5" width="18" height="10" rx="1" fill="#0f2231" />
-          <rect x="4" y="0" width="26" height="5" rx="2" fill="#f58634" />
+          <rect x="8" y="5" width="16" height="9" rx="1" fill="#0f2231" />
+          <rect x="4" y="0" width="24" height="5" rx="2" fill={v.crimped ? "#f58634" : "#64748b"} />
 
           {/* Liquid Level */}
           {v.filled && (
-            <rect x="3" y="32" width="28" height="28" rx="2" fill="url(#vialLiquid)" opacity="0.9" />
+            <rect x="3" y="28" width="26" height="26" rx="2" fill="url(#vialLiquid)" opacity="0.92" />
           )}
 
           {v.filling && (
             <motion.rect
               x="3"
-              y="32"
-              width="28"
+              y="28"
+              width="26"
               rx="2"
               fill="url(#vialLiquid)"
-              initial={{ height: 5, y: 55 }}
-              animate={{ height: [5, 28, 5], y: [55, 32, 55] }}
-              transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
+              initial={{ height: 4, y: 50 }}
+              animate={{ height: [4, 26, 4], y: [50, 28, 50] }}
+              transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
             />
           )}
         </g>
       ))}
 
-      {/* Automated Filling Needle Dispenser */}
-      <g transform="translate(247, 45)">
-        <rect x="4" y="0" width="12" height="35" rx="2" fill="#0f2231" />
-        <line x1="10" y1="35" x2="10" y2="65" stroke="#00aeef" strokeWidth="3" strokeLinecap="round" />
+      {/* Automated Filling Dispenser Needle Above Vial 2 */}
+      <g transform="translate(167, 36)">
+        <rect x="0" y="0" width="10" height="26" rx="2" fill="#0f2231" />
+        <line x1="5" y1="26" x2="5" y2="52" stroke="#00aeef" strokeWidth="2.5" strokeLinecap="round" />
 
         {/* Liquid Droplet Dispensing into Vial */}
         <motion.circle
-          cx="10"
-          cy="68"
-          r="3.5"
+          cx="5"
+          cy="54"
+          r="3"
           fill="#00aeef"
-          animate={{ cy: [68, 95], opacity: [1, 0], scale: [1, 0.5] }}
-          transition={{ repeat: Infinity, duration: 0.8, ease: 'easeIn' }}
+          animate={{ cy: [54, 76], opacity: [1, 0], scale: [1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 0.75, ease: 'easeIn' }}
         />
       </g>
 
-      {/* cGMP ISO 5 Cleanroom Class Badge */}
-      <g transform="translate(60, 198)">
-        <rect x="0" y="0" width="130" height="24" rx="4" fill="#f58634" />
-        <text x="12" y="16" fill="#ffffff" fontSize="11" fontWeight="bold" fontFamily="sans-serif">
+      {/* Stopper Station Header Above Vial 3 */}
+      <g transform="translate(244, 38)">
+        <rect x="0" y="0" width="20" height="12" rx="2" fill="#0f2231" />
+        <line x1="10" y1="12" x2="10" y2="30" stroke="#f58634" strokeWidth="2" strokeLinecap="round" />
+      </g>
+
+      {/* Safely Positioned Bottom Badges (Within frame, well above SVG bottom) */}
+      <g transform="translate(46, 164)">
+        <rect x="0" y="0" width="140" height="26" rx="6" fill="#f58634" />
+        <text x="12" y="17" fill="#ffffff" fontSize="10.5" fontWeight="700" fontFamily="sans-serif" letterSpacing="0.4">
           GRADE A / ISO 5 cGMP
         </text>
       </g>
 
-      <g transform="translate(260, 198)">
-        <text x="0" y="16" fill="#0f2231" fontSize="12" fontWeight="bold" fontFamily="sans-serif">
-          High-Speed Aseptic Stoppering
+      <g transform="translate(202, 164)">
+        <rect x="0" y="0" width="202" height="26" rx="6" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1.5" />
+        <circle cx="14" cy="13" r="4.5" fill="#00aeef" />
+        <text x="26" y="17" fill="#0f2231" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+          Automated Aseptic Stoppering
         </text>
       </g>
     </svg>
@@ -612,76 +742,96 @@ function Stage4Animation() {
 
 function Stage5Animation() {
   return (
-    <svg viewBox="0 0 460 260" className="w-full h-full max-h-[290px] lg:max-h-[310px]" fill="none">
+    <svg viewBox="0 0 460 230" className="w-full h-auto max-h-[280px] select-none" fill="none">
       <defs>
         <radialGradient id="globeGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.2" />
+          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.22" />
           <stop offset="100%" stopColor="#00aeef" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      {/* Global Distribution Map Ring */}
-      <circle cx="230" cy="130" r="105" fill="url(#globeGlow)" stroke="#00aeef" strokeWidth="2" strokeDasharray="6 4" />
-      <circle cx="230" cy="130" r="80" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.4" />
+      {/* Global Distribution Coordinate Rings (Center x=230, y=94) */}
+      <circle cx="230" cy="94" r="82" fill="url(#globeGlow)" stroke="#00aeef" strokeWidth="1.5" strokeDasharray="5 4" strokeOpacity="0.35" />
+      <circle cx="230" cy="94" r="64" stroke="#00aeef" strokeWidth="1.2" strokeOpacity="0.25" />
 
-      {/* Latitude / Longitude Arcs */}
-      <ellipse cx="230" cy="130" rx="80" ry="35" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.35" />
-      <ellipse cx="230" cy="130" rx="35" ry="80" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.35" />
+      {/* Latitude & Longitude Curvature Ellipses */}
+      <ellipse cx="230" cy="94" rx="64" ry="26" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.25" />
+      <ellipse cx="230" cy="94" rx="26" ry="64" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.25" />
 
-      {/* Central Certified Release Shield */}
+      {/* Rotating Orbital Satellite Ring */}
       <motion.g
-        transform="translate(195, 80)"
-        animate={{ scale: [1, 1.06, 1] }}
-        transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
+        style={{ transformOrigin: '230px 94px' }}
       >
-        <path
-          d="M 35 0 L 70 15 V 55 C 70 80 35 100 35 100 C 35 100 0 80 0 55 V 15 Z"
-          fill="#00aeef"
-          stroke="#ffffff"
-          strokeWidth="3"
-        />
-        {/* Glowing Checkmark */}
-        <path
-          d="M 22 48 L 32 58 L 50 36"
-          stroke="#ffffff"
-          strokeWidth="5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <ellipse cx="230" cy="94" rx="90" ry="38" stroke="#00aeef" strokeWidth="1" strokeDasharray="4 6" strokeOpacity="0.3" />
+        <circle cx="320" cy="94" r="3.5" fill="#f58634" />
       </motion.g>
 
-      {/* Global Clinical Site Trajectory Arcs */}
+      {/* Global Clinical Site Trajectory Arcs & Hubs */}
       {[
-        { x: 90, y: 80, label: 'North America' },
-        { x: 370, y: 75, label: 'Europe' },
-        { x: 360, y: 190, label: 'Asia-Pacific' },
+        { x: 92, y: 58, label: 'North America', qx: 145, qy: 35 },
+        { x: 368, y: 52, label: 'Europe', qx: 310, qy: 30 },
+        { x: 358, y: 130, label: 'Asia-Pacific', qx: 305, qy: 138 },
       ].map((site, i) => (
         <g key={i}>
-          {/* Arc to Center */}
+          {/* Animated Flight Arc */}
           <motion.path
-            d={`M 230 130 Q ${(230 + site.x) / 2} ${site.y - 20} ${site.x} ${site.y}`}
+            d={`M 230 94 Q ${site.qx} ${site.qy} ${site.x} ${site.y}`}
             stroke="#f58634"
-            strokeWidth="2"
+            strokeWidth="1.8"
             strokeDasharray="4 4"
             animate={{ strokeDashoffset: [0, -16] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
           />
 
-          {/* Pulse Pin */}
-          <circle cx={site.x} cy={site.y} r="8" fill="#f58634" fillOpacity="0.3" />
-          <circle cx={site.x} cy={site.y} r="4.5" fill="#f58634" />
-          <text x={site.x - 25} y={site.y + 18} fill="#0f2231" fontSize="10" fontWeight="bold" fontFamily="sans-serif">
+          {/* Pulse Beacon */}
+          <circle cx={site.x} cy={site.y} r="7" fill="#f58634" fillOpacity="0.25" />
+          <circle cx={site.x} cy={site.y} r="3.5" fill="#f58634" />
+          <text x={site.x - 24} y={site.y + 16} fill="#0f2231" fontSize="9.5" fontWeight="700" fontFamily="sans-serif">
             {site.label}
           </text>
         </g>
       ))}
 
-      {/* Cold Chain Status Floating Pill */}
-      <g transform="translate(60, 195)">
-        <rect x="0" y="0" width="135" height="26" rx="6" fill="#ffffff" stroke="#00aeef" strokeWidth="1.5" />
-        <circle cx="14" cy="13" r="5" fill="#00aeef" />
-        <text x="26" y="17" fill="#0f2231" fontSize="11" fontWeight="bold" fontFamily="sans-serif">
+      {/* Central Certified Release Shield (Static wrapper g so coordinates never jump!) */}
+      <g transform="translate(206, 64)">
+        <motion.g
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+          style={{ transformOrigin: '24px 30px' }}
+        >
+          <path
+            d="M 24 0 L 48 10 V 36 C 48 52 24 64 24 64 C 24 64 0 52 0 36 V 10 Z"
+            fill="#00aeef"
+            stroke="#ffffff"
+            strokeWidth="2.5"
+          />
+          {/* Glowing White Checkmark */}
+          <path
+            d="M 15 32 L 21 38 L 33 24"
+            stroke="#ffffff"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </motion.g>
+      </g>
+
+      {/* Safely Positioned Bottom Floating Telemetry Pills */}
+      <g transform="translate(46, 166)">
+        <rect x="0" y="0" width="155" height="26" rx="13" fill="#ffffff" stroke="#00aeef" strokeWidth="1.5" />
+        <circle cx="14" cy="13" r="4.5" fill="#00aeef" />
+        <text x="26" y="17" fill="#0f2231" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
           -80°C Cryo Monitored
+        </text>
+      </g>
+
+      <g transform="translate(225, 166)">
+        <rect x="0" y="0" width="185" height="26" rx="13" fill="#ffffff" stroke="#f58634" strokeWidth="1.5" />
+        <circle cx="14" cy="13" r="4.5" fill="#f58634" />
+        <text x="26" y="17" fill="#0f2231" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+          QP Release &amp; GDP Audited
         </text>
       </g>
     </svg>
@@ -1262,7 +1412,7 @@ export default function IntegratedTimeline() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
                 
                 {/* Left Column: Live Animated Process Engine */}
-                <div className="lg:col-span-6 bg-white rounded-[16px] border border-neutral-200/90 p-4 sm:p-5 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[260px] sm:min-h-[295px]">
+                <div className="lg:col-span-6 bg-white rounded-[16px] border border-neutral-200/90 p-4 sm:p-5 shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[290px] sm:min-h-[320px] lg:min-h-[340px]">
                   <div className="w-full flex items-center justify-between pb-2 mb-2 border-b border-neutral-100">
                     <div className="flex items-center gap-2">
                       <span
@@ -1286,15 +1436,15 @@ export default function IntegratedTimeline() {
                   </div>
 
                   {/* Animated Dynamic SVG Simulation */}
-                  <div className="w-full flex items-center justify-center my-1">
+                  <div className="w-full flex items-center justify-center py-1">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={currentStage.id}
-                        initial={{ opacity: 0, scale: 0.95 }}
+                        initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
+                        exit={{ opacity: 0, scale: 0.96 }}
                         transition={{ duration: 0.2 }}
-                        className="w-full flex justify-center"
+                        className="w-full flex justify-center items-center"
                       >
                         <ActiveVisual />
                       </motion.div>
