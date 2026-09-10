@@ -141,6 +141,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         },
       ],
     },
+    {
+      label: 'Virtual Tour',
+      href: '/virtual-tour',
+    },
   ];
 
   const toggleGroup = (label: string) => {
@@ -181,11 +185,16 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     <Link
                       href={group.href}
                       onClick={onClose}
-                      className={`block py-3 text-lg font-semibold transition-colors ${
+                      className={`py-3 text-lg font-semibold transition-colors flex items-center justify-between ${
                         active ? 'text-brand-blue' : 'text-neutral-900 hover:text-brand-blue'
                       }`}
                     >
-                      {group.label}
+                      <span>{group.label}</span>
+                      {group.href === '/virtual-tour' && (
+                        <span className="px-2 py-0.5 text-xs font-bold rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
+                          360° Tour
+                        </span>
+                      )}
                     </Link>
                   </motion.div>
                 );

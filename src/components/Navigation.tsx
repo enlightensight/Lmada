@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, LucideIcon } from 'lucide-react';
+import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, Compass, LucideIcon } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -114,6 +114,10 @@ export default function Navigation() {
         },
       ],
     },
+    {
+      label: 'Virtual Tour',
+      href: '/virtual-tour',
+    },
   ];
 
   const isActive = (item: NavItem) => {
@@ -148,10 +152,14 @@ export default function Navigation() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`relative h-full flex items-center px-4 text-[19px] font-medium tracking-wide transition-colors ${active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
-                      }`}
+                    className={`relative h-full flex items-center gap-1.5 px-4 text-[19px] font-medium tracking-wide transition-colors ${
+                      active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
+                    }`}
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30 leading-none">
+                      360°
+                    </span>
                     {active && (
                       <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-blue" />
                     )}

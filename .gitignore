@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Virtual Tour & Panorama large asset folders
+/public/virtual-tour
+/public/panorama-photos
+Virtual Tour*
+Panaroma Photo*
+
