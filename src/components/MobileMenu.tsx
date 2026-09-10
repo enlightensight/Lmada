@@ -44,6 +44,7 @@ const linkVariants: Variants = {
 interface MobileGroup {
   label: string;
   href?: string;
+  isExternal?: boolean;
   columns?: { title: string; links: { label: string; href: string }[] }[];
 }
 
@@ -143,7 +144,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     },
     {
       label: 'Virtual Tour',
-      href: '/virtual-tour',
+      href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm',
+      isExternal: true,
     },
   ];
 
@@ -179,6 +181,26 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <nav className="flex flex-col gap-2 select-none">
             {groups.map((group) => {
               if (group.href) {
+                const isExternal = group.isExternal || group.href.endsWith('.htm');
+                if (isExternal) {
+                  return (
+                    <motion.div key={group.label} variants={linkVariants}>
+                      <a
+                        href={group.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={onClose}
+                        className="py-3 text-lg font-semibold transition-colors flex items-center justify-between text-neutral-900 hover:text-brand-blue"
+                      >
+                        <span>{group.label}</span>
+                        <span className="px-2 py-0.5 text-xs font-bold rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
+                          360° Tour
+                        </span>
+                      </a>
+                    </motion.div>
+                  );
+                }
+
                 const active = pathname === group.href;
                 return (
                   <motion.div key={group.label} variants={linkVariants}>
@@ -190,11 +212,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       }`}
                     >
                       <span>{group.label}</span>
-                      {group.href === '/virtual-tour' && (
-                        <span className="px-2 py-0.5 text-xs font-bold rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
-                          360° Tour
-                        </span>
-                      )}
                     </Link>
                   </motion.div>
                 );

@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface NavItem {
   label: string;
   href?: string;
+  isExternal?: boolean;
   description?: string;
   columns?: { title: string; links: { label: string; href: string; icon: LucideIcon }[] }[];
 }
@@ -116,7 +117,8 @@ export default function Navigation() {
     },
     {
       label: 'Virtual Tour',
-      href: '/virtual-tour',
+      href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm',
+      isExternal: true,
     },
   ];
 
@@ -148,6 +150,23 @@ export default function Navigation() {
               const active = isActive(item);
 
               if (item.href) {
+                if (item.isExternal || item.href.endsWith('.htm')) {
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative h-full flex items-center gap-1.5 px-4 text-[19px] font-medium tracking-wide transition-colors text-neutral-800 hover:text-brand-navy"
+                    >
+                      <span>{item.label}</span>
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30 leading-none">
+                        360°
+                      </span>
+                    </a>
+                  );
+                }
+
                 return (
                   <Link
                     key={item.label}

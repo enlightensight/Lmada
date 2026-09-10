@@ -12,7 +12,7 @@ export default function Footer() {
         { name: 'About Lambda', href: '/overview/about' },
         { name: 'Leadership', href: '/overview/leadership' },
         { name: 'Facility', href: '/overview/facility' },
-        { name: 'Virtual Tour (360°)', href: '/virtual-tour' },
+        { name: 'Virtual Tour (360°)', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
         { name: 'Integrated Development', href: '/overview/integrated' },
         { name: 'Careers', href: '/overview/careers' },
       ],
@@ -133,16 +133,30 @@ export default function Footer() {
                   {section.title}
                 </h3>
                 <ul className="space-y-3">
-                  {section.links.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-neutral-500 hover:text-brand-blue transition-colors"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
+                  {section.links.map((link) => {
+                    const isExternal = link.href.endsWith('.htm') || link.href.startsWith('http');
+                    return (
+                      <li key={link.name}>
+                        {isExternal ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-neutral-500 hover:text-brand-blue transition-colors"
+                          >
+                            {link.name}
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className="text-sm text-neutral-500 hover:text-brand-blue transition-colors"
+                          >
+                            {link.name}
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
