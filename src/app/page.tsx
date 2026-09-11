@@ -231,9 +231,9 @@ export default function Home() {
       </section>
 
       {/* LAMBDA CDMO ADVANTAGE GRID */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules border-y border-neutral-100">
+      <section className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules border-y border-neutral-100">
         <div className="w-full max-w-[1700px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
             <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
                 Lambda CDMO Advantage
@@ -244,18 +244,18 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-8 relative">
-              <div className="absolute left-[27px] top-2 bottom-2 w-0.5 bg-brand-blue/20" />
-              <div className="flex flex-col gap-8">
+              <div className="absolute left-[21px] sm:left-[27px] top-2 bottom-2 w-0.5 bg-brand-blue/20" />
+              <div className="flex flex-col gap-4 sm:gap-6 md:gap-8">
                 {advantages.map((item, idx) => {
                   const Icon = item.icon;
                   return (
                     <Reveal key={idx} delay={idx * 0.08}>
-                      <div className="relative flex gap-6 md:gap-8 items-start">
-                        <div className="relative z-10 w-14 h-14 rounded-[10px] bg-white border-2 border-brand-blue flex items-center justify-center flex-shrink-0 shadow-sm">
-                          <Icon className="w-7 h-7 text-brand-blue" />
+                      <div className="relative flex gap-3.5 sm:gap-6 md:gap-8 items-start">
+                        <div className="relative z-10 w-11 h-11 sm:w-14 sm:h-14 rounded-[9px] sm:rounded-[10px] bg-white border-2 border-brand-blue flex items-center justify-center flex-shrink-0 shadow-sm">
+                          <Icon className="w-5.5 h-5.5 sm:w-7 sm:h-7 text-brand-blue" />
                         </div>
-                        <div className="flex-1 glass-card rounded-[10px] p-6 shadow-sm">
-                          <h3 className="text-xl font-semibold text-black leading-snug">
+                        <div className="flex-1 min-w-0 glass-card rounded-[10px] p-4 sm:p-5 md:p-6 shadow-sm">
+                          <h3 className="text-[15px] sm:text-lg md:text-xl font-semibold text-black leading-snug">
                             {item.title}
                           </h3>
                         </div>
