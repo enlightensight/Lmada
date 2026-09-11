@@ -15,6 +15,7 @@ export interface InsightDetailedSection {
 
 export interface InsightItem {
   id: string;
+  slug: string;
   category: 'blogs' | 'case-studies' | 'brochures' | 'news' | 'events';
   title: string;
   badge: string;
@@ -51,6 +52,7 @@ export const insightsData: Record<string, InsightItem[]> = {
   blogs: [
     {
       id: 'blog-1',
+      slug: 'optimizing-cho-cell-line-selection',
       category: 'blogs',
       title: 'Optimizing CHO Cell Line Selection: High-Titre Clonal Stability & Targeted Glycosylation Profiles for Biosimilar mAbs',
       badge: 'Upstream Bioprocess',
@@ -120,6 +122,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'blog-2',
+      slug: 'overcoming-bispecific-antibody-aggregation',
       category: 'blogs',
       title: 'Overcoming Bispecific Antibody Aggregation: Multi-Modal Chromatography Strategies for Asymmetric Chain Assembly',
       badge: 'Downstream Purification',
@@ -178,6 +181,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'blog-3',
+      slug: 'advanced-lyophilization-cycle-design',
       category: 'blogs',
       title: 'Advanced Lyophilization Cycle Design: Overcoming Cake Collapse in High-Concentration Protein Formulations',
       badge: 'Formulation & DP',
@@ -236,6 +240,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'blog-4',
+      slug: 'physicochemical-characterization-ich-q6b',
       category: 'blogs',
       title: 'Physicochemical Characterization under ICH Q6B: Orthogonal SEC-MALS, Intact Mass LC-MS, and cIEF',
       badge: 'Analytical Sciences',
@@ -288,6 +293,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'blog-5',
+      slug: 'single-use-bioreactor-scale-up-50l-to-2000l',
       category: 'blogs',
       title: 'Single-Use Bioreactor Scale-Up (50L to 2000L): Shear Stress Mitigation & Mass Transfer Optimization',
       badge: 'Engineering & Upstream',
@@ -344,6 +350,7 @@ export const insightsData: Record<string, InsightItem[]> = {
   'case-studies': [
     {
       id: 'cs-1',
+      slug: 'ranibizumab-phase-3-biosimilar-clinical-supply',
       category: 'case-studies',
       title: 'Ranibizumab Phase III Biosimilar: Accelerated 14-Month Analytical Comparability, Clinical Formulation & Supply Campaign',
       badge: 'Biosimilar Commercialization',
@@ -402,6 +409,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'cs-2',
+      slug: 'denosumab-high-yield-cho-titer-optimization',
       category: 'case-studies',
       title: 'Denosumab High-Yield CHO Platform: 6.8 g/L Titer Optimization with Critical Quality Attribute (CQA) Matching',
       badge: 'Monoclonal Antibodies',
@@ -453,6 +461,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'cs-3',
+      slug: 'bispecific-bite-downstream-recovery-purity',
       category: 'case-studies',
       title: 'Bispecific T-Cell Engager (BiTE) Downstream Recovery: Resolving Light-Chain Mispairing to Achieve >98.5% Purity',
       badge: 'Next-Gen Modalities',
@@ -498,6 +507,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'cs-4',
+      slug: 'rapid-tech-transfer-adc-containment-100l',
       category: 'case-studies',
       title: 'Rapid Tech Transfer of an Antibody-Drug Conjugate (ADC): Scaled to 100L Under Containment in Grade C Cleanrooms',
       badge: 'ADC Bioconjugation',
@@ -543,6 +553,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'cs-5',
+      slug: 'host-cell-protein-dna-clearance-commercial-ppq',
       category: 'case-studies',
       title: 'Host-Cell Protein (HCP) & DNA Clearance: Validated Clearance in 3 Commercial Process Validation (PPQ) Lots',
       badge: 'Process Validation',
@@ -600,6 +611,7 @@ export const insightsData: Record<string, InsightItem[]> = {
   brochures: [
     {
       id: 'brochure-1',
+      slug: 'lambda-cdmo-capabilities-master-compendium',
       category: 'brochures',
       title: 'Lambda CDMO Capabilities Master Compendium 2026: Gene-to-Clinic Biologics Development & cGMP Manufacturing',
       badge: 'Comprehensive Dossier',
@@ -645,6 +657,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'brochure-2',
+      slug: 'analytical-sciences-physicochemical-characterization-dossier',
       category: 'brochures',
       title: 'Analytical Sciences & Physicochemical Characterization Dossier: ICH Q6B & Q14 Compliance Menu',
       badge: 'Analytical Menu',
@@ -688,6 +701,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'brochure-3',
+      slug: 'single-use-bioreactor-platform-specifications',
       category: 'brochures',
       title: 'Single-Use Bioreactor (SUB) Platform Specifications: 50L, 200L, 500L & 2000L Processing Trains',
       badge: 'Upstream Specs',
@@ -725,6 +739,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'brochure-4',
+      slug: 'aseptic-fill-finish-barrier-isolator-whitepaper',
       category: 'brochures',
       title: 'Aseptic Fill-Finish & Barrier Isolator Technical Whitepaper: Zero Contamination Vials & Pre-Filled Syringes',
       badge: 'Drug Product Whitepaper',
@@ -762,6 +777,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'brochure-5',
+      slug: 'global-regulatory-cmc-roadmap-ind-bla',
       category: 'brochures',
       title: 'Global Regulatory CMC Roadmap: Strategic IND, IMPD & BLA Dossier Packages for FDA, EMA & PMDA',
       badge: 'Regulatory Strategy',
@@ -802,6 +818,7 @@ export const insightsData: Record<string, InsightItem[]> = {
   news: [
     {
       id: 'news-1',
+      slug: 'regulatory-cgmp-compliance-inspection-zero-483',
       category: 'news',
       title: 'Lambda CDMO Completes Multi-Agency Regulatory cGMP Compliance Inspection with Zero 483 Observations',
       badge: 'Regulatory Milestone',
@@ -846,6 +863,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'news-2',
+      slug: 'biologics-campus-expansion-2000l-bioreactors',
       category: 'news',
       title: 'Lambda CDMO Expands Biologics Campus with New 2,000L Single-Use Bioreactor Suites',
       badge: 'Facility Expansion',
@@ -883,6 +901,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'news-3',
+      slug: 'strategic-collaboration-next-gen-adc-cdmo',
       category: 'news',
       title: 'Strategic Collaboration Announced for Next-Generation ADC Clinical Development and Manufacturing',
       badge: 'Strategic Partnership',
@@ -920,6 +939,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'news-4',
+      slug: 'scientific-team-presents-pat-raman-data',
       category: 'news',
       title: 'Lambda Scientific Team Presents Breakthrough Process Analytical Technology (PAT) Data at Global Bio-Manufacturing Summit',
       badge: 'Scientific Presentation',
@@ -957,6 +977,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'news-5',
+      slug: 'automated-barrier-isolator-aseptic-filling-line',
       category: 'news',
       title: 'Commissioning of Fully Automated Barrier Isolator High-Speed Aseptic Filling Line for Vials & Syringes',
       badge: 'Technology Upgrade',
@@ -997,6 +1018,7 @@ export const insightsData: Record<string, InsightItem[]> = {
   events: [
     {
       id: 'event-1',
+      slug: 'global-bioprocessing-summit-2026-keynote',
       category: 'events',
       title: 'Global Bioprocessing Summit 2026: Keynote Address on Continuous Perfusion & CQA Control',
       badge: 'Keynote Presentation',
@@ -1041,6 +1063,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'event-2',
+      slug: 'webinar-ich-q6b-analytical-comparability-biosimilars',
       category: 'events',
       title: 'Live Technical Webinar: Mastering ICH Q6B Analytical Comparability for Complex Biosimilar Filings',
       badge: 'Live Webinar',
@@ -1080,6 +1103,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'event-3',
+      slug: 'bio-europe-partnering-conference-vienna',
       category: 'events',
       title: 'Bio-Europe Partnering Conference: Meet the Lambda Executive Technical Team',
       badge: 'Partnering Forum',
@@ -1116,6 +1140,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'event-4',
+      slug: 'masterclass-high-concentration-formulation-viscosity',
       category: 'events',
       title: 'Masterclass Workshop: High-Concentration Formulation Development & Subcutaneous Viscosity Reduction',
       badge: 'Technical Workshop',
@@ -1153,6 +1178,7 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
     {
       id: 'event-5',
+      slug: 'executive-roundtable-derisking-tech-transfer',
       category: 'events',
       title: 'Executive Roundtable: De-risking Technology Transfer & Accelerating Biologics IND Timelines',
       badge: 'Executive Roundtable',
@@ -1190,3 +1216,20 @@ export const insightsData: Record<string, InsightItem[]> = {
     },
   ],
 };
+
+
+export function getAllInsightItems(): InsightItem[] {
+  return Object.values(insightsData).flat();
+}
+
+export function getInsightBySlug(category: string, slug: string): InsightItem | undefined {
+  const categoryItems = insightsData[category] || [];
+  return categoryItems.find((item) => item.slug === slug || item.id === slug);
+}
+
+export function getRelatedInsights(category: string, currentSlugOrId: string, limit = 3): InsightItem[] {
+  const categoryItems = insightsData[category] || [];
+  return categoryItems
+    .filter((item) => item.slug !== currentSlugOrId && item.id !== currentSlugOrId)
+    .slice(0, limit);
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -9,18 +9,15 @@ import {
   Download,
   FileText,
   Newspaper,
-  X,
   Clock,
   CheckCircle2,
-  Tag,
-  Share2,
   ChevronRight,
   Sparkles,
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
-import { insightsData, INSIGHT_TABS, type InsightItem } from '@/data/insightsData';
+import { insightsData, INSIGHT_TABS } from '@/data/insightsData';
 
 interface InsightsLayoutProps {
   page: CDMOPage;
@@ -40,31 +37,6 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
   const [userSelectedTab, setUserSelectedTab] = useState<string | null>(null);
   const activeTab = userSelectedTab ?? (INSIGHT_TABS.some((t) => t.slug === page.slug) ? page.slug : 'blogs');
 
-  // State for interactive article reader modal
-  const [selectedArticle, setSelectedArticle] = useState<InsightItem | null>(null);
-  const [copiedLink, setCopiedLink] = useState(false);
-
-  // Handle ESC key to close modal & lock body scroll
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setSelectedArticle(null);
-      }
-    };
-
-    if (selectedArticle) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedArticle]);
-
   // Switch tabs and update browser URL without full reload
   const handleTabChange = (slug: string) => {
     setUserSelectedTab(slug);
@@ -77,17 +49,9 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
   const items = insightsData[activeTab] || [];
   const [featuredItem, ...supportingItems] = items;
 
-  const handleShare = () => {
-    if (typeof window !== 'undefined') {
-      navigator.clipboard.writeText(window.location.href);
-      setCopiedLink(true);
-      setTimeout(() => setCopiedLink(false), 2000);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-neutral-50/50">
-      {/* TOP HEADER & BREADCRUMBS (Hero completely removed as requested) */}
+      {/* TOP HEADER & BREADCRUMBS */}
       <section className="pt-24 md:pt-28 pb-6 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 bg-white border-b border-neutral-200">
         <div className="w-full max-w-[1700px] mx-auto">
           {/* Breadcrumb path */}
@@ -126,7 +90,7 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
             </div>
           </div>
 
-          {/* 5 TABS NAVIGATION BAR (matching dropdown options) */}
+          {/* 5 TABS NAVIGATION BAR */}
           <div className="pt-4 border-t border-neutral-100">
             <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-none">
               {INSIGHT_TABS.map((tab) => {
@@ -160,7 +124,7 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
       {/* MAIN CONTENT AREA: 1 FEATURED STORY + 4 SUPPORTING CONTENT CARDS */}
       <main className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 md:py-16">
         <div className="w-full max-w-[1700px] mx-auto space-y-12">
-          {/* SECTION 1: FEATURED STORY BANNER (Matching User Image 2 Design) */}
+          {/* SECTION 1: FEATURED STORY BANNER */}
           {featuredItem && (
             <div>
               <div className="text-center mb-8">
@@ -170,9 +134,9 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
                 <div className="w-12 h-0.5 bg-brand-orange mx-auto mt-2" />
               </div>
 
-              <article
-                onClick={() => setSelectedArticle(featuredItem)}
-                className="group relative bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+              <Link
+                href={`/insights/${featuredItem.category}/${featuredItem.slug || featuredItem.id}`}
+                className="group block relative bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300"
               >
                 {/* Accent top gradient bar */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-orange" />
@@ -246,12 +210,12 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
                       <div className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue group-hover:text-brand-blue-hover transition-colors">
                         <span className="w-6 h-0.5 bg-brand-orange group-hover:w-10 transition-all duration-300" />
                         <span>Read the full story</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                       </div>
                     </div>
                   </div>
                 </div>
-              </article>
+              </Link>
             </div>
           )}
 
@@ -274,10 +238,10 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {supportingItems.map((item) => (
-                  <article
+                  <Link
                     key={item.id}
-                    onClick={() => setSelectedArticle(item)}
-                    className="group relative bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/30 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                    href={`/insights/${item.category}/${item.slug || item.id}`}
+                    className="group block relative bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between"
                   >
                     {/* Top image */}
                     <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100">
@@ -337,264 +301,19 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
                           ))}
                         </div>
 
-                        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue group-hover:translate-x-1 transition-transform">
+                        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-blue group-hover:translate-x-1.5 transition-transform">
                           <span>Read full article</span>
                           <ArrowRight className="w-3.5 h-3.5" />
                         </div>
                       </div>
                     </div>
-                  </article>
+                  </Link>
                 ))}
               </div>
             </div>
           )}
         </div>
       </main>
-
-      {/* INTERACTIVE SCIENTIFIC READER MODAL */}
-      {selectedArticle && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 md:p-10 animate-in fade-in duration-200">
-          <div
-            className="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-neutral-200 my-auto flex flex-col max-h-[92vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header Bar */}
-            <div className="sticky top-0 z-20 bg-white/95 backdrop-blur-md px-6 sm:px-8 py-4 border-b border-neutral-200 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-brand-navy text-white">
-                  {selectedArticle.badge}
-                </span>
-                <span className="hidden sm:inline-block text-xs text-slate-500 font-medium">
-                  {selectedArticle.date} • {selectedArticle.readTime}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleShare}
-                  className="p-2 rounded-lg text-slate-500 hover:text-black hover:bg-neutral-100 transition-colors text-xs flex items-center gap-1.5 cursor-pointer"
-                  title="Copy article link"
-                >
-                  <Share2 className="w-4 h-4" />
-                  <span className="hidden sm:inline">{copiedLink ? 'Copied!' : 'Share'}</span>
-                </button>
-                <button
-                  onClick={() => setSelectedArticle(null)}
-                  className="p-2 rounded-lg text-slate-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
-                  aria-label="Close modal"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Modal Scrollable Article Body */}
-            <div className="overflow-y-auto p-6 sm:p-8 md:p-10 space-y-8">
-              {/* Article Header */}
-              <div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-normal text-neutral-900 tracking-tight leading-[1.2]">
-                  {selectedArticle.title}
-                </h2>
-                <p className="mt-3 text-lg text-slate-600 font-normal leading-relaxed">
-                  {selectedArticle.detailedContent.subtitle}
-                </p>
-
-                {/* Author Credentials */}
-                <div className="mt-6 flex items-center gap-4 p-4 rounded-xl bg-neutral-50 border border-neutral-200/80">
-                  <div className="w-12 h-12 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold text-sm shrink-0">
-                    {selectedArticle.author.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')
-                      .slice(0, 2)}
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-neutral-900">
-                      {selectedArticle.author.name}
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">{selectedArticle.author.role}</p>
-                    <p className="text-[11px] text-brand-orange font-semibold uppercase tracking-wider mt-1">
-                      Lambda CDMO Biologics Science & Technology
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Main Banner Image */}
-              <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-neutral-200">
-                <img
-                  src={selectedArticle.image}
-                  alt={selectedArticle.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Executive Abstract Box */}
-              <div className="p-6 rounded-xl bg-blue-50/70 border-l-4 border-brand-blue">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-navy mb-2 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-brand-blue" />
-                  Executive Abstract & Technical Scope
-                </h4>
-                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
-                  {selectedArticle.detailedContent.abstract}
-                </p>
-              </div>
-
-              {/* Key Takeaways Highlights */}
-              <div className="p-6 rounded-xl bg-neutral-50 border border-neutral-200">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 mb-4">
-                  Key Quantitative Takeaways
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {selectedArticle.keyTakeaways.map((takeaway, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                      <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
-                      <span>{takeaway}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Detailed Scientific Sections */}
-              <div className="space-y-8 pt-4">
-                {selectedArticle.detailedContent.sections.map((section, idx) => (
-                  <div key={idx} className="space-y-4">
-                    <h3 className="text-xl sm:text-2xl font-medium text-neutral-900 tracking-tight">
-                      {section.heading}
-                    </h3>
-
-                    {section.body.map((p, pIdx) => (
-                      <p key={pIdx} className="text-base text-slate-700 font-normal leading-relaxed">
-                        {p}
-                      </p>
-                    ))}
-
-                    {/* Callout Box if present */}
-                    {section.callout && (
-                      <div className="my-5 p-5 rounded-xl bg-gradient-to-r from-neutral-900 to-brand-navy text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div>
-                          <p className="text-xs uppercase font-bold tracking-wider text-brand-orange">
-                            {section.callout.title}
-                          </p>
-                          <p className="text-sm text-neutral-200 mt-1 font-normal">
-                            {section.callout.text}
-                          </p>
-                        </div>
-                        {section.callout.metric && (
-                          <div className="shrink-0 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-xl font-bold text-brand-orange tracking-tight">
-                            {section.callout.metric}
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Scientific Table if present */}
-                    {section.table && (
-                      <div className="my-6 overflow-x-auto rounded-xl border border-neutral-200 shadow-sm">
-                        {section.table.caption && (
-                          <div className="bg-neutral-100/80 px-4 py-2.5 text-xs font-bold text-neutral-800 border-b border-neutral-200">
-                            {section.table.caption}
-                          </div>
-                        )}
-                        <table className="w-full text-left text-xs sm:text-sm text-slate-700">
-                          <thead className="bg-neutral-50 text-neutral-900 uppercase font-semibold text-[11px] tracking-wider border-b border-neutral-200">
-                            <tr>
-                              {section.table.headers.map((h, hIdx) => (
-                                <th key={hIdx} className="px-4 py-3">
-                                  {h}
-                                </th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-neutral-200">
-                            {section.table.rows.map((row, rIdx) => (
-                              <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/50'}>
-                                {row.map((cell, cIdx) => (
-                                  <td
-                                    key={cIdx}
-                                    className={`px-4 py-3 ${
-                                      cIdx === 0 ? 'font-semibold text-neutral-900' : 'text-slate-600'
-                                    }`}
-                                  >
-                                    {cell}
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Methodology Highlights */}
-              <div className="p-6 rounded-xl bg-neutral-100/70 border border-neutral-200">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 mb-3">
-                  Validated Methodology & Instrumentation
-                </h4>
-                <ul className="space-y-2">
-                  {selectedArticle.detailedContent.methodologyHighlights.map((m, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-blue shrink-0 mt-2" />
-                      <span>{m}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Regulatory Impact */}
-              <div className="p-5 rounded-xl bg-amber-50/60 border border-amber-200 text-xs sm:text-sm text-amber-950">
-                <span className="font-bold uppercase tracking-wider text-[11px] block mb-1 text-amber-900">
-                  Regulatory & Filing Significance:
-                </span>
-                <p className="font-normal leading-relaxed">
-                  {selectedArticle.detailedContent.regulatoryImpact}
-                </p>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-neutral-200">
-                <Tag className="w-3.5 h-3.5 text-slate-400" />
-                <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
-                  Indexed Under:
-                </span>
-                {selectedArticle.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2.5 py-1 rounded-md text-xs font-medium bg-neutral-100 text-slate-700 border border-neutral-200"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Modal Bottom Sticky CTA */}
-            <div className="sticky bottom-0 bg-neutral-50 px-6 sm:px-8 py-4 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-xs text-slate-600 text-center sm:text-left">
-                Need to discuss experimental data, scale-up protocols, or tech transfer for your molecule?
-              </p>
-              <div className="flex items-center gap-3 shrink-0">
-                <button
-                  onClick={() => setSelectedArticle(null)}
-                  className="px-4 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-black border border-neutral-300 hover:bg-white transition-colors cursor-pointer"
-                >
-                  Close Reader
-                </button>
-                <Link
-                  href="/contact"
-                  className="px-5 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-brand-orange hover:bg-brand-orange-hover text-white transition-all shadow-sm active:scale-95 flex items-center gap-1.5"
-                >
-                  <span>Connect With Our Scientists</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* SUBSCRIBE / STAY INFORMED CTA SECTION WITH BACKGROUND VIDEO */}
       <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24">
