@@ -1653,7 +1653,7 @@ export default function IntegratedTimeline() {
                       <button
                         type="button"
                         onClick={() => handleJumpToStage(step.id)}
-                        className="text-center transition-colors cursor-pointer mt-1 sm:mt-1.5 w-full px-0.5"
+                        className="text-center transition-colors cursor-pointer mt-1 sm:mt-1.5 w-full px-0 sm:px-0.5"
                       >
                         <span
                           className={`block text-[10px] sm:text-xs font-bold tracking-wider mb-0.5 transition-colors ${
@@ -1663,7 +1663,7 @@ export default function IntegratedTimeline() {
                           {step.stepNum}
                         </span>
                         <span
-                          className={`text-[10px] xs:text-[11px] sm:text-xs md:text-[13px] leading-tight block w-full text-center transition-colors break-words font-medium ${
+                          className={`text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-[13px] leading-tight block w-full text-center transition-colors break-normal font-medium tracking-tight sm:tracking-normal ${
                             isActive
                               ? 'text-neutral-900 font-bold'
                               : 'text-slate-500 hover:text-neutral-800'
@@ -1671,7 +1671,7 @@ export default function IntegratedTimeline() {
                         >
                           {step.id === 4 ? (
                             <>
-                              <span className="sm:hidden">Manufacture</span>
+                              <span className="sm:hidden whitespace-nowrap">Manufacture</span>
                               <span className="hidden sm:inline">cGMP Mfg</span>
                             </>
                           ) : (
