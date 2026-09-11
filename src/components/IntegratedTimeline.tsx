@@ -1126,6 +1126,7 @@ const ANIMATION_COMPONENTS = [
 
 export default function IntegratedTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [activeStageId, setActiveStageId] = useState(1);
   const [isLocked, setIsLocked] = useState(false);
 
@@ -1146,34 +1147,37 @@ export default function IntegratedTimeline() {
     isLockedRef.current = isLocked;
   }, [isLocked]);
 
-  // Determine initial position relative to timeline on mount
-  useEffect(() => {
-    if (typeof window === 'undefined' || !containerRef.current) return;
-    const navHeight = window.innerWidth >= 1024 ? 80 : 64;
-    const rect = containerRef.current.getBoundingClientRect();
-    if (rect.top < navHeight - 60) {
-      positionRef.current = 'below';
-    } else if (rect.top > navHeight + 60) {
-      positionRef.current = 'above';
-    } else {
-      positionRef.current = 'above';
-    }
-  }, []);
-
-  // Helper for navbar height & target scroll offset (exact document coordinate)
+  // Helper for navbar height & target scroll offset (aligns when progress bar reaches top below navbar)
   const getTargetScrollY = () => {
-    if (!containerRef.current || typeof window === 'undefined') return 0;
+    if (typeof window === 'undefined') return 0;
     const navHeight = window.innerWidth >= 1024 ? 80 : 64;
 
-    // Use stable accumulated offsetTop to get the exact document top of the timeline
-    let el: HTMLElement | null = containerRef.current;
+    const targetEl = trackRef.current || containerRef.current;
+    if (!targetEl) return 0;
+
+    let el: HTMLElement | null = targetEl;
     let docTop = 0;
     while (el) {
       docTop += el.offsetTop;
       el = el.offsetParent as HTMLElement | null;
     }
-    return Math.max(0, docTop - navHeight);
+    // Sits comfortably right below navbar
+    return Math.max(0, docTop - navHeight - 16);
   };
+
+  // Determine initial position relative to timeline on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const targetScrollY = getTargetScrollY();
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > targetScrollY + 60) {
+      positionRef.current = 'below';
+    } else if (currentScrollY < targetScrollY - 60) {
+      positionRef.current = 'above';
+    } else {
+      positionRef.current = 'above';
+    }
+  }, []);
 
   const lockScroll = (stage: number) => {
     if (typeof window === 'undefined' || !containerRef.current) return;
@@ -1590,7 +1594,7 @@ export default function IntegratedTimeline() {
           </div>
 
           {/* ================= CLEAN MINIMALIST HORIZONTAL TIMELINE TRACK ================= */}
-          <div className="relative max-w-5xl mx-auto mb-6 sm:mb-8 w-full px-1 sm:px-4">
+          <div ref={trackRef} id="integrated-timeline-track" className="relative max-w-5xl mx-auto mb-6 sm:mb-8 w-full px-1 sm:px-4">
             
             {/* The Connecting Line Track */}
             <div className="relative flex items-center">
