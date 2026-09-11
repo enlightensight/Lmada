@@ -1759,8 +1759,8 @@ export default function IntegratedTimeline() {
                       {currentStage.description}
                     </p>
 
-                    {/* 3 Key Deliverables */}
-                    <div className="space-y-1.5 mb-4">
+                    {/* 3 Key Deliverables - hidden on mobile */}
+                    <div className="hidden sm:block space-y-1.5 mb-4">
                       {currentStage.deliverables.map((item, idx) => (
                         <div key={idx} className="flex items-start gap-2.5">
                           <CheckCircle2
