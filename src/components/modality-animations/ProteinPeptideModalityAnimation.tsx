@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Dna, ShieldCheck, Activity, Layers, Repeat, CheckCircle2 } from 'lucide-react';
+import { Dna, ShieldCheck, Activity, Layers, Repeat, CheckCircle2 } from 'lucide-react';
 
 const PROTEIN_STAGES = [
   {

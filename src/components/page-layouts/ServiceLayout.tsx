@@ -9,7 +9,6 @@ import {
   Search,
   Filter,
   Layers,
-  Sparkles,
   FileCheck,
   ShieldCheck,
   Atom,
@@ -377,12 +376,14 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
               Get in touch
               <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
-            <Link
-              href="/services/cell-line"
+            <a
+              href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"
             >
-              Explore services
-            </Link>
+              Virtual Tour
+            </a>
           </div>
         </div>
       </section>

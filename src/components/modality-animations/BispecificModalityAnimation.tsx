@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, GitMerge, ShieldCheck, Target, Zap, CheckCircle2, Activity } from 'lucide-react';
+import { GitMerge, ShieldCheck, Target, Zap, CheckCircle2, Activity } from 'lucide-react';
 
 const BISPECIFIC_STAGES = [
   {

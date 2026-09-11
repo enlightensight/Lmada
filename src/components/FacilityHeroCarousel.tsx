@@ -1,0 +1,156 @@
+'use client';
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const FACILITY_IMAGES = [
+  {
+    src: '/images/Screenshot%202026-09-11%20131810.png',
+    alt: 'Lambda CDMO Biologics Development Laboratories',
+    caption: 'Biologics Development Laboratories',
+  },
+  {
+    src: '/images/Screenshot%202026-09-11%20131847.png',
+    alt: 'Lambda CDMO Analytical Science Suite',
+    caption: 'Advanced Analytical & Physicochemical Suites',
+  },
+  {
+    src: '/images/Screenshot%202026-09-11%20132133.png',
+    alt: 'Lambda CDMO Bioprocess Development & Upstream Suite',
+    caption: 'Single-Use Bioreactor Production Suites',
+  },
+  {
+    src: '/images/Screenshot%202026-09-11%20132304.png',
+    alt: 'Lambda CDMO Downstream Purification Operations',
+    caption: 'Multi-Modal Chromatography & Purification',
+  },
+  {
+    src: '/images/Screenshot%202026-09-11%20132325.png',
+    alt: 'Lambda CDMO QC Testing & Bioassay Lab',
+    caption: 'Quality Control & Functional Bioassay Labs',
+  },
+  {
+    src: '/images/Screenshot%202026-09-11%20132518.png',
+    alt: 'Lambda CDMO Aseptic Fill-Finish & Isolator Suite',
+    caption: 'Automated Aseptic Fill-Finish Operations',
+  },
+  {
+    src: '/images/Screenshot%202026-09-11%20131721.png',
+    alt: 'Lambda CDMO Campus & Facility Infrastructure',
+    caption: 'Integrated 20,000 sqm Biologics Campus',
+  },
+];
+
+export default function FacilityHeroCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [direction, setDirection] = useState<1 | -1>(1);
+
+  const nextSlide = useCallback(() => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % FACILITY_IMAGES.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + FACILITY_IMAGES.length) % FACILITY_IMAGES.length);
+  }, []);
+
+  const goToSlide = (index: number) => {
+    setDirection(index > currentIndex ? 1 : -1);
+    setCurrentIndex(index);
+  };
+
+  // Auto-advance every 5 seconds (5000ms)
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [isPaused, nextSlide]);
+
+  const currentImage = FACILITY_IMAGES[currentIndex];
+
+  return (
+    <div
+      className="relative aspect-[4/3] w-full overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-900 group select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      role="region"
+      aria-label="Lambda CDMO Facility Gallery Carousel"
+    >
+      {/* Animated Image Slide with Cold Bluish Filter */}
+      <AnimatePresence initial={false} custom={direction} mode="wait">
+        <motion.div
+          key={currentIndex}
+          custom={direction}
+          initial={{ opacity: 0, scale: 1.03 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 w-full h-full"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={currentImage.src}
+            alt={currentImage.alt}
+            className="w-full h-full object-cover"
+            style={{
+              filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)',
+            }}
+          />
+          {/* Cold Bluish Scientific Color Grade Wash */}
+          <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
+          {/* Bottom Vignette for Overlay Readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/10 pointer-events-none" />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Left Navigation Arrow */}
+      <button
+        type="button"
+        onClick={prevSlide}
+        aria-label="Previous image"
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-neutral-800 backdrop-blur-md shadow-md hover:shadow-lg border border-white/40 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer opacity-90 hover:opacity-100"
+      >
+        <ChevronLeft className="w-5 h-5 -translate-x-0.5" />
+      </button>
+
+      {/* Right Navigation Arrow */}
+      <button
+        type="button"
+        onClick={nextSlide}
+        aria-label="Next image"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-neutral-800 backdrop-blur-md shadow-md hover:shadow-lg border border-white/40 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer opacity-90 hover:opacity-100"
+      >
+        <ChevronRight className="w-5 h-5 translate-x-0.5" />
+      </button>
+
+      {/* Top Floating Slide Counter Badge */}
+      <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider">
+        {currentIndex + 1} / {FACILITY_IMAGES.length}
+      </div>
+
+      {/* Bottom Floating Navigation Dots */}
+      <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/45 backdrop-blur-md border border-white/15">
+        {FACILITY_IMAGES.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => goToSlide(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+            className={`transition-all duration-300 rounded-full cursor-pointer ${
+              currentIndex === idx
+                ? 'w-6 h-2 bg-[#00aeef]'
+                : 'w-2 h-2 bg-white/60 hover:bg-white'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}

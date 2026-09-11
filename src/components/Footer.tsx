@@ -12,7 +12,7 @@ export default function Footer() {
         { name: 'About Lambda', href: '/overview/about' },
         { name: 'Leadership', href: '/overview/leadership' },
         { name: 'Facility', href: '/overview/facility' },
-        { name: 'Virtual Tour (360°)', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
+        { name: 'Virtual Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
         { name: 'Integrated Development', href: '/overview/integrated' },
         { name: 'Careers', href: '/overview/careers' },
       ],

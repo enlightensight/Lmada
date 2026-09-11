@@ -60,17 +60,16 @@ function pointsToPath(pts: Point[]): string {
 
 // Individual DNA Base-Pair Rung that reveals and lights up on scroll
 function DnaRungItem({ rung, progress }: { rung: RungData; progress: MotionValue<number> }) {
-  // Reveal when scroll progress approaches rung's t position, tapering at the tip
-  const maxOpacity = rung.t > 0.85 ? Math.max(0.1, ((1 - rung.t) / 0.15) * 0.72) : 0.72;
+  // Snappy reveal as progress passes the rung's position, staying fully visible
   const opacity = useTransform(
     progress,
-    [Math.max(0, rung.t - 0.08), Math.min(1, rung.t + 0.02)],
-    [0, maxOpacity]
+    [Math.max(0, rung.t - 0.04), Math.min(1, rung.t + 0.01)],
+    [0, 0.76]
   );
   const scale = useTransform(
     progress,
-    [Math.max(0, rung.t - 0.08), Math.min(1, rung.t + 0.02)],
-    [0.2, 1]
+    [Math.max(0, rung.t - 0.04), Math.min(1, rung.t + 0.01)],
+    [0.3, 1]
   );
 
   return (
@@ -124,31 +123,36 @@ function DnaRungItem({ rung, progress }: { rung: RungData; progress: MotionValue
 export default function DnaScrollBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Track scroll position of the section
+  // Track scroll position of the section: starts as header enters, finishes when reaching Image 2 position
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 90%', 'end 30%'],
+    offset: ['start 80%', 'end 20%'],
   });
 
-  // Smooth out drawing animation with spring physics
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 75,
-    damping: 24,
+  // Clamped progress: pacing calibrated so 100% completion aligns with the transition in Image 2
+  const calibratedProgress = useTransform(scrollYProgress, [0, 1], [0, 1], {
+    clamp: true,
+  });
+
+  // Smooth, natural spring physics for elegant scroll-coupled pacing
+  const smoothProgress = useSpring(calibratedProgress, {
+    stiffness: 90,
+    damping: 20,
     restDelta: 0.001,
   });
 
-  // Calculate single DNA double-helix geometry focused exclusively on the left side
+  // Calculate full-span DNA double-helix geometry: sweeps from top-left all the way to bottom-right
   const { helix1A, helix1B, rungs1 } = useMemo(() => {
-    // Single trajectory: Top-Left swooping down gracefully to center-left
-    const P0 = { x: 50, y: 25 };
-    const P1 = { x: 280, y: 180 };
-    const P2 = { x: 520, y: 460 };
-    const P3 = { x: 680, y: 570 };
+    // Elegant sweeping trajectory across the entire section
+    const P0 = { x: 70, y: 50 };     // Top-left beside quote/heading (Image 1)
+    const P1 = { x: 340, y: 220 };   // Descending gently past description
+    const P2 = { x: 780, y: 480 };   // Weaving behind first row of cards
+    const P3 = { x: 1300, y: 780 };  // Reaching bottom-right empty space (Image 2)
 
-    const N_POINTS = 64;
-    const N_RUNGS = 22;
-    const AMPLITUDE = 25; // Width of double helix ladder
-    const NUM_TURNS = 3.2; // Number of helical twist cycles
+    const N_POINTS = 96;
+    const N_RUNGS = 36;
+    const AMPLITUDE = 24; // Width of double helix ladder
+    const NUM_TURNS = 5.2; // Helical twist cycles across the extended span
 
     const pts1A: Point[] = [];
     const pts1B: Point[] = [];
@@ -231,19 +235,17 @@ export default function DnaScrollBackground() {
             </feMerge>
           </filter>
 
-          {/* Gradients with subtle fade out at the tip */}
+          {/* Gradients maintaining vibrant visibility through to the bottom-right terminus */}
           <linearGradient id="cyanStrandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#00aeef" stopOpacity="0.9" />
-            <stop offset="70%" stopColor="#38bdf8" stopOpacity="0.85" />
-            <stop offset="92%" stopColor="#00aeef" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#00aeef" stopOpacity="0" />
+            <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.88" />
+            <stop offset="100%" stopColor="#00aeef" stopOpacity="0.85" />
           </linearGradient>
 
           <linearGradient id="orangeStrandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#f58634" stopOpacity="0.9" />
-            <stop offset="70%" stopColor="#fb923c" stopOpacity="0.85" />
-            <stop offset="92%" stopColor="#f58634" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#f58634" stopOpacity="0" />
+            <stop offset="50%" stopColor="#fb923c" stopOpacity="0.88" />
+            <stop offset="100%" stopColor="#f58634" stopOpacity="0.85" />
           </linearGradient>
 
           <linearGradient id="rungGradient" x1="0%" y1="0%" x2="100%" y2="100%">

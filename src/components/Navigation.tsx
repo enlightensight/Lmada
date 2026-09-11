@@ -115,11 +115,6 @@ export default function Navigation() {
         },
       ],
     },
-    {
-      label: 'Virtual Tour',
-      href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm',
-      isExternal: true,
-    },
   ];
 
   const isActive = (item: NavItem) => {
@@ -157,12 +152,9 @@ export default function Navigation() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative h-full flex items-center gap-1.5 px-4 text-[19px] font-medium tracking-wide transition-colors text-neutral-800 hover:text-brand-navy"
+                      className="relative h-full flex items-center px-4 text-[17px] font-light md:font-normal tracking-tight transition-colors text-neutral-900 hover:text-brand-blue"
                     >
-                      <span>{item.label}</span>
-                      <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30 leading-none">
-                        360°
-                      </span>
+                      {item.label}
                     </a>
                   );
                 }
@@ -171,14 +163,11 @@ export default function Navigation() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`relative h-full flex items-center gap-1.5 px-4 text-[19px] font-medium tracking-wide transition-colors ${
-                      active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
+                    className={`relative h-full flex items-center px-4 text-[17px] font-light md:font-normal tracking-tight transition-colors ${
+                      active ? 'text-brand-blue font-normal' : 'text-neutral-900 hover:text-brand-blue'
                     }`}
                   >
-                    <span>{item.label}</span>
-                    <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30 leading-none">
-                      360°
-                    </span>
+                    {item.label}
                     {active && (
                       <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-blue" />
                     )}
@@ -194,7 +183,7 @@ export default function Navigation() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <button
-                    className={`relative h-full flex items-center gap-1.5 px-4 text-[19px] font-medium tracking-wide focus:outline-none transition-colors cursor-pointer ${active ? 'text-brand-blue font-semibold' : 'text-neutral-800 hover:text-brand-navy'
+                    className={`relative h-full flex items-center gap-1.5 px-4 text-[17px] font-light md:font-normal tracking-tight focus:outline-none transition-colors cursor-pointer ${active ? 'text-brand-blue font-normal' : 'text-neutral-900 hover:text-brand-blue'
                       }`}
                   >
                     {item.label}
@@ -217,10 +206,10 @@ export default function Navigation() {
                           }`}>
                           <div className="p-6">
                             <div className="mb-5 pb-4 border-b border-neutral-100">
-                              <span className="text-brand-yellow text-[14px] font-semibold uppercase tracking-wider">
+                              <span className="text-brand-orange text-[12px] font-semibold uppercase tracking-wider">
                                 {item.label}
                               </span>
-                              <p className="text-[16px] text-neutral-500 mt-1">
+                              <p className="text-[15px] text-slate-500 font-normal leading-relaxed mt-1">
                                 {item.description}
                               </p>
                             </div>
@@ -232,7 +221,7 @@ export default function Navigation() {
                               }`}>
                               {item.columns?.map((column, colIdx) => (
                                 <div key={colIdx}>
-                                  <h4 className="text-[14px] font-semibold uppercase tracking-wider text-black mb-3.5">
+                                  <h4 className="text-[12px] font-semibold uppercase tracking-wider text-neutral-900 mb-3.5">
                                     {column.title}
                                   </h4>
                                   <ul className="space-y-2.5">
@@ -242,9 +231,9 @@ export default function Navigation() {
                                         <li key={link.href}>
                                           <Link
                                             href={link.href}
-                                            className={`text-[16px] flex items-center gap-2.5 transition-colors ${isLinkActive
-                                              ? 'text-brand-blue font-semibold'
-                                              : 'text-neutral-600 hover:text-brand-blue'
+                                            className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
+                                              ? 'text-brand-blue font-normal'
+                                              : 'text-neutral-800 hover:text-brand-blue'
                                               }`}
                                           >
                                             <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
@@ -267,12 +256,22 @@ export default function Navigation() {
             })}
           </nav>
 
-          {/* Right side - desktop CTA, mobile hamburger */}
-          <div className="flex items-center">
-            {/* Desktop CTA */}
+          {/* Right side - desktop CTAs, mobile hamburger */}
+          <div className="flex items-center gap-3">
+            {/* Desktop Virtual Tour CTA */}
+            <a
+              href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden xl:inline-flex items-center justify-center px-5 py-2 rounded-full border border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white text-[15px] font-light md:font-normal tracking-tight transition-all shadow-sm"
+            >
+              Virtual Tour
+            </a>
+
+            {/* Desktop Contact CTA */}
             <Link
               href="/contact"
-              className="hidden xl:inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white text-[17px] font-semibold tracking-wide transition-all"
+              className="hidden xl:inline-flex items-center justify-center px-5 py-2 rounded-full border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white text-[15px] font-light md:font-normal tracking-tight transition-all"
             >
               Contact Us
             </Link>

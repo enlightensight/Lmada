@@ -101,6 +101,7 @@ export const cdmoData: CDMOPage[] = [
       {
         title: 'Dedicated Client Partnership',
         text: 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery.',
+        image: '/images/teamwork.png',
         dark: false,
       }
     ],
@@ -205,7 +206,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Overview',
     heading: 'One Partner Across the Development Journey.',
     description: 'Successful biologics development requires seamless coordination across development, manufacturing, analytical sciences, and quality functions. At Lambda CDMO, these capabilities are integrated within a single operating model, reducing technology transfer risks, maintaining process continuity, and accelerating progression from development to clinical manufacturing.',
-    image: '/images/development.jpg',
+    image: '/images/insights/lyophilization_vials.jpg',
     capabilities: [
       'Cell line development',
       'Upstream and downstream process development',
@@ -220,6 +221,7 @@ export const cdmoData: CDMOPage[] = [
       {
         title: 'End-to-End Support Under One Roof',
         text: 'We provide end-to-end support across the biologics development lifecycle, from cell line development through GMP manufacturing and analytical testing, enabling sponsors to collaborate with a single partner throughout their program.',
+        image: '/images/insights/hcp_dna_testing.jpg',
         dark: false,
       },
       {
@@ -266,6 +268,7 @@ export const cdmoData: CDMOPage[] = [
       {
         title: 'Integrated Quality Management System',
         text: 'From process development and analytical characterization to GMP manufacturing and quality control, our integrated quality management system is designed to ensure product quality, process consistency, data integrity, and regulatory compliance. Our development and manufacturing operations are aligned with current global cGMP requirements and are supported by robust quality systems for documentation, traceability, risk management, change control, and continuous improvement.',
+        image: '/images/Lab.jpg',
         dark: false,
       },
       {
@@ -524,6 +527,7 @@ export const cdmoData: CDMOPage[] = [
       {
         title: 'Scalable cGMP Operations & Compliance',
         text: 'Designed for scalability and regulatory compliance, our manufacturing operations support the production of high-quality biologics drug substance with comprehensive quality oversight throughout the manufacturing lifecycle.',
+        image: '/images/cdn/pexels-2280571.jpg',
         dark: true,
       },
       {
@@ -555,7 +559,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Manufacturing',
     heading: 'Reliable Drug Product Manufacturing for Clinical Supply.',
     description: 'Lambda CDMO provides integrated drug product manufacturing services designed to support the transition from bulk drug substance to finished clinical products. Our capabilities include formulation development, aseptic fill-finish, packaging, and quality control, ensuring consistent product quality throughout the manufacturing process.',
-    image: '/images/cdn/unsplash-1587854692152-cbe660dbde88.jpg',
+    image: '/images/insights/robotic_fill_finish.png',
     capabilities: [
       'Formulation development and optimization',
       'Excipient compatibility studies',
@@ -572,6 +576,7 @@ export const cdmoData: CDMOPage[] = [
       {
         title: 'Unified Quality Framework',
         text: 'Working within the same quality framework as drug substance manufacturing enables efficient technology transfer, reduced operational complexity, and reliable clinical supply.',
+        image: '/images/sample.webp',
         dark: false,
       },
       {

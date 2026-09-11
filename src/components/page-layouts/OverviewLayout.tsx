@@ -7,7 +7,6 @@ import {
   Factory, 
   Dna, 
   FileCheck, 
-  Sparkles,
   Users,
   Sliders,
   Filter,
@@ -38,6 +37,8 @@ import Reveal from '@/components/Reveal';
 import FacilityGallery from '@/components/FacilityGallery';
 import FAQSection from '@/components/FAQSection';
 import DnaScrollBackground from '@/components/DnaScrollBackground';
+import AboutHeroCarousel from '@/components/AboutHeroCarousel';
+import FacilityHeroCarousel from '@/components/FacilityHeroCarousel';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -222,6 +223,23 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
         // Editorial alternating image + text row
         const imageRight = (idx % 2 === 1) !== flip;
+        const isDiagram = Boolean(
+          section.image &&
+            (section.image.endsWith('.png') ||
+              section.image.endsWith('.svg') ||
+              section.image.includes('cGMP') ||
+              section.image.includes('equipment') ||
+              section.image.includes('CDMOblue') ||
+              section.image.includes('Akta') ||
+              section.image.includes('ChromXact') ||
+              section.image.includes('Fermenters') ||
+              section.image.includes('Spray_Dryer') ||
+              section.image.includes('Batch_Centrifuge') ||
+              section.image.includes('Mammalian') ||
+              section.image.includes('gene_construct')) &&
+            !section.image.includes('teamwork')
+        );
+
         return (
           <div key={idx}>
             <section className={`px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}>
@@ -248,11 +266,17 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         </div>
                       </a>
                     ) : (
-                      <div className={`relative aspect-[4/3] overflow-hidden ${section.image?.endsWith('.png') || section.image?.endsWith('.svg') || section.image?.includes('cGMP') || section.image?.includes('equipment') || section.image?.includes('CDMOblue') || section.image?.includes('Akta') || section.image?.includes('ChromXact') || section.image?.includes('Fermenters') || section.image?.includes('Spray_Dryer') || section.image?.includes('Batch_Centrifuge') || section.image?.includes('Mammalian') || section.image?.includes('gene_construct') ? 'bg-white p-3 sm:p-5' : 'bg-neutral-100'} border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center`}>
+                      <div
+                        className={`relative aspect-[4/3] overflow-hidden ${
+                          isDiagram ? 'bg-white p-3 sm:p-5' : 'bg-neutral-100'
+                        } border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center`}
+                      >
                         <img
                           src={section.image}
                           alt={section.title}
-                          className={`w-full h-full ${section.image?.endsWith('.png') || section.image?.endsWith('.svg') || section.image?.includes('cGMP') || section.image?.includes('equipment') || section.image?.includes('CDMOblue') || section.image?.includes('Akta') || section.image?.includes('ChromXact') || section.image?.includes('Fermenters') || section.image?.includes('Spray_Dryer') || section.image?.includes('Batch_Centrifuge') || section.image?.includes('Mammalian') || section.image?.includes('gene_construct') ? 'object-contain' : 'object-cover'} transition-transform duration-700 hover:scale-105`}
+                          className={`w-full h-full ${
+                            isDiagram ? 'object-contain' : 'object-cover'
+                          } transition-transform duration-700 hover:scale-105`}
                         />
                       </div>
                     )}
@@ -325,13 +349,19 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               </p>
             </div>
             <Reveal delay={0.1}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
-                <img
-                  src={heroImage}
-                  alt={page.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {page.slug === 'about' ? (
+                <AboutHeroCarousel />
+              ) : page.slug === 'facility' ? (
+                <FacilityHeroCarousel />
+              ) : (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
+                  <img
+                    src={heroImage}
+                    alt={page.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
             </Reveal>
           </div>
         </div>
@@ -583,12 +613,14 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     Get in touch
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
-                  <Link
-                    href="/overview/about"
+                  <a
+                    href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"
                   >
-                    About Lambda CDMO
-                  </Link>
+                    Virtual Tour
+                  </a>
                 </>
               )}
             </div>

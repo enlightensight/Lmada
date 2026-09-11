@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, Sparkles, Filter, Droplets, Gauge, ShieldCheck } from 'lucide-react';
+import { Activity, Filter, Droplets, Gauge, ShieldCheck } from 'lucide-react';
 
 const PROCESS_STAGES = [
   {
@@ -92,6 +92,9 @@ export default function ProcessHeroAnimation() {
               <stop offset="50%" stopColor="#f58634" />
               <stop offset="100%" stopColor="#00aeef" />
             </linearGradient>
+            <clipPath id="columnTubeClip">
+              <rect x="20" y="22" width="36" height="125" rx="4" />
+            </clipPath>
             <filter id="processGlow" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="2" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
@@ -281,44 +284,51 @@ export default function ProcessHeroAnimation() {
             {/* Glass Chromatography Column Tube */}
             <rect x="20" y="22" width="36" height="125" rx="4" fill="#f8fcff" stroke="#00aeef" strokeWidth={activeStage === 3 ? "3.5" : "2.5"} />
 
-            {/* Resin Bead Matrix Packing */}
-            <rect x="23.5" y="32" width="29" height="105" rx="2" fill="url(#resinGradLarge)" fillOpacity="0.45" />
+            {/* Resin & Separation Bands Strictly Constrained Inside Column Tube */}
+            <g clipPath="url(#columnTubeClip)">
+              {/* Resin Bead Matrix Packing */}
+              <rect x="20" y="22" width="36" height="125" fill="url(#resinGradLarge)" fillOpacity="0.45" />
 
-            {/* Gradient Separation Bands */}
-            <motion.rect
-              x="23.5"
-              y="44"
-              width="29"
-              height="18"
-              fill="#00aeef"
-              fillOpacity="0.85"
-              animate={{ y: [40, 85, 40] }}
-              transition={{ repeat: Infinity, duration: activeStage === 3 ? 2.5 : 3.5, ease: 'easeInOut' }}
-            />
-            <motion.rect
-              x="23.5"
-              y="68"
-              width="29"
-              height="12"
-              fill="#f58634"
-              fillOpacity="0.85"
-              animate={{ y: [62, 110, 62] }}
-              transition={{ repeat: Infinity, duration: activeStage === 3 ? 2.5 : 3.5, ease: 'easeInOut', delay: 0.4 }}
-            />
+              {/* Gradient Separation Bands */}
+              <motion.rect
+                x="22"
+                y="38"
+                width="32"
+                height="18"
+                rx="2"
+                fill="#00aeef"
+                fillOpacity="0.85"
+                animate={{ y: [0, 46, 0] }}
+                transition={{ repeat: Infinity, duration: activeStage === 3 ? 2.5 : 3.5, ease: 'easeInOut' }}
+              />
+              <motion.rect
+                x="22"
+                y="64"
+                width="32"
+                height="14"
+                rx="2"
+                fill="#f58634"
+                fillOpacity="0.85"
+                animate={{ y: [0, 44, 0] }}
+                transition={{ repeat: Infinity, duration: activeStage === 3 ? 2.5 : 3.5, ease: 'easeInOut', delay: 0.4 }}
+              />
+            </g>
 
-            {/* Bottom Column Flange & Outlet */}
+            {/* Bottom Column Flange & Outlet Nozzle */}
             <line x1="38" y1="147" x2="38" y2="157" stroke="#00aeef" strokeWidth="3.5" />
             <rect x="18" y="157" width="40" height="12" rx="3" fill="#0f2231" stroke="#00aeef" strokeWidth="2" />
+            <line x1="38" y1="169" x2="38" y2="173" stroke="#00aeef" strokeWidth="2.5" strokeLinecap="round" />
 
             {/* Stage 4: Purified Collection Droplet */}
             <motion.path
-              d="M 38 174 Q 42 182 38 188 Q 34 182 38 174 Z"
+              d="M 38 174 Q 41 179 38 183 Q 35 179 38 174 Z"
               fill="#00aeef"
-              animate={{ y: [0, 14, 0], scale: [0.9, 1.3, 0.9] }}
-              transition={{ repeat: Infinity, duration: 1.4 }}
+              animate={{ y: [0, 5, 0], scale: [0.9, 1.2, 0.9] }}
+              transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
             />
 
-            <text x="38" y="200" textAnchor="middle" fill="#0f2231" fontSize="8" fontWeight="bold">
+            {/* Non-Overlapping Process Step Subtitle */}
+            <text x="38" y="208" textAnchor="middle" fill="#0f2231" fontSize="8" fontWeight="bold">
               {activeStage === 4 ? 'UF/DF Drug Bulk' : 'Chromatography Column'}
             </text>
           </g>

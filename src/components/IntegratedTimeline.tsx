@@ -6,7 +6,6 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent, useTransform }
 import {
   Dna,
   Microscope,
-  Sparkles,
   ArrowRight,
   Activity,
   CheckCircle2,
@@ -212,55 +211,67 @@ function Stage1Animation() {
         </linearGradient>
       </defs>
 
-      {/* Optical Cytometer Viewfinder Reticle Corners */}
-      <path d="M 24 38 V 22 H 40" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.75" />
-      <path d="M 436 38 V 22 H 420" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.75" />
-      <path d="M 24 182 V 198 H 40" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.75" />
-      <path d="M 436 182 V 198 H 420" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.75" />
+      {/* Cam Square Outer Viewfinder Frame & Corner Reticles */}
+      <rect
+        x="8"
+        y="8"
+        width="444"
+        height="214"
+        rx="2"
+        stroke="#00aeef"
+        strokeWidth="1"
+        strokeOpacity="0.18"
+        strokeDasharray="6 6"
+        fill="none"
+      />
+      <path d="M 8 30 V 8 H 30" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.85" />
+      <path d="M 452 30 V 8 H 430" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.85" />
+      <path d="M 8 200 V 222 H 30" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.85" />
+      <path d="M 452 200 V 222 H 430" stroke="#00aeef" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.85" />
 
-      {/* Telemetry Header Labels */}
-      <text x="44" y="32" fill="#00aeef" fontSize="9" fontWeight="700" fontFamily="sans-serif" letterSpacing="0.8">
+      {/* Telemetry Header Labels (Pushed to top perimeter corners, clear of central circle) */}
+      <text x="16" y="21" fill="#00aeef" fontSize="9" fontWeight="700" fontFamily="sans-serif" letterSpacing="0.8">
         OPTICAL CYTOMETER // CLONE MATRIX
       </text>
-      <text x="416" y="32" textAnchor="end" fill="#0f2231" fontSize="9" fontWeight="700" fontFamily="monospace">
+      <text x="444" y="21" textAnchor="end" fill="#0f2231" fontSize="9" fontWeight="700" fontFamily="monospace">
         WELL: [A04-H8]
       </text>
 
-      {/* Concentric Radar / Reticle Target Rings (Center x=230, y=105) */}
-      <circle cx="230" cy="105" r="92" fill="url(#cellGlow)" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.25" />
+      {/* Concentric Radar / Reticle Target Rings (Centered at x=230, y=112) */}
+      <circle cx="230" cy="112" r="74" fill="url(#cellGlow)" stroke="#00aeef" strokeWidth="1.2" strokeOpacity="0.22" />
       <motion.circle
         cx="230"
-        cy="105"
-        r="78"
+        cy="112"
+        r="60"
         stroke="#00aeef"
         strokeWidth="1.5"
-        strokeDasharray="6 4"
-        strokeOpacity="0.4"
+        strokeDasharray="5 4"
+        strokeOpacity="0.38"
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 24, ease: 'linear' }}
-        style={{ transformOrigin: '230px 105px' }}
+        style={{ transformOrigin: '230px 112px' }}
       />
-      <circle cx="230" cy="105" r="60" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.3" />
+      <circle cx="230" cy="112" r="46" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.25" />
 
       {/* Precision Axis Crosshairs & Scale Ticks */}
-      <line x1="230" y1="18" x2="230" y2="40" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.6" />
-      <line x1="230" y1="170" x2="230" y2="192" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.6" />
-      <line x1="140" y1="105" x2="162" y2="105" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.6" />
-      <line x1="298" y1="105" x2="320" y2="105" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.6" />
+      <line x1="230" y1="30" x2="230" y2="44" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.55" />
+      <line x1="230" y1="180" x2="230" y2="194" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.55" />
+      <line x1="148" y1="112" x2="162" y2="112" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.55" />
+      <line x1="298" y1="112" x2="312" y2="112" stroke="#00aeef" strokeWidth="1.5" strokeOpacity="0.55" />
 
       {/* High-Performance Clonal Host Cell Membrane */}
       <motion.g
         animate={{ scale: [1, 1.04, 1] }}
         transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-        style={{ transformOrigin: '230px 105px' }}
+        style={{ transformOrigin: '230px 112px' }}
       >
-        <circle cx="230" cy="105" r="42" fill="#f0f9ff" stroke="#00aeef" strokeWidth="2.5" />
-        <circle cx="230" cy="105" r="30" fill="url(#nucleusGlow)" stroke="#00aeef" strokeWidth="1.5" strokeDasharray="4 2" />
-        <circle cx="230" cy="105" r="14" fill="#00aeef" fillOpacity="0.2" />
+        <circle cx="230" cy="112" r="34" fill="#f0f9ff" stroke="#00aeef" strokeWidth="2.4" />
+        <circle cx="230" cy="112" r="24" fill="url(#nucleusGlow)" stroke="#00aeef" strokeWidth="1.4" strokeDasharray="4 2" />
+        <circle cx="230" cy="112" r="11" fill="#00aeef" fillOpacity="0.2" />
       </motion.g>
 
       {/* Dynamic DNA Base-Pair Oscillators */}
-      <g transform="translate(196, 75)">
+      <g transform="translate(196, 82)">
         {[0, 1, 2, 3, 4, 5].map((i) => (
           <motion.g
             key={i}
@@ -284,43 +295,43 @@ function Stage1Animation() {
 
       {/* Gene Delivery Vector Orbiting Particles */}
       <motion.circle
-        cx="160"
-        cy="75"
+        cx="165"
+        cy="85"
         r="4.5"
         fill="#f58634"
-        animate={{ cx: [155, 215], cy: [65, 95], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.6] }}
+        animate={{ cx: [160, 215], cy: [75, 102], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.6] }}
         transition={{ repeat: Infinity, duration: 2.4, ease: 'easeIn' }}
       />
       <motion.circle
-        cx="295"
-        cy="135"
+        cx="290"
+        cy="140"
         r="4.5"
         fill="#f58634"
-        animate={{ cx: [305, 245], cy: [145, 115], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.6] }}
+        animate={{ cx: [298, 245], cy: [150, 122], opacity: [0, 1, 0], scale: [0.8, 1.2, 0.6] }}
         transition={{ repeat: Infinity, duration: 2.7, delay: 0.9, ease: 'easeIn' }}
       />
 
-      {/* Left Specs Footer */}
-      <g transform="translate(36, 172)">
-        <text x="0" y="8" fill="#64748b" fontSize="9.5" fontFamily="monospace" fontWeight="600">
+      {/* Left Specs Footer (Pushed to bottom-left corner perimeter) */}
+      <g transform="translate(16, 186)">
+        <text x="0" y="11" fill="#64748b" fontSize="9" fontFamily="monospace" fontWeight="600">
           TITER TARGET: 4.8 - 8.5 g/L
         </text>
-        <text x="0" y="21" fill="#0f2231" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+        <text x="0" y="25" fill="#0f2231" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
           CHO-K1 GS Knockout Platform
         </text>
       </g>
 
-      {/* Right Verified Monoclonality Stamp Badge (Static wrapper g for coordinate safety) */}
-      <g transform="translate(286, 168)">
+      {/* Right Verified Monoclonality Stamp Badge (Pushed to bottom-right corner perimeter) */}
+      <g transform="translate(298, 186)">
         <motion.g
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut' }}
-          style={{ transformOrigin: '70px 14px' }}
+          style={{ transformOrigin: '72px 13px' }}
         >
-          <rect x="0" y="0" width="144" height="28" rx="14" fill="#0f2231" stroke="#00aeef" strokeWidth="1.5" />
-          <circle cx="16" cy="14" r="8.5" fill="#00aeef" />
-          <path d="M 12 14 L 15 17 L 20 11" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-          <text x="31" y="17.5" fill="#ffffff" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+          <rect x="0" y="0" width="144" height="26" rx="13" fill="#0f2231" stroke="#00aeef" strokeWidth="1.5" />
+          <circle cx="15" cy="13" r="7.5" fill="#00aeef" />
+          <path d="M 11.5 13 L 14 15.5 L 18.5 10.5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <text x="28" y="16.5" fill="#ffffff" fontSize="10" fontWeight="700" fontFamily="sans-serif">
             Verified Monoclonal
           </text>
         </motion.g>
@@ -331,7 +342,7 @@ function Stage1Animation() {
 
 function Stage2Animation() {
   return (
-    <svg viewBox="0 0 460 230" className="w-full h-auto max-h-[280px] select-none" fill="none">
+    <svg viewBox="0 0 460 240" className="w-full h-auto max-h-[280px] select-none" fill="none">
       <defs>
         <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.85" />
@@ -433,7 +444,7 @@ function Stage2Animation() {
       </g>
 
       {/* Downstream Continuous Chromatography Column (Center-Right, x=235 to 295) */}
-      <g transform="translate(235, 16)">
+      <g transform="translate(235, 12)">
         {/* Column Inlets & Flanges */}
         <rect x="18" y="8" width="34" height="10" rx="2" fill="#0f2231" />
         <rect x="18" y="112" width="34" height="10" rx="2" fill="#0f2231" />
@@ -450,7 +461,7 @@ function Stage2Animation() {
           cy="122"
           r="3"
           fill="#00aeef"
-          animate={{ cy: [122, 142], opacity: [1, 0], scale: [1, 0.6] }}
+          animate={{ cy: [122, 140], opacity: [1, 0], scale: [1, 0.6] }}
           transition={{ repeat: Infinity, duration: 1.3, ease: 'easeIn' }}
         />
         <motion.circle
@@ -458,16 +469,16 @@ function Stage2Animation() {
           cy="122"
           r="3"
           fill="#f58634"
-          animate={{ cy: [122, 142], opacity: [1, 0], scale: [1, 0.6] }}
+          animate={{ cy: [122, 140], opacity: [1, 0], scale: [1, 0.6] }}
           transition={{ repeat: Infinity, duration: 1.3, delay: 0.65, ease: 'easeIn' }}
         />
 
         {/* Collection Receiver Flask */}
-        <path d="M 27 144 L 18 162 H 52 L 43 144 Z" fill="#e0f4fd" stroke="#00aeef" strokeWidth="1.8" />
-        <rect x="31" y="138" width="8" height="6" fill="#00aeef" />
+        <path d="M 27 142 L 18 160 H 52 L 43 142 Z" fill="#e0f4fd" stroke="#00aeef" strokeWidth="1.8" />
+        <rect x="31" y="136" width="8" height="6" fill="#00aeef" />
 
         {/* Column Label */}
-        <text x="35" y="174" textAnchor="middle" fill="#0f2231" fontSize="9.5" fontWeight="700" fontFamily="sans-serif">
+        <text x="35" y="172" textAnchor="middle" fill="#0f2231" fontSize="9.5" fontWeight="700" fontFamily="sans-serif">
           DSP COLUMN
         </text>
       </g>
@@ -492,8 +503,8 @@ function Stage2Animation() {
         </text>
       </g>
 
-      {/* Non-overlapping Bottom Telemetry Chips */}
-      <g transform="translate(45, 186)">
+      {/* Non-overlapping Bottom Telemetry Chips (Positioned below into bottom area) */}
+      <g transform="translate(45, 204)">
         <rect x="0" y="0" width="168" height="26" rx="6" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1.5" />
         <circle cx="14" cy="13" r="4" fill="#00aeef" />
         <text x="25" y="17" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
@@ -501,7 +512,7 @@ function Stage2Animation() {
         </text>
       </g>
 
-      <g transform="translate(225, 186)">
+      <g transform="translate(225, 204)">
         <rect x="0" y="0" width="188" height="26" rx="6" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1.5" />
         <circle cx="14" cy="13" r="4" fill="#f58634" />
         <text x="25" y="17" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
@@ -694,19 +705,44 @@ function Stage4Animation() {
             <rect x="3" y="26" width="26" height="26" rx="2" fill="url(#vialLiquid)" opacity="0.92" />
           )}
 
-          {/* Filling Liquid: Strictly clipped to inner cavity and animated via scaleY from bottom */}
+          {/* Filling Liquid: Strictly grounded at vial floor (y=52) filling upwards */}
           {v.filling && (
             <g clipPath="url(#vialCavityClip)">
+              {/* Rising Liquid Column (Floor is locked at y=52: y + height = 52) */}
               <motion.rect
                 x="3"
-                y="16"
-                width="26"
-                height="36"
                 rx="2"
+                width="26"
                 fill="url(#vialLiquid)"
-                animate={{ scaleY: [0.15, 0.85, 0.15] }}
-                transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
-                style={{ transformOrigin: '16px 52px' }}
+                opacity="0.95"
+                animate={{
+                  y: [50, 26, 26, 50],
+                  height: [2, 26, 26, 2],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2.8,
+                  times: [0, 0.65, 0.85, 1],
+                  ease: ['easeOut', 'linear', 'easeInOut'],
+                }}
+              />
+              {/* Surface Meniscus Line */}
+              <motion.line
+                x1="4"
+                x2="28"
+                stroke="#bae6fd"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                animate={{
+                  y1: [50, 26, 26, 50],
+                  y2: [50, 26, 26, 50],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2.8,
+                  times: [0, 0.65, 0.85, 1],
+                  ease: ['easeOut', 'linear', 'easeInOut'],
+                }}
               />
             </g>
           )}
@@ -716,16 +752,22 @@ function Stage4Animation() {
       {/* Automated Filling Dispenser Needle Above Vial 2 */}
       <g transform="translate(167, 36)">
         <rect x="0" y="0" width="10" height="26" rx="2" fill="#0f2231" />
-        <line x1="5" y1="26" x2="5" y2="52" stroke="#00aeef" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="5" y1="26" x2="5" y2="50" stroke="#00aeef" strokeWidth="2.5" strokeLinecap="round" />
 
-        {/* Liquid Droplet Dispensing into Vial */}
+        {/* Liquid Droplets Dispensing into Vial */}
         <motion.circle
           cx="5"
-          cy="54"
-          r="2.5"
+          r="2.2"
           fill="#00aeef"
-          animate={{ cy: [54, 76], opacity: [1, 0], scale: [1, 0.5] }}
-          transition={{ repeat: Infinity, duration: 0.75, ease: 'easeIn' }}
+          animate={{ cy: [50, 78], opacity: [1, 0.9, 0], scale: [1, 1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 0.7, ease: 'easeIn' }}
+        />
+        <motion.circle
+          cx="5"
+          r="1.8"
+          fill="#00aeef"
+          animate={{ cy: [50, 78], opacity: [1, 0.9, 0], scale: [1, 1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 0.7, delay: 0.35, ease: 'easeIn' }}
         />
       </g>
 
@@ -758,93 +800,315 @@ function Stage5Animation() {
   return (
     <svg viewBox="0 0 460 230" className="w-full h-auto max-h-[280px] select-none" fill="none">
       <defs>
-        <radialGradient id="globeGlow" cx="50%" cy="50%" r="50%">
+        <radialGradient id="globeOceanGrad" cx="38%" cy="32%" r="68%">
+          <stop offset="0%" stopColor="#f0f9ff" />
+          <stop offset="60%" stopColor="#e0f2fe" />
+          <stop offset="100%" stopColor="#bae6fd" />
+        </radialGradient>
+        <radialGradient id="globeAtmosphere" cx="50%" cy="50%" r="50%">
+          <stop offset="70%" stopColor="#00aeef" stopOpacity="0" />
+          <stop offset="100%" stopColor="#00aeef" stopOpacity="0.32" />
+        </radialGradient>
+        <radialGradient id="globeOuterAura" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#00aeef" stopOpacity="0.22" />
           <stop offset="100%" stopColor="#00aeef" stopOpacity="0" />
         </radialGradient>
+        <clipPath id="globeSphereClip">
+          <circle cx="230" cy="96" r="74" />
+        </clipPath>
       </defs>
 
-      {/* Global Distribution Coordinate Rings (Center x=230, y=94) */}
-      <circle cx="230" cy="94" r="82" fill="url(#globeGlow)" stroke="#00aeef" strokeWidth="1.5" strokeDasharray="5 4" strokeOpacity="0.35" />
-      <circle cx="230" cy="94" r="64" stroke="#00aeef" strokeWidth="1.2" strokeOpacity="0.25" />
+      {/* Outer Atmosphere Glow Halo */}
+      <circle cx="230" cy="96" r="88" fill="url(#globeOuterAura)" />
+      <circle cx="230" cy="96" r="82" stroke="#00aeef" strokeWidth="1" strokeDasharray="4 6" strokeOpacity="0.25" fill="none" />
 
-      {/* Latitude & Longitude Curvature Ellipses */}
-      <ellipse cx="230" cy="94" rx="64" ry="26" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.25" />
-      <ellipse cx="230" cy="94" rx="26" ry="64" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.25" />
+      {/* Tilted Orbital Satellite Ring 1 (tilted -24°, matching reference) */}
+      <ellipse
+        cx="230"
+        cy="96"
+        rx="102"
+        ry="36"
+        transform="rotate(-24 230 96)"
+        stroke="#00aeef"
+        strokeWidth="1.2"
+        strokeDasharray="4 6"
+        strokeOpacity="0.35"
+        fill="none"
+      />
 
-      {/* Rotating Orbital Satellite Ring */}
+      {/* Tilted Orbital Satellite Ring 2 (tilted 32°) */}
+      <ellipse
+        cx="230"
+        cy="96"
+        rx="108"
+        ry="42"
+        transform="rotate(32 230 96)"
+        stroke="#00aeef"
+        strokeWidth="0.8"
+        strokeDasharray="3 7"
+        strokeOpacity="0.2"
+        fill="none"
+      />
+
+      {/* Orbiting Satellite Beacon */}
       <motion.g
         animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
-        style={{ transformOrigin: '230px 94px' }}
+        transition={{ repeat: Infinity, duration: 22, ease: 'linear' }}
+        style={{ transformOrigin: '230px 96px' }}
       >
-        <ellipse cx="230" cy="94" rx="90" ry="38" stroke="#00aeef" strokeWidth="1" strokeDasharray="4 6" strokeOpacity="0.3" />
-        <circle cx="320" cy="94" r="3.5" fill="#f58634" />
+        <circle cx="334" cy="96" r="3.5" fill="#f58634" />
+        <circle cx="334" cy="96" r="6.5" stroke="#f58634" strokeWidth="1" strokeOpacity="0.5" fill="none" />
       </motion.g>
 
-      {/* Global Clinical Site Trajectory Arcs & Hubs */}
-      {[
-        { x: 92, y: 58, label: 'North America', qx: 145, qy: 35 },
-        { x: 368, y: 52, label: 'Europe', qx: 310, qy: 30 },
-        { x: 358, y: 130, label: 'Asia-Pacific', qx: 305, qy: 138 },
-      ].map((site, i) => (
-        <g key={i}>
-          {/* Animated Flight Arc */}
-          <motion.path
-            d={`M 230 94 Q ${site.qx} ${site.qy} ${site.x} ${site.y}`}
-            stroke="#f58634"
-            strokeWidth="1.8"
-            strokeDasharray="4 4"
-            animate={{ strokeDashoffset: [0, -16] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
-          />
+      {/* ================= 3D DIGITAL WIREFRAME GLOBE ================= */}
+      <g clipPath="url(#globeSphereClip)">
+        {/* Ocean Sphere Base */}
+        <circle cx="230" cy="96" r="74" fill="url(#globeOceanGrad)" />
 
-          {/* Pulse Beacon */}
-          <circle cx={site.x} cy={site.y} r="7" fill="#f58634" fillOpacity="0.25" />
-          <circle cx={site.x} cy={site.y} r="3.5" fill="#f58634" />
-          <text x={site.x - 24} y={site.y + 16} fill="#0f2231" fontSize="9.5" fontWeight="700" fontFamily="sans-serif">
-            {site.label}
-          </text>
-        </g>
-      ))}
+        {/* Latitude Curvature Curves (Spherical Depth) */}
+        <ellipse cx="230" cy="48" rx="52" ry="10" stroke="#00aeef" strokeWidth="0.7" strokeOpacity="0.16" strokeDasharray="3 3" fill="none" />
+        <ellipse cx="230" cy="66" rx="66" ry="14" stroke="#00aeef" strokeWidth="0.8" strokeOpacity="0.22" fill="none" />
+        <ellipse cx="230" cy="84" rx="72" ry="18" stroke="#00aeef" strokeWidth="0.85" strokeOpacity="0.25" fill="none" />
+        <ellipse cx="230" cy="96" rx="74" ry="20" stroke="#00aeef" strokeWidth="1.1" strokeOpacity="0.35" fill="none" />
+        <ellipse cx="230" cy="108" rx="72" ry="18" stroke="#00aeef" strokeWidth="0.85" strokeOpacity="0.25" fill="none" />
+        <ellipse cx="230" cy="126" rx="66" ry="14" stroke="#00aeef" strokeWidth="0.8" strokeOpacity="0.22" fill="none" />
+        <ellipse cx="230" cy="144" rx="52" ry="10" stroke="#00aeef" strokeWidth="0.7" strokeOpacity="0.16" strokeDasharray="3 3" fill="none" />
 
-      {/* Central Certified Release Shield (Static wrapper g so coordinates never jump!) */}
-      <g transform="translate(206, 64)">
-        <motion.g
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-          style={{ transformOrigin: '24px 30px' }}
-        >
-          <path
-            d="M 24 0 L 48 10 V 36 C 48 52 24 64 24 64 C 24 64 0 52 0 36 V 10 Z"
-            fill="#00aeef"
-            stroke="#ffffff"
-            strokeWidth="2.5"
-          />
-          {/* Glowing White Checkmark */}
-          <path
-            d="M 15 32 L 21 38 L 33 24"
-            stroke="#ffffff"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </motion.g>
+        {/* Longitude Meridian Curves */}
+        <line x1="230" y1="22" x2="230" y2="170" stroke="#00aeef" strokeWidth="1" strokeOpacity="0.32" />
+        <ellipse cx="230" cy="96" rx="18" ry="74" stroke="#00aeef" strokeWidth="0.8" strokeOpacity="0.22" fill="none" />
+        <ellipse cx="230" cy="96" rx="36" ry="74" stroke="#00aeef" strokeWidth="0.85" strokeOpacity="0.24" fill="none" />
+        <ellipse cx="230" cy="96" rx="54" ry="74" stroke="#00aeef" strokeWidth="0.85" strokeOpacity="0.24" fill="none" />
+        <ellipse cx="230" cy="96" rx="68" ry="74" stroke="#00aeef" strokeWidth="0.75" strokeOpacity="0.18" fill="none" />
+
+        {/* Technical Coordinate Intersections (Digital Grid Nodes) */}
+        {[
+          [230, 48], [230, 66], [230, 84], [230, 96], [230, 108], [230, 126], [230, 144],
+          [212, 66], [248, 66], [194, 84], [266, 84], [176, 96], [284, 96],
+          [194, 108], [266, 108], [212, 126], [248, 126]
+        ].map(([x, y], i) => (
+          <circle key={`node-${i}`} cx={x} cy={y} r="1.2" fill="#00aeef" fillOpacity="0.4" />
+        ))}
+
+        {/* Atmosphere Vignette Overlay */}
+        <circle cx="230" cy="96" r="74" fill="url(#globeAtmosphere)" />
       </g>
 
-      {/* Safely Positioned Bottom Floating Telemetry Pills */}
-      <g transform="translate(46, 166)">
+      {/* Spherical Rim Border with Outer Glow */}
+      <circle cx="230" cy="96" r="74" stroke="#00aeef" strokeWidth="1.8" strokeOpacity="0.6" fill="none" />
+
+      {/* ================= SUPPLY CHAIN FLIGHT TRAJECTORY ARCS ================= */}
+      {/* 1. North America -> Europe Flight Arc (Orange Great-Circle) */}
+      <motion.path
+        d="M 182,68 Q 213,32 244,62"
+        stroke="#f58634"
+        strokeWidth="2.2"
+        strokeDasharray="5 4"
+        animate={{ strokeDashoffset: [0, -18] }}
+        transition={{ repeat: Infinity, duration: 1.4, ease: 'linear' }}
+      />
+      {/* Flying Cargo Packet NA -> EU */}
+      <motion.circle
+        r="3"
+        fill="#f58634"
+        animate={{
+          cx: [182, 213, 244],
+          cy: [68, 32, 62],
+          scale: [0.8, 1.3, 0.8],
+        }}
+        transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+      />
+
+      {/* 2. Europe -> Asia-Pacific Flight Arc (Orange Great-Circle) */}
+      <motion.path
+        d="M 244,62 Q 270,70 286,98"
+        stroke="#f58634"
+        strokeWidth="2"
+        strokeDasharray="4 4"
+        animate={{ strokeDashoffset: [0, -16] }}
+        transition={{ repeat: Infinity, duration: 1.6, ease: 'linear' }}
+      />
+      {/* Flying Cargo Packet EU -> Asia */}
+      <motion.circle
+        r="2.8"
+        fill="#f58634"
+        animate={{
+          cx: [244, 270, 286],
+          cy: [62, 70, 98],
+          scale: [0.8, 1.25, 0.8],
+        }}
+        transition={{ repeat: Infinity, duration: 2.6, delay: 0.8, ease: 'easeInOut' }}
+      />
+
+      {/* 3. North America -> Gateway Transit Arc (Cyan Great-Circle) */}
+      <motion.path
+        d="M 182,68 Q 206,94 236,104"
+        stroke="#00aeef"
+        strokeWidth="1.8"
+        strokeDasharray="4 3"
+        animate={{ strokeDashoffset: [0, -14] }}
+        transition={{ repeat: Infinity, duration: 1.8, ease: 'linear' }}
+      />
+      {/* 4. Gateway Transit -> Europe Arc (Cyan) */}
+      <motion.path
+        d="M 236,104 Q 244,84 244,62"
+        stroke="#00aeef"
+        strokeWidth="1.8"
+        strokeDasharray="4 3"
+        animate={{ strokeDashoffset: [0, -14] }}
+        transition={{ repeat: Infinity, duration: 1.8, ease: 'linear' }}
+      />
+      {/* 5. Gateway Transit -> Asia-Pacific Arc (Cyan) */}
+      <motion.path
+        d="M 236,104 Q 262,110 286,98"
+        stroke="#00aeef"
+        strokeWidth="1.8"
+        strokeDasharray="4 3"
+        animate={{ strokeDashoffset: [0, -14] }}
+        transition={{ repeat: Infinity, duration: 1.8, ease: 'linear' }}
+      />
+
+      {/* ================= GEOGRAPHIC PINPOINT LOCATION MARKERS ================= */}
+      {/* 1. North America Pinpoint (US East Coast Bio-Corridor) */}
+      <g>
+        <motion.circle
+          cx="182"
+          cy="68"
+          r="8"
+          stroke="#00aeef"
+          strokeWidth="1.5"
+          animate={{ scale: [0.7, 1.8], opacity: [0.85, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: 'easeOut' }}
+        />
+        <circle cx="182" cy="68" r="6" fill="#00aeef" fillOpacity="0.25" />
+        <circle cx="182" cy="68" r="4.5" fill="#00aeef" stroke="#ffffff" strokeWidth="1.6" />
+      </g>
+
+      {/* 2. Europe Pinpoint (London/Basel/Frankfurt Pharma Hub) */}
+      <g>
+        <motion.circle
+          cx="244"
+          cy="62"
+          r="8"
+          stroke="#00aeef"
+          strokeWidth="1.5"
+          animate={{ scale: [0.7, 1.8], opacity: [0.85, 0] }}
+          transition={{ repeat: Infinity, duration: 2, delay: 0.5, ease: 'easeOut' }}
+        />
+        <circle cx="244" cy="62" r="6" fill="#00aeef" fillOpacity="0.25" />
+        <circle cx="244" cy="62" r="4.5" fill="#00aeef" stroke="#ffffff" strokeWidth="1.6" />
+      </g>
+
+      {/* 3. Middle East / Central Gateway Pinpoint (Matching Reference Node) */}
+      <g>
+        <motion.circle
+          cx="236"
+          cy="104"
+          r="7"
+          stroke="#00aeef"
+          strokeWidth="1.5"
+          animate={{ scale: [0.7, 1.8], opacity: [0.85, 0] }}
+          transition={{ repeat: Infinity, duration: 2.2, delay: 0.9, ease: 'easeOut' }}
+        />
+        <circle cx="236" cy="104" r="5.5" fill="#00aeef" fillOpacity="0.25" />
+        <circle cx="236" cy="104" r="4" fill="#00aeef" stroke="#ffffff" strokeWidth="1.5" />
+      </g>
+
+      {/* 4. Asia-Pacific Pinpoint */}
+      <g>
+        <motion.circle
+          cx="286"
+          cy="98"
+          r="7"
+          stroke="#f58634"
+          strokeWidth="1.5"
+          animate={{ scale: [0.7, 1.8], opacity: [0.85, 0] }}
+          transition={{ repeat: Infinity, duration: 2, delay: 1.2, ease: 'easeOut' }}
+        />
+        <circle cx="286" cy="98" r="5.5" fill="#f58634" fillOpacity="0.25" />
+        <circle cx="286" cy="98" r="4" fill="#f58634" stroke="#ffffff" strokeWidth="1.5" />
+      </g>
+
+      {/* ================= FLOATING HUB CARDS (MATCHING REFERENCE IMAGE 2) ================= */}
+      {/* 1. North America Floating Card */}
+      <g>
+        {/* Delicate Connecting Pointer Line */}
+        <line x1="146" y1="67" x2="182" y2="68" stroke="#00aeef" strokeWidth="1.2" strokeDasharray="3 3" strokeOpacity="0.7" />
+        <g transform="translate(34, 54)">
+          <rect
+            x="0"
+            y="0"
+            width="112"
+            height="26"
+            rx="6"
+            fill="#ffffff"
+            stroke="#e2e8f0"
+            strokeWidth="1.5"
+          />
+          <circle cx="14" cy="13" r="4.5" fill="#f58634" />
+          <text x="25" y="16.5" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
+            North America
+          </text>
+        </g>
+      </g>
+
+      {/* 2. Europe Floating Card */}
+      <g>
+        {/* Delicate Connecting Pointer Line */}
+        <line x1="244" y1="62" x2="340" y2="52" stroke="#00aeef" strokeWidth="1.2" strokeDasharray="3 3" strokeOpacity="0.7" />
+        <g transform="translate(340, 39)">
+          <rect
+            x="0"
+            y="0"
+            width="80"
+            height="26"
+            rx="6"
+            fill="#ffffff"
+            stroke="#e2e8f0"
+            strokeWidth="1.5"
+          />
+          <circle cx="14" cy="13" r="4.5" fill="#f58634" />
+          <text x="25" y="16.5" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
+            Europe
+          </text>
+        </g>
+      </g>
+
+      {/* 3. Asia-Pacific Floating Card */}
+      <g>
+        {/* Delicate Connecting Pointer Line */}
+        <line x1="286" y1="98" x2="335" y2="115" stroke="#f58634" strokeWidth="1.2" strokeDasharray="3 3" strokeOpacity="0.7" />
+        <g transform="translate(335, 102)">
+          <rect
+            x="0"
+            y="0"
+            width="98"
+            height="26"
+            rx="6"
+            fill="#ffffff"
+            stroke="#e2e8f0"
+            strokeWidth="1.5"
+          />
+          <circle cx="14" cy="13" r="4.5" fill="#f58634" />
+          <text x="25" y="16.5" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
+            Asia-Pacific
+          </text>
+        </g>
+      </g>
+
+      {/* ================= BOTTOM CAPABILITY BADGES ================= */}
+      <g transform="translate(46, 186)">
         <rect x="0" y="0" width="155" height="26" rx="13" fill="#ffffff" stroke="#00aeef" strokeWidth="1.5" />
         <circle cx="14" cy="13" r="4.5" fill="#00aeef" />
-        <text x="26" y="17" fill="#0f2231" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+        <text x="26" y="17" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
           -80°C Cryo Monitored
         </text>
       </g>
 
-      <g transform="translate(225, 166)">
+      <g transform="translate(225, 186)">
         <rect x="0" y="0" width="185" height="26" rx="13" fill="#ffffff" stroke="#f58634" strokeWidth="1.5" />
         <circle cx="14" cy="13" r="4.5" fill="#f58634" />
-        <text x="26" y="17" fill="#0f2231" fontSize="10.5" fontWeight="700" fontFamily="sans-serif">
+        <text x="26" y="17" fill="#0f2231" fontSize="10" fontWeight="700" fontFamily="sans-serif">
           QP Release &amp; GDP Audited
         </text>
       </g>

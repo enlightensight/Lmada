@@ -68,7 +68,7 @@ function getDynamicContent(
     }
     if (cat === 'overview' && pageSlug === 'leadership') {
       const imgs = [
-        '/images/development.jpg',
+        '/images/teamwork.png',
         '/images/cdn/unsplash-1522071820081-009f0129c71c.jpg',
         '/images/cdn/unsplash-1552664730-d307ca884978.jpg',
       ];
@@ -94,7 +94,7 @@ function getDynamicContent(
     }
     if (cat === 'overview' && pageSlug === 'quality') {
       const imgs = [
-        '/images/cdn/pexels-3938022.jpg',
+        '/images/Lab.jpg',
         '/images/development.jpg',
         '/images/default_scientist.jpg',
       ];
@@ -135,14 +135,14 @@ function getDynamicContent(
     if (cat === 'manufacturing' && pageSlug === 'drug-substance') {
       const imgs = [
         '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
-        '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
+        '/images/cdn/pexels-2280571.jpg',
         '/images/cdn/pexels-3938023.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'manufacturing' && pageSlug === 'drug-product') {
       const imgs = [
-        '/images/cdn/unsplash-1587854692152-cbe660dbde88.jpg',
+        '/images/sample.webp',
         '/images/cdn/unsplash-1622227922682-56c92e523e58.jpg',
         '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
       ];

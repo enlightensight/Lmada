@@ -86,12 +86,19 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
               </p>
             </div>
             <Reveal>
-              <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white">
+              <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white relative">
                 <img
                   src={page.image || '/images/hero_cleanroom.png'}
                   alt={page.title}
                   className="w-full h-full object-cover"
+                  style={page.slug === 'drug-product' ? { filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' } : undefined}
                 />
+                {page.slug === 'drug-product' && (
+                  <>
+                    <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
+                  </>
+                )}
               </div>
             </Reveal>
           </div>
@@ -145,12 +152,19 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                     
                     {/* Left Image Box */}
                     <div className="lg:col-span-5">
-                      <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-white border border-neutral-200/90 shadow-inner group">
+                      <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-900 border border-neutral-200/90 shadow-inner group">
                         <img
-                          src={page.image || '/images/hero_cleanroom.png'}
-                          alt={page.title}
+                          src="/images/Screenshot%202026-09-11%20135511.png"
+                          alt="Aseptic Fill-Finish & Drug Product Operations"
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          style={{
+                            filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)',
+                          }}
                         />
+                        {/* Cold Bluish Scientific Color Grade Wash */}
+                        <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                       </div>
                     </div>
 
@@ -293,12 +307,14 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
               Get in touch
               <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
-            <Link
-              href={isSubstance ? '/manufacturing/drug-product' : '/manufacturing/drug-substance'}
+            <a
+              href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"
             >
-              {isSubstance ? 'Drug product' : 'Drug substance'}
-            </Link>
+              Virtual Tour
+            </a>
           </div>
         </div>
       </section>

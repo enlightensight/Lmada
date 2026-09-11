@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Dna, CheckCircle2, FlaskConical, Target, ShieldCheck } from 'lucide-react';
+import { Dna, CheckCircle2, FlaskConical, Target, ShieldCheck } from 'lucide-react';
 
 const STAGES = [
   {
@@ -74,7 +74,7 @@ export default function CellLineHeroAnimation() {
           </span>
         </div>
         <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00aeef]/10 border border-[#00aeef]/25 text-[#00aeef] text-xs font-bold tracking-wide">
-          <Sparkles className="w-3.5 h-3.5 text-[#f58634]" />
+          <Dna className="w-3.5 h-3.5 text-[#f58634] shrink-0" />
           <span>CHO-K1 / CHO-S Expression</span>
         </div>
       </div>

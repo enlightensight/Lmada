@@ -12,8 +12,7 @@ import {
   Filter, 
   TrendingUp, 
   Boxes, 
-  TestTubes,
-  Sparkles
+  TestTubes
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -38,7 +37,7 @@ function getCapabilityIcon(text: string, index: number) {
   if (lower.includes('scale-up') || lower.includes('transfer')) return TrendingUp;
   if (lower.includes('manufacturing') || lower.includes('substance') || lower.includes('product')) return Boxes;
   if (lower.includes('quality') || lower.includes('testing') || lower.includes('degradation') || lower.includes('stability')) return ShieldCheck;
-  if (lower.includes('clinical')) return Sparkles;
+  if (lower.includes('clinical')) return Dna;
   
   const fallbacks = [Dna, FlaskConical, Microscope, Atom, TestTubes, ShieldCheck, Activity];
   return fallbacks[index % fallbacks.length];
@@ -195,12 +194,14 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                 Get in touch
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
-              <Link
-                href="/modalities/mabs"
+              <a
+                href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"
               >
-                Explore modalities
-              </Link>
+                Virtual Tour
+              </a>
             </div>
           </Reveal>
         </div>

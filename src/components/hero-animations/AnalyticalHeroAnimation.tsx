@@ -124,24 +124,37 @@ export default function AnalyticalHeroAnimation() {
                 stroke="#f58634"
                 strokeWidth="2.5"
               />
-              <text x="110" y="138" fill="#f58634" fontSize="8" fontWeight="bold">HMW 0.4%</text>
+              {/* HMW Protected Pill Badge */}
+              <g transform="translate(125, 130)">
+                <rect x="-30" y="-8" width="60" height="15" rx="3" fill="#ffffff" fillOpacity="0.95" stroke="#fedcb8" strokeWidth="1" />
+                <text x="0" y="3" textAnchor="middle" fill="#f58634" fontSize="8" fontWeight="bold">
+                  HMW 0.4%
+                </text>
+              </g>
 
               {/* Main Target Monomer Peak (Vibrant Blue, 99.4% Purity) */}
               <motion.path
-                d="M 170 190 Q 200 190 220 50 Q 230 25 240 50 Q 260 190 295 190"
+                d="M 170 190 Q 200 190 220 62 Q 230 40 240 62 Q 260 190 295 190"
                 fill="url(#chromPeakGradLarge)"
                 stroke="#00aeef"
                 strokeWidth="3.5"
                 animate={{
                   d: [
-                    "M 170 190 Q 200 190 220 50 Q 230 25 240 50 Q 260 190 295 190",
-                    "M 170 190 Q 200 190 220 45 Q 230 20 240 45 Q 260 190 295 190",
-                    "M 170 190 Q 200 190 220 50 Q 230 25 240 50 Q 260 190 295 190",
+                    "M 170 190 Q 200 190 220 62 Q 230 40 240 62 Q 260 190 295 190",
+                    "M 170 190 Q 200 190 220 58 Q 230 36 240 58 Q 260 190 295 190",
+                    "M 170 190 Q 200 190 220 62 Q 230 40 240 62 Q 260 190 295 190",
                   ],
                 }}
                 transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
               />
-              <text x="195" y="22" fill="#00aeef" fontSize="10" fontWeight="bold">Monomer 99.4% (RT 8.42m)</text>
+              {/* Monomer Label Protected Pill Tag - Zero Border Overlap */}
+              <g transform="translate(230, 24)">
+                <rect x="-75" y="-8" width="150" height="16" rx="4" fill="#ffffff" fillOpacity="0.96" stroke="#00aeef" strokeWidth="1" />
+                <circle cx="-65" cy="0" r="2.5" fill="#00aeef" />
+                <text x="4" y="3" textAnchor="middle" fill="#00aeef" fontSize="8.5" fontWeight="bold" letterSpacing="0.2">
+                  Monomer 99.4% (RT 8.42m)
+                </text>
+              </g>
 
               {/* Small LMW Fragment Peak (Orange) */}
               <motion.path
@@ -150,16 +163,22 @@ export default function AnalyticalHeroAnimation() {
                 stroke="#f58634"
                 strokeWidth="2.5"
               />
-              <text x="315" y="152" fill="#f58634" fontSize="8" fontWeight="bold">LMW 0.2%</text>
+              {/* LMW Protected Pill Badge */}
+              <g transform="translate(340, 146)">
+                <rect x="-28" y="-8" width="56" height="15" rx="3" fill="#ffffff" fillOpacity="0.95" stroke="#fedcb8" strokeWidth="1" />
+                <text x="0" y="3" textAnchor="middle" fill="#f58634" fontSize="8" fontWeight="bold">
+                  LMW 0.2%
+                </text>
+              </g>
 
               {/* Scanning Retention Time Indicator Line */}
               <motion.line
                 x1="45"
-                y1="30"
+                y1="34"
                 x2="45"
                 y2="190"
                 stroke="#f58634"
-                strokeWidth="2"
+                strokeWidth="1.8"
                 strokeDasharray="4 2"
                 animate={{ x1: [45, 400, 45], x2: [45, 400, 45] }}
                 transition={{ repeat: Infinity, duration: 4.5, ease: 'linear' }}
@@ -172,15 +191,24 @@ export default function AnalyticalHeroAnimation() {
           {/* ======================================================== */}
           {activeStage === 2 && (
             <g>
+              {/* Intact Mass Header Protected Pill Banner */}
+              <g transform="translate(50, 20)">
+                <rect x="0" y="0" width="184" height="17" rx="4" fill="#ffffff" fillOpacity="0.95" stroke="#00aeef" strokeWidth="1" />
+                <circle cx="8" cy="8.5" r="2.5" fill="#00aeef" />
+                <text x="16" y="12" fill="#00aeef" fontSize="7.8" fontWeight="bold">
+                  Intact Mass: 148,254.2 Da (Δ 1.8 ppm)
+                </text>
+              </g>
+
               {/* Mass Spectrum Vertical Spectral Lines */}
               {[
                 { x: 80, h: 45, col: '#00aeef', label: 'b₂' },
-                { x: 115, h: 80, col: '#f58634', label: 'y₃' },
-                { x: 155, h: 125, col: '#00aeef', label: 'b₅' },
-                { x: 195, h: 65, col: '#f58634', label: 'y₆' },
-                { x: 240, h: 160, col: '#00aeef', label: 'Parent mAb [M+12H]¹²⁺' },
-                { x: 285, h: 100, col: '#f58634', label: 'y₈' },
-                { x: 325, h: 70, col: '#00aeef', label: 'b₉' },
+                { x: 115, h: 72, col: '#f58634', label: 'y₃' },
+                { x: 155, h: 98, col: '#00aeef', label: 'b₅' },
+                { x: 195, h: 60, col: '#f58634', label: 'y₆' },
+                { x: 240, h: 122, col: '#00aeef', label: 'Parent mAb [M+12H]¹²⁺' },
+                { x: 285, h: 88, col: '#f58634', label: 'y₈' },
+                { x: 325, h: 65, col: '#00aeef', label: 'b₉' },
                 { x: 365, h: 40, col: '#f58634', label: 'y₁₁' },
               ].map((peak, idx) => (
                 <g key={idx}>
@@ -190,27 +218,34 @@ export default function AnalyticalHeroAnimation() {
                     x2={peak.x}
                     y2={190 - peak.h}
                     stroke={peak.col}
-                    strokeWidth={idx === 4 ? "4.5" : "3"}
+                    strokeWidth={idx === 4 ? "4" : "2.8"}
                     strokeLinecap="round"
-                    animate={{ y2: [190 - peak.h + 6, 190 - peak.h - 6, 190 - peak.h + 6] }}
+                    animate={{ y2: [190 - peak.h + 4, 190 - peak.h - 4, 190 - peak.h + 4] }}
                     transition={{ repeat: Infinity, duration: 1.8, delay: idx * 0.15 }}
                   />
-                  <circle cx={peak.x} cy={190 - peak.h} r="4" fill={peak.col} />
-                  <text
-                    x={peak.x - (idx === 4 ? 45 : 10)}
-                    y={190 - peak.h - 7}
-                    fill={peak.col}
-                    fontSize={idx === 4 ? "9" : "8"}
-                    fontWeight="bold"
-                  >
-                    {peak.label}
-                  </text>
+                  <circle cx={peak.x} cy={190 - peak.h} r="3.5" fill={peak.col} />
+                  {idx === 4 ? (
+                    <g transform="translate(240, 50)">
+                      <rect x="-62" y="-9" width="124" height="17" rx="4" fill="#ffffff" fillOpacity="0.96" stroke="#00aeef" strokeWidth="1" />
+                      <circle cx="-52" cy="-0.5" r="2.5" fill="#00aeef" />
+                      <text x="3" y="3" textAnchor="middle" fill="#00aeef" fontSize="7.8" fontWeight="bold">
+                        {peak.label}
+                      </text>
+                    </g>
+                  ) : (
+                    <text
+                      x={peak.x}
+                      y={190 - peak.h - 6}
+                      textAnchor="middle"
+                      fill={peak.col}
+                      fontSize="8"
+                      fontWeight="bold"
+                    >
+                      {peak.label}
+                    </text>
+                  )}
                 </g>
               ))}
-
-              <text x="55" y="42" fill="#00aeef" fontSize="10" fontWeight="bold">
-                Intact Mass Verification: 148,254.2 Da (Δ 1.8 ppm)
-              </text>
             </g>
           )}
 
@@ -221,28 +256,37 @@ export default function AnalyticalHeroAnimation() {
             <g>
               {/* Reference Standard Sigmoidal Curve (Blue) */}
               <motion.path
-                d="M 55 178 C 145 178 190 145 225 100 C 260 55 300 45 400 45"
+                d="M 55 178 C 145 178 190 145 225 100 C 260 55 300 48 400 48"
                 stroke="#00aeef"
-                strokeWidth="4"
+                strokeWidth="3.5"
                 fill="none"
                 strokeLinecap="round"
               />
-              <text x="250" y="38" fill="#00aeef" fontSize="9" fontWeight="bold">
-                Reference Standard (EC₅₀ = 1.18 nM)
-              </text>
 
               {/* Sample Batch Sigmoidal Curve (Orange) */}
               <motion.path
-                d="M 55 182 C 145 182 190 148 225 103 C 260 58 300 48 400 48"
+                d="M 55 182 C 145 182 190 148 225 103 C 260 58 300 51 400 51"
                 stroke="#f58634"
-                strokeWidth="3"
+                strokeWidth="2.8"
                 strokeDasharray="6 3"
                 fill="none"
                 strokeLinecap="round"
               />
-              <text x="250" y="64" fill="#f58634" fontSize="9" fontWeight="bold">
-                Batch Sample (Relative Potency = 104%)
-              </text>
+              {/* Clean Legend Container in Upper Left (Safe Unobstructed Area) */}
+              <g transform="translate(52, 22)">
+                <rect x="0" y="0" width="215" height="38" rx="5" fill="#ffffff" fillOpacity="0.96" stroke="#00aeef" strokeWidth="1" />
+                <line x1="12" y1="12" x2="26" y2="12" stroke="#00aeef" strokeWidth="2.5" strokeLinecap="round" />
+                <circle cx="19" cy="12" r="2.5" fill="#00aeef" />
+                <text x="32" y="15" fill="#00aeef" fontSize="8" fontWeight="bold">
+                  Reference Standard (EC₅₀ = 1.18 nM)
+                </text>
+                
+                <line x1="12" y1="26" x2="26" y2="26" stroke="#f58634" strokeWidth="2" strokeDasharray="4 2" strokeLinecap="round" />
+                <circle cx="19" cy="26" r="2.5" fill="#f58634" />
+                <text x="32" y="29" fill="#f58634" fontSize="8" fontWeight="bold">
+                  Batch Sample (Relative Potency = 104%)
+                </text>
+              </g>
 
               {/* Data points along curve */}
               {[

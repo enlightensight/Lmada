@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Dna, ShieldCheck, Activity, Target, Layers, CheckCircle2 } from 'lucide-react';
+import { Dna, ShieldCheck, Activity, Target, Layers, CheckCircle2 } from 'lucide-react';
 
 const MAB_STAGES = [
   {
@@ -79,7 +79,7 @@ export default function MAbModalityAnimation() {
         </div>
         <div className="flex items-center gap-2">
           <span className="px-3 py-1 rounded-full bg-[#00aeef]/10 border border-[#00aeef]/25 text-[#00aeef] text-xs font-bold tracking-wide flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#f58634]" />
+            <Dna className="w-3.5 h-3.5 text-[#f58634] shrink-0" />
             {current.subclass}
           </span>
           <span className="px-3 py-1 rounded-full bg-[#f58634]/10 border border-[#f58634]/25 text-[#f58634] text-xs font-bold tracking-wide hidden sm:inline-block">

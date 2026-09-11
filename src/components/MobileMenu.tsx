@@ -142,11 +142,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         },
       ],
     },
-    {
-      label: 'Virtual Tour',
-      href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm',
-      isExternal: true,
-    },
   ];
 
   const toggleGroup = (label: string) => {
@@ -190,10 +185,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={onClose}
-                        className="py-3 text-lg font-semibold transition-colors flex items-center justify-between text-neutral-900 hover:text-brand-blue"
+                        className="py-3 text-[17px] font-light md:font-normal tracking-tight transition-colors flex items-center justify-between text-neutral-900 hover:text-brand-blue"
                       >
                         <span>{group.label}</span>
-                        <span className="px-2 py-0.5 text-xs font-bold rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
+                        <span className="px-2 py-0.5 text-xs font-medium rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
                           360° Tour
                         </span>
                       </a>
@@ -207,7 +202,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     <Link
                       href={group.href}
                       onClick={onClose}
-                      className={`py-3 text-lg font-semibold transition-colors flex items-center justify-between ${
+                      className={`py-3 text-[17px] font-light md:font-normal tracking-tight transition-colors flex items-center justify-between ${
                         active ? 'text-brand-blue' : 'text-neutral-900 hover:text-brand-blue'
                       }`}
                     >
@@ -224,7 +219,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 <motion.div key={group.label} variants={linkVariants} className="border-b border-neutral-100 pb-2">
                   <button
                     onClick={() => toggleGroup(group.label)}
-                    className={`w-full py-3 flex items-center justify-between text-lg font-semibold transition-colors cursor-pointer focus:outline-none ${
+                    className={`w-full py-3 flex items-center justify-between text-[17px] font-light md:font-normal tracking-tight transition-colors cursor-pointer focus:outline-none ${
                       active ? 'text-brand-blue' : 'text-neutral-900 hover:text-brand-blue'
                     }`}
                   >
@@ -260,8 +255,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                       <Link
                                         href={link.href}
                                         onClick={onClose}
-                                        className={`block text-sm transition-colors ${
-                                          linkActive ? 'text-brand-blue font-medium' : 'text-neutral-600 hover:text-brand-blue'
+                                        className={`block text-[15px] font-light md:font-normal tracking-tight transition-colors ${
+                                          linkActive ? 'text-brand-blue font-normal' : 'text-neutral-700 hover:text-brand-blue'
                                         }`}
                                       >
                                         {link.label}
@@ -282,7 +277,16 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </nav>
 
           {/* CTA */}
-          <motion.div variants={linkVariants} className="mt-8 pt-6 border-t border-neutral-100">
+          <motion.div variants={linkVariants} className="mt-8 pt-6 border-t border-neutral-100 flex flex-col gap-3">
+            <a
+              href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              className="w-full inline-flex items-center justify-center px-6 py-3 rounded-full border border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-semibold text-sm transition-all"
+            >
+              Virtual Tour
+            </a>
             <Link
               href="/contact"
               onClick={onClose}
