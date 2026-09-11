@@ -1589,17 +1589,17 @@ export default function IntegratedTimeline() {
             </p>
           </div>
 
-          {/* ================= CLEAN MINIMALIST HORIZONTAL TIMELINE TRACK (ACCORDING TO IMAGE 2) ================= */}
-          <div className="relative max-w-5xl mx-auto mb-6 sm:mb-8 w-full px-2 sm:px-4">
+          {/* ================= CLEAN MINIMALIST HORIZONTAL TIMELINE TRACK ================= */}
+          <div className="relative max-w-5xl mx-auto mb-6 sm:mb-8 w-full px-1 sm:px-4">
             
             {/* The Connecting Line Track */}
             <div className="relative flex items-center">
               {/* Thin Base Grey Track Line */}
-              <div className="absolute left-[10%] right-[10%] top-[28px] sm:top-[32px] -translate-y-1/2 h-[1.5px] bg-slate-200/90 z-0" />
+              <div className="absolute left-[10%] right-[10%] top-[22px] sm:top-[32px] -translate-y-1/2 h-[1.5px] bg-slate-200/90 z-0" />
 
               {/* Active Cyan Progress Line with Leading Dot */}
               <motion.div
-                className="absolute left-[10%] top-[28px] sm:top-[32px] -translate-y-1/2 h-[2px] bg-[#00aeef] z-0"
+                className="absolute left-[10%] top-[22px] sm:top-[32px] -translate-y-1/2 h-[2px] bg-[#00aeef] z-0"
                 initial={false}
                 animate={{
                   width: activeStageId === 5 
@@ -1609,11 +1609,11 @@ export default function IntegratedTimeline() {
                 transition={{ duration: 0.4, ease: 'easeOut' }}
               >
                 {/* Glowing Indicator Dot at the Tip of the Line */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#00aeef] shadow-[0_0_8px_rgba(0,174,239,0.8)]" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00aeef] shadow-[0_0_8px_rgba(0,174,239,0.8)]" />
               </motion.div>
 
               {/* 5 Circular Stage Node Buttons */}
-              <div className="relative z-10 w-full grid grid-cols-5">
+              <div className="relative z-10 w-full grid grid-cols-5 gap-1 sm:gap-2">
                 {CONTINUUM_STAGES.map((step) => {
                   const IconComponent = step.icon;
                   const isActive = activeStageId === step.id;
@@ -1624,54 +1624,54 @@ export default function IntegratedTimeline() {
                       <button
                         type="button"
                         onClick={() => handleJumpToStage(step.id)}
-                        className="group relative flex items-center justify-center cursor-pointer outline-none h-14 sm:h-16"
+                        className="group relative flex items-center justify-center cursor-pointer outline-none h-11 sm:h-16"
                         title={step.title}
                       >
                         {isActive ? (
                           /* Active Stage: Multi-layer Glowing Halo + Cyan Filled Circle */
                           <div className="relative flex items-center justify-center">
                             {/* Outer diffuse cyan aura ring */}
-                            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#00aeef]/12 border border-[#00aeef]/30 flex items-center justify-center shadow-[0_0_18px_rgba(0,174,239,0.28)] transition-all duration-300">
+                            <div className="w-11 h-11 sm:w-16 sm:h-16 rounded-full bg-[#00aeef]/12 border border-[#00aeef]/30 flex items-center justify-center shadow-[0_0_18px_rgba(0,174,239,0.28)] transition-all duration-300">
                               {/* Inner crisp white spacer ring */}
-                              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white p-[2.5px] shadow-sm flex items-center justify-center">
+                              <div className="w-8.5 h-8.5 sm:w-12 sm:h-12 rounded-full bg-white p-[2px] sm:p-[2.5px] shadow-sm flex items-center justify-center">
                                 {/* Solid vibrant cyan core */}
                                 <div className="w-full h-full rounded-full bg-[#00aeef] flex items-center justify-center text-white shadow-xs">
-                                  <IconComponent className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-white stroke-[2.2]" />
+                                  <IconComponent className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-white stroke-[2.2]" />
                                 </div>
                               </div>
                             </div>
                           </div>
                         ) : isPassed ? (
                           /* Passed Stage: Clean White Circle with Cyan Border & Icon */
-                          <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white border border-[#00aeef]/60 flex items-center justify-center shadow-xs transition-all duration-300 group-hover:border-[#00aeef] group-hover:scale-105">
-                            <IconComponent className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#00aeef] stroke-[2]" />
+                          <div className="w-8.5 h-8.5 sm:w-13 sm:h-13 rounded-full bg-white border border-[#00aeef]/60 flex items-center justify-center shadow-xs transition-all duration-300 group-hover:border-[#00aeef] group-hover:scale-105">
+                            <IconComponent className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#00aeef] stroke-[2]" />
                           </div>
                         ) : (
                           /* Inactive Stage: Clean Pure White Circle with Subtle Grey Border & Muted Icon */
-                          <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white border border-slate-200/90 flex items-center justify-center shadow-xs transition-all duration-300 group-hover:border-[#00aeef]/50 group-hover:text-[#00aeef] group-hover:scale-105 group-hover:shadow-sm">
-                            <IconComponent className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-slate-400 group-hover:text-[#00aeef] transition-colors stroke-[1.8]" />
+                          <div className="w-8.5 h-8.5 sm:w-13 sm:h-13 rounded-full bg-white border border-slate-200/90 flex items-center justify-center shadow-xs transition-all duration-300 group-hover:border-[#00aeef]/50 group-hover:text-[#00aeef] group-hover:scale-105 group-hover:shadow-sm">
+                            <IconComponent className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-slate-400 group-hover:text-[#00aeef] transition-colors stroke-[1.8]" />
                           </div>
                         )}
                       </button>
 
-                      {/* Clean Step Number and Title Labels */}
+                      {/* Clean Step Number and Title Labels with fluid responsive typography */}
                       <button
                         type="button"
                         onClick={() => handleJumpToStage(step.id)}
-                        className="text-center transition-colors cursor-pointer mt-1 sm:mt-1.5"
+                        className="text-center transition-colors cursor-pointer mt-1 sm:mt-1.5 w-full px-0.5"
                       >
                         <span
-                          className={`block text-[11px] sm:text-xs font-semibold tracking-wider mb-0.5 transition-colors ${
-                            isActive ? 'text-[#00aeef] font-bold' : 'text-slate-400'
+                          className={`block text-[10px] sm:text-xs font-bold tracking-wider mb-0.5 transition-colors ${
+                            isActive ? 'text-[#00aeef]' : 'text-slate-400'
                           }`}
                         >
                           {step.stepNum}
                         </span>
                         <span
-                          className={`text-xs sm:text-[13px] leading-tight block truncate max-w-[90px] sm:max-w-[120px] transition-colors ${
+                          className={`text-[10px] xs:text-[11px] sm:text-xs md:text-[13px] leading-tight block w-full text-center transition-colors break-words font-medium ${
                             isActive
                               ? 'text-neutral-900 font-bold'
-                              : 'text-slate-500 font-medium hover:text-neutral-800'
+                              : 'text-slate-500 hover:text-neutral-800'
                           }`}
                         >
                           {step.shortName.replace(/^\d+\.\s*/, '')}
