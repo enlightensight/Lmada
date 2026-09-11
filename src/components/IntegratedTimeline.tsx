@@ -1597,20 +1597,15 @@ export default function IntegratedTimeline() {
               {/* Thin Base Grey Track Line */}
               <div className="absolute left-[10%] right-[10%] top-[22px] sm:top-[32px] -translate-y-1/2 h-[1.5px] bg-slate-200/90 z-0" />
 
-              {/* Active Cyan Progress Line with Leading Dot */}
+              {/* Active Cyan Progress Line extending precisely to the active step */}
               <motion.div
-                className="absolute left-[10%] top-[22px] sm:top-[32px] -translate-y-1/2 h-[2px] bg-[#00aeef] z-0"
+                className="absolute left-[10%] top-[22px] sm:top-[32px] -translate-y-1/2 h-[2px] bg-[#00aeef] z-0 pointer-events-none"
                 initial={false}
                 animate={{
-                  width: activeStageId === 5 
-                    ? '80%' 
-                    : `calc(${((activeStageId - 1) / 4) * 80}% + 10%)`,
+                  width: `${((activeStageId - 1) / 4) * 80}%`,
                 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-              >
-                {/* Glowing Indicator Dot at the Tip of the Line */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00aeef] shadow-[0_0_8px_rgba(0,174,239,0.8)]" />
-              </motion.div>
+              />
 
               {/* 5 Circular Stage Node Buttons */}
               <div className="relative z-10 w-full grid grid-cols-5 gap-1 sm:gap-2">
@@ -1674,7 +1669,14 @@ export default function IntegratedTimeline() {
                               : 'text-slate-500 hover:text-neutral-800'
                           }`}
                         >
-                          {step.shortName.replace(/^\d+\.\s*/, '')}
+                          {step.id === 4 ? (
+                            <>
+                              <span className="sm:hidden">Manufacture</span>
+                              <span className="hidden sm:inline">cGMP Mfg</span>
+                            </>
+                          ) : (
+                            step.shortName.replace(/^\d+\.\s*/, '')
+                          )}
                         </span>
                       </button>
                     </div>
