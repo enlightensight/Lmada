@@ -127,13 +127,16 @@ export default function Navigation() {
       <header className="fixed top-0 z-50 w-full bg-white border-b border-neutral-200 select-none px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
         <div className="w-full max-w-[1700px] mx-auto h-16 lg:h-20 flex items-center justify-between">
 
-          <Link href="/" className="flex items-center shrink-0">
+          <Link
+            href="/"
+            className="flex items-center shrink-0 outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 active:outline-none active:ring-0 border-none ring-0 select-none cursor-pointer"
+          >
             <Image
               src="/images/lambda_novum_logo.png"
               alt="Lambda & Novum"
               width={2991}
               height={358}
-              className="h-10 sm:h-11 md:h-12 w-auto max-w-[260px] sm:max-w-[320px] md:max-w-[360px] object-contain"
+              className="h-10 sm:h-11 md:h-12 w-auto max-w-[260px] sm:max-w-[320px] md:max-w-[360px] object-contain outline-none border-none select-none pointer-events-none"
               priority
               unoptimized
             />

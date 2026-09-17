@@ -621,7 +621,7 @@ export const insightsData: Record<string, InsightItem[]> = {
         name: 'Lambda CDMO Engineering & Operations',
         role: 'Ahmedabad Biologics Campus',
       },
-      image: '/images/insights/cdmo_facility_exterior.jpg',
+      image: '/images/Lamdabuilding.jpg',
       summary: 'The definitive guide to Lambda CDMO’s integrated biologics infrastructure, detailing cleanroom classifications, bioreactor trains (50L–2000L), analytical suites, and regulatory compliance.',
       keyTakeaways: [
         'Complete overview of our 20,000 sqm purpose-built biologics facility in Ahmedabad, India.',
