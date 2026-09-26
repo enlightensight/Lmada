@@ -196,7 +196,7 @@ export default function Home() {
               Platform Capabilities for Next-Generation Biologics
             </h2>
             <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
-              Lambda CDMO is building platform capabilities to support the development and manufacture of diverse biologic modalities. Our integrated approach combines development, analytical characterization, quality systems, and GMP manufacturing to address the unique scientific and regulatory requirements of each modality.
+              Our integrated development and manufacturing platform is designed to support a range of biologic modalities with scientific, analytical and manufacturing capabilities tailored to each molecule.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
