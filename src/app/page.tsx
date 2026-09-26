@@ -295,12 +295,12 @@ export default function Home() {
                     Purpose-built facility for biologics development and manufacturing
                   </h3>
                   <p className="text-[17px] text-slate-500 font-normal leading-relaxed mb-8">
-                    Our approximately 20,000 sqm biologics development and manufacturing facility integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
+                    Our approximately 27,000 sqft biologics development and manufacturing facility integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
                   </p>
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
-                      <div className="text-2xl font-semibold text-brand-blue">20k</div>
-                      <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Sqm Campus</div>
+                      <div className="text-2xl font-semibold text-brand-blue">27k</div>
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Sqft Campus</div>
                     </div>
                     <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
                       <div className="text-2xl font-semibold text-brand-blue">GMP</div>

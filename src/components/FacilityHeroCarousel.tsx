@@ -38,7 +38,7 @@ const FACILITY_IMAGES = [
   {
     src: '/images/Screenshot%202026-09-11%20131721.png',
     alt: 'Lambda CDMO Campus & Facility Infrastructure',
-    caption: 'Integrated 20,000 sqm Biologics Campus',
+    caption: 'Integrated 27,000 sqft Biologics Campus',
   },
 ];
 

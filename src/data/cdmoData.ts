@@ -35,7 +35,7 @@ export const cdmoData: CDMOPage[] = [
       'Flexible and scalable manufacturing capacity from pilot batches to clinical supply'
     ],
     stats: [
-      { value: '20k', label: 'Sqm Facility', sublabel: 'Purpose-built biologics development and manufacturing campus in Ahmedabad, India.' },
+      { value: '27k', label: 'Sqft Facility', sublabel: 'Purpose-built biologics development and manufacturing campus in Ahmedabad, India.' },
       { value: '25+', label: 'Years Legacy', sublabel: 'Built on Lambda Therapeutic Research expertise in clinical research and bioanalytical sciences.' },
       { value: 'Global', label: 'Regulatory Support', sublabel: 'Aligned with US, EU, Japan, and Australia regulatory expectations.' },
     ],
@@ -65,7 +65,7 @@ export const cdmoData: CDMOPage[] = [
       { label: 'Headquarters', value: 'Ahmedabad, India' },
       { label: 'Service Coverage', value: 'Global (US, Europe, Japan, Australia)' },
       { label: 'Core Modalities', value: 'mAbs, Bispecifics, ADCs, Recombinant Proteins' },
-      { label: 'Facility Size', value: '20,000 sqm Biologics Campus' },
+      { label: 'Facility Size', value: '27,000 sqft Biologics Campus' },
       { label: 'Cleanroom Grades', value: 'Grade A, B, C, and D Zones' },
     ],
     faqs: [
@@ -121,10 +121,10 @@ export const cdmoData: CDMOPage[] = [
     category: 'overview',
     title: 'Facility & Infrastructure — Lambda CDMO Ahmedabad',
     metaTitle: 'Facility & Infrastructure | Lambda CDMO',
-    metaDesc: 'Tour Lambda CDMO\'s 20,000 sqm purpose-built biologics development and manufacturing facility in Ahmedabad, India, designed for GMP manufacturing and global regulatory compliance.',
+    metaDesc: 'Tour Lambda CDMO\'s 27,000 sqft purpose-built biologics development and manufacturing facility in Ahmedabad, India, designed for GMP manufacturing and global regulatory compliance.',
     badge: 'Facility',
     heading: 'Purpose-Built for Biologics Development and GMP Manufacturing.',
-    description: 'Lambda CDMO operates from a purpose-built biologics development and manufacturing facility in Ahmedabad, India, designed to support the evolving needs of global biopharmaceutical companies. The approximately 20,000 sqm facility integrates development laboratories, analytical laboratories, GMP manufacturing suites, quality control laboratories, and supporting infrastructure within a single campus.',
+    description: 'Lambda CDMO operates from a purpose-built biologics development and manufacturing facility in Ahmedabad, India, designed to support the evolving needs of global biopharmaceutical companies. The approximately 27,000 sqft facility integrates development laboratories, analytical laboratories, GMP manufacturing suites, quality control laboratories, and supporting infrastructure within a single campus.',
     image: '/images/development.jpg',
     capabilities: [
       'Ambr 250mL to 50L SUS Upstream Development Bioreactors',
@@ -141,13 +141,13 @@ export const cdmoData: CDMOPage[] = [
       'QTPP-Anchored Comprehensive Analytical Sciences Workflow'
     ],
     stats: [
-      { value: '20k', label: 'Sqm Campus', sublabel: 'Integrated development, manufacturing, and QC laboratories.' },
+      { value: '27k', label: 'Sqft Campus', sublabel: 'Integrated development, manufacturing, and QC laboratories.' },
       { value: '400 L', label: 'Bioreactor Capacity', sublabel: '2x 200L single-use production bioreactors with closed connections.' },
       { value: '10k', label: 'Units / Batch', sublabel: 'Robotic isolator filling capacity for vials, pre-filled syringes & cartridges.' },
     ],
     sections: [
       {
-        title: 'Integrated 20,000 sqm Biologics Campus',
+        title: 'Integrated 27,000 sqft Biologics Campus',
         text: 'Designed in accordance with current global GMP expectations, the facility incorporates segregated manufacturing operations, controlled material and personnel flow, and quality systems that support the manufacture of biologics drug substance and drug product for clinical development. As development programs advance, our scalable infrastructure enables a smooth transition from laboratory development through pilot manufacturing and clinical supply.',
         dark: false,
         image: '/images/CDMOblue.png',
@@ -184,7 +184,7 @@ export const cdmoData: CDMOPage[] = [
     ],
     specs: [
       { label: 'Location', value: 'Ahmedabad, India' },
-      { label: 'Facility Size', value: '20,000 sqm Integrated Campus' },
+      { label: 'Facility Size', value: '27,000 sqft Integrated Campus' },
       { label: 'Upstream Bioreactors', value: 'Ambr 250mL, 2L, 5L, 10L, 50L SUS, 2x 200L (400L total)' },
       { label: 'Downstream Systems', value: '1 mL to 2 L Columns (50L Harvest), PCC Continuous, Viral Filtration' },
       { label: 'Filling Automation', value: 'Robotic Isolator Line (10,000 units/batch: Vials, PFS, Cartridges)' },

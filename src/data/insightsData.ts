@@ -624,7 +624,7 @@ export const insightsData: Record<string, InsightItem[]> = {
       image: '/images/Lamdabuilding.jpg',
       summary: 'The definitive guide to Lambda CDMO’s integrated biologics infrastructure, detailing cleanroom classifications, bioreactor trains (50L–2000L), analytical suites, and regulatory compliance.',
       keyTakeaways: [
-        'Complete overview of our 20,000 sqm purpose-built biologics facility in Ahmedabad, India.',
+        'Complete overview of our 27,000 sqft purpose-built biologics facility in Ahmedabad, India.',
         'Technical specifications for mammalian cell line development, microbial fermentation, and single-use processing.',
         'Comprehensive breakdown of our Grade A barrier isolator fill-finish capabilities for liquid and lyophilized formats.',
       ],
@@ -883,7 +883,7 @@ export const insightsData: Record<string, InsightItem[]> = {
       tags: ['Expansion', '2000L Bioreactors', 'Manufacturing Capacity', 'Ahmedabad Facility'],
       detailedContent: {
         subtitle: 'Scaling up operational capacity to meet global biopharmaceutical demand',
-        abstract: 'Lambda CDMO has completed the operational qualification of its Phase II facility expansion, adding two advanced 2,000L single-use bioreactor suites within its 20,000 sqm Ahmedabad biomanufacturing facility. The expansion addresses surging sponsor demand for mid-to-large-scale clinical drug substance campaigns.',
+        abstract: 'Lambda CDMO has completed the operational qualification of its Phase II facility expansion, adding two advanced 2,000L single-use bioreactor suites within its 27,000 sqft Ahmedabad biomanufacturing facility. The expansion addresses surging sponsor demand for mid-to-large-scale clinical drug substance campaigns.',
         sections: [
           {
             heading: '1. Advanced Process Architecture',

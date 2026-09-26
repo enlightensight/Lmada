@@ -137,7 +137,7 @@ function getOverviewCapabilityIcon(text: string, index: number) {
   if (lower.includes('visual inspection') || lower.includes('secondary packaging') || lower.includes('inspection suite')) return Eye;
   if (lower.includes('qtpp') || lower.includes('analytical sciences workflow')) return Search;
   if (lower.includes('regulatory') || lower.includes('fda') || lower.includes('ema') || lower.includes('pmda') || lower.includes('tga') || lower.includes('cmc')) return Scale;
-  if (lower.includes('campus') || lower.includes('infrastructure') || lower.includes('20,000 sqm')) return Building2;
+  if (lower.includes('campus') || lower.includes('infrastructure') || lower.includes('27,000 sqft') || lower.includes('sqft')) return Building2;
   if (lower.includes('global') || lower.includes('market')) return Globe;
   if (lower.includes('phase-aligned') || lower.includes('lifecycle')) return Milestone;
   if (lower.includes('scalable') || lower.includes('capacity')) return Maximize2;
