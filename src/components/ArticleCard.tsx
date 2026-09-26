@@ -10,7 +10,7 @@ interface ArticleCardProps {
 export default function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Link 
-      href={`/article/${article.slug}`}
+      href={`/insights/blogs/${article.slug}`}
       className="group block w-full select-none"
     >
      <div className="overflow-hidden rounded-[10px] border border-neutral-200 bg-neutral-100 aspect-[16/10] shadow-sm hover:shadow-md transition-all duration-300">

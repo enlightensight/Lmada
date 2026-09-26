@@ -51,6 +51,165 @@ export const INSIGHT_TABS = [
 export const insightsData: Record<string, InsightItem[]> = {
   blogs: [
     {
+      id: 'blog-accelerating-cell-line-development',
+      slug: 'accelerating-cell-line-development-for-mabs',
+      category: 'blogs',
+      title: 'Accelerating Cell Line Development for Monoclonal Antibodies',
+      badge: 'Cell Line Development',
+      date: 'November 15, 2023',
+      readTime: '8 min read',
+      author: {
+        name: 'Lambda CDMO Scientific Team',
+        role: 'Cell Line Engineering Group',
+        avatar: '/images/lambda-symbol.svg',
+      },
+      image: '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
+      summary: 'How automated clone screening and stable CHO platforms shorten the path from gene to high-producing cell line.',
+      keyTakeaways: [
+        'Proprietary expression vectors tailored to IgG1, IgG2, IgG4, and bispecific formats.',
+        'Documented monoclonality assurance exceeding 99.9% probability via high-contrast imaging.',
+        'High-throughput clone ranking evaluating productivity alongside aggregation and glycan CQAs.',
+      ],
+      tags: ['Cell Line Development', 'CHO Clones', 'Monoclonality', 'mAbs', 'RCB Banking'],
+      detailedContent: {
+        subtitle: 'From Vector Design to Documented Research Cell Bank on Compressed Timelines',
+        abstract: 'Stable, high-producing mammalian cell lines are the foundation of every successful biologics program. The choices made during cell line development echo through process development, analytical characterization, and GMP manufacturing for years.',
+        sections: [
+          {
+            heading: '1. From Vector Design to Clone Selection',
+            body: [
+              'Our platform begins with codon optimization and expression vector design tailored to the molecule format — IgG1, IgG2, IgG4, bispecifics, or fusion proteins. Following transfection of CHO host cells, stable pools are generated and single-cell cloning is performed under documented, regulatory-ready conditions.',
+              'A well-characterized clone selected early prevents months of rework during scale-up and tech transfer.',
+            ],
+            callout: {
+              title: 'Platform Principle',
+              text: 'A well-characterized clone selected early prevents months of rework during scale-up and tech transfer.',
+              metric: '>99.9% Assurance',
+            },
+          },
+          {
+            heading: '2. High-Throughput Clone Screening',
+            body: [
+              'Automated screening arrays evaluate hundreds of clones for productivity, growth profile, and product quality attributes in parallel. Candidates are ranked not only on titer but also on aggregation, charge variants, and glycosylation — so the lead clone is manufacturable, not just productive.',
+              'The result: a fully characterized Research Cell Bank with the documentation regulators expect, delivered on a compressed timeline.',
+            ],
+          },
+        ],
+        methodologyHighlights: [
+          'High-contrast digital brightfield/fluorescence monoclonality verification.',
+          'Codon optimization and targeted epigenetic vector expression systems.',
+          'Comprehensive stability testing across 60+ generations.',
+        ],
+        regulatoryImpact: 'Delivers full ICH Q5D compliant lineage documentation for IND and IMPD submissions.',
+      },
+    },
+    {
+      id: 'blog-dna-to-rcb',
+      slug: 'from-dna-to-research-cell-bank-in-16-weeks',
+      category: 'blogs',
+      title: 'From DNA to Research Cell Bank in 16 Weeks',
+      badge: 'Cell Line Development',
+      date: 'October 24, 2023',
+      readTime: '6 min read',
+      author: {
+        name: 'Lambda CDMO Scientific Team',
+        role: 'Bioprocess Acceleration Group',
+        avatar: '/images/lambda-symbol.svg',
+      },
+      image: '/images/default_scientist.png',
+      summary: 'A look inside the streamlined gene-to-RCB pathway that de-risks early biologics development timelines.',
+      keyTakeaways: [
+        'Integrated parallel workstreams shortening calendar timelines to ~16 weeks.',
+        'Early product quality screening runs in parallel with productivity assessment.',
+        'Complete regulatory-ready sequence, vector, and clonality evidence package.',
+      ],
+      tags: ['RCB', 'Gene-to-Vial', 'Timeline Acceleration', 'CHO Platform'],
+      detailedContent: {
+        subtitle: 'De-Risking Early Biologics Development Through Parallelized Workstreams',
+        abstract: 'Timeline pressure defines early biologics development. Our gene-to-RCB pathway delivers a fully documented Research Cell Bank in approximately 16 weeks from DNA sequence receipt.',
+        sections: [
+          {
+            heading: '1. The Compressed Pathway',
+            body: [
+              'The schedule integrates vector construction, transfection, stable pool generation, single-cell cloning, and clone screening into parallel workstreams rather than sequential ones.',
+              'Early product quality screening runs alongside productivity assessment so weak candidates are eliminated before they consume calendar time.',
+            ],
+            callout: {
+              title: 'Timeline Efficiency',
+              text: 'Gene-to-RCB delivery in approximately 16 weeks with complete regulatory documentation.',
+              metric: '16 Weeks',
+            },
+          },
+          {
+            heading: '2. What the 16-Week Package Includes',
+            body: [
+              'Sequence and vector documentation suitable for regulatory filings, clonality evidence and genetic stability data for the selected clone, and RCB generation with sterility, mycoplasma, and identity testing.',
+              'For sponsors, this means earlier entry into process development and a cleaner handoff to GMP manufacturing.',
+            ],
+          },
+        ],
+        methodologyHighlights: [
+          'Parallelized transfection and stable pool generation.',
+          'Early CQA screening and high-throughput mini-bioreactor evaluations.',
+          'Comprehensive adventitious agent and identity testing.',
+        ],
+        regulatoryImpact: 'Meets US FDA and EMA expectations for early clinical development and RCB documentation.',
+      },
+    },
+    {
+      id: 'blog-upstream-optimization',
+      slug: 'upstream-process-optimization-feed-and-perfusion',
+      category: 'blogs',
+      title: 'Upstream Process Optimization: Feed and Perfusion Strategies',
+      badge: 'Process Development',
+      date: 'October 10, 2023',
+      readTime: '9 min read',
+      author: {
+        name: 'Lambda CDMO Scientific Team',
+        role: 'Upstream Process Engineering',
+        avatar: '/images/lambda-symbol.svg',
+      },
+      image: '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
+      summary: 'How feed design, perfusion configurations, and scale-down models raise titers while protecting product quality.',
+      keyTakeaways: [
+        'Qualified scale-down bioreactor models accurately predicting 2,000L hydrodynamic behavior.',
+        'DOE-driven feeding schedules and nutrient supplementation balancing titer and viability.',
+        'Intensified perfusion evaluations with cell retention devices for challenging molecules.',
+      ],
+      tags: ['Upstream', 'Fed-Batch', 'Perfusion', 'Bioreactor', 'DoE'],
+      detailedContent: {
+        subtitle: 'Balancing Extreme Productivity with Tight CQA Matching Across Scale-Up',
+        abstract: 'Upstream process development is where productivity is won or lost. A robust fed-batch or perfusion process balances titer, cell health, and product quality attributes — all within a design space that survives scale-up.',
+        sections: [
+          {
+            heading: '1. Scale-Down Models That Predict Scale-Up',
+            body: [
+              'We develop processes in qualified scale-down bioreactor systems that mirror the mass transfer and mixing behavior of pilot and GMP vessels.',
+              'This allows meaningful DOE studies on feed composition, feeding schedules, temperature shifts, and pH setpoints before committing manufacturing capacity.',
+            ],
+            callout: {
+              title: 'Predictive Scaling',
+              text: 'Benchtop Ambr and 3L bioreactor designs matched in kLa and P/V to 2000L production trains.',
+              metric: '3L → 2000L',
+            },
+          },
+          {
+            heading: '2. Perfusion and Intensified Processing',
+            body: [
+              'For molecules that benefit from intensified operation, we evaluate perfusion configurations with cell retention devices, mapping bleed rates and media exchange against viability and product quality.',
+              'The outcome is a control strategy documented for technology transfer — not a process that only works in one lab.',
+            ],
+          },
+        ],
+        methodologyHighlights: [
+          'Design of Experiments (DoE) feed screening matrix.',
+          'Inline PAT sensor monitoring for dissolved oxygen and pH.',
+          'Continuous perfusion testing with hollow fiber cell retention filters.',
+        ],
+        regulatoryImpact: 'Provides a robust CMC control strategy aligned with ICH Q8(R2) Quality by Design principles.',
+      },
+    },
+    {
       id: 'blog-1',
       slug: 'optimizing-cho-cell-line-selection',
       category: 'blogs',

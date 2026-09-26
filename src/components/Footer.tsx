@@ -11,8 +11,8 @@ export default function Footer() {
       links: [
         { name: 'About Lambda', href: '/overview/about' },
         { name: 'Leadership', href: '/overview/leadership' },
-        { name: 'Ahmedabad Facility', href: '/overview/facility' },
-        { name: 'London UK Centre', href: '/overview/london' },
+        { name: 'Ahmedabad Facility', href: '/facility&location/India' },
+        { name: 'London UK Centre', href: '/facility&location/UK' },
         { name: 'Virtual Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
         { name: 'Integrated Dev', href: '/overview/integrated' },
         { name: 'Careers', href: '/overview/careers' },
@@ -201,6 +201,9 @@ export default function Footer() {
             </Link>
             <Link href="/insights/blogs" className="text-xs text-neutral-400 hover:text-neutral-900 transition-colors">
               Blog
+            </Link>
+            <Link href="/insights/faqs" className="text-xs text-neutral-400 hover:text-neutral-900 transition-colors">
+              FAQs
             </Link>
             <Link href="/contact" className="text-xs text-neutral-400 hover:text-neutral-900 transition-colors">
               Contact

@@ -82,7 +82,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
                 <Link
-                  href="/overview/facility"
+                  href="/facility&location/India"
                   className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-black/40 text-black hover:bg-black hover:text-white font-medium text-sm uppercase tracking-wider transition-all"
                 >
                   Explore the facility

@@ -1312,17 +1312,17 @@ export default function IntegratedTimeline() {
             positionRef.current = 'below';
             unlockCooldownRef.current = true;
 
-            const nextSection = document.getElementById('an-integrated-partner');
+            const nextSection = document.getElementById('our-cdmo-locations') || document.getElementById('facility-locations-matrix') || document.getElementById('an-integrated-partner');
             if (nextSection) {
               nextSection.scrollIntoView({ behavior: 'smooth' });
             } else {
-              window.scrollTo({ top: targetScrollY + window.innerHeight, behavior: 'smooth' });
+              window.scrollTo({ top: targetScrollY + (containerRef.current?.offsetHeight || window.innerHeight), behavior: 'smooth' });
             }
 
             setTimeout(() => {
               isAnimatingRef.current = false;
               unlockCooldownRef.current = false;
-            }, 1200);
+            }, 1000);
           }
         } else {
           // Scrolling UP
@@ -1407,14 +1407,14 @@ export default function IntegratedTimeline() {
           unlockScroll();
           positionRef.current = 'below';
           unlockCooldownRef.current = true;
-          const nextSection = document.getElementById('an-integrated-partner');
+          const nextSection = document.getElementById('our-cdmo-locations') || document.getElementById('facility-locations-matrix') || document.getElementById('an-integrated-partner');
           if (nextSection) {
             nextSection.scrollIntoView({ behavior: 'smooth' });
           }
           setTimeout(() => {
             isAnimatingRef.current = false;
             unlockCooldownRef.current = false;
-          }, 1200);
+          }, 1000);
         }
       } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
         e.preventDefault();
@@ -1437,7 +1437,7 @@ export default function IntegratedTimeline() {
           setTimeout(() => {
             isAnimatingRef.current = false;
             unlockCooldownRef.current = false;
-          }, 1200);
+          }, 1000);
         }
       }
     };
@@ -1507,16 +1507,16 @@ export default function IntegratedTimeline() {
           unlockScroll();
           positionRef.current = 'below';
           unlockCooldownRef.current = true;
-          const nextSection = document.getElementById('an-integrated-partner');
+          const nextSection = document.getElementById('our-cdmo-locations') || document.getElementById('facility-locations-matrix') || document.getElementById('an-integrated-partner');
           if (nextSection) {
             nextSection.scrollIntoView({ behavior: 'smooth' });
           } else {
-            window.scrollTo({ top: targetScrollY + window.innerHeight, behavior: 'smooth' });
+            window.scrollTo({ top: targetScrollY + (containerRef.current?.offsetHeight || window.innerHeight), behavior: 'smooth' });
           }
           setTimeout(() => {
             isAnimatingRef.current = false;
             unlockCooldownRef.current = false;
-          }, 1200);
+          }, 1000);
         }
       } else {
         if (currentStage > 1) {
@@ -1537,7 +1537,7 @@ export default function IntegratedTimeline() {
           setTimeout(() => {
             isAnimatingRef.current = false;
             unlockCooldownRef.current = false;
-          }, 1200);
+          }, 1000);
         }
       }
     };

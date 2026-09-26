@@ -4,7 +4,35 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { X, ChevronDown } from 'lucide-react';
+import { 
+  X, 
+  ChevronDown, 
+  Building2, 
+  Users, 
+  Factory, 
+  Layers, 
+  ShieldCheck, 
+  Briefcase, 
+  Settings, 
+  Search, 
+  Beaker, 
+  Package, 
+  Microscope, 
+  Scale, 
+  HeartPulse, 
+  Bug, 
+  Target, 
+  GitMerge, 
+  Syringe, 
+  Dna, 
+  BookOpen, 
+  FileText, 
+  FileDown, 
+  Newspaper, 
+  Calendar, 
+  HelpCircle, 
+  LucideIcon 
+} from 'lucide-react';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -45,7 +73,17 @@ interface MobileGroup {
   label: string;
   href?: string;
   isExternal?: boolean;
-  columns?: { title: string; links: { label: string; href: string }[] }[];
+  description?: string;
+  columns?: { 
+    title: string; 
+    links: { 
+      label: string; 
+      href: string; 
+      icon: LucideIcon; 
+      badge?: string; 
+      isExternal?: boolean 
+    }[] 
+  }[];
 }
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
@@ -55,107 +93,106 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const groups: MobileGroup[] = [
     {
       label: 'Overview',
+      description: 'Who we are, our leadership, and our integrated approach.',
       columns: [
         {
           title: 'Company',
           links: [
-            { label: 'About Lambda CDMO', href: '/overview/about' },
-            { label: 'Leadership Team', href: '/overview/leadership' },
+            { label: 'About Lambda CDMO', href: '/overview/about', icon: Building2 },
+            { label: 'Leadership Team', href: '/overview/leadership', icon: Users },
           ],
         },
         {
           title: 'Commitment',
           links: [
-            { label: 'Integrated Development', href: '/overview/integrated' },
-            { label: 'Quality & Regulatory', href: '/overview/quality' },
-            { label: 'Careers', href: '/overview/careers' },
+            { label: 'Integrated Development', href: '/overview/integrated', icon: Layers },
+            { label: 'Quality & Regulatory', href: '/overview/quality', icon: ShieldCheck },
+            { label: 'Careers', href: '/overview/careers', icon: Briefcase },
           ],
         },
       ],
     },
     {
       label: 'Services',
+      description: 'From cell line engineering to GMP manufacturing and QC testing.',
       columns: [
         {
           title: 'Development Services',
           links: [
-            { label: 'Cell Line Development', href: '/services/cell-line' },
-            { label: 'Process Development', href: '/services/process' },
-            { label: 'Analytical Development', href: '/services/analytical' },
+            { label: 'Cell Line Development', href: '/services/cell-line', icon: Dna },
+            { label: 'Process Development', href: '/services/process', icon: Settings },
+            { label: 'Analytical Development', href: '/services/analytical', icon: Search },
           ],
         },
         {
           title: 'Manufacturing Services',
           links: [
-            { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance' },
-            { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product' },
+            { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance', icon: Beaker },
+            { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product', icon: Package },
           ],
         },
         {
           title: 'Analytical Characterization and Testing',
           links: [
-            { label: 'Analytical Testing', href: '/characterization/analytical-testing' },
-            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical' },
-            { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays' },
-            { label: 'Microbiological Testing', href: '/characterization/microbiological' },
+            { label: 'Analytical Testing', href: '/characterization/analytical-testing', icon: Microscope },
+            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Scale },
+            { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays', icon: HeartPulse },
+            { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: Bug },
           ],
         },
       ],
     },
     {
       label: 'Facility & Locations',
+      description: 'Our global biomanufacturing campus and development innovation centers.',
       columns: [
         {
           title: 'CDMO Locations',
           links: [
-            { label: 'Ahmedabad, India', href: '/overview/facility' },
-            { label: 'London, UK', href: '/overview/london' },
-          ],
-        },
-        {
-          title: 'Virtual Experience',
-          links: [
-            { label: 'Virtual Facility Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
+            { label: 'Ahmedabad, India', href: '/facility&location/India', icon: Factory },
+            { label: 'London, UK', href: '/facility&location/UK', icon: Building2 },
           ],
         },
       ],
     },
     {
       label: 'Modalities',
+      description: 'Platform capabilities for diverse biologic molecules.',
       columns: [
         {
           title: 'Molecule Types',
           links: [
-            { label: 'Monoclonal Antibodies', href: '/modalities/mabs' },
-            { label: 'Bispecific Antibodies', href: '/modalities/bispecifics' },
+            { label: 'Monoclonal Antibodies', href: '/modalities/mabs', icon: Target },
+            { label: 'Bispecific Antibodies', href: '/modalities/bispecifics', icon: GitMerge },
           ],
         },
         {
           title: 'Advanced Therapeutics',
           links: [
-            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs' },
-            { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides' },
+            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs', icon: Syringe },
+            { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides', icon: Dna },
           ],
         },
       ],
     },
     {
       label: 'Insights',
+      description: 'Publications, case studies, news, and FAQs.',
       columns: [
         {
           title: 'Knowledge',
           links: [
-            { label: 'Blogs & Articles', href: '/insights/blogs' },
-            { label: 'Case Studies', href: '/insights/case-studies' },
-            { label: 'Brochures', href: '/insights/brochures' },
+            { label: 'Blogs & Articles', href: '/insights/blogs', icon: BookOpen },
+            { label: 'Case Studies', href: '/insights/case-studies', icon: FileText },
+            { label: 'Brochures', href: '/insights/brochures', icon: FileDown },
           ],
         },
         {
           title: 'Media & Support',
           links: [
-            { label: 'News & Press', href: '/insights/news' },
-            { label: 'Events & Webinars', href: '/insights/events' },
-            { label: 'FAQs', href: '/#faqs' },
+            { label: 'News & Press', href: '/insights/news', icon: Newspaper },
+            { label: 'Events & Webinars', href: '/insights/events', icon: Calendar },
+            { label: 'FAQs', href: '/insights/faqs', icon: HelpCircle },
           ],
         },
       ],
@@ -206,7 +243,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         className="py-3 text-[17px] font-light md:font-normal tracking-tight transition-colors flex items-center justify-between text-neutral-900 hover:text-brand-blue"
                       >
                         <span>{group.label}</span>
-                        <span className="px-2 py-0.5 text-xs font-medium rounded-sm bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
+                        <span className="px-2 py-0.5 text-xs font-medium rounded-sm bg-brand-blue/10 text-brand-blue border border-brand-blue/20">
                           360° Tour
                         </span>
                       </a>
@@ -238,7 +275,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   <button
                     onClick={() => toggleGroup(group.label)}
                     className={`w-full py-3 flex items-center justify-between text-[17px] font-light md:font-normal tracking-tight transition-colors cursor-pointer focus:outline-none ${
-                      active ? 'text-brand-blue' : 'text-neutral-900 hover:text-brand-blue'
+                      active ? 'text-brand-blue font-normal' : 'text-neutral-900 hover:text-brand-blue'
                     }`}
                   >
                     <span>{group.label}</span>
@@ -246,7 +283,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       animate={{ rotate: expanded ? 180 : 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <ChevronDown className="w-5 h-5 text-neutral-400" />
+                      <ChevronDown className={`w-5 h-5 transition-colors ${expanded ? 'text-brand-blue' : 'text-neutral-400'}`} />
                     </motion.div>
                   </button>
 
@@ -257,27 +294,49 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25, ease: 'easeInOut' }}
-                        className="overflow-hidden mt-2"
+                        className="overflow-hidden mt-1 pb-3"
                       >
-                        <div className={`grid gap-6 pb-4 ${group.columns && group.columns.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                        {group.description && (
+                          <div className="mb-4 pb-2.5 border-b border-neutral-100">
+                            <span className="text-brand-orange text-[11px] font-semibold uppercase tracking-wider block">
+                              {group.label}
+                            </span>
+                            <p className="text-[13px] text-slate-500 font-normal leading-relaxed mt-0.5">
+                              {group.description}
+                            </p>
+                          </div>
+                        )}
+
+                        <div className={`grid gap-5 ${group.columns && group.columns.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
                           {group.columns?.map((column) => (
-                            <div key={column.title}>
-                              <h4 className="text-[11px] font-semibold text-neutral-900 uppercase tracking-wider mb-2">
+                            <div key={column.title} className="space-y-2">
+                              <h4 className="text-[11px] font-semibold text-neutral-900 uppercase tracking-wider">
                                 {column.title}
                               </h4>
-                              <ul className="space-y-1.5">
+                              <ul className="space-y-2">
                                 {column.links.map((link) => {
                                   const linkActive = pathname === link.href;
+                                  const LinkIcon = link.icon;
                                   return (
                                     <li key={link.href}>
                                       <Link
                                         href={link.href}
                                         onClick={onClose}
-                                        className={`block text-[15px] font-light md:font-normal tracking-tight transition-colors ${
-                                          linkActive ? 'text-brand-blue font-normal' : 'text-neutral-700 hover:text-brand-blue'
+                                        className={`flex items-center justify-between py-1.5 text-[14.5px] font-light md:font-normal tracking-tight transition-colors ${
+                                          linkActive 
+                                            ? 'text-brand-blue font-normal' 
+                                            : 'text-neutral-700 hover:text-brand-blue'
                                         }`}
                                       >
-                                        {link.label}
+                                        <div className="flex items-center gap-2.5">
+                                          <LinkIcon className="w-4 h-4 text-brand-blue shrink-0" />
+                                          <span>{link.label}</span>
+                                        </div>
+                                        {link.badge && (
+                                          <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100/80 text-brand-blue">
+                                            {link.badge}
+                                          </span>
+                                        )}
                                       </Link>
                                     </li>
                                   );

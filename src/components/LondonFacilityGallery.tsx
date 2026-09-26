@@ -5,34 +5,54 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 
-const equipment = [
+const ukEquipment = [
   {
-    name: 'ÄKTA Process (Cytiva)',
-    image: '/images/Akta%20Process%20(Cytiva).jpeg',
+    image: '/images/uk/Screenshot%202026-09-26%20173649.png',
+    alt: 'London Facility Equipment 1',
   },
   {
-    name: 'Batch Centrifuge',
-    image: '/images/Batch_Centrifuge.jpeg',
+    image: '/images/uk/Screenshot%202026-09-26%20173413.png',
+    alt: 'London Facility Equipment 2',
   },
   {
-    name: 'ChromXact Chromatography Column',
-    image: '/images/ChromXact_Chromatography_Column.jpeg',
+    image: '/images/uk/Screenshot%202026-09-26%20173425.png',
+    alt: 'London Facility Equipment 3',
   },
   {
-    name: 'Spray Dryer',
-    image: '/images/Spray_Dryer.jpeg',
+    image: '/images/uk/Screenshot%202026-09-26%20173433.png',
+    alt: 'London Facility Equipment 4',
   },
   {
-    name: '2×7 Litres Fermenters',
-    image: '/images/2X7_Litres_Fermenters.jpeg',
+    image: '/images/uk/Screenshot%202026-09-26%20173453.png',
+    alt: 'London Facility Equipment 5',
+  },
+  {
+    image: '/images/uk/Screenshot%202026-09-26%20173506.png',
+    alt: 'London Facility Equipment 6',
+  },
+  {
+    image: '/images/uk/Screenshot%202026-09-26%20173524.png',
+    alt: 'London Facility Equipment 7',
+  },
+  {
+    image: '/images/uk/Screenshot%202026-09-26%20173552.png',
+    alt: 'London Facility Equipment 8',
+  },
+  {
+    image: '/images/uk/Screenshot%202026-09-26%20173605.png',
+    alt: 'London Facility Equipment 9',
+  },
+  {
+    image: '/images/uk/Screenshot%202026-09-26%20173622.png',
+    alt: 'London Facility Equipment 10',
   },
 ];
 
 /**
- * Expanding equipment gallery for Ahmedabad Campus —
- * five vertical strips that expand on hover, with clean floating image popup on click.
+ * Expanding equipment gallery for London Innovation Centre —
+ * renders clean image cards that expand on hover, with clean floating image popup on click.
  */
-export default function FacilityGallery() {
+export default function LondonFacilityGallery() {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
 
   const closeModal = useCallback(() => {
@@ -40,11 +60,11 @@ export default function FacilityGallery() {
   }, []);
 
   const nextImage = useCallback(() => {
-    setSelectedIdx((prev) => (prev !== null ? (prev + 1) % equipment.length : null));
+    setSelectedIdx((prev) => (prev !== null ? (prev + 1) % ukEquipment.length : null));
   }, []);
 
   const prevImage = useCallback(() => {
-    setSelectedIdx((prev) => (prev !== null ? (prev - 1 + equipment.length) % equipment.length : null));
+    setSelectedIdx((prev) => (prev !== null ? (prev - 1 + ukEquipment.length) % ukEquipment.length : null));
   }, []);
 
   // Keyboard controls & body scroll lock
@@ -68,31 +88,32 @@ export default function FacilityGallery() {
   }, [selectedIdx, closeModal, nextImage, prevImage]);
 
   return (
-    <section className="px-6 py-12 md:py-20">
-      <div className="w-full">
+    <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/50 border-b border-neutral-100">
+      <div className="w-full max-w-[1700px] mx-auto">
         <Reveal>
           <div className="mb-10 md:mb-14">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
               Inside the Facility
             </h2>
-            <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mt-4">
-              Purpose-built process and analytical equipment supporting development through GMP manufacturing.
+            <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mt-4">
+              Purpose-built process development and analytical characterization equipment supporting programs in London, UK.
             </p>
           </div>
         </Reveal>
 
+        {/* Row 1: First 5 images in expanding accordion strip */}
         <Reveal delay={0.1}>
-          <div className="flex flex-col md:flex-row gap-4 md:h-[440px]">
-            {equipment.map((item, idx) => (
+          <div className="flex flex-col md:flex-row gap-3.5 md:h-[400px] mb-4">
+            {ukEquipment.slice(0, 5).map((item, idx) => (
               <div
-                key={item.name}
+                key={idx}
                 onClick={() => setSelectedIdx(idx)}
-                className="group relative h-72 md:h-full flex-1 md:hover:flex-[2.75] transition-all duration-500 ease-out rounded-[10px] overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl bg-neutral-900 select-none"
+                className="group relative h-64 md:h-full flex-1 md:hover:flex-[2.5] transition-all duration-500 ease-out rounded-[10px] overflow-hidden cursor-pointer shadow-xs hover:shadow-2xl border border-neutral-200/80 bg-neutral-900 select-none"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={item.image}
-                  alt={item.name}
+                  alt={item.alt}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   style={{
                     filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)',
@@ -101,12 +122,34 @@ export default function FacilityGallery() {
                 {/* Cold Bluish Scientific Color Grade Wash */}
                 <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-brand-navy/15 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/75 via-brand-navy/10 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+        </Reveal>
 
-                {/* Label */}
-                <span className="absolute bottom-4 left-4 right-4 text-white font-semibold text-sm md:text-base leading-snug drop-shadow-md">
-                  {item.name}
-                </span>
+        {/* Row 2: Next 5 images in expanding accordion strip */}
+        <Reveal delay={0.15}>
+          <div className="flex flex-col md:flex-row gap-3.5 md:h-[400px]">
+            {ukEquipment.slice(5, 10).map((item, idx) => (
+              <div
+                key={idx + 5}
+                onClick={() => setSelectedIdx(idx + 5)}
+                className="group relative h-64 md:h-full flex-1 md:hover:flex-[2.5] transition-all duration-500 ease-out rounded-[10px] overflow-hidden cursor-pointer shadow-xs hover:shadow-2xl border border-neutral-200/80 bg-neutral-900 select-none"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.image}
+                  alt={item.alt}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  style={{
+                    filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)',
+                  }}
+                />
+                {/* Cold Bluish Scientific Color Grade Wash */}
+                <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/75 via-brand-navy/10 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             ))}
           </div>
@@ -169,16 +212,13 @@ export default function FacilityGallery() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={equipment[selectedIdx].image}
-                alt={equipment[selectedIdx].name}
-                className="max-h-[84vh] max-w-[88vw] w-auto h-auto object-contain rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10"
+                src={ukEquipment[selectedIdx].image}
+                alt={ukEquipment[selectedIdx].alt}
+                className="max-h-[85vh] max-w-[88vw] w-auto h-auto object-contain rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10"
                 style={{
                   filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)',
                 }}
               />
-              <div className="mt-3 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white text-xs sm:text-sm font-medium tracking-wide shadow-md">
-                {equipment[selectedIdx].name}
-              </div>
             </motion.div>
           </motion.div>
         )}

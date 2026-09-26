@@ -24,8 +24,13 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const { category, slug } = await params;
-  const page = cdmoData.find((p) => p.category === category && p.slug === slug);
+  const { category: rawCategory, slug: rawSlug } = await params;
+  const category = decodeURIComponent(rawCategory);
+  const slug = decodeURIComponent(rawSlug);
+  const page = cdmoData.find((p) => 
+    (p.category.toLowerCase() === category.toLowerCase() || p.category === category) && 
+    (p.slug.toLowerCase() === slug.toLowerCase() || p.slug === slug)
+  );
 
   if (!page) {
     return {
@@ -74,13 +79,23 @@ function getDynamicContent(
       ];
       return imgs[idx % imgs.length];
     }
-    if (cat === 'overview' && pageSlug === 'facility') {
+    if ((cat === 'overview' || cat === 'facility&location') && (pageSlug === 'facility' || pageSlug === 'India' || pageSlug.toLowerCase() === 'india')) {
       const imgs = [
         '/images/CDMOblue.png',
+        '/images/celldev.png',
         '/images/equipment1.png',
+        '/images/cgmp2.png',
         '/images/equipment2.png',
         '/images/equipment3.png',
         '/images/cGMP.png',
+      ];
+      return imgs[idx % imgs.length];
+    }
+    if ((cat === 'overview' || cat === 'facility&location') && (pageSlug === 'london' || pageSlug === 'UK' || pageSlug.toLowerCase() === 'uk')) {
+      const imgs = [
+        '/images/Lab.jpg',
+        '/images/development.jpg',
+        '/images/default_scientist.jpg',
       ];
       return imgs[idx % imgs.length];
     }
@@ -351,17 +366,22 @@ function getDynamicContent(
 }
 
 export default async function CDMODynamicPage({ params }: PageProps) {
-  const { category, slug } = await params;
+  const { category: rawCategory, slug: rawSlug } = await params;
+  const category = decodeURIComponent(rawCategory);
+  const slug = decodeURIComponent(rawSlug);
 
-  const page = cdmoData.find((p) => p.category === category && p.slug === slug);
+  const page = cdmoData.find((p) => 
+    (p.category.toLowerCase() === category.toLowerCase() || p.category === category) && 
+    (p.slug.toLowerCase() === slug.toLowerCase() || p.slug === slug)
+  );
 
   if (!page) {
     notFound();
   }
 
   const content = getDynamicContent(
-    category,
-    slug,
+    page.category,
+    page.slug,
     page.title,
     page.sections || [],
     page.stats || [],
@@ -369,7 +389,8 @@ export default async function CDMODynamicPage({ params }: PageProps) {
   ) as PageContent;
 
   const LayoutComponent = (() => {
-    switch (category) {
+    switch (page.category) {
+      case 'facility&location':
       case 'overview':
         return OverviewLayout;
       case 'services':

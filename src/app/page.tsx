@@ -11,6 +11,7 @@ import IntegratedTimeline from '@/components/IntegratedTimeline';
 import { articles } from '@/data/articles';
 import { faqs } from '@/data/faqs';
 import FAQSection from '@/components/FAQSection';
+import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import { getStepIcon } from '@/lib/stepIcon';
 
 export default function Home() {
@@ -109,6 +110,12 @@ export default function Home() {
       {/* INTEGRATED BIOLOGICS DEVELOPMENT, MANUFACTURING AND CLINICAL SUPPORT TIMELINE */}
       <IntegratedTimeline />
 
+      {/* GLOBAL CDMO CAPABILITIES ACROSS INDIA AND EUROPE - INTERACTIVE MAP */}
+      <CDMOLocationsMapSection
+        title="Global CDMO Capabilities Across India and Europe"
+        subtitle={null}
+      />
+
       {/* AN INTEGRATED PARTNER */}
       <section id="an-integrated-partner" className="scroll-mt-20 lg:scroll-mt-24 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-molecules">
         <div className="w-full max-w-[1700px] mx-auto">
@@ -146,7 +153,7 @@ export default function Home() {
                     <div className="p-6 md:p-7 flex flex-col flex-1">
                       <div className="min-h-[130px] md:min-h-[140px] mb-5">
                         <div className="flex items-start gap-3 mb-2.5">
-                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-brand-orange/10 border border-brand-orange/25 flex items-center justify-center shrink-0 text-brand-orange group-hover:bg-brand-orange group-hover:text-white group-hover:border-brand-orange group-hover:shadow-md group-hover:shadow-brand-orange/20 transition-all duration-300 shadow-xs mt-0.5">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs mt-0.5">
                             <CardIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                           </div>
                           <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
@@ -172,7 +179,7 @@ export default function Home() {
                                 </div>
                                 <span className="truncate group-hover/link:text-brand-blue transition-colors">{item.name}</span>
                               </div>
-                              <ArrowRight className="w-4 h-4 flex-shrink-0 text-brand-yellow group-hover/link:text-brand-blue group-hover/link:translate-x-1 transition-all" />
+                              <ArrowRight className="w-4 h-4 flex-shrink-0 text-brand-blue group-hover/link:text-brand-blue-hover group-hover/link:translate-x-1 transition-all" />
                             </Link>
                           </li>
                         );
@@ -269,58 +276,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PURPOSE-BUILT FACILITY */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 w-full">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <article className="group relative glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-neutral-100">
-                  <img
-                    src="/images/development.jpg"
-                    alt="Lambda CDMO facility in Ahmedabad"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-8 md:p-12 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-5">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow">
-                      Purpose-Built Facility
-                    </span>
-                    <span className="h-px flex-1 bg-neutral-200" />
-                    <Building2 className="w-4 h-4 text-brand-blue" />
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-5 group-hover:text-brand-blue transition-colors">
-                    Purpose-built facility for biologics development and manufacturing
-                  </h3>
-                  <p className="text-[17px] text-slate-500 font-normal leading-relaxed mb-8">
-                    Our approximately 27,000 sqft biologics development and manufacturing facility integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
-                  </p>
-                  <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
-                      <div className="text-2xl font-semibold text-brand-blue">27k</div>
-                      <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Sqft Campus</div>
-                    </div>
-                    <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-[10px]">
-                      <div className="text-2xl font-semibold text-brand-blue">GMP</div>
-                      <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Manufacturing Suites</div>
-                    </div>
-                  </div>
-                  <Link href="/overview/facility" className="flex items-center gap-2 text-sm font-semibold text-brand-blue">
-                    <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
-                    Explore our Facility
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
-            </article>
-          </Reveal>
-        </div>
-      </section>
-
-
-
       {/* FEATURED INSIGHTS */}
       <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100 overflow-hidden">
         <div className="relative w-full max-w-[1700px] mx-auto">
@@ -356,7 +311,7 @@ export default function Home() {
               whileHover={{ y: -6 }}
               className="h-full"
             >
-              <Link href="/insights/blogs" className="group relative flex flex-col h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-300">
+              <Link href={`/insights/blogs/${articles[0].slug}`} className="group relative flex flex-col h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-300">
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
                 <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
                   <img
@@ -393,7 +348,7 @@ export default function Home() {
                   whileHover={{ y: -6 }}
                   className="flex-1"
                 >
-                  <Link href="/insights/blogs" className="group relative flex h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-300">
+                  <Link href={`/insights/blogs/${article.slug}`} className="group relative flex h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-300">
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
                     <div className="relative w-2/5 overflow-hidden bg-neutral-100">
                       <img

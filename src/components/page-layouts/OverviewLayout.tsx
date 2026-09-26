@@ -34,14 +34,22 @@ import {
   User,
   MapPin,
   ExternalLink,
-  CheckCircle2
+  CheckCircle2,
+  Target,
+  GitMerge,
+  Syringe
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FacilityGallery from '@/components/FacilityGallery';
+import LondonFacilityGallery from '@/components/LondonFacilityGallery';
 import FAQSection from '@/components/FAQSection';
 import DnaScrollBackground from '@/components/DnaScrollBackground';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import FacilityHeroCarousel from '@/components/FacilityHeroCarousel';
+import LondonHeroCarousel from '@/components/LondonHeroCarousel';
+import FacilityDrugProductSection from '@/components/FacilityDrugProductSection';
+import FacilityAnalyticalSection from '@/components/FacilityAnalyticalSection';
+import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -109,24 +117,25 @@ function getOverviewCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
 
   // 1. Specific Scientific & Laboratory Modalities
-  if (lower.includes('cell line') || lower.includes('clone') || lower.includes('gene construct') || lower.includes('expression system')) return Dna;
+  if (lower.includes('europe') || lower.includes('india') || lower.includes('across india')) return Globe;
+  if (lower.includes('novum') || lower.includes('bioanalytical') || lower.includes('partner') || lower.includes('one roof')) return Users;
+  if (lower.includes('cell line') || lower.includes('clone') || lower.includes('gene construct') || lower.includes('expression system') || lower.includes('molecule-specific')) return Dna;
   if (lower.includes('microbiolog') || lower.includes('endotoxin') || lower.includes('bioburden') || lower.includes('sterility') || lower.includes('mycoplasma')) return Bug;
   if (lower.includes('bioassay') || lower.includes('immunogen') || lower.includes('potency') || lower.includes('cell-based') || lower.includes('adcc')) return Activity;
-  if (lower.includes('upstream and downstream') || lower.includes('process development') || lower.includes('workflow')) return Workflow;
-  if (lower.includes('analytical development') || lower.includes('physicochemical') || lower.includes('characterization') || lower.includes('lc-ms') || lower.includes('sec-hplc')) return Microscope;
+  if (lower.includes('integrated biologics') || lower.includes('upstream and downstream') || lower.includes('process development') || lower.includes('workflow')) return Workflow;
+  if (lower.includes('analytical development') || lower.includes('physicochemical') || lower.includes('characterization') || lower.includes('lc-ms') || lower.includes('sec-hplc') || lower.includes('comparability')) return Microscope;
   
   // 2. Drug Substance vs Drug Product Manufacturing
   if (lower.includes('drug product') || lower.includes('fill-finish') || lower.includes('vials') || lower.includes('pfs') || lower.includes('cartridges') || lower.includes('filling line')) return PackageCheck;
-  if (lower.includes('drug substance') || lower.includes('upstream production suites') || lower.includes('200l') || lower.includes('bioreactor capacity') || lower.includes('clinical gmp')) return Factory;
+  if (lower.includes('drug substance') || lower.includes('upstream production suites') || lower.includes('200l') || lower.includes('bioreactor capacity') || lower.includes('clinical gmp') || lower.includes('gmp manufacturing') || lower.includes('clinical supply')) return Factory;
 
   // 3. Quality & Batch Release & Compliance
   if (lower.includes('batch release') || lower.includes('quality control') || lower.includes('qc batch') || lower.includes('coa release')) return ClipboardCheck;
   if (lower.includes('data integrity') || lower.includes('ip protection') || lower.includes('21 cfr')) return Lock;
-  if (lower.includes('product quality') || lower.includes('quality framework') || lower.includes('integrated qms') || lower.includes('audit')) return ShieldCheck;
-  if (lower.includes('continuous improvement') || lower.includes('advancement')) return TrendingUp;
+  if (lower.includes('product quality') || lower.includes('quality framework') || lower.includes('integrated qms') || lower.includes('audit') || lower.includes('compliance systems') || lower.includes('quality and compliance')) return ShieldCheck;
+  if (lower.includes('continuous improvement') || lower.includes('advancement') || lower.includes('robustness') || lower.includes('manufacturability')) return TrendingUp;
   if (lower.includes('transparent') || lower.includes('project management') || lower.includes('governance')) return FileCheck;
   if (lower.includes('scientific excellence') || lower.includes('peer-reviewed') || lower.includes('awards')) return Award;
-  if (lower.includes('flexible collaboration') || lower.includes('partner') || lower.includes('one roof')) return Users;
 
   // 4. Equipment & Facility Specifics
   if (lower.includes('ambr') || lower.includes('media/feed')) return FlaskConical;
@@ -178,9 +187,26 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
   const flip = slugIndex % 2 === 1;
   const heroImage = page.image || '/images/hero_cleanroom.png';
 
+  const facilitySpecialTitles = [
+    'Drug Product Development & Manufacturing',
+    'Analytical Development & Characterization',
+  ];
+
   const narrativeSections = content.sections.filter(
-    (sec) => !(page.slug === 'about' && sec.title === 'The Lambda Advantage')
+    (sec) =>
+      !(page.slug === 'about' && (sec.title === 'The Lambda Advantage' || sec.title === "Developing Tomorrow's Biologics")) &&
+      !((page.slug === 'facility' || page.slug === 'India') && facilitySpecialTitles.includes(sec.title))
   );
+
+  const drugProductSection = (page.slug === 'facility' || page.slug === 'India')
+    ? (content.sections.find((s) => s.title === 'Drug Product Development & Manufacturing') ||
+       page.sections.find((s) => s.title === 'Drug Product Development & Manufacturing'))
+    : null;
+
+  const analyticalSection = (page.slug === 'facility' || page.slug === 'India')
+    ? (content.sections.find((s) => s.title === 'Analytical Development & Characterization') ||
+       page.sections.find((s) => s.title === 'Analytical Development & Characterization'))
+    : null;
 
   const narrative = (
     <>
@@ -225,7 +251,9 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         }
 
         // Editorial alternating image + text row
-        const imageRight = (idx % 2 === 1) !== flip;
+        const imageRight = (section as any).imageSide
+          ? (section as any).imageSide === 'right'
+          : (idx % 2 === 1) !== flip;
         const isDiagram = Boolean(
           section.image &&
             (section.image.endsWith('.png') ||
@@ -233,6 +261,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               section.image.includes('cGMP') ||
               section.image.includes('equipment') ||
               section.image.includes('CDMOblue') ||
+              section.image.includes('celldev') ||
+              section.image.includes('cgmp2') ||
               section.image.includes('Akta') ||
               section.image.includes('ChromXact') ||
               section.image.includes('Fermenters') ||
@@ -290,9 +320,76 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         {section.title}
                       </h3>
                       <div className="h-1 w-12 bg-brand-blue rounded-full mb-5" />
-                      <p className="text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
-                        {section.text}
-                      </p>
+                      <div className="space-y-3.5 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
+                        {section.text.split('\n\n').map((para, pIdx) => (
+                          <p key={pIdx}>{para}</p>
+                        ))}
+                      </div>
+                      {section.bullets && section.bullets.length > 0 && (
+                        <div className="mt-6 pt-5 border-t border-neutral-200/70">
+                          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3.5">
+                            {(section as any).bulletsTitle || 'Key capabilities include:'}
+                          </span>
+                          <ul className="space-y-2.5">
+                            {section.bullets.map((bullet, bIdx) => (
+                              <li key={bIdx} className="flex items-start gap-2.5">
+                                <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                </div>
+                                <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                  {bullet}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {section.earlyStageBullets && section.lateStageBullets && (
+                        <div className="mt-6 pt-5 border-t border-neutral-200/70 space-y-6">
+                          <div>
+                            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                              Early-Stage Development
+                            </span>
+                            <ul className="space-y-2.5">
+                              {section.earlyStageBullets.map((bullet, bIdx) => (
+                                <li key={bIdx} className="flex items-start gap-2.5">
+                                  <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                  </div>
+                                  <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                    {bullet}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div>
+                            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                              Late-Stage Development
+                            </span>
+                            <ul className="space-y-2.5">
+                              {section.lateStageBullets.map((bullet, bIdx) => (
+                                <li key={bIdx} className="flex items-start gap-2.5">
+                                  <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                  </div>
+                                  <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                    {bullet}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      )}
+
+                      {(section as any).footerText && (
+                        <p className="mt-5 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
+                          {(section as any).footerText}
+                        </p>
+                      )}
                       {page.slug === 'careers' && (
                         <div className="mt-7">
                           <a
@@ -311,7 +408,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 </div>
               </div>
             </section>
-            {page.slug === 'facility' && idx === 0 && <FacilityGallery />}
+            {(page.slug === 'facility' || page.slug === 'India') && idx === 0 && <FacilityGallery />}
+            {(page.slug === 'UK' || page.slug === 'london') && idx === 0 && <LondonFacilityGallery />}
           </div>
         );
       })}
@@ -331,7 +429,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-neutral-500 mb-8">
             <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-neutral-500">{page.category}</span>
+            <span className="text-neutral-500">{page.category === 'facility&location' ? 'Facility & Location' : page.category}</span>
             <span>/</span>
             <span className="text-brand-yellow">{page.slug}</span>
           </div>
@@ -347,15 +445,19 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <span className="text-neutral-900">{page.heading.split(' ')[0]}</span>
                 {` ${page.heading.split(' ').slice(1).join(' ')}`}
               </h1>
-              <p className="text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl">
-                {page.description}
-              </p>
+              <div className="space-y-4 text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl">
+                {page.description.split('\n\n').map((para, pIdx) => (
+                  <p key={pIdx}>{para}</p>
+                ))}
+              </div>
             </div>
             <Reveal delay={0.1}>
               {page.slug === 'about' ? (
                 <AboutHeroCarousel />
-              ) : page.slug === 'facility' ? (
+              ) : (page.slug === 'facility' || page.slug === 'India') ? (
                 <FacilityHeroCarousel />
+              ) : (page.slug === 'UK' || page.slug === 'london') ? (
+                <LondonHeroCarousel />
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
@@ -370,189 +472,70 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         </div>
       </section>
 
-      {/* GLOBAL REACH & CDMO LOCATIONS (ABOUT PAGE) */}
+      {/* GLOBAL REACH & CDMO LOCATIONS MATRIX (ABOUT, FACILITY, LONDON) */}
       {page.slug === 'about' && (
-        <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-14 md:py-20 bg-white border-b border-neutral-100 overflow-hidden">
-          <div className="w-full max-w-[1700px] mx-auto">
-            {/* Top Overview Intro Block */}
-            <div className="max-w-4xl mx-auto text-center mb-12 md:mb-16">
-              <Reveal>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-semibold uppercase tracking-wider mb-6">
-                  <Globe className="w-4 h-4" />
-                  <span>Global Capabilities • India & Europe</span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-6">
-                  Integrated Biologics Development & <span className="font-semibold text-brand-blue">Global Capabilities</span>
-                </h2>
-                <p className="text-[17px] md:text-[19px] text-neutral-800 font-normal leading-relaxed mb-6">
-                  With capabilities across <strong className="font-semibold text-neutral-900">India and Europe</strong>, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.
-                </p>
-                <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed mb-6">
-                  Backed by a combined legacy of more than 75 years from{' '}
-                  <a
-                    href="https://www.lambda-cro.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-brand-blue hover:text-brand-blue-hover underline decoration-brand-blue/40 hover:decoration-brand-blue transition-colors inline-flex items-center gap-1"
-                  >
-                    Lambda Therapeutic Research
-                    <ExternalLink className="w-3.5 h-3.5 inline" />
-                  </a>{' '}
-                  and{' '}
-                  <a
-                    href="https://www.novumprs.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-brand-blue hover:text-brand-blue-hover underline decoration-brand-blue/40 hover:decoration-brand-blue transition-colors inline-flex items-center gap-1"
-                  >
-                    Novum Pharmaceutical Research Services
-                    <ExternalLink className="w-3.5 h-3.5 inline" />
-                  </a>
-                  , Lambda CDMO brings together scientific, analytical, quality, and manufacturing capabilities within an integrated framework.
-                </p>
-                <p className="text-[15px] sm:text-[16px] text-slate-500 font-normal leading-relaxed">
-                  From <strong className="font-medium text-neutral-800">monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides</strong>, our multidisciplinary teams work closely with sponsors to support process development, analytical characterization, technology transfer, and clinical supply.
-                </p>
-              </Reveal>
-            </div>
-
-            {/* Our CDMO Locations Grid */}
-            <div className="mb-12">
-              <Reveal delay={0.1}>
-                <div className="flex items-center justify-between mb-8 pb-3 border-b border-neutral-200">
-                  <div className="flex items-center gap-2.5">
-                    <MapPin className="w-5 h-5 text-brand-orange" />
-                    <h3 className="text-xl sm:text-2xl font-semibold text-neutral-900 tracking-tight">
-                      Our CDMO Locations
-                    </h3>
-                  </div>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400 hidden sm:inline">
-                    Dual-Continent Infrastructure
-                  </span>
-                </div>
-              </Reveal>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                {/* Location 1: Ahmedabad, India */}
-                <Reveal delay={0.15}>
-                  <div className="h-full glass-card rounded-[14px] p-7 sm:p-9 shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200/80 flex flex-col justify-between group">
-                    <div>
-                      <div className="flex items-start justify-between gap-4 mb-5">
-                        <div className="flex items-center gap-3.5">
-                          <div className="w-12 h-12 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                            <Factory className="w-6 h-6" />
-                          </div>
-                          <div>
-                            <span className="text-xs font-bold uppercase tracking-wider text-brand-orange">
-                              Primary Biomanufacturing Campus
-                            </span>
-                            <h4 className="text-2xl font-bold text-neutral-900 group-hover:text-brand-blue transition-colors">
-                              Ahmedabad, India
-                            </h4>
-                          </div>
-                        </div>
-                        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200 shrink-0">
-                          Asia-Pacific HQ
-                        </span>
-                      </div>
-
-                      <p className="text-[15px] sm:text-[16px] text-neutral-700 leading-relaxed mb-6 font-medium">
-                        Integrated development, analytical and GMP manufacturing capabilities.
-                      </p>
-
-                      <ul className="space-y-3 pt-4 border-t border-neutral-100">
-                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
-                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0 mt-0.5" />
-                          <span>Gene-to-clinic biologics development & characterization</span>
-                        </li>
-                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
-                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0 mt-0.5" />
-                          <span>27,000 sqft purpose-built facility with Grade A/B/C cleanroom suites</span>
-                        </li>
-                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
-                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0 mt-0.5" />
-                          <span>Single-use bioreactor suites & robotic isolator fill-finish</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500 font-medium">
-                      <span>GMP Manufacturing Suites</span>
-                      <span>Analytical Sciences Labs</span>
-                    </div>
+        <>
+          <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
+            <div className="w-full max-w-[1700px] mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <Reveal>
+                  <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm">
+                    <img
+                      src="/images/cdn/unsplash-1582719471384-894fbb16e074.jpg"
+                      alt="Developing Tomorrow's Biologics"
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    />
                   </div>
                 </Reveal>
-
-                {/* Location 2: London, UK */}
-                <Reveal delay={0.2}>
-                  <div className="h-full glass-card rounded-[14px] p-7 sm:p-9 shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200/80 flex flex-col justify-between group">
-                    <div>
-                      <div className="flex items-start justify-between gap-4 mb-5">
-                        <div className="flex items-center gap-3.5">
-                          <div className="w-12 h-12 rounded-[10px] bg-brand-orange/10 border border-brand-orange/25 flex items-center justify-center text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors">
-                            <Microscope className="w-6 h-6" />
-                          </div>
-                          <div>
-                            <span className="text-xs font-bold uppercase tracking-wider text-brand-blue">
-                              European Innovation Centre
-                            </span>
-                            <h4 className="text-2xl font-bold text-neutral-900 group-hover:text-brand-blue transition-colors">
-                              London, UK
-                            </h4>
-                          </div>
-                        </div>
-                        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200 shrink-0">
-                          European Hub
-                        </span>
-                      </div>
-
-                      <p className="text-[15px] sm:text-[16px] text-neutral-700 leading-relaxed mb-6 font-medium">
-                        Biologics development capabilities focused on upstream and downstream process development, analytical development, biosimilar development and process characterization.
+                <Reveal delay={0.1}>
+                  <div>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-5">
+                      Developing Tomorrow&apos;s Biologics
+                    </h2>
+                    <div className="h-1 w-12 bg-brand-blue rounded-full mb-6" />
+                    
+                    <div className="space-y-4 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed font-normal">
+                      <p>
+                        With capabilities across <strong className="text-neutral-900 font-semibold">India and Europe</strong>, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.
                       </p>
-
-                      <ul className="space-y-3 pt-4 border-t border-neutral-100">
-                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
-                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-orange shrink-0 mt-0.5" />
-                          <span>Upstream & downstream process development and optimization</span>
-                        </li>
-                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
-                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-orange shrink-0 mt-0.5" />
-                          <span>Advanced analytical method development & characterization</span>
-                        </li>
-                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
-                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-orange shrink-0 mt-0.5" />
-                          <span>Biosimilar comparability & comprehensive process characterization</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500 font-medium">
-                      <span>Process Characterization</span>
-                      <span>Biosimilar Development</span>
+                      <p>
+                        Backed by a combined legacy of more than 75 years from{' '}
+                        <a
+                          href="https://www.lambda-cro.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
+                        >
+                          <span>Lambda Therapeutic Research</span>
+                          <ExternalLink className="w-3.5 h-3.5 inline-block" />
+                        </a>{' '}
+                        and{' '}
+                        <a
+                          href="https://www.novumprs.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
+                        >
+                          <span>Novum Pharmaceutical Research Services</span>
+                          <ExternalLink className="w-3.5 h-3.5 inline-block" />
+                        </a>
+                        , Lambda CDMO brings together scientific, analytical, quality, and manufacturing capabilities within an integrated framework.
+                      </p>
+                      <p>
+                        From monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides, our multidisciplinary teams work closely with sponsors to support process development, analytical characterization, technology transfer, and clinical supply.
+                      </p>
                     </div>
                   </div>
                 </Reveal>
               </div>
             </div>
-
-            {/* CTA Button Link to Facility & Capabilities Page */}
-            <Reveal delay={0.25}>
-              <div className="text-center pt-4">
-                <Link
-                  href="/overview/facility"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-[10px] bg-brand-blue hover:bg-brand-blue-hover text-white font-semibold text-sm sm:text-base uppercase tracking-wider shadow-md hover:shadow-xl active:scale-95 transition-all group cursor-pointer"
-                >
-                  <span>Explore Our Facilities & Capabilities</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-        </section>
+          </section>
+          <CDMOLocationsMapSection />
+        </>
       )}
 
       {/* CAPABILITIES / THE LAMBDA ADVANTAGE SECTION */}
-      {page.capabilities && page.capabilities.length > 0 && page.slug !== 'facility' && (
+      {page.capabilities && page.capabilities.length > 0 && page.slug !== 'facility' && page.slug !== 'India' && page.slug !== 'london' && page.slug !== 'UK' && (
         <section className={`relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${page.slug === 'about' ? 'bg-molecules' : 'bg-neutral-50/60'} border-b border-neutral-100 overflow-hidden`}>
           {page.slug === 'about' && <DnaScrollBackground />}
           <div className="relative z-10 w-full max-w-[1700px] mx-auto">
@@ -560,17 +543,26 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               <div className="text-center mb-10 md:mb-14">
                 {page.slug === 'about' ? (
                   <div className="max-w-4xl mx-auto">
-                    <div className="w-14 h-14 mx-auto mb-8 rounded-[10px] bg-brand-yellow flex items-center justify-center">
+                    <div className="w-14 h-14 mx-auto mb-8 rounded-[10px] bg-brand-yellow flex items-center justify-center shadow-xs">
                       <Quote className="w-7 h-7 text-black" />
                     </div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-6">
                       <span className="text-neutral-900">The Lambda</span> Advantage
                     </h2>
-                    <p className="text-[17px] md:text-[19px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto">
-                      {page.sections?.find((s) => s.title === 'The Lambda Advantage')?.text ||
-                        'Every biologic program presents unique scientific, manufacturing, and regulatory challenges. Our role is to provide integrated expertise across development and manufacturing while maintaining the flexibility needed to support evolving program requirements. Our approach combines scientific knowledge, scalable manufacturing, and quality systems designed to support global regulatory expectations.'}
-                    </p>
-                    <div className="mt-8 h-1 w-16 mx-auto bg-brand-yellow rounded-full" />
+                    <div className="space-y-4 max-w-3xl mx-auto text-[17px] md:text-[19px] text-slate-600 font-normal leading-relaxed text-center">
+                      <p>
+                        Every biologic program has its own scientific, process, manufacturing, and regulatory requirements. Lambda CDMO brings together integrated development, analytical, manufacturing, and quality capabilities to support programs from early development through clinical supply.
+                      </p>
+                      <p>
+                        Our approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.
+                      </p>
+                    </div>
+                    <div className="mt-10 mb-2 flex flex-col items-center justify-center">
+                      <div className="h-1 w-16 bg-brand-yellow rounded-full mb-6" />
+                      <span className="text-sm font-semibold uppercase tracking-wider text-brand-orange">
+                        What Sets Us Apart
+                      </span>
+                    </div>
                   </div>
                 ) : (
                   <>
@@ -606,48 +598,24 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             </Reveal>
 
             {page.slug === 'about' ? (
-              <div className="flex flex-col gap-6 max-w-5xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-                  {page.capabilities.slice(0, 3).map((cap, idx) => {
-                    const Icon = getOverviewCapabilityIcon(cap, idx);
-                    return (
-                      <Reveal key={idx} delay={idx * 0.04} className="h-full">
-                        <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                            <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
-                              {cap}
-                            </h4>
-                          </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-5xl mx-auto">
+                {page.capabilities.map((cap, idx) => {
+                  const Icon = getOverviewCapabilityIcon(cap, idx);
+                  return (
+                    <Reveal key={idx} delay={idx * 0.04} className="h-full">
+                      <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-start gap-4">
+                        <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300 mt-0.5">
+                          <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
                         </div>
-                      </Reveal>
-                    );
-                  })}
-                </div>
-
-                {/* Row 2: 2 Cards Centered */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:max-w-3xl md:mx-auto w-full">
-                  {page.capabilities.slice(3, 5).map((cap, idx) => {
-                    const actualIdx = idx + 3;
-                    const Icon = getOverviewCapabilityIcon(cap, actualIdx);
-                    return (
-                      <Reveal key={actualIdx} delay={actualIdx * 0.04} className="h-full">
-                        <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                            <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
-                              {cap}
-                            </h4>
-                          </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-[15px] sm:text-base font-medium text-neutral-800 leading-snug group-hover:text-black transition-colors duration-300">
+                            {cap}
+                          </h4>
                         </div>
-                      </Reveal>
-                    );
-                  })}
-                </div>
+                      </div>
+                    </Reveal>
+                  );
+                })}
               </div>
             ) : page.slug === 'integrated' || page.slug === 'quality' || page.slug === 'leadership' ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
@@ -748,6 +716,14 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
       {/* Narrative Editorial Sections */}
       {narrative}
+
+      {/* Facility Custom Sections for Drug Product & Analytical Characterization */}
+      {(page.slug === 'facility' || page.slug === 'India') && (
+        <>
+          <FacilityDrugProductSection section={drugProductSection} />
+          <FacilityAnalyticalSection section={analyticalSection} />
+        </>
+      )}
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (

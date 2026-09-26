@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, Compass, HelpCircle, MapPin, LucideIcon } from 'lucide-react';
+import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, Compass, HelpCircle, MapPin, LucideIcon, ArrowRight, Check, Globe } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -13,12 +13,13 @@ interface NavItem {
   href?: string;
   isExternal?: boolean;
   description?: string;
-  columns?: { title: string; links: { label: string; href: string; icon: LucideIcon; isExternal?: boolean }[] }[];
+  columns?: { title: string; links: { label: string; href: string; icon: LucideIcon; isExternal?: boolean; sublabel?: string }[] }[];
 }
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [hoveredLocation, setHoveredLocation] = useState<'ahmedabad' | 'london'>('ahmedabad');
   const pathname = usePathname();
 
   const navigationItems: NavItem[] = [
@@ -80,14 +81,8 @@ export default function Navigation() {
         {
           title: 'CDMO Locations',
           links: [
-            { label: 'Ahmedabad, India', href: '/overview/facility', icon: Factory },
-            { label: 'London, UK', href: '/overview/london', icon: Building2 },
-          ],
-        },
-        {
-          title: 'Virtual Experience',
-          links: [
-            { label: 'Virtual Facility Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm', icon: Compass, isExternal: true },
+            { label: 'Ahmedabad, India', href: '/facility&location/India', icon: Factory, sublabel: 'Integrated Biomanufacturing Campus' },
+            { label: 'London, UK', href: '/facility&location/UK', icon: Building2, sublabel: 'European Innovation Centre' },
           ],
         },
       ],
@@ -129,7 +124,7 @@ export default function Navigation() {
           links: [
             { label: 'News & Press', href: '/insights/news', icon: Newspaper },
             { label: 'Events & Webinars', href: '/insights/events', icon: Calendar },
-            { label: 'FAQs', href: '/#faqs', icon: HelpCircle },
+            { label: 'FAQs', href: '/insights/faqs', icon: HelpCircle },
           ],
         },
       ],
@@ -224,8 +219,9 @@ export default function Navigation() {
                         transition={{ duration: 0.18, ease: [0.25, 1, 0.5, 1] }}
                         className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
                       >
-                        <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[560px] max-w-[980px] ${item.columns && item.columns.length >= 3 ? 'w-[920px]' : ''
-                          }`}>
+                        <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[560px] max-w-[980px] ${
+                          item.label === 'Facility & Locations' || (item.columns && item.columns.length >= 3) ? 'w-[920px]' : ''
+                        }`}>
                           <div className="p-6">
                             <div className="mb-5 pb-4 border-b border-neutral-100">
                               <span className="text-brand-orange text-[12px] font-semibold uppercase tracking-wider">
@@ -235,54 +231,196 @@ export default function Navigation() {
                                 {item.description}
                               </p>
                             </div>
-                            <div className={`grid gap-12 ${item.columns && item.columns.length >= 3
-                              ? 'grid-cols-3'
-                              : item.columns && item.columns.length === 2
-                                ? 'grid-cols-2'
-                                : 'grid-cols-1'
-                              }`}>
-                              {item.columns?.map((column, colIdx) => (
-                                <div key={colIdx}>
-                                  <h4 className="text-[12px] font-semibold uppercase tracking-wider text-neutral-900 mb-3.5">
-                                    {column.title}
-                                  </h4>
-                                  <ul className="space-y-2.5">
-                                    {column.links.map((link) => {
-                                      const isLinkActive = pathname === link.href;
-                                      return (
-                                        <li key={link.href}>
-                                          {link.isExternal || link.href.endsWith('.htm') || link.href.startsWith('http') ? (
-                                            <a
-                                              href={link.href}
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                              className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
-                                                ? 'text-brand-blue font-normal'
-                                                : 'text-neutral-800 hover:text-brand-blue'
-                                                }`}
-                                            >
-                                              <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
-                                              {link.label}
-                                            </a>
-                                          ) : (
-                                            <Link
-                                              href={link.href}
-                                              className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
-                                                ? 'text-brand-blue font-normal'
-                                                : 'text-neutral-800 hover:text-brand-blue'
-                                                }`}
-                                            >
-                                              <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
-                                              {link.label}
-                                            </Link>
-                                          )}
-                                        </li>
-                                      );
-                                    })}
-                                  </ul>
+                            {item.label === 'Facility & Locations' ? (
+                              <div className="grid grid-cols-12 gap-8 items-stretch">
+                                {/* Left column: Locations list styled EXACTLY as other nav cards */}
+                                <div className="col-span-5 flex flex-col justify-between pr-2">
+                                  <div>
+                                    <h4 className="text-[12px] font-semibold uppercase tracking-wider text-neutral-900 mb-3.5">
+                                      CDMO Locations
+                                    </h4>
+                                    <ul className="space-y-2.5">
+                                      <li>
+                                        <Link
+                                          href="/facility&location/India"
+                                          onMouseEnter={() => setHoveredLocation('ahmedabad')}
+                                          className={`text-[15px] font-light md:font-normal tracking-tight flex items-center justify-between transition-colors cursor-pointer ${
+                                            hoveredLocation === 'ahmedabad'
+                                              ? 'text-brand-blue font-normal'
+                                              : 'text-neutral-800 hover:text-brand-blue'
+                                          }`}
+                                        >
+                                          <div className="flex items-center gap-2.5">
+                                            <Factory className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
+                                            <span>Ahmedabad, India</span>
+                                          </div>
+                                        </Link>
+                                      </li>
+
+                                      <li>
+                                        <Link
+                                          href="/facility&location/UK"
+                                          onMouseEnter={() => setHoveredLocation('london')}
+                                          className={`text-[15px] font-light md:font-normal tracking-tight flex items-center justify-between transition-colors cursor-pointer ${
+                                            hoveredLocation === 'london'
+                                              ? 'text-brand-blue font-normal'
+                                              : 'text-neutral-800 hover:text-brand-blue'
+                                          }`}
+                                        >
+                                          <div className="flex items-center gap-2.5">
+                                            <Building2 className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
+                                            <span>London, UK</span>
+                                          </div>
+                                        </Link>
+                                      </li>
+                                    </ul>
+                                  </div>
+
+                                  <div className="mt-8 pt-4 border-t border-neutral-100 text-[12px] text-slate-500 flex items-center gap-2">
+                                    <Globe className="w-4 h-4 text-brand-blue shrink-0" />
+                                    <span>Dual-continent integrated CDMO</span>
+                                  </div>
                                 </div>
-                              ))}
-                            </div>
+
+                                {/* Right column: Dynamic location details card */}
+                                <div className="col-span-7">
+                                  {hoveredLocation === 'ahmedabad' ? (
+                                    <div className="bg-gradient-to-br from-blue-50/60 via-white to-slate-50 border border-blue-100/90 rounded-xl p-5 sm:p-6 flex flex-col justify-between h-full shadow-xs">
+                                      <div>
+                                        <div className="flex items-center justify-end mb-2.5">
+                                          <span className="text-xs font-semibold text-neutral-600">Gujarat, India</span>
+                                        </div>
+                                        <h4 className="text-base font-bold text-neutral-900 mb-1.5 leading-snug">
+                                          Integrated Biologics Development & Clinical GMP Suites
+                                        </h4>
+                                        <p className="text-[13.5px] text-slate-600 leading-relaxed mb-4 font-normal">
+                                          Gene-to-clinic biologics development, comprehensive analytical characterization, and GMP manufacturing platform under a unified quality system.
+                                        </p>
+                                        <div className="grid grid-cols-2 gap-2 text-[12.5px] text-slate-700 bg-white/95 rounded-xl p-3 border border-blue-100/70">
+                                          <div className="flex items-center gap-2 font-medium">
+                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
+                                            <span>27,000 sqft GMP Campus</span>
+                                          </div>
+                                          <div className="flex items-center gap-2 font-medium">
+                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
+                                            <span>2x 200L (400L) Bioreactors</span>
+                                          </div>
+                                          <div className="flex items-center gap-2 font-medium">
+                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
+                                            <span>Robotic Isolator Fill-Finish</span>
+                                          </div>
+                                          <div className="flex items-center gap-2 font-medium">
+                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
+                                            <span>Full DS, DP & QC Labs</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="mt-4 pt-3.5 border-t border-neutral-200/60 flex items-center justify-between">
+                                        <span className="text-xs font-medium text-slate-500">US FDA, EMA & PMDA cGMP</span>
+                                        <Link 
+                                          href="/facility&location/India" 
+                                          className="text-xs font-semibold text-brand-blue hover:text-brand-blue-hover flex items-center gap-1.5 group"
+                                        >
+                                          <span>Ahmedabad Facility</span>
+                                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
+                                        </Link>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <div className="bg-gradient-to-br from-blue-50/60 via-white to-slate-50 border border-blue-100/90 rounded-xl p-5 sm:p-6 flex flex-col justify-between h-full shadow-xs">
+                                      <div>
+                                        <div className="flex items-center justify-end mb-2.5">
+                                          <span className="text-xs font-semibold text-neutral-600">London, UK</span>
+                                        </div>
+                                        <h4 className="text-base font-bold text-neutral-900 mb-1.5 leading-snug">
+                                          Biologics Development & Process Characterization
+                                        </h4>
+                                        <p className="text-[13.5px] text-slate-600 leading-relaxed mb-4 font-normal">
+                                          Specialized European innovation hub focused on clone screening, upstream & downstream process development, intact mass spectrometry, and biosimilars.
+                                        </p>
+                                        <div className="grid grid-cols-2 gap-2 text-[12.5px] text-slate-700 bg-white/95 rounded-xl p-3 border border-blue-100/70">
+                                          <div className="flex items-center gap-2 font-medium">
+                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
+                                            <span>Upstream & Downstream DoE</span>
+                                          </div>
+                                          <div className="flex items-center gap-2 font-medium">
+                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
+                                            <span>Clone Screening & Analytics</span>
+                                          </div>
+                                          <div className="flex items-center gap-2 font-medium">
+                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
+                                            <span>Intact Mass Spec (LC-MS)</span>
+                                          </div>
+                                          <div className="flex items-center gap-2 font-medium">
+                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
+                                            <span>Biosimilar Comparability</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="mt-4 pt-3.5 border-t border-neutral-200/60 flex items-center justify-between">
+                                        <span className="text-xs font-medium text-slate-500">European Innovation Hub</span>
+                                        <Link 
+                                          href="/facility&location/UK" 
+                                          className="text-xs font-semibold text-brand-blue hover:text-brand-blue-hover flex items-center gap-1.5 group"
+                                        >
+                                          <span>London Centre</span>
+                                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
+                                        </Link>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            ) : (
+                              <div className={`grid gap-12 ${item.columns && item.columns.length >= 3
+                                ? 'grid-cols-3'
+                                : item.columns && item.columns.length === 2
+                                  ? 'grid-cols-2'
+                                  : 'grid-cols-1'
+                                }`}>
+                                {item.columns?.map((column, colIdx) => (
+                                  <div key={colIdx}>
+                                    <h4 className="text-[12px] font-semibold uppercase tracking-wider text-neutral-900 mb-3.5">
+                                      {column.title}
+                                    </h4>
+                                    <ul className="space-y-2.5">
+                                      {column.links.map((link) => {
+                                        const isLinkActive = pathname === link.href;
+                                        return (
+                                          <li key={link.href}>
+                                            {link.isExternal || link.href.endsWith('.htm') || link.href.startsWith('http') ? (
+                                              <a
+                                                href={link.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
+                                                  ? 'text-brand-blue font-normal'
+                                                  : 'text-neutral-800 hover:text-brand-blue'
+                                                  }`}
+                                              >
+                                                <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
+                                                {link.label}
+                                              </a>
+                                            ) : (
+                                              <Link
+                                                href={link.href}
+                                                className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
+                                                  ? 'text-brand-blue font-normal'
+                                                  : 'text-neutral-800 hover:text-brand-blue'
+                                                  }`}
+                                              >
+                                                <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
+                                                {link.label}
+                                              </Link>
+                                            )}
+                                          </li>
+                                        );
+                                      })}
+                                    </ul>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </motion.div>
