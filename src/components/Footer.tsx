@@ -7,13 +7,14 @@ export default function Footer() {
 
   const sections = [
     {
-      title: 'Overview',
+      title: 'Overview & Facilities',
       links: [
         { name: 'About Lambda', href: '/overview/about' },
         { name: 'Leadership', href: '/overview/leadership' },
-        { name: 'Facility', href: '/overview/facility' },
+        { name: 'Ahmedabad Facility', href: '/overview/facility' },
+        { name: 'London UK Centre', href: '/overview/london' },
         { name: 'Virtual Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
-        { name: 'Integrated Development', href: '/overview/integrated' },
+        { name: 'Integrated Dev', href: '/overview/integrated' },
         { name: 'Careers', href: '/overview/careers' },
       ],
     },

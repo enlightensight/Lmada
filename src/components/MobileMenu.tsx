@@ -61,7 +61,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           links: [
             { label: 'About Lambda CDMO', href: '/overview/about' },
             { label: 'Leadership Team', href: '/overview/leadership' },
-            { label: 'Facility & Infrastructure', href: '/overview/facility' },
           ],
         },
         {
@@ -78,7 +77,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       label: 'Services',
       columns: [
         {
-          title: 'Development',
+          title: 'Development Services',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line' },
             { label: 'Process Development', href: '/services/process' },
@@ -86,7 +85,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           ],
         },
         {
-          title: 'Manufacturing',
+          title: 'Manufacturing Services',
           links: [
             { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance' },
             { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product' },
@@ -104,6 +103,24 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       ],
     },
     {
+      label: 'Facility & Locations',
+      columns: [
+        {
+          title: 'CDMO Locations',
+          links: [
+            { label: 'Ahmedabad, India', href: '/overview/facility' },
+            { label: 'London, UK', href: '/overview/london' },
+          ],
+        },
+        {
+          title: 'Virtual Experience',
+          links: [
+            { label: 'Virtual Facility Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
+          ],
+        },
+      ],
+    },
+    {
       label: 'Modalities',
       columns: [
         {
@@ -116,7 +133,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         {
           title: 'Advanced Therapeutics',
           links: [
-            { label: 'Antibody-Drug Conjugates', href: '/modalities/adcs' },
+            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs' },
             { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides' },
           ],
         },
@@ -134,10 +151,11 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           ],
         },
         {
-          title: 'Media',
+          title: 'Media & Support',
           links: [
             { label: 'News & Press', href: '/insights/news' },
             { label: 'Events & Webinars', href: '/insights/events' },
+            { label: 'FAQs', href: '/#faqs' },
           ],
         },
       ],

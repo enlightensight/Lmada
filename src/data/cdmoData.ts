@@ -198,6 +198,62 @@ export const cdmoData: CDMOPage[] = [
     ]
   },
   {
+    slug: 'london',
+    category: 'overview',
+    title: 'London Biologics Development Facility — Lambda CDMO UK',
+    metaTitle: 'London Biologics Development Facility | Lambda CDMO UK',
+    metaDesc: 'Tour Lambda CDMO\'s London, UK biologics development centre specializing in upstream and downstream process development, analytical development, biosimilar development, and process characterization.',
+    badge: 'UK Innovation Centre',
+    heading: 'Biologics Development & Process Characterization in London, UK.',
+    description: 'Located in London, UK, our European centre of excellence provides advanced biologics development capabilities with a dedicated focus on upstream and downstream process development, analytical development, biosimilar development, and comprehensive process characterization.',
+    image: '/images/Lab.jpg',
+    capabilities: [
+      'Upstream Process Development & Media/Feed Optimization',
+      'Downstream Purification Design, Chromatography & UF/DF Intensification',
+      'Physicochemical Characterization & Intact Mass Spectrometry',
+      'Analytical Method Development, Qualification & Validation',
+      'Biosimilar Comparability Studies & CQA Fingerprinting',
+      'Process Characterization & Scale-Down Model Qualification',
+      'Pre-formulation Stability Screening & Biophysical Testing',
+      'Seamless Technology Transfer to Clinical & Commercial GMP Suites'
+    ],
+    stats: [
+      { value: 'London, UK', label: 'European Centre', sublabel: 'Dedicated to advanced biologics development and characterization.' },
+      { value: 'End-to-End', label: 'Process Development', sublabel: 'Bench-scale to pilot-scale upstream and downstream optimization.' },
+      { value: 'Full Suite', label: 'Analytical Sciences', sublabel: 'Orthogonal physicochemical and biosimilar comparability testing.' },
+    ],
+    sections: [
+      {
+        title: 'European Centre for Biologics Innovation',
+        text: 'Our London facility operates as Lambda CDMO’s European innovation hub, providing biopharmaceutical innovators and biosimilar developers with rapid, high-resolution process development and analytical testing. Working closely with client teams across the UK, Europe, and North America, our London scientists design robust, scalable upstream and downstream processes tailored to complex recombinant proteins, monoclonal antibodies, bispecifics, and ADCs.',
+        dark: false,
+        image: '/images/Lab.jpg',
+      },
+      {
+        title: 'Upstream & Downstream Process Optimization',
+        text: 'Equipped with advanced benchtop and intermediate-scale bioreactors alongside high-throughput liquid handling and automated chromatography skids, the London facility accelerates clone screening, feed strategy formulation, purification resin selection, and yield optimization while ensuring product quality attributes remain within targeted clinical specifications.',
+        dark: false,
+        image: '/images/equipment2.png',
+      },
+      {
+        title: 'Advanced Analytical & Process Characterization',
+        text: 'Characterization is at the core of the London development centre. Using state-of-the-art orthogonal analytical platforms—including high-resolution mass spectrometry, UPLC/SEC-HPLC, capillary electrophoresis, and functional binding assays—we establish deep molecular understanding, evaluate biosimilar comparability, and execute rigorous process characterization studies that de-risk regulatory filings.',
+        dark: true,
+      }
+    ],
+    specs: [
+      { label: 'Location', value: 'London, United Kingdom' },
+      { label: 'Focus Areas', value: 'Upstream & Downstream Process Dev, Analytics, Biosimilar Comparability' },
+      { label: 'Key Equipment', value: 'Microbioreactors, ÄKTA Process Skids, Intact Mass Spec, UPLC/SEC-HPLC' },
+      { label: 'Modalities Supported', value: 'mAbs, Bispecifics, ADCs, Recombinant Proteins, Peptides' },
+      { label: 'Regulatory Alignment', value: 'EMA, MHRA, US FDA, PMDA cGMP Standards' },
+    ],
+    faqs: [
+      { question: 'What services are offered at the London, UK facility?', answer: 'The London facility specializes in upstream and downstream process development, analytical method development and validation, biosimilar development, and deep process characterization.' },
+      { question: 'How do the London and Ahmedabad facilities collaborate?', answer: 'Our London and Ahmedabad teams operate under a unified quality framework and centralized digital data systems, allowing seamless technology transfer from UK process development into Ahmedabad clinical GMP manufacturing suites.' },
+    ]
+  },
+  {
     slug: 'integrated',
     category: 'overview',
     title: 'Integrated Development — Lambda CDMO',

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, Compass, LucideIcon } from 'lucide-react';
+import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, Compass, HelpCircle, MapPin, LucideIcon } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -13,7 +13,7 @@ interface NavItem {
   href?: string;
   isExternal?: boolean;
   description?: string;
-  columns?: { title: string; links: { label: string; href: string; icon: LucideIcon }[] }[];
+  columns?: { title: string; links: { label: string; href: string; icon: LucideIcon; isExternal?: boolean }[] }[];
 }
 
 export default function Navigation() {
@@ -31,7 +31,6 @@ export default function Navigation() {
           links: [
             { label: 'About Lambda CDMO', href: '/overview/about', icon: Building2 },
             { label: 'Leadership Team', href: '/overview/leadership', icon: Users },
-            { label: 'Facility & Infrastructure', href: '/overview/facility', icon: Factory },
           ],
         },
         {
@@ -49,7 +48,7 @@ export default function Navigation() {
       description: 'From cell line engineering to GMP manufacturing and QC testing.',
       columns: [
         {
-          title: 'Development',
+          title: 'Development Services',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line', icon: Dna },
             { label: 'Process Development', href: '/services/process', icon: Settings },
@@ -57,7 +56,7 @@ export default function Navigation() {
           ],
         },
         {
-          title: 'Manufacturing',
+          title: 'Manufacturing Services',
           links: [
             { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance', icon: Beaker },
             { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product', icon: Package },
@@ -70,6 +69,25 @@ export default function Navigation() {
             { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Scale },
             { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays', icon: HeartPulse },
             { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: Bug },
+          ],
+        },
+      ],
+    },
+    {
+      label: 'Facility & Locations',
+      description: 'Our global biomanufacturing campus and development innovation centers.',
+      columns: [
+        {
+          title: 'CDMO Locations',
+          links: [
+            { label: 'Ahmedabad, India', href: '/overview/facility', icon: Factory },
+            { label: 'London, UK', href: '/overview/london', icon: Building2 },
+          ],
+        },
+        {
+          title: 'Virtual Experience',
+          links: [
+            { label: 'Virtual Facility Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm', icon: Compass, isExternal: true },
           ],
         },
       ],
@@ -88,7 +106,7 @@ export default function Navigation() {
         {
           title: 'Advanced Therapeutics',
           links: [
-            { label: 'Antibody-Drug Conjugates', href: '/modalities/adcs', icon: Syringe },
+            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs', icon: Syringe },
             { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides', icon: Dna },
           ],
         },
@@ -96,7 +114,7 @@ export default function Navigation() {
     },
     {
       label: 'Insights',
-      description: 'Publications, case studies, and upcoming events.',
+      description: 'Publications, case studies, news, and FAQs.',
       columns: [
         {
           title: 'Knowledge',
@@ -107,10 +125,11 @@ export default function Navigation() {
           ],
         },
         {
-          title: 'Media',
+          title: 'Media & Support',
           links: [
             { label: 'News & Press', href: '/insights/news', icon: Newspaper },
             { label: 'Events & Webinars', href: '/insights/events', icon: Calendar },
+            { label: 'FAQs', href: '/#faqs', icon: HelpCircle },
           ],
         },
       ],
@@ -232,16 +251,31 @@ export default function Navigation() {
                                       const isLinkActive = pathname === link.href;
                                       return (
                                         <li key={link.href}>
-                                          <Link
-                                            href={link.href}
-                                            className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
-                                              ? 'text-brand-blue font-normal'
-                                              : 'text-neutral-800 hover:text-brand-blue'
-                                              }`}
-                                          >
-                                            <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
-                                            {link.label}
-                                          </Link>
+                                          {link.isExternal || link.href.endsWith('.htm') || link.href.startsWith('http') ? (
+                                            <a
+                                              href={link.href}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
+                                                ? 'text-brand-blue font-normal'
+                                                : 'text-neutral-800 hover:text-brand-blue'
+                                                }`}
+                                            >
+                                              <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
+                                              {link.label}
+                                            </a>
+                                          ) : (
+                                            <Link
+                                              href={link.href}
+                                              className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
+                                                ? 'text-brand-blue font-normal'
+                                                : 'text-neutral-800 hover:text-brand-blue'
+                                                }`}
+                                            >
+                                              <link.icon className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
+                                              {link.label}
+                                            </Link>
+                                          )}
                                         </li>
                                       );
                                     })}
