@@ -31,7 +31,10 @@ import {
   Award,
   Layers,
   Repeat,
-  User
+  User,
+  MapPin,
+  ExternalLink,
+  CheckCircle2
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FacilityGallery from '@/components/FacilityGallery';
@@ -366,6 +369,187 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
           </div>
         </div>
       </section>
+
+      {/* GLOBAL REACH & CDMO LOCATIONS (ABOUT PAGE) */}
+      {page.slug === 'about' && (
+        <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-14 md:py-20 bg-white border-b border-neutral-100 overflow-hidden">
+          <div className="w-full max-w-[1700px] mx-auto">
+            {/* Top Overview Intro Block */}
+            <div className="max-w-4xl mx-auto text-center mb-12 md:mb-16">
+              <Reveal>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-semibold uppercase tracking-wider mb-6">
+                  <Globe className="w-4 h-4" />
+                  <span>Global Capabilities • India & Europe</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-6">
+                  Integrated Biologics Development & <span className="font-semibold text-brand-blue">Global Capabilities</span>
+                </h2>
+                <p className="text-[17px] md:text-[19px] text-neutral-800 font-normal leading-relaxed mb-6">
+                  With capabilities across <strong className="font-semibold text-neutral-900">India and Europe</strong>, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.
+                </p>
+                <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed mb-6">
+                  Backed by a combined legacy of more than 75 years from{' '}
+                  <a
+                    href="https://www.lambda-cro.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-brand-blue hover:text-brand-blue-hover underline decoration-brand-blue/40 hover:decoration-brand-blue transition-colors inline-flex items-center gap-1"
+                  >
+                    Lambda Therapeutic Research
+                    <ExternalLink className="w-3.5 h-3.5 inline" />
+                  </a>{' '}
+                  and{' '}
+                  <a
+                    href="https://www.novumprs.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-brand-blue hover:text-brand-blue-hover underline decoration-brand-blue/40 hover:decoration-brand-blue transition-colors inline-flex items-center gap-1"
+                  >
+                    Novum Pharmaceutical Research Services
+                    <ExternalLink className="w-3.5 h-3.5 inline" />
+                  </a>
+                  , Lambda CDMO brings together scientific, analytical, quality, and manufacturing capabilities within an integrated framework.
+                </p>
+                <p className="text-[15px] sm:text-[16px] text-slate-500 font-normal leading-relaxed">
+                  From <strong className="font-medium text-neutral-800">monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides</strong>, our multidisciplinary teams work closely with sponsors to support process development, analytical characterization, technology transfer, and clinical supply.
+                </p>
+              </Reveal>
+            </div>
+
+            {/* Our CDMO Locations Grid */}
+            <div className="mb-12">
+              <Reveal delay={0.1}>
+                <div className="flex items-center justify-between mb-8 pb-3 border-b border-neutral-200">
+                  <div className="flex items-center gap-2.5">
+                    <MapPin className="w-5 h-5 text-brand-orange" />
+                    <h3 className="text-xl sm:text-2xl font-semibold text-neutral-900 tracking-tight">
+                      Our CDMO Locations
+                    </h3>
+                  </div>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400 hidden sm:inline">
+                    Dual-Continent Infrastructure
+                  </span>
+                </div>
+              </Reveal>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+                {/* Location 1: Ahmedabad, India */}
+                <Reveal delay={0.15}>
+                  <div className="h-full glass-card rounded-[14px] p-7 sm:p-9 shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200/80 flex flex-col justify-between group">
+                    <div>
+                      <div className="flex items-start justify-between gap-4 mb-5">
+                        <div className="flex items-center gap-3.5">
+                          <div className="w-12 h-12 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                            <Factory className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold uppercase tracking-wider text-brand-orange">
+                              Primary Biomanufacturing Campus
+                            </span>
+                            <h4 className="text-2xl font-bold text-neutral-900 group-hover:text-brand-blue transition-colors">
+                              Ahmedabad, India
+                            </h4>
+                          </div>
+                        </div>
+                        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200 shrink-0">
+                          Asia-Pacific HQ
+                        </span>
+                      </div>
+
+                      <p className="text-[15px] sm:text-[16px] text-neutral-700 leading-relaxed mb-6 font-medium">
+                        Integrated development, analytical and GMP manufacturing capabilities.
+                      </p>
+
+                      <ul className="space-y-3 pt-4 border-t border-neutral-100">
+                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
+                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0 mt-0.5" />
+                          <span>Gene-to-clinic biologics development & characterization</span>
+                        </li>
+                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
+                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0 mt-0.5" />
+                          <span>27,000 sqft purpose-built facility with Grade A/B/C cleanroom suites</span>
+                        </li>
+                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
+                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0 mt-0.5" />
+                          <span>Single-use bioreactor suites & robotic isolator fill-finish</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500 font-medium">
+                      <span>GMP Manufacturing Suites</span>
+                      <span>Analytical Sciences Labs</span>
+                    </div>
+                  </div>
+                </Reveal>
+
+                {/* Location 2: London, UK */}
+                <Reveal delay={0.2}>
+                  <div className="h-full glass-card rounded-[14px] p-7 sm:p-9 shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200/80 flex flex-col justify-between group">
+                    <div>
+                      <div className="flex items-start justify-between gap-4 mb-5">
+                        <div className="flex items-center gap-3.5">
+                          <div className="w-12 h-12 rounded-[10px] bg-brand-orange/10 border border-brand-orange/25 flex items-center justify-center text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                            <Microscope className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold uppercase tracking-wider text-brand-blue">
+                              European Innovation Centre
+                            </span>
+                            <h4 className="text-2xl font-bold text-neutral-900 group-hover:text-brand-blue transition-colors">
+                              London, UK
+                            </h4>
+                          </div>
+                        </div>
+                        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200 shrink-0">
+                          European Hub
+                        </span>
+                      </div>
+
+                      <p className="text-[15px] sm:text-[16px] text-neutral-700 leading-relaxed mb-6 font-medium">
+                        Biologics development capabilities focused on upstream and downstream process development, analytical development, biosimilar development and process characterization.
+                      </p>
+
+                      <ul className="space-y-3 pt-4 border-t border-neutral-100">
+                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
+                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-orange shrink-0 mt-0.5" />
+                          <span>Upstream & downstream process development and optimization</span>
+                        </li>
+                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
+                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-orange shrink-0 mt-0.5" />
+                          <span>Advanced analytical method development & characterization</span>
+                        </li>
+                        <li className="flex items-start gap-2.5 text-sm text-neutral-600">
+                          <CheckCircle2 className="w-4.5 h-4.5 text-brand-orange shrink-0 mt-0.5" />
+                          <span>Biosimilar comparability & comprehensive process characterization</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500 font-medium">
+                      <span>Process Characterization</span>
+                      <span>Biosimilar Development</span>
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
+
+            {/* CTA Button Link to Facility & Capabilities Page */}
+            <Reveal delay={0.25}>
+              <div className="text-center pt-4">
+                <Link
+                  href="/overview/facility"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-[10px] bg-brand-blue hover:bg-brand-blue-hover text-white font-semibold text-sm sm:text-base uppercase tracking-wider shadow-md hover:shadow-xl active:scale-95 transition-all group cursor-pointer"
+                >
+                  <span>Explore Our Facilities & Capabilities</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
+                </Link>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       {/* CAPABILITIES / THE LAMBDA ADVANTAGE SECTION */}
       {page.capabilities && page.capabilities.length > 0 && page.slug !== 'facility' && (
