@@ -40,7 +40,7 @@ const CDMO_LOCATIONS: LocationInfo[] = [
     ],
     href: '/facility&location/India',
     xPercent: 66.8,
-    yPercent: 41.5,
+    yPercent: 45.8,
     stats: [
       { label: 'Campus Size', value: '27,000 sqft' },
       { label: 'Bioreactors', value: '2x 200L' },
@@ -63,8 +63,8 @@ const CDMO_LOCATIONS: LocationInfo[] = [
       'Direct technology transfer and recipe scale-up to Ahmedabad GMP suites.'
     ],
     href: '/facility&location/UK',
-    xPercent: 47.3,
-    yPercent: 13.0,
+    xPercent: 46.8,
+    yPercent: 17.3,
     stats: [
       { label: 'Focus', value: 'Process Dev' },
       { label: 'Mass Spec', value: 'LC-MS' },
@@ -273,19 +273,19 @@ export default function CDMOLocationsMapSection({
                   </div>
                 </div>
 
-                {/* Map Graphic Viewport Container */}
-                <div className="relative w-full pt-1 pb-10 sm:pb-12 px-2 sm:px-4">
+                {/* Map Graphic Viewport Container - Zoomed in panel per user request */}
+                <div className="relative w-full overflow-hidden pt-0 pb-6 sm:pb-8">
                   
-                  {/* REAL World Map SVG */}
-                  <div className="relative w-full aspect-[1010/399.6] max-w-[950px] mx-auto select-none">
+                  {/* REAL World Map SVG - Zoomed in panel */}
+                  <div className="relative w-full aspect-[1010/415] max-w-[950px] mx-auto select-none scale-[1.14] sm:scale-[1.18] -translate-y-2.5 sm:-translate-y-3.5 origin-center">
                     {/* Real SVG Map Layer with Crisp Light Contrast */}
                     <img
-                      src="/images/world-map.svg"
+                      src="/images/world-map.svg?v=2"
                       alt="World Map - Lambda CDMO Locations"
                       className="w-full h-full object-contain filter contrast-110 brightness-95 opacity-85"
                     />
 
-                    {/* Geodesic Connection Arc SVG between London (47.3%, 13.0%) and Ahmedabad (66.8%, 41.5%) */}
+                    {/* Geodesic Connection Arc SVG between London (46.8%, 17.3%) and Ahmedabad (66.8%, 45.8%) */}
                     <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
                       <defs>
                         <linearGradient id="arcGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -297,7 +297,7 @@ export default function CDMOLocationsMapSection({
                       
                       {/* Base Flight Path Curve (curved upwards over Europe/Middle East) */}
                       <path
-                        d="M 47.3% 13.0% Q 55% 5%, 66.8% 41.5%"
+                        d="M 46.8% 17.3% Q 56% 8%, 66.8% 45.8%"
                         fill="none"
                         stroke="url(#arcGradientLight)"
                         strokeWidth="2.4"
@@ -308,7 +308,7 @@ export default function CDMOLocationsMapSection({
                       {/* Moving Light Particle Pulse along the flight path */}
                       <circle r="4" fill="#00aeef" filter="drop-shadow(0 0 5px #00aeef)">
                         <animateMotion
-                          path="M 47.3% 13.0% Q 55% 5%, 66.8% 41.5%"
+                          path="M 46.8% 17.3% Q 56% 8%, 66.8% 45.8%"
                           dur="4s"
                           repeatCount="indefinite"
                         />
@@ -317,7 +317,7 @@ export default function CDMOLocationsMapSection({
 
                     {/* LOCATION 1: London, UK Pin & Beacon */}
                     <div
-                      style={{ left: '47.3%', top: '13.0%' }}
+                      style={{ left: '46.8%', top: '17.3%' }}
                       className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
                     >
                       {/* Pulsing Radar Ring */}
@@ -379,7 +379,7 @@ export default function CDMOLocationsMapSection({
 
                     {/* LOCATION 2: Ahmedabad, India Pin & Beacon */}
                     <div
-                      style={{ left: '66.8%', top: '41.5%' }}
+                      style={{ left: '66.8%', top: '45.8%' }}
                       className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
                     >
                       {/* Pulsing Radar Ring */}

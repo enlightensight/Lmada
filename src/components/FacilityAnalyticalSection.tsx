@@ -11,6 +11,7 @@ import {
   Workflow, 
   GitMerge, 
   Syringe, 
+  TestTubes,
   Check, 
   Sparkles,
   Zap,
@@ -224,23 +225,58 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
               {qtppText}
             </p>
 
-            {/* Lifecycle Stage Flow Pills */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto">
-              <div className="bg-slate-50/80 border border-neutral-200/80 rounded-[10px] p-3.5 text-center shadow-2xs hover:border-brand-orange/40 transition-colors">
-                <span className="text-brand-orange text-[10px] font-bold uppercase block mb-0.5">Phase 01</span>
-                <span className="text-neutral-900 text-xs sm:text-[13px] font-semibold">Cell Line & Upstream</span>
+            {/* Lifecycle Stage Flow Cards with Research Medical Icons */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5 max-w-4xl mx-auto">
+              {/* Phase 01 */}
+              <div className="group bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-2xl p-4 sm:p-5 text-center shadow-xs hover:shadow-lg hover:border-brand-blue/50 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center cursor-default">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/25 transition-all duration-300 mb-2.5 shadow-2xs">
+                  <Dna className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <span className="text-brand-orange text-[10px] sm:text-[11px] font-bold uppercase tracking-wider block mb-1">
+                  Phase 01
+                </span>
+                <span className="text-neutral-900 text-xs sm:text-[13px] font-semibold leading-snug group-hover:text-brand-blue transition-colors">
+                  Cell Line & Upstream
+                </span>
               </div>
-              <div className="bg-slate-50/80 border border-neutral-200/80 rounded-[10px] p-3.5 text-center shadow-2xs hover:border-brand-orange/40 transition-colors">
-                <span className="text-brand-orange text-[10px] font-bold uppercase block mb-0.5">Phase 02</span>
-                <span className="text-neutral-900 text-xs sm:text-[13px] font-semibold">Downstream Process</span>
+
+              {/* Phase 02 */}
+              <div className="group bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-2xl p-4 sm:p-5 text-center shadow-xs hover:shadow-lg hover:border-brand-blue/50 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center cursor-default">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/25 transition-all duration-300 mb-2.5 shadow-2xs">
+                  <TestTubes className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <span className="text-brand-orange text-[10px] sm:text-[11px] font-bold uppercase tracking-wider block mb-1">
+                  Phase 02
+                </span>
+                <span className="text-neutral-900 text-xs sm:text-[13px] font-semibold leading-snug group-hover:text-brand-blue transition-colors">
+                  Downstream Process
+                </span>
               </div>
-              <div className="bg-slate-50/80 border border-neutral-200/80 rounded-[10px] p-3.5 text-center shadow-2xs hover:border-brand-orange/40 transition-colors">
-                <span className="text-brand-orange text-[10px] font-bold uppercase block mb-0.5">Phase 03</span>
-                <span className="text-neutral-900 text-xs sm:text-[13px] font-semibold">Drug Product (DP)</span>
+
+              {/* Phase 03 */}
+              <div className="group bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-2xl p-4 sm:p-5 text-center shadow-xs hover:shadow-lg hover:border-brand-blue/50 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center cursor-default">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/25 transition-all duration-300 mb-2.5 shadow-2xs">
+                  <Syringe className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <span className="text-brand-orange text-[10px] sm:text-[11px] font-bold uppercase tracking-wider block mb-1">
+                  Phase 03
+                </span>
+                <span className="text-neutral-900 text-xs sm:text-[13px] font-semibold leading-snug group-hover:text-brand-blue transition-colors">
+                  Drug Product (DP)
+                </span>
               </div>
-              <div className="bg-slate-50/80 border border-neutral-200/80 rounded-[10px] p-3.5 text-center shadow-2xs hover:border-brand-orange/40 transition-colors">
-                <span className="text-brand-orange text-[10px] font-bold uppercase block mb-0.5">Phase 04</span>
-                <span className="text-neutral-900 text-xs sm:text-[13px] font-semibold">Release & Stability</span>
+
+              {/* Phase 04 */}
+              <div className="group bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-2xl p-4 sm:p-5 text-center shadow-xs hover:shadow-lg hover:border-brand-blue/50 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center cursor-default">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/25 transition-all duration-300 mb-2.5 shadow-2xs">
+                  <ShieldCheck className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <span className="text-brand-orange text-[10px] sm:text-[11px] font-bold uppercase tracking-wider block mb-1">
+                  Phase 04
+                </span>
+                <span className="text-neutral-900 text-xs sm:text-[13px] font-semibold leading-snug group-hover:text-brand-blue transition-colors">
+                  Release & Stability
+                </span>
               </div>
             </div>
           </div>

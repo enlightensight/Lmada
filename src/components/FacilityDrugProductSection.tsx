@@ -2,17 +2,21 @@
 
 import React from 'react';
 import { 
-  Syringe, 
   FlaskConical, 
   Snowflake, 
   Factory, 
-  CheckCircle2, 
-  ShieldCheck, 
-  Cpu, 
-  Layers, 
-  PackageCheck,
+  ArrowRight,
+  Activity,
+  Sparkles,
+  Cpu,
+  Scale,
+  Layers,
+  ShieldCheck,
+  Droplets,
+  Gauge,
   Eye,
-  Check
+  Syringe,
+  PackageCheck
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 
@@ -39,13 +43,71 @@ export default function FacilityDrugProductSection({ section }: FacilityDrugProd
   ];
 
   const lyophilizationItems = section?.lyophilizationBullets || [
-    'Development Lyophilizer with 0.5 m² shelf area, Pirani sensors, and controlled nucleation to support optimization of drying cycles for lyophilized products.',
+    'Development Lyophilizer with 0.5 m² shelf area',
+    'Pirani precision sensors & sublimation monitoring',
+    'Controlled nucleation technology',
+    'Drying cycle DoE & robustness optimization',
   ];
 
   const gmpManufacturingItems = section?.gmpManufacturingBullets || [
     'Formulation Suite for Formulation and Filtration',
     'Isolator-Based Filling Line for RTU Vials, PFS, and Cartridges (~10,000 units per batch)',
     'Visual Inspection Suite and secondary packaging suite',
+  ];
+
+  const cards = [
+    {
+      title: 'Formulation development',
+      badge: 'STABILITY & CHARACTERIZATION',
+      desc: 'Comprehensive formulation screening, container closure compatibility, and physical stability assessments.',
+      image: '/images/benefit_accelerate.png',
+      icon: FlaskConical,
+      items: [
+        { name: 'Stability Incubation Chambers', icon: Activity },
+        { name: 'Photostability Chambers', icon: Sparkles },
+        { name: 'Filling Operations using Flexicon Pumps', icon: Cpu },
+        { name: 'Thermal Characterization', icon: Scale },
+        { name: 'Higher Order Structure (HOS) & Particle Size Distribution', icon: Layers },
+        { name: 'Container Closure Integrity Testing', icon: ShieldCheck },
+        { name: 'Residual Moisture Testing', icon: Droplets },
+      ],
+    },
+    {
+      title: 'Lyophilization development',
+      badge: 'FREEZE-DRYING CYCLE DESIGN',
+      desc: 'Cycle optimization and formulation robustness for sensitive biologic modalities.',
+      image: '/images/CDMOblue.png',
+      icon: Snowflake,
+      items: [
+        { name: 'Development Lyophilizer (0.5 m² shelf area)', icon: Layers },
+        { name: 'Pirani precision sensors & sublimation monitoring', icon: Gauge },
+        { name: 'Controlled nucleation technology', icon: Snowflake },
+        { name: 'Drying cycle DoE & cycle robustness optimization', icon: Activity },
+      ],
+      stats: [
+        { value: '0.5 m²', label: 'Shelf Area' },
+        { value: 'Pirani', label: 'Precision Sensors' },
+        { value: 'Controlled', label: 'Nucleation Tech' },
+        { value: 'Cycle DoE', label: 'Optimization' },
+      ],
+    },
+    {
+      title: 'Clinical GMP manufacturing',
+      badge: 'ASEPTIC FILL & FINISH',
+      desc: 'State-of-the-art cleanroom suites supporting multi-format sterile filling and clinical batch supply.',
+      image: '/images/hero_cleanroom.png',
+      icon: Factory,
+      items: [
+        { name: 'Formulation Suite for Formulation & Filtration', icon: FlaskConical },
+        { name: 'Robotic Isolator Line for Vials, PFS, Cartridges (~10k units/batch)', icon: ShieldCheck },
+        { name: 'Visual Inspection Suite & Secondary Packaging', icon: Eye },
+      ],
+      packagingFormats: [
+        'RTU Vials (2R - 50R)',
+        'Pre-Filled Syringes (PFS)',
+        'Cartridges (1.5mL - 3.0mL)',
+      ],
+    },
   ];
 
   return (
@@ -127,163 +189,104 @@ export default function FacilityDrugProductSection({ section }: FacilityDrugProd
           </div>
         </Reveal>
 
-        {/* 3 Capability Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-          {/* Pillar 1: Formulation Development */}
-          <Reveal delay={0.12} className="h-full">
-            <div className="h-full bg-white rounded-[14px] border border-neutral-200/90 shadow-sm hover:shadow-lg hover:border-cyan-500/50 transition-all duration-300 p-6 sm:p-7 flex flex-col relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 to-teal-500" />
-              
-              <div className="flex items-center gap-3.5 mb-5 mt-1">
-                <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 group-hover:bg-cyan-600 group-hover:border-cyan-600 transition-colors">
-                  <FlaskConical className="w-6 h-6 text-cyan-600 group-hover:text-white transition-colors" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-neutral-900 tracking-tight leading-snug">
-                    Formulation development
-                  </h3>
-                  <span className="text-xs font-semibold text-brand-orange uppercase tracking-wider">
-                    Stability & Characterization
-                  </span>
-                </div>
-              </div>
+        {/* 3 Capability Pillars Grid - Matching Homepage Service Cards Design */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
+          {cards.map((card, idx) => {
+            const CardIcon = card.icon;
+            return (
+              <Reveal key={card.title} delay={0.12 + idx * 0.08} className="h-full">
+                <div className="group h-full bg-white rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 border border-neutral-200/90 flex flex-col">
+                  {/* Photo header */}
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
+                  </div>
 
-              <p className="text-sm text-neutral-600 mb-5 leading-relaxed">
-                Comprehensive formulation screening, container closure compatibility, and physical stability assessments.
-              </p>
-
-              <div className="border-t border-neutral-100 pt-4 flex-1">
-                <ul className="space-y-3">
-                  {formulationItems.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-cyan-600" />
+                  {/* Body */}
+                  <div className="p-6 md:p-7 flex flex-col flex-1">
+                    <div className="min-h-[110px] sm:min-h-[120px] mb-4">
+                      <div className="flex items-start gap-3 mb-2">
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs mt-0.5">
+                          <CardIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
+                            {card.title}
+                          </h3>
+                          <span className="text-[11px] font-bold text-brand-orange uppercase tracking-wider block mt-0.5">
+                            {card.badge}
+                          </span>
+                        </div>
                       </div>
-                      <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </Reveal>
+                      <p className="text-[14px] sm:text-[15px] text-neutral-600 leading-relaxed mt-2.5">
+                        {card.desc}
+                      </p>
+                    </div>
 
-          {/* Pillar 2: Lyophilization Development */}
-          <Reveal delay={0.16} className="h-full">
-            <div className="h-full bg-white rounded-[14px] border border-neutral-200/90 shadow-sm hover:shadow-lg hover:border-cyan-500/50 transition-all duration-300 p-6 sm:p-7 flex flex-col relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 to-teal-500" />
-              
-              <div className="flex items-center gap-3.5 mb-5 mt-1">
-                <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 group-hover:bg-cyan-600 group-hover:border-cyan-600 transition-colors">
-                  <Snowflake className="w-6 h-6 text-cyan-600 group-hover:text-white transition-colors" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-neutral-900 tracking-tight leading-snug">
-                    Lyophilization development
-                  </h3>
-                  <span className="text-xs font-semibold text-brand-orange uppercase tracking-wider">
-                    Freeze-Drying Cycle Design
-                  </span>
-                </div>
-              </div>
+                    {/* Feature items with icon and arrow */}
+                    <ul className="border-t border-neutral-100 pt-1 flex-1">
+                      {card.items.map((item, i) => {
+                        const ItemIcon = item.icon;
+                        return (
+                          <li key={i} className="border-b border-neutral-100 last:border-0">
+                            <div className="group/item flex items-center justify-between gap-3 py-2.5 text-sm font-medium text-neutral-700 hover:text-brand-blue transition-colors">
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/item:bg-brand-blue group-hover/item:border-brand-blue transition-colors duration-200">
+                                  <ItemIcon className="w-4 h-4 text-brand-blue group-hover/item:text-white transition-colors duration-200" />
+                                </div>
+                                <span className="truncate group-hover/item:text-brand-blue transition-colors text-[14px]">
+                                  {item.name}
+                                </span>
+                              </div>
+                              <ArrowRight className="w-4 h-4 flex-shrink-0 text-brand-blue group-hover/item:text-brand-blue-hover group-hover/item:translate-x-1 transition-all" />
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
 
-              <p className="text-sm text-neutral-600 mb-5 leading-relaxed">
-                Cycle optimization and formulation robustness for sensitive biologic modalities.
-              </p>
-
-              <div className="border-t border-neutral-100 pt-4 flex-1 flex flex-col justify-between">
-                <ul className="space-y-3 mb-6">
-                  {lyophilizationItems.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-cyan-600" />
+                    {/* Specific Technical Metrics for Lyophilization */}
+                    {card.stats && (
+                      <div className="grid grid-cols-2 gap-2.5 pt-4 mt-4 border-t border-neutral-100">
+                        {card.stats.map((s, sIdx) => (
+                          <div 
+                            key={sIdx} 
+                            className="bg-slate-50 border border-slate-200/70 rounded-[8px] p-2.5 text-center group-hover:border-brand-blue/30 group-hover:bg-brand-blue/[0.02] transition-all"
+                          >
+                            <span className="block text-sm font-bold text-brand-blue">{s.value}</span>
+                            <span className="text-[10px] text-neutral-500 uppercase tracking-wider font-semibold">{s.label}</span>
+                          </div>
+                        ))}
                       </div>
-                      <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                    )}
 
-                <div className="grid grid-cols-2 gap-2.5 pt-4 border-t border-neutral-100">
-                  <div className="bg-slate-50 border border-slate-200/70 rounded-[8px] p-2.5 text-center">
-                    <span className="block text-sm font-bold text-cyan-600">0.5 m²</span>
-                    <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Shelf Area</span>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-200/70 rounded-[8px] p-2.5 text-center">
-                    <span className="block text-sm font-bold text-cyan-600">Pirani</span>
-                    <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Precision Sensors</span>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-200/70 rounded-[8px] p-2.5 text-center">
-                    <span className="block text-sm font-bold text-cyan-600">Controlled</span>
-                    <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Nucleation Tech</span>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-200/70 rounded-[8px] p-2.5 text-center">
-                    <span className="block text-sm font-bold text-cyan-600">Cycle DoE</span>
-                    <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Optimization</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Pillar 3: Clinical GMP Manufacturing */}
-          <Reveal delay={0.2} className="h-full">
-            <div className="h-full bg-white rounded-[14px] border border-neutral-200/90 shadow-sm hover:shadow-lg hover:border-cyan-500/50 transition-all duration-300 p-6 sm:p-7 flex flex-col relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 to-teal-500" />
-              
-              <div className="flex items-center gap-3.5 mb-5 mt-1">
-                <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 group-hover:bg-cyan-600 group-hover:border-cyan-600 transition-colors">
-                  <Factory className="w-6 h-6 text-cyan-600 group-hover:text-white transition-colors" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-neutral-900 tracking-tight leading-snug">
-                    Clinical GMP manufacturing
-                  </h3>
-                  <span className="text-xs font-semibold text-brand-orange uppercase tracking-wider">
-                    Aseptic Fill & Finish
-                  </span>
-                </div>
-              </div>
-
-              <p className="text-sm text-neutral-600 mb-5 leading-relaxed">
-                State-of-the-art cleanroom suites supporting multi-format sterile filling and clinical batch supply.
-              </p>
-
-              <div className="border-t border-neutral-100 pt-4 flex-1">
-                <ul className="space-y-4">
-                  {gmpManufacturingItems.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-cyan-600" />
+                    {/* Specific Supported Formats for GMP Manufacturing */}
+                    {card.packagingFormats && (
+                      <div className="pt-4 mt-4 border-t border-neutral-100">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 block mb-2.5">
+                          Supported Packaging Formats
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {card.packagingFormats.map((fmt, fIdx) => (
+                            <span 
+                              key={fIdx} 
+                              className="px-2.5 py-1.5 rounded-[8px] bg-slate-50 text-neutral-800 text-xs font-semibold border border-slate-200/80 group-hover:border-brand-blue/30 transition-colors"
+                            >
+                              {fmt}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-6 pt-5 border-t border-neutral-100">
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 block mb-3">
-                    Supported Packaging Formats
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1.5 rounded-[8px] bg-slate-100 text-neutral-800 text-xs font-semibold border border-slate-200">
-                      RTU Vials (2R - 50R)
-                    </span>
-                    <span className="px-3 py-1.5 rounded-[8px] bg-slate-100 text-neutral-800 text-xs font-semibold border border-slate-200">
-                      Pre-Filled Syringes (PFS)
-                    </span>
-                    <span className="px-3 py-1.5 rounded-[8px] bg-slate-100 text-neutral-800 text-xs font-semibold border border-slate-200">
-                      Cartridges (1.5mL - 3.0mL)
-                    </span>
+                    )}
                   </div>
                 </div>
-              </div>
-            </div>
-          </Reveal>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
