@@ -43,11 +43,12 @@ const CAPABILITY_ICONS = [FlaskConical, Dna, Microscope, Activity, Search, Beake
 
 function getBulletCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
-  if (lower.includes('codon') || lower.includes('gene synthesis')) return Dna;
+  if (lower.includes('gene construct') || lower.includes('codon') || lower.includes('gene synthesis')) return Dna;
   if (lower.includes('vector') || lower.includes('construct')) return Workflow;
   if (lower.includes('stable cell pool') || lower.includes('pool generation')) return FlaskConical;
-  if (lower.includes('single-cell') || lower.includes('screening')) return Microscope;
+  if (lower.includes('single-cell') || lower.includes('monoclonality')) return Microscope;
   if (lower.includes('high-throughput') || lower.includes('selection')) return Sliders;
+  if (lower.includes('growth') || lower.includes('product quality')) return ShieldCheck;
   if (lower.includes('productivity') || lower.includes('assessment')) return Activity;
   if (lower.includes('research cell bank') || lower.includes('rcb')) return TestTubes;
   if (lower.includes('master cell bank') || lower.includes('mcb') || lower.includes('cgmp')) return Award;

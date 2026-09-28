@@ -602,18 +602,19 @@ export const cdmoData: CDMOPage[] = [
     metaDesc: 'Lambda CDMO develops stable, high-producing mammalian cell lines for monoclonal antibodies, bispecifics, and recombinant biologics.',
     badge: 'Development',
     heading: 'The right clone changes everything downstream. We find it.',
-    description: 'A well-engineered cell line forms the foundation of a successful biologics program. Lambda CDMO develops stable, high-producing cell lines designed to deliver consistent product quality, process scalability, and manufacturing performance.',
+    description: 'A well-characterized, productive cell line provides the foundation for a robust biologics manufacturing process. Lambda CDMO supports stable cell line development and clone selection using mammalian expression systems, with a focus on productivity, product quality, developability and manufacturability, and process suitability.',
     image: '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
     capabilities: [
-      'Codon optimization and gene synthesis',
+      'Gene construct design and optimization',
       'Expression vector design and construction',
       'Stable cell pool generation',
-      'Single-cell cloning and clone screening',
-      'High-throughput clone selection',
+      'Single-cell cloning for establishment of monoclonality',
+      'High-throughput clone screening and selection',
       'Clone characterization and productivity assessment',
+      'Cell growth and product quality assessment',
       'Research Cell Bank (RCB) generation',
-      'Master Cell Bank (MCB) generation under cGMP',
-      'Cell bank characterization and documentation for regulatory submissions'
+      'Master Cell Bank (MCB) generation',
+      'Cell bank characterization and documentation'
     ],
     stats: [
       { value: 'mAb', label: 'Modalities', sublabel: 'Monoclonal antibodies, bispecifics, and recombinant biologics.' },
@@ -623,19 +624,20 @@ export const cdmoData: CDMOPage[] = [
     sections: [
       {
         title: 'Mammalian Expression Systems',
-        text: 'Our expertise spans gene construct design, stable pool generation, single-cell cloning, clone selection, and cGMP cell bank development using mammalian expression systems. We support the development of monoclonal antibodies (mAbs), bispecific antibodies, and other recombinant biologics.',
+        text: 'Our expertise spans gene construct design, stable pool generation, single-cell cloning, clone selection, and cGMP cell bank development using mammalian expression systems. We support the development of monoclonal antibodies (mAbs), bispecific antibodies, and other recombinant biologics. Our Ahmedabad facility provides the broader cell line development platform, while Accord Biopharma London supports clone screening and selection as part of its biologics development activities.',
         dark: false,
         image: '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
         bullets: [
-          'Codon optimization and gene synthesis',
+          'Gene construct design and optimization',
           'Expression vector design and construction',
           'Stable cell pool generation',
-          'Single-cell cloning and clone screening',
-          'High-throughput clone selection',
+          'Single-cell cloning for establishment of monoclonality',
+          'High-throughput clone screening and selection',
           'Clone characterization and productivity assessment',
+          'Cell growth and product quality assessment',
           'Research Cell Bank (RCB) generation',
-          'Master Cell Bank (MCB) generation under cGMP',
-          'Cell bank characterization and documentation for regulatory submissions'
+          'Master Cell Bank (MCB) generation',
+          'Cell bank characterization and documentation'
         ]
       }
     ],
@@ -643,11 +645,11 @@ export const cdmoData: CDMOPage[] = [
       { label: 'Expression Systems', value: 'Mammalian (CHO)' },
       { label: 'Services', value: 'RCB, MCB, Characterization' },
       { label: 'Screening', value: 'High-throughput Clone Selection' },
-      { label: 'Applications', value: 'mAbs, Bispecifics, Recombinant Proteins' },
+      { label: 'Applicable Modalities', value: 'mAbs, Bispecifics, Recombinant Proteins, Other Mammalian Biologics' },
     ],
     faqs: [
-      { question: 'What cell lines does Lambda CDMO develop?', answer: 'We develop stable, high-producing mammalian cell lines for monoclonal antibodies, bispecific antibodies, and other recombinant biologics.' },
-      { question: 'What types of cell banks are generated?', answer: 'We generate Research Cell Banks (RCB) and Master Cell Banks (MCB) under cGMP with characterization and documentation for regulatory submissions.' },
+      { question: 'What cell lines does Lambda CDMO develop?', answer: 'We develop stable, high-producing mammalian cell lines for monoclonal antibodies, bispecific antibodies, recombinant proteins, and other mammalian-derived biologics.' },
+      { question: 'What types of cell banks are generated?', answer: 'We generate Research Cell Banks (RCB) and Master Cell Banks (MCB) with comprehensive characterization and documentation for regulatory submissions.' },
     ]
   },
   {
