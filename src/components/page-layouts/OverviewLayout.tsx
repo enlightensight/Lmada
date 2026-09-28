@@ -506,7 +506,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           rel="noopener noreferrer"
                           className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
                         >
-                          <span>Lambda Therapeutic Research</span>
+                          <span>Lambda Therapeutic Research Ltd.</span>
                           <ExternalLink className="w-3.5 h-3.5 inline-block" />
                         </a>{' '}
                         and{' '}
@@ -519,10 +519,10 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           <span>Novum Pharmaceutical Research Services</span>
                           <ExternalLink className="w-3.5 h-3.5 inline-block" />
                         </a>
-                        , Lambda CDMO brings together scientific, analytical, quality, and manufacturing capabilities within an integrated framework.
+                        , Lambda CDMO now brings together process and analytical development, robust quality systems, and manufacturing capabilities within an integrated framework.
                       </p>
                       <p>
-                        From monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides, our multidisciplinary teams work closely with sponsors to support process development, analytical characterization, technology transfer, and clinical supply.
+                        From <strong className="text-neutral-900 font-semibold">monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides</strong>, our multidisciplinary teams work closely with sponsors to support different aspects of process development, analytical characterization, technology transfer, and clinical supplies.
                       </p>
                     </div>
                   </div>

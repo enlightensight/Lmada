@@ -45,7 +45,7 @@ export const cdmoData: CDMOPage[] = [
     metaDesc: 'Discover Lambda CDMO, the biologics CDMO of Lambda Therapeutic Research. Integrated development, analytical characterization, and GMP manufacturing in Ahmedabad, India.',
     badge: 'Overview',
     heading: 'Developing Tomorrow\'s Biologics with Scientific Excellence and Manufacturing Precision.',
-    description: 'Lambda CDMO is the biologics Contract Development and Manufacturing Organization (CDMO) of Lambda Therapeutic Research, established to support the development and manufacture of biologics, biosimilars, and other complex biologic modalities.',
+    description: 'Lambda CDMO is the biologics Contract Development and Manufacturing Organization of Lambda Therapeutic Research Ltd., established to support the development and manufacture of biologics, biosimilars, and other complex biologic modalities.',
     image: '/images/development.jpg',
     capabilities: [
       'Integrated biologics development, analytical, and manufacturing capabilities',

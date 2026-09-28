@@ -31,9 +31,9 @@ const CDMO_LOCATIONS: LocationInfo[] = [
     title: 'Ahmedabad, India',
     badge: 'Primary Biomanufacturing Campus',
     tagline: 'India HQ & cGMP Biomanufacturing',
-    description: 'Integrated development, analytical and GMP manufacturing capabilities.',
+    description: 'Integrated development with Process and Analytical Sciences capabilities, combined with cGMP manufacturing for both drug substance and drug product.',
     bullets: [
-      'Integrated development, analytical and GMP manufacturing capabilities.',
+      'Integrated development with Process and Analytical Sciences capabilities, combined with cGMP manufacturing for both drug substance and drug product.',
       '2x 200L single-use bioreactor suites for clinical drug substance.',
       'Robotic barrier isolator filling line (10,000 units/batch in vials, PFS, cartridges).',
       'Unified quality and compliance framework aligned with US FDA & EMA expectations.'
@@ -55,9 +55,9 @@ const CDMO_LOCATIONS: LocationInfo[] = [
     title: 'London, UK',
     badge: 'European Innovation Centre',
     tagline: 'European Innovation & Analytics Hub',
-    description: 'Biologics development capabilities focused on upstream and downstream process development, analytical development, biosimilar development and process characterization.',
+    description: 'Biologics development capabilities that will support process and analytical development for drug substance followed by process characterisation studies.',
     bullets: [
-      'Biologics development capabilities focused on upstream and downstream process development, analytical development, biosimilar development and process characterization.',
+      'Biologics development capabilities that will support process and analytical development for drug substance followed by process characterisation studies.',
       'High-throughput clone screening and cell line optimization.',
       'Orthogonal physicochemical characterization and intact mass spectrometry (LC-MS).',
       'Direct technology transfer and recipe scale-up to Ahmedabad GMP suites.'
@@ -362,7 +362,7 @@ export default function CDMOLocationsMapSection({
                             </div>
 
                             <p className="text-xs text-slate-600 leading-relaxed mb-3">
-                              Biologics development capabilities focused on upstream and downstream process development, analytical development, biosimilar development and process characterization.
+                              Biologics development capabilities that will support process and analytical development for drug substance followed by process characterisation studies.
                             </p>
 
                             <Link
@@ -425,7 +425,7 @@ export default function CDMOLocationsMapSection({
                             </div>
 
                             <p className="text-xs text-slate-600 leading-relaxed mb-3">
-                              Integrated development, analytical and GMP manufacturing capabilities.
+                              Integrated development with Process and Analytical Sciences capabilities, combined with cGMP manufacturing for both drug substance and drug product.
                             </p>
 
                             <Link
