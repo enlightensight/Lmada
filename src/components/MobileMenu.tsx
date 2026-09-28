@@ -73,9 +73,12 @@ interface MobileGroup {
   label: string;
   href?: string;
   isExternal?: boolean;
+  headline?: string;
   description?: string;
   columns?: { 
     title: string; 
+    headline?: string;
+    description?: string;
     links: { 
       label: string; 
       href: string; 
@@ -93,7 +96,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const groups: MobileGroup[] = [
     {
       label: 'Overview',
-      description: 'Who we are, our leadership, and our integrated approach.',
+      headline: 'Biologics Development and Manufacturing. Integrated from Cell Line Engineering to Clinical Supplies.',
+      description: 'Supporting biopharmaceutical companies with integrated biologics development, from Gene to GMP – cell line engineering, process development of Drug substance and Drug product, analytical characterization, GMP manufacturing, and clinical supply capabilities to accelerate the journey from molecule to market.',
       columns: [
         {
           title: 'Company',
@@ -114,10 +118,12 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     },
     {
       label: 'Services',
-      description: 'From cell line engineering to GMP manufacturing and QC testing.',
+      description: 'Integrated biologics development, clinical GMP manufacturing, and comprehensive analytical characterization.',
       columns: [
         {
           title: 'Development Services',
+          headline: 'Development Designed for Manufacturing',
+          description: 'Every development decision influences downstream manufacturing. Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes, generate meaningful development data, and support efficient technology transfer into GMP manufacturing.',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line', icon: Dna },
             { label: 'Process Development', href: '/services/process', icon: Settings },
@@ -126,6 +132,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         },
         {
           title: 'Manufacturing Services',
+          headline: 'From Process Development to Clinical Manufacturing. Delivered with Confidence.',
+          description: 'Manufacturing success depends on process consistency, product quality, and effective technology transfer. Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.',
           links: [
             { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance', icon: Beaker },
             { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product', icon: Package },
@@ -133,6 +141,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         },
         {
           title: 'Analytical Characterization and Testing',
+          headline: 'Analytical Insights that Advance Biologics Development',
+          description: 'Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.',
           links: [
             { label: 'Analytical Testing', href: '/characterization/analytical-testing', icon: Microscope },
             { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Scale },
@@ -296,14 +306,21 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         transition={{ duration: 0.25, ease: 'easeInOut' }}
                         className="overflow-hidden mt-1 pb-3"
                       >
-                        {group.description && (
+                        {(group.description || group.headline) && (
                           <div className="mb-4 pb-2.5 border-b border-neutral-100">
-                            <span className="text-brand-orange text-[11px] font-semibold uppercase tracking-wider block">
+                            <span className="text-brand-orange text-[11px] font-semibold uppercase tracking-wider block mb-1">
                               {group.label}
                             </span>
-                            <p className="text-[13px] text-slate-500 font-normal leading-relaxed mt-0.5">
-                              {group.description}
-                            </p>
+                            {group.headline && (
+                              <h4 className="text-[13.5px] font-semibold text-neutral-900 leading-snug mb-1">
+                                {group.headline}
+                              </h4>
+                            )}
+                            {group.description && (
+                              <p className="text-[12.5px] text-slate-500 font-normal leading-relaxed">
+                                {group.description}
+                              </p>
+                            )}
                           </div>
                         )}
 

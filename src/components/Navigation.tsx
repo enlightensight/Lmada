@@ -12,6 +12,7 @@ interface NavItem {
   label: string;
   href?: string;
   isExternal?: boolean;
+  headline?: string;
   description?: string;
   columns?: { title: string; links: { label: string; href: string; icon: LucideIcon; isExternal?: boolean; sublabel?: string }[] }[];
 }
@@ -25,7 +26,8 @@ export default function Navigation() {
   const navigationItems: NavItem[] = [
     {
       label: 'Overview',
-      description: 'Who we are, our leadership, and our integrated approach.',
+      headline: 'Biologics Development and Manufacturing. Integrated from Cell Line Engineering to Clinical Supplies.',
+      description: 'Supporting biopharmaceutical companies with integrated biologics development, from Gene to GMP – cell line engineering, process development of Drug substance and Drug product, analytical characterization, GMP manufacturing, and clinical supply capabilities to accelerate the journey from molecule to market.',
       columns: [
         {
           title: 'Company',
@@ -220,16 +222,27 @@ export default function Navigation() {
                         className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
                       >
                         <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[560px] max-w-[980px] ${
-                          item.label === 'Facility & Locations' || (item.columns && item.columns.length >= 3) ? 'w-[920px]' : ''
+                          item.label === 'Facility & Locations' || (item.columns && item.columns.length >= 3)
+                            ? 'w-[920px]'
+                            : item.label === 'Overview'
+                              ? 'w-[740px]'
+                              : ''
                         }`}>
                           <div className="p-6">
                             <div className="mb-5 pb-4 border-b border-neutral-100">
-                              <span className="text-brand-orange text-[12px] font-semibold uppercase tracking-wider">
+                              <span className="text-brand-orange text-[12px] font-semibold uppercase tracking-wider block mb-1.5">
                                 {item.label}
                               </span>
-                              <p className="text-[15px] text-slate-500 font-normal leading-relaxed mt-1">
-                                {item.description}
-                              </p>
+                              {item.headline && (
+                                <h4 className="text-[15px] sm:text-[16px] font-semibold text-neutral-900 leading-snug mb-1.5">
+                                  {item.headline}
+                                </h4>
+                              )}
+                              {item.description && (
+                                <p className="text-[13.5px] sm:text-[14px] text-slate-600 font-normal leading-relaxed">
+                                  {item.description}
+                                </p>
+                              )}
                             </div>
                             {item.label === 'Facility & Locations' ? (
                               <div className="grid grid-cols-12 gap-8 items-stretch">
@@ -336,7 +349,7 @@ export default function Navigation() {
                                           Biologics Development & Process Characterization
                                         </h4>
                                         <p className="text-[13.5px] text-slate-600 leading-relaxed mb-4 font-normal">
-                                          Specialized European innovation hub focused on clone screening, upstream & downstream process development, intact mass spectrometry, and biosimilars.
+                                          Biologics development capabilities that will support process and analytical development for drug substance followed by process characterisation studies.
                                         </p>
                                         <div className="grid grid-cols-2 gap-2 text-[12.5px] text-slate-700 bg-white/95 rounded-xl p-3 border border-blue-100/70">
                                           <div className="flex items-center gap-2 font-medium">
@@ -353,7 +366,7 @@ export default function Navigation() {
                                           </div>
                                           <div className="flex items-center gap-2 font-medium">
                                             <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>Biosimilar Comparability</span>
+                                            <span>Process Characterisation</span>
                                           </div>
                                         </div>
                                       </div>

@@ -23,7 +23,9 @@ export default function FacilityLocationsMatrix({
   currentLocation,
   className = '',
   title = 'Biologics Development and Manufacturing Across India and Europe',
-  subtitle = 'Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.',
+  subtitle = `Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.
+
+Our facilities support with a strong focus, different aspects of biologics development, with Ahmedabad providing an integrated development and GMP manufacturing platform and London providing specialized biologics development and analytical capabilities for drug substance process development and process characterisation.`,
 }: FacilityLocationsMatrixProps) {
   const locations = [
     {
@@ -55,10 +57,10 @@ export default function FacilityLocationsMatrix({
       href: '/facility&location/UK',
       ctaText: 'London Centre',
       description:
-        'Specialized European innovation hub focused on clone screening, upstream & downstream process development, intact mass spectrometry, and biosimilars.',
+        'Biologics development capabilities that will support process and analytical development for drug substance followed by process characterisation studies.',
       primaryHighlight:
         'Advanced intact mass spectrometry (LC-MS), icIEF, and direct recipe transfer to Ahmedabad GMP suites.',
-      tags: ['Clone Screening', 'LC-MS Analytics', 'Biosimilar Development'],
+      tags: ['Process Development', 'LC-MS Analytics', 'Process Characterisation'],
     },
   ];
 
@@ -72,9 +74,11 @@ export default function FacilityLocationsMatrix({
               {title}
             </h2>
             {subtitle && (
-              <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
-                {subtitle}
-              </p>
+              <div className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4 space-y-3">
+                {subtitle.split('\n\n').map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
             )}
           </Reveal>
         </div>

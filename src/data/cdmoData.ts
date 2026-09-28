@@ -355,10 +355,10 @@ export const cdmoData: CDMOPage[] = [
     category: 'facility&location',
     title: 'London, UK — Biologics Development & Analytical Sciences',
     metaTitle: 'London, UK | Biologics Development & Analytical Sciences | Lambda CDMO',
-    metaDesc: 'The London facility provides specialized capabilities in biologics development, process development, and analytical characterization, with a strong focus on biosimilar development and novel biologics.',
+    metaDesc: 'The London facility provides specialized capabilities in biologics development, process development, and analytical characterization for drug substance process development and process characterisation.',
     badge: 'London, UK',
     heading: 'Biologics Development & Analytical Sciences',
-    description: 'The London facility provides specialized capabilities in biologics development, process development, and analytical characterization, with a strong focus on biosimilar development and novel biologics.\n\nThe facility supports programs from early-stage development through late-stage process characterization, bringing together upstream process development, downstream process development, and analytical development capabilities.',
+    description: 'The London facility provides specialized capabilities in biologics development, process development, and analytical characterization for drug substance process development and process characterisation.\n\nThe facility supports programs from early-stage development through late-stage process characterization, bringing together upstream process development, downstream process development, and analytical development capabilities.',
     image: '/images/Lab.jpg',
     capabilities: [
       'Upstream Process Development & Media/Feed Optimization',

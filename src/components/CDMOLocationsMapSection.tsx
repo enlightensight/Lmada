@@ -68,7 +68,7 @@ const CDMO_LOCATIONS: LocationInfo[] = [
     stats: [
       { label: 'Focus', value: 'Process Dev' },
       { label: 'Mass Spec', value: 'LC-MS' },
-      { label: 'Programs', value: 'Biosimilars' }
+      { label: 'Programs', value: 'Process Characterisation' }
     ],
     accentColor: '#00aeef'
   }
@@ -85,7 +85,9 @@ export default function CDMOLocationsMapSection({
   id = 'our-cdmo-locations',
   className = '',
   title = 'Our CDMO Locations',
-  subtitle = 'Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.'
+  subtitle = `Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.
+
+Our facilities support with a strong focus, different aspects of biologics development, with Ahmedabad providing an integrated development and GMP manufacturing platform and London providing specialized biologics development and analytical capabilities for drug substance process development and process characterisation.`
 }: CDMOLocationsMapSectionProps = {}) {
   const [activeLocationId, setActiveLocationId] = useState<'india' | 'uk' | null>('india');
 
@@ -102,9 +104,11 @@ export default function CDMOLocationsMapSection({
               {title}
             </h2>
             {subtitle && (
-              <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
-                {subtitle}
-              </p>
+              <div className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4 space-y-3">
+                {subtitle.split('\n\n').map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
             )}
           </Reveal>
         </div>
