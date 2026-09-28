@@ -91,7 +91,8 @@ export default function Navigation() {
     },
     {
       label: 'Modalities',
-      description: 'Platform capabilities for diverse biologic molecules.',
+      headline: 'Platform Capabilities for Next-Generation Biologics',
+      description: 'Lambda CDMO brings together integrated development, analytical, and manufacturing capabilities to support diverse biologic modalities from early development through clinical supply.',
       columns: [
         {
           title: 'Molecule Types',
@@ -224,7 +225,7 @@ export default function Navigation() {
                         <div className={`bg-white border border-neutral-200 shadow-2xl rounded-xl overflow-hidden min-w-[560px] max-w-[980px] ${
                           item.label === 'Facility & Locations' || (item.columns && item.columns.length >= 3)
                             ? 'w-[920px]'
-                            : item.label === 'Overview'
+                            : item.label === 'Overview' || item.label === 'Modalities'
                               ? 'w-[740px]'
                               : ''
                         }`}>

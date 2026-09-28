@@ -167,7 +167,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     },
     {
       label: 'Modalities',
-      description: 'Platform capabilities for diverse biologic molecules.',
+      headline: 'Platform Capabilities for Next-Generation Biologics',
+      description: 'Lambda CDMO brings together integrated development, analytical, and manufacturing capabilities to support diverse biologic modalities from early development through clinical supply.',
       columns: [
         {
           title: 'Molecule Types',
