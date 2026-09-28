@@ -524,6 +524,7 @@ export const cdmoData: CDMOPage[] = [
         title: 'Integrated Quality Management System',
         text: 'From process development and analytical characterization to GMP manufacturing and quality control, our integrated quality management system is designed to ensure product quality, process consistency, data integrity, and regulatory compliance. Our development and manufacturing operations are aligned with current global cGMP requirements and are supported by robust quality systems for documentation, traceability, risk management, change control, and continuous improvement.',
         image: '/images/Lab.jpg',
+        imageSide: 'left',
         dark: false,
       },
       {
@@ -532,9 +533,27 @@ export const cdmoData: CDMOPage[] = [
         dark: true,
       },
       {
-        title: 'Regulatory Affairs Support & CMC Documentation',
-        text: 'Our Regulatory Affairs team works closely with development, manufacturing, analytical, and quality functions to support Chemistry, Manufacturing, and Controls (CMC) documentation throughout the product lifecycle. We provide regulatory support for IND, IMPD, and Biologics License Application (BLA) submissions, lifecycle variations, and scientific interactions with global health authorities, helping sponsors navigate regulatory requirements with confidence.',
+        title: 'Quality Control Laboratories',
+        text: 'Our Quality control laboratories are designed with state of art facilities to ensure product safety, identity, purity, potency, and consistency. The QC labs are established in strict alignment with global cGMP regulations and 21 CFR Part 11 data integrity standards, our facility feature advanced analytical instrumentation to cater to vigorous in-process testing and environmental monitoring. The QC labs are operated by scientists trained in all aspects of regulatory compliance driving meticulous data driven batch release testing.',
+        image: '/images/analytical_instruments.jpg',
+        imageSide: 'right',
         dark: false,
+      },
+      {
+        title: 'Regulatory Affairs Support',
+        text: 'Our Regulatory Affairs team works closely with development, manufacturing, analytical, and quality functions to support Chemistry, Manufacturing, and Controls (CMC) requirements throughout the product lifecycle.',
+        image: '/images/insights/regulatory_cmc_roadmap.png',
+        imageSide: 'left',
+        dark: false,
+        bulletsTitle: 'We provide regulatory support for:',
+        bullets: [
+          'IND and IMPD submissions',
+          'Biologics License Application (BLA) submissions',
+          'Lifecycle variations',
+          'CMC documentation',
+          'Scientific interactions with global health authorities',
+        ],
+        footerText: 'Our development and analytical capabilities also support regulatory activities through product characterization, comparative analytical similarity assessment, process characterization, analytical method qualification and validation, and process-related studies.',
       }
     ],
     specs: [
@@ -545,7 +564,7 @@ export const cdmoData: CDMOPage[] = [
     ],
     faqs: [
       { question: 'Which regulatory standards does Lambda CDMO follow?', answer: 'Our development and manufacturing operations are aligned with current global cGMP requirements and are supported by robust quality systems for documentation, traceability, risk management, change control, and continuous improvement.' },
-      { question: 'Does Lambda CDMO support CMC documentation?', answer: 'Yes. Our Regulatory Affairs team supports Chemistry, Manufacturing, and Controls (CMC) documentation for IND, IMPD, and BLA submissions, lifecycle variations, and scientific interactions with health authorities.' },
+      { question: 'Does Lambda CDMO support CMC documentation?', answer: 'Yes. Our Regulatory Affairs team supports Chemistry, Manufacturing, and Controls (CMC) requirements for IND, IMPD, and BLA submissions, lifecycle variations, and scientific interactions with global health authorities.' },
     ]
   },
   {
