@@ -9,6 +9,13 @@ export interface CDMOPage {
   badge?: string;
   image?: string;
   capabilities?: string[];
+  applicableModalities?: {
+    title: string;
+    subtitle?: string;
+    description: string;
+    link?: string;
+    badge?: string;
+  }[];
   stats?: { value: string; label: string; sublabel?: string }[];
   sections: {
     title: string;
@@ -646,6 +653,36 @@ export const cdmoData: CDMOPage[] = [
       { label: 'Services', value: 'RCB, MCB, Characterization' },
       { label: 'Screening', value: 'High-throughput Clone Selection' },
       { label: 'Applicable Modalities', value: 'mAbs, Bispecifics, Recombinant Proteins, Other Mammalian Biologics' },
+    ],
+    applicableModalities: [
+      {
+        title: 'Monoclonal Antibodies',
+        subtitle: 'mAbs & IgG Formats',
+        description: 'High-titer CHO stable cell lines with verified single-cell monoclonality, robust growth, and high productivity for standard and engineered IgGs.',
+        link: '/modalities/mabs',
+        badge: 'Core Focus'
+      },
+      {
+        title: 'Bispecific Antibodies',
+        subtitle: 'Multi-Specific Formats',
+        description: 'Optimized vector design, heavy/light chain ratio tuning, and high-yield clone screening for asymmetric heterodimers and multi-chain formats.',
+        link: '/modalities/bispecifics',
+        badge: 'Multi-Specific'
+      },
+      {
+        title: 'Recombinant Proteins',
+        subtitle: 'Enzymes & Fc-Fusions',
+        description: 'High-yielding mammalian expression systems tailored for complex glycoproteins, fusion proteins, cytokines, and bioactive factors.',
+        link: '/modalities/proteins',
+        badge: 'Recombinant'
+      },
+      {
+        title: 'Other Mammalian Biologics',
+        subtitle: 'Biosimilars & Novel Scaffolds',
+        description: 'Customized stable pool generation and clone isolation for emerging biologic constructs, scaffold proteins, and biosimilar candidates.',
+        link: '/modalities/biosimilars',
+        badge: 'Emerging'
+      }
     ],
     faqs: [
       { question: 'What cell lines does Lambda CDMO develop?', answer: 'We develop stable, high-producing mammalian cell lines for monoclonal antibodies, bispecific antibodies, recombinant proteins, and other mammalian-derived biologics.' },

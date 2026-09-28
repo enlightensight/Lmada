@@ -22,7 +22,8 @@ import {
   Maximize2,
   Repeat,
   Zap,
-  Workflow
+  Workflow,
+  GitMerge
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import DownstreamProcessAnimation from '@/components/DownstreamProcessAnimation';
@@ -352,6 +353,79 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
       </section>
 
 
+
+      {/* APPLICABLE MODALITIES */}
+      {page.applicableModalities && page.applicableModalities.length > 0 && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/70 border-t border-neutral-200/80">
+          <div className="w-full max-w-[1700px] mx-auto">
+            <Reveal>
+              <div className="text-center mb-10 md:mb-14">
+                <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-2.5">
+                  Therapeutic Scope
+                </span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                  Applicable Modalities
+                </h2>
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-3">
+                  Our mammalian cell line development platform supports a comprehensive range of complex biologic modalities.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+              {page.applicableModalities.map((modality, mIdx) => {
+                const ModIcon = modality.title.toLowerCase().includes('bispecific') 
+                  ? GitMerge 
+                  : modality.title.toLowerCase().includes('recombinant') 
+                    ? FlaskConical 
+                    : modality.title.toLowerCase().includes('other') || modality.title.toLowerCase().includes('biosimilar')
+                      ? Atom 
+                      : Dna;
+
+                return (
+                  <Reveal key={mIdx} delay={mIdx * 0.06} className="h-full">
+                    <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-xs hover:shadow-xl hover:border-brand-yellow transition-all duration-300 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200">
+                            <ModIcon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-200" />
+                          </div>
+                          {modality.badge && (
+                            <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 group-hover:bg-brand-yellow/30 group-hover:text-neutral-900 transition-colors">
+                              {modality.badge}
+                            </span>
+                          )}
+                        </div>
+
+                        <h3 className="text-lg font-semibold text-neutral-900 group-hover:text-brand-blue transition-colors mb-1.5">
+                          {modality.title}
+                        </h3>
+                        {modality.subtitle && (
+                          <span className="text-xs font-medium text-slate-400 block mb-3">
+                            {modality.subtitle}
+                          </span>
+                        )}
+                        <p className="text-sm text-neutral-600 leading-relaxed">
+                          {modality.description}
+                        </p>
+                      </div>
+
+                      {modality.link && (
+                        <div className="mt-5 pt-4 border-t border-neutral-100 flex items-center text-xs font-semibold uppercase tracking-wider text-brand-blue group-hover:text-brand-orange transition-colors">
+                          <Link href={modality.link} className="flex items-center gap-1.5 w-full">
+                            <span>Explore modality</span>
+                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
