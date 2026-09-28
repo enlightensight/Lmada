@@ -47,7 +47,7 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
     'FTIR',
     'Nano-DSF for thermal stability characterization',
     'Protein interaction and binding analysis',
-    'Assessment of product structure, purity, and thermal properties',
+    'Assessment of protein structure, purity, and thermal properties',
   ];
 
   const functionalItems = section?.functionalBullets || [
@@ -64,7 +64,7 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
   const applications = section?.applications || [
     {
       title: 'Biosimilars',
-      description: 'High-throughput clone identification and selection, reference product characterization, analytical similarity assessment, and product quality evaluation.',
+      description: 'High-throughput single clone identification and selection, reference product characterization, analytical similarity assessment, and product quality evaluation.',
     },
     {
       title: 'Bispecifics & ADCs',

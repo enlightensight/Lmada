@@ -179,7 +179,7 @@ export const cdmoData: CDMOPage[] = [
         imageSide: 'left',
         bullets: [
           'Stable cell line development',
-          'High-throughput clone screening and selection',
+          'High-throughput clone screening and selection to ensure monoclonality',
           'Electroporation-based transfection',
           'Automated cell selection using CellCelector',
           'Cell growth and productivity assessment',
@@ -297,7 +297,7 @@ export const cdmoData: CDMOPage[] = [
           'FTIR',
           'Nano-DSF for thermal stability characterization',
           'Protein interaction and binding analysis',
-          'Assessment of product structure, purity, and thermal properties'
+          'Assessment of protein structure, purity, and thermal properties'
         ],
         functionalBullets: [
           'SPR and Octet for protein interaction and binding analysis',
@@ -310,7 +310,7 @@ export const cdmoData: CDMOPage[] = [
         applications: [
           {
             title: 'Biosimilars',
-            description: 'High-throughput clone identification and selection, reference product characterization, analytical similarity assessment, and product quality evaluation.'
+            description: 'High-throughput single clone identification and selection, reference product characterization, analytical similarity assessment, and product quality evaluation.'
           },
           {
             title: 'Bispecifics & ADCs',
