@@ -475,13 +475,13 @@ export const cdmoData: CDMOPage[] = [
     sections: [
       {
         title: 'End-to-End Support Under One Roof',
-        text: 'We provide end-to-end support across the biologics development lifecycle, from cell line development through GMP manufacturing and analytical testing, enabling sponsors to collaborate with a single partner throughout their program.',
+        text: 'We provide end-to-end support across the biologics development lifecycle, from cell line engineering and development through GMP manufacturing and analytical testing, enabling sponsors to collaborate with a single partner throughout their program.',
         image: '/images/insights/hcp_dna_testing.jpg',
         dark: false,
       },
       {
         title: 'Reduced Technology Transfer Risk & Operational Simplicity',
-        text: 'By bringing scientific, analytical, manufacturing, and quality expertise together under one quality framework, we help sponsors simplify development, reduce operational complexity, and minimize risks associated with technology transfer. This integrated approach enables efficient progression from early development to clinical supply while maintaining product quality and regulatory readiness.',
+        text: 'By bringing process, analytical, manufacturing, and quality expertise together within a coordinated quality framework, we help sponsors simplify development, reduce operational complexity, and minimize risks associated with technology transfer. This integrated approach supports efficient progression from early development to clinical supply, while maintaining product quality and regulatory readiness.',
         dark: false,
       }
     ],
