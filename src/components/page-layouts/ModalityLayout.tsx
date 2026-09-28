@@ -12,7 +12,8 @@ import {
   Filter, 
   TrendingUp, 
   Boxes, 
-  TestTubes
+  TestTubes,
+  PackageCheck
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -27,19 +28,21 @@ interface ModalityLayoutProps {
 
 function getCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
-  if (lower.includes('cell line') || lower.includes('expression')) return Dna;
-  if (lower.includes('upstream') || lower.includes('downstream')) return FlaskConical;
+  if (lower.includes('mammalian expression') || lower.includes('cell line') || lower.includes('expression system') || lower.includes('recombinant protein expression')) return Dna;
+  if (lower.includes('upstream') || lower.includes('process development') || lower.includes('optimization')) return FlaskConical;
   if (lower.includes('homodimer') || lower.includes('mispairing') || lower.includes('bispecific')) return GitMerge;
   if (lower.includes('conjugation') || lower.includes('dar') || lower.includes('payload') || lower.includes('adc')) return Syringe;
-  if (lower.includes('purification') || lower.includes('refolding') || lower.includes('peptide')) return Filter;
+  if (lower.includes('peptide') || lower.includes('synthetic')) return TestTubes;
+  if (lower.includes('purification') || lower.includes('refolding')) return Filter;
   if (lower.includes('analytical') || lower.includes('characterization') || lower.includes('subclasses')) return Microscope;
   if (lower.includes('bioassay') || lower.includes('potency') || lower.includes('immunogenicity')) return Activity;
+  if (lower.includes('quality') || lower.includes('stability') || lower.includes('degradation')) return ShieldCheck;
+  if (lower.includes('drug product')) return PackageCheck;
+  if (lower.includes('drug substance') || lower.includes('manufacturing')) return Boxes;
   if (lower.includes('scale-up') || lower.includes('transfer')) return TrendingUp;
-  if (lower.includes('manufacturing') || lower.includes('substance') || lower.includes('product')) return Boxes;
-  if (lower.includes('quality') || lower.includes('testing') || lower.includes('degradation') || lower.includes('stability')) return ShieldCheck;
   if (lower.includes('clinical')) return Dna;
   
-  const fallbacks = [Dna, FlaskConical, Microscope, Atom, TestTubes, ShieldCheck, Activity];
+  const fallbacks = [Dna, FlaskConical, Microscope, Atom, TestTubes, ShieldCheck, Activity, Boxes];
   return fallbacks[index % fallbacks.length];
 }
 

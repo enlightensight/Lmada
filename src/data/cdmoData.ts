@@ -1319,13 +1319,16 @@ export const cdmoData: CDMOPage[] = [
     description: 'Lambda CDMO offers development and manufacturing capabilities for recombinant proteins and therapeutic peptides across a range of biologic applications. Our integrated platform combines process development, analytical characterization, quality control, and manufacturing to support the development of protein- and peptide-based therapeutics.',
     image: '/images/Proteins_%26_Peptides.png',
     capabilities: [
+      'Mammalian expression platforms',
       'Recombinant protein expression using CHO, HEK293, and E. coli expression systems',
       'Process development and optimization',
-      'Protein purification and refolding',
-      'Synthetic peptide manufacturing and purification',
-      'Analytical characterization and release testing',
+      'Protein purification',
+      'Synthetic peptide development using recombinant technologies',
+      'Analytical characterization and testing',
+      'Product quality and stability assessment',
       'In vitro immunogenicity assessment',
-      'Drug substance and drug product manufacturing for clinical development',
+      'Drug substance manufacturing',
+      'Drug product manufacturing',
     ],
     sections: [
       {
