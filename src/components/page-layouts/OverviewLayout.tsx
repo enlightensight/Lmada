@@ -551,7 +551,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     </h2>
                     <div className="space-y-4 max-w-3xl mx-auto text-[17px] md:text-[19px] text-slate-600 font-normal leading-relaxed text-center">
                       <p>
-                        Every biologic program has its own scientific, process, manufacturing, and regulatory requirements. Lambda CDMO brings together integrated development, analytical, manufacturing, and quality capabilities to support programs from early development through clinical supply.
+                        Every biologic program has its own process, analytical, manufacturing, and regulatory requirements. Lambda CDMO brings together an integrated approach for process and analytical development, cGMP manufacturing, adequately supported by a quality management system to support programs from early development through clinical supplies.
                       </p>
                       <p>
                         Our approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.

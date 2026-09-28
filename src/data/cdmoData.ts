@@ -49,13 +49,14 @@ export const cdmoData: CDMOPage[] = [
     image: '/images/development.jpg',
     capabilities: [
       'Integrated biologics development, analytical, and manufacturing capabilities',
-      'Extensive CDMO capabilities across India and Europe',
-      'Molecule-specific development approaches across cell line, upstream, downstream, and analytical development',
-      'Advanced analytical characterization supporting method development, product understanding, and comparability',
-      'Process development focused on scalability, robustness, and manufacturability',
-      'GMP manufacturing capabilities and flexible capacity supporting development batches through clinical supply',
+      'Extensive biologics development capabilities across India and Europe',
+      'Molecule-specific development approaches across cell line engineering, process development for Drug substance (upstream cell culture, downstream purification) and Drug product, and analytical development',
+      'Advanced analytical characterization supporting method development and validation, product understanding, and comparative analytical assessment.',
+      'Process development focused on scalability, robustness, and manufacturability.',
+      'Process characterisation studies to support process validation for both Drug Substance and Drug Product.',
+      'GMP manufacturing capabilities and flexible capacity supporting development batches through clinical supplies',
       'Quality and compliance systems supporting GMP operations and regulatory requirements',
-      'Access to Lambda and Novum’s clinical research and bioanalytical capabilities'
+      'The above biologics development capabilities is well integrated with Lambda and Novum’s clinical research and regulated bioanalytical capabilities for peptides and biologics.'
     ],
     stats: [
       { value: '27k', label: 'Sqft Facility', sublabel: 'Purpose-built biologics development and manufacturing campus in Ahmedabad, India.' },
@@ -75,7 +76,7 @@ export const cdmoData: CDMOPage[] = [
       },
       {
         title: 'The Lambda Advantage',
-        text: 'Every biologic program has its own scientific, process, manufacturing, and regulatory requirements. Lambda CDMO brings together integrated development, analytical, manufacturing, and quality capabilities to support programs from early development through clinical supply.\n\nOur approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.',
+        text: 'Every biologic program has its own process, analytical, manufacturing, and regulatory requirements. Lambda CDMO brings together an integrated approach for process and analytical development, cGMP manufacturing, adequately supported by a quality management system to support programs from early development through clinical supplies.\n\nOur approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.',
         dark: true,
       }
     ],
