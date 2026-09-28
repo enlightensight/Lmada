@@ -154,7 +154,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     },
     {
       label: 'Facility & Locations',
-      description: 'Our global biomanufacturing campus and development innovation centers.',
+      headline: 'Biologics Development and Manufacturing Across India and Europe',
+      description: 'Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.',
       columns: [
         {
           title: 'CDMO Locations',
