@@ -513,14 +513,6 @@ export const cdmoData: CDMOPage[] = [
     heading: 'Quality Built into Every Stage.',
     description: 'Quality is embedded throughout every stage of biologics development and manufacturing at Lambda CDMO. From process development and analytical characterization to GMP manufacturing and quality control, our integrated quality management system is designed to ensure product quality, process consistency, data integrity, and regulatory compliance.',
     image: '/images/cdn/pexels-3938022.jpg',
-    capabilities: [
-      'Integrated Quality Management System',
-      'Global Regulatory Alignment (US FDA, EMA, PMDA Japan, TGA Australia)',
-      '21 CFR Part 11 Data Integrity & IP Protection',
-      'Regulatory Affairs Support (CMC, IND, IMPD, BLA)',
-      'Traceability, Change Control & Risk Management',
-      'Customer Transparency & Continuous Improvement'
-    ],
     stats: [
       { value: 'cGMP', label: 'Aligned Operations', sublabel: 'Quality systems aligned with current global requirements.' },
       { value: 'Global', label: 'Markets', sublabel: 'Designed to support US, EU, Japan, and Australia.' },
