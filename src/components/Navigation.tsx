@@ -37,8 +37,8 @@ export default function Navigation() {
         {
           title: 'Commitment',
           links: [
-            { label: 'Integrated Development', href: '/overview/integrated', icon: Layers },
-            { label: 'Quality & Regulatory', href: '/overview/quality', icon: ShieldCheck },
+            { label: 'Integrated development to manufacturing approach', href: '/overview/integrated', icon: Layers },
+            { label: 'Quality and Compliance', href: '/overview/quality', icon: ShieldCheck },
             { label: 'Careers', href: '/overview/careers', icon: Briefcase },
           ],
         },

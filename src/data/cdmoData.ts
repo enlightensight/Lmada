@@ -454,8 +454,8 @@ export const cdmoData: CDMOPage[] = [
   {
     slug: 'integrated',
     category: 'overview',
-    title: 'Integrated Development — Lambda CDMO',
-    metaTitle: 'Integrated Development to Manufacturing | Lambda CDMO',
+    title: 'Integrated Development to Manufacturing Approach — Lambda CDMO',
+    metaTitle: 'Integrated Development to Manufacturing Approach | Lambda CDMO',
     metaDesc: 'Learn how Lambda CDMO integrates cell line development, process development, analytical characterization, and GMP manufacturing under one quality framework.',
     badge: 'Overview',
     heading: 'One Partner Across the Development Journey.',
@@ -498,8 +498,8 @@ export const cdmoData: CDMOPage[] = [
   {
     slug: 'quality',
     category: 'overview',
-    title: 'Quality & Regulatory Framework — Lambda CDMO',
-    metaTitle: 'Quality & Regulatory Framework | Lambda CDMO',
+    title: 'Quality and Compliance Framework — Lambda CDMO',
+    metaTitle: 'Quality and Compliance Framework | Lambda CDMO',
     metaDesc: 'Explore Lambda CDMO\'s integrated quality management system, cGMP-aligned operations, and regulatory support for IND, IMPD, and BLA submissions.',
     badge: 'Quality',
     heading: 'Quality Built into Every Stage.',

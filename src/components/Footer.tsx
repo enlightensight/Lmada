@@ -197,7 +197,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <Link href="/overview/quality" className="text-xs text-neutral-400 hover:text-neutral-900 transition-colors">
-              Quality & Regulatory
+              Quality and Compliance
             </Link>
             <Link href="/insights/blogs" className="text-xs text-neutral-400 hover:text-neutral-900 transition-colors">
               Blog

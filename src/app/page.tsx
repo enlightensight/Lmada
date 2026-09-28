@@ -87,12 +87,12 @@ export default function Home() {
   ];
 
   const advantages = [
-    { title: 'Integrated biologics development, analytical, and manufacturing capabilities', icon: Dna },
+    { title: 'Integrated biologics development, process and analytical sciences, and manufacturing capabilities', icon: Dna },
     { title: 'Extensive CDMO capabilities across India and Europe', icon: Globe },
-    { title: 'Molecule-specific development approaches across cell line, upstream, downstream, and analytical development', icon: FlaskConical },
-    { title: 'Advanced analytical characterization supporting method development, product understanding, and comparability', icon: Microscope },
+    { title: 'Molecule-specific development approaches across cell line, upstream, downstream, drug product and analytical development', icon: FlaskConical },
+    { title: 'Advanced analytical characterization supporting method development and validation, state of art characterisation, and comparative analytical assessment.', icon: Microscope },
     { title: 'Process development focused on scalability, robustness, and manufacturability', icon: Gauge },
-    { title: 'Quality and compliance systems supporting GMP operations and global regulatory expectations', icon: ShieldCheck },
+    { title: 'Quality and compliance systems supporting cGMP operations and global regulatory expectations', icon: ShieldCheck },
   ];
 
   const steps = [
@@ -203,7 +203,7 @@ export default function Home() {
               Platform Capabilities for Next-Generation Biologics
             </h2>
             <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
-              Our integrated development and manufacturing platform is designed to support a range of biologic modalities with scientific, analytical and manufacturing capabilities tailored to each molecule.
+              Our integrated development and manufacturing platform is designed to support a range of biologic modalities with process sciences, analytical sciences and manufacturing capabilities tailored to each molecule.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -246,7 +246,7 @@ export default function Home() {
                 Lambda CDMO Advantage
               </h2>
               <p className="text-[15px] text-slate-500 font-normal leading-relaxed">
-                Our integrated CDMO platform brings together scientific, analytical, and manufacturing capabilities to support a range of biologic modalities, with solutions tailored to each molecule.
+                Our integrated CDMO platform brings together process sciences, analytical sciences, and manufacturing capabilities to support a range of biologic modalities, with solutions tailored to each molecule.
               </p>
             </div>
 
