@@ -22,7 +22,10 @@ import {
   Droplets,
   TestTubes,
   Gauge,
-  PackageCheck
+  PackageCheck,
+  LineChart,
+  Sliders,
+  GitMerge
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -41,6 +44,20 @@ const SLUG_ICONS: Record<string, typeof FlaskConical[]> = {
   bioassays: [HeartPulse, Activity, ShieldCheck],
   microbiological: [Bug, Beaker, Shield],
 };
+
+function getTechIcon(text: string, index: number) {
+  const lower = text.toLowerCase();
+  if (lower.includes('hplc') || lower.includes('uplc') || lower.includes('chromatograph')) return LineChart;
+  if (lower.includes('lc-ms') || lower.includes('mass')) return Microscope;
+  if (lower.includes('capillary') || lower.includes('electrophoresis') || lower.includes('cief') || lower.includes('ce-sds')) return Sliders;
+  if (lower.includes('circular dichroism') || lower.includes('cd')) return Atom;
+  if (lower.includes('ftir') || lower.includes('infrared') || lower.includes('spectroscopy')) return Search;
+  if (lower.includes('nano-dsf') || lower.includes('dsf') || lower.includes('fluorimetry')) return FlaskConical;
+  if (lower.includes('spr') || lower.includes('octet') || lower.includes('interaction') || lower.includes('binding')) return GitMerge;
+
+  const fallbacks = [LineChart, Microscope, Sliders, Atom, Search, FlaskConical, GitMerge];
+  return fallbacks[index % fallbacks.length];
+}
 
 function getCharCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
@@ -274,6 +291,64 @@ export default function CharacterizationLayout({ page, content }: Characterizati
       )}
 
 
+
+      {/* ANALYTICAL TECHNOLOGIES SECTION */}
+      {page.analyticalTechnologies && page.analyticalTechnologies.length > 0 && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/70 border-t border-neutral-200/80">
+          <div className="w-full max-w-[1700px] mx-auto">
+            <Reveal>
+              <div className="text-center mb-10 md:mb-14">
+                <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-2.5">
+                  State-of-the-Art Instrumentation
+                </span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                  Analytical Technologies
+                </h2>
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-3">
+                  Orthogonal analytical platforms and biophysical instrumentation supporting comprehensive physicochemical characterization.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 max-w-6xl mx-auto">
+              {page.analyticalTechnologies.map((tech, tIdx) => {
+                const title = typeof tech === 'string' ? tech : tech.name;
+                const desc = typeof tech === 'string' ? '' : tech.description;
+                const category = typeof tech === 'string' ? '' : tech.category;
+                const TechIcon = getTechIcon(title, tIdx);
+
+                return (
+                  <Reveal key={tIdx} delay={tIdx * 0.05} className="h-full">
+                    <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-xs hover:shadow-xl hover:border-brand-yellow transition-all duration-300 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200">
+                            <TechIcon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-200" />
+                          </div>
+                          {category && (
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 group-hover:bg-brand-yellow/30 group-hover:text-neutral-900 transition-colors">
+                              {category}
+                            </span>
+                          )}
+                        </div>
+
+                        <h3 className="text-lg font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors mb-2">
+                          {title}
+                        </h3>
+                        {desc && (
+                          <p className="text-sm text-neutral-600 leading-relaxed">
+                            {desc}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (

@@ -16,6 +16,11 @@ export interface CDMOPage {
     link?: string;
     badge?: string;
   }[];
+  analyticalTechnologies?: {
+    name: string;
+    description?: string;
+    category?: string;
+  }[];
   stats?: { value: string; label: string; sublabel?: string }[];
   sections: {
     title: string;
@@ -964,46 +969,80 @@ export const cdmoData: CDMOPage[] = [
     metaDesc: 'Lambda CDMO provides orthogonal physicochemical characterization of biologics to support product identity, structure, purity, and regulatory submissions.',
     badge: 'Characterization',
     heading: 'Comprehensive Molecular Characterization for Biologics.',
-    description: 'Comprehensive molecular characterization is essential for understanding critical quality attributes, establishing product comparability, and supporting regulatory submissions. Lambda CDMO provides orthogonal analytical characterization for biologics, enabling detailed evaluation of product identity, structure, purity, heterogeneity, and stability.',
+    description: 'Comprehensive molecular characterization is essential for understanding critical quality attributes, establishing product comparability, and supporting regulatory submissions. Lambda CDMO provides physicochemical and molecular characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.',
     image: '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
     capabilities: [
       'Primary structure analysis',
-      'Intact and peptide mass analysis',
-      'Disulfide bond mapping',
+      'Intact mass and peptide mass analysis',
+      'Disulfide bond characterization',
       'Glycan profiling',
       'Charge variant analysis',
       'Aggregation and fragmentation analysis',
       'Higher-order structure characterization',
-      'Forced degradation and stress stability studies',
-      'Biosimilar comparability studies',
-      'Product characterization for regulatory submissions'
+      'Forced degradation and stress studies',
+      'Reference product characterization',
+      'Biosimilar comparability and analytical similarity assessment',
+      'Product characterization supporting regulatory submissions'
+    ],
+    analyticalTechnologies: [
+      {
+        name: 'HPLC and UPLC',
+        description: 'High-performance and ultra-performance liquid chromatography for SEC, CEX, RP-HPLC, and affinity separation.',
+        category: 'Chromatography'
+      },
+      {
+        name: 'LC-MS',
+        description: 'High-resolution liquid chromatography-mass spectrometry for intact mass, subunit analysis, peptide mapping, and PTM profiling.',
+        category: 'Mass Spectrometry'
+      },
+      {
+        name: 'Capillary Electrophoresis',
+        description: 'CE-SDS (reducing/non-reducing) and cIEF for high-resolution purity, molecular weight estimation, and charge heterogeneity.',
+        category: 'Electrophoresis'
+      },
+      {
+        name: 'Circular Dichroism',
+        description: 'Far-UV and Near-UV CD spectroscopy for secondary and tertiary higher-order structural conformation analysis.',
+        category: 'Spectroscopy'
+      },
+      {
+        name: 'FTIR',
+        description: 'Fourier-transform infrared spectroscopy to monitor secondary structure integrity, beta-sheet content, and conformational stability.',
+        category: 'Spectroscopy'
+      },
+      {
+        name: 'Nano-DSF',
+        description: 'Differential scanning fluorimetry measuring thermal unfolding (Tm) and aggregation onset temperatures (Tagg).',
+        category: 'Biophysical'
+      },
+      {
+        name: 'Protein Interaction and Binding Analysis (SPR and Octet)',
+        description: 'Surface Plasmon Resonance (SPR) and Bio-Layer Interferometry (Octet) for real-time kinetic binding affinity (Ka, Kd, KD).',
+        category: 'Binding Kinetics'
+      }
     ],
     sections: [
       {
-        title: 'Detailed Molecular Evaluation',
+        title: 'Comprehensive Molecular Characterization for Biologics',
         text: 'Our analytical platforms support monoclonal antibodies (mAbs), bispecific antibodies, antibody-drug conjugates (ADCs), recombinant proteins, and other complex biologic modalities throughout development and manufacturing.',
         dark: false,
+        image: '/images/analytical_instruments.jpg',
       },
       {
         title: 'Critical Quality Attributes & Comparability',
-        text: 'Orthogonal analytical characterization enables detailed evaluation of product identity, structure, purity, heterogeneity, and stability to support comparability assessments.',
+        text: 'Orthogonal analytical characterization enables detailed evaluation of product identity, structure, purity, heterogeneity, and stability to support comparability assessments and regulatory submissions.',
         dark: true,
-      },
-      {
-        title: 'Regulatory-Ready Packages',
-        text: 'Characterization datasets are generated to ICH Q6B standards, providing complete structural verification for IND, BLA, and biosimilar dossiers.',
-        dark: false,
       }
     ],
     specs: [
-      { label: 'Mass Analysis', value: 'Intact & Peptide Mass' },
-      { label: 'Structure', value: 'Disulfide Mapping, Glycan Profiling' },
+      { label: 'Mass Analysis', value: 'Intact & Peptide Mass (LC-MS)' },
+      { label: 'Structure', value: 'Disulfide Mapping, CD, FTIR, Glycan Profiling' },
       { label: 'Variants', value: 'Charge, Aggregation, Fragmentation' },
-      { label: 'Comparability', value: 'Biosimilar & Stress Studies' },
+      { label: 'Binding Kinetics', value: 'SPR & Octet (BLI)' },
     ],
     faqs: [
-      { question: 'What physicochemical characterization is available?', answer: 'We offer primary structure analysis, mass analysis, disulfide bond mapping, glycan profiling, charge variant analysis, aggregation/fragmentation analysis, and higher-order structure characterization.' },
-      { question: 'Does Lambda CDMO support biosimilar comparability?', answer: 'Yes. We conduct biosimilar comparability studies and product characterization to support regulatory submissions.' },
+      { question: 'What physicochemical characterization is available?', answer: 'We offer primary structure analysis, intact mass and peptide mass analysis, disulfide bond characterization, glycan profiling, charge variant analysis, aggregation and fragmentation analysis, higher-order structure characterization, and stress studies.' },
+      { question: 'Does Lambda CDMO support biosimilar comparability?', answer: 'Yes. We conduct reference product characterization, biosimilar comparability, and analytical similarity assessments to support regulatory submissions.' },
     ]
   },
   {
