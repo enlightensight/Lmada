@@ -70,7 +70,7 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'microbiological',
     href: '/characterization/microbiological',
     icon: Bug,
-    image: '/images/cdn/unsplash-1576086213369-97a306d36557.jpg',
+    image: '/images/default_scientist.jpg',
     badge: 'Microbiology QC',
     description: 'Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.',
     capabilities: [
