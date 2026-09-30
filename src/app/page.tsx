@@ -7,7 +7,6 @@ import { ArrowRight, FlaskConical, Factory, Microscope, Dna, Activity, HeartPuls
 import { HeroSection } from '@/components/ui/hero-section-5';
 import Reveal from '@/components/Reveal';
 import SectionHeader from '@/components/SectionHeader';
-import IntegratedTimeline from '@/components/IntegratedTimeline';
 import { articles } from '@/data/articles';
 import { faqs } from '@/data/faqs';
 import FAQSection from '@/components/FAQSection';
@@ -106,9 +105,6 @@ export default function Home() {
     <div className="relative overflow-hidden pb-0 select-none">
       {/* HERO */}
       <HeroSection />
-
-      {/* INTEGRATED BIOLOGICS DEVELOPMENT, MANUFACTURING AND CLINICAL SUPPORT TIMELINE */}
-      <IntegratedTimeline />
 
       {/* GLOBAL CDMO CAPABILITIES ACROSS INDIA AND EUROPE - INTERACTIVE MAP */}
       <CDMOLocationsMapSection
