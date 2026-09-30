@@ -4,24 +4,11 @@ import Link from 'next/link';
 import { 
   Building2, 
   Factory, 
-  Globe, 
   ArrowRight, 
-  CheckCircle2, 
-  Microscope, 
-  Dna, 
-  Layers, 
-  Workflow, 
-  ShieldCheck, 
-  Sliders, 
-  Repeat, 
-  FileCheck,
-  Activity,
-  Check,
-  Minus
+  Check
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
-import FacilityLocationsMatrix from '@/components/FacilityLocationsMatrix';
 import FacilityHeroCarousel from '@/components/FacilityHeroCarousel';
 import FAQSection from '@/components/FAQSection';
 
@@ -319,12 +306,6 @@ export default function FacilityAndLocationPage() {
           </Reveal>
         </div>
       </section>
-
-      {/* DETAILED DUAL FACILITY CARDS */}
-      <FacilityLocationsMatrix 
-        title="Explore Our Worldwide Biologics Infrastructure"
-        subtitle={null}
-      />
 
       {/* FAQS SECTION */}
       <FAQSection faqs={FACILITY_FAQS} />
