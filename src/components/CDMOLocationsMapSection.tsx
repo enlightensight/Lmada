@@ -85,9 +85,7 @@ export default function CDMOLocationsMapSection({
   id = 'our-cdmo-locations',
   className = '',
   title = 'Our CDMO Locations',
-  subtitle = `Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.
-
-Our facilities support with a strong focus, different aspects of biologics development, with Ahmedabad providing an integrated development and GMP manufacturing platform and London providing specialized biologics development and analytical capabilities for drug substance process development and process characterisation.`
+  subtitle = null
 }: CDMOLocationsMapSectionProps = {}) {
   const [activeLocationId, setActiveLocationId] = useState<'india' | 'uk' | null>('india');
 
