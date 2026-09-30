@@ -55,7 +55,7 @@ function getBulletCapabilityIcon(text: string, index: number) {
   if (lower.includes('documentation') || lower.includes('regulatory') || lower.includes('submissions') || lower.includes('validation') || lower.includes('qualification')) return FileCheck;
   if (lower.includes('media') || lower.includes('feed')) return FlaskConical;
   if (lower.includes('bioreactor') || lower.includes('shake flask')) return TestTubes;
-  if (lower.includes('doe') || lower.includes('characterization')) return Sliders;
+  if (lower.includes('doe') || lower.includes('optimization') || lower.includes('characterization')) return Sliders;
   if (lower.includes('cell culture') || lower.includes('clone') || lower.includes('cell line')) return Dna;
   if (lower.includes('intensification') || lower.includes('perfusion') || lower.includes('atf') || lower.includes('fed-batch')) return Repeat;
   if (lower.includes('glycosylation')) return Atom;
@@ -67,12 +67,18 @@ function getBulletCapabilityIcon(text: string, index: number) {
   if (lower.includes('ultrafiltration') || lower.includes('diafiltration') || lower.includes('uf/df') || lower.includes('filtration')) return Filter;
   if (lower.includes('impurity') || lower.includes('clearance')) return ShieldCheck;
   if (lower.includes('formulation')) return Beaker;
+  if (lower.includes('lc-ms') || lower.includes('mass spec')) return Microscope;
+  if (lower.includes('electrophoresis') || lower.includes('capillary')) return LineChart;
+  if (lower.includes('elisa')) return TestTubes;
   if (lower.includes('identity') || lower.includes('purity') || lower.includes('testing')) return Search;
-  if (lower.includes('hplc') || lower.includes('ce-sds') || lower.includes('ief')) return LineChart;
-  if (lower.includes('potency') || lower.includes('binding') || lower.includes('cell-based')) return Activity;
+  if (lower.includes('hplc') || lower.includes('uplc') || lower.includes('ce-sds') || lower.includes('ief')) return LineChart;
+  if (lower.includes('potency') || lower.includes('binding') || lower.includes('cell-based') || lower.includes('assay')) return Activity;
   if (lower.includes('forced degradation') || lower.includes('stability')) return ShieldCheck;
   if (lower.includes('reference standard')) return Award;
   if (lower.includes('transfer') || lower.includes('tech transfer')) return Share2;
+  if (lower.includes('comparability') || lower.includes('biosimilar')) return GitMerge;
+  if (lower.includes('support')) return Workflow;
+  if (lower.includes('method development') || lower.includes('method')) return FileCheck;
   if (lower.includes('scalability') || lower.includes('scale-up')) return Maximize2;
 
   const fallbacks = [Dna, Workflow, FlaskConical, Microscope, Sliders, Activity, TestTubes, Award, FileCheck];
@@ -125,43 +131,6 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
           </div>
         </div>
       </section>
-
-      {/* KEY CAPABILITIES (Rendered directly below Hero for Analytical Development) */}
-      {page.slug === 'analytical' && page.capabilities && page.capabilities.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-16 bg-white border-b border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-12">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  Key Capabilities
-                </h2>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-3">
-                  Comprehensive analytical testing, assay validation, and characterization platforms supporting biologics across development and QC release.
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-5xl mx-auto">
-              {page.capabilities.map((cap, cIdx) => {
-                const CapIcon = getBulletCapabilityIcon(cap, cIdx);
-                const isLastAndOdd = cIdx === page.capabilities!.length - 1 && page.capabilities!.length % 2 === 1;
-                return (
-                  <Reveal key={cIdx} delay={cIdx * 0.05} className={isLastAndOdd ? 'sm:col-span-2' : ''}>
-                    <div className="group flex items-center gap-4 p-4 sm:p-5 rounded-[10px] bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-yellow hover:bg-white hover:shadow-md transition-all duration-300 h-full">
-                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200">
-                        <CapIcon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-blue group-hover:text-black transition-colors duration-200" />
-                      </div>
-                      <span className="text-base sm:text-lg font-medium text-neutral-900 leading-snug group-hover:text-black">
-                        {cap}
-                      </span>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* TECHNICAL FOCUS AREAS — HORIZONTAL SECTIONS WITH KEY CAPABILITIES ICONS */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
@@ -327,7 +296,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                           {section.bullets && section.bullets.length > 0 && (
                             <div className="pt-5 border-t border-neutral-100">
                               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                                Key Capabilities
+                                {section.bulletsTitle || 'Key Capabilities'}
                               </span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 {section.bullets.map((b, bIdx) => {

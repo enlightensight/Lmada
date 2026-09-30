@@ -752,20 +752,30 @@ export const cdmoData: CDMOPage[] = [
     slug: 'analytical',
     category: 'services',
     title: 'Analytical Development — Lambda CDMO',
-    metaTitle: 'Analytical Development | Lambda CDMO',
-    metaDesc: 'Lambda CDMO develops, qualifies, and validates analytical methods for biologics identity, purity, potency, and stability in accordance with ICH guidelines.',
+    metaTitle: 'Analytical Methods for Biologics Development | Lambda CDMO',
+    metaDesc: 'Lambda CDMO develops analytical methods to support product and process development, comparability, stability assessment, and regulatory requirements across biologics programs.',
     badge: 'Development',
-    heading: 'Analytical Methods Designed to Support Development and Regulatory Success.',
-    description: 'Analytical development plays a critical role throughout biologics development by ensuring product identity, purity, potency, and stability. Lambda CDMO develops, qualifies, and validates analytical methods that support process development, comparability studies, GMP manufacturing, and regulatory submissions.',
+    heading: 'Analytical Methods for Biologics Development',
+    description: 'Lambda CDMO develops analytical methods to support product and process development, comparability, stability assessment, and regulatory requirements across biologics programs.\n\nOur analytical development activities include method development, optimization, qualification, validation, and transfer to QC laboratories.',
     image: '/images/analytical_instruments.jpg',
     capabilities: [
-      'Method development, qualification, and validation',
-      'Identity and purity testing',
-      'SEC-HPLC, CEX-HPLC, CE-SDS, and IEF',
-      'Cell-based and binding potency assays',
-      'Forced degradation and stability-indicating studies',
+      'Analytical method development',
+      'Method optimization',
+      'Method qualification',
+      'Method validation',
+      'Stability-indicating method development',
       'Reference standard qualification',
-      'Method transfer to Quality Control laboratories'
+      'Analytical method transfer',
+      'Analytical support for process development',
+      'Analytical methods for comparability and biosimilar development',
+      'HPLC and UPLC',
+      'SEC-HPLC',
+      'Ion exchange chromatography',
+      'Capillary electrophoresis',
+      'LC-MS',
+      'Cell-based assays',
+      'ELISA',
+      'Ligand/receptor binding assays'
     ],
     sections: [
       {
@@ -773,12 +783,35 @@ export const cdmoData: CDMOPage[] = [
         text: 'Our analytical platforms support the characterization of monoclonal antibodies, bispecific antibodies, antibody-drug conjugates (ADCs), and related biologic modalities in accordance with current ICH guidelines.',
         dark: false,
         image: '/images/analytical_instruments.jpg',
+        bulletsTitle: 'Capabilities',
+        bullets: [
+          'Analytical method development',
+          'Method optimization',
+          'Method qualification',
+          'Method validation',
+          'Stability-indicating method development',
+          'Reference standard qualification',
+          'Analytical method transfer',
+          'Analytical support for process development',
+          'Analytical methods for comparability and biosimilar development'
+        ]
       },
       {
         title: 'Integrated with Process Development',
         text: 'By integrating analytical development with process development from the outset, we reduce development timelines, facilitate technology transfer, and support efficient progression into GMP manufacturing.',
         dark: false,
         image: '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
+        bulletsTitle: 'Analytical Platforms',
+        bullets: [
+          'HPLC and UPLC',
+          'SEC-HPLC',
+          'Ion exchange chromatography',
+          'Capillary electrophoresis',
+          'LC-MS',
+          'Cell-based assays',
+          'ELISA',
+          'Ligand/receptor binding assays'
+        ]
       },
       {
         title: 'Method Transfer to QC & Release',
@@ -788,14 +821,15 @@ export const cdmoData: CDMOPage[] = [
       }
     ],
     specs: [
-      { label: 'Techniques', value: 'SEC-HPLC, CEX-HPLC, CE-SDS, IEF' },
-      { label: 'Potency', value: 'Cell-based & Binding Assays' },
-      { label: 'Stability', value: 'Forced Degradation Studies' },
-      { label: 'Transfer', value: 'QC Method Transfer' },
+      { label: 'Techniques', value: 'HPLC, SEC-HPLC, IEX, LC-MS' },
+      { label: 'Assays', value: 'Cell-based & Binding Assays, ELISA' },
+      { label: 'Stability', value: 'Stability-Indicating Methods' },
+      { label: 'Transfer', value: 'QC Method Transfer & Validation' },
     ],
     faqs: [
-      { question: 'What analytical techniques does Lambda CDMO use?', answer: 'We use SEC-HPLC, CEX-HPLC, CE-SDS, IEF, and other orthogonal methods to support identity, purity, and potency characterization.' },
-      { question: 'Are methods validated to regulatory guidelines?', answer: 'Yes. Methods are developed, qualified, and validated in accordance with current ICH guidelines to support regulatory submissions.' },
+      { question: 'What analytical techniques does Lambda CDMO use?', answer: 'We use HPLC, UPLC, SEC-HPLC, ion exchange chromatography, capillary electrophoresis, LC-MS, cell-based assays, ELISA, and ligand/receptor binding assays.' },
+      { question: 'Are methods validated to regulatory guidelines?', answer: 'Yes. Methods are developed, optimized, qualified, and validated in accordance with current ICH guidelines to support regulatory submissions.' },
+      { question: 'How do you transfer methods to QC laboratories?', answer: 'Qualified and validated analytical methods are transferred seamlessly into QC laboratories to support in-process testing, lot release, and stability programs.' }
     ]
   },
   // ==================== MANUFACTURING SERVICES ====================
