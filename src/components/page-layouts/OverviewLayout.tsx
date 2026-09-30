@@ -598,7 +598,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             </Reveal>
 
             {page.slug === 'about' ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {page.capabilities.map((cap, idx) => {
                   const Icon = getOverviewCapabilityIcon(cap, idx);
                   return (
