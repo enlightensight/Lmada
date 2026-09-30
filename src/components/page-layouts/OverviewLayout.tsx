@@ -59,6 +59,21 @@ interface OverviewLayoutProps {
   content: PageContent;
 }
 
+function renderFormattedText(text: string) {
+  if (!text.includes('**')) return text;
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <strong key={i} className="text-neutral-900 font-semibold">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
+
 interface LeaderProfile {
   name: string;
   title: string;
@@ -448,7 +463,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               </h1>
               <div className="space-y-4 text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl">
                 {page.description.split('\n\n').map((para, pIdx) => (
-                  <p key={pIdx}>{para}</p>
+                  <p key={pIdx}>{renderFormattedText(para)}</p>
                 ))}
               </div>
             </div>

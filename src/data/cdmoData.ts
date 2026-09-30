@@ -510,8 +510,8 @@ export const cdmoData: CDMOPage[] = [
     metaTitle: 'Quality and Compliance Framework | Lambda CDMO',
     metaDesc: 'Explore Lambda CDMO\'s integrated quality management system, cGMP-aligned operations, and regulatory support for IND, IMPD, and BLA submissions.',
     badge: 'Quality',
-    heading: 'Quality Built into Every Stage.',
-    description: 'Quality is embedded throughout every stage of biologics development and manufacturing at Lambda CDMO. From process development and analytical characterization to GMP manufacturing and quality control, our integrated quality management system is designed to ensure product quality, process consistency, data integrity, and regulatory compliance.',
+    heading: 'Quality and Regulatory Framework',
+    description: 'Lambda CDMO\'s quality framework supports **product quality, process consistency, data integrity, and regulatory compliance** across biologics development and manufacturing.\n\nFrom process development and analytical characterization through GMP manufacturing and quality control, our operations are supported by defined systems for **documentation, traceability, risk management, change control, and continuous improvement**.',
     image: '/images/cdn/pexels-3938022.jpg',
     stats: [
       { value: 'cGMP', label: 'Aligned Operations', sublabel: 'Quality systems aligned with current global requirements.' },
