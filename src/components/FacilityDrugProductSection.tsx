@@ -93,57 +93,148 @@ export default function FacilityDrugProductSection({ section }: FacilityDrugProd
           </div>
         </Reveal>
 
-        {/* 3 Capability Pillars Grid - Matching Homepage Service Cards Design */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
-          {cards.map((card, idx) => {
-            const CardIcon = card.icon;
-            return (
-              <Reveal key={card.title} delay={0.12 + idx * 0.08} className="h-full">
-                <div className="group h-full bg-white rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 border border-neutral-200/90 flex flex-col">
-                  {/* Photo header */}
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
-                  </div>
-
-                  {/* Body */}
-                  <div className="p-6 md:p-7 flex flex-col flex-1">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs">
-                        <CardIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-                      </div>
-                      <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
-                        {card.title}
-                      </h3>
-                    </div>
-
-                    {/* Feature items with icon and no arrow */}
-                    <ul className="border-t border-neutral-100 pt-2 flex-1">
-                      {card.items.map((item, i) => {
-                        const ItemIcon = item.icon;
-                        return (
-                          <li key={i} className="border-b border-neutral-100 last:border-0 py-2.5">
-                            <div className="flex items-start gap-3 text-sm font-medium text-neutral-700">
-                              <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200 mt-0.5">
-                                <ItemIcon className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors duration-200" />
-                              </div>
-                              <div className="text-[14px] text-slate-700 leading-snug font-normal">
-                                {item.name}
-                              </div>
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
+        {/* Capability Pillars Layout: Left = Formulation (vertical), Right = Lyophilization & GMP stacked horizontally */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-stretch">
+          {/* Left Column: Formulation Development (Vertical Card) */}
+          <div className="lg:col-span-5 flex flex-col">
+            <Reveal delay={0.12} className="h-full flex flex-col">
+              <div className="group h-full bg-white rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 border border-neutral-200/90 flex flex-col">
+                {/* Photo header */}
+                <div className="relative aspect-[16/10] overflow-hidden shrink-0">
+                  <img
+                    src={cards[0].image}
+                    alt={cards[0].title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
                 </div>
-              </Reveal>
-            );
-          })}
+
+                {/* Body */}
+                <div className="p-6 md:p-7 flex flex-col flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs">
+                      {React.createElement(cards[0].icon, { className: "w-5 h-5 transition-transform duration-300 group-hover:scale-110" })}
+                    </div>
+                    <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
+                      {cards[0].title}
+                    </h3>
+                  </div>
+
+                  {/* Feature items */}
+                  <ul className="border-t border-neutral-100 pt-2 flex-1">
+                    {cards[0].items.map((item, i) => {
+                      const ItemIcon = item.icon;
+                      return (
+                        <li key={i} className="border-b border-neutral-100 last:border-0 py-2.5">
+                          <div className="flex items-start gap-3 text-sm font-medium text-neutral-700">
+                            <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200 mt-0.5">
+                              <ItemIcon className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors duration-200" />
+                            </div>
+                            <div className="text-[14px] text-slate-700 leading-snug font-normal">
+                              {item.name}
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Right Column: Lyophilization & GMP Manufacturing Stacked Horizontally */}
+          <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8 justify-between">
+            {/* Card 2: Lyophilization development */}
+            <Reveal delay={0.2} className="flex-1 flex flex-col">
+              <div className="group h-full bg-white rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 border border-neutral-200/90 flex flex-col sm:flex-row">
+                {/* Photo */}
+                <div className="relative w-full sm:w-2/5 md:w-5/12 min-h-[190px] sm:min-h-full overflow-hidden shrink-0">
+                  <img
+                    src={cards[1].image}
+                    alt={cards[1].title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-brand-navy/60 sm:from-transparent sm:to-brand-navy/20 via-transparent to-transparent" />
+                </div>
+
+                {/* Content */}
+                <div className="p-6 md:p-7 flex flex-col flex-1 justify-center">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs">
+                      {React.createElement(cards[1].icon, { className: "w-5 h-5 transition-transform duration-300 group-hover:scale-110" })}
+                    </div>
+                    <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
+                      {cards[1].title}
+                    </h3>
+                  </div>
+
+                  <ul className="border-t border-neutral-100 pt-3">
+                    {cards[1].items.map((item, i) => {
+                      const ItemIcon = item.icon;
+                      return (
+                        <li key={i} className="py-1">
+                          <div className="flex items-start gap-3 text-sm font-medium text-neutral-700">
+                            <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200 mt-0.5">
+                              <ItemIcon className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors duration-200" />
+                            </div>
+                            <div className="text-[14px] text-slate-700 leading-relaxed font-normal">
+                              {item.name}
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Card 3: Clinical GMP manufacturing */}
+            <Reveal delay={0.28} className="flex-1 flex flex-col">
+              <div className="group h-full bg-white rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 border border-neutral-200/90 flex flex-col sm:flex-row">
+                {/* Photo */}
+                <div className="relative w-full sm:w-2/5 md:w-5/12 min-h-[190px] sm:min-h-full overflow-hidden shrink-0">
+                  <img
+                    src={cards[2].image}
+                    alt={cards[2].title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-brand-navy/60 sm:from-transparent sm:to-brand-navy/20 via-transparent to-transparent" />
+                </div>
+
+                {/* Content */}
+                <div className="p-6 md:p-7 flex flex-col flex-1 justify-center">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs">
+                      {React.createElement(cards[2].icon, { className: "w-5 h-5 transition-transform duration-300 group-hover:scale-110" })}
+                    </div>
+                    <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
+                      {cards[2].title}
+                    </h3>
+                  </div>
+
+                  <ul className="border-t border-neutral-100 pt-2">
+                    {cards[2].items.map((item, i) => {
+                      const ItemIcon = item.icon;
+                      return (
+                        <li key={i} className="border-b border-neutral-100 last:border-0 py-2.5">
+                          <div className="flex items-start gap-3 text-sm font-medium text-neutral-700">
+                            <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200 mt-0.5">
+                              <ItemIcon className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors duration-200" />
+                            </div>
+                            <div className="text-[14px] text-slate-700 leading-snug font-normal">
+                              {item.name}
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
