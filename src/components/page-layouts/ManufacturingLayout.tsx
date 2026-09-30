@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
+import CommonCTA from '@/components/CommonCTA';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -288,36 +289,8 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         <FAQSection faqs={page.faqs} />
       )}
 
-      {/* CTA — navy band with video background */}
-      <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24">
-        <video src="/videos/Floating-Molecule-Video.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
-        <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-white leading-[1.15] mb-6">
-            Let&apos;s Advance Your Next Biologics Program
-          </h2>
-          <p className="text-base text-white/70 max-w-2xl mx-auto mb-8">
-            Whether you&apos;re developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-medium text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all"
-            >
-              Get in touch
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-            <a
-              href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"
-            >
-              Virtual Tour
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* CTA */}
+      <CommonCTA />
     </>
   );
 }

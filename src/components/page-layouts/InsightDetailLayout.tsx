@@ -19,6 +19,7 @@ import {
   Check,
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
+import CommonCTA from '@/components/CommonCTA';
 import { INSIGHT_TABS, type InsightItem } from '@/data/insightsData';
 
 interface InsightDetailLayoutProps {
@@ -514,48 +515,8 @@ export default function InsightDetailLayout({ item, relatedItems }: InsightDetai
         )}
       </main>
 
-      {/* 4. BOTTOM VIDEO CTA BANNER */}
-      <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24">
-        <video
-          src="/videos/Floating-Molecule-Video.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-brand-navy/65 pointer-events-none" />
-        <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
-          <Reveal>
-            <div className="inline-flex w-14 h-14 rounded-2xl bg-brand-orange items-center justify-center mb-6 shadow-lg shadow-brand-orange/20">
-              <FileText className="w-7 h-7 text-white" />
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight leading-[1.15] mb-4">
-              Partner with Lambda CDMO for <span className="font-normal text-white">Proven Scientific Execution</span>
-            </h2>
-            <p className="text-base sm:text-lg text-white/80 max-w-2xl mx-auto mb-8 font-light leading-relaxed">
-              Connect with our technical team in Ahmedabad to discuss cell line development, analytical characterization, single-use manufacturing, and regulatory filing support.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-orange hover:bg-brand-orange-hover text-white font-medium text-sm uppercase tracking-wider shadow-lg active:scale-95 transition-all"
-              >
-                Inquire With Scientific Leadership
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-              <a
-                href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl border border-white/30 text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-wider transition-all"
-              >
-                Virtual Tour
-              </a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* 4. BOTTOM COMMON CTA BANNER */}
+      <CommonCTA />
     </div>
   );
 }

@@ -11,6 +11,7 @@ import Reveal from '@/components/Reveal';
 import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import FacilityHeroCarousel from '@/components/FacilityHeroCarousel';
 import FAQSection from '@/components/FAQSection';
+import CommonCTA from '@/components/CommonCTA';
 
 export const metadata: Metadata = {
   title: 'Facility and Locations — Biologics Development & Manufacturing | Lambda CDMO',
@@ -311,42 +312,7 @@ export default function FacilityAndLocationPage() {
       <FAQSection faqs={FACILITY_FAQS} />
 
       {/* CTA SECTION */}
-      <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24">
-        <video 
-          src="/videos/Floating-Molecule-Video.mp4" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover" 
-        />
-        <div className="absolute inset-0 bg-brand-navy/60 pointer-events-none" />
-        
-        <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
-          <Reveal>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight leading-[1.15] mb-6">
-              <span className="text-white">Let&apos;s Advance</span> Your Next Biologics Program
-            </h2>
-            <p className="text-base sm:text-lg text-white/75 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
-              Whether you are developing an innovator biologic, biosimilar, or complex therapeutic modality, our dual-continent team is ready to discuss your development and GMP manufacturing roadmap.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/contact"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-semibold text-sm uppercase tracking-wider shadow-lg transition-all"
-              >
-                Request Technical Consultation
-              </Link>
-              <Link
-                href="/overview/about"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-[10px] bg-white/10 hover:bg-white/20 text-white font-semibold text-sm uppercase tracking-wider border border-white/30 backdrop-blur-sm transition-all"
-              >
-                About Lambda CDMO
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <CommonCTA />
     </main>
   );
 }
