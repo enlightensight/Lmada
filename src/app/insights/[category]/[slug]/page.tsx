@@ -1,13 +1,15 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { INSIGHT_TABS, type InsightItem } from '@/data/insightsData';
 import {
-  insightsData,
-  getAllInsightItems,
-  getInsightBySlug,
-  getRelatedInsights,
-  INSIGHT_TABS,
-} from '@/data/insightsData';
+  getAllStoredInsightList,
+  getStoredInsightBySlug,
+  getStoredInsightsByCategory,
+} from '@/lib/insightsStorage';
 import InsightDetailLayout from '@/components/page-layouts/InsightDetailLayout';
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
 interface PageProps {
   params: Promise<{
@@ -17,30 +19,34 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const allItems = getAllInsightItems();
-  const params: { category: string; slug: string }[] = [];
+  try {
+    const allItems = getAllStoredInsightList();
+    const params: { category: string; slug: string }[] = [];
 
-  for (const item of allItems) {
-    if (item.slug) {
-      params.push({
-        category: item.category,
-        slug: item.slug,
-      });
+    for (const item of allItems) {
+      if (item.slug) {
+        params.push({
+          category: item.category,
+          slug: item.slug,
+        });
+      }
+      if (item.id && item.id !== item.slug) {
+        params.push({
+          category: item.category,
+          slug: item.id,
+        });
+      }
     }
-    if (item.id && item.id !== item.slug) {
-      params.push({
-        category: item.category,
-        slug: item.id,
-      });
-    }
+
+    return params;
+  } catch (err) {
+    return [];
   }
-
-  return params;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category, slug } = await params;
-  const item = getInsightBySlug(category, slug);
+  const item = getStoredInsightBySlug(category, slug);
 
   if (!item) {
     return {
@@ -71,13 +77,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function InsightArticlePage({ params }: PageProps) {
   const { category, slug } = await params;
-  const item = getInsightBySlug(category, slug);
+  const item = getStoredInsightBySlug(category, slug);
 
   if (!item) {
     notFound();
   }
 
-  const relatedItems = getRelatedInsights(item.category, item.slug, 3);
+  const categoryItems = getStoredInsightsByCategory(item.category);
+  const relatedItems = categoryItems
+    .filter((i) => i.slug !== item.slug && i.id !== item.id)
+    .slice(0, 3);
 
   return <InsightDetailLayout item={item} relatedItems={relatedItems} />;
 }

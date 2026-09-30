@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -18,7 +18,7 @@ import Reveal from '@/components/Reveal';
 import CommonCTA from '@/components/CommonCTA';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
-import { insightsData, INSIGHT_TABS } from '@/data/insightsData';
+import { insightsData, INSIGHT_TABS, type InsightItem } from '@/data/insightsData';
 
 interface InsightsLayoutProps {
   page: CDMOPage;
@@ -37,6 +37,19 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
   // Active category slug derived or selected by user
   const [userSelectedTab, setUserSelectedTab] = useState<string | null>(null);
   const activeTab = userSelectedTab ?? (INSIGHT_TABS.some((t) => t.slug === page.slug) ? page.slug : 'blogs');
+  const [liveData, setLiveData] = useState<Record<string, InsightItem[]>>(insightsData);
+
+  // Fetch latest insights dynamically from storage
+  useEffect(() => {
+    fetch('/api/insights')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data) {
+          setLiveData(data.data);
+        }
+      })
+      .catch((err) => console.log('Using local static insightsData:', err));
+  }, []);
 
   // Switch tabs and update browser URL without full reload
   const handleTabChange = (slug: string) => {
@@ -47,7 +60,7 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
   };
 
   const currentTabConfig = INSIGHT_TABS.find((t) => t.slug === activeTab) || INSIGHT_TABS[0];
-  const items = insightsData[activeTab] || [];
+  const items = liveData[activeTab] || insightsData[activeTab] || [];
   const [featuredItem, ...supportingItems] = items;
 
   return (
