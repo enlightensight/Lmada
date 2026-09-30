@@ -7,8 +7,7 @@ import {
   Settings, 
   Search, 
   ArrowRight, 
-  Check, 
-  Sparkles
+  Check
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -166,16 +165,6 @@ export default function DevelopmentServicesPage() {
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-orange mb-1">
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>Integrated Platform</span>
-                      </div>
-                      <p className="text-sm font-medium text-white/90">
-                        Gene-to-GMP pipeline unifying clone engineering, process sciences, and analytical testing.
-                      </p>
-                    </div>
                   </div>
                 </div>
               </Reveal>

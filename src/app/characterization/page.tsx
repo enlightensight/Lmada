@@ -8,8 +8,7 @@ import {
   HeartPulse, 
   Bug, 
   ArrowRight, 
-  Check, 
-  Sparkles
+  Check
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -136,10 +135,10 @@ export default function AnalyticalCharacterizationPage() {
               {/* Exact Text from Specification */}
               <div className="space-y-4 text-[16px] sm:text-[17px] text-slate-600 font-normal leading-relaxed mt-6 max-w-2xl">
                 <p>
-                  Lambda CDMO provides analytical characterization and testing capabilities to support <strong className="text-neutral-900 font-semibold">product understanding, process development, comparability, manufacturing, batch release, and stability assessment</strong> across biologics programs.
+                  Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.
                 </p>
                 <p>
-                  Our analytical platform combines <strong className="text-neutral-900 font-semibold">physicochemical, molecular, structural, biophysical, functional, and microbiological testing</strong> to generate data across development and manufacturing.
+                  Our analytical platform combines physicochemical, molecular, structural, biophysical, functional, and microbiological testing to generate data across development and manufacturing.
                 </p>
               </div>
 
@@ -189,16 +188,6 @@ export default function AnalyticalCharacterizationPage() {
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-orange mb-1">
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>Comprehensive Analytics</span>
-                      </div>
-                      <p className="text-sm font-medium text-white/90">
-                        Orthogonal physicochemical, biophysical, bioassay, and microbiological analytical sciences.
-                      </p>
-                    </div>
                   </div>
                 </div>
               </Reveal>

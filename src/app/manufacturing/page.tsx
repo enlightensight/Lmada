@@ -7,8 +7,7 @@ import {
   Package, 
   ArrowRight, 
   Check, 
-  Factory, 
-  Sparkles
+  Factory
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -105,7 +104,7 @@ export default function ManufacturingServicesPage() {
               {/* Exact Text from Specification */}
               <div className="space-y-4 text-[16px] sm:text-[17px] text-slate-600 font-normal leading-relaxed mt-6 max-w-2xl">
                 <p>
-                  Manufacturing success depends on process consistency, product quality, and effective technology transfer. Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into <strong className="text-neutral-900 font-semibold">GMP drug substance and drug product manufacturing for clinical supplies.</strong>
+                  Manufacturing success depends on process consistency, product quality, and effective technology transfer. Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.
                 </p>
                 <p>
                   Our manufacturing operations at Ahmedabad, India bring together process, analytical, manufacturing, and quality functions to support controlled execution, consistent product quality, and regulatory requirements across clinical programs.
@@ -151,16 +150,6 @@ export default function ManufacturingServicesPage() {
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-orange mb-1">
-                        <Factory className="w-3.5 h-3.5" />
-                        <span>Ahmedabad Campus</span>
-                      </div>
-                      <p className="text-sm font-medium text-white/90">
-                        Integrated cGMP drug substance and robotic isolator fill-finish manufacturing suites.
-                      </p>
-                    </div>
                   </div>
                 </div>
               </Reveal>
