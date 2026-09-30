@@ -506,29 +506,30 @@ export default function BlogAdminEditor({
   return (
     <div className="min-h-screen bg-slate-50 text-neutral-900 pb-20">
       {/* 1. TOP STICKY APP BAR */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onBack}
-            className="p-2 rounded-xl text-slate-500 hover:text-neutral-900 hover:bg-slate-100 transition-all cursor-pointer"
-            title="Back to articles list"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-orange/10 text-brand-orange border border-brand-orange/20">
-                {initialItem ? 'Edit Article' : 'New Article'}
-              </span>
-              <span className="text-xs text-slate-400 font-medium">
-                {category.toUpperCase()}
-              </span>
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-3.5">
+        <div className="w-full max-w-[1700px] mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onBack}
+              className="p-2 rounded-xl text-slate-500 hover:text-neutral-900 hover:bg-slate-100 transition-all cursor-pointer"
+              title="Back to articles list"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-orange/10 text-brand-orange border border-brand-orange/20">
+                  {initialItem ? 'Edit Article' : 'New Article'}
+                </span>
+                <span className="text-xs text-slate-400 font-medium">
+                  {category.toUpperCase()}
+                </span>
+              </div>
+              <h1 className="text-sm sm:text-base font-bold text-neutral-900 truncate max-w-md">
+                {title || 'Untitled Scientific Article'}
+              </h1>
             </div>
-            <h1 className="text-sm sm:text-base font-bold text-neutral-900 truncate max-w-md">
-              {title || 'Untitled Scientific Article'}
-            </h1>
           </div>
-        </div>
 
         {/* Action Buttons & Tabs */}
         <div className="flex items-center gap-2 sm:gap-3">
@@ -579,6 +580,7 @@ export default function BlogAdminEditor({
             )}
             <span>{saving ? 'Saving...' : saveSuccess ? 'Published!' : 'Save & Publish'}</span>
           </button>
+        </div>
         </div>
       </header>
 

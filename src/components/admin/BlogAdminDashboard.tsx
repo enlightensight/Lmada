@@ -6,28 +6,15 @@ import {
   Plus,
   Search,
   BookOpen,
-  FileText,
-  Download,
-  Newspaper,
   Calendar,
-  Eye,
   Edit,
   Trash2,
   ExternalLink,
-  Sparkles,
-  Layers,
   CheckCircle2,
   AlertCircle,
   Clock,
-  ArrowRight,
-  Database,
-  Globe,
-  Settings,
   RefreshCw,
-  TrendingUp,
   LogOut,
-  ShieldCheck,
-  User,
 } from 'lucide-react';
 import type { InsightItem } from '@/data/insightsData';
 import { INSIGHT_TABS } from '@/data/insightsData';
@@ -191,8 +178,8 @@ export default function BlogAdminDashboard() {
   return (
     <div className="min-h-screen bg-slate-50 text-neutral-900 pb-20">
       {/* 1. TOP BRANDED HEADER */}
-      <header className="bg-brand-navy text-white border-b border-brand-navy-light px-6 sm:px-10 py-5 shadow-lg">
-        <div className="max-w-[1700px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <header className="bg-brand-navy text-white border-b border-brand-navy-light px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-5 shadow-lg">
+        <div className="w-full max-w-[1700px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-xl bg-brand-orange text-white flex items-center justify-center font-bold text-lg shadow-md">
               Λ
@@ -256,7 +243,7 @@ export default function BlogAdminDashboard() {
       </header>
 
       {/* 2. MAIN CONTAINER */}
-      <div className="max-w-[1700px] mx-auto px-6 sm:px-10 pt-8 space-y-8">
+      <div className="w-full max-w-[1700px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-8 space-y-6">
         {/* Notification Toast */}
         {notification && (
           <div
@@ -283,78 +270,7 @@ export default function BlogAdminDashboard() {
           </div>
         )}
 
-        {/* 3. KPI STATS CARDS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Total Articles
-              </p>
-              <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 mt-1">
-                {items.length}
-              </h3>
-              <p className="text-[11px] text-emerald-600 font-semibold mt-1 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> All Published Live
-              </p>
-            </div>
-            <div className="w-12 h-12 rounded-2xl bg-brand-navy/5 text-brand-navy flex items-center justify-center">
-              <BookOpen className="w-6 h-6" />
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Active Categories
-              </p>
-              <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 mt-1">
-                5 Sections
-              </h3>
-              <p className="text-[11px] text-slate-500 font-medium mt-1">
-                Blogs, Case Studies, Brochures, News, Events
-              </p>
-            </div>
-            <div className="w-12 h-12 rounded-2xl bg-brand-blue/10 text-brand-blue flex items-center justify-center">
-              <Layers className="w-6 h-6" />
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Storage Engine
-              </p>
-              <h3 className="text-base sm:text-lg font-bold text-neutral-900 mt-1">
-                JSON Database
-              </h3>
-              <p className="text-[11px] text-brand-orange font-semibold mt-1 flex items-center gap-1">
-                <Database className="w-3.5 h-3.5" /> Persistent on Disk
-              </p>
-            </div>
-            <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-              <Database className="w-6 h-6" />
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                SEO & Social Meta
-              </p>
-              <h3 className="text-base sm:text-lg font-bold text-neutral-900 mt-1">
-                Auto-Optimized
-              </h3>
-              <p className="text-[11px] text-emerald-600 font-semibold mt-1 flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5" /> Schema.org Ready
-              </p>
-            </div>
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <Sparkles className="w-6 h-6" />
-            </div>
-          </div>
-        </div>
-
-        {/* 4. CONTROLS BAR: CATEGORY TABS & SEARCH */}
+        {/* 3. CONTROLS BAR: CATEGORY TABS & SEARCH */}
         <div className="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
           {/* Category Filter Pills */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
