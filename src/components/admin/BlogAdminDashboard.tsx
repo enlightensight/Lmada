@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Plus,
   Search,
@@ -178,61 +179,56 @@ export default function BlogAdminDashboard() {
   return (
     <div className="min-h-screen bg-slate-50 text-neutral-900 pb-20">
       {/* 1. TOP BRANDED HEADER */}
-      <header className="bg-brand-navy text-white border-b border-brand-navy-light px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-5 shadow-lg">
+      <header className="sticky top-0 z-40 bg-white border-b border-slate-200 select-none px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-3.5 sm:py-4 shadow-2xs">
         <div className="w-full max-w-[1700px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-brand-orange text-white flex items-center justify-center font-bold text-lg shadow-md">
-              Λ
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-orange">
-                  Lambda CDMO
-                </span>
-                <span className="text-xs text-white/40">•</span>
-                <span className="text-xs text-white/70 font-medium">
-                  Insights & Blog CMS
-                </span>
-              </div>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
-                Content Management Dashboard
-              </h1>
-            </div>
-          </div>
+          <Link
+            href="/admin"
+            className="flex items-center shrink-0 cursor-pointer"
+          >
+            <Image
+              src="/images/lambda_novum_logo.png"
+              alt="Lambda & Novum CDMO"
+              width={2991}
+              height={358}
+              className="h-10 sm:h-11 md:h-12 w-auto max-w-[260px] sm:max-w-[320px] md:max-w-[360px] object-contain select-none"
+              priority
+              unoptimized
+            />
+          </Link>
 
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
             {/* User Session Pill */}
-            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/10 text-white text-xs border border-white/10">
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-semibold">{currentUser?.username || 'adminlamda'}</span>
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs border border-slate-200 font-semibold">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>{currentUser?.username || 'adminlamda'}</span>
             </div>
 
             <button
               onClick={loadInsights}
-              className="p-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer"
+              className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer border border-slate-200/80"
               title="Refresh Articles"
             >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-4 h-4 text-slate-600 ${loading ? 'animate-spin' : ''}`} />
               <span className="hidden sm:inline">Refresh</span>
             </button>
             <Link
               href="/insights/blogs"
               target="_blank"
-              className="p-2.5 px-4 rounded-xl border border-white/20 hover:bg-white/10 text-white text-xs font-semibold flex items-center gap-2 transition-all"
+              className="p-2.5 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-2 transition-all shadow-2xs"
             >
               <span>View Live Insights</span>
               <ExternalLink className="w-3.5 h-3.5 text-brand-blue" />
             </Link>
             <button
               onClick={() => setIsCreatingNew(true)}
-              className="p-2.5 px-5 rounded-xl bg-brand-orange hover:bg-brand-orange-hover text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-md active:scale-95 transition-all cursor-pointer"
+              className="p-2.5 px-5 rounded-xl bg-brand-orange hover:bg-brand-orange-hover text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-xs active:scale-95 transition-all cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Create New Article</span>
             </button>
             <button
               onClick={handleLogout}
-              className="p-2.5 px-3.5 rounded-xl bg-white/10 hover:bg-red-500/80 text-white text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer"
+              className="p-2.5 px-3.5 rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer border border-slate-200/80"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
