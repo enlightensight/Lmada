@@ -268,15 +268,15 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-brand-blue leading-[1.15]">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                   From Bulk Drug Substance to Clinical Supply
                 </h2>
-                <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-[13px] sm:text-[15px] font-medium text-slate-600 max-w-4xl mx-auto">
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-4xl mx-auto">
                   {drugProductWorkflow.map((item, idx) => (
                     <span key={idx} className="inline-flex items-center gap-1.5 sm:gap-2">
-                      <span className="text-slate-900 font-semibold">{item.title}</span>
+                      <span>{item.title}</span>
                       {idx < drugProductWorkflow.length - 1 && (
-                        <span className="text-brand-blue font-bold">→</span>
+                        <span className="text-slate-400">→</span>
                       )}
                     </span>
                   ))}
