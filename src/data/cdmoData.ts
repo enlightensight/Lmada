@@ -82,11 +82,6 @@ export const cdmoData: CDMOPage[] = [
         dark: false,
       },
       {
-        title: 'Next-Generation Biologics Navigation',
-        text: 'From monoclonal antibodies and bispecifics to ADCs and recombinant proteins, we partner closely with sponsors to navigate next-generation biologics—delivering the integrated development, analytical mastery, and manufacturing scale needed to power successful clinical trials. Whether developing a monoclonal antibody, bispecific antibody, antibody-drug conjugate (ADC), or recombinant protein, our multidisciplinary teams work closely with sponsors to accelerate development, simplify technology transfer, and support successful clinical programs.',
-        dark: false,
-      },
-      {
         title: 'The Lambda Advantage',
         text: 'Every biologic program has its own process, analytical, manufacturing, and regulatory requirements. Lambda CDMO brings together an integrated approach for process and analytical development, cGMP manufacturing, adequately supported by a quality management system to support programs from early development through clinical supplies.\n\nOur approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.',
         dark: true,
