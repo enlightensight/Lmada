@@ -111,7 +111,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           links: [
             { label: 'Integrated development to manufacturing', href: '/overview/integrated', icon: Layers },
             { label: 'Quality and Compliance', href: '/overview/quality', icon: ShieldCheck },
-            { label: 'Careers', href: '/overview/careers', icon: Briefcase },
+            { label: 'Careers', href: 'https://careers.lambda-cro.com/go/CDMO/752444/', icon: Briefcase, isExternal: true },
           ],
         },
       ],
@@ -336,27 +336,52 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                 {column.links.map((link) => {
                                   const linkActive = pathname === link.href;
                                   const LinkIcon = link.icon;
+                                  const isExternal = link.isExternal || link.href.startsWith('http') || link.href.endsWith('.htm');
                                   return (
                                     <li key={link.href}>
-                                      <Link
-                                        href={link.href}
-                                        onClick={onClose}
-                                        className={`flex items-center justify-between py-1.5 text-[14.5px] font-light md:font-normal tracking-tight transition-colors ${
-                                          linkActive 
-                                            ? 'text-brand-blue font-normal' 
-                                            : 'text-neutral-700 hover:text-brand-blue'
-                                        }`}
-                                      >
-                                        <div className="flex items-center gap-2.5">
-                                          <LinkIcon className="w-4 h-4 text-brand-blue shrink-0" />
-                                          <span>{link.label}</span>
-                                        </div>
-                                        {link.badge && (
-                                          <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100/80 text-brand-blue">
-                                            {link.badge}
-                                          </span>
-                                        )}
-                                      </Link>
+                                      {isExternal ? (
+                                        <a
+                                          href={link.href}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={onClose}
+                                          className={`flex items-center justify-between py-1.5 text-[14.5px] font-light md:font-normal tracking-tight transition-colors ${
+                                            linkActive 
+                                              ? 'text-brand-blue font-normal' 
+                                              : 'text-neutral-700 hover:text-brand-blue'
+                                          }`}
+                                        >
+                                          <div className="flex items-center gap-2.5">
+                                            <LinkIcon className="w-4 h-4 text-brand-blue shrink-0" />
+                                            <span>{link.label}</span>
+                                          </div>
+                                          {link.badge && (
+                                            <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100/80 text-brand-blue">
+                                              {link.badge}
+                                            </span>
+                                          )}
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          href={link.href}
+                                          onClick={onClose}
+                                          className={`flex items-center justify-between py-1.5 text-[14.5px] font-light md:font-normal tracking-tight transition-colors ${
+                                            linkActive 
+                                              ? 'text-brand-blue font-normal' 
+                                              : 'text-neutral-700 hover:text-brand-blue'
+                                          }`}
+                                        >
+                                          <div className="flex items-center gap-2.5">
+                                            <LinkIcon className="w-4 h-4 text-brand-blue shrink-0" />
+                                            <span>{link.label}</span>
+                                          </div>
+                                          {link.badge && (
+                                            <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100/80 text-brand-blue">
+                                              {link.badge}
+                                            </span>
+                                          )}
+                                        </Link>
+                                      )}
                                     </li>
                                   );
                                 })}

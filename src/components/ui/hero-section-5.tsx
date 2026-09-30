@@ -33,7 +33,7 @@ export function HeroSection() {
                         </h1>
 
                         <p className="text-[15px] sm:text-[17px] text-neutral-100 font-normal mt-8 sm:mt-10 max-w-xl leading-relaxed drop-shadow-sm">
-                            Supporting biopharmaceutical companies with integrated biologics development, analytical characterization, GMP manufacturing, and clinical development solutions to accelerate the journey from molecule to market.
+                            Lambda CDMO provides integrated development, analytical characterization and GMP manufacturing services for biologics, supporting innovators and biosimilar developers from early development through clinical manufacturing.
                         </p>
 
                         <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-start gap-4">
