@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
-import ModalityAnimation from '@/components/modality-animations/ModalityAnimation';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -145,32 +144,6 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
           </div>
         </section>
       )}
-
-      {/* FEATURED MODALITY FOCUS — SCIENTIFIC ANIMATION PLATFORM */}
-      {content.sections && content.sections.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-          <div className="w-full max-w-5xl mx-auto">
-            <Reveal>
-              <div className="group glass-card rounded-[14px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200/80">
-                {/* Interactive Modality Animation */}
-                <div className="relative w-full overflow-hidden border-b border-neutral-200/80">
-                  <ModalityAnimation slug={page.slug} />
-                </div>
-                <div className="p-8 sm:p-10 md:p-12 text-center max-w-3xl mx-auto">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-4 tracking-tight leading-snug group-hover:text-brand-blue transition-colors duration-300">
-                    {content.sections[0].title}
-                  </h3>
-                  <p className="text-[17px] sm:text-[19px] text-neutral-600 leading-relaxed">
-                    {content.sections[0].text}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      )}
-
-
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (
