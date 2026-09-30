@@ -9,6 +9,9 @@ export interface CDMOPage {
   badge?: string;
   image?: string;
   capabilities?: string[];
+  bioassayCapabilities?: string[];
+  immunogenicityCapabilities?: string[];
+  footerNote?: string;
   applicableModalities?: {
     title: string;
     subtitle?: string;
@@ -907,39 +910,24 @@ export const cdmoData: CDMOPage[] = [
     slug: 'analytical-testing',
     category: 'characterization',
     title: 'Analytical Testing — Lambda CDMO',
-    metaTitle: 'Analytical Testing & QC Release | Lambda CDMO',
-    metaDesc: 'Lambda CDMO provides comprehensive analytical testing for biologics drug substance and drug product, supporting batch release, stability, and regulatory submissions.',
+    metaTitle: 'Analytical Testing | Lambda CDMO',
+    metaDesc: 'Lambda CDMO provides analytical testing for biologics drug substance and drug product, supporting in-process testing, batch release, stability studies, product characterization, and regulatory requirements.',
     badge: 'Characterization',
-    heading: 'Reliable Analytical Testing for Product Quality and Regulatory Compliance.',
-    description: 'Lambda CDMO provides comprehensive analytical testing services for biologics drug substance and drug product, supporting process development, in-process monitoring, batch release, stability studies, and regulatory submissions.',
+    heading: 'Reliable Analytical Testing for Product Quality and Release',
+    description: 'Lambda CDMO provides analytical testing for biologics drug substance and drug product, supporting in-process testing, batch release, stability studies, product characterization, and regulatory requirements. Testing is performed using qualified analytical methods and controlled laboratory processes designed to support data integrity, traceability, and reliable results.',
     image: '/images/default_scientist.jpg',
     capabilities: [
       'Identity testing using peptide mapping, LC-MS, and immunological methods',
-      'Purity analysis using SEC-HPLC, CE-SDS, and IEF',
-      'Potency testing using cell-based and ligand-binding assays',
+      'Purity and impurity analysis using SEC-HPLC, CE-SDS, and IEF',
       'Protein concentration analysis',
+      'Potency testing using cell-based and ligand-binding assays',
       'Stability testing and stability-indicating methods',
-      'Endotoxin testing using LAL methods',
-      'Sterility, bioburden, and particulate matter testing',
-      'Batch release testing for drug substance and drug product'
+      'Bacterial endotoxin testing',
+      'Sterility and bioburden testing',
+      'Particulate matter testing',
+      'Drug substance and drug product batch release testing',
     ],
-    sections: [
-      {
-        title: 'Validated Quality System Alignment',
-        text: 'All testing is performed within a validated quality system using qualified analytical platforms, ensuring data integrity, traceability, and regulatory compliance.',
-        dark: false,
-      },
-      {
-        title: 'End-to-End Analytical Capabilities',
-        text: 'From peptide mapping and intact mass spectrometry to cell-based bioassays and compendial microbiology, our testing suites support early development through commercial supply.',
-        dark: true,
-      },
-      {
-        title: 'Support for Regulatory Submissions',
-        text: 'Testing is designed to generate reliable data and certificates of analysis (CoA) to support global regulatory filings throughout the product lifecycle.',
-        dark: false,
-      }
-    ],
+    sections: [],
     specs: [
       { label: 'Identity', value: 'Peptide Mapping, LC-MS' },
       { label: 'Purity', value: 'SEC-HPLC, CE-SDS, IEF' },
@@ -947,8 +935,8 @@ export const cdmoData: CDMOPage[] = [
       { label: 'Microbiology', value: 'Endotoxin, Sterility, Bioburden' },
     ],
     faqs: [
-      { question: 'What types of analytical testing does Lambda CDMO perform?', answer: 'We perform identity, purity, potency, protein concentration, stability, endotoxin, sterility, bioburden, and particulate matter testing for drug substance and drug product.' },
-      { question: 'Is testing performed under a validated quality system?', answer: 'Yes. All testing is performed within a validated quality system using qualified analytical platforms to ensure data integrity and regulatory compliance.' },
+      { question: 'What types of analytical testing does Lambda CDMO perform?', answer: 'We perform identity testing, purity and impurity analysis, protein concentration analysis, potency testing, stability testing, bacterial endotoxin testing, sterility and bioburden testing, particulate matter testing, and drug substance/drug product batch release testing.' },
+      { question: 'How is data integrity ensured during analytical testing?', answer: 'Testing is performed using qualified analytical methods and controlled laboratory processes designed to support data integrity, traceability, and reliable results.' },
     ]
   },
   {
@@ -956,10 +944,10 @@ export const cdmoData: CDMOPage[] = [
     category: 'characterization',
     title: 'Physicochemical Characterization — Lambda CDMO',
     metaTitle: 'Physicochemical Characterization | Lambda CDMO',
-    metaDesc: 'Lambda CDMO provides orthogonal physicochemical characterization of biologics to support product identity, structure, purity, and regulatory submissions.',
+    metaDesc: 'Lambda CDMO provides physicochemical and molecular characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.',
     badge: 'Characterization',
-    heading: 'Comprehensive Molecular Characterization for Biologics.',
-    description: 'Comprehensive molecular characterization is essential for understanding critical quality attributes, establishing product comparability, and supporting regulatory submissions. Lambda CDMO provides physicochemical and molecular characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.',
+    heading: 'Comprehensive Molecular Characterization for Biologics',
+    description: 'Comprehensive molecular characterization is essential for understanding critical quality attributes, establishing product comparability, and supporting regulatory submissions. Lambda CDMO provides physicochemical and molecular characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.\n\nOur analytical platforms support monoclonal antibodies (mAbs), bispecific antibodies, antibody-drug conjugates (ADCs), recombinant proteins, and other complex biologic modalities throughout development and manufacturing.',
     image: '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
     capabilities: [
       'Primary structure analysis',
@@ -972,7 +960,7 @@ export const cdmoData: CDMOPage[] = [
       'Forced degradation and stress studies',
       'Reference product characterization',
       'Biosimilar comparability and analytical similarity assessment',
-      'Product characterization supporting regulatory submissions'
+      'Product characterization supporting regulatory submissions',
     ],
     analyticalTechnologies: [
       {
@@ -1011,19 +999,7 @@ export const cdmoData: CDMOPage[] = [
         category: 'Binding Kinetics'
       }
     ],
-    sections: [
-      {
-        title: 'Comprehensive Molecular Characterization for Biologics',
-        text: 'Our analytical platforms support monoclonal antibodies (mAbs), bispecific antibodies, antibody-drug conjugates (ADCs), recombinant proteins, and other complex biologic modalities throughout development and manufacturing.',
-        dark: false,
-        image: '/images/analytical_instruments.jpg',
-      },
-      {
-        title: 'Critical Quality Attributes & Comparability',
-        text: 'Orthogonal analytical characterization enables detailed evaluation of product identity, structure, purity, heterogeneity, and stability to support comparability assessments and regulatory submissions.',
-        dark: true,
-      }
-    ],
+    sections: [],
     specs: [
       { label: 'Mass Analysis', value: 'Intact & Peptide Mass (LC-MS)' },
       { label: 'Structure', value: 'Disulfide Mapping, CD, FTIR, Glycan Profiling' },
@@ -1031,72 +1007,52 @@ export const cdmoData: CDMOPage[] = [
       { label: 'Binding Kinetics', value: 'SPR & Octet (BLI)' },
     ],
     faqs: [
-      { question: 'What physicochemical characterization is available?', answer: 'We offer primary structure analysis, intact mass and peptide mass analysis, disulfide bond characterization, glycan profiling, charge variant analysis, aggregation and fragmentation analysis, higher-order structure characterization, and stress studies.' },
+      { question: 'What physicochemical characterization is available?', answer: 'We offer primary structure analysis, intact mass and peptide mass analysis, disulfide bond characterization, glycan profiling, charge variant analysis, aggregation and fragmentation analysis, higher-order structure characterization, forced degradation studies, and reference product characterization.' },
       { question: 'Does Lambda CDMO support biosimilar comparability?', answer: 'Yes. We conduct reference product characterization, biosimilar comparability, and analytical similarity assessments to support regulatory submissions.' },
     ]
   },
   {
     slug: 'bioassays',
     category: 'characterization',
-    title: 'Bioassays & Immunogenicity Testing — Lambda CDMO',
+    title: 'Bioassays and Immunogenicity Testing — Lambda CDMO',
     metaTitle: 'Bioassays & Immunogenicity Testing | Lambda CDMO',
-    metaDesc: 'Lambda CDMO develops and performs functional bioassays and immunogenicity testing to support potency, mechanism of action, and regulatory submissions.',
+    metaDesc: 'Lambda CDMO provides bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products.',
     badge: 'Characterization',
-    heading: 'Functional Bioassays That Demonstrate Biological Activity.',
-    description: 'Functional bioassays are essential for evaluating biological activity, potency, and mechanism of action throughout biologics development. Lambda CDMO develops and performs bioassays that support product characterization, process development, comparability assessments, batch release, and regulatory submissions.',
+    heading: 'Functional Testing for Biological Activity and Product Performance',
+    description: 'Lambda CDMO provides bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products. The platform supports product characterization, process development, comparability, batch release, and regulatory requirements.',
     image: '/images/cdn/pexels-4033148.jpg',
     capabilities: [
       'Cell-based potency assays',
       'Reporter gene assays',
-      'Binding assays & ligand-receptor binding',
+      'Binding assays',
       'ADCC and CDC functional assays',
-      'Mechanism-of-action (MOA) assays',
+      'Mechanism-of-action assays',
       'Reference standard qualification',
       'Potency assignment studies',
-      'Anti-drug antibody (ADA) screening, confirmation & titration',
+      'Anti-drug antibody (ADA) screening',
+      'ADA confirmation and titration',
       'Neutralizing antibody (NAb) assays',
       'In vitro immunogenicity risk assessment',
-      'Immunogenicity support for clinical development'
+      'Immunogenicity support for clinical development',
     ],
-    sections: [
-      {
-        title: 'Bioassay Capabilities',
-        text: 'Functional bioassays support product characterization, process development, comparability assessments, reference standard qualification, and batch release.',
-        dark: false,
-        bullets: [
-          'Cell-based potency assays',
-          'Reporter gene assays',
-          'Binding assays',
-          'ADCC and CDC functional assays',
-          'Mechanism-of-action assays',
-          'Reference standard qualification',
-          'Potency assignment studies'
-        ]
-      },
-      {
-        title: 'Immunogenicity Testing',
-        text: 'Our immunogenicity capabilities help sponsors assess potential immune responses during product development and clinical evaluation, including ADA screening/titration, NAb assays, and risk assessments.',
-        dark: true,
-        bullets: [
-          'Anti-drug antibody (ADA) screening',
-          'ADA confirmation and titration',
-          'Neutralizing antibody (NAb) assays',
-          'In vitro immunogenicity risk assessment',
-          'Immunogenicity support for clinical development'
-        ]
-      },
-      {
-        title: 'Regulatory Guidance Aligned',
-        text: 'All assays are developed and performed in accordance with current FDA, EMA, and ICH guidance, supporting regulatory submissions throughout the product lifecycle.',
-        dark: false,
-        bullets: [
-          'FDA, EMA, and ICH regulatory compliance',
-          'Phase-appropriate assay validation',
-          'Complete data packages for IND & BLA submissions',
-          'cGMP documentation and release testing'
-        ]
-      }
+    bioassayCapabilities: [
+      'Cell-based potency assays',
+      'Reporter gene assays',
+      'Binding assays',
+      'ADCC and CDC functional assays',
+      'Mechanism-of-action assays',
+      'Reference standard qualification',
+      'Potency assignment studies',
     ],
+    immunogenicityCapabilities: [
+      'Anti-drug antibody (ADA) screening',
+      'ADA confirmation and titration',
+      'Neutralizing antibody (NAb) assays',
+      'In vitro immunogenicity risk assessment',
+      'Immunogenicity support for clinical development',
+    ],
+    footerNote: 'Methods and testing strategies are developed and applied with applicable regulatory and compendial requirements in mind, according to the intended use of the assay.',
+    sections: [],
     specs: [
       { label: 'Potency', value: 'Cell-based & Reporter Gene' },
       { label: 'Binding', value: 'Binding & MOA Assays' },
@@ -1115,8 +1071,8 @@ export const cdmoData: CDMOPage[] = [
     metaTitle: 'Microbiological Testing | Lambda CDMO',
     metaDesc: 'Lambda CDMO provides microbiological testing services to support biologics manufacturing, environmental monitoring, and product release under USP, EP, and IP standards.',
     badge: 'Characterization',
-    heading: 'Microbiological Quality Control for Safe and Reliable Biologics.',
-    description: 'Lambda CDMO provides microbiological testing services to support biologics manufacturing, environmental monitoring, and product release. Our microbiology laboratory performs compendial and validated assays to ensure microbiological quality and compliance with global pharmacopeial requirements.',
+    heading: 'Microbiological Testing for Manufacturing and Product Quality',
+    description: 'Lambda CDMO provides microbiological testing services to support biologics manufacturing, environmental monitoring, and product release. Our microbiology laboratory performs compendial and validated assays to ensure microbiological quality and compliance with global pharmacopeial requirements.\n\nTesting is conducted in accordance with USP, EP, and IP standards within an established quality management system.',
     image: '/images/default_scientist.jpg',
     capabilities: [
       'Sterility testing',
@@ -1124,36 +1080,19 @@ export const cdmoData: CDMOPage[] = [
       'Bacterial endotoxin testing (BET)',
       'Environmental monitoring',
       'Mycoplasma detection',
-      'Container closure integrity testing',
       'Microbial limit testing',
-      'Water and utility microbiological testing'
+      'Water and utility microbiological testing where applicable',
     ],
-    sections: [
-      {
-        title: 'Global Pharmacopeial Compliance',
-        text: 'Testing is conducted in accordance with USP, EP, and IP standards within an established quality management system.',
-        dark: false,
-      },
-      {
-        title: 'Microbiological Safety & Integrity',
-        text: 'Our microbiology suites provide full sterility validation, endotoxin quantitation, bioburden profiling, and container closure integrity verification.',
-        dark: true,
-      },
-      {
-        title: 'Support for Product Release & Environment',
-        text: 'Microbiological testing supports product release, manufacturing environmental monitoring, and compliance with global regulatory requirements.',
-        dark: false,
-      }
-    ],
+    sections: [],
     specs: [
       { label: 'Standards', value: 'USP, EP, IP' },
       { label: 'Testing', value: 'Sterility, Bioburden, BET' },
       { label: 'Monitoring', value: 'Environmental & Mycoplasma' },
-      { label: 'Integrity', value: 'Container Closure Testing' },
+      { label: 'Utility Testing', value: 'Water & Utility Testing' },
     ],
     faqs: [
-      { question: 'Which microbiological tests does Lambda CDMO perform?', answer: 'We perform sterility, bioburden, bacterial endotoxin, environmental monitoring, mycoplasma detection, container closure integrity, and microbial limit testing.' },
-      { question: 'What standards are followed?', answer: 'Testing is conducted in accordance with USP, EP, and IP standards within an established quality management system.' },
+      { question: 'Which microbiological tests does Lambda CDMO perform?', answer: 'We perform sterility testing, bioburden testing, bacterial endotoxin testing (BET), environmental monitoring, mycoplasma detection, microbial limit testing, and water and utility microbiological testing.' },
+      { question: 'What pharmacopeial standards are followed?', answer: 'Testing is conducted in accordance with USP, EP, and IP standards within an established quality management system.' },
     ]
   },
   // ==================== MODALITIES ====================

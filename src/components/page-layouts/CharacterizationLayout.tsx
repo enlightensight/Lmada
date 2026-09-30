@@ -63,17 +63,18 @@ function getTechIcon(text: string, index: number) {
 function getCharCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
   if (lower.includes('peptide mapping') || lower.includes('primary structure') || lower.includes('mass analysis')) return Dna;
-  if (lower.includes('sec-hplc') || lower.includes('ce-sds') || lower.includes('ief') || lower.includes('purity')) return Filter;
-  if (lower.includes('potency') || lower.includes('adcc') || lower.includes('cdc') || lower.includes('bioassay')) return Activity;
-  if (lower.includes('concentration') || lower.includes('water')) return Droplets;
+  if (lower.includes('sec-hplc') || lower.includes('ce-sds') || lower.includes('ief') || lower.includes('purity') || lower.includes('aggregation') || lower.includes('fragmentation') || lower.includes('impurity')) return Filter;
+  if (lower.includes('potency') || lower.includes('adcc') || lower.includes('cdc') || lower.includes('bioassay') || lower.includes('activity')) return Activity;
+  if (lower.includes('concentration') || lower.includes('water') || lower.includes('utility')) return Droplets;
   if (lower.includes('stability') || lower.includes('forced degradation') || lower.includes('stress')) return ShieldCheck;
   if (lower.includes('endotoxin') || lower.includes('lal') || lower.includes('bet') || lower.includes('mycoplasma') || lower.includes('microbial') || lower.includes('bioburden')) return Bug;
   if (lower.includes('sterility') || lower.includes('particulate')) return Sparkles;
-  if (lower.includes('batch release') || lower.includes('regulatory') || lower.includes('standard qualification')) return FileCheck;
+  if (lower.includes('batch release') || lower.includes('regulatory') || lower.includes('standard qualification') || lower.includes('submissions')) return FileCheck;
   if (lower.includes('disulfide') || lower.includes('glycan')) return Atom;
-  if (lower.includes('charge variant') || lower.includes('aggregation') || lower.includes('fragmentation') || lower.includes('higher-order')) return Layers;
-  if (lower.includes('comparability') || lower.includes('biosimilar')) return Scale;
-  if (lower.includes('reporter gene') || lower.includes('binding') || lower.includes('mechanism-of-action')) return HeartPulse;
+  if (lower.includes('charge variant') || lower.includes('higher-order') || lower.includes('structure')) return Layers;
+  if (lower.includes('comparability') || lower.includes('biosimilar') || lower.includes('reference product')) return Scale;
+  if (lower.includes('reporter gene') || lower.includes('mechanism-of-action')) return HeartPulse;
+  if (lower.includes('binding')) return GitMerge;
   if (lower.includes('anti-drug antibody') || lower.includes('ada') || lower.includes('neutralizing') || lower.includes('immunogenicity')) return Shield;
   if (lower.includes('environmental monitoring')) return Gauge;
   if (lower.includes('container closure')) return PackageCheck;
@@ -89,7 +90,6 @@ function splitHeading(heading: string) {
 }
 
 export default function CharacterizationLayout({ page, content }: CharacterizationLayoutProps) {
-  const icons = SLUG_ICONS[page.slug] ?? SLUG_ICONS['analytical-testing'];
   const heroHeading = splitHeading(page.heading);
 
   return (
@@ -106,22 +106,24 @@ export default function CharacterizationLayout({ page, content }: Characterizati
             <span>/</span>
             <span className="text-neutral-500">{page.category}</span>
             <span>/</span>
-            <span className="text-brand-yellow">{page.slug}</span>
+            <span className="text-black">{page.slug}</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               {page.badge && (
-                <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-semibold tracking-wider bg-brand-yellow text-black mb-6">
+                <span className="inline-block px-3 py-1 rounded-full text-[10px] uppercase font-semibold tracking-wider bg-brand-yellow text-black mb-6">
                   {page.badge}
                 </span>
               )}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05]">
                 <span className="text-neutral-900">{heroHeading.first}</span> {heroHeading.rest}
               </h1>
-              <p className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl mt-6">
-                {page.description}
-              </p>
+              <div className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl mt-6 space-y-4">
+                {page.description.split('\n\n').map((para, idx) => (
+                  <p key={idx}>{para}</p>
+                ))}
+              </div>
             </div>
             <Reveal delay={0.1}>
               <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
@@ -136,18 +138,15 @@ export default function CharacterizationLayout({ page, content }: Characterizati
         </div>
       </section>
 
-      {/* CAPABILITIES CHECKLIST GRID WITH RESEARCH SYMBOLS */}
+      {/* CAPABILITIES CHECKLIST GRID (Analytical Testing, Physicochemical, Microbiological) */}
       {page.capabilities && page.capabilities.length > 0 && page.slug !== 'bioassays' && (
         <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  <span className="text-neutral-900">Analytical</span> & Testing Scope
+                  Capabilities
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
-                  Validated methodologies, qualified instrumentation, and cGMP-compliant testing suites for {page.title.split('—')[0].trim()}.
-                </p>
               </div>
             </Reveal>
 
@@ -174,140 +173,99 @@ export default function CharacterizationLayout({ page, content }: Characterizati
         </section>
       )}
 
-      {/* CAPABILITY CARDS */}
-      {page.slug === 'bioassays' ? (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  <span className="text-neutral-900">Orthogonal</span> Methods for Comprehensive Characterization
-                </h2>
-              </div>
-            </Reveal>
-
-            {/* Bioassays: Technical Focus Cards */}
-            <div className="flex flex-col gap-10 md:gap-14">
-              {content.sections.map((section, idx) => {
-                const Icon = icons[idx % icons.length];
-                const imageRight = idx % 2 === 1;
-
-                return (
-                  <Reveal key={idx} delay={idx * 0.08}>
-                    <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                        
-                        {/* Image Box */}
-                        <div className={`lg:col-span-5 ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
-                          <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-white border border-neutral-200/90 shadow-inner group">
-                            {section.image && (
-                              <img
-                                src={section.image}
-                                alt={section.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                              />
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Content Box */}
-                        <div className={`lg:col-span-7 ${imageRight ? 'lg:order-1' : 'lg:order-2'}`}>
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                              <Icon className="w-6 h-6 text-brand-blue" />
-                            </span>
-                            <h3 className="text-2xl sm:text-3xl font-semibold text-black">
-                              {section.title}
-                            </h3>
-                          </div>
-
-                          <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
-                            {section.text}
-                          </p>
-
-                          {section.bullets && section.bullets.length > 0 && (
-                            <div className="pt-5 border-t border-neutral-100">
-                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                                Key Capabilities
-                              </span>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                {section.bullets.map((b, bIdx) => {
-                                  const BulletIcon = getCharCapabilityIcon(b, bIdx);
-                                  return (
-                                    <div
-                                      key={bIdx}
-                                      className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
-                                    >
-                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                      </div>
-                                      <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
-                                        {b}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      ) : (
-        /* Analytical Testing, Physicochemical, Microbiological: Centered big first image & below content */
-        content.sections && content.sections.length > 0 && (
-          <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
-            <div className="w-full max-w-5xl mx-auto">
-              <Reveal>
-                <div className="group glass-card rounded-[14px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200/80">
-                  {content.sections[0].image && (
-                    <div className="relative aspect-[16/9] sm:aspect-[21/9] md:aspect-[16/8] w-full overflow-hidden bg-neutral-100">
-                      <img
-                        src={content.sections[0].image}
-                        alt={content.sections[0].title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  <div className="p-8 sm:p-10 md:p-12 text-center max-w-3xl mx-auto">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-4 tracking-tight leading-snug group-hover:text-brand-blue transition-colors duration-300">
-                      {content.sections[0].title}
-                    </h3>
-                    <p className="text-[17px] sm:text-[19px] text-neutral-600 leading-relaxed">
-                      {content.sections[0].text}
-                    </p>
+      {/* BIOASSAYS & IMMUNOGENICITY TESTING SECTIONS */}
+      {page.slug === 'bioassays' && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto space-y-16">
+            {/* Bioassay Capabilities */}
+            {page.bioassayCapabilities && page.bioassayCapabilities.length > 0 && (
+              <div>
+                <Reveal>
+                  <div className="text-center mb-10 md:mb-12">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                      Bioassay Capabilities
+                    </h2>
                   </div>
+                </Reveal>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                  {page.bioassayCapabilities.map((cap, idx) => {
+                    const Icon = getCharCapabilityIcon(cap, idx);
+                    return (
+                      <Reveal key={idx} delay={idx * 0.03} className="h-full">
+                        <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                            <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
+                              {cap}
+                            </h4>
+                          </div>
+                        </div>
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Immunogenicity Testing */}
+            {page.immunogenicityCapabilities && page.immunogenicityCapabilities.length > 0 && (
+              <div>
+                <Reveal>
+                  <div className="text-center mb-10 md:mb-12">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                      Immunogenicity Testing
+                    </h2>
+                  </div>
+                </Reveal>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                  {page.immunogenicityCapabilities.map((cap, idx) => {
+                    const Icon = getCharCapabilityIcon(cap, idx);
+                    return (
+                      <Reveal key={idx} delay={idx * 0.03} className="h-full">
+                        <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                            <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
+                              {cap}
+                            </h4>
+                          </div>
+                        </div>
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Footer Note Callout */}
+            {page.footerNote && (
+              <Reveal>
+                <div className="bg-white border border-neutral-200/80 rounded-[12px] p-6 sm:p-8 lg:p-10 shadow-xs text-center max-w-4xl mx-auto">
+                  <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
+                    {page.footerNote}
+                  </p>
                 </div>
               </Reveal>
-            </div>
-          </section>
-        )
+            )}
+          </div>
+        </section>
       )}
 
-
-
-      {/* ANALYTICAL TECHNOLOGIES SECTION */}
+      {/* ANALYTICAL TECHNOLOGIES SECTION (Physicochemical) */}
       {page.analyticalTechnologies && page.analyticalTechnologies.length > 0 && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/70 border-t border-neutral-200/80">
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
-                <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-2.5">
-                  State-of-the-Art Instrumentation
-                </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                   Analytical Technologies
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-3">
-                  Orthogonal analytical platforms and biophysical instrumentation supporting comprehensive physicochemical characterization.
-                </p>
               </div>
             </Reveal>
 
@@ -320,7 +278,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
 
                 return (
                   <Reveal key={tIdx} delay={tIdx * 0.05} className="h-full">
-                    <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-xs hover:shadow-xl hover:border-brand-yellow transition-all duration-300 flex flex-col justify-between">
+                    <div className="group h-full bg-neutral-50/60 border border-neutral-200/80 rounded-[10px] p-6 shadow-xs hover:shadow-xl hover:border-brand-yellow hover:bg-white transition-all duration-300 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center justify-between mb-4">
                           <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200">
