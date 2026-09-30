@@ -779,11 +779,10 @@ export const cdmoData: CDMOPage[] = [
     ],
     sections: [
       {
-        title: 'Platform Support',
-        text: 'Our analytical platforms support the characterization of monoclonal antibodies, bispecific antibodies, antibody-drug conjugates (ADCs), and related biologic modalities in accordance with current ICH guidelines.',
+        title: 'Capabilities',
+        text: '',
         dark: false,
         image: '/images/analytical_instruments.jpg',
-        bulletsTitle: 'Capabilities',
         bullets: [
           'Analytical method development',
           'Method optimization',
@@ -797,11 +796,10 @@ export const cdmoData: CDMOPage[] = [
         ]
       },
       {
-        title: 'Integrated with Process Development',
-        text: 'By integrating analytical development with process development from the outset, we reduce development timelines, facilitate technology transfer, and support efficient progression into GMP manufacturing.',
+        title: 'Analytical Platforms',
+        text: '',
         dark: false,
         image: '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
-        bulletsTitle: 'Analytical Platforms',
         bullets: [
           'HPLC and UPLC',
           'SEC-HPLC',
@@ -812,12 +810,6 @@ export const cdmoData: CDMOPage[] = [
           'ELISA',
           'Ligand/receptor binding assays'
         ]
-      },
-      {
-        title: 'Method Transfer to QC & Release',
-        text: 'Qualified and validated methods are transferred seamlessly into QC laboratories to support in-process testing, lot release, and stability programs.',
-        dark: false,
-        image: '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
       }
     ],
     specs: [

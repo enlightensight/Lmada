@@ -289,15 +289,19 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                             </h3>
                           </div>
 
-                          <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
-                            {section.text}
-                          </p>
+                          {section.text && (
+                            <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
+                              {section.text}
+                            </p>
+                          )}
 
                           {section.bullets && section.bullets.length > 0 && (
-                            <div className="pt-5 border-t border-neutral-100">
-                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                                {section.bulletsTitle || 'Key Capabilities'}
-                              </span>
+                            <div className={section.text ? "pt-5 border-t border-neutral-100" : ""}>
+                              {section.bulletsTitle && (
+                                <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                                  {section.bulletsTitle}
+                                </span>
+                              )}
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 {section.bullets.map((b, bIdx) => {
                                   const BulletIcon = getBulletCapabilityIcon(b, bIdx);
