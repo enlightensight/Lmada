@@ -300,13 +300,9 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                         <IconComponent className="w-8 h-8 sm:w-9 sm:h-9 text-brand-blue group-hover:text-white transition-colors duration-300" />
                       </div>
 
-                      <h3 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug mb-2 group-hover:text-brand-blue transition-colors">
+                      <h3 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors">
                         {item.title}
                       </h3>
-
-                      <p className="text-xs sm:text-[13px] text-slate-500 font-normal leading-relaxed mt-auto">
-                        {item.description}
-                      </p>
                     </div>
                   </Reveal>
                 );
