@@ -885,8 +885,8 @@ export const cdmoData: CDMOPage[] = [
     metaTitle: 'Drug Product Manufacturing & Aseptic Fill-Finish | Lambda CDMO',
     metaDesc: 'Lambda CDMO provides integrated drug product manufacturing including formulation, aseptic fill-finish, packaging, and quality control for clinical supply.',
     badge: 'Manufacturing',
-    heading: 'Reliable Drug Product Manufacturing for Clinical Supply.',
-    description: 'Lambda CDMO provides integrated drug product manufacturing services designed to support the transition from bulk drug substance to finished clinical products. Our capabilities include formulation development, aseptic fill-finish, packaging, and quality control, ensuring consistent product quality throughout the manufacturing process.',
+    heading: 'Reliable Drug Product Manufacturing for Clinical Supply',
+    description: 'Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products. The platform supports formulation, aseptic fill-finish, lyophilization, packaging, and quality control for clinical supply.',
     image: '/images/insights/robotic_fill_finish.png',
     capabilities: [
       'Formulation development and optimization',

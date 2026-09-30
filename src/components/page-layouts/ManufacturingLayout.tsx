@@ -206,7 +206,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                       </div>
 
                       <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
-                        Lambda CDMO provides integrated drug product manufacturing services designed to support the transition from bulk drug substance to finished clinical products. Our capabilities include formulation development, aseptic fill-finish, packaging, and quality control, ensuring consistent product quality throughout the manufacturing process.
+                        {page.description}
                       </p>
 
                       <div className="pt-5 border-t border-neutral-100">
