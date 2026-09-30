@@ -263,8 +263,8 @@ export default function CDMOLocationsMapSection({
 
                 </div>
 
-                {/* CENTERED INFORMATION CARD FOR TABLET & DESKTOP (Hidden on mobile) */}
-                <div className="hidden sm:block absolute z-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-[90%] max-w-[420px] pointer-events-auto">
+                {/* CENTERED INFORMATION CARD FOR DESKTOP (Hidden on mobile & tablet) */}
+                <div className="hidden lg:block absolute z-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-[90%] max-w-[420px] pointer-events-auto">
                   <AnimatePresence mode="wait">
                     {activeLocation && (
                       <motion.div
@@ -316,8 +316,8 @@ export default function CDMOLocationsMapSection({
 
               </div>
 
-              {/* MOBILE INFORMATION CARD (Rendered cleanly below the map on small mobile screens) */}
-              <div className="sm:hidden relative z-20 p-4 border-t border-slate-200/80 bg-white/95">
+              {/* MOBILE & TABLET INFORMATION CARD (Rendered cleanly below the map on screens below lg) */}
+              <div className="lg:hidden relative z-20 p-4 sm:p-6 border-t border-slate-200/80 bg-white/95">
                 <AnimatePresence mode="wait">
                   {activeLocation && (
                     <motion.div
@@ -326,14 +326,14 @@ export default function CDMOLocationsMapSection({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -4 }}
                       transition={{ duration: 0.18 }}
-                      className="text-left"
+                      className="text-left max-w-2xl mx-auto"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-sm font-bold text-neutral-900">
+                        <h4 className="text-sm sm:text-base font-bold text-neutral-900">
                           {activeLocation.title}
                         </h4>
                         <span
-                          className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${
+                          className={`text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-md border ${
                             activeLocation.id === 'uk'
                               ? 'text-brand-blue bg-brand-blue/10 border-brand-blue/20'
                               : 'text-brand-orange bg-brand-orange/10 border-brand-orange/20'
@@ -343,13 +343,13 @@ export default function CDMOLocationsMapSection({
                         </span>
                       </div>
 
-                      <p className="text-xs text-slate-600 leading-relaxed mb-3.5">
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3.5">
                         {activeLocation.description}
                       </p>
 
                       <Link
                         href={activeLocation.href}
-                        className={`w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl text-xs font-semibold transition-all shadow-xs ${
+                        className={`w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-xs ${
                           activeLocation.id === 'uk'
                             ? 'bg-brand-blue hover:bg-brand-blue-hover text-white'
                             : 'bg-brand-orange hover:bg-brand-orange-hover text-black'
