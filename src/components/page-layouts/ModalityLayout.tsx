@@ -28,13 +28,15 @@ interface ModalityLayoutProps {
 
 function getCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
-  if (lower.includes('mammalian expression') || lower.includes('cell line') || lower.includes('expression system') || lower.includes('recombinant protein expression')) return Dna;
-  if (lower.includes('upstream') || lower.includes('process development') || lower.includes('optimization')) return FlaskConical;
-  if (lower.includes('homodimer') || lower.includes('mispairing') || lower.includes('bispecific')) return GitMerge;
-  if (lower.includes('conjugation') || lower.includes('dar') || lower.includes('payload') || lower.includes('adc')) return Syringe;
+  if (lower.includes('clone') || lower.includes('screening')) return Microscope;
+  if (lower.includes('mammalian expression') || lower.includes('cell line') || lower.includes('expression system') || lower.includes('expression platform')) return Dna;
+  if (lower.includes('upstream') || lower.includes('process development') || lower.includes('process optimization')) return FlaskConical;
+  if (lower.includes('homodimer') || lower.includes('mispairing') || lower.includes('bifunctional')) return GitMerge;
+  if (lower.includes('conjugation') || lower.includes('payload') || lower.includes('adc')) return Syringe;
+  if (lower.includes('dar') || lower.includes('structural')) return Atom;
   if (lower.includes('peptide') || lower.includes('synthetic')) return TestTubes;
-  if (lower.includes('purification') || lower.includes('refolding')) return Filter;
-  if (lower.includes('analytical') || lower.includes('characterization') || lower.includes('subclasses')) return Microscope;
+  if (lower.includes('purification') || lower.includes('impurity') || lower.includes('refolding') || lower.includes('aggregation') || lower.includes('purity')) return Filter;
+  if (lower.includes('analytical') || lower.includes('characterization') || lower.includes('physicochemical') || lower.includes('subclasses')) return Microscope;
   if (lower.includes('bioassay') || lower.includes('potency') || lower.includes('immunogenicity')) return Activity;
   if (lower.includes('quality') || lower.includes('stability') || lower.includes('degradation')) return ShieldCheck;
   if (lower.includes('drug product')) return PackageCheck;
@@ -73,9 +75,11 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                 <span className="text-neutral-900">{firstWord}</span>{' '}
                 {restWords.join(' ')}
               </h1>
-              <p className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl">
-                {page.description}
-              </p>
+              <div className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl space-y-4">
+                {page.description.split('\n\n').map((paragraph, idx) => (
+                  <p key={idx}>{paragraph}</p>
+                ))}
+              </div>
             </div>
 
             {page.image && (
