@@ -155,7 +155,7 @@ export default function FacilityAndLocationPage() {
                   Lambda CDMO operates across <strong className="text-neutral-900 font-semibold">Ahmedabad, India, and London, UK</strong>, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.
                 </p>
                 <p>
-                  Our facilities support with a strong focus, different aspects of biologics development, with Ahmedabad providing an integrated development and GMP manufacturing platform and London providing specialized biologics development and analytical capabilities for drug substance process development and process characterisation.
+                  Our facilities support with a strong focus, different aspects of biologics development, with <strong className="text-neutral-900 font-semibold">Ahmedabad providing an integrated development and GMP manufacturing platform</strong> and <strong className="text-neutral-900 font-semibold">London providing specialized biologics development and analytical capabilities</strong>, for drug substance process development and process characterisation.
                 </p>
               </div>
 
