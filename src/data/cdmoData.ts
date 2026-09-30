@@ -1115,13 +1115,8 @@ export const cdmoData: CDMOPage[] = [
       'Quality control and analytical testing',
       'Support for clinical development programs',
     ],
-    sections: [
-      {
-        title: '',
-        text: 'Our platform is designed to support innovator and biosimilar programs across IgG1, IgG2, and IgG4 subclasses.\n\nBy integrating development, manufacturing, analytical sciences, and quality functions within a unified operating model, we help simplify technology transfer and support efficient progression to clinical manufacturing.',
-        dark: false,
-      }
-    ],
+    footerNote: 'Our platform is designed to support innovator and biosimilar programs across IgG1, IgG2, and IgG4 subclasses.\n\nBy integrating development, manufacturing, analytical sciences, and quality functions within a unified operating model, we help simplify technology transfer and support efficient progression to clinical manufacturing.',
+    sections: [],
     specs: [
       { label: 'Subclasses', value: 'IgG1, IgG2, IgG4' },
       { label: 'Expression', value: 'Mammalian Systems' },
@@ -1141,7 +1136,7 @@ export const cdmoData: CDMOPage[] = [
     metaDesc: 'Lambda CDMO supports bispecific antibody programs through coordinated cell line, process development, analytical characterization, and manufacturing capabilities.',
     badge: 'Modalities',
     heading: 'Development Strategies for Complex Antibody Formats',
-    description: 'Bispecific antibodies present unique development and manufacturing challenges due to their structural complexity, product heterogeneity, and analytical requirements. Lambda CDMO supports bispecific antibody programs through coordinated cell line, process development, analytical characterization, and manufacturing capabilities. Our platform addresses the development requirements associated with complex antibody formats, including product quality, process performance, and characterization.',
+    description: 'Bispecific antibodies present unique development and manufacturing challenges due to their structural complexity, product heterogeneity, and analytical requirements. Lambda CDMO supports bispecific antibody programs through coordinated cell line, process development, analytical characterization, and manufacturing capabilities.',
     image: '/images/Bispecific_Antibodies.png',
     capabilities: [
       'Cell line development for bispecific and bifunctional antibodies',
@@ -1155,23 +1150,8 @@ export const cdmoData: CDMOPage[] = [
       'In vitro bioassays for functional assessment',
       'Drug substance and drug product manufacturing',
     ],
-    sections: [
-      {
-        title: 'Coordinated Development',
-        text: 'Our approach combines cell line development, process optimization, analytical characterization, and quality control to support the development of bispecific and bifunctional antibodies for clinical programs.',
-        dark: false,
-      },
-      {
-        title: 'Managing Product Heterogeneity',
-        text: 'We focus on process optimization to reduce homodimer and mispairing impurities, supported by orthogonal analytical characterization and forced degradation and stability studies.',
-        dark: true,
-      },
-      {
-        title: 'Bispecific Analytics & Bioassays',
-        text: 'In vitro bioassays for functional characterization paired with high-resolution mass spec to ensure correct chain pairing.',
-        dark: false,
-      }
-    ],
+    footerNote: 'Our platform addresses the development requirements associated with complex antibody formats, including product quality, process performance, and characterization.',
+    sections: [],
     specs: [
       { label: 'Focus', value: 'Bispecific & Bifunctional Antibodies' },
       { label: 'Challenge', value: 'Homodimer & Mispairing Control' },

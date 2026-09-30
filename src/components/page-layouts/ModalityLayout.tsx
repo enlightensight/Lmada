@@ -132,19 +132,16 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
         </section>
       )}
 
-      {/* MABS PLATFORM SECTION */}
-      {page.slug === 'mabs' && (
+      {/* PLATFORM SUMMARY / FOOTER NOTE SECTION */}
+      {page.footerNote && (
         <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-16 bg-white border-b border-neutral-100">
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="bg-neutral-50/80 border border-neutral-200/80 rounded-[12px] p-6 sm:p-8 lg:p-10 shadow-xs">
                 <div className="max-w-4xl space-y-4 text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
-                  <p>
-                    Our platform is designed to support innovator and biosimilar programs across IgG1, IgG2, and IgG4 subclasses.
-                  </p>
-                  <p>
-                    By integrating development, manufacturing, analytical sciences, and quality functions within a unified operating model, we help simplify technology transfer and support efficient progression to clinical manufacturing.
-                  </p>
+                  {page.footerNote.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
                 </div>
               </div>
             </Reveal>
