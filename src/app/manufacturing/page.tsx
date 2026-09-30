@@ -248,21 +248,6 @@ export default function ManufacturingServicesPage() {
       {/* MANUFACTURING PILLARS — 2 LARGE CARDS */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-molecules border-b border-neutral-100">
         <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                Integrated Manufacturing
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
-                Clinical cGMP Drug Substance & Drug Product
-              </h2>
-              <div className="h-1 w-16 bg-brand-orange rounded-full mx-auto mb-5" />
-              <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
-                Seamless transition from development batches to cGMP clinical manufacturing for monoclonal antibodies, bispecifics, and complex recombinant proteins.
-              </p>
-            </div>
-          </Reveal>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {MANUFACTURING_SUB_SERVICES.map((service, idx) => {
               const ServiceIcon = service.icon;

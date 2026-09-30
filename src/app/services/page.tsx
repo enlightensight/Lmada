@@ -263,21 +263,6 @@ export default function DevelopmentServicesPage() {
       {/* CORE DEVELOPMENT PILLARS — 3 CARDS */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-molecules border-b border-neutral-100">
         <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                Core Capabilities
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
-                Three Integrated Pillars of Biologics Development
-              </h2>
-              <div className="h-1 w-16 bg-brand-orange rounded-full mx-auto mb-5" />
-              <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
-                From initial sequence construct to cGMP-ready manufacturing recipes, our multidisciplinary teams work under a unified quality management framework.
-              </p>
-            </div>
-          </Reveal>
-
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {SUB_SERVICES.map((service, idx) => {
               const ServiceIcon = service.icon;
