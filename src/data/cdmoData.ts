@@ -566,27 +566,12 @@ export const cdmoData: CDMOPage[] = [
     category: 'overview',
     title: 'Careers — Lambda CDMO',
     metaTitle: 'Careers | Lambda CDMO',
-    metaDesc: 'Join Lambda CDMO and shape the future of biologics through science, innovation, and collaboration. Explore open roles in biologics development and manufacturing.',
+    metaDesc: 'Join a team committed to advancing biologics through science, innovation, and collaboration. Explore open roles at Lambda CDMO.',
     badge: 'Careers',
-    heading: 'Shape the Future of Biologics.',
-    description: 'Join a team committed to advancing biologics through science, innovation, and collaboration. At Lambda CDMO, you will work alongside experienced scientists and industry experts on programs that support next-generation biologics for global markets.',
+    heading: 'Shape the Future of Biologics',
+    description: 'Join a team committed to advancing biologics through science, innovation, and collaboration.\n\nAt Lambda CDMO, you\'ll collaborate with experienced scientists and industry experts on programs that support the development of next-generation biologics for global markets.',
     image: '/images/cdn/unsplash-1532094349884-543bc11b234d.jpg',
-    sections: [
-      {
-        title: 'Advance Your Career',
-        text: 'We offer opportunities to contribute across cell line development, process development, analytical characterization, GMP manufacturing, quality, and regulatory functions in a collaborative and scientifically rigorous environment.',
-        dark: true,
-      }
-    ],
-    specs: [
-      { label: 'Culture', value: 'Science, Innovation, Collaboration' },
-      { label: 'Location', value: 'Ahmedabad, India' },
-      { label: 'Fields', value: 'R&D, Manufacturing, QC, QA, Regulatory' },
-    ],
-    faqs: [
-      { question: 'How can I apply for a role at Lambda CDMO?', answer: 'Visit the Lambda career portal to view current openings and submit your application. You may also contact our HR team through the contact form for general inquiries.' },
-      { question: 'What types of roles are available?', answer: 'We offer roles across cell line development, process development, analytical characterization, GMP manufacturing, quality control, quality assurance, and regulatory affairs.' },
-    ]
+    sections: [],
   },
   {
     slug: 'cell-line',

@@ -112,7 +112,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           links: [
             { label: 'Integrated development to manufacturing', href: '/overview/integrated', icon: Layers },
             { label: 'Quality and Compliance', href: '/overview/quality', icon: ShieldCheck },
-            { label: 'Careers', href: 'https://careers.lambda-cro.com/go/CDMO/752444/', icon: Briefcase, isExternal: true },
+            { label: 'Careers', href: '/overview/careers', icon: Briefcase },
           ],
         },
       ],

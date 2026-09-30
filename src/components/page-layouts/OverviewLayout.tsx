@@ -466,6 +466,19 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   <p key={pIdx}>{renderFormattedText(para)}</p>
                 ))}
               </div>
+              {page.slug === 'careers' && (
+                <div className="mt-8">
+                  <a
+                    href="https://careers.lambda-cro.com/go/CDMO/752444/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-[10px] bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all group/btn"
+                  >
+                    <span>Explore Open Roles</span>
+                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              )}
             </div>
             <Reveal delay={0.1}>
               {page.slug === 'about' ? (
