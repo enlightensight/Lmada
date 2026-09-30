@@ -1183,17 +1183,68 @@ export default function BlogAdminEditor({
 
               {/* Regulatory Impact */}
               <div className="pt-4 border-t border-slate-100">
-                <label className="block text-xs font-bold uppercase tracking-wider text-amber-800 mb-2 flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-amber-700" />
-                  Regulatory & Global Filing Significance
-                </label>
-                <textarea
-                  rows={2}
-                  value={regulatoryImpact}
-                  onChange={(e) => setRegulatoryImpact(e.target.value)}
-                  placeholder="Compliance standards (FDA, EMA, ICH Q2, PMDA)..."
-                  className="w-full px-3.5 py-2 border border-amber-200 bg-amber-50/50 rounded-xl text-xs sm:text-sm text-amber-950 focus:outline-none focus:border-amber-500 resize-none"
-                />
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-amber-700" />
+                    Regulatory & Global Filing Significance
+                  </label>
+                  {regulatoryImpact && regulatoryImpact.trim() !== '' ? (
+                    <button
+                      type="button"
+                      onClick={() => setRegulatoryImpact('')}
+                      className="inline-flex items-center gap-1 text-xs text-red-600 hover:text-red-700 font-semibold cursor-pointer"
+                      title="Delete Regulatory Section"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Delete</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setRegulatoryImpact(
+                          'Meets US FDA and EMA expectations for early clinical development and RCB documentation.'
+                        )
+                      }
+                      className="text-xs text-brand-orange font-semibold hover:underline cursor-pointer"
+                    >
+                      + Add Regulatory Impact
+                    </button>
+                  )}
+                </div>
+
+                {regulatoryImpact && regulatoryImpact.trim() !== '' ? (
+                  <div className="space-y-1.5">
+                    <textarea
+                      rows={3}
+                      value={regulatoryImpact}
+                      onChange={(e) => setRegulatoryImpact(e.target.value)}
+                      placeholder="Compliance standards (FDA, EMA, ICH Q2, PMDA)..."
+                      className="w-full px-3.5 py-2.5 border border-amber-200 bg-amber-50/60 rounded-xl text-xs sm:text-sm text-amber-950 focus:outline-none focus:border-amber-500 focus:bg-white resize-none transition-all"
+                    />
+                    <p className="text-[10px] text-amber-800/70">
+                      Editable text. Click <span className="font-semibold text-red-600">Delete</span> to completely remove this section from the live article.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="p-4 rounded-xl border border-dashed border-slate-200 bg-slate-50/60 text-center space-y-2">
+                    <p className="text-xs text-slate-400 font-medium">
+                      No regulatory impact specified (this section is deleted and won&apos;t appear on the live article).
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setRegulatoryImpact(
+                          'Meets US FDA and EMA expectations for early clinical development and RCB documentation.'
+                        )
+                      }
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200/80 text-amber-900 text-xs font-semibold cursor-pointer transition-all"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add Regulatory Significance</span>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

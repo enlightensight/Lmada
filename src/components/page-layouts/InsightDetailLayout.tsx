@@ -295,33 +295,40 @@ export default function InsightDetailLayout({ item, relatedItems }: InsightDetai
             </div>
 
             {/* Validated Methodology & Instrumentation */}
-            <div className="p-7 sm:p-8 rounded-2xl bg-white border border-neutral-200 shadow-xs space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-2">
-                <FlaskConical className="w-4 h-4 text-brand-blue" />
-                Validated Methodology & Instrumentation Fleet
-              </h3>
-              <ul className="space-y-3 pt-2">
-                {item.detailedContent.methodologyHighlights.map((method, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm text-slate-700">
-                    <span className="w-2 h-2 rounded-full bg-brand-blue shrink-0 mt-2" />
-                    <span className="leading-relaxed">{method}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {item.detailedContent.methodologyHighlights &&
+              item.detailedContent.methodologyHighlights.filter((m) => m && m.trim().length > 0).length > 0 && (
+              <div className="p-7 sm:p-8 rounded-2xl bg-white border border-neutral-200 shadow-xs space-y-4">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-2">
+                  <FlaskConical className="w-4 h-4 text-brand-blue" />
+                  Validated Methodology & Instrumentation Fleet
+                </h3>
+                <ul className="space-y-3 pt-2">
+                  {item.detailedContent.methodologyHighlights
+                    .filter((m) => m && m.trim().length > 0)
+                    .map((method, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-sm text-slate-700">
+                        <span className="w-2 h-2 rounded-full bg-brand-blue shrink-0 mt-2" />
+                        <span className="leading-relaxed">{method}</span>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
 
             {/* Regulatory & Filing Significance */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-amber-50/70 border border-amber-200/90 text-amber-950 space-y-2">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-amber-800" />
-                <h4 className="font-bold uppercase tracking-wider text-xs text-amber-900">
-                  Regulatory & Global Filing Significance
-                </h4>
+            {item.detailedContent.regulatoryImpact && item.detailedContent.regulatoryImpact.trim().length > 0 && (
+              <div className="p-6 sm:p-7 rounded-2xl bg-amber-50/70 border border-amber-200/90 text-amber-950 space-y-2">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-amber-800" />
+                  <h4 className="font-bold uppercase tracking-wider text-xs text-amber-900">
+                    Regulatory & Global Filing Significance
+                  </h4>
+                </div>
+                <p className="text-sm sm:text-base text-amber-900 font-normal leading-relaxed">
+                  {item.detailedContent.regulatoryImpact}
+                </p>
               </div>
-              <p className="text-sm sm:text-base text-amber-900 font-normal leading-relaxed">
-                {item.detailedContent.regulatoryImpact}
-              </p>
-            </div>
+            )}
 
             {/* Tags & Categorization */}
             <div className="p-6 rounded-2xl bg-white border border-neutral-200 flex flex-wrap items-center gap-2.5">
