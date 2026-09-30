@@ -87,7 +87,8 @@ export default function CDMOLocationsMapSection({
   title = 'Our CDMO Locations',
   subtitle = null
 }: CDMOLocationsMapSectionProps = {}) {
-  const [activeLocationId, setActiveLocationId] = useState<'india' | 'uk' | null>('india');
+  const [activeLocationId, setActiveLocationId] = useState<'india' | 'uk'>('india');
+  const activeLocation = CDMO_LOCATIONS.find((loc) => loc.id === activeLocationId) || CDMO_LOCATIONS[0];
 
   return (
     <section id={id} className={`scroll-mt-20 lg:scroll-mt-24 relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-white border-b border-neutral-100 overflow-hidden select-none ${className}`}>
@@ -211,6 +212,7 @@ export default function CDMOLocationsMapSection({
                     <button
                       type="button"
                       onClick={() => setActiveLocationId('uk')}
+                      onMouseEnter={() => setActiveLocationId('uk')}
                       className={`relative w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-transform duration-300 ${
                         activeLocationId === 'uk'
                           ? 'bg-brand-blue text-white scale-125 ring-4 ring-brand-blue/30'
@@ -225,38 +227,6 @@ export default function CDMOLocationsMapSection({
                     <div className="absolute top-9 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-blue/40 text-[11px] font-bold text-brand-blue px-2.5 py-0.5 rounded-full shadow-sm pointer-events-none">
                       London, UK
                     </div>
-
-                    {/* POPUP MODAL ANIMATION FOR LONDON */}
-                    <AnimatePresence>
-                      {activeLocationId === 'uk' && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8, scale: 0.94 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 6, scale: 0.94 }}
-                          transition={{ duration: 0.22, ease: 'easeOut' }}
-                          className="absolute z-50 left-1/2 -translate-x-[75%] sm:-translate-x-[50%] top-10 w-72 sm:w-80 bg-white/95 backdrop-blur-xl border border-brand-blue/40 rounded-xl p-3.5 shadow-2xl text-left"
-                        >
-                          <div className="flex items-center justify-between mb-1.5">
-                            <h4 className="text-sm font-bold text-neutral-900">
-                              London, UK
-                            </h4>
-                            <span className="text-[10px] font-semibold text-brand-blue bg-brand-blue/10 px-1.5 py-0.5 rounded border border-brand-blue/20">UK</span>
-                          </div>
-
-                          <p className="text-xs text-slate-600 leading-relaxed mb-3">
-                            Biologics development capabilities that will support process and analytical development for drug substance followed by process characterisation studies.
-                          </p>
-
-                          <Link
-                            href="/facility&location/UK"
-                            className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-brand-blue hover:bg-brand-blue-hover text-white text-xs font-semibold transition-all shadow-sm"
-                          >
-                            <span>Explore London Centre</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </Link>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </div>
 
                   {/* LOCATION 2: Ahmedabad, India Pin & Beacon */}
@@ -287,41 +257,61 @@ export default function CDMOLocationsMapSection({
                     <div className="absolute top-9 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-orange/40 text-[11px] font-bold text-brand-orange px-2.5 py-0.5 rounded-full shadow-sm pointer-events-none">
                       Ahmedabad, India
                     </div>
-
-                    {/* POPUP MODAL ANIMATION FOR AHMEDABAD */}
-                    <AnimatePresence>
-                      {activeLocationId === 'india' && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8, scale: 0.94 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 6, scale: 0.94 }}
-                          transition={{ duration: 0.22, ease: 'easeOut' }}
-                          className="absolute z-50 left-1/2 -translate-x-[50%] sm:-translate-x-[35%] top-10 w-72 sm:w-80 bg-white/95 backdrop-blur-xl border border-brand-orange/40 rounded-xl p-3.5 shadow-2xl text-left"
-                        >
-                          <div className="flex items-center justify-between mb-1.5">
-                            <h4 className="text-sm font-bold text-neutral-900">
-                              Ahmedabad, India
-                            </h4>
-                            <span className="text-[10px] font-semibold text-brand-orange bg-brand-orange/10 px-1.5 py-0.5 rounded border border-brand-orange/20">India</span>
-                          </div>
-
-                          <p className="text-xs text-slate-600 leading-relaxed mb-3">
-                            Integrated development with Process and Analytical Sciences capabilities, combined with cGMP manufacturing for both drug substance and drug product.
-                          </p>
-
-                          <Link
-                            href="/facility&location/India"
-                            className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-brand-orange hover:bg-brand-orange-hover text-black text-xs font-semibold transition-all shadow-sm"
-                          >
-                            <span>Explore Ahmedabad Facility</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </Link>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </div>
 
                 </div>
+
+                {/* CENTERED INFORMATION CARD FOR TABLET & DESKTOP (Hidden on mobile) */}
+                <div className="hidden sm:block absolute z-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-[90%] max-w-[420px] pointer-events-auto">
+                  <AnimatePresence mode="wait">
+                    {activeLocation && (
+                      <motion.div
+                        key={activeLocation.id}
+                        initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -6, scale: 0.96 }}
+                        transition={{ duration: 0.22, ease: 'easeOut' }}
+                        className="bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-2xl text-left"
+                      >
+                        <div className="flex items-center justify-between mb-2 sm:mb-2.5">
+                          <h4 className="text-base sm:text-lg font-bold text-neutral-900">
+                            {activeLocation.title}
+                          </h4>
+                          <span
+                            className={`text-[11px] sm:text-xs font-semibold px-2 py-0.5 rounded-md border ${
+                              activeLocation.id === 'uk'
+                                ? 'text-brand-blue bg-brand-blue/10 border-brand-blue/20'
+                                : 'text-brand-orange bg-brand-orange/10 border-brand-orange/20'
+                            }`}
+                          >
+                            {activeLocation.id === 'uk' ? 'UK' : 'India'}
+                          </span>
+                        </div>
+
+                        <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-4 sm:mb-5">
+                          {activeLocation.description}
+                        </p>
+
+                        <Link
+                          href={activeLocation.href}
+                          className={`w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-sm ${
+                            activeLocation.id === 'uk'
+                              ? 'bg-brand-blue hover:bg-brand-blue-hover text-white'
+                              : 'bg-brand-orange hover:bg-brand-orange-hover text-black'
+                          }`}
+                        >
+                          <span>
+                            {activeLocation.id === 'uk'
+                              ? 'Explore London Centre'
+                              : 'Explore Ahmedabad Facility'}
+                          </span>
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
               </div>
 
             </div>
