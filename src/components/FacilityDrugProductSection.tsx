@@ -12,9 +12,7 @@ import {
   Layers, 
   ShieldCheck, 
   Droplets, 
-  Eye, 
-  Syringe, 
-  PackageCheck
+  Eye
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 
@@ -80,73 +78,17 @@ export default function FacilityDrugProductSection({ section }: FacilityDrugProd
       <div className="relative z-10 w-full max-w-[1700px] mx-auto">
         {/* Section Header */}
         <Reveal>
-          <div className="max-w-3xl mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-5">
-              Drug Product Development & Manufacturing
+          <div className="max-w-4xl mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-brand-navy leading-[1.15] mb-4">
+              Drug Product Development &amp; Manufacturing
             </h2>
-            <div className="h-1 w-12 bg-brand-blue rounded-full mb-5" />
-            <p className="text-[17px] md:text-[19px] text-neutral-600 font-normal leading-relaxed">
-              The drug product platform supports formulation, process development, lyophilization, and clinical GMP manufacturing.
-            </p>
-          </div>
-        </Reveal>
-
-        {/* Hero Highlight Card: Isolator-Based Robotic Filling Line & Inspection Suites */}
-        <Reveal delay={0.08}>
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0] text-neutral-900 p-6 sm:p-8 md:p-10 border border-slate-200/90 shadow-xl mb-12 group">
-            {/* Ambient Glows */}
-            <div className="absolute -right-24 -bottom-24 w-80 h-80 bg-brand-blue/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -left-20 -top-20 w-60 h-60 bg-brand-orange/10 rounded-full blur-3xl pointer-events-none" />
-            
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7">
-                <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight leading-snug mb-3.5">
-                  Development capabilities.
-                </h3>
-                <p className="text-slate-600 text-[15px] sm:text-base leading-relaxed mb-6 font-normal">
-                  The drug product filling line is isolator based with robotic operations minimizing operator handling and ensuring a high degree of aseptic compliance. The line has a nominal ability to process 10,000 units in a batch in vial, PFS or cartridge formats. The facility also has a visual inspection suite with manual inspection setup, and a suite for secondary packaging primarily for bulk packaging of filled units.
-                </p>
-                <div className="flex flex-wrap gap-2 sm:gap-2.5">
-                  <span className="px-3 py-1.5 rounded-lg bg-white/95 border border-slate-200 text-slate-700 text-xs font-medium shadow-xs">
-                    ⚡ 10,000 Units / Batch
-                  </span>
-                  <span className="px-3 py-1.5 rounded-lg bg-white/95 border border-slate-200 text-slate-700 text-xs font-medium shadow-xs">
-                    🤖 Robotic Isolator Line
-                  </span>
-                  <span className="px-3 py-1.5 rounded-lg bg-white/95 border border-slate-200 text-slate-700 text-xs font-medium shadow-xs">
-                    💉 Vials • PFS • Cartridges
-                  </span>
-                  <span className="px-3 py-1.5 rounded-lg bg-white/95 border border-slate-200 text-slate-700 text-xs font-medium shadow-xs">
-                    🔍 Manual Visual Inspection Suite
-                  </span>
-                  <span className="px-3 py-1.5 rounded-lg bg-white/95 border border-slate-200 text-slate-700 text-xs font-medium shadow-xs">
-                    📦 Secondary Bulk Packaging
-                  </span>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 grid grid-cols-2 gap-3 sm:gap-4">
-                <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-xl p-4 text-center shadow-xs hover:shadow-md hover:border-brand-blue/50 transition-all">
-                  <Cpu className="w-7 h-7 text-brand-blue mx-auto mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-neutral-900">10k</div>
-                  <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-0.5">Nominal Batch Size</div>
-                </div>
-                <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-xl p-4 text-center shadow-xs hover:shadow-md hover:border-brand-orange/50 transition-all">
-                  <ShieldCheck className="w-7 h-7 text-brand-orange mx-auto mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-neutral-900">Grade A</div>
-                  <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-0.5">Aseptic Isolator</div>
-                </div>
-                <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-xl p-4 text-center shadow-xs hover:shadow-md hover:border-brand-blue/50 transition-all">
-                  <Syringe className="w-7 h-7 text-brand-blue mx-auto mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-neutral-900">3 Formats</div>
-                  <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-0.5">Vials / PFS / Cartridges</div>
-                </div>
-                <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-xl p-4 text-center shadow-xs hover:shadow-md hover:border-emerald-500/50 transition-all">
-                  <PackageCheck className="w-7 h-7 text-emerald-600 mx-auto mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-neutral-900">Bulk Pack</div>
-                  <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-0.5">Secondary Packaging</div>
-                </div>
-              </div>
+            <div className="space-y-2.5 text-[15px] sm:text-[16px] md:text-[17px] text-slate-700 leading-relaxed font-normal">
+              <p>
+                The drug product platform supports <strong className="text-neutral-900 font-semibold">formulation, process development, lyophilization, and clinical GMP manufacturing</strong>.
+              </p>
+              <p>
+                <strong className="text-neutral-900 font-semibold">Development capabilities.</strong> The drug product filling line is isolator based with robotic operations minimizing operator handling and ensuring a high degree of aseptic compliance. The line has a nominal ability to process 10,000 units in a batch in vial, PFS or cartridge formats. The facility also has a visual inspection suite with manual inspection setup, and a suite for secondary packaging primarily for bulk packaging of filled units.
+              </p>
             </div>
           </div>
         </Reveal>
