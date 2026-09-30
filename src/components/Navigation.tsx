@@ -315,11 +315,6 @@ export default function Navigation() {
                                       </li>
                                     </ul>
                                   </div>
-
-                                  <div className="mt-8 pt-4 border-t border-neutral-100 text-[12px] text-slate-500 flex items-center gap-2">
-                                    <Globe className="w-4 h-4 text-brand-blue shrink-0" />
-                                    <span>Dual-continent integrated CDMO</span>
-                                  </div>
                                 </div>
 
                                 {/* Right column: Dynamic location details card */}
