@@ -1171,7 +1171,7 @@ export const cdmoData: CDMOPage[] = [
     metaDesc: 'Lambda CDMO supports ADC programs through capabilities spanning monoclonal antibody development, conjugation process development, analytical characterization, and manufacturing.',
     badge: 'Modalities',
     heading: 'Integrated Development for ADC Programs',
-    description: 'Antibody-drug conjugates (ADCs) combine monoclonal antibodies with highly potent payloads, requiring specialized development, analytical characterization, and manufacturing strategies. Lambda CDMO supports ADC programs through capabilities spanning monoclonal antibody development, conjugation process development, analytical characterization, and manufacturing.\n\nOur analytical and development capabilities support assessment of key product attributes and process performance across ADC development.',
+    description: 'Antibody-drug conjugates (ADCs) combine monoclonal antibodies with highly potent payloads, requiring specialized development, analytical characterization, and manufacturing strategies. Lambda CDMO supports ADC programs through capabilities spanning monoclonal antibody development, conjugation process development, analytical characterization, and manufacturing.',
     image: '/images/Antibody-Drug_Conjugates.png',
     capabilities: [
       'Monoclonal antibody development for ADC programs',
@@ -1184,23 +1184,8 @@ export const cdmoData: CDMOPage[] = [
       'Drug substance manufacturing',
       'Drug product manufacturing',
     ],
-    sections: [
-      {
-        title: 'Specialized ADC Development',
-        text: 'Our platform is designed to generate comprehensive analytical data that supports product characterization, process development, and clinical manufacturing.',
-        dark: false,
-      },
-      {
-        title: 'Conjugation & DAR Control',
-        text: 'Capabilities include monoclonal antibody development for ADC programs, conjugation process development, drug-to-antibody ratio (DAR) characterization, and product purity/aggregation analysis.',
-        dark: true,
-      },
-      {
-        title: 'Potency and GMP Support',
-        text: 'We develop in vitro bioassays for potency assessment and provide drug substance manufacturing for clinical development.',
-        dark: false,
-      }
-    ],
+    footerNote: 'Our analytical and development capabilities support assessment of key product attributes and process performance across ADC development.',
+    sections: [],
     specs: [
       { label: 'Antibody', value: 'mAb Development for ADCs' },
       { label: 'Conjugation', value: 'Process Development' },
@@ -1220,7 +1205,7 @@ export const cdmoData: CDMOPage[] = [
     metaDesc: 'Lambda CDMO offers development and manufacturing capabilities for recombinant proteins and therapeutic peptides across a range of biologic applications.',
     badge: 'Modalities',
     heading: 'Development and Manufacturing for Protein- and Peptide-Based Therapeutics',
-    description: 'Lambda CDMO offers development and manufacturing capabilities for recombinant proteins and therapeutic peptides across a range of biologic applications. Our integrated platform combines process development, analytical characterization, quality control, and manufacturing to support the development of protein- and peptide-based therapeutics.\n\nCapabilities are designed to support recombinant proteins, fusion proteins, enzymes, cytokines, growth factors, and synthetic peptides while maintaining product quality and regulatory compliance throughout development and manufacturing.',
+    description: 'Lambda CDMO offers development and manufacturing capabilities for recombinant proteins and therapeutic peptides across a range of biologic applications. Our integrated platform combines process development, analytical characterization, quality control, and manufacturing to support the development of protein- and peptide-based therapeutics.',
     image: '/images/Proteins_%26_Peptides.png',
     capabilities: [
       'Mammalian expression platforms',
@@ -1234,23 +1219,8 @@ export const cdmoData: CDMOPage[] = [
       'Drug substance manufacturing',
       'Drug product manufacturing',
     ],
-    sections: [
-      {
-        title: 'Diverse Biologic Applications',
-        text: 'Capabilities are designed to support recombinant proteins, fusion proteins, enzymes, cytokines, growth factors, and synthetic peptides while maintaining product quality and regulatory compliance throughout development and manufacturing.',
-        dark: false,
-      },
-      {
-        title: 'Expression and Purification',
-        text: 'Platform capabilities include recombinant protein expression using CHO, HEK293, and E. coli expression systems, process development and optimization, protein purification and refolding, and synthetic peptide manufacturing.',
-        dark: true,
-      },
-      {
-        title: 'Characterization and Release',
-        text: 'We provide analytical characterization and release testing, in vitro immunogenicity assessment, and drug substance and drug product manufacturing for clinical development.',
-        dark: false,
-      }
-    ],
+    footerNote: 'Capabilities are designed to support recombinant proteins, fusion proteins, enzymes, cytokines, growth factors, and synthetic peptides while maintaining product quality and regulatory compliance throughout development and manufacturing.',
+    sections: [],
     specs: [
       { label: 'Expression', value: 'CHO, HEK293, E. coli' },
       { label: 'Products', value: 'Proteins, Fusions, Enzymes, Peptides' },
