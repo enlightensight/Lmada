@@ -35,14 +35,14 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'analytical-testing',
     href: '/characterization/analytical-testing',
     icon: Microscope,
-    image: '/images/default_analytics.png',
+    image: '/images/default_scientist.jpg',
     badge: 'QC Testing & Release',
     description: 'Reliable analytical testing for biologics drug substance and drug product, supporting in-process controls, batch release, stability programs, and regulatory compliance.',
     capabilities: [
-      'Identity testing using peptide mapping, LC-MS & immunological methods',
-      'Purity and impurity analysis via SEC-HPLC, CE-SDS & IEF',
-      'Protein concentration & particulate matter analysis',
-      'Drug substance and drug product batch release & stability testing'
+      'Identity testing using peptide mapping, LC-MS, and immunological methods',
+      'Purity and impurity analysis using SEC-HPLC, CE-SDS, and IEF',
+      'Protein concentration analysis',
+      'Potency testing using cell-based and ligand-binding assays'
     ],
   },
   {
@@ -50,14 +50,14 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'physicochemical',
     href: '/characterization/physicochemical',
     icon: Scale,
-    image: '/images/Lab.jpg',
+    image: '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
     badge: 'Structural & Biophysical',
-    description: 'Comprehensive structural, molecular, and biophysical characterization to elucidate higher-order structure, primary sequence, and critical quality attributes.',
+    description: 'Comprehensive structural, molecular, and biophysical characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.',
     capabilities: [
-      'Intact mass analysis, subunit mass & sequence confirmation (LC-MS/MS)',
-      'N-glycan and O-glycan profiling & site occupancy analysis',
-      'Charge variant (cIEF, CEX) and size variant (SEC-MALS, AUC) profiling',
-      'Higher-order structural analysis (CD, DSC, fluorescence spectroscopy)'
+      'Primary structure analysis',
+      'Intact mass and peptide mass analysis',
+      'Disulfide bond characterization',
+      'Glycan profiling'
     ],
   },
   {
@@ -65,14 +65,14 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'bioassays',
     href: '/characterization/bioassays',
     icon: HeartPulse,
-    image: '/images/celldev.png',
+    image: '/images/cdn/pexels-4033148.jpg',
     badge: 'Functional & Potency',
-    description: 'Qualified cell-based potency assays, target binding assays, and immunogenicity screening to evaluate mechanism of action and clinical safety.',
+    description: 'Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.',
     capabilities: [
-      'Cell-based functional bioassays (proliferation, cytotoxicity, reporter gene)',
-      'Receptor and target binding assays (ELISA, SPR Biacore, BLI Octet)',
-      'Anti-Drug Antibody (ADA) screening, confirmatory & titer assays',
-      'Neutralizing antibody (NAb) assay development & characterization'
+      'Cell-based potency assays',
+      'Reporter gene assays',
+      'Binding assays',
+      'ADCC and CDC functional assays'
     ],
   },
   {
@@ -80,14 +80,14 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'microbiological',
     href: '/characterization/microbiological',
     icon: Bug,
-    image: '/images/equipment3.png',
+    image: '/images/cdn/unsplash-1576086213369-97a306d36557.jpg',
     badge: 'Microbiology QC',
-    description: 'Controlled microbiological quality control testing supporting product safety, environmental monitoring, bioburden reduction, and sterility assurance.',
+    description: 'Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.',
     capabilities: [
-      'Sterility testing by membrane filtration and direct inoculation',
-      'Bacterial endotoxin testing via kinetic chromogenic and turbidimetric LAL',
-      'Bioburden testing of raw materials, in-process, and purified bulk',
-      'Particulate matter testing (light obscuration and microscopic methods)'
+      'Sterility testing',
+      'Bioburden testing',
+      'Bacterial endotoxin testing (BET)',
+      'Environmental monitoring'
     ],
   },
 ];

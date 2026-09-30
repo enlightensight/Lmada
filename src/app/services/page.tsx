@@ -35,14 +35,14 @@ const SUB_SERVICES = [
     slug: 'cell-line',
     href: '/services/cell-line',
     icon: Dna,
-    image: '/images/celldev.png',
+    image: '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
     badge: 'Phase 01',
-    description: 'High-producing, stable clone selection, monoclonality verification, and cGMP cell banking supporting scalable expression across mammalian host platforms.',
+    description: 'A well-characterized, productive cell line provides the foundation for a robust biologics manufacturing process across mammalian expression platforms.',
     capabilities: [
-      'Gene synthesis, codon optimization & vector design',
-      'Stable cell pool generation & single-cell cloning',
-      'Monoclonality assurance with imaged proof',
-      'Research Cell Bank (RCB) & Master Cell Bank (MCB) generation'
+      'Gene construct design and optimization',
+      'Expression vector design and construction',
+      'Stable cell pool generation',
+      'Single-cell cloning for establishment of monoclonality'
     ],
   },
   {
@@ -52,12 +52,12 @@ const SUB_SERVICES = [
     icon: Settings,
     image: '/images/development.jpg',
     badge: 'Phase 02',
-    description: 'Upstream bioreactor optimization and downstream chromatographic purification platforms built for seamless scale-up and high volumetric productivity.',
+    description: 'Upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability from bench to pilot scale.',
     capabilities: [
-      'Media screening & fed-batch / perfusion optimization',
-      'Multi-column chromatography purification development',
-      'Viral clearance, inactivation & filtration studies',
-      'Ultrafiltration / Diafiltration (UF/DF) & formulation'
+      'Media and feed optimization',
+      'Shake flask and bioreactor process development',
+      'DoE-based process optimization',
+      'Cell culture process optimization'
     ],
   },
   {
@@ -65,14 +65,14 @@ const SUB_SERVICES = [
     slug: 'analytical',
     href: '/services/analytical',
     icon: Search,
-    image: '/images/default_analytics.png',
+    image: '/images/analytical_instruments.jpg',
     badge: 'Phase 03',
-    description: 'Orthogonal method development, phase-appropriate qualification, and in-depth structural characterization for robust product understanding.',
+    description: 'Analytical methods supporting product and process development, comparability, stability assessment, and regulatory requirements.',
     capabilities: [
-      'HPLC / UPLC purity and charge/size variant methods',
-      'Intact mass & peptide mapping by LC-MS/MS',
-      'Potency bioassays & receptor binding characterization',
-      'Forced degradation & stability-indicating method qualification'
+      'Analytical method development',
+      'Method optimization',
+      'Method qualification',
+      'Method validation'
     ],
   },
 ];

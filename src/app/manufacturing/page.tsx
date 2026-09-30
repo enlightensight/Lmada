@@ -35,14 +35,14 @@ const MANUFACTURING_SUB_SERVICES = [
     slug: 'drug-substance',
     href: '/manufacturing/drug-substance',
     icon: Beaker,
-    image: '/images/CDMOblue.png',
+    image: '/images/cdn/pexels-3938022.jpg',
     badge: 'cGMP DS Platform',
-    description: 'Scalable mammalian cell culture and downstream purification in purpose-built single-use bioreactor cleanrooms, optimized for clinical supply batches.',
+    description: 'Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.',
     capabilities: [
-      'Single-use bioreactors (up to 2x 200L scale)',
-      'Upstream seed train & fed-batch / perfusion operations',
-      'Downstream chromatography & TFF ultrafiltration',
-      'Phase-appropriate cGMP batch records & lot release'
+      'GMP seed train and production bioreactor operations',
+      'Mammalian cell culture manufacturing',
+      'Upstream and downstream processing',
+      'Chromatographic purification and polishing'
     ],
   },
   {
@@ -50,14 +50,14 @@ const MANUFACTURING_SUB_SERVICES = [
     slug: 'drug-product',
     href: '/manufacturing/drug-product',
     icon: Package,
-    image: '/images/hero_cleanroom.png',
+    image: '/images/insights/robotic_fill_finish.png',
     badge: 'Aseptic Fill-Finish',
-    description: 'Advanced robotic isolator aseptic filling for liquid and lyophilized vials, prefilled syringes (PFS), and cartridges under strict Grade A environment.',
+    description: 'Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products across liquid and lyophilized forms.',
     capabilities: [
-      'Robotic isolator technology for vials, PFS & cartridges',
-      'Integrated lyophilization for freeze-dried biologicals',
-      '100% automated visual inspection & container closure integrity',
-      'Cold-chain secondary packaging & QP clinical batch release'
+      'Formulation development and optimization',
+      'Excipient compatibility studies',
+      'GMP aseptic fill-finish operations',
+      'Liquid and lyophilized dosage forms'
     ],
   },
 ];
