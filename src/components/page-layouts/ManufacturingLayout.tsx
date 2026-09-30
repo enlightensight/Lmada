@@ -160,16 +160,18 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       {page.capabilities && page.capabilities.length > 0 && (
         <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
           <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  Manufacturing Capabilities
-                </h2>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
-                  cGMP cleanroom workflows, validated containment, and precision production systems for {page.title.split('—')[0].trim()}.
-                </p>
-              </div>
-            </Reveal>
+            {page.slug !== 'drug-product' && (
+              <Reveal>
+                <div className="text-center mb-10 md:mb-14">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                    Manufacturing Capabilities
+                  </h2>
+                  <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
+                    cGMP cleanroom workflows, validated containment, and precision production systems for {page.title.split('—')[0].trim()}.
+                  </p>
+                </div>
+              </Reveal>
+            )}
 
             {page.slug === 'drug-product' ? (
               <Reveal>
@@ -196,21 +198,8 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
 
                     {/* Right Content Box */}
                     <div className="lg:col-span-7">
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                          <Package className="w-6 h-6 text-brand-blue" />
-                        </span>
-                        <h3 className="text-2xl sm:text-3xl font-semibold text-black">
-                          Aseptic Fill-Finish &amp; Drug Product Operations
-                        </h3>
-                      </div>
-
-                      <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed mb-6">
-                        {page.description}
-                      </p>
-
-                      <div className="pt-5 border-t border-neutral-100">
-                        <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                      <div>
+                        <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-4">
                           Key Capabilities
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
