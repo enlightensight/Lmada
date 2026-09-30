@@ -93,15 +93,15 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
 
       {/* Main Login Card with Website Logo */}
       <div className="relative z-10 w-full max-w-[500px] sm:max-w-[540px] mx-auto my-auto py-8">
-        {/* Official Website Logo */}
-        <div className="flex justify-center mb-9">
-          <Link href="/" className="inline-block transition-transform hover:scale-[1.02]">
+        {/* Official Website Logo - matches card width */}
+        <div className="w-full mb-8">
+          <Link href="/" className="block w-full transition-transform hover:scale-[1.01] focus:outline-none">
             <Image
               src="/images/lambda_novum_logo.png"
               alt="Lambda & Novum"
               width={2991}
               height={358}
-              className="h-12 sm:h-16 w-auto max-w-[320px] sm:max-w-[420px] object-contain select-none"
+              className="w-full h-auto object-contain select-none"
               priority
               unoptimized
             />
