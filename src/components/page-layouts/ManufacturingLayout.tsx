@@ -82,9 +82,11 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05] mb-6">
                 {page.heading}
               </h1>
-              <p className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl">
-                {page.description}
-              </p>
+              <div className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl space-y-3">
+                {page.description.split('\n\n').map((para, pIdx) => (
+                  <p key={pIdx}>{para}</p>
+                ))}
+              </div>
             </div>
             <Reveal>
               <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white relative">
@@ -240,11 +242,6 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       {/* CAPABILITIES — split sections with accent icon boxes */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
         <div className="w-full max-w-[1700px] mx-auto">
-          <div className="text-center mb-10 md:mb-14">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-              Built for clinical-grade production
-            </h2>
-          </div>
           <div className="flex flex-col gap-12 md:gap-20">
             {content.sections.map((section, idx) => {
               const SectionIcon = sectionIcons[idx % sectionIcons.length];

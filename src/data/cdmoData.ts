@@ -832,8 +832,8 @@ export const cdmoData: CDMOPage[] = [
     metaTitle: 'cGMP Drug Substance Manufacturing | Lambda CDMO',
     metaDesc: 'Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human through later-phase programs.',
     badge: 'Manufacturing',
-    heading: 'Clinical-grade drug substance Built on Development Knowledge.',
-    description: 'Lambda CDMO provides cGMP drug substance manufacturing services for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase clinical programs. Our manufacturing teams work closely with development and analytical scientists to ensure a seamless transition from process development to GMP production while maintaining product quality and process consistency.',
+    heading: 'Clinical-grade drug substance Built on Development Knowledge',
+    description: 'Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.\n\nOur manufacturing teams work closely with process development, analytical, and quality functions to transfer established processes into GMP production while maintaining process consistency and product quality.',
     image: '/images/cdn/pexels-3938022.jpg',
     capabilities: [
       'GMP seed train and production bioreactor operations',
@@ -849,7 +849,7 @@ export const cdmoData: CDMOPage[] = [
     sections: [
       {
         title: 'Seamless Development to GMP Transfer',
-        text: 'Our manufacturing teams work closely with development and analytical scientists to ensure a seamless transition from process development to GMP production while maintaining product quality and process consistency.',
+        text: 'Manufacturing capabilities are designed to support scalable production, controlled process execution, and regulatory requirements throughout clinical development.',
         dark: false,
       },
       {
