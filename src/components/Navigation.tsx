@@ -342,33 +342,14 @@ export default function Navigation() {
                                         <div className="flex items-center justify-end mb-2.5">
                                           <span className="text-xs font-semibold text-neutral-600">Gujarat, India</span>
                                         </div>
-                                        <h4 className="text-base font-bold text-neutral-900 mb-1.5 leading-snug">
-                                          Integrated Biologics Development & Clinical GMP Suites
+                                        <h4 className="text-base font-bold text-neutral-900 mb-2 leading-snug">
+                                          Integrated Biologics Development & GMP Manufacturing
                                         </h4>
-                                        <p className="text-[13.5px] text-slate-600 leading-relaxed mb-4 font-normal">
-                                          Gene-to-clinic biologics development, comprehensive analytical characterization, and GMP manufacturing platform under a unified quality system.
+                                        <p className="text-[13.5px] text-slate-600 leading-relaxed font-normal">
+                                          Our Ahmedabad facility brings together cell line development, upstream and downstream process development, analytical development and characterization, drug product development, and GMP manufacturing within an integrated biologics development and manufacturing environment.
                                         </p>
-                                        <div className="grid grid-cols-2 gap-2 text-[12.5px] text-slate-700 bg-white/95 rounded-xl p-3 border border-blue-100/70">
-                                          <div className="flex items-center gap-2 font-medium">
-                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>27,000 sqft GMP Campus</span>
-                                          </div>
-                                          <div className="flex items-center gap-2 font-medium">
-                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>2x 200L (400L) Bioreactors</span>
-                                          </div>
-                                          <div className="flex items-center gap-2 font-medium">
-                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>Robotic Isolator Fill-Finish</span>
-                                          </div>
-                                          <div className="flex items-center gap-2 font-medium">
-                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>Full DS, DP & QC Labs</span>
-                                          </div>
-                                        </div>
                                       </div>
-                                      <div className="mt-4 pt-3.5 border-t border-neutral-200/60 flex items-center justify-between">
-                                        <span className="text-xs font-medium text-slate-500">US FDA, EMA & PMDA cGMP</span>
+                                      <div className="mt-5 pt-3.5 border-t border-neutral-200/60 flex items-center justify-end">
                                         <Link 
                                           href="/facility&location/India" 
                                           className="text-xs font-semibold text-brand-blue hover:text-brand-blue-hover flex items-center gap-1.5 group"
@@ -384,33 +365,14 @@ export default function Navigation() {
                                         <div className="flex items-center justify-end mb-2.5">
                                           <span className="text-xs font-semibold text-neutral-600">London, UK</span>
                                         </div>
-                                        <h4 className="text-base font-bold text-neutral-900 mb-1.5 leading-snug">
-                                          Biologics Development & Process Characterization
+                                        <h4 className="text-base font-bold text-neutral-900 mb-2 leading-snug">
+                                          Biologics Development & Analytical Sciences
                                         </h4>
-                                        <p className="text-[13.5px] text-slate-600 leading-relaxed mb-4 font-normal">
-                                          Biologics development capabilities that will support process and analytical development for drug substance followed by process characterisation studies.
+                                        <p className="text-[13.5px] text-slate-600 leading-relaxed font-normal">
+                                          The London facility provides specialized capabilities in biologics development, process development, and analytical characterization, with a strong focus on biosimilar development and novel biologics.
                                         </p>
-                                        <div className="grid grid-cols-2 gap-2 text-[12.5px] text-slate-700 bg-white/95 rounded-xl p-3 border border-blue-100/70">
-                                          <div className="flex items-center gap-2 font-medium">
-                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>Upstream & Downstream DoE</span>
-                                          </div>
-                                          <div className="flex items-center gap-2 font-medium">
-                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>Clone Screening & Analytics</span>
-                                          </div>
-                                          <div className="flex items-center gap-2 font-medium">
-                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>Intact Mass Spec (LC-MS)</span>
-                                          </div>
-                                          <div className="flex items-center gap-2 font-medium">
-                                            <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs shrink-0">✓</span>
-                                            <span>Process Characterisation</span>
-                                          </div>
-                                        </div>
                                       </div>
-                                      <div className="mt-4 pt-3.5 border-t border-neutral-200/60 flex items-center justify-between">
-                                        <span className="text-xs font-medium text-slate-500">European Innovation Hub</span>
+                                      <div className="mt-5 pt-3.5 border-t border-neutral-200/60 flex items-center justify-end">
                                         <Link 
                                           href="/facility&location/UK" 
                                           className="text-xs font-semibold text-brand-blue hover:text-brand-blue-hover flex items-center gap-1.5 group"
