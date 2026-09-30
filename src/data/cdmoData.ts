@@ -467,8 +467,8 @@ export const cdmoData: CDMOPage[] = [
   {
     slug: 'integrated',
     category: 'overview',
-    title: 'Integrated Development to Manufacturing Approach — Lambda CDMO',
-    metaTitle: 'Integrated Development to Manufacturing Approach | Lambda CDMO',
+    title: 'Integrated Development to Manufacturing — Lambda CDMO',
+    metaTitle: 'Integrated Development to Manufacturing | Lambda CDMO',
     metaDesc: 'Learn how Lambda CDMO integrates cell line development, process development, analytical characterization, and GMP manufacturing under one quality framework.',
     badge: 'Overview',
     heading: 'One Partner Across the Development Journey.',
