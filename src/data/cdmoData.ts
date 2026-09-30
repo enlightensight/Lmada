@@ -1178,18 +1178,8 @@ export const cdmoData: CDMOPage[] = [
     ],
     sections: [
       {
-        title: 'Innovator and Biosimilar Support',
-        text: 'Our platform is designed to support innovator and biosimilar programs across IgG1, IgG2, and IgG4 subclasses.',
-        dark: false,
-      },
-      {
-        title: 'Unified Operating Model',
-        text: 'By integrating development, manufacturing, analytical sciences, and quality functions within a unified operating model, we help simplify technology transfer and support efficient progression to clinical manufacturing.',
-        dark: true,
-      },
-      {
-        title: 'End-to-End mAb Services',
-        text: 'Comprehensive capabilities from mammalian cell line development to GMP batch release under a single quality management system.',
+        title: '',
+        text: 'Our platform is designed to support innovator and biosimilar programs across IgG1, IgG2, and IgG4 subclasses.\n\nBy integrating development, manufacturing, analytical sciences, and quality functions within a unified operating model, we help simplify technology transfer and support efficient progression to clinical manufacturing.',
         dark: false,
       }
     ],

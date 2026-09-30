@@ -73,24 +73,9 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                 <span className="text-neutral-900">{firstWord}</span>{' '}
                 {restWords.join(' ')}
               </h1>
-              <p className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl mb-10">
+              <p className="text-[17px] text-slate-500 font-normal leading-relaxed max-w-xl">
                 {page.description}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-medium text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all"
-                >
-                  Discuss your molecule
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-                <Link
-                  href="/facility&location/India"
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-black/40 text-black hover:bg-black hover:text-white font-medium text-sm uppercase tracking-wider transition-all"
-                >
-                  Explore the facility
-                </Link>
-              </div>
             </div>
 
             {page.image && (
@@ -142,6 +127,26 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                 );
               })}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* MABS PLATFORM SECTION */}
+      {page.slug === 'mabs' && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-16 bg-white border-b border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
+            <Reveal>
+              <div className="bg-neutral-50/80 border border-neutral-200/80 rounded-[12px] p-6 sm:p-8 lg:p-10 shadow-xs">
+                <div className="max-w-4xl space-y-4 text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
+                  <p>
+                    Our platform is designed to support innovator and biosimilar programs across IgG1, IgG2, and IgG4 subclasses.
+                  </p>
+                  <p>
+                    By integrating development, manufacturing, analytical sciences, and quality functions within a unified operating model, we help simplify technology transfer and support efficient progression to clinical manufacturing.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </section>
       )}
