@@ -6,12 +6,22 @@ import Reveal from '@/components/Reveal';
 interface CommonCTAProps {
   title?: string;
   subtitle?: string;
+  primaryButtonText?: string;
+  primaryButtonHref?: string;
+  primaryButtonTarget?: string;
+  primaryButtonRel?: string;
 }
 
 export default function CommonCTA({
   title = "Let's Advance Your Next Biologics Program",
   subtitle = "Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.",
+  primaryButtonText = "Get in touch",
+  primaryButtonHref = "/contact",
+  primaryButtonTarget,
+  primaryButtonRel,
 }: CommonCTAProps) {
+  const isExternal = primaryButtonHref.startsWith('http') || primaryButtonTarget === '_blank';
+
   return (
     <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 select-none">
       <video
@@ -32,13 +42,25 @@ export default function CommonCTA({
             {subtitle}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-medium text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all"
-            >
-              <span>Get in touch</span>
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
+            {isExternal ? (
+              <a
+                href={primaryButtonHref}
+                target={primaryButtonTarget || "_blank"}
+                rel={primaryButtonRel || "noopener noreferrer"}
+                className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-medium text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all"
+              >
+                <span>{primaryButtonText}</span>
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </a>
+            ) : (
+              <Link
+                href={primaryButtonHref}
+                className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-medium text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all"
+              >
+                <span>{primaryButtonText}</span>
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            )}
             <a
               href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
               target="_blank"

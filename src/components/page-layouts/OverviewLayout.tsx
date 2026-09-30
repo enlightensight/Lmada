@@ -247,12 +247,12 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     {page.slug === 'careers' ? (
                       <div className="mt-8">
                         <a
-                          href="https://careers.lambda-cro.com/"
+                          href="https://careers.lambda-cro.com/go/CDMO/752444/"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all group/btn"
                         >
-                          <span>Explore Career Openings</span>
+                          <span>Explore Open Roles</span>
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </a>
                       </div>
@@ -297,7 +297,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   <Reveal className={imageRight ? 'lg:order-2' : ''}>
                     {page.slug === 'careers' ? (
                       <a
-                        href="https://careers.lambda-cro.com/"
+                        href="https://careers.lambda-cro.com/go/CDMO/752444/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="block relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm group cursor-pointer"
@@ -409,12 +409,12 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       {page.slug === 'careers' && (
                         <div className="mt-7">
                           <a
-                            href="https://careers.lambda-cro.com/"
+                            href="https://careers.lambda-cro.com/go/CDMO/752444/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all group/btn"
                           >
-                            <span>Explore Career Openings</span>
+                            <span>Explore Open Roles</span>
                             <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                           </a>
                         </div>
@@ -760,7 +760,16 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
       )}
 
       {/* CTA */}
-      <CommonCTA />
+      {page.slug === 'careers' ? (
+        <CommonCTA
+          primaryButtonText="Explore Open Roles"
+          primaryButtonHref="https://careers.lambda-cro.com/go/CDMO/752444/"
+          primaryButtonTarget="_blank"
+          primaryButtonRel="noopener noreferrer"
+        />
+      ) : (
+        <CommonCTA />
+      )}
     </>
   );
 }
