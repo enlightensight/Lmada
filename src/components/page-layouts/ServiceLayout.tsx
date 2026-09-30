@@ -47,6 +47,7 @@ function getBulletCapabilityIcon(text: string, index: number) {
   if (lower.includes('stable cell pool') || lower.includes('pool generation')) return FlaskConical;
   if (lower.includes('single-cell') || lower.includes('monoclonality')) return Microscope;
   if (lower.includes('high-throughput') || lower.includes('selection')) return Sliders;
+  if (lower.includes('monitoring') || lower.includes('metabolite')) return LineChart;
   if (lower.includes('growth') || lower.includes('product quality')) return ShieldCheck;
   if (lower.includes('productivity') || lower.includes('assessment')) return Activity;
   if (lower.includes('research cell bank') || lower.includes('rcb')) return TestTubes;
@@ -56,19 +57,23 @@ function getBulletCapabilityIcon(text: string, index: number) {
   if (lower.includes('bioreactor') || lower.includes('shake flask')) return TestTubes;
   if (lower.includes('doe') || lower.includes('characterization')) return Sliders;
   if (lower.includes('cell culture') || lower.includes('clone') || lower.includes('cell line')) return Dna;
-  if (lower.includes('intensification') || lower.includes('perfusion')) return Repeat;
-  if (lower.includes('affinity') || lower.includes('chromatography') || lower.includes('uf/df') || lower.includes('filtration')) return Filter;
-  if (lower.includes('ion exchange') || lower.includes('mixed-mode')) return Layers;
+  if (lower.includes('intensification') || lower.includes('perfusion') || lower.includes('atf') || lower.includes('fed-batch')) return Repeat;
+  if (lower.includes('glycosylation')) return Atom;
+  if (lower.includes('resin') || lower.includes('screening')) return Search;
+  if (lower.includes('affinity') || lower.includes('chromatography')) return Filter;
+  if (lower.includes('anion') || lower.includes('cation') || lower.includes('ion exchange') || lower.includes('mixed-mode')) return Layers;
   if (lower.includes('hydrophobic')) return Droplets;
-  if (lower.includes('viral')) return ShieldAlert;
+  if (lower.includes('virus') || lower.includes('viral')) return ShieldAlert;
+  if (lower.includes('ultrafiltration') || lower.includes('diafiltration') || lower.includes('uf/df') || lower.includes('filtration')) return Filter;
+  if (lower.includes('impurity') || lower.includes('clearance')) return ShieldCheck;
   if (lower.includes('formulation')) return Beaker;
   if (lower.includes('identity') || lower.includes('purity') || lower.includes('testing')) return Search;
   if (lower.includes('hplc') || lower.includes('ce-sds') || lower.includes('ief')) return LineChart;
   if (lower.includes('potency') || lower.includes('binding') || lower.includes('cell-based')) return Activity;
   if (lower.includes('forced degradation') || lower.includes('stability')) return ShieldCheck;
   if (lower.includes('reference standard')) return Award;
-  if (lower.includes('transfer')) return Share2;
-  if (lower.includes('scalability')) return Maximize2;
+  if (lower.includes('transfer') || lower.includes('tech transfer')) return Share2;
+  if (lower.includes('scalability') || lower.includes('scale-up')) return Maximize2;
 
   const fallbacks = [Dna, Workflow, FlaskConical, Microscope, Sliders, Activity, TestTubes, Award, FileCheck];
   return fallbacks[index % fallbacks.length];
@@ -102,9 +107,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 <span className="text-neutral-900">{page.heading.split(' ')[0]}</span>
                 {` ${page.heading.split(' ').slice(1).join(' ')}`}
               </h1>
-              <p className="text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl">
-                {page.description}
-              </p>
+              <div className="text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl space-y-3">
+                {page.description.split('\n\n').map((paragraph, pIdx) => (
+                  <p key={pIdx}>{paragraph}</p>
+                ))}
+              </div>
             </div>
             <Reveal delay={0.1} className="w-full">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
@@ -200,7 +207,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                           <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
                             Key Capabilities
                           </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3.5">
                             {section.bullets.map((b, bIdx) => {
                               const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                               return (
@@ -219,6 +226,12 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                             })}
                           </div>
                         </div>
+                      )}
+
+                      {section.footerText && (
+                        <p className="text-sm sm:text-[15px] text-slate-600 font-medium leading-relaxed mt-4 pt-4 border-t border-neutral-100">
+                          {section.footerText}
+                        </p>
                       )}
 
                       {/* 6-Stage Upstream Process Interactive Animation */}
@@ -247,7 +260,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                           <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
                             Key Capabilities
                           </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5">
                             {section.bullets.map((b, bIdx) => {
                               const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                               return (
@@ -265,6 +278,12 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                               );
                             })}
                           </div>
+                        </div>
+                      )}
+
+                      {section.footerText && (
+                        <div className="mb-6 p-4 rounded-[8px] bg-neutral-50 border border-neutral-200/80 text-sm sm:text-[15px] text-slate-700 font-normal leading-relaxed">
+                          {section.footerText}
                         </div>
                       )}
 

@@ -666,69 +666,86 @@ export const cdmoData: CDMOPage[] = [
     category: 'services',
     title: 'Process Development — Lambda CDMO',
     metaTitle: 'Upstream & Downstream Process Development | Lambda CDMO',
-    metaDesc: 'Lambda CDMO develops scalable, robust upstream and downstream processes for biologics, supporting efficient technology transfer and GMP manufacturing.',
+    metaDesc: 'Lambda CDMO develops upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability.',
     badge: 'Development',
-    heading: 'Robust Processes Designed for Scale-Up and Technology Transfer.',
-    description: 'Our upstream and downstream process development teams work closely with manufacturing, analytical, and quality functions to develop scalable processes that support efficient technology transfer and regulatory compliance. Each process is optimized for robustness, reproducibility, and manufacturability, enabling a smooth transition from laboratory development to GMP manufacturing.',
+    heading: 'Robust Processes Designed for Scale-Up and Technology Transfer',
+    description: 'Lambda CDMO develops upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability.\n\nDevelopment activities extend from high-throughput screening and laboratory-scale optimization through process characterization, scale-up, and technology transfer.',
     image: '/images/development.jpg',
     capabilities: [
       'Media and feed optimization',
       'Shake flask and bioreactor process development',
-      'Process characterization using Design of Experiments (DoE)',
-      'Cell culture optimization',
+      'DoE-based process optimization',
+      'Cell culture process optimization',
+      'Fed-batch and intensified fed-batch development',
+      'Perfusion process development using ATF',
+      'Glycosylation optimization',
       'Process scalability assessment',
-      'Continuous process intensification for monoclonal antibodies',
-      'Affinity chromatography development',
-      'Ion exchange chromatography',
+      'Process characterization',
+      'Monitoring of cell growth, metabolites, productivity, and process parameters',
+      'Resin and chromatography screening',
+      'Affinity chromatography',
+      'Anion and cation exchange chromatography',
       'Hydrophobic interaction chromatography',
       'Mixed-mode chromatography',
-      'Viral clearance strategy development',
+      'Virus inactivation',
+      'Virus filtration',
       'Ultrafiltration and diafiltration (UF/DF)',
-      'Bulk formulation development',
-      'Process characterization for technology transfer'
+      'Impurity clearance studies',
+      'Process characterization',
+      'Scale-up evaluation',
+      'Technology transfer support'
     ],
     sections: [
       {
         title: 'Upstream Process Development',
-        text: 'We optimize upstream processes through media and feed strategy development, bioreactor parameter optimization, and process characterization using Design of Experiments (DoE). Key performance attributes such as cell growth, productivity, and product quality are continuously evaluated to establish reliable manufacturing processes.',
+        text: 'Our upstream teams develop and optimize cell culture processes using high-throughput screening, bioreactor studies, and DoE-based process development to establish robust and scalable operating conditions.',
         dark: false,
         image: '/images/equipment1.png',
         bullets: [
           'Media and feed optimization',
           'Shake flask and bioreactor process development',
-          'Process characterization using DoE',
-          'Cell culture optimization',
+          'DoE-based process optimization',
+          'Cell culture process optimization',
+          'Fed-batch and intensified fed-batch development',
+          'Perfusion process development using ATF',
+          'Glycosylation optimization',
           'Process scalability assessment',
-          'Continuous process intensification for monoclonal antibodies'
+          'Process characterization',
+          'Monitoring of cell growth, metabolites, productivity, and process parameters'
         ]
       },
       {
         title: 'Downstream Process Development',
-        text: 'Our downstream development strategies are designed to maximize product recovery while maintaining purity, safety, and product quality. Development data packages are generated to support IND and IMPD submissions while facilitating efficient technology transfer to GMP manufacturing.',
+        text: 'Our downstream teams develop and optimize purification processes from high-throughput screening through process characterization, scale-up, and technology transfer, with a focus on product recovery, impurity clearance, and process robustness.',
         dark: false,
         image: '/images/equipment2.png',
         bullets: [
-          'Affinity chromatography development',
-          'Ion exchange chromatography',
+          'Resin and chromatography screening',
+          'Affinity chromatography',
+          'Anion and cation exchange chromatography',
           'Hydrophobic interaction chromatography',
           'Mixed-mode chromatography',
-          'Viral clearance strategy development',
+          'Virus inactivation',
+          'Virus filtration',
           'Ultrafiltration and diafiltration (UF/DF)',
-          'Bulk formulation development',
-          'Process characterization for technology transfer'
-        ]
+          'Impurity clearance studies',
+          'Process characterization',
+          'Scale-up evaluation',
+          'Technology transfer support'
+        ],
+        footerText: 'Development data packages are generated to support IND and IMPD submissions while facilitating efficient technology transfer to GMP manufacturing.'
       }
     ],
     specs: [
-      { label: 'Upstream', value: 'Media, Feed, Bioreactor Optimization' },
+      { label: 'Upstream', value: 'Media, Feed, Bioreactor, Perfusion' },
       { label: 'DoE', value: 'Process Characterization' },
-      { label: 'Downstream', value: 'Chromatography, UF/DF, Formulation' },
-      { label: 'Tech Transfer', value: 'Scalable GMP-Ready Packages' },
+      { label: 'Downstream', value: 'Chromatography, UF/DF, Clearance' },
+      { label: 'Tech Transfer', value: 'IND / IMPD Ready Packages' },
     ],
     faqs: [
-      { question: 'What upstream process development capabilities are offered?', answer: 'We offer media and feed optimization, shake flask and bioreactor development, process characterization using DoE, cell culture optimization, scalability assessment, and continuous process intensification for monoclonal antibodies.' },
-      { question: 'What downstream purification methods are supported?', answer: 'We develop affinity chromatography, ion exchange, hydrophobic interaction, mixed-mode chromatography, viral clearance, ultrafiltration/diafiltration (UF/DF), and bulk formulation.' },
-      { question: 'How do you support technology transfer to GMP manufacturing?', answer: 'Our comprehensive development packages, defined process parameters, and close cross-functional collaboration ensure seamless technology transfer into clinical and commercial GMP manufacturing suites.' }
+      { question: 'What upstream process development capabilities are offered?', answer: 'We offer media and feed optimization, shake flask and bioreactor development, DoE-based optimization, cell culture optimization, fed-batch, intensified fed-batch, perfusion using ATF, glycosylation optimization, and comprehensive process characterization.' },
+      { question: 'What downstream purification methods are supported?', answer: 'We support resin and chromatography screening, affinity chromatography, anion and cation exchange, hydrophobic interaction, mixed-mode chromatography, virus inactivation, virus filtration, UF/DF, impurity clearance studies, and scale-up evaluation.' },
+      { question: 'How do you support technology transfer to GMP manufacturing?', answer: 'Development data packages are generated to support IND and IMPD submissions while facilitating efficient technology transfer into GMP manufacturing suites.' }
     ]
   },
   {
