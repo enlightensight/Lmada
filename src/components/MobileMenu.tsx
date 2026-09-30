@@ -161,7 +161,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         {
           title: 'CDMO Locations',
           links: [
-            { label: 'Locations Overview', href: '/facility&location', icon: Globe },
             { label: 'Ahmedabad, India', href: '/facility&location/India', icon: Factory },
             { label: 'London, UK', href: '/facility&location/UK', icon: Building2 },
           ],

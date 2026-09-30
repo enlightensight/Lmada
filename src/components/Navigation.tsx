@@ -282,18 +282,6 @@ export default function Navigation() {
                                     <ul className="space-y-2.5">
                                       <li>
                                         <Link
-                                          href="/facility&location"
-                                          className="text-[15px] font-light md:font-normal tracking-tight flex items-center justify-between text-neutral-800 hover:text-brand-blue transition-colors cursor-pointer"
-                                        >
-                                          <div className="flex items-center gap-2.5">
-                                            <Globe className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
-                                            <span>Locations Overview</span>
-                                          </div>
-                                        </Link>
-                                      </li>
-
-                                      <li>
-                                        <Link
                                           href="/facility&location/India"
                                           onMouseEnter={() => setHoveredLocation('ahmedabad')}
                                           className={`text-[15px] font-light md:font-normal tracking-tight flex items-center justify-between transition-colors cursor-pointer ${
