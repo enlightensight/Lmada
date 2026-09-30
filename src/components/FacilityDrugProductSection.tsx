@@ -5,17 +5,15 @@ import {
   FlaskConical, 
   Snowflake, 
   Factory, 
-  ArrowRight,
-  Activity,
-  Sparkles,
-  Cpu,
-  Scale,
-  Layers,
-  ShieldCheck,
-  Droplets,
-  Gauge,
-  Eye,
-  Syringe,
+  Activity, 
+  Sparkles, 
+  Cpu, 
+  Scale, 
+  Layers, 
+  ShieldCheck, 
+  Droplets, 
+  Eye, 
+  Syringe, 
   PackageCheck
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
@@ -32,34 +30,9 @@ interface FacilityDrugProductSectionProps {
 }
 
 export default function FacilityDrugProductSection({ section }: FacilityDrugProductSectionProps) {
-  const formulationItems = section?.formulationBullets || [
-    'Stability Incubation Chambers',
-    'Photostability Chambers',
-    'Filling Operations using Flexicon Pumps',
-    'Thermal Characterization',
-    'Higher Order Structure (HOS) & Particle Size Distribution Analysis',
-    'Container Closure Integrity Testing',
-    'Residual Moisture Testing',
-  ];
-
-  const lyophilizationItems = section?.lyophilizationBullets || [
-    'Development Lyophilizer with 0.5 m² shelf area',
-    'Pirani precision sensors & sublimation monitoring',
-    'Controlled nucleation technology',
-    'Drying cycle DoE & robustness optimization',
-  ];
-
-  const gmpManufacturingItems = section?.gmpManufacturingBullets || [
-    'Formulation Suite for Formulation and Filtration',
-    'Isolator-Based Filling Line for RTU Vials, PFS, and Cartridges (~10,000 units per batch)',
-    'Visual Inspection Suite and secondary packaging suite',
-  ];
-
   const cards = [
     {
       title: 'Formulation development',
-      badge: 'STABILITY & CHARACTERIZATION',
-      desc: 'Comprehensive formulation screening, container closure compatibility, and physical stability assessments.',
       image: '/images/benefit_accelerate.png',
       icon: FlaskConical,
       items: [
@@ -67,45 +40,34 @@ export default function FacilityDrugProductSection({ section }: FacilityDrugProd
         { name: 'Photostability Chambers', icon: Sparkles },
         { name: 'Filling Operations using Flexicon Pumps', icon: Cpu },
         { name: 'Thermal Characterization', icon: Scale },
-        { name: 'Higher Order Structure (HOS) & Particle Size Distribution', icon: Layers },
+        { name: 'Higher Order Structure (HOS) & Particle Size Distribution Analysis', icon: Layers },
         { name: 'Container Closure Integrity Testing', icon: ShieldCheck },
         { name: 'Residual Moisture Testing', icon: Droplets },
       ],
     },
     {
       title: 'Lyophilization development',
-      badge: 'FREEZE-DRYING CYCLE DESIGN',
-      desc: 'Cycle optimization and formulation robustness for sensitive biologic modalities.',
       image: '/images/CDMOblue.png',
       icon: Snowflake,
       items: [
-        { name: 'Development Lyophilizer (0.5 m² shelf area)', icon: Layers },
-        { name: 'Pirani precision sensors & sublimation monitoring', icon: Gauge },
-        { name: 'Controlled nucleation technology', icon: Snowflake },
-        { name: 'Drying cycle DoE & cycle robustness optimization', icon: Activity },
-      ],
-      stats: [
-        { value: '0.5 m²', label: 'Shelf Area' },
-        { value: 'Pirani', label: 'Precision Sensors' },
-        { value: 'Controlled', label: 'Nucleation Tech' },
-        { value: 'Cycle DoE', label: 'Optimization' },
+        { 
+          name: (
+            <span>
+              Development Lyophilizer <strong className="text-neutral-900 font-semibold">with 0.5 m² shelf area, Pirani sensors, and controlled nucleation</strong> to support optimization of drying cycles for lyophilized products.
+            </span>
+          ), 
+          icon: Snowflake 
+        },
       ],
     },
     {
       title: 'Clinical GMP manufacturing',
-      badge: 'ASEPTIC FILL & FINISH',
-      desc: 'State-of-the-art cleanroom suites supporting multi-format sterile filling and clinical batch supply.',
       image: '/images/hero_cleanroom.png',
       icon: Factory,
       items: [
-        { name: 'Formulation Suite for Formulation & Filtration', icon: FlaskConical },
-        { name: 'Robotic Isolator Line for Vials, PFS, Cartridges (~10k units/batch)', icon: ShieldCheck },
-        { name: 'Visual Inspection Suite & Secondary Packaging', icon: Eye },
-      ],
-      packagingFormats: [
-        'RTU Vials (2R - 50R)',
-        'Pre-Filled Syringes (PFS)',
-        'Cartridges (1.5mL - 3.0mL)',
+        { name: 'Formulation Suite for Formulation and Filtration', icon: FlaskConical },
+        { name: 'Isolator-Based Filling Line for RTU Vials, PFS, and Cartridges (~10,000 units per batch)', icon: ShieldCheck },
+        { name: 'Visual Inspection Suite and secondary packaging suite', icon: Eye },
       ],
     },
   ];
@@ -208,80 +170,33 @@ export default function FacilityDrugProductSection({ section }: FacilityDrugProd
 
                   {/* Body */}
                   <div className="p-6 md:p-7 flex flex-col flex-1">
-                    <div className="min-h-[110px] sm:min-h-[120px] mb-4">
-                      <div className="flex items-start gap-3 mb-2">
-                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs mt-0.5">
-                          <CardIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
-                            {card.title}
-                          </h3>
-                          <span className="text-[11px] font-bold text-brand-orange uppercase tracking-wider block mt-0.5">
-                            {card.badge}
-                          </span>
-                        </div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs">
+                        <CardIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                       </div>
-                      <p className="text-[14px] sm:text-[15px] text-neutral-600 leading-relaxed mt-2.5">
-                        {card.desc}
-                      </p>
+                      <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
+                        {card.title}
+                      </h3>
                     </div>
 
-                    {/* Feature items with icon and arrow */}
-                    <ul className="border-t border-neutral-100 pt-1 flex-1">
+                    {/* Feature items with icon and no arrow */}
+                    <ul className="border-t border-neutral-100 pt-2 flex-1">
                       {card.items.map((item, i) => {
                         const ItemIcon = item.icon;
                         return (
-                          <li key={i} className="border-b border-neutral-100 last:border-0">
-                            <div className="group/item flex items-center justify-between gap-3 py-2.5 text-sm font-medium text-neutral-700 hover:text-brand-blue transition-colors">
-                              <div className="flex items-center gap-3 min-w-0">
-                                <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/item:bg-brand-blue group-hover/item:border-brand-blue transition-colors duration-200">
-                                  <ItemIcon className="w-4 h-4 text-brand-blue group-hover/item:text-white transition-colors duration-200" />
-                                </div>
-                                <span className="truncate group-hover/item:text-brand-blue transition-colors text-[14px]">
-                                  {item.name}
-                                </span>
+                          <li key={i} className="border-b border-neutral-100 last:border-0 py-2.5">
+                            <div className="flex items-start gap-3 text-sm font-medium text-neutral-700">
+                              <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200 mt-0.5">
+                                <ItemIcon className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors duration-200" />
                               </div>
-                              <ArrowRight className="w-4 h-4 flex-shrink-0 text-brand-blue group-hover/item:text-brand-blue-hover group-hover/item:translate-x-1 transition-all" />
+                              <div className="text-[14px] text-slate-700 leading-snug font-normal">
+                                {item.name}
+                              </div>
                             </div>
                           </li>
                         );
                       })}
                     </ul>
-
-                    {/* Specific Technical Metrics for Lyophilization */}
-                    {card.stats && (
-                      <div className="grid grid-cols-2 gap-2.5 pt-4 mt-4 border-t border-neutral-100">
-                        {card.stats.map((s, sIdx) => (
-                          <div 
-                            key={sIdx} 
-                            className="bg-slate-50 border border-slate-200/70 rounded-[8px] p-2.5 text-center group-hover:border-brand-blue/30 group-hover:bg-brand-blue/[0.02] transition-all"
-                          >
-                            <span className="block text-sm font-bold text-brand-blue">{s.value}</span>
-                            <span className="text-[10px] text-neutral-500 uppercase tracking-wider font-semibold">{s.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Specific Supported Formats for GMP Manufacturing */}
-                    {card.packagingFormats && (
-                      <div className="pt-4 mt-4 border-t border-neutral-100">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 block mb-2.5">
-                          Supported Packaging Formats
-                        </span>
-                        <div className="flex flex-wrap gap-2">
-                          {card.packagingFormats.map((fmt, fIdx) => (
-                            <span 
-                              key={fIdx} 
-                              className="px-2.5 py-1.5 rounded-[8px] bg-slate-50 text-neutral-800 text-xs font-semibold border border-slate-200/80 group-hover:border-brand-blue/30 transition-colors"
-                            >
-                              {fmt}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
               </Reveal>
