@@ -48,9 +48,9 @@ interface CinematicCTAProps {
 const trustChips = ['Integrated Development', 'GMP Manufacturing', 'Global Quality Systems'];
 
 export default function CinematicCTA({
-  headingLine1 = 'ACCELERATE YOUR',
-  headingLine2 = 'BIOLOGICS PATHWAY',
-  subtitle = 'From cell line engineering to GMP drug product release — partner with Lambda to bring your biotherapeutics to clinical trials faster.',
+  headingLine1 = "LET'S ADVANCE YOUR",
+  headingLine2 = 'NEXT BIOLOGICS PROGRAM',
+  subtitle = "Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.",
   ctaLabel = 'Start a Project',
   ctaHref = '/contact',
   secondaryLabel = 'Explore Services',
