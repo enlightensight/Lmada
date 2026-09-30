@@ -29,7 +29,7 @@ export default function Home() {
         { name: 'Process Development', icon: Activity, href: '/services/process' },
         { name: 'Analytical Development', icon: Search, href: '/services/analytical' },
       ],
-      href: '/services/cell-line',
+      href: '/services',
     },
     {
       title: 'Manufacturing Services',
@@ -41,7 +41,7 @@ export default function Home() {
         { name: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance' },
         { name: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
       ],
-      href: '/manufacturing/drug-substance',
+      href: '/manufacturing',
     },
     {
       title: 'Analytical Characterization & Testing',
@@ -55,7 +55,7 @@ export default function Home() {
         { name: 'Bioassays & Immunogenicity Testing', icon: HeartPulse, href: '/characterization/bioassays' },
         { name: 'Microbiological Testing', icon: Bug, href: '/characterization/microbiological' },
       ],
-      href: '/characterization/analytical-testing',
+      href: '/characterization',
     },
   ];
 
@@ -138,25 +138,25 @@ export default function Home() {
                 >
                   <div className="group h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col">
                     {/* Photo header */}
-                    <div className="relative aspect-[16/10] overflow-hidden">
+                    <Link href={card.href} className="relative aspect-[16/10] overflow-hidden block">
                       <img
                         src={card.image}
                         alt={card.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
-                    </div>
+                    </Link>
                     {/* Body */}
                     <div className="p-6 md:p-7 flex flex-col flex-1">
                       <div className="min-h-[130px] md:min-h-[140px] mb-5">
-                        <div className="flex items-start gap-3 mb-2.5">
+                        <Link href={card.href} className="flex items-start gap-3 mb-2.5 group/header">
                           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs mt-0.5">
                             <CardIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                           </div>
                           <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
                             {card.title}
                           </h3>
-                        </div>
+                        </Link>
                         <p className="text-[15px] text-neutral-600 leading-relaxed">
                           {card.desc}
                         </p>

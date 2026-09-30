@@ -32,6 +32,7 @@ import {
   Calendar, 
   HelpCircle, 
   Globe,
+  ArrowRight,
   LucideIcon 
 } from 'lucide-react';
 
@@ -78,6 +79,7 @@ interface MobileGroup {
   description?: string;
   columns?: { 
     title: string; 
+    href?: string;
     headline?: string;
     description?: string;
     links: { 
@@ -123,6 +125,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       columns: [
         {
           title: 'Development Services',
+          href: '/services',
           headline: 'Development Designed for Manufacturing',
           description: 'Every development decision influences downstream manufacturing. Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes, generate meaningful development data, and support efficient technology transfer into GMP manufacturing.',
           links: [
@@ -133,6 +136,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         },
         {
           title: 'Manufacturing Services',
+          href: '/manufacturing',
           headline: 'From Process Development to Clinical Manufacturing. Delivered with Confidence.',
           description: 'Manufacturing success depends on process consistency, product quality, and effective technology transfer. Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.',
           links: [
@@ -142,6 +146,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         },
         {
           title: 'Analytical Characterization and Testing',
+          href: '/characterization',
           headline: 'Analytical Insights that Advance Biologics Development',
           description: 'Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.',
           links: [
@@ -160,6 +165,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       columns: [
         {
           title: 'CDMO Locations',
+          href: '/facility&location',
           links: [
             { label: 'Ahmedabad, India', href: '/facility&location/India', icon: Factory },
             { label: 'London, UK', href: '/facility&location/UK', icon: Building2 },
@@ -218,7 +224,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   const isActive = (group: MobileGroup) => {
     if (group.href) return pathname === group.href;
-    return group.columns?.some((col) => col.links.some((link) => pathname === link.href));
+    return group.columns?.some((col) => 
+      (col.href && pathname === col.href) ||
+      col.links.some((link) => pathname === link.href)
+    );
   };
 
   return (
@@ -330,9 +339,20 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         <div className={`grid gap-5 ${group.columns && group.columns.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
                           {group.columns?.map((column) => (
                             <div key={column.title} className="space-y-2">
-                              <h4 className="text-[11px] font-semibold text-neutral-900 uppercase tracking-wider">
-                                {column.title}
-                              </h4>
+                              {column.href ? (
+                                <Link
+                                  href={column.href}
+                                  onClick={onClose}
+                                  className="group/col inline-flex items-center gap-1.5 text-[11px] font-semibold text-neutral-900 hover:text-brand-orange uppercase tracking-wider transition-colors cursor-pointer"
+                                >
+                                  <span>{column.title}</span>
+                                  <ArrowRight className="w-3 h-3 text-brand-orange group-hover/col:translate-x-0.5 transition-transform" />
+                                </Link>
+                              ) : (
+                                <h4 className="text-[11px] font-semibold text-neutral-900 uppercase tracking-wider">
+                                  {column.title}
+                                </h4>
+                              )}
                               <ul className="space-y-2">
                                 {column.links.map((link) => {
                                   const linkActive = pathname === link.href;

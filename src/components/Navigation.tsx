@@ -14,7 +14,11 @@ interface NavItem {
   isExternal?: boolean;
   headline?: string;
   description?: string;
-  columns?: { title: string; links: { label: string; href: string; icon: LucideIcon; isExternal?: boolean; sublabel?: string }[] }[];
+  columns?: { 
+    title: string; 
+    href?: string;
+    links: { label: string; href: string; icon: LucideIcon; isExternal?: boolean; sublabel?: string }[] 
+  }[];
 }
 
 export default function Navigation() {
@@ -52,6 +56,7 @@ export default function Navigation() {
       columns: [
         {
           title: 'Development Services',
+          href: '/services',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line', icon: Dna },
             { label: 'Process Development', href: '/services/process', icon: Settings },
@@ -60,6 +65,7 @@ export default function Navigation() {
         },
         {
           title: 'Manufacturing Services',
+          href: '/manufacturing',
           links: [
             { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance', icon: Beaker },
             { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product', icon: Package },
@@ -67,6 +73,7 @@ export default function Navigation() {
         },
         {
           title: 'Analytical Characterization and Testing',
+          href: '/characterization',
           links: [
             { label: 'Analytical Testing', href: '/characterization/analytical-testing', icon: Microscope },
             { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Scale },
@@ -83,6 +90,7 @@ export default function Navigation() {
       columns: [
         {
           title: 'CDMO Locations',
+          href: '/facility&location',
           links: [
             { label: 'Ahmedabad, India', href: '/facility&location/India', icon: Factory, sublabel: 'Integrated Biomanufacturing Campus' },
             { label: 'London, UK', href: '/facility&location/UK', icon: Building2, sublabel: 'European Innovation Centre' },
@@ -137,7 +145,10 @@ export default function Navigation() {
 
   const isActive = (item: NavItem) => {
     if (item.href) return pathname === item.href;
-    return item.columns?.some((col) => col.links.some((link) => pathname === link.href));
+    return item.columns?.some((col) => 
+      (col.href && pathname === col.href) || 
+      col.links.some((link) => pathname === link.href)
+    );
   };
 
   return (
@@ -377,9 +388,19 @@ export default function Navigation() {
                                 }`}>
                                 {item.columns?.map((column, colIdx) => (
                                   <div key={colIdx}>
-                                    <h4 className="text-[12px] font-semibold uppercase tracking-wider text-neutral-900 mb-3.5">
-                                      {column.title}
-                                    </h4>
+                                    {column.href ? (
+                                      <Link
+                                        href={column.href}
+                                        className="group/col inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wider text-neutral-900 hover:text-brand-orange mb-3.5 transition-colors cursor-pointer"
+                                      >
+                                        <span>{column.title}</span>
+                                        <ArrowRight className="w-3.5 h-3.5 text-brand-orange opacity-0 -translate-x-1 group-hover/col:opacity-100 group-hover/col:translate-x-0 transition-all" />
+                                      </Link>
+                                    ) : (
+                                      <h4 className="text-[12px] font-semibold uppercase tracking-wider text-neutral-900 mb-3.5">
+                                        {column.title}
+                                      </h4>
+                                    )}
                                     <ul className="space-y-2.5">
                                       {column.links.map((link) => {
                                         const isLinkActive = pathname === link.href;
