@@ -9,16 +9,7 @@ import {
   Bug, 
   ArrowRight, 
   Check, 
-  ShieldCheck, 
-  Activity, 
-  Search, 
-  FlaskConical, 
-  Sparkles, 
-  Layers, 
-  LineChart, 
-  Sliders,
-  Atom,
-  TestTubes
+  Sparkles
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -89,39 +80,6 @@ const CHARACTERIZATION_SUB_SERVICES = [
       'Bacterial endotoxin testing (BET)',
       'Environmental monitoring'
     ],
-  },
-];
-
-const ANALYTICAL_PLATFORMS = [
-  {
-    name: 'High-Resolution Mass Spectrometry',
-    desc: 'LC-MS/MS, Q-TOF, and Orbitrap systems for intact mass, peptide mapping, PTM identification, and host cell protein (HCP) identification.',
-    icon: Microscope,
-  },
-  {
-    name: 'Liquid Chromatography (HPLC / UPLC)',
-    desc: 'Orthogonal separation modes: Size-Exclusion (SEC), Ion-Exchange (IEX), Hydrophobic Interaction (HIC), and Reversed-Phase (RP-HPLC).',
-    icon: LineChart,
-  },
-  {
-    name: 'Capillary Electrophoresis',
-    desc: 'Automated CE-SDS (reducing / non-reducing) and imaged capillary isoelectric focusing (icIEF) for high-resolution charge and size heterogeneity.',
-    icon: Activity,
-  },
-  {
-    name: 'Biophysical Higher-Order Analysis',
-    desc: 'Circular Dichroism (CD), Differential Scanning Calorimetry (DSC), Dynamic Light Scattering (DLS), and intrinsic fluorescence spectroscopy.',
-    icon: Atom,
-  },
-  {
-    name: 'Surface Plasmon Resonance & BLI',
-    desc: 'Real-time kinetics (Ka, Kd, KD) and epitope binning utilizing Biacore SPR and Octet Bio-Layer Interferometry systems.',
-    icon: Sliders,
-  },
-  {
-    name: 'Cell-Based Potency & QC Bioassays',
-    desc: 'MoA-reflective functional bioassays, ADCC / CDC reporter systems, apoptosis assays, and ligand-binding immunoassay platforms.',
-    icon: TestTubes,
   },
 ];
 
@@ -316,49 +274,6 @@ export default function AnalyticalCharacterizationPage() {
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </Link>
                       </div>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* STATE-OF-THE-ART ANALYTICAL TECHNOLOGIES */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-white border-b border-neutral-100">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-14 max-w-3xl mx-auto">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-blue block mb-3">
-                Instrumentation & Platforms
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
-                Advanced Analytical Technologies
-              </h2>
-              <div className="h-1 w-16 bg-brand-blue rounded-full mx-auto mb-5" />
-              <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
-                State-of-the-art instrument fleet supporting orthogonal characterization, molecular fingerprinting, and regulatory-grade data packages.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ANALYTICAL_PLATFORMS.map((plat, pIdx) => {
-              const PlatIcon = plat.icon;
-              return (
-                <Reveal key={plat.name} delay={pIdx * 0.08}>
-                  <div className="p-6 rounded-2xl border border-neutral-200/80 bg-gradient-to-br from-white to-slate-50/50 hover:border-brand-blue/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">
-                    <div>
-                      <div className="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-4">
-                        <PlatIcon className="w-5 h-5" />
-                      </div>
-                      <h4 className="text-base font-bold text-neutral-900 mb-2 leading-snug">
-                        {plat.name}
-                      </h4>
-                      <p className="text-sm text-slate-600 font-normal leading-relaxed">
-                        {plat.desc}
-                      </p>
                     </div>
                   </div>
                 </Reveal>

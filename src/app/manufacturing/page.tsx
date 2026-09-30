@@ -8,17 +8,7 @@ import {
   ArrowRight, 
   Check, 
   Factory, 
-  ShieldCheck, 
-  Sparkles, 
-  Eye, 
-  Snowflake, 
-  Truck, 
-  Sliders, 
-  CheckCircle2, 
-  Building2,
-  FileCheck2,
-  Dna,
-  Filter
+  Sparkles
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -59,72 +49,6 @@ const MANUFACTURING_SUB_SERVICES = [
       'GMP aseptic fill-finish operations',
       'Liquid and lyophilized dosage forms'
     ],
-  },
-];
-
-const MANUFACTURING_WORKFLOW = [
-  {
-    step: '01',
-    title: 'Technology Transfer & Scale-Up',
-    desc: 'Formal gap assessment, scale-up modeling, and translation of laboratory recipes into cGMP master batch records.',
-    icon: Sliders,
-  },
-  {
-    step: '02',
-    title: 'Raw Material & Cell Bank Release',
-    desc: 'Compendial testing, vendor qualification, and strict chain-of-custody release for all single-use consumables and reagents.',
-    icon: ShieldCheck,
-  },
-  {
-    step: '03',
-    title: 'cGMP Drug Substance Production',
-    desc: 'Controlled seed train expansion, production bioreactor runs, harvest clarification, and multi-step column chromatography.',
-    icon: Beaker,
-  },
-  {
-    step: '04',
-    title: 'Aseptic Fill-Finish & Lyophilization',
-    desc: 'Grade A isolator automated filling, precision stoppering, capping, and optional cycle-optimized freeze-drying.',
-    icon: Sparkles,
-  },
-  {
-    step: '05',
-    title: '100% Inspection & QC Testing',
-    desc: 'Automated camera-based visual inspection, CCIT testing, in-process bioburden, sterility, and lot-release assays.',
-    icon: Eye,
-  },
-  {
-    step: '06',
-    title: 'QP Release & Clinical Logistics',
-    desc: 'Quality assurance batch review, Certificate of Analysis (CoA) generation, and temperature-monitored global shipment.',
-    icon: Truck,
-  },
-];
-
-const FACILITY_HIGHLIGHTS = [
-  {
-    value: '27,000',
-    unit: 'sq. ft.',
-    label: 'Campus Footprint',
-    description: 'Purpose-built biologics development and GMP manufacturing campus in Ahmedabad, India.',
-  },
-  {
-    value: '2x 200L',
-    unit: 'Single-Use',
-    label: 'Bioreactor Capacity',
-    description: 'Flexible single-use bioreactor suites minimizing cross-contamination and turnaround times.',
-  },
-  {
-    value: 'Grade A',
-    unit: 'Isolator',
-    label: 'Robotic Fill-Finish',
-    description: 'Fully isolated automated filling line for vials, pre-filled syringes, and cartridges.',
-  },
-  {
-    value: 'Global',
-    unit: 'Compliant',
-    label: 'Quality System',
-    description: 'Aligned with US FDA (21 CFR Part 210/211/11), EMA Annex 1, WHO, and PMDA standards.',
   },
 ];
 
@@ -312,84 +236,6 @@ export default function ManufacturingServicesPage() {
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </Link>
                       </div>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* FACILITY STATS & SPECS */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-20 bg-white border-b border-neutral-100">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {FACILITY_HIGHLIGHTS.map((item, idx) => (
-              <Reveal key={item.label} delay={idx * 0.08}>
-                <div className="p-6 rounded-2xl bg-neutral-50 border border-neutral-200/80 hover:border-brand-blue/30 hover:bg-white hover:shadow-lg transition-all duration-300 h-full flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-baseline gap-1.5 mb-2">
-                      <span className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight font-mono">
-                        {item.value}
-                      </span>
-                      <span className="text-xs font-bold text-brand-orange uppercase">
-                        {item.unit}
-                      </span>
-                    </div>
-                    <h4 className="text-sm font-bold text-neutral-900 mb-2">
-                      {item.label}
-                    </h4>
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* END-TO-END CLINICAL MANUFACTURING WORKFLOW */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-molecules border-b border-neutral-100">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-14 max-w-3xl mx-auto">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-blue block mb-3">
-                Execution Workflow
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
-                Controlled Execution from Ingestion to QP Release
-              </h2>
-              <div className="h-1 w-16 bg-brand-blue rounded-full mx-auto mb-5" />
-              <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
-                Every manufacturing batch follows rigorous cGMP quality oversight, electronic data integrity protocols, and phase-appropriate regulatory documentation.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {MANUFACTURING_WORKFLOW.map((wf, wIdx) => {
-              const WfIcon = wf.icon;
-              return (
-                <Reveal key={wf.step} delay={wIdx * 0.08}>
-                  <div className="p-6 rounded-2xl border border-neutral-200/80 bg-white hover:border-brand-orange/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-black text-brand-orange/30 font-mono">
-                          {wf.step}
-                        </span>
-                        <div className="w-10 h-10 rounded-xl bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-                          <WfIcon className="w-5 h-5" />
-                        </div>
-                      </div>
-                      <h4 className="text-base font-bold text-neutral-900 mb-2 leading-snug">
-                        {wf.title}
-                      </h4>
-                      <p className="text-sm text-slate-600 font-normal leading-relaxed">
-                        {wf.desc}
-                      </p>
                     </div>
                   </div>
                 </Reveal>

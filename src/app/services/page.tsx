@@ -8,16 +8,6 @@ import {
   Search, 
   ArrowRight, 
   Check, 
-  FlaskConical, 
-  Layers, 
-  ShieldCheck, 
-  Microscope, 
-  Sliders, 
-  GitMerge, 
-  Target, 
-  Syringe, 
-  Activity,
-  Workflow,
   Sparkles
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
@@ -74,72 +64,6 @@ const SUB_SERVICES = [
       'Method qualification',
       'Method validation'
     ],
-  },
-];
-
-const DEVELOPMENT_PHASES = [
-  {
-    step: '01',
-    title: 'Cell Line & Vector Engineering',
-    desc: 'High-expression construct optimization, host platform transfection, and monoclonality verification.',
-    icon: Dna,
-  },
-  {
-    step: '02',
-    title: 'Upstream Process Intensification',
-    desc: 'Bioreactor parameter optimization (DoE), feeding regimens, and media optimization for high titer.',
-    icon: FlaskConical,
-  },
-  {
-    step: '03',
-    title: 'Downstream Purification Platforms',
-    desc: 'Chromatography resin screening, impurity clearance (HCP, HCD, aggregates), and robust viral filtration.',
-    icon: Layers,
-  },
-  {
-    step: '04',
-    title: 'Analytical Method Qualification',
-    desc: 'Development and phase-appropriate qualification of stability-indicating and release assays.',
-    icon: Microscope,
-  },
-  {
-    step: '05',
-    title: 'Process Characterization & Scale-Up',
-    desc: 'Identification of Critical Process Parameters (CPPs) and scale-up validation for tech transfer.',
-    icon: Sliders,
-  },
-  {
-    step: '06',
-    title: 'GMP Technology Transfer',
-    desc: 'Seamless transfer of qualified batch recipes and analytical methods into cGMP manufacturing suites.',
-    icon: Workflow,
-  },
-];
-
-const SUPPORTED_MODALITIES = [
-  {
-    title: 'Monoclonal Antibodies',
-    href: '/modalities/mabs',
-    desc: 'Platform processes for IgG1, IgG2, and IgG4 mAbs with high yield and critical quality attribute control.',
-    icon: Target,
-  },
-  {
-    title: 'Bispecific Antibodies',
-    href: '/modalities/bispecifics',
-    desc: 'Addressing complex chain pairing, heterodimer purification, and structural integrity.',
-    icon: GitMerge,
-  },
-  {
-    title: 'Antibody-Drug Conjugates (ADCs)',
-    href: '/modalities/adcs',
-    desc: 'Conjugation process development, Drug-to-Antibody Ratio (DAR) profiling, and linker chemistry.',
-    icon: Syringe,
-  },
-  {
-    title: 'Proteins & Peptides',
-    href: '/modalities/proteins-peptides',
-    desc: 'Recombinant proteins, fusion proteins, and synthetic peptides tailored for stability and potency.',
-    icon: Dna,
   },
 ];
 
@@ -329,104 +253,6 @@ export default function DevelopmentServicesPage() {
                       </div>
                     </div>
                   </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* STEP-BY-STEP DEVELOPMENT LIFECYCLE */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-white border-b border-neutral-100">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-14 max-w-3xl mx-auto">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-blue block mb-3">
-                Lifecycle Approach
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
-                Structured Development Flow to Clinical Readiness
-              </h2>
-              <div className="h-1 w-16 bg-brand-blue rounded-full mx-auto mb-5" />
-              <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
-                A disciplined, data-driven framework designed to reduce timelines, de-risk scale-up, and ensure regulatory compliance at each milestone.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {DEVELOPMENT_PHASES.map((phase, pIdx) => {
-              const PhaseIcon = phase.icon;
-              return (
-                <Reveal key={phase.step} delay={pIdx * 0.08}>
-                  <div className="p-6 rounded-2xl border border-neutral-200/80 bg-gradient-to-br from-white to-slate-50/50 hover:border-brand-blue/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-black text-brand-orange/30 group-hover:text-brand-orange font-mono">
-                          {phase.step}
-                        </span>
-                        <div className="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center">
-                          <PhaseIcon className="w-5 h-5" />
-                        </div>
-                      </div>
-                      <h4 className="text-base font-bold text-neutral-900 mb-2 leading-snug">
-                        {phase.title}
-                      </h4>
-                      <p className="text-sm text-slate-600 font-normal leading-relaxed">
-                        {phase.desc}
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* SUPPORTED MODALITIES SECTION */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-molecules border-b border-neutral-100">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-12 max-w-3xl mx-auto">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                Broad Therapeutic Breadth
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4">
-                Capabilities Across Multiple Biologic Modalities
-              </h2>
-              <div className="h-1 w-16 bg-brand-orange rounded-full mx-auto mb-5" />
-              <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
-                Whether advancing standard monoclonal antibodies or next-generation engineered formats, our development platform is tailored to your target molecule.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SUPPORTED_MODALITIES.map((mod, mIdx) => {
-              const ModIcon = mod.icon;
-              return (
-                <Reveal key={mod.title} delay={mIdx * 0.08}>
-                  <Link
-                    href={mod.href}
-                    className="group p-6 rounded-2xl bg-white border border-neutral-200/90 shadow-xs hover:shadow-xl hover:border-brand-orange/50 transition-all duration-300 flex flex-col justify-between h-full hover:-translate-y-1 cursor-pointer"
-                  >
-                    <div>
-                      <div className="w-11 h-11 rounded-xl bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white flex items-center justify-center mb-4 transition-colors">
-                        <ModIcon className="w-5 h-5" />
-                      </div>
-                      <h4 className="text-base font-bold text-neutral-900 group-hover:text-brand-orange transition-colors mb-2">
-                        {mod.title}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal mb-4">
-                        {mod.desc}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-1 text-xs font-semibold text-brand-orange pt-3 border-t border-neutral-100">
-                      <span>View Modality</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </Link>
                 </Reveal>
               );
             })}
