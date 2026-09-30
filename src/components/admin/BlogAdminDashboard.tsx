@@ -105,7 +105,7 @@ export default function BlogAdminDashboard() {
   // If loading auth state
   if (isAuthenticated === null) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="w-8 h-8 border-3 border-brand-orange border-t-transparent rounded-full animate-spin" />
       </div>
     );

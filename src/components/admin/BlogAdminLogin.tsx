@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Lock,
   User,
@@ -10,7 +11,6 @@ import {
   Eye,
   EyeOff,
   AlertCircle,
-  Sparkles,
   ArrowLeft,
 } from 'lucide-react';
 
@@ -73,48 +73,46 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f2231] via-[#132839] to-[#0a1722] text-white flex flex-col justify-between select-none relative overflow-hidden px-4 py-8 sm:py-12">
-      {/* Background ambient lighting effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-blue/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-orange/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(#00aeef_1px,transparent_1px)] [background-size:32px_32px] opacity-10 pointer-events-none" />
+    <div className="min-h-screen bg-white text-neutral-900 flex flex-col justify-between select-none relative overflow-hidden px-4 py-8 sm:py-12">
+      {/* Subtle ambient lighting & pattern */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-blue/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-orange/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#00aeef_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.03] pointer-events-none" />
 
-      {/* Top Navbar Back Link */}
+      {/* Top Bar Navigation */}
       <div className="relative z-10 max-w-6xl w-full mx-auto flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-white/70 hover:text-white bg-white/5 hover:bg-white/10 px-3.5 py-2 rounded-xl border border-white/10 transition-all"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-neutral-900 bg-slate-100 hover:bg-slate-200/80 px-3.5 py-2 rounded-xl border border-slate-200 transition-all"
         >
           <ArrowLeft className="w-4 h-4 text-brand-orange" />
           <span>Return to Website</span>
         </Link>
-        <div className="flex items-center gap-2 text-xs font-medium text-white/50">
+        <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
           <ShieldCheck className="w-4 h-4 text-brand-blue" />
           <span>Restricted Biopharma Gateway</span>
         </div>
       </div>
 
-      {/* Main Login Card */}
-      <div className="relative z-10 w-full max-w-md mx-auto my-auto">
-        <div className="text-center mb-8">
-          {/* Branded Emblem */}
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-orange to-amber-500 text-white flex items-center justify-center font-bold text-2xl shadow-xl shadow-brand-orange/20 mx-auto mb-5 ring-4 ring-white/10">
-            Λ
-          </div>
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
-              Admin Portal
-            </span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-light tracking-tight text-white">
-            Lambda <span className="font-normal text-brand-orange">CDMO</span>
-          </h1>
-          <p className="text-xs text-white/60 mt-1.5 max-w-xs mx-auto">
-            Sign in with authorized editorial credentials to manage insights, articles, and media.
-          </p>
+      {/* Main Login Card with Website Logo */}
+      <div className="relative z-10 w-full max-w-md mx-auto my-auto py-6">
+        {/* Official Website Logo */}
+        <div className="flex justify-center mb-8">
+          <Link href="/" className="inline-block transition-transform hover:scale-[1.02]">
+            <Image
+              src="/images/lambda_novum_logo.png"
+              alt="Lambda & Novum"
+              width={2991}
+              height={358}
+              className="h-11 sm:h-13 w-auto max-w-[280px] sm:max-w-[340px] object-contain select-none"
+              priority
+              unoptimized
+            />
+          </Link>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-xl border border-white/20 rounded-2xl p-7 sm:p-8 shadow-2xl text-neutral-900">
+        {/* Login Form Box */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-7 sm:p-9 shadow-xl shadow-slate-200/60">
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium flex items-center gap-2.5 animate-in fade-in">
@@ -125,7 +123,7 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
 
             {/* Username Input */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                 Username
               </label>
               <div className="relative">
@@ -136,7 +134,7 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
                   onChange={(e) => setUsername(e.target.value)}
                   required
                   placeholder="adminlamda"
-                  className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-neutral-900 focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/15 transition-all bg-white"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50/70 border border-slate-200 rounded-xl text-sm font-medium text-neutral-900 placeholder:text-slate-400 focus:outline-none focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-brand-blue/15 transition-all"
                 />
               </div>
             </div>
@@ -144,7 +142,7 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
             {/* Password Input */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-600">
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
                   Password
                 </label>
                 <span className="text-[10px] text-slate-400 font-mono">Case-sensitive</span>
@@ -157,7 +155,7 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="••••••••••••••••"
-                  className="w-full pl-10 pr-10 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-neutral-900 focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/15 transition-all bg-white"
+                  className="w-full pl-10 pr-10 py-2.5 bg-slate-50/70 border border-slate-200 rounded-xl text-sm font-medium text-neutral-900 placeholder:text-slate-400 focus:outline-none focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-brand-blue/15 transition-all"
                 />
                 <button
                   type="button"
@@ -196,9 +194,10 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
       </div>
 
       {/* Footer */}
-      <div className="relative z-10 text-center text-xs text-white/40">
+      <div className="relative z-10 text-center text-xs text-slate-400">
         © {new Date().getFullYear()} Lambda CDMO & Novum PRS. All rights reserved.
       </div>
     </div>
   );
 }
+
