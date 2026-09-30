@@ -85,12 +85,11 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
         {/* Section Header */}
         <Reveal>
           <div className="max-w-3xl mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-black leading-[1.15] mb-5">
-              Analytical Development & Characterization
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-brand-navy leading-[1.15] mb-4">
+              Analytical Development &amp; Characterization
             </h2>
-            <div className="h-1 w-12 bg-brand-blue rounded-full mb-5" />
-            <p className="text-[17px] md:text-[19px] text-neutral-600 font-normal leading-relaxed">
-              Our analytical sciences platform supports biologics development and manufacturing through physicochemical, structural, and functional characterization.
+            <p className="text-[15px] sm:text-[16px] md:text-[17px] text-slate-700 font-normal leading-relaxed">
+              Our analytical sciences platform supports biologics development and manufacturing through <strong className="text-neutral-900 font-semibold">physicochemical, structural, and functional characterization</strong>.
             </p>
           </div>
         </Reveal>
@@ -112,10 +111,6 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
                   </h3>
                 </div>
               </div>
-
-              <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider mb-4">
-                Purity, Mass & Molecular Integrity
-              </p>
 
               <div className="border-t border-neutral-200/70 pt-4 flex-1">
                 <ul className="space-y-3">
@@ -150,10 +145,6 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
                 </div>
               </div>
 
-              <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider mb-4">
-                Higher-Order Structure & Thermal Stability
-              </p>
-
               <div className="border-t border-neutral-200/70 pt-4 flex-1">
                 <ul className="space-y-3">
                   {structuralItems.map((item, idx) => (
@@ -186,10 +177,6 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
                   </h3>
                 </div>
               </div>
-
-              <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider mb-4">
-                Binding Kinetics, Potency & Bioassays
-              </p>
 
               <div className="border-t border-neutral-200/70 pt-4 flex-1">
                 <ul className="space-y-3">
