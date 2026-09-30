@@ -15,7 +15,7 @@ interface FacilityLocationsMatrixProps {
   currentLocation?: 'ahmedabad' | 'india' | 'India' | 'london' | 'uk' | 'UK';
   className?: string;
   title?: string;
-  subtitle?: string;
+  subtitle?: string | null;
 }
 
 export default function FacilityLocationsMatrix({

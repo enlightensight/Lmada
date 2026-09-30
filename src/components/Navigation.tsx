@@ -232,13 +232,38 @@ export default function Navigation() {
                         }`}>
                           <div className="p-6">
                             <div className="mb-5 pb-4 border-b border-neutral-100">
-                              <span className="text-brand-orange text-[12px] font-semibold uppercase tracking-wider block mb-1.5">
-                                {item.label}
-                              </span>
-                              {item.headline && (
-                                <h4 className="text-[15px] sm:text-[16px] font-semibold text-neutral-900 leading-snug mb-1.5">
-                                  {item.headline}
-                                </h4>
+                              {item.label === 'Facility & Locations' ? (
+                                <>
+                                  <Link
+                                    href="/facility&location"
+                                    className="group/top flex items-center justify-between text-brand-orange hover:text-brand-orange-hover text-[12px] font-semibold uppercase tracking-wider mb-1.5 transition-colors cursor-pointer"
+                                  >
+                                    <span>{item.label}</span>
+                                    <span className="text-[11.5px] text-brand-blue font-semibold normal-case tracking-normal flex items-center gap-1 group-hover/top:translate-x-0.5 transition-transform">
+                                      <span>Explore Overview</span>
+                                      <ArrowRight className="w-3.5 h-3.5" />
+                                    </span>
+                                  </Link>
+                                  {item.headline && (
+                                    <Link 
+                                      href="/facility&location"
+                                      className="block text-[15px] sm:text-[16px] font-semibold text-neutral-900 hover:text-brand-blue leading-snug mb-1.5 transition-colors cursor-pointer"
+                                    >
+                                      {item.headline}
+                                    </Link>
+                                  )}
+                                </>
+                              ) : (
+                                <>
+                                  <span className="text-brand-orange text-[12px] font-semibold uppercase tracking-wider block mb-1.5">
+                                    {item.label}
+                                  </span>
+                                  {item.headline && (
+                                    <h4 className="text-[15px] sm:text-[16px] font-semibold text-neutral-900 leading-snug mb-1.5">
+                                      {item.headline}
+                                    </h4>
+                                  )}
+                                </>
                               )}
                               {item.description && (
                                 <p className="text-[13.5px] sm:text-[14px] text-slate-600 font-normal leading-relaxed">
@@ -255,6 +280,18 @@ export default function Navigation() {
                                       CDMO Locations
                                     </h4>
                                     <ul className="space-y-2.5">
+                                      <li>
+                                        <Link
+                                          href="/facility&location"
+                                          className="text-[15px] font-light md:font-normal tracking-tight flex items-center justify-between text-neutral-800 hover:text-brand-blue transition-colors cursor-pointer"
+                                        >
+                                          <div className="flex items-center gap-2.5">
+                                            <Globe className="w-[18px] h-[18px] text-brand-blue flex-shrink-0" />
+                                            <span>Locations Overview</span>
+                                          </div>
+                                        </Link>
+                                      </li>
+
                                       <li>
                                         <Link
                                           href="/facility&location/India"
