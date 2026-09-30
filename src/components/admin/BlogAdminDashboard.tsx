@@ -25,12 +25,18 @@ import {
   Settings,
   RefreshCw,
   TrendingUp,
+  LogOut,
+  ShieldCheck,
+  User,
 } from 'lucide-react';
 import type { InsightItem } from '@/data/insightsData';
 import { INSIGHT_TABS } from '@/data/insightsData';
 import BlogAdminEditor from './BlogAdminEditor';
+import BlogAdminLogin from './BlogAdminLogin';
 
 export default function BlogAdminDashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   const [items, setItems] = useState<InsightItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -39,6 +45,24 @@ export default function BlogAdminDashboard() {
   const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  // Check auth on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isAuth = localStorage.getItem('lambda_admin_auth') === 'true';
+      const storedUser = localStorage.getItem('lambda_admin_user');
+      if (isAuth) {
+        setIsAuthenticated(true);
+        if (storedUser) {
+          try {
+            setCurrentUser(JSON.parse(storedUser));
+          } catch (e) {}
+        }
+      } else {
+        setIsAuthenticated(false);
+      }
+    }
+  }, []);
 
   // Fetch all insights from storage API
   const loadInsights = async () => {
@@ -57,8 +81,40 @@ export default function BlogAdminDashboard() {
   };
 
   useEffect(() => {
+    if (isAuthenticated) {
+      loadInsights();
+    }
+  }, [isAuthenticated]);
+
+  const handleLogin = (user: any) => {
+    setIsAuthenticated(true);
+    setCurrentUser(user);
     loadInsights();
-  }, []);
+  };
+
+  const handleLogout = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('lambda_admin_auth');
+      localStorage.removeItem('lambda_admin_token');
+      localStorage.removeItem('lambda_admin_user');
+    }
+    setIsAuthenticated(false);
+    setCurrentUser(null);
+  };
+
+  // If loading auth state
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="w-8 h-8 border-3 border-brand-orange border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  // If not authenticated, show Login Portal
+  if (!isAuthenticated) {
+    return <BlogAdminLogin onLogin={handleLogin} />;
+  }
 
   // Filter items
   const filteredItems = items.filter((item) => {
@@ -157,7 +213,13 @@ export default function BlogAdminDashboard() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* User Session Pill */}
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/10 text-white text-xs border border-white/10">
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="font-semibold">{currentUser?.username || 'adminlamda'}</span>
+            </div>
+
             <button
               onClick={loadInsights}
               className="p-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer"
@@ -180,6 +242,14 @@ export default function BlogAdminDashboard() {
             >
               <Plus className="w-4 h-4" />
               <span>Create New Article</span>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="p-2.5 px-3.5 rounded-xl bg-white/10 hover:bg-red-500/80 text-white text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">Sign Out</span>
             </button>
           </div>
         </div>
