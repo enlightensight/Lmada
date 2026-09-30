@@ -6,8 +6,7 @@ import {
   Beaker, 
   Package, 
   ArrowRight, 
-  Check, 
-  Factory
+  Check
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -126,13 +125,6 @@ export default function ManufacturingServicesPage() {
                 >
                   <Package className="w-4 h-4" />
                   <span>Drug Product</span>
-                </Link>
-                <Link
-                  href="/facility&location/India"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] border border-neutral-300 hover:border-brand-orange hover:text-brand-orange text-neutral-800 text-xs font-semibold uppercase tracking-wider transition-all"
-                >
-                  <Factory className="w-4 h-4" />
-                  <span>Ahmedabad Facility</span>
                 </Link>
               </div>
             </div>
