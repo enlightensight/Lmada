@@ -132,24 +132,29 @@ export default function BlogAdminEditor({
 
   // Key Takeaways List
   const [keyTakeaways, setKeyTakeaways] = useState<string[]>(
-    initialItem?.keyTakeaways || [
-      'Proprietary expression vectors tailored to IgG1, IgG2, IgG4, and bispecific formats.',
-      'Documented monoclonality assurance exceeding 99.9% probability via high-contrast imaging.',
-    ]
+    initialItem
+      ? (initialItem.keyTakeaways || [])
+      : [
+          'Proprietary expression vectors tailored to IgG1, IgG2, IgG4, and bispecific formats.',
+          'Documented monoclonality assurance exceeding 99.9% probability via high-contrast imaging.',
+        ]
   );
 
   // Methodology Highlights List
   const [methodologyHighlights, setMethodologyHighlights] = useState<string[]>(
-    initialItem?.detailedContent.methodologyHighlights || [
-      'High-contrast digital brightfield/fluorescence monoclonality verification.',
-      'Codon optimization and targeted epigenetic vector expression systems.',
-    ]
+    initialItem
+      ? (initialItem.detailedContent?.methodologyHighlights || [])
+      : [
+          'High-contrast digital brightfield/fluorescence monoclonality verification.',
+          'Codon optimization and targeted epigenetic vector expression systems.',
+        ]
   );
 
   // Regulatory Impact
   const [regulatoryImpact, setRegulatoryImpact] = useState<string>(
-    initialItem?.detailedContent.regulatoryImpact ||
-      'Meets US FDA and EMA expectations for early clinical development and RCB documentation.'
+    initialItem
+      ? (initialItem.detailedContent?.regulatoryImpact ?? '')
+      : ''
   );
 
   // Tags

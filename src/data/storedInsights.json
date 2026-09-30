@@ -1,6 +1,99 @@
 {
   "blogs": [
     {
+      "id": "insight-hola",
+      "slug": "hola",
+      "category": "blogs",
+      "title": "hola",
+      "badge": "Cell Line Development",
+      "date": "September 30, 2026",
+      "readTime": "8 min read",
+      "author": {
+        "name": "hola",
+        "role": "hola",
+        "avatar": "/images/lambda-symbol.svg"
+      },
+      "image": "/uploads/Screenshot_2026-09-30_141906_1790760025310.png",
+      "summary": "hola",
+      "keyTakeaways": [
+        "hola",
+        "hola"
+      ],
+      "tags": [
+        "CHO Clones",
+        "Monoclonality",
+        "mAbs"
+      ],
+      "detailedContent": {
+        "subtitle": "hola",
+        "abstract": "hola",
+        "sections": [
+          {
+            "heading": "1. Platform Principles & Strategic Scaffolding",
+            "body": [
+              "Our biologics development platform integrates molecular biology, early developability screening, and robust scale-up workflows designed to reduce timeline friction before clinical GMP manufacturing.",
+              "Early characterization under representative conditions eliminates late-phase scale-up bottlenecks and prepares programs for seamless tech transfer."
+            ],
+            "callout": {
+              "title": "hola",
+              "text": "hola",
+              "metric": "hola"
+            }
+          },
+          {
+            "heading": "2. High-Throughput Screening & Critical Quality Attributes",
+            "body": [
+              "hola"
+            ],
+            "table": {
+              "caption": "Empirical Platform Benchmark Dataset",
+              "headers": [
+                "Process Stage",
+                "Standard Industry Timeline",
+                "Lambda Accelerated Track",
+                "Quality Standard",
+                "Col 5"
+              ],
+              "rows": [
+                [
+                  "Vector to Stable Pool",
+                  "6-8 Weeks",
+                  "4 Weeks",
+                  "Documented Monoclonality",
+                  "Value"
+                ],
+                [
+                  "hola",
+                  "hola",
+                  "hola",
+                  ">99.9% Assurance",
+                  "Value"
+                ],
+                [
+                  "Research Cell Bank (RCB)",
+                  "6 Weeks",
+                  "4 Weeks",
+                  "Full GMP-Ready Documentation",
+                  "Value"
+                ],
+                [
+                  "Data Value",
+                  "Data Value",
+                  "Data Value",
+                  "Data Value",
+                  "Data Value"
+                ]
+              ]
+            }
+          }
+        ],
+        "methodologyHighlights": [
+          "hola"
+        ],
+        "regulatoryImpact": ""
+      }
+    },
+    {
       "id": "blog-accelerating-cell-line-development",
       "slug": "accelerating-cell-line-development-for-mabs",
       "category": "blogs",

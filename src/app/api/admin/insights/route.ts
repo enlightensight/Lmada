@@ -120,9 +120,11 @@ export async function POST(request: Request) {
             }))
           : [],
         methodologyHighlights: Array.isArray(body.detailedContent?.methodologyHighlights)
-          ? body.detailedContent.methodologyHighlights.filter(Boolean)
+          ? body.detailedContent.methodologyHighlights.map((m: any) => String(m).trim()).filter(Boolean)
           : [],
-        regulatoryImpact: body.detailedContent?.regulatoryImpact || 'Aligned with global cGMP requirements for US FDA, EMA, PMDA, and TGA clinical and commercial filings.',
+        regulatoryImpact: typeof body.detailedContent?.regulatoryImpact === 'string'
+          ? body.detailedContent.regulatoryImpact.trim()
+          : '',
         citations: Array.isArray(body.detailedContent?.citations) ? body.detailedContent.citations : undefined,
       },
     };
