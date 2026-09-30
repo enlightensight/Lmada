@@ -102,9 +102,6 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                   Platform Capabilities
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
-                  End-to-end scientific and manufacturing infrastructure designed to address the specific requirements of {page.title.split('—')[0].trim()}.
-                </p>
               </div>
             </Reveal>
 
