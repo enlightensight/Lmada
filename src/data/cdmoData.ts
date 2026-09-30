@@ -520,16 +520,11 @@ export const cdmoData: CDMOPage[] = [
     ],
     sections: [
       {
-        title: 'Integrated Quality Management System',
-        text: 'From process development and analytical characterization to GMP manufacturing and quality control, our integrated quality management system is designed to ensure product quality, process consistency, data integrity, and regulatory compliance. Our development and manufacturing operations are aligned with current global cGMP requirements and are supported by robust quality systems for documentation, traceability, risk management, change control, and continuous improvement.',
+        title: 'Global Regulatory Alignment',
+        text: 'Our development and manufacturing activities are aligned with applicable global cGMP requirements and supported by quality practices designed to meet regulatory expectations for programs targeting major global markets.\n\nWe maintain rigorous standards for data integrity, data retention, customer transparency, information security, and intellectual property protection throughout the product lifecycle.',
         image: '/images/Lab.jpg',
         imageSide: 'left',
         dark: false,
-      },
-      {
-        title: 'Global Regulatory Alignment',
-        text: 'Built with global regulatory expectations in mind, our facility and quality systems are designed to support programs intended for highly regulated markets, including the United States, Europe, Japan, and Australia. We maintain rigorous standards for data integrity, data retention, customer transparency, information security, and intellectual property protection, providing sponsors with confidence throughout the product lifecycle.',
-        dark: true,
       },
       {
         title: 'Quality Control Laboratories',
