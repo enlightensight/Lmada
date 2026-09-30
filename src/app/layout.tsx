@@ -49,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className={`${inter.className} font-sans antialiased text-foreground bg-background selection:bg-brand-blue/20`}>
+      <body className="font-sans antialiased text-foreground bg-background selection:bg-brand-blue/20">
         <Navigation />
         <main className="flex-grow pt-16 lg:pt-20">{children}</main>
         <Footer />

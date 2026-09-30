@@ -1,5 +1,74 @@
 @import "tailwindcss";
 
+/* ─── Aptos webfont family (Client Default Typography) ─── */
+@font-face {
+  font-family: 'Aptos';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Aptos'), url('/fonts/Aptos.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Aptos';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Aptos Italic'), url('/fonts/Aptos-Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Aptos';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Aptos Bold'), url('/fonts/Aptos-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Aptos';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Aptos Bold'), url('/fonts/Aptos-Bold.ttf') format('truetype');
+}
+
+/* ─── Aptos Narrow webfont family ─── */
+@font-face {
+  font-family: 'Aptos Narrow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Aptos Narrow'), url('/fonts/Aptos-Narrow.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Aptos Narrow';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Aptos Narrow Italic'), url('/fonts/Aptos-Narrow-Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Aptos Narrow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Aptos Narrow Bold'), url('/fonts/Aptos-Narrow-Bold.ttf') format('truetype');
+}
+
+/* ─── Aptos Display webfont family ─── */
+@font-face {
+  font-family: 'Aptos Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Aptos Display'), url('/fonts/Aptos-Display.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Aptos Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Aptos Display Bold'), url('/fonts/Aptos-Display-Bold.ttf') format('truetype');
+}
+
 /* ─── D-DIN webfont (fallback/logo typography) ─── */
 @font-face {
   font-family: 'D-DIN';
@@ -53,8 +122,11 @@ html {
 }
 
 @theme {
-  --font-serif: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-sans: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Aptos', 'Aptos Narrow', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Aptos', 'Aptos Narrow', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-aptos: 'Aptos', 'Aptos Narrow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-aptos-narrow: 'Aptos Narrow', 'Aptos', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-aptos-display: 'Aptos Display', 'Aptos', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
