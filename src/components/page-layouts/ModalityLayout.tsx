@@ -156,8 +156,8 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
         <div className="absolute inset-0 bg-brand-navy/50 pointer-events-none" />
         <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
           <Reveal>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight leading-[1.15] mb-6">
-              <span className="text-white">Let&apos;s Advance</span> Your Next Biologics Program
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-white leading-[1.15] mb-6">
+              Let&apos;s Advance Your Next Biologics Program
             </h2>
             <p className="text-base text-white/70 max-w-2xl mx-auto mb-10">
               Whether you&apos;re developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.
