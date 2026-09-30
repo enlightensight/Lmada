@@ -165,7 +165,7 @@ Our facilities support with a strong focus, different aspects of biologics devel
                 {/* REAL World Map SVG */}
                 <div className="relative w-full aspect-[1010/440] max-w-[1300px] mx-auto select-none scale-[1.08] sm:scale-[1.12] origin-center">
                   <img
-                    src="/images/world-map.svg?v=2"
+                    src="/images/world-map.svg?v=3"
                     alt="World Map - Lambda CDMO Locations"
                     className="w-full h-full object-contain filter contrast-110 brightness-95 opacity-85"
                   />
