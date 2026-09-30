@@ -900,24 +900,7 @@ export const cdmoData: CDMOPage[] = [
       'Stability storage and sample management',
       'Quality control documentation and batch release support'
     ],
-    sections: [
-      {
-        title: 'Unified Quality Framework',
-        text: 'Working within the same quality framework as drug substance manufacturing enables efficient technology transfer, reduced operational complexity, and reliable clinical supply.',
-        image: '/images/sample.webp',
-        dark: false,
-      },
-      {
-        title: 'Aseptic Filling & Finished Dosage Forms',
-        text: 'We ensure consistent product quality throughout the manufacturing process, from formulation development and lyophilization to automated fill-finish and batch release support.',
-        dark: true,
-      },
-      {
-        title: 'Packaging, Stability & Release',
-        text: 'Complete secondary packaging, labelling, ICH stability chambers, and certified QA release documentation for clinical distribution.',
-        dark: false,
-      }
-    ],
+    sections: [],
     specs: [
       { label: 'Dosage Forms', value: 'Liquid & Lyophilized' },
       { label: 'Filling', value: 'Aseptic Vial Fill-Finish' },
