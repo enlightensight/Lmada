@@ -851,17 +851,6 @@ export const cdmoData: CDMOPage[] = [
         title: 'Seamless Development to GMP Transfer',
         text: 'Manufacturing capabilities are designed to support scalable production, controlled process execution, and regulatory requirements throughout clinical development.',
         dark: false,
-      },
-      {
-        title: 'Scalable cGMP Operations & Compliance',
-        text: 'Designed for scalability and regulatory compliance, our manufacturing operations support the production of high-quality biologics drug substance with comprehensive quality oversight throughout the manufacturing lifecycle.',
-        image: '/images/cdn/pexels-2280571.jpg',
-        dark: true,
-      },
-      {
-        title: 'Clinical Supply Enablement',
-        text: 'Full cGMP batch documentation, in-process controls, and cold-chain custody management for Phase I to Phase III clinical campaigns.',
-        dark: false,
       }
     ],
     specs: [
