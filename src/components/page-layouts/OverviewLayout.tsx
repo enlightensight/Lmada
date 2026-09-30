@@ -585,9 +585,9 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         </>
                       )}
                     </h2>
-                    <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mx-auto mt-4">
+                    <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
                       {page.slug === 'leadership'
-                        ? 'Our working model is built around six core commitments to client success.'
+                        ? 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery, with a working model built around six core commitments:'
                         : page.slug === 'quality'
                         ? 'Robust quality assurance, international compliance standards, and risk-managed processes across every program.'
                         : 'Seamless coordination across development, analytical characterization, and GMP manufacturing under one roof.'}
