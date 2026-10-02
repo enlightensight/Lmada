@@ -341,8 +341,174 @@ export const ANALYTICAL_EQUIPMENT: EquipmentItem[] = [
   },
 ];
 
+// ==========================================
+// LONDON, UK FACILITY EQUIPMENT PLATFORMS
+// ==========================================
+
+export const UK_UPSTREAM_EQUIPMENT: EquipmentItem[] = [
+  {
+    src: '/images/uk/upstream/Ambr 250 High-Throughput Bioreactor System.png',
+    title: 'Ambr® 250 High-Throughput Bioreactor',
+    subtitle: 'Automated parallel mini-bioreactor system for upstream clone screening, media evaluation, and DoE process optimization.',
+    tag: 'Ambr 250 HT',
+  },
+  {
+    src: '/images/uk/upstream/Integrated ATF Perfusion Bioreactor System.png',
+    title: 'Integrated ATF Perfusion Bioreactor',
+    subtitle: 'Alternating Tangential Flow (ATF) perfusion system enabling high-density continuous cell culture intensification.',
+    tag: 'ATF Perfusion',
+  },
+  {
+    src: '/images/uk/upstream/Parallel 5 L Bench-Scale Bioreactor Platform for Upstream Process Development.jpg',
+    title: 'Parallel 5L Bench-Scale Bioreactors',
+    subtitle: 'Glass stirred-tank benchtop bioreactor array for parameter optimization, feed strategy, and scale-up studies.',
+    tag: '5L Bioreactors',
+  },
+  {
+    src: '/images/uk/upstream/Shake Flask Culture and Seed Train Development.jpg',
+    title: 'Shake Flask & Seed Train Development Suite',
+    subtitle: 'Controlled orbital shaking platforms for cell line revival, seed train scale-up, and clone expansion protocols.',
+    tag: 'Seed Train Suite',
+  },
+  {
+    src: '/images/uk/upstream/Automated Cell Viability and Cell Density Analysis.jpg',
+    title: 'Automated Cell Viability & Density Analyzer',
+    subtitle: 'High-throughput automated image-based cell viability, viable cell density (VCD), and diameter tracking.',
+    tag: 'Cell Analytics',
+  },
+  {
+    src: '/images/uk/upstream/Cell Culture Analytics and Process Monitoring.jpg',
+    title: 'Cedex Bio Metabolite Analyzer',
+    subtitle: 'Automated photometric analyzer for in-process monitoring of substrates, metabolites, and IgG titer.',
+    tag: 'Metabolite Testing',
+  },
+  {
+    src: '/images/uk/upstream/Automated Osmolality Measurement.png',
+    title: 'Automated Osmometer System',
+    subtitle: 'Precision freezing-point depression osmometer for cell culture media and feed osmolality verification.',
+    tag: 'Osmometry',
+  },
+  {
+    src: '/images/uk/upstream/Milli-Q Water Purification Platform.png',
+    title: 'Milli-Q® Ultrapure Water Platform',
+    subtitle: 'Validated Type 1 ultrapure water platform dedicated to cell culture media preparation and sterile buffer prep.',
+    tag: 'Water Purification',
+  },
+];
+
+export const UK_DOWNSTREAM_EQUIPMENT: EquipmentItem[] = [
+  {
+    src: '/images/uk/downstream/Akta Avant automated chromatography system.png',
+    title: 'ÄKTA™ Avant Chromatography System',
+    subtitle: 'High-performance automated chromatography system for fast, secure resin screening and robust DSP method development.',
+    tag: 'ÄKTA Avant',
+  },
+  {
+    src: '/images/uk/downstream/Akta Pure automated chromatography system.png',
+    title: 'ÄKTA™ Pure Chromatography System',
+    subtitle: 'Flexible automated liquid chromatography system for purification of proteins, peptides, and monoclonal antibodies.',
+    tag: 'ÄKTA Pure',
+  },
+  {
+    src: '/images/uk/downstream/Avant automated chromatography system.png',
+    title: 'Automated Preparative Chromatography Skid',
+    subtitle: 'Precision gradient and multi-wavelength monitoring for capture, intermediate purification, and polishing.',
+    tag: 'Prep Chromatography',
+  },
+  {
+    src: '/images/uk/downstream/Repligen automated Tangential flow filtration (TFF) system.png',
+    title: 'Repligen Automated TFF System',
+    subtitle: 'Automated tangential flow filtration system for ultrafiltration, diafiltration, and high-concentration UF/DF.',
+    tag: 'Automated TFF',
+  },
+];
+
+export const UK_ANALYTICAL_EQUIPMENT: EquipmentItem[] = [
+  {
+    src: '/images/uk/analytical/LCMS system.jpg',
+    title: 'High-Resolution LC-MS System',
+    subtitle: 'Liquid chromatography-mass spectrometry platform for intact mass analysis, subunit profiling, and peptide mapping.',
+    tag: 'High-Res LC-MS',
+  },
+  {
+    src: '/images/uk/analytical/Advanced HPLC systems.jpg',
+    title: 'Advanced Analytical HPLC Systems',
+    subtitle: 'Multi-detector HPLC platforms for size-exclusion (SEC), ion-exchange (IEX), and reversed-phase (RP) analytics.',
+    tag: 'SEC / IEX HPLC',
+  },
+  {
+    src: '/images/uk/analytical/UPLC systems.jpg',
+    title: 'Ultra-Performance Liquid Chromatography (UPLC)',
+    subtitle: 'Sub-2-micron column UPLC for ultra-high resolution glycan profiling, peptide mapping, and purity testing.',
+    tag: 'UPLC Platform',
+  },
+  {
+    src: '/images/uk/analytical/Capillary Electrophoresis system.jpg',
+    title: 'Capillary Electrophoresis (CE) System',
+    subtitle: 'Automated CE-SDS and cIEF for rapid charge variant analysis, purity determination, and size heterogeneity.',
+    tag: 'CE-SDS / cIEF',
+  },
+  {
+    src: '/images/uk/analytical/HPLC systems with fraction collector.jpg',
+    title: 'HPLC System with Automated Fraction Collector',
+    subtitle: 'Preparative fraction collection for impurity isolation, post-translational modification analysis, and characterization.',
+    tag: 'Fraction Collection',
+  },
+];
+
+export const UK_BIOSIMILAR_EQUIPMENT: EquipmentItem[] = [
+  {
+    src: '/images/uk/biosimiler/Bio Safety Cabinet-BSC.jpg',
+    title: 'Class II Biosafety Cabinet Suite',
+    subtitle: 'Certified laminar flow sterile containment for reference product manipulation and clone screening.',
+    tag: 'Biosafety Suite',
+  },
+  {
+    src: '/images/uk/biosimiler/CO2 Incubators.jpg',
+    title: 'Precision CO2 Shaker Incubators',
+    subtitle: 'Controlled environment incubators for parallel biosimilar clone growth and comparability culture.',
+    tag: 'CO2 Incubators',
+  },
+  {
+    src: '/images/uk/biosimiler/Cell counter.jpg',
+    title: 'Automated Cell Counter & Viability System',
+    subtitle: 'High-throughput image cytometer for biosimilar cell line growth kinetics and viability monitoring.',
+    tag: 'Cell Analytics',
+  },
+  {
+    src: '/images/uk/biosimiler/Plate Reader.jpg',
+    title: 'Multimode Microplate Reader',
+    subtitle: 'Absorbance, fluorescence, and luminescence detection for biosimilar ELISA, binding, and functional potency bioassays.',
+    tag: 'Bioassay Reader',
+  },
+  {
+    src: '/images/uk/biosimiler/Centrifuge.jpg',
+    title: 'Benchtop High-Speed Refrigerated Centrifuge',
+    subtitle: 'Temperature-controlled centrifugation for sample preparation, cell harvesting, and clarified lysate isolation.',
+    tag: 'Centrifugation',
+  },
+];
+
 export function getSectionEquipment(sectionTitle: string, pageSlug?: string): EquipmentItem[] | null {
   const combined = `${sectionTitle} ${pageSlug || ''}`.toLowerCase();
+  const slugLower = (pageSlug || '').toLowerCase();
+  const isUK = slugLower === 'uk' || slugLower === 'london' || combined.includes('uk') || combined.includes('london');
+
+  if (isUK) {
+    if (combined.includes('upstream')) {
+      return UK_UPSTREAM_EQUIPMENT;
+    }
+    if (combined.includes('downstream')) {
+      return UK_DOWNSTREAM_EQUIPMENT;
+    }
+    if (combined.includes('analytical') || combined.includes('characterization')) {
+      return UK_ANALYTICAL_EQUIPMENT;
+    }
+    if (combined.includes('biosimilar')) {
+      return UK_BIOSIMILAR_EQUIPMENT;
+    }
+  }
+
   if (
     combined.includes('cell line') ||
     combined.includes('cld') ||
@@ -381,6 +547,9 @@ export function getSectionEquipment(sectionTitle: string, pageSlug?: string): Eq
 
 export function getPageEquipment(pageSlug: string): EquipmentItem[] | null {
   const lower = pageSlug.toLowerCase();
+  if (lower === 'uk' || lower === 'london') {
+    return [...UK_UPSTREAM_EQUIPMENT, ...UK_DOWNSTREAM_EQUIPMENT, ...UK_ANALYTICAL_EQUIPMENT, ...UK_BIOSIMILAR_EQUIPMENT];
+  }
   if (lower.includes('cell-line') || lower.includes('cell line') || lower.includes('cld')) {
     return CELL_DEV_EQUIPMENT;
   }
@@ -398,4 +567,3 @@ export function getPageEquipment(pageSlug: string): EquipmentItem[] | null {
   }
   return null;
 }
-

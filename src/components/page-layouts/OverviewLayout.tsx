@@ -272,9 +272,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             !section.image.includes('teamwork')
         );
 
-        const equipmentItems = (page.slug === 'facility' || page.slug === 'India')
-          ? getSectionEquipment(section.title)
-          : null;
+        const equipmentItems = getSectionEquipment(section.title, page.slug);
 
         return (
           <div key={idx}>
