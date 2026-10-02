@@ -216,16 +216,16 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
                 <Link href={`/modalities/${modal.slug}`} className="group block h-full">
-                  <div className="h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-white">
+                  <div className="h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-slate-950">
                       <img
                         src={modal.image}
                         alt={modal.title}
-                        className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>
-                    <div className="p-5">
-                      <h3 className="text-lg font-semibold text-black group-hover:text-brand-blue transition-colors">
+                    <div className="p-5 flex-1 flex items-center">
+                      <h3 className="text-lg font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
                         {modal.title}
                       </h3>
                     </div>
