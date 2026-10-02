@@ -81,7 +81,7 @@ const CDMO_LOCATIONS: LocationInfo[] = [
       { label: 'Fill-Finish', value: '10k units/batch', icon: Syringe }
     ],
     accentColor: '#f58634',
-    primaryIcon: Factory
+    primaryIcon: MapPin
   },
   {
     id: 'uk',
@@ -115,7 +115,7 @@ const CDMO_LOCATIONS: LocationInfo[] = [
       { label: 'Scope', value: 'Characterisation', icon: Activity }
     ],
     accentColor: '#00aeef',
-    primaryIcon: Microscope
+    primaryIcon: MapPin
   }
 ];
 
@@ -279,7 +279,7 @@ export default function CDMOLocationsMapSection({
                           : 'text-slate-600 hover:text-neutral-900 hover:bg-white/60'
                       }`}
                     >
-                      <Factory className="w-3.5 h-3.5" />
+                      <MapPin className="w-3.5 h-3.5" />
                       <span>Ahmedabad, India</span>
                     </button>
                     <button
@@ -292,7 +292,7 @@ export default function CDMOLocationsMapSection({
                           : 'text-slate-600 hover:text-neutral-900 hover:bg-white/60'
                       }`}
                     >
-                      <Microscope className="w-3.5 h-3.5" />
+                      <MapPin className="w-3.5 h-3.5" />
                       <span>London, UK</span>
                     </button>
                   </div>
@@ -348,7 +348,7 @@ export default function CDMOLocationsMapSection({
                       <div className="absolute -inset-3 rounded-full bg-brand-blue/20 animate-ping pointer-events-none" />
                       <div className="absolute -inset-5 rounded-full border border-brand-blue/30 animate-pulse pointer-events-none" />
                       
-                      {/* Interactive Pin Trigger Button with CDMO Microscope Icon */}
+                      {/* Interactive Pin Trigger Button with Location MapPin Icon */}
                       <button
                         type="button"
                         onClick={() => setActiveLocationId('uk')}
@@ -360,7 +360,7 @@ export default function CDMOLocationsMapSection({
                         }`}
                         title="London, UK - European Innovation & Analytics Hub"
                       >
-                        <Microscope className="w-4 h-4 stroke-[2.5]" />
+                        <MapPin className="w-4 h-4 stroke-[2.5]" />
                       </button>
 
                       {/* Fixed Label Pill */}
@@ -380,7 +380,7 @@ export default function CDMOLocationsMapSection({
                           >
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
-                                <Microscope className="w-4 h-4 text-brand-blue" />
+                                <MapPin className="w-4 h-4 text-brand-blue" />
                                 <span>London, UK</span>
                               </h4>
                               <span className="text-[10px] font-semibold text-brand-blue bg-brand-blue/10 px-1.5 py-0.5 rounded border border-brand-blue/20">UK Innovation Hub</span>
@@ -411,7 +411,7 @@ export default function CDMOLocationsMapSection({
                       <div className="absolute -inset-3 rounded-full bg-brand-orange/20 animate-ping pointer-events-none" />
                       <div className="absolute -inset-5 rounded-full border border-brand-orange/30 animate-pulse pointer-events-none" />
                       
-                      {/* Interactive Pin Trigger Button with CDMO Factory Icon */}
+                      {/* Interactive Pin Trigger Button with Location MapPin Icon */}
                       <button
                         type="button"
                         onClick={() => setActiveLocationId('india')}
@@ -423,7 +423,7 @@ export default function CDMOLocationsMapSection({
                         }`}
                         title="Ahmedabad, India - Primary Biomanufacturing Campus"
                       >
-                        <Factory className="w-4 h-4 stroke-[2.5]" />
+                        <MapPin className="w-4 h-4 stroke-[2.5]" />
                       </button>
 
                       {/* Fixed Label Pill */}
@@ -443,7 +443,7 @@ export default function CDMOLocationsMapSection({
                           >
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
-                                <Factory className="w-4 h-4 text-brand-orange" />
+                                <MapPin className="w-4 h-4 text-brand-orange" />
                                 <span>Ahmedabad, India</span>
                               </h4>
                               <span className="text-[10px] font-semibold text-brand-orange bg-brand-orange/10 px-1.5 py-0.5 rounded border border-brand-orange/20">India cGMP Campus</span>
