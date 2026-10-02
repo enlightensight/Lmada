@@ -37,7 +37,9 @@ import {
   CheckCircle2,
   Target,
   GitMerge,
-  Syringe
+  Syringe,
+  GraduationCap,
+  Briefcase
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FacilityGallery from '@/components/FacilityGallery';
@@ -77,53 +79,65 @@ interface LeaderProfile {
   name: string;
   title: string;
   role: string;
-  bio: string;
   image: string;
+  experienceBadge: string;
+  credentials?: string;
+  bio: string[];
 }
 
 const LEADERSHIP_PROFILES: LeaderProfile[] = [
   {
-    name: 'Dr. K. Srinivas',
-    title: 'Chief Scientific Officer & Head of Biologics',
-    role: 'Scientific Leadership',
-    bio: 'Over 25 years of global biopharmaceutical leadership across clone development, process characterization, and tech transfer for complex mAbs and novel modalities.',
-    image: '/images/cdn/unsplash-1507525428034-b723cf961d3e.jpg',
+    name: 'Dr. M.S. Ramakrishnan',
+    title: 'Executive Vice President – CDMO',
+    role: 'Executive Leadership',
+    image: '/images/team/MS Ramaki.jpg',
+    experienceBadge: '27+ Years Experience',
+    credentials: 'Ph.D. in Biochemistry (University of Mysore) • Post-Doctoral Fellow (Howard Hughes Medical Institute, University of Chicago)',
+    bio: [
+      'Dr. M. S. Ramakrishnan is a biopharmaceutical development leader with more than 27 years of experience spanning technical product development and in vitro and in vivo pharmacology. His experience includes the development of novel biologics and biosimilars, with a focus on advancing complex biologic programs through the development pipeline.',
+      'Previously, Dr. Ramakrishnan served as Vice President of Research and Development at Biocon Biologics Limited, where he contributed to the development of analytical characterization technologies for novel and biosimilar monoclonal antibodies, with a focus on product quality, safety, and efficacy.',
+      'He holds a Ph.D. in Biochemistry from the University of Mysore and completed post-doctoral research at the Howard Hughes Medical Institute, University of Chicago. As Executive Vice President – CDMO, he provides strategic leadership for the CDMO business, with a focus on strengthening service capabilities and aligning development and manufacturing offerings with global industry requirements.'
+    ]
   },
   {
-    name: 'Dr. Priya Mehta',
-    title: 'Head of Process Development & Tech Transfer',
-    role: 'Bioprocess Engineering',
-    bio: 'PhD in Biochemical Engineering with 18+ years optimizing upstream single-use bioreactors (Ambr to 500L) and multi-modal downstream purification trains.',
-    image: '/images/cdn/unsplash-1576671081837-49000212a370.jpg',
+    name: 'Jagannathan Sundaram',
+    title: 'Vice President – Process Sciences (India)',
+    role: 'Process Sciences (India)',
+    image: '/images/team/Jagan Sundaram Profile Picture.png',
+    experienceBadge: '25+ Years Experience',
+    credentials: 'Bioprocess Engineering & cGMP Scale-Up • Upstream & Downstream Technology Transfer',
+    bio: [
+      'Jagannathan Sundaram is Vice President of Process Sciences at Lambda CDMO, leading bioprocess engineering, upstream cell culture development, downstream purification, and technology transfer for biologics and biosimilars.',
+      'With extensive expertise across biopharmaceutical process development and scale-up, he oversees the development of scalable single-use bioreactor systems and multi-modal downstream purification trains from bench scale through clinical and commercial cGMP biomanufacturing suites at Lambda\'s Ahmedabad campus.',
+      'His leadership ensures robust tech transfer protocols, critical process parameter (CPP) control, high process yields, and full alignment with global US FDA, EMA, and WHO regulatory manufacturing expectations.'
+    ]
   },
   {
-    name: 'Rajesh Sharma',
-    title: 'Head of cGMP Manufacturing Operations',
-    role: 'Manufacturing & Operations',
-    bio: '20+ years leading aseptic fill-finish and clinical drug substance campaigns with automated isolators and single-use containment systems.',
-    image: '/images/cdn/unsplash-1622227922682-56c92e523e58.jpg',
+    name: 'Dr. Abhishek Kulshrestha',
+    title: 'Associate Vice President – Analytical Sciences (India)',
+    role: 'Analytical Sciences (India)',
+    image: '/images/team/Abhishek.jpeg',
+    experienceBadge: '20+ Years Experience',
+    credentials: 'Ph.D. in Biochemistry (University of Delhi) • M.Sc. in Biotechnology (JNU) • Co-Inventor on US & European Patents',
+    bio: [
+      'Dr. Abhishek Kulshrestha is Associate Vice President and Head of Analytical Sciences for the CDMO vertical at Lambda Therapeutic Research, with more than 20 years of experience in the biopharmaceutical industry. His expertise spans analytical sciences, quality control, and regulatory lifecycle management of complex biologics.',
+      'At Lambda, he leads analytical development and characterization for therapeutic antibodies and large molecule bioanalytical services supporting domestic and international sponsors. His technical experience includes cell line development, orthogonal analytical and immunological strategies, process impurity clearance, asset evaluation, and immunogenicity risk assessment.',
+      'Previously, Dr. Kulshrestha served as General Manager and Head of Immunology at Biocon Biologics and as a Research Leader at Reliance Life Sciences. He has also contributed to regulatory interactions and inspection-related data packages involving global health authorities. He holds a Ph.D. in Biochemistry from the University of Delhi, an M.Sc. in Biotechnology from Jawaharlal Nehru University (JNU), is a co-inventor on granted European and US patents related to antibody drug detection methods, and has published research in peer-reviewed journals.'
+    ]
   },
   {
-    name: 'Dr. Vikram Anand',
-    title: 'Head of Analytical Sciences & Characterization',
-    role: 'Bioanalytical Sciences',
-    bio: 'Specialized in high-resolution mass spectrometry, QTPP definition, intact peptide mapping, and biosimilar comparability dossiers.',
-    image: '/images/cdn/unsplash-1540575467063-178a50c2df87.jpg',
-  },
-  {
-    name: 'Ananya Deshmukh',
-    title: 'Head of Quality Assurance & Regulatory Affairs',
-    role: 'Quality & Regulatory',
-    bio: 'Global regulatory liaison with extensive FDA, EMA, PMDA, and TGA filing audit leadership for IND, IMPD, and BLA submissions.',
-    image: '/images/cdn/unsplash-1551288049-bebda4e38f71.jpg',
-  },
-  {
-    name: 'Dr. Amit Roy',
-    title: 'Head of Bioassays & Modality Sciences',
-    role: 'Functional Biology',
-    bio: 'Pioneer in functional cell-based potency assays, MOA elucidation, ADCC/CDC mechanics, and clinical ADA/NAb validation.',
-    image: '/images/cdn/unsplash-1522071820081-009f0129c71c.jpg',
-  },
+    name: 'Bhargav Perla',
+    title: 'Head of Technical Development, Biopharma R&D (Harrow)',
+    role: 'European R&D (Harrow, UK)',
+    image: '/images/team/Bhargav Perla.png',
+    experienceBadge: '20+ Years Experience',
+    credentials: 'Biopharmaceutical CMC & Tech Transfer • EMA, FDA, TGA & Health Canada Regulatory Programs',
+    bio: [
+      'Bhargav Perla is a biopharmaceutical CMC and technical development leader with 20 years of experience across biologics and biosimilars. His expertise spans drug substance and drug product development, technology transfer, scale-up, product lifecycle management, CDMO management, and co-development partnerships.',
+      'His experience includes developing and implementing development strategies, applying platform technologies, and coordinating internal and external capabilities to support biologics programs. He has worked across technical, regulatory, and operational functions to address complex development challenges and align program execution with business objectives.',
+      'Bhargav has supported regulatory programs involving EMA, FDA, TGA, and Health Canada, with experience in development strategies leading to regulatory outcomes. He also has extensive experience in building high performing teams, scientific mentoring, resource management, and cross-functional governance.'
+    ]
+  }
 ];
 
 const OVERVIEW_SLUGS = ['about', 'leadership', 'facility', 'integrated', 'quality', 'careers'];
@@ -873,40 +887,70 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                   <span className="text-neutral-900">Executive</span> & Scientific Team
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
-                  Led by experienced biopharma executives, bioprocess engineers, bioanalytical chemists, and regulatory specialists.
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
+                  Led by experienced biopharma leaders across technical product development, process sciences, analytical characterization, and global regulatory execution.
                 </p>
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10 items-stretch">
               {LEADERSHIP_PROFILES.map((leader, idx) => (
                 <Reveal key={idx} delay={idx * 0.08} className="h-full">
-                  <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-yellow transition-all duration-300 flex flex-col">
-                    <div className="relative py-12 px-6 bg-gradient-to-b from-neutral-50 to-neutral-100/70 border-b border-neutral-100 flex items-center justify-center overflow-hidden">
-                      {/* Subtle dot pattern */}
-                      <div className="absolute inset-0 bg-[radial-gradient(#00aeef_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
+                  <div className="group h-full bg-white border border-neutral-200/90 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                    {/* Top subtle accent bar */}
+                    <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-blue to-brand-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                      {/* Avatar Circle with User Icon */}
-                      <div className="relative z-10 w-24 h-24 rounded-full bg-white border-2 border-brand-blue/30 shadow-md group-hover:border-brand-yellow group-hover:scale-105 group-hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                        <User className="w-12 h-12 text-brand-blue group-hover:text-brand-orange transition-colors duration-300" />
+                    <div>
+                      {/* Top Row: Photo & Header Info */}
+                      <div className="flex flex-col sm:flex-row gap-6 items-start mb-5">
+                        {/* Real Portrait Photograph Container */}
+                        <div className="relative w-full sm:w-48 h-64 sm:h-56 rounded-xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={encodeURI(leader.image)}
+                            alt={leader.name}
+                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl pointer-events-none" />
+                        </div>
+
+                        {/* Title & Metadata */}
+                        <div className="flex flex-col flex-1">
+                          <span className="inline-flex items-center self-start px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-2">
+                            {leader.role}
+                          </span>
+
+                          <h3 className="text-2xl font-bold tracking-tight text-neutral-900 group-hover:text-brand-blue transition-colors mb-1">
+                            {leader.name}
+                          </h3>
+
+                          <p className="text-xs sm:text-sm font-semibold text-brand-blue uppercase tracking-wider mb-3 leading-snug">
+                            {leader.title}
+                          </p>
+
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                              <Award className="w-3.5 h-3.5 text-brand-orange" />
+                              <span>{leader.experienceBadge}</span>
+                            </span>
+                          </div>
+                        </div>
                       </div>
 
-                      {/* Role Pill Badge */}
-                      <div className="absolute top-4 left-4 bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-[8px] shadow-xs">
-                        {leader.role}
+                      {/* Credentials Callout */}
+                      {leader.credentials && (
+                        <div className="mb-4 p-3 sm:p-3.5 rounded-xl bg-slate-50/90 border border-slate-200/80 flex items-start gap-2.5 text-xs text-slate-700 font-medium">
+                          <GraduationCap className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
+                          <span className="leading-snug">{leader.credentials}</span>
+                        </div>
+                      )}
+
+                      {/* Bio Paragraphs */}
+                      <div className="space-y-3 text-[14px] sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
+                        {leader.bio.map((para, pIdx) => (
+                          <p key={pIdx}>{para}</p>
+                        ))}
                       </div>
-                    </div>
-                    <div className="p-6 md:p-7 flex flex-col flex-1">
-                      <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors mb-1">
-                        {leader.name}
-                      </h3>
-                      <span className="text-xs font-semibold text-brand-yellow uppercase tracking-wider mb-4 block">
-                        {leader.title}
-                      </span>
-                      <p className="text-[15px] text-neutral-600 leading-relaxed">
-                        {leader.bio}
-                      </p>
                     </div>
                   </div>
                 </Reveal>
