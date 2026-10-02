@@ -356,12 +356,12 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto">
               {page.applicableModalities.map((modality, mIdx) => {
-                const ModIcon = modality.title.toLowerCase().includes('bispecific') 
-                  ? GitMerge 
-                  : modality.title.toLowerCase().includes('recombinant') 
-                    ? FlaskConical 
+                const ModIcon = modality.title.toLowerCase().includes('bispecific')
+                  ? GitMerge
+                  : modality.title.toLowerCase().includes('recombinant')
+                    ? FlaskConical
                     : modality.title.toLowerCase().includes('other') || modality.title.toLowerCase().includes('biosimilar')
-                      ? Atom 
+                      ? Atom
                       : Dna;
 
                 return (

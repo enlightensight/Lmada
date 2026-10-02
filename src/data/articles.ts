@@ -145,7 +145,7 @@ For biosimilars and process changes, we layer forced degradation studies on top 
       name: 'Lambda CDMO Scientific Team',
       avatar: '/images/lambda-symbol.svg',
     },
-    image: '/images/Monoclonal_Antibodies.png',
+    image: '/images/modalities/mAb.png',
     content: `
 Biosimilar development succeeds or fails on the strength of its comparability package. Regulators expect a stepwise demonstration that the candidate matches the reference product in structure, function, and behavior.
 
@@ -167,7 +167,7 @@ Binding and cell-based potency assays confirm functional equivalence, while comp
       name: 'Lambda CDMO Scientific Team',
       avatar: '/images/lambda-symbol.svg',
     },
-    image: '/images/Bispecific_Antibodies.png',
+    image: '/images/modalities/Bispecific_Antibody.png',
     content: `
 Bispecific antibodies offer powerful therapeutic mechanisms, but their multi-chain architecture creates manufacturing challenges that monoclonals never face: heavy-chain homodimers, light-chain mispairing, and complex impurity profiles.
 
@@ -189,7 +189,7 @@ Downstream, we deploy charge-based and affinity polishing steps that separate mi
       name: 'Lambda CDMO Scientific Team',
       avatar: '/images/lambda-symbol.svg',
     },
-    image: '/images/Antibody-Drug_Conjugates.png',
+    image: '/images/modalities/Antibody–Drug_Conjugate.png',
     content: `
 Antibody-drug conjugates merge the targeting of a monoclonal antibody with the potency of a cytotoxic payload — and the drug-to-antibody ratio (DAR) is the attribute that defines both efficacy and safety.
 
@@ -211,7 +211,7 @@ Conjugation development optimizes payload equivalence, reaction time, temperatur
       name: 'Lambda CDMO Scientific Team',
       avatar: '/images/lambda-symbol.svg',
     },
-    image: '/images/Proteins_%26_Peptides.png',
+    image: '/images/modalities/Proteins_and_Peptides.png',
     content: `
 Analytical methods underpin every release decision in biologics manufacturing. Under ICH Q2(R1), each method must prove it measures what it claims to measure — reproducibly, specifically, and robustly.
 

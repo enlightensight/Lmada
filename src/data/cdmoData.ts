@@ -1105,7 +1105,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Modalities',
     heading: 'Platform Capabilities for Monoclonal Antibodies (mAbs).',
     description: 'Monoclonal antibodies (mAbs) continue to be one of the most widely developed biologic modalities, driving innovation across oncology, immunology, and other therapeutic areas. Lambda CDMO offers integrated development and manufacturing capabilities for monoclonal antibodies, supporting sponsors from cell line development and process optimization through analytical characterization and GMP manufacturing.',
-    image: '/images/Monoclonal_Antibodies.png',
+    image: '/images/modalities/mAb.png',
     capabilities: [
       'Cell line development using mammalian expression systems',
       'Upstream and downstream process development',
@@ -1137,7 +1137,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Modalities',
     heading: 'Development Strategies for Complex Antibody Formats',
     description: 'Bispecific antibodies present unique development and manufacturing challenges due to their structural complexity, product heterogeneity, and analytical requirements. Lambda CDMO supports bispecific antibody programs through coordinated cell line, process development, analytical characterization, and manufacturing capabilities.',
-    image: '/images/Bispecific_Antibodies.png',
+    image: '/images/modalities/Bispecific_Antibody.png',
     capabilities: [
       'Cell line development for bispecific and bifunctional antibodies',
       'Clone screening and selection',
@@ -1172,7 +1172,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Modalities',
     heading: 'Integrated Development for ADC Programs',
     description: 'Antibody-drug conjugates (ADCs) combine monoclonal antibodies with highly potent payloads, requiring specialized development, analytical characterization, and manufacturing strategies. Lambda CDMO supports ADC programs through capabilities spanning monoclonal antibody development, conjugation process development, analytical characterization, and manufacturing.',
-    image: '/images/Antibody-Drug_Conjugates.png',
+    image: '/images/modalities/Antibody–Drug_Conjugate.png',
     capabilities: [
       'Monoclonal antibody development for ADC programs',
       'Conjugation process development',
@@ -1206,7 +1206,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Modalities',
     heading: 'Development and Manufacturing for Protein- and Peptide-Based Therapeutics',
     description: 'Lambda CDMO offers development and manufacturing capabilities for recombinant proteins and therapeutic peptides across a range of biologic applications. Our integrated platform combines process development, analytical characterization, quality control, and manufacturing to support the development of protein- and peptide-based therapeutics.',
-    image: '/images/Proteins_%26_Peptides.png',
+    image: '/images/modalities/Proteins_and_Peptides.png',
     capabilities: [
       'Mammalian expression platforms',
       'Recombinant protein expression using CHO, HEK293, and E. coli expression systems',

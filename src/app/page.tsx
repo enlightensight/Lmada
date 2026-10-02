@@ -64,25 +64,25 @@ export default function Home() {
       title: 'Monoclonal Antibodies',
       slug: 'mabs',
       desc: 'Platform capabilities for IgG1, IgG2, and IgG4 subclasses.',
-      image: '/images/Monoclonal_Antibodies.png',
+      image: '/images/modalities/mAb.png',
     },
     {
       title: 'Bispecific Antibodies',
       slug: 'bispecifics',
       desc: 'Addressing chain pairing, homodimer, and mispairing challenges.',
-      image: '/images/Bispecific_Antibodies.png',
+      image: '/images/modalities/Bispecific_Antibody.png',
     },
     {
       title: 'Antibody-Drug Conjugates',
       slug: 'adcs',
       desc: 'Conjugation process development, DAR characterization, and GMP manufacturing.',
-      image: '/images/Antibody-Drug_Conjugates.png',
+      image: '/images/modalities/Antibody–Drug_Conjugate.png',
     },
     {
       title: 'Proteins & Peptides',
       slug: 'proteins-peptides',
       desc: 'Recombinant proteins, fusion proteins, and synthetic peptides.',
-      image: '/images/Proteins_%26_Peptides.png',
+      image: '/images/modalities/Proteins_and_Peptides.png',
     },
   ];
 
