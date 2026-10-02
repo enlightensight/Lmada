@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface CardImageCarouselProps {
   images: string[];
   alt: string;
-  href: string;
+  href?: string;
   aspectRatio?: string;
   autoPlayInterval?: number;
   className?: string;
@@ -46,34 +46,46 @@ export default function CardImageCarousel({
 
   if (!images || images.length === 0) return null;
 
+  const content = (
+    <>
+      <AnimatePresence initial={false} mode="wait">
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          className="absolute inset-0 w-full h-full"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={encodeURI(images[currentIndex])}
+            alt={`${alt} image ${currentIndex + 1}`}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Ambient bottom shadow gradient for visual depth */}
+      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent pointer-events-none" />
+    </>
+  );
+
   return (
     <div
       className={`relative ${aspectRatio} w-full overflow-hidden bg-slate-900 group select-none ${className}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <Link href={href} className="block w-full h-full relative cursor-pointer">
-        <AnimatePresence initial={false} mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="absolute inset-0 w-full h-full"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={encodeURI(images[currentIndex])}
-              alt={`${alt} image ${currentIndex + 1}`}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Ambient bottom shadow gradient for visual depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent pointer-events-none" />
-      </Link>
+      {href ? (
+        <Link href={href} className="block w-full h-full relative cursor-pointer">
+          {content}
+        </Link>
+      ) : (
+        <div className="w-full h-full relative">
+          {content}
+        </div>
+      )}
 
       {/* Navigation Arrows (visible on hover if multiple images) */}
       {images.length > 1 && (

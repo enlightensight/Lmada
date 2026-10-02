@@ -13,11 +13,22 @@ import {
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
+import CardImageCarousel from '@/components/CardImageCarousel';
 
 export const metadata: Metadata = {
   title: 'Analytical Characterization & Testing — Biologics Analytics | Lambda CDMO',
   description: 'Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.',
 };
+
+const ANALYTICAL_HERO_IMAGES = [
+  '/images/Analytical/Biacore 8K+.png',
+  '/images/Analytical/Orbitrap.png',
+  '/images/Analytical/Q ToF.png',
+  '/images/Analytical/Maurice.png',
+  '/images/Analytical/nanoDSF.png',
+  '/images/Analytical/Octet.png',
+  '/images/Analytical/UPLC.png',
+];
 
 const CHARACTERIZATION_SUB_SERVICES = [
   {
@@ -179,16 +190,11 @@ export default function AnalyticalCharacterizationPage() {
             <div className="lg:col-span-5">
               <Reveal delay={0.15}>
                 <div className="relative rounded-2xl overflow-hidden border border-neutral-200 shadow-xl bg-white group">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <Image
-                      src="/images/default_analytics.png"
-                      alt="Lambda CDMO Analytical Characterization and Testing"
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      priority
-                    />
-                  </div>
+                  <CardImageCarousel
+                    images={ANALYTICAL_HERO_IMAGES}
+                    alt="Lambda CDMO Analytical Characterization and Testing"
+                    aspectRatio="aspect-[4/3]"
+                  />
                 </div>
               </Reveal>
             </div>

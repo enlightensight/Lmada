@@ -12,11 +12,20 @@ import {
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
+import CardImageCarousel from '@/components/CardImageCarousel';
 
 export const metadata: Metadata = {
   title: 'Development Services — Biologics Development & Process Sciences | Lambda CDMO',
   description: 'Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes and support efficient tech transfer.',
 };
+
+const UPSTREAM_HERO_IMAGES = [
+  '/images/upstream/AMBR250.png',
+  '/images/upstream/Bioreactor_control.png',
+  '/images/upstream/Biosaftey_cabinet.png',
+  '/images/upstream/Carbon_di_Oxide_shaker_incubator.png',
+  '/images/upstream/Cedex_automated_cell_counter.png',
+];
 
 const SUB_SERVICES = [
   {
@@ -156,16 +165,11 @@ export default function DevelopmentServicesPage() {
             <div className="lg:col-span-5">
               <Reveal delay={0.15}>
                 <div className="relative rounded-2xl overflow-hidden border border-neutral-200 shadow-xl bg-white group">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <Image
-                      src="/images/development.jpg"
-                      alt="Lambda CDMO Biologics Development Services"
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      priority
-                    />
-                  </div>
+                  <CardImageCarousel
+                    images={UPSTREAM_HERO_IMAGES}
+                    alt="Lambda CDMO Biologics Development Services"
+                    aspectRatio="aspect-[4/3]"
+                  />
                 </div>
               </Reveal>
             </div>

@@ -11,11 +11,20 @@ import {
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
+import CardImageCarousel from '@/components/CardImageCarousel';
 
 export const metadata: Metadata = {
   title: 'Manufacturing Services — cGMP Biomanufacturing & Clinical Supplies | Lambda CDMO',
   description: 'Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.',
 };
+
+const DOWNSTREAM_HERO_IMAGES = [
+  '/images/down stream/AKTA Pilot.png',
+  '/images/down stream/AKTA Pure 150_Akta Avant.png',
+  '/images/down stream/Column Storage Rack.png',
+  '/images/down stream/TFF System.png',
+  '/images/down stream/Tecan Freedom EVO.png',
+];
 
 const MANUFACTURING_SUB_SERVICES = [
   {
@@ -133,16 +142,11 @@ export default function ManufacturingServicesPage() {
             <div className="lg:col-span-5">
               <Reveal delay={0.15}>
                 <div className="relative rounded-2xl overflow-hidden border border-neutral-200 shadow-xl bg-white group">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <Image
-                      src="/images/hero_cleanroom.png"
-                      alt="Lambda CDMO cGMP Biomanufacturing Facility"
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      priority
-                    />
-                  </div>
+                  <CardImageCarousel
+                    images={DOWNSTREAM_HERO_IMAGES}
+                    alt="Lambda CDMO cGMP Biomanufacturing Facility"
+                    aspectRatio="aspect-[4/3]"
+                  />
                 </div>
               </Reveal>
             </div>
