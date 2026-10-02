@@ -73,7 +73,7 @@ const CDMO_LOCATIONS: LocationInfo[] = [
       }
     ],
     href: '/facility&location/India',
-    xPercent: 68.4,
+    xPercent: 68.9,
     yPercent: 53.0,
     stats: [
       { label: 'Campus Size', value: '27,000 sqft', icon: Building2 },
@@ -309,7 +309,7 @@ export default function CDMOLocationsMapSection({
                       className="w-full h-full object-contain filter contrast-105"
                     />
 
-                    {/* Geodesic Connection Arc SVG between London (33.5%, 21.0%) and Ahmedabad (68.4%, 53.0%) */}
+                    {/* Geodesic Connection Arc SVG between London (33.5%, 21.0%) and Ahmedabad (68.9%, 53.0%) */}
                     <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
                       <defs>
                         <linearGradient id="arcGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -321,7 +321,7 @@ export default function CDMOLocationsMapSection({
                       
                       {/* Base Flight Path Curve (curved upwards over Europe/Middle East) */}
                       <path
-                        d="M 33.5% 21.0% Q 50% 10%, 68.4% 53.0%"
+                        d="M 33.5% 21.0% Q 50% 10%, 68.9% 53.0%"
                         fill="none"
                         stroke="url(#arcGradientLight)"
                         strokeWidth="2.4"
@@ -332,7 +332,7 @@ export default function CDMOLocationsMapSection({
                       {/* Moving Light Particle Pulse along the flight path */}
                       <circle r="4" fill="#00aeef" filter="drop-shadow(0 0 5px #00aeef)">
                         <animateMotion
-                          path="M 33.5% 21.0% Q 50% 10%, 68.4% 53.0%"
+                          path="M 33.5% 21.0% Q 50% 10%, 68.9% 53.0%"
                           dur="4s"
                           repeatCount="indefinite"
                         />
@@ -406,7 +406,7 @@ export default function CDMOLocationsMapSection({
 
                     {/* LOCATION 2: Ahmedabad, India Pin & Beacon (Blue with white border) */}
                     <div
-                      style={{ left: '68.4%', top: '53.0%' }}
+                      style={{ left: '68.9%', top: '53.0%' }}
                       className="absolute -translate-x-1/2 z-30 flex flex-col items-center"
                     >
                       {/* Interactive Pin Trigger Button with Standalone Location MapPin Icon (pointing at origin) */}
