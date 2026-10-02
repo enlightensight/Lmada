@@ -156,162 +156,196 @@ export default function CDMOLocationsMapSection({
           </Reveal>
         </div>
 
-        {/* 2-Column Responsive Layout: Left 2 Cards & Right Interactive Vector Map */}
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 xl:gap-8 items-start">
+        {/* 2-Column Responsive Layout: Left 1 Single Interactive Card & Right Interactive Vector Map */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 xl:gap-8 items-stretch">
           
-          {/* Left Column: 2 Location Cards */}
-          <div className="xl:col-span-5 flex flex-col gap-4">
-            {CDMO_LOCATIONS.map((loc, idx) => {
-              const isActive = activeLocationId === loc.id;
-              const isIndia = loc.id === 'india';
-              const PrimaryIcon = loc.primaryIcon;
+          {/* Left Column: 1 Single Location Card */}
+          <div className="xl:col-span-5 flex flex-col">
+            {(() => {
+              const activeLoc = CDMO_LOCATIONS.find((loc) => loc.id === activeLocationId) || CDMO_LOCATIONS[0];
+              const isIndia = activeLoc.id === 'india';
+              const PrimaryIcon = activeLoc.primaryIcon;
 
               return (
-                <Reveal key={loc.id} delay={idx * 0.1}>
+                <Reveal delay={0.1}>
                   <div
-                    onClick={() => setActiveLocationId(loc.id)}
-                    onMouseEnter={() => setActiveLocationId(loc.id)}
-                    className={`cursor-pointer rounded-2xl overflow-hidden p-5 sm:p-6 border transition-all duration-300 flex flex-col justify-between relative group ${
-                      isActive
-                        ? isIndia
-                          ? 'bg-white text-neutral-900 border-brand-orange/70 shadow-xl ring-2 ring-brand-orange/20'
-                          : 'bg-white text-neutral-900 border-brand-blue/70 shadow-xl ring-2 ring-brand-blue/20'
-                        : 'bg-neutral-50/80 hover:bg-white text-neutral-900 border-neutral-200/90 shadow-xs hover:shadow-md hover:border-neutral-300'
+                    className={`h-full rounded-2xl overflow-hidden p-6 sm:p-7 border transition-all duration-300 flex flex-col justify-between relative bg-white ${
+                      isIndia
+                        ? 'border-brand-orange/60 shadow-xl ring-2 ring-brand-orange/15'
+                        : 'border-brand-blue/60 shadow-xl ring-2 ring-brand-blue/15'
                     }`}
                   >
-                    {/* Top accent indicator on active */}
+                    {/* Top accent line indicator */}
                     <div
                       className={`absolute top-0 inset-x-0 h-1.5 rounded-t-2xl pointer-events-none transition-all duration-300 ${
-                        isActive
-                          ? isIndia ? 'bg-brand-orange opacity-100' : 'bg-brand-blue opacity-100'
-                          : 'bg-transparent opacity-0'
+                        isIndia ? 'bg-brand-orange' : 'bg-brand-blue'
                       }`}
                     />
 
                     <div>
-                      {/* Top Header Location & Sub-indicator */}
-                      <div className="flex items-center justify-between gap-3 mb-2.5">
-                        <div className="flex items-center gap-1.5 text-xs font-semibold">
-                          <MapPin
-                            className={`w-3.5 h-3.5 ${
-                              isActive
-                                ? isIndia ? 'text-brand-orange' : 'text-brand-blue'
-                                : 'text-slate-400'
-                            }`}
-                          />
-                          <span
-                            className={
-                              isActive
-                                ? isIndia ? 'text-brand-orange font-bold' : 'text-brand-blue font-bold'
-                                : 'text-slate-600'
-                            }
-                          >
-                            {loc.country}
-                          </span>
-                        </div>
-                        <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md border ${
-                          isActive
-                            ? isIndia 
-                              ? 'bg-brand-orange/10 text-brand-orange border-brand-orange/20'
-                              : 'bg-brand-blue/10 text-brand-blue border-brand-blue/20'
-                            : 'bg-slate-100 text-slate-500 border-slate-200'
-                        }`}>
-                          {loc.categoryBadge}
-                        </span>
-                      </div>
-
-                      {/* Title & Primary CDMO Icon */}
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <h3
-                          className={`text-xl sm:text-2xl font-bold tracking-tight transition-colors ${
-                            isActive
-                              ? 'text-neutral-900'
-                              : 'text-neutral-900 group-hover:text-brand-blue'
+                      {/* Quick Location Switcher Tabs inside the Card */}
+                      <div className="flex items-center gap-2 p-1 bg-slate-100/90 rounded-xl border border-slate-200/90 mb-5">
+                        <button
+                          type="button"
+                          onClick={() => setActiveLocationId('india')}
+                          className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                            activeLocationId === 'india'
+                              ? 'bg-brand-orange text-black shadow-sm'
+                              : 'text-slate-600 hover:text-neutral-900 hover:bg-white/60'
                           }`}
                         >
-                          {loc.title}
-                        </h3>
-                        <div className={`p-1.5 rounded-lg border transition-colors ${
-                          isActive
-                            ? isIndia
-                              ? 'bg-orange-50 text-brand-orange border-orange-200'
-                              : 'bg-sky-50 text-brand-blue border-sky-200'
-                            : 'bg-neutral-100 text-slate-500 border-neutral-200'
-                        }`}>
-                          <PrimaryIcon className="w-4 h-4 stroke-[2.2]" />
-                        </div>
+                          <Factory className="w-3.5 h-3.5" />
+                          <span>Ahmedabad, India</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveLocationId('uk')}
+                          className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                            activeLocationId === 'uk'
+                              ? 'bg-brand-blue text-white shadow-sm'
+                              : 'text-slate-600 hover:text-neutral-900 hover:bg-white/60'
+                          }`}
+                        >
+                          <Microscope className="w-3.5 h-3.5" />
+                          <span>London, UK</span>
+                        </button>
                       </div>
 
-                      {/* Description */}
-                      <p className="text-[13px] sm:text-[14px] font-normal leading-relaxed mb-3.5 text-slate-600">
-                        {loc.description}
-                      </p>
-
-                      {/* Research CDMO Capabilities List */}
-                      <div className="space-y-1.5 mb-4">
-                        {loc.coreCapabilities.map((cap, cIdx) => {
-                          const CapIcon = cap.icon;
-                          return (
-                            <div key={cIdx} className="flex items-start gap-2 text-xs text-slate-600">
-                              <CapIcon className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${
-                                isActive 
-                                  ? isIndia ? 'text-brand-orange' : 'text-brand-blue' 
-                                  : 'text-slate-400'
-                              }`} />
-                              <span className="leading-snug">{cap.text}</span>
+                      {/* Animated Card Content */}
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={activeLoc.id}
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{ duration: 0.22 }}
+                        >
+                          {/* Top Header Location & Category Badge */}
+                          <div className="flex items-center justify-between gap-3 mb-3">
+                            <div className="flex items-center gap-1.5 text-xs font-semibold">
+                              <MapPin
+                                className={`w-4 h-4 ${
+                                  isIndia ? 'text-brand-orange' : 'text-brand-blue'
+                                }`}
+                              />
+                              <span
+                                className={`font-bold ${
+                                  isIndia ? 'text-brand-orange' : 'text-brand-blue'
+                                }`}
+                              >
+                                {activeLoc.country}
+                              </span>
                             </div>
-                          );
-                        })}
-                      </div>
-
-                      {/* Quick Highlight CDMO Pills with Scientific Icons */}
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {loc.stats.map((stat, sIdx) => {
-                          const StatIcon = stat.icon;
-                          return (
                             <span
-                              key={sIdx}
-                              className={`text-[11px] font-medium px-2.5 py-1 rounded-lg border flex items-center gap-1.5 ${
-                                isActive
-                                  ? isIndia
-                                    ? 'bg-orange-50/80 text-neutral-800 border-orange-200'
-                                    : 'bg-sky-50/80 text-neutral-800 border-sky-200'
-                                  : 'bg-neutral-100 text-neutral-600 border-neutral-200'
+                              className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-md border ${
+                                isIndia
+                                  ? 'bg-brand-orange/10 text-brand-orange border-brand-orange/20'
+                                  : 'bg-brand-blue/10 text-brand-blue border-brand-blue/20'
                               }`}
                             >
-                              <StatIcon className={`w-3 h-3 ${isActive ? (isIndia ? 'text-brand-orange' : 'text-brand-blue') : 'text-slate-400'}`} />
-                              <span><strong className={isActive ? (isIndia ? 'text-brand-orange' : 'text-brand-blue') : 'text-neutral-900'}>{stat.label}:</strong> {stat.value}</span>
+                              {activeLoc.categoryBadge}
                             </span>
-                          );
-                        })}
-                      </div>
+                          </div>
+
+                          {/* Title & Primary CDMO Icon */}
+                          <div className="flex items-center justify-between gap-3 mb-3">
+                            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
+                              {activeLoc.title}
+                            </h3>
+                            <div
+                              className={`p-2 rounded-xl border transition-colors shrink-0 ${
+                                isIndia
+                                  ? 'bg-orange-50 text-brand-orange border-orange-200 shadow-xs'
+                                  : 'bg-sky-50 text-brand-blue border-sky-200 shadow-xs'
+                              }`}
+                            >
+                              <PrimaryIcon className="w-5 h-5 stroke-[2.2]" />
+                            </div>
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-[14px] sm:text-[15px] font-normal leading-relaxed mb-4 text-slate-600">
+                            {activeLoc.description}
+                          </p>
+
+                          {/* Research CDMO Capabilities List */}
+                          <div className="space-y-2 mb-5">
+                            {activeLoc.coreCapabilities.map((cap, cIdx) => {
+                              const CapIcon = cap.icon;
+                              return (
+                                <div
+                                  key={cIdx}
+                                  className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 bg-slate-50/80 p-2 rounded-lg border border-slate-100"
+                                >
+                                  <CapIcon
+                                    className={`w-4 h-4 mt-0.5 shrink-0 ${
+                                      isIndia ? 'text-brand-orange' : 'text-brand-blue'
+                                    }`}
+                                  />
+                                  <span className="leading-snug">{cap.text}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          {/* Quick Highlight CDMO Pills with Scientific Icons */}
+                          <div className="flex flex-wrap gap-2 mb-5">
+                            {activeLoc.stats.map((stat, sIdx) => {
+                              const StatIcon = stat.icon;
+                              return (
+                                <span
+                                  key={sIdx}
+                                  className={`text-xs font-medium px-3 py-1.5 rounded-lg border flex items-center gap-1.5 ${
+                                    isIndia
+                                      ? 'bg-orange-50/90 text-neutral-800 border-orange-200'
+                                      : 'bg-sky-50/90 text-neutral-800 border-sky-200'
+                                  }`}
+                                >
+                                  <StatIcon
+                                    className={`w-3.5 h-3.5 ${
+                                      isIndia ? 'text-brand-orange' : 'text-brand-blue'
+                                    }`}
+                                  />
+                                  <span>
+                                    <strong
+                                      className={
+                                        isIndia ? 'text-brand-orange' : 'text-brand-blue'
+                                      }
+                                    >
+                                      {stat.label}:
+                                    </strong>{' '}
+                                    {stat.value}
+                                  </span>
+                                </span>
+                              );
+                            })}
+                          </div>
+                        </motion.div>
+                      </AnimatePresence>
                     </div>
 
                     {/* Footer Action Link */}
-                    <div className="pt-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
+                    <div className="pt-4 border-t border-neutral-100 flex items-center justify-between mt-auto">
                       <span className="text-xs text-slate-500 font-medium">
-                        {loc.id === 'india' ? 'Primary Biomanufacturing' : 'Innovation & Analytics'}
+                        {isIndia ? 'Primary Biomanufacturing' : 'Innovation & Analytics'}
                       </span>
 
                       <Link
-                        href={loc.href}
-                        onClick={(e) => e.stopPropagation()}
-                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-xs ${
-                          isActive
-                            ? isIndia
-                              ? 'bg-brand-orange hover:bg-brand-orange-hover text-black'
-                              : 'bg-brand-blue hover:bg-brand-blue-hover text-white'
-                            : 'bg-neutral-100 hover:bg-brand-blue hover:text-white text-neutral-700'
+                        href={activeLoc.href}
+                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-xs ${
+                          isIndia
+                            ? 'bg-brand-orange hover:bg-brand-orange-hover text-black'
+                            : 'bg-brand-blue hover:bg-brand-blue-hover text-white'
                         }`}
                       >
-                        <span>{loc.id === 'india' ? 'Explore Facility' : 'Explore Centre'}</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <span>{isIndia ? 'Explore Ahmedabad Facility' : 'Explore London Centre'}</span>
+                        <ArrowRight className="w-4 h-4" />
                       </Link>
                     </div>
                   </div>
                 </Reveal>
               );
-            })}
+            })()}
           </div>
 
           {/* Right Column: Interactive Vector Map Viewport */}
@@ -368,7 +402,7 @@ export default function CDMOLocationsMapSection({
                   {/* Accurate World Map SVG */}
                   <div className="relative w-full aspect-[1010/440] max-w-[1300px] mx-auto select-none scale-[1.08] sm:scale-[1.12] origin-center">
                     <img
-                      src="/images/world-map.svg?v=5"
+                      src="/images/world-map.svg?v=6"
                       alt="World Map - Lambda CDMO Locations"
                       className="w-full h-full object-contain filter contrast-110 brightness-95 opacity-85"
                     />
