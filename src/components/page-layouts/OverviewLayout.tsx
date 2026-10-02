@@ -41,7 +41,6 @@ import {
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FacilityGallery from '@/components/FacilityGallery';
-import LondonFacilityGallery from '@/components/LondonFacilityGallery';
 import FAQSection from '@/components/FAQSection';
 import DnaScrollBackground from '@/components/DnaScrollBackground';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
@@ -602,7 +601,6 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               </div>
             </section>
             {(page.slug === 'facility' || page.slug === 'India') && idx === 0 && <FacilityGallery />}
-            {(page.slug === 'UK' || page.slug === 'london') && idx === 0 && <LondonFacilityGallery />}
           </div>
         );
       })}
