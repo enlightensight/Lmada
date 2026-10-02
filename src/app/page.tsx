@@ -276,50 +276,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PURPOSE-BUILT FACILITY */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-b border-neutral-100">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <Link
-              href="/facility&location/India"
-              className="group relative flex flex-col lg:flex-row h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300"
-            >
-              {/* On hover orange line on top */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
-              
-              {/* Left Side: Image */}
-              <div className="relative w-full lg:w-1/2 aspect-[16/10] lg:aspect-auto min-h-[280px] sm:min-h-[340px] md:min-h-[400px] overflow-hidden bg-neutral-100">
-                <img
-                  src="/images/Lamdabuilding.jpg"
-                  alt="Purpose-Built Facility for Biologics Development and Manufacturing"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
 
-              {/* Right Side: Content */}
-              <div className="flex flex-col justify-center flex-1 p-6 sm:p-8 md:p-10 lg:p-12">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow mb-3">
-                  Facility & Infrastructure
-                </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4 group-hover:text-brand-blue transition-colors">
-                  Purpose-Built Facility for Biologics Development and Manufacturing
-                </h3>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-8">
-                  Our approximately 27,000 sqft biologics development and manufacturing facility at Ahmedabad integrates laboratories, GMP manufacturing suites, analytical laboratories, and quality systems designed to support clinical development programs.
-                </p>
-                <div className="mt-auto">
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue group-hover:text-brand-blue-hover transition-colors">
-                    <span>Explore our Ahmedabad Facility</span>
-                    <span className="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center group-hover:bg-brand-yellow group-hover:text-black transition-all">
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </Reveal>
-        </div>
-      </section>
 
       {/* FEATURED INSIGHTS */}
       <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100 overflow-hidden">
