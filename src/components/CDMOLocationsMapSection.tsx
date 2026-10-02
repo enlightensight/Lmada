@@ -73,14 +73,14 @@ const CDMO_LOCATIONS: LocationInfo[] = [
       }
     ],
     href: '/facility&location/India',
-    xPercent: 71.4,
-    yPercent: 49.7,
+    xPercent: 69.2,
+    yPercent: 50.8,
     stats: [
       { label: 'Campus Size', value: '27,000 sqft', icon: Building2 },
       { label: 'Bioreactors', value: '2x 200L SUBs', icon: FlaskConical },
       { label: 'Fill-Finish', value: '10k units/batch', icon: Syringe }
     ],
-    accentColor: '#f58634',
+    accentColor: '#00aeef',
     primaryIcon: MapPin
   },
   {
@@ -107,14 +107,14 @@ const CDMO_LOCATIONS: LocationInfo[] = [
       }
     ],
     href: '/facility&location/UK',
-    xPercent: 33.9,
-    yPercent: 20.1,
+    xPercent: 33.5,
+    yPercent: 21.0,
     stats: [
       { label: 'Platform', value: 'Process Dev', icon: Dna },
       { label: 'Mass Spec', value: 'LC-MS High-Res', icon: Microscope },
       { label: 'Scope', value: 'Characterisation', icon: Activity }
     ],
-    accentColor: '#00aeef',
+    accentColor: '#f58634',
     primaryIcon: MapPin
   }
 ];
@@ -174,8 +174,8 @@ export default function CDMOLocationsMapSection({
                     className={`h-full rounded-2xl overflow-hidden p-5 sm:p-6 border transition-all duration-300 flex flex-col justify-between relative bg-white cursor-pointer ${
                       isActive
                         ? isIndia
-                          ? 'border-brand-orange/70 shadow-lg ring-2 ring-brand-orange/20'
-                          : 'border-brand-blue/70 shadow-lg ring-2 ring-brand-blue/20'
+                          ? 'border-brand-blue/70 shadow-lg ring-2 ring-brand-blue/20'
+                          : 'border-brand-orange/70 shadow-lg ring-2 ring-brand-orange/20'
                         : 'border-slate-200/90 hover:border-slate-300 shadow-xs opacity-90 hover:opacity-100'
                     }`}
                   >
@@ -184,8 +184,8 @@ export default function CDMOLocationsMapSection({
                       className={`absolute top-0 inset-x-0 h-1.5 rounded-t-2xl pointer-events-none transition-all duration-300 ${
                         isActive
                           ? isIndia
-                            ? 'bg-brand-orange'
-                            : 'bg-brand-blue'
+                            ? 'bg-brand-blue'
+                            : 'bg-brand-orange'
                           : 'bg-slate-200'
                       }`}
                     />
@@ -195,12 +195,12 @@ export default function CDMOLocationsMapSection({
                       <div className="flex items-center gap-1.5 text-xs font-semibold mb-2.5">
                         <MapPin
                           className={`w-4 h-4 ${
-                            isIndia ? 'text-brand-orange' : 'text-brand-blue'
+                            isIndia ? 'text-brand-blue' : 'text-brand-orange'
                           }`}
                         />
                         <span
                           className={`font-bold ${
-                            isIndia ? 'text-brand-orange' : 'text-brand-blue'
+                            isIndia ? 'text-brand-blue' : 'text-brand-orange'
                           }`}
                         >
                           {loc.country}
@@ -215,8 +215,8 @@ export default function CDMOLocationsMapSection({
                         <div
                           className={`p-2 rounded-xl border transition-colors shrink-0 ${
                             isIndia
-                              ? 'bg-orange-50 text-brand-orange border-orange-200 shadow-xs'
-                              : 'bg-sky-50 text-brand-blue border-sky-200 shadow-xs'
+                              ? 'bg-sky-50 text-brand-blue border-sky-200 shadow-xs'
+                              : 'bg-orange-50 text-brand-orange border-orange-200 shadow-xs'
                           }`}
                         >
                           <PrimaryIcon className="w-4.5 h-4.5 stroke-[2.2]" />
@@ -236,8 +236,8 @@ export default function CDMOLocationsMapSection({
                         onClick={(e) => e.stopPropagation()}
                         className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-xs ${
                           isIndia
-                            ? 'bg-brand-orange hover:bg-brand-orange-hover text-black'
-                            : 'bg-brand-blue hover:bg-brand-blue-hover text-white'
+                            ? 'bg-brand-blue hover:bg-brand-blue-hover text-white'
+                            : 'bg-brand-orange hover:bg-brand-orange-hover text-black'
                         }`}
                       >
                         <span>{isIndia ? 'Explore Ahmedabad Facility' : 'Explore London Centre'}</span>
@@ -275,7 +275,7 @@ export default function CDMOLocationsMapSection({
                       onMouseEnter={() => setActiveLocationId('india')}
                       className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                         activeLocationId === 'india'
-                          ? 'bg-brand-orange text-black shadow-xs'
+                          ? 'bg-brand-blue text-white shadow-xs'
                           : 'text-slate-600 hover:text-neutral-900 hover:bg-white/60'
                       }`}
                     >
@@ -288,7 +288,7 @@ export default function CDMOLocationsMapSection({
                       onMouseEnter={() => setActiveLocationId('uk')}
                       className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                         activeLocationId === 'uk'
-                          ? 'bg-brand-blue text-white shadow-xs'
+                          ? 'bg-brand-orange text-black shadow-xs'
                           : 'text-slate-600 hover:text-neutral-900 hover:bg-white/60'
                       }`}
                     >
@@ -309,19 +309,19 @@ export default function CDMOLocationsMapSection({
                       className="w-full h-full object-contain filter contrast-105"
                     />
 
-                    {/* Geodesic Connection Arc SVG between London (33.9%, 20.1%) and Ahmedabad (71.4%, 49.7%) */}
+                    {/* Geodesic Connection Arc SVG between London (33.5%, 21.0%) and Ahmedabad (69.2%, 50.8%) */}
                     <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
                       <defs>
                         <linearGradient id="arcGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#00aeef" stopOpacity="0.9" />
-                          <stop offset="50%" stopColor="#6366f1" stopOpacity="0.9" />
-                          <stop offset="100%" stopColor="#f58634" stopOpacity="0.9" />
+                          <stop offset="0%" stopColor="#f58634" stopOpacity="0.95" />
+                          <stop offset="50%" stopColor="#818cf8" stopOpacity="0.9" />
+                          <stop offset="100%" stopColor="#00aeef" stopOpacity="0.95" />
                         </linearGradient>
                       </defs>
                       
                       {/* Base Flight Path Curve (curved upwards over Europe/Middle East) */}
                       <path
-                        d="M 33.9% 20.1% Q 52% 10%, 71.4% 49.7%"
+                        d="M 33.5% 21.0% Q 50% 10%, 69.2% 50.8%"
                         fill="none"
                         stroke="url(#arcGradientLight)"
                         strokeWidth="2.4"
@@ -332,39 +332,41 @@ export default function CDMOLocationsMapSection({
                       {/* Moving Light Particle Pulse along the flight path */}
                       <circle r="4" fill="#00aeef" filter="drop-shadow(0 0 5px #00aeef)">
                         <animateMotion
-                          path="M 33.9% 20.1% Q 52% 10%, 71.4% 49.7%"
+                          path="M 33.5% 21.0% Q 50% 10%, 69.2% 50.8%"
                           dur="4s"
                           repeatCount="indefinite"
                         />
                       </circle>
                     </svg>
 
-                    {/* LOCATION 1: London, UK Pin & Beacon */}
+                    {/* LOCATION 1: London, UK Pin & Beacon (Orange with white border) */}
                     <div
-                      style={{ left: '33.9%', top: '20.1%' }}
-                      className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
+                      style={{ left: '33.5%', top: '21.0%' }}
+                      className="absolute -translate-x-1/2 -translate-y-full z-30"
                     >
-                      {/* Pulsing Radar Ring */}
-                      <div className="absolute -inset-3 rounded-full bg-brand-blue/20 animate-ping pointer-events-none" />
-                      <div className="absolute -inset-5 rounded-full border border-brand-blue/30 animate-pulse pointer-events-none" />
-                      
-                      {/* Interactive Pin Trigger Button with Location MapPin Icon */}
+                      {/* Interactive Pin Trigger Button with Standalone Location MapPin Icon */}
                       <button
                         type="button"
                         onClick={() => setActiveLocationId('uk')}
                         onMouseEnter={() => setActiveLocationId('uk')}
-                        className={`relative w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-transform duration-300 ${
-                          activeLocationId === 'uk'
-                            ? 'bg-brand-blue text-white scale-125 ring-4 ring-brand-blue/30'
-                            : 'bg-white border-2 border-brand-blue text-brand-blue hover:scale-110'
-                        }`}
+                        className="relative cursor-pointer transition-transform duration-300 hover:scale-125 focus:outline-hidden group"
                         title="London, UK - European Innovation & Analytics Hub"
                       >
-                        <MapPin className="w-4 h-4 stroke-[2.5]" />
+                        <MapPin
+                          stroke="#ffffff"
+                          strokeWidth={2.4}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className={`w-8 h-8 sm:w-9 sm:h-9 transition-all duration-300 drop-shadow-[0_3px_8px_rgba(0,0,0,0.5)] ${
+                            activeLocationId === 'uk'
+                              ? 'fill-brand-orange scale-120 drop-shadow-[0_4px_16px_rgba(245,134,52,0.9)]'
+                              : 'fill-brand-orange/95 scale-100 hover:scale-110 hover:fill-brand-orange'
+                          }`}
+                        />
                       </button>
 
                       {/* Fixed Label Pill */}
-                      <div className="absolute top-9 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-blue/40 text-[11px] font-bold text-brand-blue px-2.5 py-0.5 rounded-full shadow-sm pointer-events-none">
+                      <div className="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-orange/40 text-[11px] font-bold text-brand-orange px-2.5 py-0.5 rounded-full shadow-sm pointer-events-none">
                         London, UK
                       </div>
 
@@ -376,14 +378,14 @@ export default function CDMOLocationsMapSection({
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 6, scale: 0.94 }}
                             transition={{ duration: 0.22, ease: 'easeOut' }}
-                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[20%] top-10 w-80 bg-white/95 backdrop-blur-xl border border-brand-blue/40 rounded-xl p-3.5 shadow-2xl text-left"
+                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[20%] top-9 w-80 bg-white/95 backdrop-blur-xl border border-brand-orange/40 rounded-xl p-3.5 shadow-2xl text-left"
                           >
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
-                                <MapPin className="w-4 h-4 text-brand-blue" />
+                                <MapPin className="w-4 h-4 text-brand-orange" />
                                 <span>London, UK</span>
                               </h4>
-                              <span className="text-[10px] font-semibold text-brand-blue bg-brand-blue/10 px-1.5 py-0.5 rounded border border-brand-blue/20">UK Innovation Hub</span>
+                              <span className="text-[10px] font-semibold text-brand-orange bg-brand-orange/10 px-1.5 py-0.5 rounded border border-brand-orange/20">UK Innovation Hub</span>
                             </div>
 
                             <p className="text-xs text-slate-600 leading-relaxed mb-3">
@@ -392,7 +394,7 @@ export default function CDMOLocationsMapSection({
 
                             <Link
                               href="/facility&location/UK"
-                              className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-brand-blue hover:bg-brand-blue-hover text-white text-xs font-semibold transition-all shadow-sm"
+                              className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-brand-orange hover:bg-brand-orange-hover text-black text-xs font-semibold transition-all shadow-sm"
                             >
                               <span>Explore London Centre</span>
                               <ArrowRight className="w-3.5 h-3.5" />
@@ -402,32 +404,34 @@ export default function CDMOLocationsMapSection({
                       </AnimatePresence>
                     </div>
 
-                    {/* LOCATION 2: Ahmedabad, India Pin & Beacon */}
+                    {/* LOCATION 2: Ahmedabad, India Pin & Beacon (Blue with white border) */}
                     <div
-                      style={{ left: '71.4%', top: '49.7%' }}
-                      className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
+                      style={{ left: '69.2%', top: '50.8%' }}
+                      className="absolute -translate-x-1/2 -translate-y-full z-30"
                     >
-                      {/* Pulsing Radar Ring */}
-                      <div className="absolute -inset-3 rounded-full bg-brand-orange/20 animate-ping pointer-events-none" />
-                      <div className="absolute -inset-5 rounded-full border border-brand-orange/30 animate-pulse pointer-events-none" />
-                      
-                      {/* Interactive Pin Trigger Button with Location MapPin Icon */}
+                      {/* Interactive Pin Trigger Button with Standalone Location MapPin Icon */}
                       <button
                         type="button"
                         onClick={() => setActiveLocationId('india')}
                         onMouseEnter={() => setActiveLocationId('india')}
-                        className={`relative w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-transform duration-300 ${
-                          activeLocationId === 'india'
-                            ? 'bg-brand-orange text-black scale-125 ring-4 ring-brand-orange/30'
-                            : 'bg-white border-2 border-brand-orange text-brand-orange hover:scale-110'
-                        }`}
+                        className="relative cursor-pointer transition-transform duration-300 hover:scale-125 focus:outline-hidden group"
                         title="Ahmedabad, India - Primary Biomanufacturing Campus"
                       >
-                        <MapPin className="w-4 h-4 stroke-[2.5]" />
+                        <MapPin
+                          stroke="#ffffff"
+                          strokeWidth={2.4}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className={`w-8 h-8 sm:w-9 sm:h-9 transition-all duration-300 drop-shadow-[0_3px_8px_rgba(0,0,0,0.5)] ${
+                            activeLocationId === 'india'
+                              ? 'fill-brand-blue scale-120 drop-shadow-[0_4px_16px_rgba(0,174,239,0.9)]'
+                              : 'fill-brand-blue/95 scale-100 hover:scale-110 hover:fill-brand-blue'
+                          }`}
+                        />
                       </button>
 
                       {/* Fixed Label Pill */}
-                      <div className="absolute top-9 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-orange/40 text-[11px] font-bold text-brand-orange px-2.5 py-0.5 rounded-full shadow-sm pointer-events-none">
+                      <div className="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-blue/40 text-[11px] font-bold text-brand-blue px-2.5 py-0.5 rounded-full shadow-sm pointer-events-none">
                         Ahmedabad, India
                       </div>
 
@@ -439,14 +443,14 @@ export default function CDMOLocationsMapSection({
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 6, scale: 0.94 }}
                             transition={{ duration: 0.22, ease: 'easeOut' }}
-                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[75%] top-10 w-80 bg-white/95 backdrop-blur-xl border border-brand-orange/40 rounded-xl p-3.5 shadow-2xl text-left"
+                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[75%] top-9 w-80 bg-white/95 backdrop-blur-xl border border-brand-blue/40 rounded-xl p-3.5 shadow-2xl text-left"
                           >
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
-                                <MapPin className="w-4 h-4 text-brand-orange" />
+                                <MapPin className="w-4 h-4 text-brand-blue" />
                                 <span>Ahmedabad, India</span>
                               </h4>
-                              <span className="text-[10px] font-semibold text-brand-orange bg-brand-orange/10 px-1.5 py-0.5 rounded border border-brand-orange/20">India cGMP Campus</span>
+                              <span className="text-[10px] font-semibold text-brand-blue bg-brand-blue/10 px-1.5 py-0.5 rounded border border-brand-blue/20">India cGMP Campus</span>
                             </div>
 
                             <p className="text-xs text-slate-600 leading-relaxed mb-3">
@@ -455,7 +459,7 @@ export default function CDMOLocationsMapSection({
 
                             <Link
                               href="/facility&location/India"
-                              className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-brand-orange hover:bg-brand-orange-hover text-black text-xs font-semibold transition-all shadow-sm"
+                              className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-brand-blue hover:bg-brand-blue-hover text-white text-xs font-semibold transition-all shadow-sm"
                             >
                               <span>Explore Ahmedabad Facility</span>
                               <ArrowRight className="w-3.5 h-3.5" />
@@ -472,11 +476,11 @@ export default function CDMOLocationsMapSection({
                 <div className="relative z-20 px-4 py-3 bg-white/90 border-t border-slate-200/90 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
                   <div className="flex items-center flex-wrap gap-4">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-brand-orange shrink-0" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-brand-blue shrink-0" />
                       <span className="font-medium text-slate-700">Ahmedabad: cGMP Manufacturing & Fill-Finish</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-brand-blue shrink-0" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-brand-orange shrink-0" />
                       <span className="font-medium text-slate-700">London: Process Development & LC-MS Characterization</span>
                     </div>
                   </div>
