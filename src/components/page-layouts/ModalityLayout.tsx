@@ -83,12 +83,12 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
             </div>
 
             {page.image && (
-              <Reveal delay={0.1}>
+              <Reveal delay={0.1} className="w-full">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
                     src={page.image}
                     alt={page.title}
-                    className={`w-full h-full ${page.image.endsWith('.png') ? 'object-contain p-6' : 'object-cover'}`}
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </Reveal>
