@@ -349,28 +349,28 @@ export default function CDMOLocationsMapSection({
                         type="button"
                         onClick={() => setActiveLocationId('uk')}
                         onMouseEnter={() => setActiveLocationId('uk')}
-                        className="relative cursor-pointer transition-transform duration-300 hover:scale-125 focus:outline-hidden group"
+                        className="relative cursor-pointer transition-transform duration-300 hover:scale-115 focus:outline-hidden group"
                         title="London, UK - European Innovation & Analytics Hub"
                       >
                         <MapPin
                           stroke="#ffffff"
-                          strokeWidth={2.4}
+                          strokeWidth={2.2}
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className={`w-8 h-8 sm:w-9 sm:h-9 transition-all duration-300 drop-shadow-[0_3px_8px_rgba(0,0,0,0.5)] ${
+                          className={`w-5.5 h-5.5 sm:w-6 sm:h-6 transition-all duration-300 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] ${
                             activeLocationId === 'uk'
-                              ? 'fill-brand-orange scale-120 drop-shadow-[0_4px_16px_rgba(245,134,52,0.9)]'
+                              ? 'fill-brand-orange scale-110 drop-shadow-[0_3px_12px_rgba(245,134,52,0.85)]'
                               : 'fill-brand-orange/95 scale-100 hover:scale-110 hover:fill-brand-orange'
                           }`}
                         />
                       </button>
 
                       {/* Fixed Label Pill */}
-                      <div className="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-orange/40 text-[11px] font-bold text-brand-orange px-2.5 py-0.5 rounded-full shadow-sm pointer-events-none">
+                      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-orange/40 text-[10px] sm:text-[11px] font-bold text-brand-orange px-2 py-0.5 rounded-full shadow-sm pointer-events-none z-20">
                         London, UK
                       </div>
 
-                      {/* POPUP MODAL ANIMATION FOR LONDON - Active state */}
+                      {/* POPUP MODAL ANIMATION FOR LONDON - Active state below location name */}
                       <AnimatePresence>
                         {activeLocationId === 'uk' && (
                           <motion.div
@@ -378,11 +378,11 @@ export default function CDMOLocationsMapSection({
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 6, scale: 0.94 }}
                             transition={{ duration: 0.22, ease: 'easeOut' }}
-                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[20%] top-9 w-80 bg-white/95 backdrop-blur-xl border border-brand-orange/40 rounded-xl p-3.5 shadow-2xl text-left"
+                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[65%] top-8.5 w-76 sm:w-80 bg-white/95 backdrop-blur-xl border border-brand-orange/40 rounded-xl p-3.5 shadow-2xl text-left"
                           >
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
-                                <MapPin className="w-4 h-4 text-brand-orange" />
+                                <MapPin className="w-3.5 h-3.5 text-brand-orange" />
                                 <span>London, UK</span>
                               </h4>
                               <span className="text-[10px] font-semibold text-brand-orange bg-brand-orange/10 px-1.5 py-0.5 rounded border border-brand-orange/20">UK Innovation Hub</span>
@@ -414,28 +414,28 @@ export default function CDMOLocationsMapSection({
                         type="button"
                         onClick={() => setActiveLocationId('india')}
                         onMouseEnter={() => setActiveLocationId('india')}
-                        className="relative cursor-pointer transition-transform duration-300 hover:scale-125 focus:outline-hidden group"
+                        className="relative cursor-pointer transition-transform duration-300 hover:scale-115 focus:outline-hidden group"
                         title="Ahmedabad, India - Primary Biomanufacturing Campus"
                       >
                         <MapPin
                           stroke="#ffffff"
-                          strokeWidth={2.4}
+                          strokeWidth={2.2}
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className={`w-8 h-8 sm:w-9 sm:h-9 transition-all duration-300 drop-shadow-[0_3px_8px_rgba(0,0,0,0.5)] ${
+                          className={`w-5.5 h-5.5 sm:w-6 sm:h-6 transition-all duration-300 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] ${
                             activeLocationId === 'india'
-                              ? 'fill-brand-blue scale-120 drop-shadow-[0_4px_16px_rgba(0,174,239,0.9)]'
+                              ? 'fill-brand-blue scale-110 drop-shadow-[0_3px_12px_rgba(0,174,239,0.85)]'
                               : 'fill-brand-blue/95 scale-100 hover:scale-110 hover:fill-brand-blue'
                           }`}
                         />
                       </button>
 
                       {/* Fixed Label Pill */}
-                      <div className="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-blue/40 text-[11px] font-bold text-brand-blue px-2.5 py-0.5 rounded-full shadow-sm pointer-events-none">
+                      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-blue/40 text-[10px] sm:text-[11px] font-bold text-brand-blue px-2 py-0.5 rounded-full shadow-sm pointer-events-none z-20">
                         Ahmedabad, India
                       </div>
 
-                      {/* POPUP MODAL ANIMATION FOR AHMEDABAD - Active state */}
+                      {/* POPUP MODAL ANIMATION FOR AHMEDABAD - Active state below location name */}
                       <AnimatePresence>
                         {activeLocationId === 'india' && (
                           <motion.div
@@ -443,11 +443,11 @@ export default function CDMOLocationsMapSection({
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 6, scale: 0.94 }}
                             transition={{ duration: 0.22, ease: 'easeOut' }}
-                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[75%] top-9 w-80 bg-white/95 backdrop-blur-xl border border-brand-blue/40 rounded-xl p-3.5 shadow-2xl text-left"
+                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[25%] top-8.5 w-76 sm:w-80 bg-white/95 backdrop-blur-xl border border-brand-blue/40 rounded-xl p-3.5 shadow-2xl text-left"
                           >
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
-                                <MapPin className="w-4 h-4 text-brand-blue" />
+                                <MapPin className="w-3.5 h-3.5 text-brand-blue" />
                                 <span>Ahmedabad, India</span>
                               </h4>
                               <span className="text-[10px] font-semibold text-brand-blue bg-brand-blue/10 px-1.5 py-0.5 rounded border border-brand-blue/20">India cGMP Campus</span>
