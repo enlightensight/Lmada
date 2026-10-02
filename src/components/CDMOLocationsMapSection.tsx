@@ -342,14 +342,14 @@ export default function CDMOLocationsMapSection({
                     {/* LOCATION 1: London, UK Pin & Beacon (Orange with white border) */}
                     <div
                       style={{ left: '33.5%', top: '21.0%' }}
-                      className="absolute -translate-x-1/2 -translate-y-full z-30"
+                      className="absolute -translate-x-1/2 z-30 flex flex-col items-center"
                     >
-                      {/* Interactive Pin Trigger Button with Standalone Location MapPin Icon */}
+                      {/* Interactive Pin Trigger Button with Standalone Location MapPin Icon (pointing at origin) */}
                       <button
                         type="button"
                         onClick={() => setActiveLocationId('uk')}
                         onMouseEnter={() => setActiveLocationId('uk')}
-                        className="relative cursor-pointer transition-transform duration-300 hover:scale-115 focus:outline-hidden group"
+                        className="relative -translate-y-full cursor-pointer transition-transform duration-300 hover:scale-115 focus:outline-hidden group"
                         title="London, UK - European Innovation & Analytics Hub"
                       >
                         <MapPin
@@ -365,8 +365,8 @@ export default function CDMOLocationsMapSection({
                         />
                       </button>
 
-                      {/* Fixed Label Pill */}
-                      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-orange/40 text-[10px] sm:text-[11px] font-bold text-brand-orange px-2 py-0.5 rounded-full shadow-sm pointer-events-none z-20">
+                      {/* Fixed Label Pill below pin icon */}
+                      <div className="absolute top-1.5 whitespace-nowrap bg-white/95 border border-brand-orange/40 text-[10px] sm:text-[11px] font-bold text-brand-orange px-2 py-0.5 rounded-full shadow-sm pointer-events-none z-20">
                         London, UK
                       </div>
 
@@ -407,14 +407,14 @@ export default function CDMOLocationsMapSection({
                     {/* LOCATION 2: Ahmedabad, India Pin & Beacon (Blue with white border) */}
                     <div
                       style={{ left: '69.2%', top: '50.8%' }}
-                      className="absolute -translate-x-1/2 -translate-y-full z-30"
+                      className="absolute -translate-x-1/2 z-30 flex flex-col items-center"
                     >
-                      {/* Interactive Pin Trigger Button with Standalone Location MapPin Icon */}
+                      {/* Interactive Pin Trigger Button with Standalone Location MapPin Icon (pointing at origin) */}
                       <button
                         type="button"
                         onClick={() => setActiveLocationId('india')}
                         onMouseEnter={() => setActiveLocationId('india')}
-                        className="relative cursor-pointer transition-transform duration-300 hover:scale-115 focus:outline-hidden group"
+                        className="relative -translate-y-full cursor-pointer transition-transform duration-300 hover:scale-115 focus:outline-hidden group"
                         title="Ahmedabad, India - Primary Biomanufacturing Campus"
                       >
                         <MapPin
@@ -430,8 +430,8 @@ export default function CDMOLocationsMapSection({
                         />
                       </button>
 
-                      {/* Fixed Label Pill */}
-                      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 border border-brand-blue/40 text-[10px] sm:text-[11px] font-bold text-brand-blue px-2 py-0.5 rounded-full shadow-sm pointer-events-none z-20">
+                      {/* Fixed Label Pill below pin icon */}
+                      <div className="absolute top-1.5 whitespace-nowrap bg-white/95 border border-brand-blue/40 text-[10px] sm:text-[11px] font-bold text-brand-blue px-2 py-0.5 rounded-full shadow-sm pointer-events-none z-20">
                         Ahmedabad, India
                       </div>
 
