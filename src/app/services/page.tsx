@@ -33,8 +33,7 @@ const SUB_SERVICES = [
     slug: 'cell-line',
     href: '/services/cell-line',
     icon: Dna,
-    image: '/images/cdn/unsplash-1579154204601-01588f351e67.jpg',
-    badge: 'Phase 01',
+    image: '/images/celldev/CLD_Lab.png',
     description: 'A well-characterized, productive cell line provides the foundation for a robust biologics manufacturing process across mammalian expression platforms.',
     capabilities: [
       'Gene construct design and optimization',
@@ -48,8 +47,7 @@ const SUB_SERVICES = [
     slug: 'process',
     href: '/services/process',
     icon: Settings,
-    image: '/images/development.jpg',
-    badge: 'Phase 02',
+    image: '/images/upstream/AMBR250.png',
     description: 'Upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability from bench to pilot scale.',
     capabilities: [
       'Media and feed optimization',
@@ -63,8 +61,7 @@ const SUB_SERVICES = [
     slug: 'analytical',
     href: '/services/analytical',
     icon: Search,
-    image: '/images/analytical_instruments.jpg',
-    badge: 'Phase 03',
+    image: '/images/Analytical/UPLC.png',
     description: 'Analytical methods supporting product and process development, comparability, stability assessment, and regulatory requirements.',
     capabilities: [
       'Analytical method development',
@@ -194,13 +191,13 @@ export default function DevelopmentServicesPage() {
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 33vw"
+                        style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                       />
+                      {/* Cold Bluish Scientific Color Grade Wash */}
+                      <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/70 via-brand-navy/20 to-transparent" />
-                      <div className="absolute top-4 left-4">
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 text-brand-navy backdrop-blur-xs shadow-xs">
-                          {service.badge}
-                        </span>
-                      </div>
+                      
                       <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2.5 text-white">
                         <div className="w-8 h-8 rounded-lg bg-brand-orange text-white flex items-center justify-center shrink-0 shadow-sm">
                           <ServiceIcon className="w-4 h-4" />

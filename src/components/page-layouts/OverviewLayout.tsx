@@ -327,7 +327,15 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           className={`w-full h-full ${
                             isDiagram ? 'object-contain' : 'object-cover'
                           } transition-transform duration-700 hover:scale-105`}
+                          style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                         />
+                        {!isDiagram && (
+                          <>
+                            {/* Cold Bluish Scientific Color Grade Wash */}
+                            <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                            <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
+                          </>
+                        )}
                       </div>
                     )}
                   </Reveal>
@@ -680,7 +688,11 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     src={heroImage}
                     alt={page.title}
                     className="w-full h-full object-cover"
+                    style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                   />
+                  {/* Cold Bluish Scientific Color Grade Wash */}
+                  <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                 </div>
               )}
             </Reveal>
@@ -697,10 +709,14 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <Reveal>
                   <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm">
                     <img
-                      src="/images/cdn/unsplash-1582719471384-894fbb16e074.jpg"
+                      src="/images/upstream/Carbon_di_Oxide_shaker_incubator.png"
                       alt="Developing Tomorrow's Biologics"
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                     />
+                    {/* Cold Bluish Scientific Color Grade Wash */}
+                    <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                   </div>
                 </Reveal>
                 <Reveal delay={0.1}>

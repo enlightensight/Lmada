@@ -36,8 +36,7 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'analytical-testing',
     href: '/characterization/analytical-testing',
     icon: Microscope,
-    image: '/images/default_scientist.jpg',
-    badge: 'QC Testing & Release',
+    image: '/images/Analytical/UPLC.png',
     description: 'Reliable analytical testing for biologics drug substance and drug product, supporting in-process controls, batch release, stability programs, and regulatory compliance.',
     capabilities: [
       'Identity testing using peptide mapping, LC-MS, and immunological methods',
@@ -51,8 +50,7 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'physicochemical',
     href: '/characterization/physicochemical',
     icon: Scale,
-    image: '/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg',
-    badge: 'Structural & Biophysical',
+    image: '/images/Analytical/Orbitrap.png',
     description: 'Comprehensive structural, molecular, and biophysical characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.',
     capabilities: [
       'Primary structure analysis',
@@ -66,8 +64,7 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'bioassays',
     href: '/characterization/bioassays',
     icon: HeartPulse,
-    image: '/images/cdn/pexels-4033148.jpg',
-    badge: 'Functional & Potency',
+    image: '/images/Analytical/Biacore 8K+.png',
     description: 'Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.',
     capabilities: [
       'Cell-based potency assays',
@@ -81,8 +78,7 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'microbiological',
     href: '/characterization/microbiological',
     icon: Bug,
-    image: '/images/default_scientist.jpg',
-    badge: 'Microbiology QC',
+    image: '/images/celldev/Biosafety_Cabinet.png',
     description: 'Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.',
     capabilities: [
       'Sterility testing',
@@ -219,13 +215,13 @@ export default function AnalyticalCharacterizationPage() {
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                         sizes="(max-width: 1024px) 100vw, 50vw"
+                        style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                       />
+                      {/* Cold Bluish Scientific Color Grade Wash */}
+                      <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/75 via-brand-navy/20 to-transparent" />
-                      <div className="absolute top-4 left-4">
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 text-brand-navy backdrop-blur-xs shadow-xs">
-                          {service.badge}
-                        </span>
-                      </div>
+                      
                       <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3 text-white">
                         <div className="w-9 h-9 rounded-lg bg-brand-orange text-white flex items-center justify-center shrink-0 shadow-sm">
                           <ServiceIcon className="w-4 h-4" />

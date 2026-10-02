@@ -243,7 +243,11 @@ export default function Home() {
                         src={modal.image}
                         alt={modal.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                       />
+                      {/* Cold Bluish Scientific Color Grade Wash */}
+                      <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                     </div>
                     <div className="p-5 flex-1 flex items-center">
                       <h3 className="text-lg font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
@@ -341,7 +345,11 @@ export default function Home() {
                     src={articles[0].image}
                     alt={articles[0].title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                   />
+                  {/* Cold Bluish Scientific Color Grade Wash */}
+                  <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                 </div>
                 <div className="flex flex-col flex-1 p-6 md:p-8">
                   <div className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow mb-3">{articles[0].category}</div>
@@ -378,7 +386,11 @@ export default function Home() {
                         src={article.image}
                         alt={article.title}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                       />
+                      {/* Cold Bluish Scientific Color Grade Wash */}
+                      <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                     </div>
                     <div className="flex flex-col flex-1 p-5 md:p-6">
                       <div className="text-[11px] font-bold uppercase tracking-wider text-brand-yellow mb-2">{article.category}</div>

@@ -32,8 +32,7 @@ const MANUFACTURING_SUB_SERVICES = [
     slug: 'drug-substance',
     href: '/manufacturing/drug-substance',
     icon: Beaker,
-    image: '/images/cdn/pexels-3938022.jpg',
-    badge: 'cGMP DS Platform',
+    image: '/images/upstream_GMP/GMP Production bioreactor.png',
     description: 'Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.',
     capabilities: [
       'GMP seed train and production bioreactor operations',
@@ -48,7 +47,6 @@ const MANUFACTURING_SUB_SERVICES = [
     href: '/manufacturing/drug-product',
     icon: Package,
     image: '/images/insights/robotic_fill_finish.png',
-    badge: 'Aseptic Fill-Finish',
     description: 'Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products across liquid and lyophilized forms.',
     capabilities: [
       'Formulation development and optimization',
@@ -171,13 +169,13 @@ export default function ManufacturingServicesPage() {
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                         sizes="(max-width: 1024px) 100vw, 50vw"
+                        style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
                       />
+                      {/* Cold Bluish Scientific Color Grade Wash */}
+                      <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/75 via-brand-navy/25 to-transparent" />
-                      <div className="absolute top-4 left-4">
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 text-brand-navy backdrop-blur-xs shadow-xs">
-                          {service.badge}
-                        </span>
-                      </div>
+                      
                       <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3 text-white">
                         <div className="w-9 h-9 rounded-lg bg-brand-orange text-white flex items-center justify-center shrink-0 shadow-sm">
                           <ServiceIcon className="w-4 h-4" />
