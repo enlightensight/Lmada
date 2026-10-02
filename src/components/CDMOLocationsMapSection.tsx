@@ -380,12 +380,11 @@ export default function CDMOLocationsMapSection({
                             transition={{ duration: 0.22, ease: 'easeOut' }}
                             className="hidden xl:block absolute z-50 left-1/2 -translate-x-[65%] top-8.5 w-76 sm:w-80 bg-white/95 backdrop-blur-xl border border-brand-orange/40 rounded-xl p-3.5 shadow-2xl text-left"
                           >
-                            <div className="flex items-center justify-between mb-1.5">
+                            <div className="flex items-center mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
                                 <MapPin className="w-3.5 h-3.5 text-brand-orange" />
                                 <span>London, UK</span>
                               </h4>
-                              <span className="text-[10px] font-semibold text-brand-orange bg-brand-orange/10 px-1.5 py-0.5 rounded border border-brand-orange/20">UK Innovation Hub</span>
                             </div>
 
                             <p className="text-xs text-slate-600 leading-relaxed mb-3">
@@ -445,12 +444,11 @@ export default function CDMOLocationsMapSection({
                             transition={{ duration: 0.22, ease: 'easeOut' }}
                             className="hidden xl:block absolute z-50 left-1/2 -translate-x-[25%] top-8.5 w-76 sm:w-80 bg-white/95 backdrop-blur-xl border border-brand-blue/40 rounded-xl p-3.5 shadow-2xl text-left"
                           >
-                            <div className="flex items-center justify-between mb-1.5">
+                            <div className="flex items-center mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
                                 <MapPin className="w-3.5 h-3.5 text-brand-blue" />
                                 <span>Ahmedabad, India</span>
                               </h4>
-                              <span className="text-[10px] font-semibold text-brand-blue bg-brand-blue/10 px-1.5 py-0.5 rounded border border-brand-blue/20">India cGMP Campus</span>
                             </div>
 
                             <p className="text-xs text-slate-600 leading-relaxed mb-3">
@@ -470,23 +468,6 @@ export default function CDMOLocationsMapSection({
                     </div>
 
                   </div>
-                </div>
-
-                {/* Bottom Status / Capability Legend Bar */}
-                <div className="relative z-20 px-4 py-3 bg-white/90 border-t border-slate-200/90 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
-                  <div className="flex items-center flex-wrap gap-4">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-brand-blue shrink-0" />
-                      <span className="font-medium text-slate-700">Ahmedabad: cGMP Manufacturing & Fill-Finish</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-brand-orange shrink-0" />
-                      <span className="font-medium text-slate-700">London: Process Development & LC-MS Characterization</span>
-                    </div>
-                  </div>
-                  <span className="text-[11px] text-slate-400 hidden sm:inline">
-                    Click pins or cards to inspect facility details
-                  </span>
                 </div>
 
               </div>
