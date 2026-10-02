@@ -30,6 +30,8 @@ import {
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
+import EquipmentCarousel from '@/components/EquipmentCarousel';
+import { getPageEquipment } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -91,6 +93,7 @@ function splitHeading(heading: string) {
 
 export default function CharacterizationLayout({ page, content }: CharacterizationLayoutProps) {
   const heroHeading = splitHeading(page.heading);
+  const heroEquipment = getPageEquipment(page.slug);
 
   return (
     <>
@@ -125,14 +128,18 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                 ))}
               </div>
             </div>
-            <Reveal delay={0.1}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
-                <img
-                  src={page.image || '/images/hero_cleanroom.png'}
-                  alt={page.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <Reveal delay={0.1} className="w-full">
+              {heroEquipment && heroEquipment.length > 0 ? (
+                <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />
+              ) : (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
+                  <img
+                    src={page.image || '/images/hero_cleanroom.png'}
+                    alt={page.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
             </Reveal>
           </div>
         </div>

@@ -31,7 +31,7 @@ import UpstreamProcessAnimation from '@/components/UpstreamProcessAnimation';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
-import { getSectionEquipment } from '@/data/equipmentData';
+import { getSectionEquipment, getPageEquipment, UPSTREAM_EQUIPMENT, DOWNSTREAM_EQUIPMENT } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -88,6 +88,8 @@ function getBulletCapabilityIcon(text: string, index: number) {
 }
 
 export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
+  const heroEquipment = getPageEquipment(page.slug);
+
   return (
     <>
       {/* HERO */}
@@ -122,13 +124,17 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
               </div>
             </div>
             <Reveal delay={0.1} className="w-full">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
-                <img
-                  src={page.image || '/images/hero_cleanroom.png'}
-                  alt={page.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {heroEquipment && heroEquipment.length > 0 ? (
+                <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />
+              ) : (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
+                  <img
+                    src={page.image || '/images/hero_cleanroom.png'}
+                    alt={page.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
             </Reveal>
           </div>
         </div>
@@ -159,48 +165,56 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 <Reveal key={idx} delay={idx * 0.08}>
                   {isUpstreamProcess ? (
                     <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
-                      {/* Header */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-6 h-6 text-brand-blue" />
-                        </span>
-                        <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
-                          {section.title}
-                        </h3>
+                      {/* Top 2-column: Carousel & Content */}
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-8">
+                        <div className="lg:col-span-5">
+                          <EquipmentCarousel items={UPSTREAM_EQUIPMENT} sectionTitle="Upstream Process Equipment" />
+                        </div>
+                        <div className="lg:col-span-7">
+                          {/* Header */}
+                          <div className="flex items-center gap-3 mb-4">
+                            <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                              <Icon className="w-6 h-6 text-brand-blue" />
+                            </span>
+                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
+                              {section.title}
+                            </h3>
+                          </div>
+
+                          <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
+                            {section.text}
+                          </p>
+
+                          {section.bullets && section.bullets.length > 0 && (
+                            <div className="pt-5 border-t border-neutral-100">
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                                Key Capabilities
+                              </span>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                {section.bullets.map((b, bIdx) => {
+                                  const BulletIcon = getBulletCapabilityIcon(b, bIdx);
+                                  return (
+                                    <div
+                                      key={bIdx}
+                                      className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+                                    >
+                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
+                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                      </div>
+                                      <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
+                                        {b}
+                                      </span>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
 
-                      <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6 max-w-4xl">
-                        {section.text}
-                      </p>
-
-                      {section.bullets && section.bullets.length > 0 && (
-                        <div className="pt-5 pb-8 border-t border-neutral-100">
-                          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                            Key Capabilities
-                          </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3.5">
-                            {section.bullets.map((b, bIdx) => {
-                              const BulletIcon = getBulletCapabilityIcon(b, bIdx);
-                              return (
-                                <div
-                                  key={bIdx}
-                                  className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
-                                >
-                                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                    <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                  </div>
-                                  <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
-                                    {b}
-                                  </span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-
                       {section.footerText && (
-                        <p className="text-sm sm:text-[15px] text-slate-600 font-medium leading-relaxed mt-4 pt-4 border-t border-neutral-100">
+                        <p className="text-sm sm:text-[15px] text-slate-600 font-medium leading-relaxed mb-6 pt-4 border-t border-neutral-100">
                           {section.footerText}
                         </p>
                       )}
@@ -212,45 +226,54 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                     </div>
                   ) : isDownstreamProcess ? (
                     <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
-                      {/* Header */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-6 h-6 text-brand-blue" />
-                        </span>
-                        <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
-                          {section.title}
-                        </h3>
-                      </div>
-
-                      <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6 max-w-4xl">
-                        {section.text}
-                      </p>
-
-                      {section.bullets && section.bullets.length > 0 && (
-                        <div className="pt-5 pb-8 border-t border-neutral-100">
-                          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                            Key Capabilities
-                          </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5">
-                            {section.bullets.map((b, bIdx) => {
-                              const BulletIcon = getBulletCapabilityIcon(b, bIdx);
-                              return (
-                                <div
-                                  key={bIdx}
-                                  className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
-                                >
-                                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                    <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                  </div>
-                                  <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
-                                    {b}
-                                  </span>
-                                </div>
-                              );
-                            })}
+                      {/* Top 2-column: Content & Carousel */}
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-8">
+                        <div className="lg:col-span-7">
+                          {/* Header */}
+                          <div className="flex items-center gap-3 mb-4">
+                            <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                              <Icon className="w-6 h-6 text-brand-blue" />
+                            </span>
+                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
+                              {section.title}
+                            </h3>
                           </div>
+
+                          <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
+                            {section.text}
+                          </p>
+
+                          {section.bullets && section.bullets.length > 0 && (
+                            <div className="pt-5 border-t border-neutral-100">
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+                                Key Capabilities
+                              </span>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                {section.bullets.map((b, bIdx) => {
+                                  const BulletIcon = getBulletCapabilityIcon(b, bIdx);
+                                  return (
+                                    <div
+                                      key={bIdx}
+                                      className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+                                    >
+                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
+                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                      </div>
+                                      <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
+                                        {b}
+                                      </span>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      )}
+
+                        <div className="lg:col-span-5">
+                          <EquipmentCarousel items={DOWNSTREAM_EQUIPMENT} sectionTitle="Downstream Process Equipment" />
+                        </div>
+                      </div>
 
                       {section.footerText && (
                         <div className="mb-6 p-4 rounded-[8px] bg-neutral-50 border border-neutral-200/80 text-sm sm:text-[15px] text-slate-700 font-normal leading-relaxed">
@@ -270,7 +293,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         {/* Image Box */}
                         <div className={`lg:col-span-5 ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
                           {(() => {
-                            const equipmentItems = getSectionEquipment(section.title);
+                            const equipmentItems = getSectionEquipment(section.title, page.slug);
                             if (equipmentItems && equipmentItems.length > 0) {
                               return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;
                             }

@@ -19,6 +19,8 @@ import {
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
+import EquipmentCarousel from '@/components/EquipmentCarousel';
+import { getPageEquipment, DRUG_PRODUCT_EQUIPMENT } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -92,6 +94,8 @@ function getMfgCapabilityIcon(text: string, index: number) {
 }
 
 export default function ManufacturingLayout({ page, content }: ManufacturingLayoutProps) {
+  const heroEquipment = getPageEquipment(page.slug);
+
   // Per-slug accent: drug-substance = blue, drug-product = yellow
   const isSubstance = page.slug === 'drug-substance';
   const accentText = isSubstance ? 'text-brand-blue' : 'text-brand-yellow';
@@ -135,21 +139,25 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                 ))}
               </div>
             </div>
-            <Reveal>
-              <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white relative">
-                <img
-                  src={page.image || '/images/hero_cleanroom.png'}
-                  alt={page.title}
-                  className="w-full h-full object-cover"
-                  style={page.slug === 'drug-product' ? { filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' } : undefined}
-                />
-                {page.slug === 'drug-product' && (
-                  <>
-                    <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
-                  </>
-                )}
-              </div>
+            <Reveal className="w-full">
+              {heroEquipment && heroEquipment.length > 0 ? (
+                <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />
+              ) : (
+                <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white relative">
+                  <img
+                    src={page.image || '/images/hero_cleanroom.png'}
+                    alt={page.title}
+                    className="w-full h-full object-cover"
+                    style={page.slug === 'drug-product' ? { filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' } : undefined}
+                  />
+                  {page.slug === 'drug-product' && (
+                    <>
+                      <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
+                    </>
+                  )}
+                </div>
+              )}
             </Reveal>
           </div>
         </div>
@@ -180,20 +188,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                     
                     {/* Left Image Box */}
                     <div className="lg:col-span-5">
-                      <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-900 border border-neutral-200/90 shadow-inner group">
-                        <img
-                          src="/images/Screenshot%202026-09-11%20135511.png"
-                          alt="Aseptic Fill-Finish & Drug Product Operations"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          style={{
-                            filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)',
-                          }}
-                        />
-                        {/* Cold Bluish Scientific Color Grade Wash */}
-                        <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                      </div>
+                      <EquipmentCarousel items={DRUG_PRODUCT_EQUIPMENT} sectionTitle="Drug Product & Formulation Equipment" />
                     </div>
 
                     {/* Right Content Box */}

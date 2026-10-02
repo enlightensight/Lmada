@@ -341,25 +341,61 @@ export const ANALYTICAL_EQUIPMENT: EquipmentItem[] = [
   },
 ];
 
-export function getSectionEquipment(sectionTitle: string): EquipmentItem[] | null {
-  const lower = sectionTitle.toLowerCase();
-  if (lower.includes('cell line') || lower.includes('cld')) {
+export function getSectionEquipment(sectionTitle: string, pageSlug?: string): EquipmentItem[] | null {
+  const combined = `${sectionTitle} ${pageSlug || ''}`.toLowerCase();
+  if (
+    combined.includes('cell line') ||
+    combined.includes('cld') ||
+    combined.includes('cell-line') ||
+    combined.includes('mammalian expression') ||
+    combined.includes('clone')
+  ) {
     return CELL_DEV_EQUIPMENT;
   }
-  if (lower.includes('upstream cgmp') || lower.includes('cgmp manufacturing') || lower.includes('upstream production')) {
+  if (
+    combined.includes('upstream cgmp') ||
+    combined.includes('cgmp manufacturing') ||
+    combined.includes('upstream production')
+  ) {
     return UPSTREAM_GMP_EQUIPMENT;
   }
-  if (lower.includes('upstream process') || lower.includes('upstream')) {
+  if (combined.includes('upstream process') || combined.includes('upstream')) {
     return UPSTREAM_EQUIPMENT;
   }
-  if (lower.includes('downstream') || lower.includes('dsp') || lower.includes('purification')) {
+  if (combined.includes('downstream') || combined.includes('dsp') || combined.includes('purification')) {
     return DOWNSTREAM_EQUIPMENT;
   }
-  if (lower.includes('drug product') || lower.includes('formulation') || lower.includes('lyophilization')) {
+  if (combined.includes('drug product') || combined.includes('formulation') || combined.includes('lyophilization')) {
     return DRUG_PRODUCT_EQUIPMENT;
   }
-  if (lower.includes('analytical') || lower.includes('characterization')) {
+  if (
+    combined.includes('analytical') ||
+    combined.includes('characterization') ||
+    combined.includes('platforms') ||
+    combined.includes('testing')
+  ) {
     return ANALYTICAL_EQUIPMENT;
   }
   return null;
 }
+
+export function getPageEquipment(pageSlug: string): EquipmentItem[] | null {
+  const lower = pageSlug.toLowerCase();
+  if (lower.includes('cell-line') || lower.includes('cell line') || lower.includes('cld')) {
+    return CELL_DEV_EQUIPMENT;
+  }
+  if (lower.includes('process')) {
+    return [...UPSTREAM_EQUIPMENT, ...DOWNSTREAM_EQUIPMENT];
+  }
+  if (lower.includes('analytical') || lower.includes('characterization')) {
+    return ANALYTICAL_EQUIPMENT;
+  }
+  if (lower.includes('drug-product')) {
+    return DRUG_PRODUCT_EQUIPMENT;
+  }
+  if (lower.includes('drug-substance')) {
+    return UPSTREAM_GMP_EQUIPMENT;
+  }
+  return null;
+}
+
