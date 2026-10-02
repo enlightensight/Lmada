@@ -12,6 +12,7 @@ import { faqs } from '@/data/faqs';
 import FAQSection from '@/components/FAQSection';
 import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import CommonCTA from '@/components/CommonCTA';
+import CardImageCarousel from '@/components/CardImageCarousel';
 import { getStepIcon } from '@/lib/stepIcon';
 
 export default function Home() {
@@ -23,7 +24,12 @@ export default function Home() {
       step: '01 — Development',
       desc: 'Cell line engineering, upstream and downstream process development, and analytical development built for scale-up and regulatory readiness.',
       icon: FlaskConical,
-      image: '/images/benefit_accelerate.png',
+      image: '/images/celldev/CLD_Lab.png',
+      images: [
+        '/images/celldev/CLD_Lab.png',
+        '/images/celldev/AMBR15.png',
+        '/images/celldev/Biosafety_Cabinet.png',
+      ],
       items: [
         { name: 'Cell Line Development', icon: Dna, href: '/services/cell-line' },
         { name: 'Process Development', icon: Activity, href: '/services/process' },
@@ -36,7 +42,13 @@ export default function Home() {
       step: '02 — Manufacturing',
       desc: 'cGMP drug substance and drug product manufacturing in purpose-built cleanroom suites, designed for clinical supply.',
       icon: Factory,
-      image: '/images/CDMOblue.png',
+      image: '/images/Drugproductdev/FDL Lab.png',
+      images: [
+        '/images/Drugproductdev/FDL Lab.png',
+        '/images/Drugproductdev/Lyophilizer in FDL Lab.png',
+        '/images/Drugproductdev/Cooling Chamber in FDL Lab.png',
+        '/images/Drugproductdev/Density Analyzer & Viscometer in FDL Lab.jpg',
+      ],
       items: [
         { name: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance' },
         { name: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
@@ -48,7 +60,16 @@ export default function Home() {
       step: '03 — Characterization',
       desc: 'Orthogonal physicochemical characterization, bioassays, and QC microbiology under a unified quality system.',
       icon: Microscope,
-      image: '/images/default_analytics.png',
+      image: '/images/Analytical/Biacore 8K+.png',
+      images: [
+        '/images/Analytical/Biacore 8K+.png',
+        '/images/Analytical/Orbitrap.png',
+        '/images/Analytical/Q ToF.png',
+        '/images/Analytical/Maurice.png',
+        '/images/Analytical/nanoDSF.png',
+        '/images/Analytical/Octet.png',
+        '/images/Analytical/UPLC.png',
+      ],
       items: [
         { name: 'Analytical Testing', icon: Search, href: '/characterization/analytical-testing' },
         { name: 'Physicochemical Characterization', icon: Scale, href: '/characterization/physicochemical' },
@@ -138,15 +159,12 @@ export default function Home() {
                   className={`h-full ${isThirdOnMd ? 'md:col-span-2 lg:col-span-1 md:max-w-[calc(50%-0.75rem)] md:mx-auto lg:max-w-none lg:mx-0 w-full' : 'w-full'}`}
                 >
                   <div className="group h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col justify-between">
-                    {/* Photo header */}
-                    <Link href={card.href} className="relative aspect-[16/10] overflow-hidden block">
-                      <img
-                        src={card.image}
-                        alt={card.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
-                    </Link>
+                    {/* Photo header Carousel */}
+                    <CardImageCarousel
+                      images={card.images}
+                      alt={card.title}
+                      href={card.href}
+                    />
                     {/* Body */}
                     <div className="p-5 sm:p-6 lg:p-6 xl:p-7 flex flex-col flex-1 justify-between">
                       <div className="mb-4 flex flex-col">
