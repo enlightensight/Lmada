@@ -51,6 +51,8 @@ import FacilityDrugProductSection from '@/components/FacilityDrugProductSection'
 import FacilityAnalyticalSection from '@/components/FacilityAnalyticalSection';
 import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import CommonCTA from '@/components/CommonCTA';
+import EquipmentCarousel from '@/components/EquipmentCarousel';
+import { getSectionEquipment } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -289,13 +291,19 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             !section.image.includes('teamwork')
         );
 
+        const equipmentItems = (page.slug === 'facility' || page.slug === 'India')
+          ? getSectionEquipment(section.title)
+          : null;
+
         return (
           <div key={idx}>
             <section className={`px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}>
               <div className="w-full max-w-[1700px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
                   <Reveal className={imageRight ? 'lg:order-2' : ''}>
-                    {page.slug === 'careers' ? (
+                    {equipmentItems && equipmentItems.length > 0 ? (
+                      <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />
+                    ) : page.slug === 'careers' ? (
                       <a
                         href="https://careers.lambda-cro.com/go/CDMO/752444/"
                         target="_blank"

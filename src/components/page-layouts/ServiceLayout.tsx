@@ -30,6 +30,8 @@ import DownstreamProcessAnimation from '@/components/DownstreamProcessAnimation'
 import UpstreamProcessAnimation from '@/components/UpstreamProcessAnimation';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
+import EquipmentCarousel from '@/components/EquipmentCarousel';
+import { getSectionEquipment } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -267,15 +269,23 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
                         {/* Image Box */}
                         <div className={`lg:col-span-5 ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
-                          <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-100 border border-neutral-200/90 shadow-inner group">
-                            {section.image && (
-                              <img
-                                src={section.image}
-                                alt={section.title}
-                                className={`w-full h-full ${section.image.endsWith('.png') && (section.image.includes('equipment') || section.image.includes('CDMO') || section.image.includes('cGMP')) ? 'object-contain p-4' : 'object-cover'} transition-transform duration-700 group-hover:scale-105`}
-                              />
-                            )}
-                          </div>
+                          {(() => {
+                            const equipmentItems = getSectionEquipment(section.title);
+                            if (equipmentItems && equipmentItems.length > 0) {
+                              return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;
+                            }
+                            return (
+                              <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-100 border border-neutral-200/90 shadow-inner group">
+                                {section.image && (
+                                  <img
+                                    src={section.image}
+                                    alt={section.title}
+                                    className={`w-full h-full ${section.image.endsWith('.png') && (section.image.includes('equipment') || section.image.includes('CDMO') || section.image.includes('cGMP')) ? 'object-contain p-4' : 'object-cover'} transition-transform duration-700 group-hover:scale-105`}
+                                  />
+                                )}
+                              </div>
+                            );
+                          })()}
                         </div>
 
                         {/* Content Box */}

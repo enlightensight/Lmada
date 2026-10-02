@@ -8,9 +8,12 @@ import {
   Target, 
   Workflow, 
   Check, 
-  Atom
+  Atom,
+  Sparkles
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
+import EquipmentCarousel from '@/components/EquipmentCarousel';
+import { ANALYTICAL_EQUIPMENT } from '@/data/equipmentData';
 
 interface FacilityAnalyticalSectionProps {
   section?: {
@@ -76,7 +79,7 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
       <div className="relative z-10 w-full max-w-[1700px] mx-auto">
         {/* Section Header */}
         <Reveal>
-          <div className="max-w-3xl mb-12">
+          <div className="max-w-4xl mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-brand-navy leading-[1.15] mb-4">
               Analytical Development &amp; Characterization
             </h2>
@@ -85,6 +88,41 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
             </p>
           </div>
         </Reveal>
+
+        {/* Analytical Equipment Showcase Carousel */}
+        <div className="mb-16">
+          <Reveal delay={0.06}>
+            <div className="bg-slate-50/80 rounded-[16px] border border-neutral-200/90 p-6 sm:p-8 shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-neutral-200/70">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-lg bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue">
+                    <Microscope className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900">
+                      Analytical Instrumentation Suite
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-600">
+                      Explore our 17+ state-of-the-art mass spectrometry, biophysical, and chromatography platforms
+                    </p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue w-fit">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>{ANALYTICAL_EQUIPMENT.length} Verified Instruments</span>
+                </span>
+              </div>
+
+              <div className="max-w-4xl mx-auto">
+                <EquipmentCarousel 
+                  items={ANALYTICAL_EQUIPMENT} 
+                  sectionTitle="Analytical Instrumentation Suite"
+                  aspectRatio="aspect-[16/10]"
+                />
+              </div>
+            </div>
+          </Reveal>
+        </div>
 
         {/* 3 Core Characterization Pillars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-16">
@@ -99,7 +137,7 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-neutral-900 tracking-tight leading-snug">
-                    Physicochemical & Molecular Characterization
+                    Physicochemical &amp; Molecular Characterization
                   </h3>
                 </div>
               </div>
@@ -132,7 +170,7 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-neutral-900 tracking-tight leading-snug">
-                    Structural & Biophysical Characterization
+                    Structural &amp; Biophysical Characterization
                   </h3>
                 </div>
               </div>
@@ -165,7 +203,7 @@ export default function FacilityAnalyticalSection({ section }: FacilityAnalytica
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-neutral-900 tracking-tight leading-snug">
-                    Functional & Cell-Based Analysis
+                    Functional &amp; Cell-Based Analysis
                   </h3>
                 </div>
               </div>
