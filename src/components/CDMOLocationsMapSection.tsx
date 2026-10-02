@@ -56,8 +56,8 @@ const CDMO_LOCATIONS: LocationInfo[] = [
     title: 'Ahmedabad, India',
     badge: 'Primary Biomanufacturing Campus',
     tagline: 'India HQ & cGMP Biomanufacturing',
-    categoryBadge: 'India HQ • cGMP Campus',
-    description: 'Integrated development with Process and Analytical Sciences capabilities, combined with cGMP manufacturing for both drug substance and drug product.',
+    categoryBadge: 'India cGMP Campus',
+    description: 'Integrated development with Process and Analytical Sciences, combined with cGMP manufacturing for both drug substance and drug product.',
     coreCapabilities: [
       {
         icon: FlaskConical,
@@ -90,8 +90,8 @@ const CDMO_LOCATIONS: LocationInfo[] = [
     title: 'London, UK',
     badge: 'European Innovation Centre',
     tagline: 'European Innovation & Analytics Hub',
-    categoryBadge: 'European Innovation Hub',
-    description: 'Biologics development capabilities that will support process and analytical development for drug substance followed by process characterisation studies.',
+    categoryBadge: 'UK Innovation Hub',
+    description: 'Biologics development capabilities supporting drug substance process & analytical development and process characterisation studies.',
     coreCapabilities: [
       {
         icon: Dna,
@@ -263,63 +263,10 @@ export default function CDMOLocationsMapSection({
                             </div>
                           </div>
 
-                          {/* Description */}
-                          <p className="text-[14px] sm:text-[15px] font-normal leading-relaxed mb-4 text-slate-600">
+                          {/* Description matching the map popup */}
+                          <p className="text-[14px] sm:text-[15px] font-normal leading-relaxed text-slate-600 mb-6">
                             {activeLoc.description}
                           </p>
-
-                          {/* Research CDMO Capabilities List */}
-                          <div className="space-y-2 mb-5">
-                            {activeLoc.coreCapabilities.map((cap, cIdx) => {
-                              const CapIcon = cap.icon;
-                              return (
-                                <div
-                                  key={cIdx}
-                                  className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 bg-slate-50/80 p-2 rounded-lg border border-slate-100"
-                                >
-                                  <CapIcon
-                                    className={`w-4 h-4 mt-0.5 shrink-0 ${
-                                      isIndia ? 'text-brand-orange' : 'text-brand-blue'
-                                    }`}
-                                  />
-                                  <span className="leading-snug">{cap.text}</span>
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                          {/* Quick Highlight CDMO Pills with Scientific Icons */}
-                          <div className="flex flex-wrap gap-2 mb-5">
-                            {activeLoc.stats.map((stat, sIdx) => {
-                              const StatIcon = stat.icon;
-                              return (
-                                <span
-                                  key={sIdx}
-                                  className={`text-xs font-medium px-3 py-1.5 rounded-lg border flex items-center gap-1.5 ${
-                                    isIndia
-                                      ? 'bg-orange-50/90 text-neutral-800 border-orange-200'
-                                      : 'bg-sky-50/90 text-neutral-800 border-sky-200'
-                                  }`}
-                                >
-                                  <StatIcon
-                                    className={`w-3.5 h-3.5 ${
-                                      isIndia ? 'text-brand-orange' : 'text-brand-blue'
-                                    }`}
-                                  />
-                                  <span>
-                                    <strong
-                                      className={
-                                        isIndia ? 'text-brand-orange' : 'text-brand-blue'
-                                      }
-                                    >
-                                      {stat.label}:
-                                    </strong>{' '}
-                                    {stat.value}
-                                  </span>
-                                </span>
-                              );
-                            })}
-                          </div>
                         </motion.div>
                       </AnimatePresence>
                     </div>
