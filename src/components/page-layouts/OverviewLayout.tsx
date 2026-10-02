@@ -47,8 +47,6 @@ import DnaScrollBackground from '@/components/DnaScrollBackground';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import FacilityHeroCarousel from '@/components/FacilityHeroCarousel';
 import LondonHeroCarousel from '@/components/LondonHeroCarousel';
-import FacilityDrugProductSection from '@/components/FacilityDrugProductSection';
-import FacilityAnalyticalSection from '@/components/FacilityAnalyticalSection';
 import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
@@ -205,26 +203,10 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
   const flip = slugIndex % 2 === 1;
   const heroImage = page.image || '/images/hero_cleanroom.png';
 
-  const facilitySpecialTitles = [
-    'Drug Product Development & Manufacturing',
-    'Analytical Development & Characterization',
-  ];
-
   const narrativeSections = content.sections.filter(
     (sec) =>
-      !(page.slug === 'about' && (sec.title === 'The Lambda Advantage' || sec.title === "Developing Tomorrow's Biologics")) &&
-      !((page.slug === 'facility' || page.slug === 'India') && facilitySpecialTitles.includes(sec.title))
+      !(page.slug === 'about' && (sec.title === 'The Lambda Advantage' || sec.title === "Developing Tomorrow's Biologics"))
   );
-
-  const drugProductSection = (page.slug === 'facility' || page.slug === 'India')
-    ? (content.sections.find((s) => s.title === 'Drug Product Development & Manufacturing') ||
-       page.sections.find((s) => s.title === 'Drug Product Development & Manufacturing'))
-    : null;
-
-  const analyticalSection = (page.slug === 'facility' || page.slug === 'India')
-    ? (content.sections.find((s) => s.title === 'Analytical Development & Characterization') ||
-       page.sections.find((s) => s.title === 'Analytical Development & Characterization'))
-    : null;
 
   const narrative = (
     <>
@@ -346,9 +328,11 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       <div className="h-1 w-12 bg-brand-blue rounded-full mb-5" />
                       <div className="space-y-3.5 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
                         {section.text.split('\n\n').map((para, pIdx) => (
-                          <p key={pIdx}>{para}</p>
+                          <p key={pIdx}>{renderFormattedText(para)}</p>
                         ))}
                       </div>
+
+                      {/* Standard Single Bullets List */}
                       {section.bullets && section.bullets.length > 0 && (
                         <div className="mt-6 pt-5 border-t border-neutral-200/70">
                           <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3.5">
@@ -361,7 +345,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                   <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
                                 </div>
                                 <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
-                                  {bullet}
+                                  {renderFormattedText(bullet)}
                                 </span>
                               </li>
                             ))}
@@ -369,6 +353,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         </div>
                       )}
 
+                      {/* Early Stage & Late Stage Split Bullets */}
                       {section.earlyStageBullets && section.lateStageBullets && (
                         <div className="mt-6 pt-5 border-t border-neutral-200/70 space-y-6">
                           <div>
@@ -382,7 +367,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                     <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
                                   </div>
                                   <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
-                                    {bullet}
+                                    {renderFormattedText(bullet)}
                                   </span>
                                 </li>
                               ))}
@@ -400,7 +385,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                     <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
                                   </div>
                                   <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
-                                    {bullet}
+                                    {renderFormattedText(bullet)}
                                   </span>
                                 </li>
                               ))}
@@ -409,9 +394,139 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         </div>
                       )}
 
+                      {/* Formulation, Lyophilization & Clinical GMP Bullets */}
+                      {(section.formulationBullets || section.lyophilizationBullets || section.gmpManufacturingBullets) && (
+                        <div className="mt-6 pt-5 border-t border-neutral-200/70 space-y-6">
+                          {section.formulationBullets && section.formulationBullets.length > 0 && (
+                            <div>
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                                Formulation Development
+                              </span>
+                              <ul className="space-y-2.5">
+                                {section.formulationBullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="flex items-start gap-2.5">
+                                    <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                    </div>
+                                    <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                      {renderFormattedText(bullet)}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {section.lyophilizationBullets && section.lyophilizationBullets.length > 0 && (
+                            <div>
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                                Lyophilization Development
+                              </span>
+                              <ul className="space-y-2.5">
+                                {section.lyophilizationBullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="flex items-start gap-2.5">
+                                    <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                    </div>
+                                    <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                      {renderFormattedText(bullet)}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {section.gmpManufacturingBullets && section.gmpManufacturingBullets.length > 0 && (
+                            <div>
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                                Clinical GMP Manufacturing
+                              </span>
+                              <ul className="space-y-2.5">
+                                {section.gmpManufacturingBullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="flex items-start gap-2.5">
+                                    <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                    </div>
+                                    <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                      {renderFormattedText(bullet)}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Analytical Physicochemical, Structural & Functional Bullets */}
+                      {(section.physicochemicalBullets || section.structuralBullets || section.functionalBullets) && (
+                        <div className="mt-6 pt-5 border-t border-neutral-200/70 space-y-6">
+                          {section.physicochemicalBullets && section.physicochemicalBullets.length > 0 && (
+                            <div>
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                                Physicochemical & Molecular Characterization
+                              </span>
+                              <ul className="space-y-2.5">
+                                {section.physicochemicalBullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="flex items-start gap-2.5">
+                                    <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                    </div>
+                                    <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                      {renderFormattedText(bullet)}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {section.structuralBullets && section.structuralBullets.length > 0 && (
+                            <div>
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                                Structural & Biophysical Characterization
+                              </span>
+                              <ul className="space-y-2.5">
+                                {section.structuralBullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="flex items-start gap-2.5">
+                                    <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                    </div>
+                                    <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                      {renderFormattedText(bullet)}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {section.functionalBullets && section.functionalBullets.length > 0 && (
+                            <div>
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                                Functional & Cell-Based Analysis
+                              </span>
+                              <ul className="space-y-2.5">
+                                {section.functionalBullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="flex items-start gap-2.5">
+                                    <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                    </div>
+                                    <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                      {renderFormattedText(bullet)}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                       {(section as any).footerText && (
                         <p className="mt-5 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
-                          {(section as any).footerText}
+                          {renderFormattedText((section as any).footerText)}
                         </p>
                       )}
                       {page.slug === 'careers' && (
@@ -430,6 +545,60 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     </div>
                   </Reveal>
                 </div>
+
+                {/* Analytical QTPP & Applications Showcase */}
+                {(section.qtppText || (section.applications && section.applications.length > 0)) && (
+                  <div className="mt-14 md:mt-20 pt-10 border-t border-neutral-200/80">
+                    {section.qtppText && (
+                      <Reveal>
+                        <div className="bg-neutral-50/80 rounded-[12px] border border-neutral-200/80 p-6 md:p-8 mb-10 max-w-5xl mx-auto">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue shrink-0">
+                              <Target className="w-4 h-4" />
+                            </div>
+                            <h4 className="text-base md:text-lg font-bold text-neutral-900">
+                              Quality Target Product Profile (QTPP) Alignment
+                            </h4>
+                          </div>
+                          <p className="text-[15px] md:text-[16px] text-neutral-600 leading-relaxed font-normal">
+                            {renderFormattedText(section.qtppText)}
+                          </p>
+                        </div>
+                      </Reveal>
+                    )}
+
+                    {section.applications && section.applications.length > 0 && (
+                      <Reveal delay={0.1}>
+                        <div>
+                          <div className="text-center max-w-2xl mx-auto mb-8">
+                            <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-2">
+                              Applications & Modalities
+                            </span>
+                            <h4 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
+                              Selected Analytical Applications
+                            </h4>
+                            <div className="h-1 w-12 bg-brand-blue rounded-full mx-auto mt-3" />
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {section.applications.map((app, aIdx) => (
+                              <div
+                                key={aIdx}
+                                className="bg-white rounded-[12px] border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all flex flex-col"
+                              >
+                                <h5 className="text-base font-bold text-neutral-900 mb-2">
+                                  {app.title}
+                                </h5>
+                                <p className="text-[14px] text-neutral-600 leading-relaxed flex-1">
+                                  {app.description}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </Reveal>
+                    )}
+                  </div>
+                )}
               </div>
             </section>
             {(page.slug === 'facility' || page.slug === 'India') && idx === 0 && <FacilityGallery />}
@@ -753,14 +922,6 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
       {/* Narrative Editorial Sections */}
       {narrative}
-
-      {/* Facility Custom Sections for Drug Product & Analytical Characterization */}
-      {(page.slug === 'facility' || page.slug === 'India') && (
-        <>
-          <FacilityDrugProductSection section={drugProductSection} />
-          <FacilityAnalyticalSection section={analyticalSection} />
-        </>
-      )}
 
       {/* FAQ */}
       {page.faqs && page.faqs.length > 0 && (

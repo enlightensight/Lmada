@@ -235,7 +235,7 @@ export const cdmoData: CDMOPage[] = [
         text: 'The downstream platform supports purification development from high-throughput screening through pilot-scale development and GMP processing.',
         dark: false,
         image: '/images/equipment2.png',
-        imageSide: 'left',
+        imageSide: 'right',
         bulletsTitle: 'Development capabilities',
         bullets: [
           'Affinity chromatography',
@@ -255,7 +255,7 @@ export const cdmoData: CDMOPage[] = [
         text: 'The GMP downstream platform supports processing of biologic harvest through purification to drug substance.',
         dark: false,
         image: '/images/Akta Process (Cytiva).jpeg',
-        imageSide: 'right',
+        imageSide: 'left',
         bulletsTitle: 'Key infrastructure and capabilities include:',
         bullets: [
           'Dedicated pre-viral and post-viral processing suites',
@@ -269,9 +269,10 @@ export const cdmoData: CDMOPage[] = [
       },
       {
         title: 'Drug Product Development & Manufacturing',
-        text: 'The drug product platform supports formulation, process development, lyophilization, and clinical GMP manufacturing.\n\nDevelopment capabilities. The drug product filling line is isolator based with robotic operations minimizing operator handling and ensuring a high degree of aseptic compliance. The line has a nominal ability to process 10,000 units in a batch in vial, PFS or cartridge formats. The facility also has a visual inspection suite with manual inspection setup, and a suite for secondary packaging primarily for bulk packaging of filled units.',
+        text: 'The drug product platform supports **formulation, process development, lyophilization, and clinical GMP manufacturing**.\n\n**Development capabilities.** The drug product filling line is isolator based with robotic operations minimizing operator handling and ensuring a high degree of aseptic compliance. The line has a nominal ability to process 10,000 units in a batch in vial, PFS or cartridge formats. The facility also has a visual inspection suite with manual inspection setup, and a suite for secondary packaging primarily for bulk packaging of filled units.',
         dark: false,
         image: '/images/equipment3.png',
+        imageSide: 'right',
         formulationBullets: [
           'Stability Incubation Chambers',
           'Photostability Chambers',
@@ -282,18 +283,20 @@ export const cdmoData: CDMOPage[] = [
           'Residual Moisture Testing'
         ],
         lyophilizationBullets: [
-          'Development Lyophilizer with 0.5 m² shelf area, Pirani sensors, and controlled nucleation to support optimization of drying cycles for lyophilized products.'
+          'Development Lyophilizer **with 0.5 m² shelf area, Pirani sensors, and controlled nucleation** to support optimization of drying cycles for lyophilized products.'
         ],
         gmpManufacturingBullets: [
-          'Formulation Suite for Formulation and Filtration',
+          'Formulation Suite for Formulation and Sterile Filtration',
           'Isolator-Based Filling Line for RTU Vials, PFS, and Cartridges (~10,000 units per batch)',
           'Visual Inspection Suite and secondary packaging suite'
         ]
       },
       {
         title: 'Analytical Development & Characterization',
-        text: 'Our analytical sciences platform supports biologics development and manufacturing through physicochemical, structural, and functional characterization.',
+        text: 'Our analytical sciences platform supports biologics development and manufacturing through **physicochemical, structural, and functional characterization**.',
         dark: false,
+        image: '/images/Analytical/Orbitrap.png',
+        imageSide: 'left',
         physicochemicalBullets: [
           'Chromatographic analysis using UHPLC and UPLC',
           'Capillary electrophoresis and image capillary electrophoresis',
