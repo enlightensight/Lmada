@@ -191,30 +191,19 @@ export default function CDMOLocationsMapSection({
                     />
 
                     <div>
-                      {/* Top Header Location & Category Badge */}
-                      <div className="flex items-center justify-between gap-3 mb-2.5">
-                        <div className="flex items-center gap-1.5 text-xs font-semibold">
-                          <MapPin
-                            className={`w-4 h-4 ${
-                              isIndia ? 'text-brand-orange' : 'text-brand-blue'
-                            }`}
-                          />
-                          <span
-                            className={`font-bold ${
-                              isIndia ? 'text-brand-orange' : 'text-brand-blue'
-                            }`}
-                          >
-                            {loc.country}
-                          </span>
-                        </div>
+                      {/* Top Header Location */}
+                      <div className="flex items-center gap-1.5 text-xs font-semibold mb-2.5">
+                        <MapPin
+                          className={`w-4 h-4 ${
+                            isIndia ? 'text-brand-orange' : 'text-brand-blue'
+                          }`}
+                        />
                         <span
-                          className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-md border ${
-                            isIndia
-                              ? 'bg-brand-orange/10 text-brand-orange border-brand-orange/20'
-                              : 'bg-brand-blue/10 text-brand-blue border-brand-blue/20'
+                          className={`font-bold ${
+                            isIndia ? 'text-brand-orange' : 'text-brand-blue'
                           }`}
                         >
-                          {loc.categoryBadge}
+                          {loc.country}
                         </span>
                       </div>
 
@@ -241,15 +230,11 @@ export default function CDMOLocationsMapSection({
                     </div>
 
                     {/* Footer Action Link */}
-                    <div className="pt-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
-                      <span className="text-xs text-slate-500 font-medium">
-                        {isIndia ? 'Primary Biomanufacturing' : 'Innovation & Analytics'}
-                      </span>
-
+                    <div className="pt-3 border-t border-neutral-100 flex items-center justify-end mt-auto">
                       <Link
                         href={loc.href}
                         onClick={(e) => e.stopPropagation()}
-                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-xs ${
+                        className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-xs ${
                           isIndia
                             ? 'bg-brand-orange hover:bg-brand-orange-hover text-black'
                             : 'bg-brand-blue hover:bg-brand-blue-hover text-white'
