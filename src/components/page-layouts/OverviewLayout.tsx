@@ -751,7 +751,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
       )}
 
       {/* CAPABILITIES / THE LAMBDA ADVANTAGE SECTION */}
-      {page.capabilities && page.capabilities.length > 0 && page.slug !== 'quality' && page.slug !== 'facility' && page.slug !== 'India' && page.slug !== 'london' && page.slug !== 'UK' && (
+      {page.capabilities && page.capabilities.length > 0 && page.slug !== 'quality' && page.slug !== 'facility' && page.slug !== 'India' && page.slug !== 'london' && page.slug !== 'UK' && page.slug !== 'leadership' && (
         <section className={`relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${page.slug === 'about' ? 'bg-molecules' : 'bg-neutral-50/60'} border-b border-neutral-100 overflow-hidden`}>
           {page.slug === 'about' && <DnaScrollBackground />}
           <div className="relative z-10 w-full max-w-[1700px] mx-auto">

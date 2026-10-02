@@ -106,38 +106,24 @@ export const cdmoData: CDMOPage[] = [
   {
     slug: 'leadership',
     category: 'overview',
-    title: 'Leadership Team — Lambda Biologics CDMO Experts',
+    title: 'Our Leadership Team — Lambda Biologics CDMO Experts',
     metaTitle: 'Leadership & Scientific Team | Lambda CDMO',
     metaDesc: 'Meet the multidisciplinary leadership team at Lambda CDMO, with extensive international experience in biologics process development, manufacturing, quality, and technology transfer.',
-    badge: 'Leadership',
+    badge: 'Our Leadership Team',
     heading: 'Experienced Scientists. Collaborative Partners.',
-    description: 'Lambda CDMO is led by a multidisciplinary team with extensive international experience in biologics process development, analytical sciences, manufacturing, quality, and technology transfer. Our scientists, engineers, and quality professionals work collaboratively with sponsors throughout the product lifecycle, ensuring scientific excellence, transparent communication, and timely program execution.',
+    description: 'Lambda CDMO is led by a multidisciplinary team spanning biologics development, analytical sciences, manufacturing, quality, and technology transfer. The leadership team brings together functional expertise across the biologics development and manufacturing lifecycle, with a shared focus on scientific rigor, operational execution, and sponsor needs.\n\nOur leaders work closely with sponsors and internal teams to guide programs from development and characterization through manufacturing and clinical supply, aligning scientific decisions with program objectives, quality requirements, and timelines.',
     image: '/images/development.jpg',
-    capabilities: [
-      'Scientific excellence',
-      'Product quality',
-      'Flexible collaboration',
-      'Transparent project management',
-      'Data integrity and IP protection',
-      'Continuous improvement'
-    ],
+    capabilities: [],
     stats: [
       { value: '25+', label: 'Years Experience', sublabel: 'Average leadership experience across global biopharma organizations.' },
-      { value: '6', label: 'Core Commitments', sublabel: 'Guiding every sponsor engagement from gene construct to clinical batch.' },
+      { value: '4', label: 'Executive Leaders', sublabel: 'Guiding every sponsor engagement from gene construct to clinical batch.' },
       { value: '100%', label: 'Dedicated Teams', sublabel: 'Dedicated cross-functional scientific leads assigned to each project.' },
     ],
-    sections: [
-      {
-        title: 'Dedicated Client Partnership',
-        text: 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery.',
-        image: '/images/teamwork.png',
-        dark: false,
-      }
-    ],
+    sections: [],
     specs: [
       { label: 'Leadership Focus', value: 'Scientific & Operational Excellence' },
       { label: 'Working Model', value: 'Dedicated Client Teams' },
-      { label: 'Core Values', value: '6 Commitments to Program Success' },
+      { label: 'Core Values', value: 'Commitment to Program Success' },
       { label: 'Collaboration', value: 'Transparent Project Management' },
     ],
     faqs: [
