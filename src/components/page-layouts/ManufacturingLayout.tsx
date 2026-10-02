@@ -20,7 +20,7 @@ import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
-import { getPageEquipment, DRUG_PRODUCT_EQUIPMENT } from '@/data/equipmentData';
+import { getPageEquipment, getSectionEquipment, DRUG_PRODUCT_EQUIPMENT } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -307,23 +307,23 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                   <Reveal key={idx} delay={idx * 0.05}>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                       <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                        <div className={`rounded-[10px] overflow-hidden border border-neutral-200 ${section.image?.endsWith('.png') || section.image?.endsWith('.svg') || section.image?.includes('cGMP') || section.image?.includes('equipment') || section.image?.includes('Fermenters') || section.image?.includes('Spray_Dryer') || section.image?.includes('Akta') || section.image?.includes('ChromXact') || section.image?.includes('Batch_Centrifuge') ? 'bg-white p-3 sm:p-5' : 'bg-neutral-100'} aspect-[4/3] shadow-sm flex items-center justify-center`}>
-                          <img
-                            src={section.image}
-                            alt={section.title}
-                            className={`w-full h-full ${section.image?.endsWith('.png') || section.image?.endsWith('.svg') || section.image?.includes('cGMP') || section.image?.includes('equipment') || section.image?.includes('Fermenters') || section.image?.includes('Spray_Dryer') || section.image?.includes('Akta') || section.image?.includes('ChromXact') || section.image?.includes('Batch_Centrifuge') ? 'object-contain' : 'object-cover'}`}
-                          />
-                        </div>
+                        {(() => {
+                          const equipmentItems = getSectionEquipment(section.title, page.slug);
+                          if (equipmentItems && equipmentItems.length > 0) {
+                            return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;
+                          }
+                          return (
+                            <div className={`rounded-[10px] overflow-hidden border border-neutral-200 ${section.image?.endsWith('.png') || section.image?.endsWith('.svg') || section.image?.includes('cGMP') || section.image?.includes('equipment') || section.image?.includes('Fermenters') || section.image?.includes('Spray_Dryer') || section.image?.includes('Akta') || section.image?.includes('ChromXact') || section.image?.includes('Batch_Centrifuge') ? 'bg-white p-3 sm:p-5' : 'bg-neutral-100'} aspect-[4/3] shadow-sm flex items-center justify-center`}>
+                              <img
+                                src={section.image}
+                                alt={section.title}
+                                className={`w-full h-full ${section.image?.endsWith('.png') || section.image?.endsWith('.svg') || section.image?.includes('cGMP') || section.image?.includes('equipment') || section.image?.includes('Fermenters') || section.image?.includes('Spray_Dryer') || section.image?.includes('Akta') || section.image?.includes('ChromXact') || section.image?.includes('Batch_Centrifuge') ? 'object-contain' : 'object-cover'}`}
+                              />
+                            </div>
+                          );
+                        })()}
                       </div>
                       <div className={`${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className={`w-10 h-10 rounded-[10px] flex items-center justify-center ${accentBox}`}>
-                            <SectionIcon className={`w-5 h-5 ${accentIcon}`} />
-                          </div>
-                          <span className={`text-[11px] font-bold uppercase tracking-wider ${accentText}`}>
-                            {String(idx + 1).padStart(2, '0')} — {idx % 2 === 0 ? 'Operations' : 'Quality'}
-                          </span>
-                        </div>
                         <h3 className="text-2xl md:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4">
                           {section.title}
                         </h3>
