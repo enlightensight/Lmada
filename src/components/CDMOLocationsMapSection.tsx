@@ -73,8 +73,8 @@ const CDMO_LOCATIONS: LocationInfo[] = [
       }
     ],
     href: '/facility&location/India',
-    xPercent: 66.8,
-    yPercent: 45.8,
+    xPercent: 71.4,
+    yPercent: 49.7,
     stats: [
       { label: 'Campus Size', value: '27,000 sqft', icon: Building2 },
       { label: 'Bioreactors', value: '2x 200L SUBs', icon: FlaskConical },
@@ -107,8 +107,8 @@ const CDMO_LOCATIONS: LocationInfo[] = [
       }
     ],
     href: '/facility&location/UK',
-    xPercent: 46.8,
-    yPercent: 17.3,
+    xPercent: 33.9,
+    yPercent: 20.1,
     stats: [
       { label: 'Platform', value: 'Process Dev', icon: Dna },
       { label: 'Mass Spec', value: 'LC-MS High-Res', icon: Microscope },
@@ -301,15 +301,15 @@ export default function CDMOLocationsMapSection({
                 {/* Map Graphic Viewport Container */}
                 <div className="relative w-full overflow-hidden pt-2 pb-6 sm:pb-8">
                   
-                  {/* Accurate World Map SVG */}
-                  <div className="relative w-full aspect-[1010/440] max-w-[1300px] mx-auto select-none scale-[1.08] sm:scale-[1.12] origin-center">
+                  {/* Accurate World Map Graphic */}
+                  <div className="relative w-full aspect-[1051/619] max-w-[1300px] mx-auto select-none scale-[1.02] sm:scale-[1.05] origin-center">
                     <img
-                      src="/images/world-map.svg?v=6"
+                      src="/images/map/Orange UK and India World Map.png"
                       alt="World Map - Lambda CDMO Locations"
-                      className="w-full h-full object-contain filter contrast-110 brightness-95 opacity-85"
+                      className="w-full h-full object-contain filter contrast-105"
                     />
 
-                    {/* Geodesic Connection Arc SVG between London (46.8%, 17.3%) and Ahmedabad (66.8%, 45.8%) */}
+                    {/* Geodesic Connection Arc SVG between London (33.9%, 20.1%) and Ahmedabad (71.4%, 49.7%) */}
                     <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
                       <defs>
                         <linearGradient id="arcGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -321,7 +321,7 @@ export default function CDMOLocationsMapSection({
                       
                       {/* Base Flight Path Curve (curved upwards over Europe/Middle East) */}
                       <path
-                        d="M 46.8% 17.3% Q 56% 8%, 66.8% 45.8%"
+                        d="M 33.9% 20.1% Q 52% 10%, 71.4% 49.7%"
                         fill="none"
                         stroke="url(#arcGradientLight)"
                         strokeWidth="2.4"
@@ -332,7 +332,7 @@ export default function CDMOLocationsMapSection({
                       {/* Moving Light Particle Pulse along the flight path */}
                       <circle r="4" fill="#00aeef" filter="drop-shadow(0 0 5px #00aeef)">
                         <animateMotion
-                          path="M 46.8% 17.3% Q 56% 8%, 66.8% 45.8%"
+                          path="M 33.9% 20.1% Q 52% 10%, 71.4% 49.7%"
                           dur="4s"
                           repeatCount="indefinite"
                         />
@@ -341,7 +341,7 @@ export default function CDMOLocationsMapSection({
 
                     {/* LOCATION 1: London, UK Pin & Beacon */}
                     <div
-                      style={{ left: '46.8%', top: '17.3%' }}
+                      style={{ left: '33.9%', top: '20.1%' }}
                       className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
                     >
                       {/* Pulsing Radar Ring */}
@@ -376,7 +376,7 @@ export default function CDMOLocationsMapSection({
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 6, scale: 0.94 }}
                             transition={{ duration: 0.22, ease: 'easeOut' }}
-                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[80%] top-10 w-80 bg-white/95 backdrop-blur-xl border border-brand-blue/40 rounded-xl p-3.5 shadow-2xl text-left"
+                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[20%] top-10 w-80 bg-white/95 backdrop-blur-xl border border-brand-blue/40 rounded-xl p-3.5 shadow-2xl text-left"
                           >
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
@@ -404,7 +404,7 @@ export default function CDMOLocationsMapSection({
 
                     {/* LOCATION 2: Ahmedabad, India Pin & Beacon */}
                     <div
-                      style={{ left: '66.8%', top: '45.8%' }}
+                      style={{ left: '71.4%', top: '49.7%' }}
                       className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
                     >
                       {/* Pulsing Radar Ring */}
@@ -439,7 +439,7 @@ export default function CDMOLocationsMapSection({
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 6, scale: 0.94 }}
                             transition={{ duration: 0.22, ease: 'easeOut' }}
-                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[35%] top-10 w-80 bg-white/95 backdrop-blur-xl border border-brand-orange/40 rounded-xl p-3.5 shadow-2xl text-left"
+                            className="hidden xl:block absolute z-50 left-1/2 -translate-x-[75%] top-10 w-80 bg-white/95 backdrop-blur-xl border border-brand-orange/40 rounded-xl p-3.5 shadow-2xl text-left"
                           >
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="text-sm font-bold text-neutral-900 flex items-center gap-1.5">
