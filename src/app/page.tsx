@@ -124,9 +124,10 @@ export default function Home() {
               Integrated Services Across the Biologics Development Lifecycle - From cell line development to GMP manufacturing, our multidisciplinary teams work together to support every stage of biologics development.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-xl md:max-w-none mx-auto">
             {serviceCards.map((card, idx) => {
               const CardIcon = card.icon;
+              const isThirdOnMd = idx === 2;
               return (
                 <motion.div
                   key={card.title}
@@ -134,9 +135,9 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.55, delay: idx * 0.12, ease: 'easeOut' }}
-                  className="h-full"
+                  className={`h-full ${isThirdOnMd ? 'md:col-span-2 lg:col-span-1 md:max-w-[calc(50%-0.75rem)] md:mx-auto lg:max-w-none lg:mx-0 w-full' : 'w-full'}`}
                 >
-                  <div className="group h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col">
+                  <div className="group h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col justify-between">
                     {/* Photo header */}
                     <Link href={card.href} className="relative aspect-[16/10] overflow-hidden block">
                       <img
@@ -147,46 +148,48 @@ export default function Home() {
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-transparent" />
                     </Link>
                     {/* Body */}
-                    <div className="p-6 md:p-7 flex flex-col flex-1">
-                      <div className="min-h-[130px] md:min-h-[140px] mb-5">
-                        <Link href={card.href} className="flex items-start gap-3 mb-2.5 group/header">
+                    <div className="p-5 sm:p-6 lg:p-6 xl:p-7 flex flex-col flex-1 justify-between">
+                      <div className="mb-4 flex flex-col">
+                        <Link href={card.href} className="flex items-start gap-2.5 sm:gap-3 mb-2.5 group/header">
                           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] bg-brand-blue/10 border border-brand-blue/25 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-300 shadow-xs mt-0.5">
-                            <CardIcon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                            <CardIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:scale-110" />
                           </div>
-                          <h3 className="text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug">
+                          <h3 className="text-lg sm:text-xl font-semibold text-black group-hover:text-brand-blue transition-colors leading-snug break-words">
                             {card.title}
                           </h3>
                         </Link>
-                        <p className="text-[15px] text-neutral-600 leading-relaxed">
+                        <p className="text-[14px] sm:text-[15px] text-neutral-600 leading-relaxed min-h-[60px] sm:min-h-[72px] lg:min-h-[84px]">
                           {card.desc}
                         </p>
                       </div>
-                    <ul className="border-t border-neutral-100 pt-1">
-                      {card.items.map((item) => {
-                        const ItemIcon = item.icon;
-                        return (
-                          <li key={item.name} className="border-b border-neutral-100 last:border-0">
-                            <Link
-                              href={item.href}
-                              className="group/link flex items-center justify-between gap-3 py-2.5 text-sm font-medium text-neutral-700 hover:text-brand-blue transition-colors"
-                            >
-                              <div className="flex items-center gap-3 min-w-0">
-                                <div className="w-8 h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/link:bg-brand-blue group-hover/link:border-brand-blue transition-colors duration-200">
-                                  <ItemIcon className="w-4 h-4 text-brand-blue group-hover/link:text-white transition-colors duration-200" />
+                      <ul className="border-t border-neutral-100 pt-1 mt-auto">
+                        {card.items.map((item) => {
+                          const ItemIcon = item.icon;
+                          return (
+                            <li key={item.name} className="border-b border-neutral-100 last:border-0">
+                              <Link
+                                href={item.href}
+                                className="group/link flex items-center justify-between gap-2.5 sm:gap-3 py-2.5 text-xs sm:text-sm font-medium text-neutral-700 hover:text-brand-blue transition-colors"
+                              >
+                                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[8px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/link:bg-brand-blue group-hover/link:border-brand-blue transition-colors duration-200">
+                                    <ItemIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-blue group-hover/link:text-white transition-colors duration-200" />
+                                  </div>
+                                  <span className="leading-snug text-neutral-800 group-hover/link:text-brand-blue transition-colors">
+                                    {item.name}
+                                  </span>
                                 </div>
-                                <span className="truncate group-hover/link:text-brand-blue transition-colors">{item.name}</span>
-                              </div>
-                              <ArrowRight className="w-4 h-4 flex-shrink-0 text-brand-blue group-hover/link:text-brand-blue-hover group-hover/link:translate-x-1 transition-all" />
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                                <ArrowRight className="w-4 h-4 flex-shrink-0 text-brand-blue group-hover/link:text-brand-blue-hover group-hover/link:translate-x-1 transition-all ml-1" />
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
