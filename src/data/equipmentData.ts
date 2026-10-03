@@ -521,7 +521,10 @@ export function getSectionEquipment(sectionTitle: string, pageSlug?: string): Eq
   if (
     combined.includes('upstream cgmp') ||
     combined.includes('cgmp manufacturing') ||
-    combined.includes('upstream production')
+    combined.includes('upstream production') ||
+    combined.includes('drug-substance') ||
+    combined.includes('drug substance') ||
+    combined.includes('gmp transfer')
   ) {
     return UPSTREAM_GMP_EQUIPMENT;
   }

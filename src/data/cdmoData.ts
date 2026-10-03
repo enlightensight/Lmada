@@ -842,6 +842,7 @@ export const cdmoData: CDMOPage[] = [
       {
         title: 'Seamless Development to GMP Transfer',
         text: 'Manufacturing capabilities are designed to support scalable production, controlled process execution, and regulatory requirements throughout clinical development.',
+        image: '/images/upstream_GMP/GMP Production bioreactor.png',
         dark: false,
       }
     ],
