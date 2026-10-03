@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { cdmoData } from '@/data/cdmoData';
+import { getStoredPage, getAllStoredPages } from '@/lib/pagesStorage';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 import OverviewLayout from '@/components/page-layouts/OverviewLayout';
@@ -8,39 +9,42 @@ import ManufacturingLayout from '@/components/page-layouts/ManufacturingLayout';
 import CharacterizationLayout from '@/components/page-layouts/CharacterizationLayout';
 import ModalityLayout from '@/components/page-layouts/ModalityLayout';
 import InsightsLayout from '@/components/page-layouts/InsightsLayout';
+import ModularPageLayout from '@/components/page-layouts/ModularPageLayout';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
 
 interface PageProps {
   params: Promise<{
     category: string;
     slug: string;
   }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateStaticParams() {
-  return cdmoData.map((page) => ({
-    category: page.category,
-    slug: page.slug,
-  }));
+  const allPages = getAllStoredPages();
+  return allPages
+    .filter((page) => page.category !== 'home' && page.slug !== 'home')
+    .map((page) => ({
+      category: page.category,
+      slug: page.slug,
+    }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { category: rawCategory, slug: rawSlug } = await params;
   const category = decodeURIComponent(rawCategory);
   const slug = decodeURIComponent(rawSlug);
-  const page = cdmoData.find((p) => 
-    (p.category.toLowerCase() === category.toLowerCase() || p.category === category) && 
-    (p.slug.toLowerCase() === slug.toLowerCase() || p.slug === slug)
-  );
+  const page = getStoredPage(category, slug);
 
   if (!page) {
     return {
-      title: "Page Not Found - Lambda CDMO",
+      title: 'Page Not Found - Lambda CDMO',
     };
   }
 
   return {
     title: `${page.title} | Lambda CDMO`,
-    description: page.metaDesc,
+    description: page.metaDesc || page.description,
   };
 }
 
@@ -52,14 +56,14 @@ function getDynamicContent(
   existingStats: CDMOPage['stats'],
   existingSpecs: CDMOPage['specs']
 ) {
-  const sections = [...existingSections];
+  const sections = [...(existingSections || [])];
 
   const defaultImages = [
-    "/images/benefit_accelerate.png",
-    "/images/default_analytics.png",
-    "/images/hero_cleanroom.png",
-    "/images/default_scientist.png",
-    "/images/benefit_succeed.png"
+    '/images/benefit_accelerate.png',
+    '/images/default_analytics.png',
+    '/images/hero_cleanroom.png',
+    '/images/default_scientist.png',
+    '/images/benefit_succeed.png'
   ];
 
   function getUniqueBentoImage(cat: string, pageSlug: string, idx: number) {
@@ -270,88 +274,86 @@ function getDynamicContent(
     return defaultImages[idx % defaultImages.length];
   }
 
-
   const enrichedSections = sections.map((sec, idx) => ({
     ...sec,
     image: sec.image || getUniqueBentoImage(category, slug, idx),
   }));
 
   let processSteps = [];
-  if (category === "characterization") {
+  if (category === 'characterization') {
     processSteps = [
-      { step: "01", title: "Target Spec Assessment", text: "We review the molecular structure, sequence files, and stability parameters under NDA." },
-      { step: "02", title: "Method Feasibility & Dev", text: "Developing custom elution gradients and assay protocols on chromatographic systems." },
-      { step: "03", title: "Analytical Validation", text: "Verifying accuracy, precision, and robustness according to ICH Q2(R1) regulatory guidelines." },
-      { step: "04", title: "Dossier & QA Release", text: "Compiling technical release reports, chromatograms, and certificate of analysis (CoA) files." }
+      { step: '01', title: 'Target Spec Assessment', text: 'We review the molecular structure, sequence files, and stability parameters under NDA.' },
+      { step: '02', title: 'Method Feasibility & Dev', text: 'Developing custom elution gradients and assay protocols on chromatographic systems.' },
+      { step: '03', title: 'Analytical Validation', text: 'Verifying accuracy, precision, and robustness according to ICH Q2(R1) regulatory guidelines.' },
+      { step: '04', title: 'Dossier & QA Release', text: 'Compiling technical release reports, chromatograms, and certificate of analysis (CoA) files.' }
     ];
-  } else if (category === "manufacturing") {
+  } else if (category === 'manufacturing') {
     processSteps = [
-      { step: "01", title: "Process Transfer", text: "Transferring scale-up guidelines, media requirements, and parameters to the GMP floor." },
-      { step: "02", title: "Seed Train Expansion", text: "Growing the expression cell line in steps from laboratory vials to pilot inoculations." },
-      { step: "03", title: "cGMP Cleanroom Production", text: "Running single-use bioreactor systems under digital tracking of DO, pH, and cell growth." },
-      { step: "04", title: "Aseptic Isolation Filling", text: "Automated filling and stopper operations in Grade A environments with full quality documentation." }
+      { step: '01', title: 'Process Transfer', text: 'Transferring scale-up guidelines, media requirements, and parameters to the GMP floor.' },
+      { step: '02', title: 'Seed Train Expansion', text: 'Growing the expression cell line in steps from laboratory vials to pilot inoculations.' },
+      { step: '03', title: 'cGMP Cleanroom Production', text: 'Running single-use bioreactor systems under digital tracking of DO, pH, and cell growth.' },
+      { step: '04', title: 'Aseptic Isolation Filling', text: 'Automated filling and stopper operations in Grade A environments with full quality documentation.' }
     ];
-  } else if (category === "services") {
+  } else if (category === 'services') {
     processSteps = [
-      { step: "01", title: "Codon Optimization", text: "Optimizing gene target sequence designs for high-efficiency cellular translation." },
-      { step: "02", title: "Cell Line Engineering", text: "Transfecting host cell lines (CHO-K1) and screening stable clonal systems." },
-      { step: "03", title: "Bioprocess Development", text: "Optimizing feed nutrients, perfusion configurations, and upstream parameters." },
-      { step: "04", title: "Downstream Purification", text: "Developing chromatography runs to remove host cell proteins and DNA contaminants." }
+      { step: '01', title: 'Codon Optimization', text: 'Optimizing gene target sequence designs for high-efficiency cellular translation.' },
+      { step: '02', title: 'Cell Line Engineering', text: 'Transfecting host cell lines (CHO-K1) and screening stable clonal systems.' },
+      { step: '03', title: 'Bioprocess Development', text: 'Optimizing feed nutrients, perfusion configurations, and upstream parameters.' },
+      { step: '04', title: 'Downstream Purification', text: 'Developing chromatography runs to remove host cell proteins and DNA contaminants.' }
     ];
   } else {
     processSteps = [
-      { step: "01", title: "Requirement Definition", text: "Aligning on project scale, modality specifications, and clinical timelines." },
-      { step: "02", title: "Technical Scaffolding", text: "Formulating standard operating procedures and custom batch release criteria." },
-      { step: "03", title: "Execution & Analysis", text: "Running development, manufacturing campaigns, or characterization protocols." },
-      { step: "04", title: "QA Release Package", text: "Providing full technical summaries and data logs to support regulatory filings." }
+      { step: '01', title: 'Requirement Definition', text: 'Aligning on project scale, modality specifications, and clinical timelines.' },
+      { step: '02', title: 'Technical Scaffolding', text: 'Formulating standard operating procedures and custom batch release criteria.' },
+      { step: '03', title: 'Execution & Analysis', text: 'Running development, manufacturing campaigns, or characterization protocols.' },
+      { step: '04', title: 'QA Release Package', text: 'Providing full technical summaries and data logs to support regulatory filings.' }
     ];
   }
 
-  // Advantages ("The Lambda Edge") section removed — not required
   const advantages: { badge: string; title?: string; value?: string; desc: string }[] = [];
 
   let stats = [...(existingStats || [])];
   if (stats.length === 0) {
-    if (category === "characterization") {
+    if (category === 'characterization') {
       stats = [
-        { value: "99.9%", label: "Analytical Purity", sublabel: "Resolved using high-resolution chromatography variants." },
-        { value: "ICH Q2", label: "Validation Standard", sublabel: "Methods verified to satisfy international guidelines." },
-        { value: "21 CFR", label: "Part 11 Compliant", sublabel: "Secure electronic data records and log tracking." },
+        { value: '99.9%', label: 'Analytical Purity', sublabel: 'Resolved using high-resolution chromatography variants.' },
+        { value: 'ICH Q2', label: 'Validation Standard', sublabel: 'Methods verified to satisfy international guidelines.' },
+        { value: '21 CFR', label: 'Part 11 Compliant', sublabel: 'Secure electronic data records and log tracking.' },
       ];
-    } else if (category === "manufacturing") {
+    } else if (category === 'manufacturing') {
       stats = [
-        { value: "50-500L", label: "SUB Capacities", sublabel: "Single-use bioreactor trains in Grade C cleanrooms." },
-        { value: "Grade A", label: "Aseptic Filling", sublabel: "Sterile filling under barrier isolator containment." },
-        { value: "100%", label: "GMP Compliance", sublabel: "Quality releases mapped for US FDA and EU EMA batches." },
+        { value: '50-500L', label: 'SUB Capacities', sublabel: 'Single-use bioreactor trains in Grade C cleanrooms.' },
+        { value: 'Grade A', label: 'Aseptic Filling', sublabel: 'Sterile filling under barrier isolator containment.' },
+        { value: '100%', label: 'GMP Compliance', sublabel: 'Quality releases mapped for US FDA and EU EMA batches.' },
       ];
     } else {
       stats = [
-        { value: "16 wk", label: "Gene-to-RCB Timeline", sublabel: "Rapid cell line engineering pathway." },
-        { value: "3-8 g/L", label: "Expression Titers", sublabel: "High yield mAb clonal systems in CHO lines." },
-        { value: "Global", label: "Service Footprint", sublabel: "Supporting IND filings across US, EU, and Asia." },
+        { value: '16 wk', label: 'Gene-to-RCB Timeline', sublabel: 'Rapid cell line engineering pathway.' },
+        { value: '3-8 g/L', label: 'Expression Titers', sublabel: 'High yield mAb clonal systems in CHO lines.' },
+        { value: 'Global', label: 'Service Footprint', sublabel: 'Supporting IND filings across US, EU, and Asia.' },
       ];
     }
   }
 
   let specs = [...(existingSpecs || [])];
   if (specs.length === 0) {
-    if (category === "characterization") {
+    if (category === 'characterization') {
       specs = [
-        { label: "Chromatography Platforms", value: "UPLC, SEC, IEX, HILIC" },
-        { label: "Mass Spectrometry", value: "QTOF LC-MS/MS Peptide Mapping" },
-        { label: "Quality System Standards", value: "cGMP, FDA/EMA Inspection Ready" },
+        { label: 'Chromatography Platforms', value: 'UPLC, SEC, IEX, HILIC' },
+        { label: 'Mass Spectrometry', value: 'QTOF LC-MS/MS Peptide Mapping' },
+        { label: 'Quality System Standards', value: 'cGMP, FDA/EMA Inspection Ready' },
       ];
-    } else if (category === "manufacturing") {
+    } else if (category === 'manufacturing') {
       specs = [
-        { label: "Cleanroom Zones", value: "Grade A/B filling, Grade C processing" },
-        { label: "Bioreactor Types", value: "Single-use (SUB) continuous trains" },
-        { label: "Batch Scale Capabilities", value: "Kilogram-scale GMP drug substance" },
+        { label: 'Cleanroom Zones', value: 'Grade A/B filling, Grade C processing' },
+        { label: 'Bioreactor Types', value: 'Single-use (SUB) continuous trains' },
+        { label: 'Batch Scale Capabilities', value: 'Kilogram-scale GMP drug substance' },
       ];
     } else {
       specs = [
-        { label: "Host Expression Systems", value: "CHO-K1 and CHO-S clonal lineages" },
-        { label: "Standard Upstream Feed", value: "Serum-free, chemically defined media" },
-        { label: "Downstream Columns", value: "Protein A/G Affinity, IEX, Hydrophobic" },
+        { label: 'Host Expression Systems', value: 'CHO-K1 and CHO-S clonal lineages' },
+        { label: 'Standard Upstream Feed', value: 'Serum-free, chemically defined media' },
+        { label: 'Downstream Columns', value: 'Protein A/G Affinity, IEX, Hydrophobic' },
       ];
     }
   }
@@ -365,15 +367,15 @@ function getDynamicContent(
   };
 }
 
-export default async function CDMODynamicPage({ params }: PageProps) {
+export default async function CDMODynamicPage({ params, searchParams }: PageProps) {
   const { category: rawCategory, slug: rawSlug } = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const isPreview = resolvedSearchParams?.preview === 'true';
+
   const category = decodeURIComponent(rawCategory);
   const slug = decodeURIComponent(rawSlug);
 
-  const page = cdmoData.find((p) => 
-    (p.category.toLowerCase() === category.toLowerCase() || p.category === category) && 
-    (p.slug.toLowerCase() === slug.toLowerCase() || p.slug === slug)
-  );
+  const page = getStoredPage(category, slug, { previewDraft: isPreview });
 
   if (!page) {
     notFound();
@@ -388,8 +390,25 @@ export default async function CDMODynamicPage({ params }: PageProps) {
     page.specs || []
   ) as PageContent;
 
+  const standardCategories = ['facility&location', 'overview', 'services', 'manufacturing', 'characterization', 'modalities', 'insights'];
+  const isCustomCategory = !standardCategories.includes(page.category.toLowerCase());
+  const isFullyCustom = Boolean(page.isCustom) || isCustomCategory;
+
+  if (isFullyCustom) {
+    return (
+      <div className="bg-white text-neutral-900 min-h-screen font-sans pb-0 select-none">
+        {isPreview && (
+          <div className="bg-amber-500 text-black text-xs font-bold px-4 py-2 text-center sticky top-0 z-50 flex items-center justify-center gap-2 shadow-sm">
+            <span>⚠️ You are viewing an UNPUBLISHED DRAFT PREVIEW of &quot;{page.title}&quot;. Regular visitors see only published content.</span>
+          </div>
+        )}
+        <ModularPageLayout page={page} content={content} />
+      </div>
+    );
+  }
+
   const LayoutComponent = (() => {
-    switch (page.category) {
+    switch (page.category.toLowerCase()) {
       case 'facility&location':
       case 'overview':
         return OverviewLayout;
@@ -404,13 +423,36 @@ export default async function CDMODynamicPage({ params }: PageProps) {
       case 'insights':
         return InsightsLayout;
       default:
-        return OverviewLayout;
+        return ModularPageLayout;
     }
   })();
 
+  // Separate any modular sections that are not standard feature-split
+  const modularCustomSections = (page.sections || []).filter(
+    (s) => s.style && s.style !== 'feature-split'
+  );
+
   return (
     <div className="bg-white text-neutral-900 min-h-screen font-sans pb-0 select-none">
+      {isPreview && (
+        <div className="bg-amber-500 text-black text-xs font-bold px-4 py-2 text-center sticky top-0 z-50 flex items-center justify-center gap-2 shadow-sm">
+          <span>⚠️ You are viewing an UNPUBLISHED DRAFT PREVIEW of &quot;{page.title}&quot;. Regular visitors see only published content.</span>
+        </div>
+      )}
       <LayoutComponent page={page} content={content} />
+      {modularCustomSections.length > 0 && (
+        <div className="divide-y divide-neutral-100 border-t border-neutral-200">
+          {modularCustomSections.map((sec, idx) => (
+            <DynamicSectionRenderer
+              key={idx}
+              section={sec}
+              index={idx}
+              pageSlug={page.slug}
+              category={page.category}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

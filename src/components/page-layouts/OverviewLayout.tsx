@@ -294,7 +294,20 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               <div className="w-full max-w-[1700px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
                   <Reveal className={imageRight ? 'lg:order-2' : ''}>
-                    {equipmentItems && equipmentItems.length > 0 ? (
+                    {section.images && section.images.length > 1 ? (
+                      <AboutHeroCarousel images={section.images} />
+                    ) : (section.video || (section.mediaType === 'video' && section.image) || (section.image && /\.(mp4|webm|ogg|mov)$/i.test(section.image))) ? (
+                      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950 border border-neutral-200 rounded-[10px] shadow-sm">
+                        <video
+                          src={section.video || section.image}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : equipmentItems && equipmentItems.length > 0 ? (
                       <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />
                     ) : page.slug === 'careers' ? (
                       <a
@@ -677,11 +690,24 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             </div>
             <Reveal delay={0.1}>
               {page.slug === 'about' ? (
-                <AboutHeroCarousel />
+                <AboutHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
               ) : (page.slug === 'facility' || page.slug === 'India') ? (
-                <FacilityHeroCarousel />
+                <FacilityHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
               ) : (page.slug === 'UK' || page.slug === 'london') ? (
-                <LondonHeroCarousel />
+                <LondonHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
+              ) : (page.images && page.images.length > 1) ? (
+                <AboutHeroCarousel images={page.images} />
+              ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
+                  <video
+                    src={page.heroVideo || page.image}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
@@ -701,70 +727,146 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
       </section>
 
       {/* GLOBAL REACH & CDMO LOCATIONS MATRIX (ABOUT, FACILITY, LONDON) */}
-      {page.slug === 'about' && (
-        <>
-          <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
-            <div className="w-full max-w-[1700px] mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                <Reveal>
-                  <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm">
-                    <img
-                      src="/images/upstream/Carbon_di_Oxide_shaker_incubator.png"
-                      alt="Developing Tomorrow's Biologics"
-                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                      style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
-                    />
-                    {/* Cold Bluish Scientific Color Grade Wash */}
-                    <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
-                  </div>
-                </Reveal>
-                <Reveal delay={0.1}>
-                  <div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-5">
-                      Developing Tomorrow&apos;s Biologics
-                    </h2>
-                    <div className="h-1 w-12 bg-brand-blue rounded-full mb-6" />
-                    
-                    <div className="space-y-4 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed font-normal">
-                      <p>
-                        With capabilities across <strong className="text-neutral-900 font-semibold">India and Europe</strong>, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.
-                      </p>
-                      <p>
-                        Backed by a combined legacy of more than 75 years from{' '}
-                        <a
-                          href="https://www.lambda-cro.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
-                        >
-                          <span>Lambda Therapeutic Research Ltd.</span>
-                          <ExternalLink className="w-3.5 h-3.5 inline-block" />
-                        </a>{' '}
-                        and{' '}
-                        <a
-                          href="https://www.novumprs.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
-                        >
-                          <span>Novum Pharmaceutical Research Services</span>
-                          <ExternalLink className="w-3.5 h-3.5 inline-block" />
-                        </a>
-                        , Lambda CDMO now brings together process and analytical development, robust quality systems, and manufacturing capabilities within an integrated framework.
-                      </p>
-                      <p>
-                        From <strong className="text-neutral-900 font-semibold">monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides</strong>, our multidisciplinary teams work closely with sponsors to support different aspects of process development, analytical characterization, technology transfer, and clinical supplies.
-                      </p>
+      {page.slug === 'about' && (() => {
+        const sec1 = page.sections?.[0];
+        const sec1Title = sec1?.title || "Developing Tomorrow's Biologics";
+        const sec1Media = sec1?.image || sec1?.video || "/images/upstream/Carbon_di_Oxide_shaker_incubator.png";
+        const sec1Images = (sec1?.images && sec1.images.length > 0) ? sec1.images : [sec1Media];
+        const sec1IsVideo = sec1?.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(sec1Media);
+
+        // Parse paragraphs
+        const rawText = sec1?.text;
+        const paragraphs = rawText ? rawText.split('\n\n').filter(Boolean) : null;
+
+        return (
+          <>
+            <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
+              <div className="w-full max-w-[1700px] mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                  <Reveal>
+                    {sec1Images.length > 1 ? (
+                      <AboutHeroCarousel images={sec1Images} />
+                    ) : sec1IsVideo ? (
+                      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950 border border-neutral-200 rounded-[10px] shadow-sm">
+                        <video
+                          src={sec1Media}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm">
+                        <img
+                          src={sec1Media}
+                          alt={sec1Title}
+                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                          style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}
+                        />
+                        {/* Cold Bluish Scientific Color Grade Wash */}
+                        <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
+                      </div>
+                    )}
+                  </Reveal>
+                  <Reveal delay={0.1}>
+                    <div>
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-5">
+                        {sec1Title}
+                      </h2>
+                      <div className="h-1 w-12 bg-brand-blue rounded-full mb-6" />
+                      
+                      <div className="space-y-4 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed font-normal">
+                        {paragraphs && paragraphs.length > 0 ? (
+                          paragraphs.map((p, pIdx) => {
+                            if (p.includes('Lambda Therapeutic Research') && p.includes('Novum Pharmaceutical')) {
+                              return (
+                                <p key={pIdx}>
+                                  Backed by a combined legacy of more than 75 years from{' '}
+                                  <a
+                                    href="https://www.lambda-cro.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
+                                  >
+                                    <span>Lambda Therapeutic Research Ltd.</span>
+                                    <ExternalLink className="w-3.5 h-3.5 inline-block" />
+                                  </a>{' '}
+                                  and{' '}
+                                  <a
+                                    href="https://www.novumprs.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
+                                  >
+                                    <span>Novum Pharmaceutical Research Services</span>
+                                    <ExternalLink className="w-3.5 h-3.5 inline-block" />
+                                  </a>
+                                  , Lambda CDMO now brings together process and analytical development, robust quality systems, and manufacturing capabilities within an integrated framework.
+                                </p>
+                              );
+                            }
+                            if (p.includes('India and Europe')) {
+                              return (
+                                <p key={pIdx}>
+                                  With capabilities across <strong className="text-neutral-900 font-semibold">India and Europe</strong>, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.
+                                </p>
+                              );
+                            }
+                            if (p.includes('monoclonal antibodies')) {
+                              return (
+                                <p key={pIdx}>
+                                  From <strong className="text-neutral-900 font-semibold">monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides</strong>, our multidisciplinary teams work closely with sponsors to support different aspects of process development, analytical characterization, technology transfer, and clinical supplies.
+                                </p>
+                              );
+                            }
+                            return <p key={pIdx}>{p}</p>;
+                          })
+                        ) : (
+                          <>
+                            <p>
+                              With capabilities across <strong className="text-neutral-900 font-semibold">India and Europe</strong>, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.
+                            </p>
+                            <p>
+                              Backed by a combined legacy of more than 75 years from{' '}
+                              <a
+                                href="https://www.lambda-cro.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
+                              >
+                                <span>Lambda Therapeutic Research Ltd.</span>
+                                <ExternalLink className="w-3.5 h-3.5 inline-block" />
+                              </a>{' '}
+                              and{' '}
+                              <a
+                                href="https://www.novumprs.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
+                              >
+                                <span>Novum Pharmaceutical Research Services</span>
+                                <ExternalLink className="w-3.5 h-3.5 inline-block" />
+                              </a>
+                              , Lambda CDMO now brings together process and analytical development, robust quality systems, and manufacturing capabilities within an integrated framework.
+                            </p>
+                            <p>
+                              From <strong className="text-neutral-900 font-semibold">monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides</strong>, our multidisciplinary teams work closely with sponsors to support different aspects of process development, analytical characterization, technology transfer, and clinical supplies.
+                            </p>
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </Reveal>
+                  </Reveal>
+                </div>
               </div>
-            </div>
-          </section>
-          <CDMOLocationsMapSection />
-        </>
-      )}
+            </section>
+            <CDMOLocationsMapSection />
+          </>
+        );
+      })()}
 
       {/* CAPABILITIES / THE LAMBDA ADVANTAGE SECTION */}
       {page.capabilities && page.capabilities.length > 0 && page.slug !== 'quality' && page.slug !== 'facility' && page.slug !== 'India' && page.slug !== 'london' && page.slug !== 'UK' && page.slug !== 'leadership' && (

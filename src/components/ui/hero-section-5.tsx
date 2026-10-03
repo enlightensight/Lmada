@@ -4,14 +4,30 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ChevronRight } from 'lucide-react'
 
-export function HeroSection() {
+interface HeroSectionProps {
+    heading?: string;
+    subtitle?: string;
+    description?: string;
+    videoSrc?: string;
+    primaryCta?: { text: string; link: string };
+    secondaryCta?: { text: string; link: string };
+}
+
+export function HeroSection({
+    heading = 'Biologics Development and Manufacturing',
+    subtitle = 'From Cell Line to Clinical Supply.',
+    description = 'Lambda CDMO provides integrated development, analytical characterization and GMP manufacturing services for biologics, supporting innovators and biosimilar developers from early development through clinical manufacturing.',
+    videoSrc = '/videos/newhero.mp4',
+    primaryCta = { text: 'Get in touch', link: '/contact' },
+    secondaryCta = { text: 'Explore Services', link: '/services/cell-line' }
+}: HeroSectionProps = {}) {
     return (
         <section className="relative w-full px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-4 min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] flex flex-col justify-center">
             <div className="relative w-full max-w-[1700px] mx-auto rounded-[10px] overflow-hidden border border-neutral-200 shadow-sm min-h-[calc(100vh-96px)] lg:min-h-[calc(100vh-120px)] flex items-center bg-brand-navy">
                 {/* Background Video confined within container */}
                 <div className="absolute inset-0 z-0">
                     <video
-                        src="/videos/newhero.mp4"
+                        src={videoSrc || '/videos/newhero.mp4'}
                         autoPlay
                         loop
                         muted
@@ -26,14 +42,16 @@ export function HeroSection() {
                     {/* Left: Text */}
                     <div className="text-left max-w-2xl">
                         <h1 className="text-[34px] sm:text-[46px] lg:text-[58px] font-normal tracking-tight text-white leading-[1.12] drop-shadow-sm">
-                            Biologics Development and Manufacturing
-                            <span className="block text-white/95 text-2xl sm:text-3xl lg:text-4xl font-light mt-5 sm:mt-6">
-                                From Cell Line to Clinical Supply.
-                            </span>
+                            {heading}
+                            {subtitle && (
+                                <span className="block text-white/95 text-2xl sm:text-3xl lg:text-4xl font-light mt-5 sm:mt-6">
+                                    {subtitle}
+                                </span>
+                            )}
                         </h1>
 
                         <p className="text-[15px] sm:text-[17px] text-neutral-100 font-normal mt-8 sm:mt-10 max-w-xl leading-relaxed drop-shadow-sm">
-                            Lambda CDMO provides integrated development, analytical characterization and GMP manufacturing services for biologics, supporting innovators and biosimilar developers from early development through clinical manufacturing.
+                            {description}
                         </p>
 
                         <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-start gap-4">
@@ -41,8 +59,8 @@ export function HeroSection() {
                                 asChild
                                 size="lg"
                                 className="h-12 rounded-[10px] pl-6 pr-4 text-sm font-semibold uppercase tracking-wider bg-brand-yellow hover:bg-brand-yellow-hover text-black shadow-md hover:shadow-lg transition-all cursor-pointer">
-                                <Link href="/contact">
-                                    <span className="text-nowrap">Get in touch</span>
+                                <Link href={primaryCta?.link || '/contact'}>
+                                    <span className="text-nowrap">{primaryCta?.text || 'Get in touch'}</span>
                                     <ChevronRight className="ml-1 w-4 h-4" />
                                 </Link>
                             </Button>
@@ -51,8 +69,8 @@ export function HeroSection() {
                                 size="lg"
                                 variant="outline"
                                 className="h-12 rounded-[10px] px-6 text-sm font-semibold uppercase tracking-wider border-white/80 text-white bg-white/10 backdrop-blur-md hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all cursor-pointer">
-                                <Link href="/services/cell-line">
-                                    <span className="text-nowrap">Explore Services</span>
+                                <Link href={secondaryCta?.link || '/services/cell-line'}>
+                                    <span className="text-nowrap">{secondaryCta?.text || 'Explore Services'}</span>
                                 </Link>
                             </Button>
                         </div>

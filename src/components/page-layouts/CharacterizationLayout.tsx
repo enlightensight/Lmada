@@ -31,6 +31,7 @@ import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
+import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import { getPageEquipment } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
@@ -129,8 +130,21 @@ export default function CharacterizationLayout({ page, content }: Characterizati
               </div>
             </div>
             <Reveal delay={0.1} className="w-full">
-              {heroEquipment && heroEquipment.length > 0 ? (
+              {page.images && page.images.length > 1 ? (
+                <AboutHeroCarousel images={page.images} />
+              ) : heroEquipment && heroEquipment.length > 0 ? (
                 <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />
+              ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
+                  <video
+                    src={page.heroVideo || page.image}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img

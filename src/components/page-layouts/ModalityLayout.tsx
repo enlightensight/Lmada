@@ -16,6 +16,7 @@ import {
   PackageCheck
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
+import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import type { CDMOPage } from '@/data/cdmoData';
@@ -82,8 +83,21 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
               </div>
             </div>
 
-            {page.image && (
-              <Reveal delay={0.1} className="w-full">
+            <Reveal delay={0.1} className="w-full">
+              {page.images && page.images.length > 1 ? (
+                <AboutHeroCarousel images={page.images} />
+              ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
+                  <video
+                    src={page.heroVideo || page.image}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : page.image ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
                     src={page.image}
@@ -95,8 +109,8 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
                   <div className="absolute inset-0 bg-[#0099e6]/14 pointer-events-none mix-blend-color" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-[#0a1b2a]/30 via-transparent to-[#00aeef]/18 pointer-events-none mix-blend-soft-light" />
                 </div>
-              </Reveal>
-            )}
+              ) : null}
+            </Reveal>
           </div>
         </div>
       </section>

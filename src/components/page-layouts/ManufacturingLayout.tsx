@@ -20,6 +20,7 @@ import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
+import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import { getPageEquipment, getSectionEquipment, DRUG_PRODUCT_EQUIPMENT } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
@@ -140,8 +141,21 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
               </div>
             </div>
             <Reveal className="w-full">
-              {heroEquipment && heroEquipment.length > 0 ? (
+              {page.images && page.images.length > 1 ? (
+                <AboutHeroCarousel images={page.images} />
+              ) : heroEquipment && heroEquipment.length > 0 ? (
                 <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />
+              ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
+                <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-neutral-950 relative">
+                  <video
+                    src={page.heroVideo || page.image}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (
                 <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white relative">
                   <img
@@ -305,6 +319,24 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                       <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
                         {(() => {
+                          if (section.images && section.images.length > 1) {
+                            return <AboutHeroCarousel images={section.images} />;
+                          }
+                          const isVideo = section.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(section.video || section.image || '');
+                          if (isVideo && (section.video || section.image)) {
+                            return (
+                              <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
+                                <video
+                                  src={section.video || section.image}
+                                  autoPlay
+                                  loop
+                                  muted
+                                  playsInline
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            );
+                          }
                           const equipmentItems = getSectionEquipment(section.title, page.slug);
                           if (equipmentItems && equipmentItems.length > 0) {
                             return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;

@@ -22,7 +22,11 @@ import { INSIGHT_TABS } from '@/data/insightsData';
 import BlogAdminEditor from './BlogAdminEditor';
 import BlogAdminLogin from './BlogAdminLogin';
 
-export default function BlogAdminDashboard() {
+interface BlogAdminDashboardProps {
+  hideHeader?: boolean;
+}
+
+export default function BlogAdminDashboard({ hideHeader = false }: BlogAdminDashboardProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [items, setItems] = useState<InsightItem[]>([]);
@@ -176,6 +180,240 @@ export default function BlogAdminDashboard() {
     );
   }
 
+  const dashboardContent = (
+    <div className="space-y-6">
+      {/* Notification Toast */}
+      {notification && (
+        <div
+          className={`p-4 rounded-xl text-sm flex items-center justify-between shadow-sm animate-in fade-in slide-in-from-top-2 ${
+            notification.type === 'success'
+              ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
+              : 'bg-red-50 border border-red-200 text-red-800'
+          }`}
+        >
+          <div className="flex items-center gap-2.5">
+            {notification.type === 'success' ? (
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+            ) : (
+              <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
+            )}
+            <span>{notification.message}</span>
+          </div>
+          <button
+            onClick={() => setNotification(null)}
+            className="text-xs font-bold text-slate-400 hover:text-slate-600 cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
+      {/* 3. CONTROLS BAR: CATEGORY TABS & SEARCH */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Category Filter Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+          <button
+            onClick={() => setSelectedCategory('all')}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              selectedCategory === 'all'
+                ? 'bg-brand-navy text-white shadow-xs'
+                : 'bg-slate-100 text-slate-600 hover:text-neutral-900 hover:bg-slate-200/70'
+            }`}
+          >
+            All Articles ({items.length})
+          </button>
+          {INSIGHT_TABS.map((tab) => {
+            const count = items.filter((i) => i.category === tab.slug).length;
+            return (
+              <button
+                key={tab.slug}
+                onClick={() => setSelectedCategory(tab.slug)}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                  selectedCategory === tab.slug
+                    ? 'bg-brand-navy text-white shadow-xs'
+                    : 'bg-slate-100 text-slate-600 hover:text-neutral-900 hover:bg-slate-200/70'
+                }`}
+              >
+                {tab.label} ({count})
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Search Box & Create Button */}
+        <div className="flex items-center gap-2.5">
+          <div className="relative min-w-[220px] sm:min-w-[260px]">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search insights..."
+              className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-xs font-medium text-neutral-900 focus:outline-none focus:border-brand-blue"
+            />
+          </div>
+
+          <button
+            onClick={() => setIsCreatingNew(true)}
+            className="p-2 px-4 rounded-xl bg-brand-orange hover:bg-brand-orange-hover text-white text-xs font-bold flex items-center gap-2 shadow-xs active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Create Article</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 4. ARTICLES DATA TABLE / GRID */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+        {loading ? (
+          <div className="p-16 text-center space-y-3">
+            <div className="w-8 h-8 border-3 border-brand-orange border-t-transparent rounded-full animate-spin mx-auto" />
+            <p className="text-xs font-semibold text-slate-500">Loading insights articles from storage...</p>
+          </div>
+        ) : filteredItems.length === 0 ? (
+          <div className="p-16 text-center space-y-4">
+            <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+              <BookOpen className="w-7 h-7" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-neutral-900">No articles found</h3>
+              <p className="text-xs text-slate-500 mt-1">
+                {searchQuery
+                  ? `No insights matched your query "${searchQuery}".`
+                  : 'No articles exist in this category yet.'}
+              </p>
+            </div>
+            <button
+              onClick={() => setIsCreatingNew(true)}
+              className="px-4 py-2 rounded-xl bg-brand-orange hover:bg-brand-orange-hover text-white text-xs font-semibold shadow-xs"
+            >
+              Create Your First Article
+            </button>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs sm:text-sm">
+              <thead className="bg-slate-50 text-slate-500 uppercase font-bold text-[11px] tracking-wider border-b border-slate-200">
+                <tr>
+                  <th className="py-3.5 px-6">Article</th>
+                  <th className="py-3.5 px-4">Category</th>
+                  <th className="py-3.5 px-4">Author</th>
+                  <th className="py-3.5 px-4">Date / Read Time</th>
+                  <th className="py-3.5 px-6 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {filteredItems.map((item) => (
+                  <tr key={item.id} className="hover:bg-slate-50/80 transition-colors group">
+                    {/* Title & Thumbnail */}
+                    <td className="py-4 px-6">
+                      <div className="flex items-center gap-3.5 max-w-md">
+                        <div className="relative w-16 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+                          <img
+                            src={item.image}
+                            alt={item.title}
+                            className="w-full h-full object-cover"
+                          />
+                          {item.image?.endsWith('.mp4') && (
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-[10px] text-white font-bold">
+                              ▶
+                            </div>
+                          )}
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-brand-orange">
+                            {item.badge}
+                          </span>
+                          <h4 className="text-sm font-bold text-neutral-900 line-clamp-1 group-hover:text-brand-blue transition-colors">
+                            {item.title}
+                          </h4>
+                          <p className="text-xs text-slate-500 line-clamp-1 font-normal">
+                            {item.summary}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* Category Badge */}
+                    <td className="py-4 px-4">
+                      <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
+                        {item.category}
+                      </span>
+                    </td>
+
+                    {/* Author */}
+                    <td className="py-4 px-4">
+                      <div>
+                        <p className="text-xs font-semibold text-neutral-900">{item.author.name}</p>
+                        <p className="text-[11px] text-slate-500">{item.author.role}</p>
+                      </div>
+                    </td>
+
+                    {/* Date & Time */}
+                    <td className="py-4 px-4 whitespace-nowrap">
+                      <div className="space-y-0.5">
+                        <p className="text-xs text-slate-700 font-medium flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                          {item.date}
+                        </p>
+                        <p className="text-[11px] text-brand-blue font-medium flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5" />
+                          {item.readTime}
+                        </p>
+                      </div>
+                    </td>
+
+                    {/* Actions */}
+                    <td className="py-4 px-6 text-right">
+                      <div className="flex items-center justify-end gap-1.5">
+                        {/* Live View */}
+                        <Link
+                          href={`/insights/${item.category}/${item.slug || item.id}`}
+                          target="_blank"
+                          className="p-2 rounded-lg text-slate-400 hover:text-brand-blue hover:bg-blue-50 transition-colors"
+                          title="View on Live Website"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </Link>
+
+                        {/* Edit Button */}
+                        <button
+                          onClick={() => setEditingItem(item)}
+                          className="p-2 rounded-lg text-slate-400 hover:text-brand-orange hover:bg-orange-50 transition-colors cursor-pointer"
+                          title="Edit Article"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </button>
+
+                        {/* Delete Button */}
+                        <button
+                          onClick={() => handleDelete(item.id, item.title)}
+                          disabled={deletingId === item.id}
+                          className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer disabled:opacity-30"
+                          title="Delete Article"
+                        >
+                          {deletingId === item.id ? (
+                            <div className="w-4 h-4 border-2 border-red-500 border-t-transparent rounded-full animate-spin" />
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  if (hideHeader) {
+    return dashboardContent;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-neutral-900 pb-20">
       {/* 1. TOP BRANDED HEADER */}
@@ -197,7 +435,6 @@ export default function BlogAdminDashboard() {
           </Link>
 
           <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
-            {/* User Session Pill */}
             <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs border border-slate-200 font-semibold">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>{currentUser?.username || 'adminlamda'}</span>
@@ -240,222 +477,8 @@ export default function BlogAdminDashboard() {
 
       {/* 2. MAIN CONTAINER */}
       <main className="w-full px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-8 pb-12">
-        <div className="w-full max-w-[1700px] mx-auto space-y-6">
-          {/* Notification Toast */}
-          {notification && (
-            <div
-              className={`p-4 rounded-xl text-sm flex items-center justify-between shadow-sm animate-in fade-in slide-in-from-top-2 ${
-                notification.type === 'success'
-                  ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
-                  : 'bg-red-50 border border-red-200 text-red-800'
-              }`}
-            >
-              <div className="flex items-center gap-2.5">
-                {notification.type === 'success' ? (
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
-                ) : (
-                  <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
-                )}
-                <span>{notification.message}</span>
-              </div>
-              <button
-                onClick={() => setNotification(null)}
-                className="text-xs font-bold text-slate-400 hover:text-slate-600"
-              >
-                ✕
-              </button>
-            </div>
-          )}
-
-          {/* 3. CONTROLS BAR: CATEGORY TABS & SEARCH */}
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
-              <button
-                onClick={() => setSelectedCategory('all')}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                  selectedCategory === 'all'
-                    ? 'bg-brand-navy text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-600 hover:text-neutral-900 hover:bg-slate-200/70'
-                }`}
-              >
-                All Articles ({items.length})
-              </button>
-              {INSIGHT_TABS.map((tab) => {
-                const count = items.filter((i) => i.category === tab.slug).length;
-                return (
-                  <button
-                    key={tab.slug}
-                    onClick={() => setSelectedCategory(tab.slug)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                      selectedCategory === tab.slug
-                        ? 'bg-brand-navy text-white shadow-xs'
-                        : 'bg-slate-100 text-slate-600 hover:text-neutral-900 hover:bg-slate-200/70'
-                    }`}
-                  >
-                    {tab.label} ({count})
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Search Box */}
-            <div className="relative min-w-[260px] sm:min-w-[320px]">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by title, author, tag, badge..."
-                className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-xs font-medium text-neutral-900 focus:outline-none focus:border-brand-blue"
-              />
-            </div>
-          </div>
-
-          {/* 4. ARTICLES DATA TABLE / GRID */}
-          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
-            {loading ? (
-              <div className="p-16 text-center space-y-3">
-                <div className="w-8 h-8 border-3 border-brand-orange border-t-transparent rounded-full animate-spin mx-auto" />
-                <p className="text-xs font-semibold text-slate-500">Loading insights articles from storage...</p>
-              </div>
-            ) : filteredItems.length === 0 ? (
-              <div className="p-16 text-center space-y-4">
-                <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
-                  <BookOpen className="w-7 h-7" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-neutral-900">No articles found</h3>
-                  <p className="text-xs text-slate-500 mt-1">
-                    {searchQuery
-                      ? `No insights matched your query "${searchQuery}".`
-                      : 'No articles exist in this category yet.'}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setIsCreatingNew(true)}
-                  className="px-4 py-2 rounded-xl bg-brand-orange hover:bg-brand-orange-hover text-white text-xs font-semibold shadow-xs"
-                >
-                  Create Your First Article
-                </button>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs sm:text-sm">
-                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold text-[11px] tracking-wider border-b border-slate-200">
-                    <tr>
-                      <th className="py-3.5 px-6">Article</th>
-                      <th className="py-3.5 px-4">Category</th>
-                      <th className="py-3.5 px-4">Author</th>
-                      <th className="py-3.5 px-4">Date / Read Time</th>
-                      <th className="py-3.5 px-6 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {filteredItems.map((item) => (
-                      <tr key={item.id} className="hover:bg-slate-50/80 transition-colors group">
-                        {/* Title & Thumbnail */}
-                        <td className="py-4 px-6">
-                          <div className="flex items-center gap-3.5 max-w-md">
-                            <div className="relative w-16 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
-                              <img
-                                src={item.image}
-                                alt={item.title}
-                                className="w-full h-full object-cover"
-                              />
-                              {item.image?.endsWith('.mp4') && (
-                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-[10px] text-white font-bold">
-                                  ▶
-                                </div>
-                              )}
-                            </div>
-                            <div>
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand-orange">
-                                {item.badge}
-                              </span>
-                              <h4 className="text-sm font-bold text-neutral-900 line-clamp-1 group-hover:text-brand-blue transition-colors">
-                                {item.title}
-                              </h4>
-                              <p className="text-xs text-slate-500 line-clamp-1 font-normal">
-                                {item.summary}
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-
-                        {/* Category Badge */}
-                        <td className="py-4 px-4">
-                          <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
-                            {item.category}
-                          </span>
-                        </td>
-
-                        {/* Author */}
-                        <td className="py-4 px-4">
-                          <div>
-                            <p className="text-xs font-semibold text-neutral-900">{item.author.name}</p>
-                            <p className="text-[11px] text-slate-500">{item.author.role}</p>
-                          </div>
-                        </td>
-
-                        {/* Date & Time */}
-                        <td className="py-4 px-4 whitespace-nowrap">
-                          <div className="space-y-0.5">
-                            <p className="text-xs text-slate-700 font-medium flex items-center gap-1.5">
-                              <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                              {item.date}
-                            </p>
-                            <p className="text-[11px] text-brand-blue font-medium flex items-center gap-1.5">
-                              <Clock className="w-3.5 h-3.5" />
-                              {item.readTime}
-                            </p>
-                          </div>
-                        </td>
-
-                        {/* Actions */}
-                        <td className="py-4 px-6 text-right">
-                          <div className="flex items-center justify-end gap-1.5">
-                            {/* Live View */}
-                            <Link
-                              href={`/insights/${item.category}/${item.slug || item.id}`}
-                              target="_blank"
-                              className="p-2 rounded-lg text-slate-400 hover:text-brand-blue hover:bg-blue-50 transition-colors"
-                              title="View on Live Website"
-                            >
-                              <ExternalLink className="w-4 h-4" />
-                            </Link>
-
-                            {/* Edit Button */}
-                            <button
-                              onClick={() => setEditingItem(item)}
-                              className="p-2 rounded-lg text-slate-400 hover:text-brand-orange hover:bg-orange-50 transition-colors cursor-pointer"
-                              title="Edit Article"
-                            >
-                              <Edit className="w-4 h-4" />
-                            </button>
-
-                            {/* Delete Button */}
-                            <button
-                              onClick={() => handleDelete(item.id, item.title)}
-                              disabled={deletingId === item.id}
-                              className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer disabled:opacity-30"
-                              title="Delete Article"
-                            >
-                              {deletingId === item.id ? (
-                                <div className="w-4 h-4 border-2 border-red-500 border-t-transparent rounded-full animate-spin" />
-                              ) : (
-                                <Trash2 className="w-4 h-4" />
-                              )}
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
+        <div className="w-full max-w-[1700px] mx-auto">
+          {dashboardContent}
         </div>
       </main>
     </div>

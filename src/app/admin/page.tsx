@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
-import BlogAdminDashboard from '@/components/admin/BlogAdminDashboard';
+import AdminDashboard from '@/components/admin/AdminDashboard';
 
 export const metadata: Metadata = {
-  title: 'Insights Content Management | Lambda CDMO Admin',
-  description: 'Manage, create, and publish scientific blog articles, case studies, and insights for Lambda CDMO.',
+  title: 'Content & Website Pages Management | Lambda CDMO Admin',
+  description: 'Manage, create, and publish website pages, hero sections, and scientific insights for Lambda CDMO.',
   robots: 'noindex, nofollow',
 };
 
 export default function AdminPage() {
-  return <BlogAdminDashboard />;
+  return <AdminDashboard />;
 }

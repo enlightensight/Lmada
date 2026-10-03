@@ -42,20 +42,32 @@ const FACILITY_IMAGES = [
   },
 ];
 
-export default function FacilityHeroCarousel() {
+interface FacilityHeroCarouselProps {
+  images?: string[];
+}
+
+export default function FacilityHeroCarousel({ images }: FacilityHeroCarouselProps) {
+  const imageList = (images && images.length > 0)
+    ? images.map((img, idx) => ({
+        src: img,
+        alt: `Lambda CDMO Facility Slide ${idx + 1}`,
+        caption: `Biologics Facility Infrastructure ${idx + 1}`,
+      }))
+    : FACILITY_IMAGES;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState<1 | -1>(1);
 
   const nextSlide = useCallback(() => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % FACILITY_IMAGES.length);
-  }, []);
+    setCurrentIndex((prev) => (prev + 1) % imageList.length);
+  }, [imageList.length]);
 
   const prevSlide = useCallback(() => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + FACILITY_IMAGES.length) % FACILITY_IMAGES.length);
-  }, []);
+    setCurrentIndex((prev) => (prev - 1 + imageList.length) % imageList.length);
+  }, [imageList.length]);
 
   const goToSlide = (index: number) => {
     setDirection(index > currentIndex ? 1 : -1);
@@ -72,7 +84,7 @@ export default function FacilityHeroCarousel() {
     return () => clearInterval(timer);
   }, [isPaused, nextSlide]);
 
-  const currentImage = FACILITY_IMAGES[currentIndex];
+  const currentImage = imageList[currentIndex] || imageList[0];
 
   return (
     <div
@@ -132,12 +144,12 @@ export default function FacilityHeroCarousel() {
 
       {/* Top Floating Slide Counter Badge */}
       <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider">
-        {currentIndex + 1} / {FACILITY_IMAGES.length}
+        {currentIndex + 1} / {imageList.length}
       </div>
 
       {/* Bottom Floating Navigation Dots */}
       <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/45 backdrop-blur-md border border-white/15">
-        {FACILITY_IMAGES.map((_, idx) => (
+        {imageList.map((_, idx) => (
           <button
             key={idx}
             type="button"

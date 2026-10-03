@@ -47,20 +47,31 @@ const UK_FACILITY_IMAGES = [
   },
 ];
 
-export default function LondonHeroCarousel() {
+interface LondonHeroCarouselProps {
+  images?: string[];
+}
+
+export default function LondonHeroCarousel({ images }: LondonHeroCarouselProps) {
+  const imageList = (images && images.length > 0)
+    ? images.map((img, idx) => ({
+        src: img,
+        alt: `London UK Biologics Facility Slide ${idx + 1}`,
+      }))
+    : UK_FACILITY_IMAGES;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState<1 | -1>(1);
 
   const nextSlide = useCallback(() => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % UK_FACILITY_IMAGES.length);
-  }, []);
+    setCurrentIndex((prev) => (prev + 1) % imageList.length);
+  }, [imageList.length]);
 
   const prevSlide = useCallback(() => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + UK_FACILITY_IMAGES.length) % UK_FACILITY_IMAGES.length);
-  }, []);
+    setCurrentIndex((prev) => (prev - 1 + imageList.length) % imageList.length);
+  }, [imageList.length]);
 
   const goToSlide = (index: number) => {
     setDirection(index > currentIndex ? 1 : -1);
@@ -77,7 +88,7 @@ export default function LondonHeroCarousel() {
     return () => clearInterval(timer);
   }, [isPaused, nextSlide]);
 
-  const currentImage = UK_FACILITY_IMAGES[currentIndex];
+  const currentImage = imageList[currentIndex] || imageList[0];
 
   return (
     <div
@@ -142,7 +153,7 @@ export default function LondonHeroCarousel() {
       {/* Bottom Indicators & Slide Index */}
       <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between pointer-events-none z-20">
         <div className="flex items-center gap-1.5 pointer-events-auto bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10">
-          {UK_FACILITY_IMAGES.map((_, idx) => (
+          {imageList.map((_, idx) => (
             <button
               key={idx}
               onClick={() => goToSlide(idx)}
@@ -157,7 +168,7 @@ export default function LondonHeroCarousel() {
         </div>
 
         <div className="px-2.5 py-1 rounded-md bg-black/50 backdrop-blur-sm text-white text-[11px] font-medium border border-white/10">
-          {currentIndex + 1} / {UK_FACILITY_IMAGES.length}
+          {currentIndex + 1} / {imageList.length}
         </div>
       </div>
     </div>

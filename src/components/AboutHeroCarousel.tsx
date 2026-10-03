@@ -27,20 +27,39 @@ const CAROUSEL_IMAGES = [
   },
 ];
 
-export default function AboutHeroCarousel() {
+interface CarouselItem {
+  src: string;
+  alt?: string;
+  title?: string;
+}
+
+interface AboutHeroCarouselProps {
+  images?: (string | CarouselItem)[];
+}
+
+export default function AboutHeroCarousel({ images }: AboutHeroCarouselProps) {
+  const activeImages: CarouselItem[] =
+    images && images.length > 0
+      ? images.map((img, idx) =>
+          typeof img === 'string'
+            ? { src: img, alt: `Facility Image ${idx + 1}`, title: `Facility View ${idx + 1}` }
+            : { src: img.src, alt: img.alt || `Facility Image ${idx + 1}`, title: img.title }
+        )
+      : CAROUSEL_IMAGES;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState<1 | -1>(1);
 
   const nextSlide = useCallback(() => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % CAROUSEL_IMAGES.length);
-  }, []);
+    setCurrentIndex((prev) => (prev + 1) % activeImages.length);
+  }, [activeImages.length]);
 
   const prevSlide = useCallback(() => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + CAROUSEL_IMAGES.length) % CAROUSEL_IMAGES.length);
-  }, []);
+    setCurrentIndex((prev) => (prev - 1 + activeImages.length) % activeImages.length);
+  }, [activeImages.length]);
 
   const goToSlide = (index: number) => {
     setDirection(index > currentIndex ? 1 : -1);
@@ -57,7 +76,7 @@ export default function AboutHeroCarousel() {
     return () => clearInterval(timer);
   }, [isPaused, nextSlide]);
 
-  const currentImage = CAROUSEL_IMAGES[currentIndex];
+  const currentImage = activeImages[currentIndex] || activeImages[0];
 
   return (
     <div
@@ -115,12 +134,12 @@ export default function AboutHeroCarousel() {
 
       {/* Top Floating Slide Counter Badge */}
       <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider">
-        {currentIndex + 1} / {CAROUSEL_IMAGES.length}
+        {currentIndex + 1} / {activeImages.length}
       </div>
 
       {/* Bottom Floating Navigation Dots */}
       <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15">
-        {CAROUSEL_IMAGES.map((_, idx) => (
+        {activeImages.map((_, idx) => (
           <button
             key={idx}
             type="button"
