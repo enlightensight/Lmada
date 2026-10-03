@@ -64,7 +64,7 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'bioassays',
     href: '/characterization/bioassays',
     icon: HeartPulse,
-    image: '/images/Analytical/Biacore 8K+.png',
+    image: '/images/upstream/Biosaftey_cabinet.png',
     description: 'Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.',
     capabilities: [
       'Cell-based potency assays',
@@ -78,7 +78,7 @@ const CHARACTERIZATION_SUB_SERVICES = [
     slug: 'microbiological',
     href: '/characterization/microbiological',
     icon: Bug,
-    image: '/images/celldev/Biosafety_Cabinet.png',
+    image: '/images/working employee2.png',
     description: 'Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.',
     capabilities: [
       'Sterility testing',

@@ -1010,7 +1010,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Characterization',
     heading: 'Functional Testing for Biological Activity and Product Performance',
     description: 'Lambda CDMO provides bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products. The platform supports product characterization, process development, comparability, batch release, and regulatory requirements.',
-    image: '/images/cdn/pexels-4033148.jpg',
+    image: '/images/upstream/Biosaftey_cabinet.png',
     capabilities: [
       'Cell-based potency assays',
       'Reporter gene assays',
@@ -1063,7 +1063,7 @@ export const cdmoData: CDMOPage[] = [
     badge: 'Characterization',
     heading: 'Microbiological Testing for Manufacturing and Product Quality',
     description: 'Lambda CDMO provides microbiological testing services to support biologics manufacturing, environmental monitoring, and product release. Our microbiology laboratory performs compendial and validated assays to ensure microbiological quality and compliance with global pharmacopeial requirements.\n\nTesting is conducted in accordance with USP, EP, and IP standards within an established quality management system.',
-    image: '/images/default_scientist.jpg',
+    image: '/images/working employee2.png',
     capabilities: [
       'Sterility testing',
       'Bioburden testing',

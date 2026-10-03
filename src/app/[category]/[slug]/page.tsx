@@ -181,17 +181,17 @@ function getDynamicContent(
     }
     if (cat === 'characterization' && pageSlug === 'bioassays') {
       const imgs = [
+        '/images/upstream/Biosaftey_cabinet.png',
         '/images/cdn/pexels-4033148.jpg',
         '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
-        '/images/cdn/unsplash-1582719471384-894fbb16e074.jpg',
       ];
       return imgs[idx % imgs.length];
     }
     if (cat === 'characterization' && pageSlug === 'microbiological') {
       const imgs = [
+        '/images/working employee2.png',
         '/images/cdn/unsplash-1576086213369-97a306d36557.jpg',
         '/images/cdn/pexels-4033148.jpg',
-        '/images/cdn/unsplash-1576671081837-49000212a370.jpg',
       ];
       return imgs[idx % imgs.length];
     }
