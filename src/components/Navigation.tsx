@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, Compass, HelpCircle, MapPin, LucideIcon, ArrowRight, Check, Globe } from 'lucide-react';
 import MobileMenu from './MobileMenu';
+import NavSearchBar from './NavSearchBar';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavItem {
@@ -449,8 +450,13 @@ export default function Navigation() {
             })}
           </nav>
 
-          {/* Right side - desktop CTAs, mobile hamburger */}
-          <div className="flex items-center gap-3">
+          {/* Right side - search, desktop CTAs, mobile hamburger */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Desktop Search Bar */}
+            <div className="hidden xl:block">
+              <NavSearchBar className="w-[140px] 2xl:w-[180px]" placeholder="Search..." />
+            </div>
+
             {/* Desktop Virtual Tour CTA */}
             <a
               href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
@@ -469,11 +475,16 @@ export default function Navigation() {
               Contact Us
             </Link>
 
+            {/* Mobile/Tablet Search Button */}
+            <div className="xl:hidden">
+              <NavSearchBar className="px-2.5 py-1.5" placeholder="Search" />
+            </div>
+
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setIsOpen(true)}
               aria-label="Open menu"
-              className="flex xl:hidden items-center justify-center text-neutral-700 hover:text-brand-navy active:scale-95 cursor-pointer transition-colors"
+              className="flex xl:hidden items-center justify-center text-neutral-700 hover:text-brand-navy active:scale-95 cursor-pointer transition-colors p-1"
             >
               <Menu className="w-6 h-6" />
             </button>

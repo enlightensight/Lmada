@@ -30,11 +30,12 @@ import {
   FileDown, 
   Newspaper, 
   Calendar, 
-  HelpCircle, 
+  HelpCircle,
   Globe,
   ArrowRight,
   LucideIcon 
 } from 'lucide-react';
+import SearchModal from './SearchModal';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -94,6 +95,7 @@ interface MobileGroup {
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
 
   const groups: MobileGroup[] = [
@@ -231,7 +233,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   };
 
   return (
-    <AnimatePresence>
+    <>
+      <AnimatePresence>
       {isOpen && (
         <motion.div
           initial="closed"
@@ -248,6 +251,25 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           >
             <X className="w-5 h-5" />
           </button>
+
+          {/* Mobile Search Button */}
+          <motion.div variants={linkVariants} className="mb-4">
+            <button
+              onClick={() => {
+                onClose();
+                setIsSearchOpen(true);
+              }}
+              className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200/80 text-slate-500 hover:text-neutral-900 transition-colors cursor-pointer text-sm"
+            >
+              <div className="flex items-center gap-2.5">
+                <Search className="w-4 h-4 text-slate-400" />
+                <span>Search services, facilities, insights...</span>
+              </div>
+              <span className="text-xs px-2 py-0.5 rounded bg-white text-slate-500 border border-neutral-200">
+                Search
+              </span>
+            </button>
+          </motion.div>
 
           {/* Links */}
           <nav className="flex flex-col gap-2 select-none">
@@ -440,5 +462,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         </motion.div>
       )}
     </AnimatePresence>
+
+    <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+    </>
   );
 }
