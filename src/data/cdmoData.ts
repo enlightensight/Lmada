@@ -31,6 +31,8 @@ export interface CDMOSection {
   images?: string[];
   buttonText?: string;
   buttonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
   cards?: {
     title: string;
     description: string;
@@ -344,6 +346,8 @@ export const cdmoData: CDMOPage[] = [
         text: 'Connect directly with our senior scientific and technical experts in Ahmedabad and London to discuss your molecule specifications and timeline.',
         buttonText: 'Contact Technical Team',
         buttonLink: '/contact',
+        secondaryButtonText: 'Virtual Tour',
+        secondaryButtonLink: '/virtual-tour/00%20MAIN%20BUILDING/index.htm',
       },
     ],
     faqs: [

@@ -151,21 +151,56 @@ export default function DynamicSectionRenderer({
             </Reveal>
           )}
           <Reveal delay={0.15}>
-            <div className="flex items-center justify-center gap-4 flex-wrap pt-4">
-              <Link
-                href={section.buttonLink || '/contact'}
-                className="px-8 py-4 rounded-[10px] bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-semibold uppercase tracking-wider transition-all shadow-lg hover:shadow-xl active:scale-95 flex items-center gap-2"
-              >
-                <span>{section.buttonText || 'Schedule Discussion'}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/services"
-                className="px-8 py-4 rounded-[10px] border border-white/30 hover:bg-white/10 text-white text-sm font-semibold uppercase tracking-wider transition-all backdrop-blur-xs"
-              >
-                Explore Services
-              </Link>
-            </div>
+            {(() => {
+              const secBtnText = section.secondaryButtonText || 'Virtual Tour';
+              const secBtnLink = section.secondaryButtonLink || '/virtual-tour/00%20MAIN%20BUILDING/index.htm';
+              const isPrimaryExternal = (section.buttonLink || '/contact').startsWith('http');
+              const isSecExternal = secBtnLink.startsWith('http') || secBtnLink.includes('.htm');
+
+              return (
+                <div className="flex items-center justify-center gap-4 flex-wrap pt-4">
+                  {isPrimaryExternal ? (
+                    <a
+                      href={section.buttonLink || '/contact'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-4 rounded-[10px] bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-semibold uppercase tracking-wider transition-all shadow-lg hover:shadow-xl active:scale-95 flex items-center gap-2"
+                    >
+                      <span>{section.buttonText || 'Schedule Discussion'}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  ) : (
+                    <Link
+                      href={section.buttonLink || '/contact'}
+                      className="px-8 py-4 rounded-[10px] bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-semibold uppercase tracking-wider transition-all shadow-lg hover:shadow-xl active:scale-95 flex items-center gap-2"
+                    >
+                      <span>{section.buttonText || 'Schedule Discussion'}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  )}
+
+                  {secBtnText && (
+                    isSecExternal ? (
+                      <a
+                        href={secBtnLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-8 py-4 rounded-[10px] border border-white/30 hover:bg-white/10 text-white text-sm font-semibold uppercase tracking-wider transition-all backdrop-blur-xs"
+                      >
+                        {secBtnText}
+                      </a>
+                    ) : (
+                      <Link
+                        href={secBtnLink}
+                        className="px-8 py-4 rounded-[10px] border border-white/30 hover:bg-white/10 text-white text-sm font-semibold uppercase tracking-wider transition-all backdrop-blur-xs"
+                      >
+                        {secBtnText}
+                      </Link>
+                    )
+                  )}
+                </div>
+              );
+            })()}
           </Reveal>
         </div>
       </section>

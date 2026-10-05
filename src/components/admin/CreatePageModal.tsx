@@ -65,7 +65,9 @@ const TEMPLATE_PRESETS = [
         subtitle: 'DIRECT ACCESS TO SCIENTIFIC TEAMS',
         text: 'Connect with our upstream and downstream scientists to review your project scope and timelines.',
         buttonText: 'Contact Scientific Team',
-        buttonLink: '/contact'
+        buttonLink: '/contact',
+        secondaryButtonText: 'Virtual Tour',
+        secondaryButtonLink: '/virtual-tour/00%20MAIN%20BUILDING/index.htm'
       }
     ]
   },

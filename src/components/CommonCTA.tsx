@@ -10,6 +10,10 @@ interface CommonCTAProps {
   primaryButtonHref?: string;
   primaryButtonTarget?: string;
   primaryButtonRel?: string;
+  secondaryButtonText?: string;
+  secondaryButtonHref?: string;
+  secondaryButtonTarget?: string;
+  secondaryButtonRel?: string;
 }
 
 export default function CommonCTA({
@@ -19,8 +23,16 @@ export default function CommonCTA({
   primaryButtonHref = "/contact",
   primaryButtonTarget,
   primaryButtonRel,
+  secondaryButtonText = "Virtual Tour",
+  secondaryButtonHref = "/virtual-tour/00%20MAIN%20BUILDING/index.htm",
+  secondaryButtonTarget,
+  secondaryButtonRel,
 }: CommonCTAProps) {
-  const isExternal = primaryButtonHref.startsWith('http') || primaryButtonTarget === '_blank';
+  const isPrimaryExternal = primaryButtonHref.startsWith('http') || primaryButtonTarget === '_blank';
+  const isSecondaryExternal =
+    secondaryButtonHref.startsWith('http') ||
+    secondaryButtonHref.includes('.htm') ||
+    secondaryButtonTarget === '_blank';
 
   return (
     <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 select-none">
@@ -42,7 +54,7 @@ export default function CommonCTA({
             {subtitle}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            {isExternal ? (
+            {isPrimaryExternal ? (
               <a
                 href={primaryButtonHref}
                 target={primaryButtonTarget || "_blank"}
@@ -61,14 +73,26 @@ export default function CommonCTA({
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             )}
-            <a
-              href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"
-            >
-              <span>Virtual Tour</span>
-            </a>
+
+            {secondaryButtonText && (
+              isSecondaryExternal ? (
+                <a
+                  href={secondaryButtonHref}
+                  target={secondaryButtonTarget || "_blank"}
+                  rel={secondaryButtonRel || "noopener noreferrer"}
+                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"
+                >
+                  <span>{secondaryButtonText}</span>
+                </a>
+              ) : (
+                <Link
+                  href={secondaryButtonHref}
+                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"
+                >
+                  <span>{secondaryButtonText}</span>
+                </Link>
+              )
+            )}
           </div>
         </Reveal>
       </div>

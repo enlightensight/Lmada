@@ -343,7 +343,9 @@ export const SECTION_LAYOUTS: SectionLayoutOption[] = [
       subtitle: 'PARTNER WITH LAMBDA CDMO',
       text: 'Speak directly with our senior scientific leaders and bioprocess engineers to discuss molecule specifications, timelines, and custom proposals.',
       buttonText: 'Contact Our Technical Team',
-      buttonLink: '/contact'
+      buttonLink: '/contact',
+      secondaryButtonText: 'Virtual Tour',
+      secondaryButtonLink: '/virtual-tour/00%20MAIN%20BUILDING/index.htm'
     }
   },
   {

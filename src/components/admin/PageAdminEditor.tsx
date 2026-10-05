@@ -489,29 +489,33 @@ function MediaControlWithPreview({
         </div>
       )}
 
-      {/* Input bar and action buttons */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+      {/* Input bar (Row 1) and Action buttons (Row 2) - Clean non-overflowing responsive grid */}
+      <div className="space-y-2">
         <input
           type="text"
           value={mediaUrl || ''}
           onChange={(e) => onChangeUrl(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 px-3.5 py-2 border border-slate-200 rounded-xl text-xs font-mono text-neutral-900 focus:outline-none focus:border-brand-blue bg-white shadow-2xs"
+          className="w-full min-w-0 px-3 py-2 border border-slate-200 rounded-xl text-xs font-mono text-neutral-900 focus:outline-none focus:border-brand-blue bg-white shadow-2xs"
         />
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="grid grid-cols-2 gap-2">
           <button
             type="button"
             onClick={onOpenPresetGallery}
-            className="px-3 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer border border-slate-200 shadow-2xs transition-all active:scale-95 flex-1 sm:flex-initial"
+            className="w-full min-w-0 px-2.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer border border-slate-200 shadow-2xs transition-all active:scale-95"
+            title="Choose from media presets"
           >
-            <FolderOpen className="w-3.5 h-3.5 text-brand-orange" />
-            <span>Choose Preset</span>
+            <FolderOpen className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+            <span className="truncate">Choose Preset</span>
           </button>
 
-          <label className="px-3.5 py-2 rounded-xl bg-brand-orange hover:bg-brand-orange-hover text-white text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-95 shrink-0 flex-1 sm:flex-initial">
-            <Upload className="w-3.5 h-3.5" />
-            <span>{uploading ? 'Uploading...' : 'Upload'}</span>
+          <label
+            className="w-full min-w-0 px-2.5 py-2 rounded-xl bg-brand-orange hover:bg-brand-orange-hover text-white text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-95"
+            title="Upload custom image or video"
+          >
+            <Upload className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">{uploading ? 'Uploading...' : 'Upload'}</span>
             <input
               type="file"
               accept="image/*,video/*"
@@ -2682,28 +2686,68 @@ export default function PageAdminEditor({
                                   className="text-xs sm:text-sm text-slate-300 text-center w-full bg-black/30 border border-white/20 rounded-xl p-2.5"
                                 />
 
-                                <div className="grid grid-cols-2 gap-3 pt-2">
-                                  <div>
-                                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
-                                      CTA Button Text
-                                    </label>
-                                    <input
-                                      type="text"
-                                      value={sec.buttonText || 'Contact Our Technical Team'}
-                                      onChange={(e) => updateSectionField(idx, 'buttonText', e.target.value)}
-                                      className="w-full px-2.5 py-1.5 rounded-lg bg-brand-orange text-white text-xs font-bold text-center"
-                                    />
+                                {/* Dual Action Buttons: Primary CTA & Secondary CTA (Virtual Tour) */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-white/10 text-left">
+                                  {/* Primary CTA (Contact) */}
+                                  <div className="space-y-2 p-3.5 rounded-xl bg-white/5 border border-white/10">
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-brand-orange">
+                                      Primary CTA Button
+                                    </div>
+                                    <div>
+                                      <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                                        CTA Button Text
+                                      </label>
+                                      <input
+                                        type="text"
+                                        value={sec.buttonText || 'Contact Technical Team'}
+                                        onChange={(e) => updateSectionField(idx, 'buttonText', e.target.value)}
+                                        placeholder="Contact Technical Team"
+                                        className="w-full px-2.5 py-1.5 rounded-lg bg-brand-orange text-white text-xs font-bold text-center"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                                        CTA Button Link
+                                      </label>
+                                      <input
+                                        type="text"
+                                        value={sec.buttonLink || '/contact'}
+                                        onChange={(e) => updateSectionField(idx, 'buttonLink', e.target.value)}
+                                        placeholder="/contact"
+                                        className="w-full px-2.5 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-xs font-mono text-center"
+                                      />
+                                    </div>
                                   </div>
-                                  <div>
-                                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
-                                      CTA Button Link
-                                    </label>
-                                    <input
-                                      type="text"
-                                      value={sec.buttonLink || '/contact'}
-                                      onChange={(e) => updateSectionField(idx, 'buttonLink', e.target.value)}
-                                      className="w-full px-2.5 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-xs font-mono text-center"
-                                    />
+
+                                  {/* Secondary CTA (Virtual Tour) */}
+                                  <div className="space-y-2 p-3.5 rounded-xl bg-white/5 border border-white/10">
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-brand-blue">
+                                      Secondary CTA Button (Virtual Tour)
+                                    </div>
+                                    <div>
+                                      <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                                        Secondary Button Text
+                                      </label>
+                                      <input
+                                        type="text"
+                                        value={sec.secondaryButtonText ?? 'Virtual Tour'}
+                                        onChange={(e) => updateSectionField(idx, 'secondaryButtonText', e.target.value)}
+                                        placeholder="Virtual Tour"
+                                        className="w-full px-2.5 py-1.5 rounded-lg bg-white/10 border border-white/30 text-white text-xs font-bold text-center hover:bg-white/20"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                                        Secondary Button Link
+                                      </label>
+                                      <input
+                                        type="text"
+                                        value={sec.secondaryButtonLink ?? '/virtual-tour/00%20MAIN%20BUILDING/index.htm'}
+                                        onChange={(e) => updateSectionField(idx, 'secondaryButtonLink', e.target.value)}
+                                        placeholder="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+                                        className="w-full px-2.5 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-xs font-mono text-center"
+                                      />
+                                    </div>
                                   </div>
                                 </div>
                               </div>

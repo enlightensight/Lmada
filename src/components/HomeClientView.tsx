@@ -623,6 +623,8 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
         subtitle={ctaSection?.text || ctaSection?.subtitle || "Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements."}
         primaryButtonText={ctaSection?.buttonText || "Get in touch"}
         primaryButtonHref={ctaSection?.buttonLink || "/contact"}
+        secondaryButtonText={ctaSection?.secondaryButtonText || "Virtual Tour"}
+        secondaryButtonHref={ctaSection?.secondaryButtonLink || "/virtual-tour/00%20MAIN%20BUILDING/index.htm"}
       />
     </div>
   );

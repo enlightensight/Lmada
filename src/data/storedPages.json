@@ -264,7 +264,9 @@
         "subtitle": "Partner with Lambda CDMO for integrated development and manufacturing",
         "text": "Connect directly with our senior scientific and technical experts in Ahmedabad and London to discuss your molecule specifications and timeline.",
         "buttonText": "Contact Technical Team",
-        "buttonLink": "/contact"
+        "buttonLink": "/contact",
+        "secondaryButtonText": "Virtual Tour",
+        "secondaryButtonLink": "/virtual-tour/00%20MAIN%20BUILDING/index.htm"
       }
     ],
     "faqs": [
@@ -549,7 +551,9 @@
           "subtitle": "Partner with Lambda CDMO for integrated development and manufacturing",
           "text": "Connect directly with our senior scientific and technical experts in Ahmedabad and London to discuss your molecule specifications and timeline.",
           "buttonText": "Contact Technical Team",
-          "buttonLink": "/contact"
+          "buttonLink": "/contact",
+          "secondaryButtonText": "Virtual Tour",
+          "secondaryButtonLink": "/virtual-tour/00%20MAIN%20BUILDING/index.htm"
         }
       ],
       "faqs": [
