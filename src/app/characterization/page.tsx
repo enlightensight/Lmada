@@ -14,11 +14,22 @@ import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import CardImageCarousel from '@/components/CardImageCarousel';
+import { getStoredPage } from '@/lib/pagesStorage';
 
-export const metadata: Metadata = {
-  title: 'Analytical Characterization & Testing — Biologics Analytics | Lambda CDMO',
-  description: 'Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.',
-};
+interface PageProps {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const isPreview = resolvedSearchParams?.preview === 'true';
+  const page = getStoredPage('characterization', 'characterization', { previewDraft: isPreview });
+
+  return {
+    title: page?.metaTitle || page?.title || 'Analytical Characterization & Testing — Biologics Analytics | Lambda CDMO',
+    description: page?.metaDesc || page?.description || 'Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.',
+  };
+}
 
 const ANALYTICAL_HERO_IMAGES = [
   '/images/Analytical/Biacore 8K+.png',
@@ -30,12 +41,11 @@ const ANALYTICAL_HERO_IMAGES = [
   '/images/Analytical/UPLC.png',
 ];
 
-const CHARACTERIZATION_SUB_SERVICES = [
+const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
   {
     title: 'Analytical Testing',
     slug: 'analytical-testing',
     href: '/characterization/analytical-testing',
-    icon: Microscope,
     image: '/images/Analytical/UPLC.png',
     description: 'Reliable analytical testing for biologics drug substance and drug product, supporting in-process controls, batch release, stability programs, and regulatory compliance.',
     capabilities: [
@@ -49,7 +59,6 @@ const CHARACTERIZATION_SUB_SERVICES = [
     title: 'Physicochemical Characterization',
     slug: 'physicochemical',
     href: '/characterization/physicochemical',
-    icon: Scale,
     image: '/images/Analytical/Orbitrap.png',
     description: 'Comprehensive structural, molecular, and biophysical characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.',
     capabilities: [
@@ -63,7 +72,6 @@ const CHARACTERIZATION_SUB_SERVICES = [
     title: 'Bioassays & Immunogenicity Testing',
     slug: 'bioassays',
     href: '/characterization/bioassays',
-    icon: HeartPulse,
     image: '/images/upstream/Biosaftey_cabinet.png',
     description: 'Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.',
     capabilities: [
@@ -77,7 +85,6 @@ const CHARACTERIZATION_SUB_SERVICES = [
     title: 'Microbiological Testing',
     slug: 'microbiological',
     href: '/characterization/microbiological',
-    icon: Bug,
     image: '/images/working employee2.png',
     description: 'Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.',
     capabilities: [
@@ -89,7 +96,7 @@ const CHARACTERIZATION_SUB_SERVICES = [
   },
 ];
 
-const CHARACTERIZATION_FAQS = [
+const DEFAULT_CHARACTERIZATION_FAQS = [
   {
     question: 'How does Lambda CDMO approach comparability and biosimilar similarity studies?',
     answer: 'We utilize a multi-tiered, orthogonal analytical characterization package comparing primary structure, higher-order structure, post-translational modifications (PTMs), charge/size heterogeneity, target binding kinetics, and functional bioassay potency against multiple reference product lots.',
@@ -108,9 +115,55 @@ const CHARACTERIZATION_FAQS = [
   },
 ];
 
-export default function AnalyticalCharacterizationPage() {
+function getCharacterizationIcon(title: string, index: number) {
+  const t = title.toLowerCase();
+  if (t.includes('testing')) return Microscope;
+  if (t.includes('physico')) return Scale;
+  if (t.includes('bioassay') || t.includes('immun')) return HeartPulse;
+  if (t.includes('microbio')) return Bug;
+  const icons = [Microscope, Scale, HeartPulse, Bug];
+  return icons[index % icons.length];
+}
+
+export default async function AnalyticalCharacterizationPage({ searchParams }: PageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const isPreview = resolvedSearchParams?.preview === 'true';
+  const page = getStoredPage('characterization', 'characterization', { previewDraft: isPreview });
+
+  const badge = page?.badge || 'ANALYTICAL CHARACTERIZATION AND TESTING';
+  const heading = page?.heading || 'Analytical Insights that Advance Biologics Development';
+  const heroImages = (page?.images && page.images.length > 0) ? page.images : ANALYTICAL_HERO_IMAGES;
+
+  const descriptionParagraphs = page?.description
+    ? page.description.split('\n\n').filter(Boolean)
+    : [
+        'Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.',
+        'Our analytical platform combines physicochemical, molecular, structural, biophysical, functional, and microbiological testing to generate data across development and manufacturing.'
+      ];
+
+  // Dynamic Cards
+  const cardsSection = page?.sections?.find((s) => s.cards && s.cards.length > 0) || page?.sections?.[0];
+  const renderedCards = (cardsSection?.cards && cardsSection.cards.length > 0)
+    ? cardsSection.cards.map((card, idx) => ({
+        title: card.title || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.title || `Capability ${idx + 1}`,
+        slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `cap-${idx + 1}`,
+        href: card.link || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.href || '/characterization',
+        image: card.image || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.image || '/images/Analytical/UPLC.png',
+        description: card.description || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.description || '',
+        capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.capabilities || []),
+      }))
+    : DEFAULT_CHARACTERIZATION_SUB_SERVICES;
+
+  const faqs = (page?.faqs && page.faqs.length > 0) ? page.faqs : DEFAULT_CHARACTERIZATION_FAQS;
+
   return (
     <main className="min-h-screen bg-white">
+      {isPreview && (
+        <div className="bg-amber-500 text-black text-xs font-bold px-4 py-2 text-center sticky top-0 z-50 flex items-center justify-center gap-2 shadow-sm">
+          <span>⚠️ You are viewing an UNPUBLISHED DRAFT PREVIEW of the Characterization Hub Page. Regular visitors see the live published version.</span>
+        </div>
+      )}
+
       {/* HERO SECTION */}
       <section className="relative bg-molecules-hero overflow-hidden px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 border-b border-neutral-100">
         <div className="absolute inset-0 opacity-[0.07] pointer-events-none">
@@ -131,22 +184,19 @@ export default function AnalyticalCharacterizationPage() {
             <div className="lg:col-span-7">
               {/* Badge: Orange Uppercase */}
               <span className="inline-block px-3.5 py-1.5 rounded-[10px] text-[11px] uppercase font-bold tracking-wider bg-brand-orange text-white mb-6 shadow-xs">
-                ANALYTICAL CHARACTERIZATION AND TESTING
+                {badge}
               </span>
 
               {/* Heading */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.08]">
-                <span className="text-neutral-900">Analytical Insights that Advance Biologics Development</span>
+                <span className="text-neutral-900">{heading}</span>
               </h1>
 
-              {/* Exact Text from Specification */}
+              {/* Text */}
               <div className="space-y-4 text-[16px] sm:text-[17px] text-slate-600 font-normal leading-relaxed mt-6 max-w-2xl">
-                <p>
-                  Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.
-                </p>
-                <p>
-                  Our analytical platform combines physicochemical, molecular, structural, biophysical, functional, and microbiological testing to generate data across development and manufacturing.
-                </p>
+                {descriptionParagraphs.map((para, pIdx) => (
+                  <p key={pIdx}>{para}</p>
+                ))}
               </div>
 
               {/* Quick Jump Buttons */}
@@ -187,7 +237,7 @@ export default function AnalyticalCharacterizationPage() {
               <Reveal delay={0.15}>
                 <div className="relative rounded-2xl overflow-hidden border border-neutral-200 shadow-xl bg-white group">
                   <CardImageCarousel
-                    images={ANALYTICAL_HERO_IMAGES}
+                    images={heroImages}
                     alt="Lambda CDMO Analytical Characterization and Testing"
                     aspectRatio="aspect-[4/3]"
                   />
@@ -202,10 +252,10 @@ export default function AnalyticalCharacterizationPage() {
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-molecules border-b border-neutral-100">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {CHARACTERIZATION_SUB_SERVICES.map((service, idx) => {
-              const ServiceIcon = service.icon;
+            {renderedCards.map((service, idx) => {
+              const ServiceIcon = getCharacterizationIcon(service.title, idx);
               return (
-                <Reveal key={service.slug} delay={idx * 0.1}>
+                <Reveal key={service.slug || idx} delay={idx * 0.1}>
                   <div className="group h-full bg-white rounded-2xl border border-neutral-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden hover:-translate-y-1">
                     {/* Header Image */}
                     <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
@@ -239,21 +289,23 @@ export default function AnalyticalCharacterizationPage() {
                           {service.description}
                         </p>
 
-                        <div className="border-t border-neutral-100 pt-5 mb-6">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3.5">
-                            Key Capabilities
-                          </span>
-                          <ul className="space-y-3">
-                            {service.capabilities.map((cap, cIdx) => (
-                              <li key={cIdx} className="flex items-start gap-2.5 text-[13.5px] text-neutral-700 font-normal">
-                                <div className="w-4 h-4 rounded-full bg-brand-orange/10 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
-                                  <Check className="w-2.5 h-2.5 stroke-[3]" />
-                                </div>
-                                <span>{cap}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        {service.capabilities && service.capabilities.length > 0 && (
+                          <div className="border-t border-neutral-100 pt-5 mb-6">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3.5">
+                              Key Capabilities
+                            </span>
+                            <ul className="space-y-3">
+                              {service.capabilities.map((cap, cIdx) => (
+                                <li key={cIdx} className="flex items-start gap-2.5 text-[13.5px] text-neutral-700 font-normal">
+                                  <div className="w-4 h-4 rounded-full bg-brand-orange/10 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                                    <Check className="w-2.5 h-2.5 stroke-[3]" />
+                                  </div>
+                                  <span>{cap}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </div>
 
                       <div className="pt-4 border-t border-neutral-100">
@@ -275,10 +327,23 @@ export default function AnalyticalCharacterizationPage() {
       </section>
 
       {/* FAQS */}
-      <FAQSection faqs={CHARACTERIZATION_FAQS} />
+      <FAQSection 
+        faqs={faqs} 
+        title={page?.faqTitle}
+        subtitle={page?.faqSubtitle}
+        buttonText={page?.faqButtonText}
+        buttonLink={page?.faqButtonLink}
+      />
 
       {/* CTA */}
-      <CommonCTA />
+      <CommonCTA 
+        title={page?.ctaTitle}
+        subtitle={page?.ctaSubtitle}
+        primaryButtonText={page?.primaryCta?.text}
+        primaryButtonHref={page?.primaryCta?.link}
+        secondaryButtonText={page?.secondaryCta?.text}
+        secondaryButtonHref={page?.secondaryCta?.link}
+      />
     </main>
   );
 }

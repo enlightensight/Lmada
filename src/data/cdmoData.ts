@@ -2129,40 +2129,7 @@ export const cdmoData: CDMOPage[] = [
       "Support for clinical development programs"
     ],
     "footerNote": "Our platform is designed to support innovator and biosimilar programs across IgG1, IgG2, and IgG4 subclasses.\n\nBy integrating development, manufacturing, analytical sciences, and quality functions within a unified operating model, we help simplify technology transfer and support efficient progression to clinical manufacturing.",
-    "sections": [
-      {
-        "id": "sec-mod-mabs-01",
-        "style": "feature-split",
-        "title": "Platform mAb Engineering & High-Titer Upstream",
-        "subtitle": "MONOCLONAL ANTIBODIES (IGG1, IGG2, IGG4)",
-        "text": "Optimized cell culture strategies for IgG1, IgG2, and IgG4 monoclonal antibodies reaching robust expression titers of 3–8 g/L.",
-        "dark": false,
-        "image": "/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg",
-        "imageSide": "right",
-        "bullets": [
-          "Proven CHO host expression platform with high specific productivity",
-          "Chemically defined, animal-component-free media optimization",
-          "DoE bioprocess optimization across bench and single-use bioreactors",
-          "Targeted CQA control for charge variants and glycan distribution"
-        ]
-      },
-      {
-        "id": "sec-mod-mabs-02",
-        "style": "feature-split",
-        "title": "Orthogonal Purification & Aggregation Control",
-        "subtitle": "DOWNSTREAM PURIFICATION EXCELLENCE",
-        "text": "Protein A affinity capture followed by multimodal ion exchange chromatography and viral clearance nanofiltration ensuring high monomeric purity.",
-        "dark": false,
-        "image": "/images/cdn/unsplash-1532094349884-543bc11b234d.jpg",
-        "imageSide": "left",
-        "bullets": [
-          "High-recovery Protein A chromatography with minimal leaching",
-          "Multimodal cation/anion exchange for aggregate and HCP clearance",
-          "Low pH viral inactivation and orthogonal 20nm nanofiltration",
-          "Ultrafiltration/diafiltration (UF/DF) formulation buffer exchange"
-        ]
-      }
-    ],
+    "sections": [],
     "faqs": [
       {
         "question": "Which mAb subclasses does Lambda CDMO support?",
@@ -2198,40 +2165,7 @@ export const cdmoData: CDMOPage[] = [
       "Drug substance and drug product manufacturing"
     ],
     "footerNote": "Our platform addresses the development requirements associated with complex antibody formats, including product quality, process performance, and characterization.",
-    "sections": [
-      {
-        "id": "sec-mod-bs-01",
-        "style": "feature-split",
-        "title": "Overcoming Chain Mispairing & Dimerization",
-        "subtitle": "NEXT-GENERATION BISPECIFIC PLATFORMS",
-        "text": "Specialized molecular formats (Knobs-into-Holes, CrossMab, Dual-Variable Domain) engineered with high chain fidelity and expression titers.",
-        "dark": false,
-        "image": "/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg",
-        "imageSide": "right",
-        "bullets": [
-          "Four-chain co-expression balancing and transfection vector optimization",
-          "Minimization of homodimer, mispaired half-molecule, and aggregate species",
-          "High-throughput analytical screening for correct heterodimer pairing",
-          "Scalable fed-batch upstream protocols adapted for dual-targeting antibodies"
-        ]
-      },
-      {
-        "id": "sec-mod-bs-02",
-        "style": "feature-split",
-        "title": "High-Resolution Separation of Product-Related Impurities",
-        "subtitle": "ADVANCED CHROMATOGRAPHIC PURIFICATION",
-        "text": "Custom chromatography protocols effectively separating correct heterodimers from homodimers, half-antibodies, and free light chains.",
-        "dark": false,
-        "image": "/images/cdn/unsplash-1579154204601-01588f351e67.jpg",
-        "imageSide": "left",
-        "bullets": [
-          "Hydrophobic interaction (HIC) and multimodal chromatography polish steps",
-          "Orthogonal mass spectrometry verification of intact bispecific assembly",
-          "Dual-target binding kinetics characterization via Biacore SPR",
-          "Process scale-up to single-use pilot and cGMP biomanufacturing suites"
-        ]
-      }
-    ],
+    "sections": [],
     "faqs": [
       {
         "question": "What makes bispecifics challenging to manufacture?",
@@ -2266,40 +2200,7 @@ export const cdmoData: CDMOPage[] = [
       "Drug product manufacturing"
     ],
     "footerNote": "Our analytical and development capabilities support assessment of key product attributes and process performance across ADC development.",
-    "sections": [
-      {
-        "id": "sec-mod-adc-01",
-        "style": "feature-split",
-        "title": "Targeted Bioconjugation & Payload Chemistry",
-        "subtitle": "ANTIBODY-DRUG CONJUGATES (ADCS)",
-        "text": "Site-specific and cysteine/lysine bioconjugation technologies linking potent cytotoxic payloads with high selectivity and batch reproducibility.",
-        "dark": false,
-        "image": "/images/cdn/pexels-3825586.jpg",
-        "imageSide": "right",
-        "bullets": [
-          "Optimized reaction kinetics for cytotoxic payload-linker bioconjugation",
-          "Site-specific engineered cysteine and enzymatic transglutaminase conjugation",
-          "Stringent containment protocols for handling potent compounds (OEL < 10 ng/m³)",
-          "Ultrafiltration / diafiltration (TFF) for free drug and organic solvent clearance"
-        ]
-      },
-      {
-        "id": "sec-mod-adc-02",
-        "style": "feature-split",
-        "title": "DAR Characterization & Containment Processing",
-        "subtitle": "PRECISION ANALYTICAL CONTROL",
-        "text": "Accurate drug-to-antibody ratio (DAR) determination via LC-MS, HIC, and SEC in high-containment analytical suites.",
-        "dark": false,
-        "image": "/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg",
-        "imageSide": "left",
-        "bullets": [
-          "Hydrophobic Interaction Chromatography (HIC-HPLC) for DAR profiling",
-          "Intact and subunit LC-MS for payload distribution and drug-load species",
-          "Residual free drug and linker impurity quantification down to ppm levels",
-          "Aseptic sterile filtration and filling under barrier isolator containment"
-        ]
-      }
-    ],
+    "sections": [],
     "faqs": [
       {
         "question": "What ADC capabilities does Lambda CDMO offer?",
@@ -2335,40 +2236,7 @@ export const cdmoData: CDMOPage[] = [
       "Drug product manufacturing"
     ],
     "footerNote": "Capabilities are designed to support recombinant proteins, fusion proteins, enzymes, cytokines, growth factors, and synthetic peptides while maintaining product quality and regulatory compliance throughout development and manufacturing.",
-    "sections": [
-      {
-        "id": "sec-mod-pp-01",
-        "style": "feature-split",
-        "title": "Recombinant Proteins & Peptide Synthesis",
-        "subtitle": "COMPLEX RECOMBINANT MOLECULES",
-        "text": "Expression in mammalian and microbial systems supporting complex glycoproteins, fusion proteins, cytokines, enzymes, and synthetic peptides.",
-        "dark": false,
-        "image": "/images/development.jpg",
-        "imageSide": "right",
-        "bullets": [
-          "Mammalian CHO/HEK and microbial expression vectors",
-          "Refolding protocol optimization for inclusion body proteins",
-          "Solubility enhancement and tag-free purification workflows",
-          "High-purity peptide synthesis and chromatographic isolation"
-        ]
-      },
-      {
-        "id": "sec-mod-pp-02",
-        "style": "feature-split",
-        "title": "Fold Integrity & Bioactivity Verification",
-        "subtitle": "STRUCTURAL CONFORMATION & STABILITY",
-        "text": "Circular dichroism, intrinsic fluorescence, and mass spectrometry confirming native tertiary conformation, disulfide bonding, and bioactivity.",
-        "dark": false,
-        "image": "/images/cdn/unsplash-1532187863486-abf9dbad1b69.jpg",
-        "imageSide": "left",
-        "bullets": [
-          "Higher-order structure verification using CD spectroscopy and nanoDSF",
-          "Disulfide linkage mapping via LC-MS/MS peptide fingerprinting",
-          "Enzymatic and receptor-binding potency bioassays",
-          "Lyophilization formulation development for extended shelf-life stability"
-        ]
-      }
-    ],
+    "sections": [],
     "faqs": [
       {
         "question": "What expression systems are used for proteins and peptides?",
@@ -2566,5 +2434,402 @@ export const cdmoData: CDMOPage[] = [
         "bullets": []
       }
     ]
+  }
+,
+  {
+    "category": "services",
+    "slug": "services",
+    "title": "Development Services — Biologics Development & Process Sciences | Lambda CDMO",
+    "metaTitle": "Development Services — Biologics Development & Process Sciences | Lambda CDMO",
+    "metaDesc": "Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes and support efficient tech transfer.",
+    "badge": "Development Services",
+    "heading": "Development Designed for Manufacturing",
+    "description": "Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes, generate meaningful development data, and support efficient technology transfer into GMP manufacturing.\n\nOur development approach spans early-stage development through process characterization and technology transfer, with capabilities supporting monoclonal antibodies, bispecific antibodies, biosimilars, recombinant proteins, peptides, and other biologic modalities.",
+    "image": "/images/celldev/CLD_Lab.png",
+    "images": [
+      "/images/upstream/AMBR250.png",
+      "/images/upstream/Bioreactor_control.png",
+      "/images/upstream/Biosaftey_cabinet.png",
+      "/images/upstream/Carbon_di_Oxide_shaker_incubator.png",
+      "/images/upstream/Cedex_automated_cell_counter.png"
+    ],
+    "sections": [
+      {
+        "id": "sec-services-pillars",
+        "style": "cards-grid",
+        "title": "Core Development Pillars",
+        "subtitle": "INTEGRATED BIOPROCESSING",
+        "text": "Comprehensive development services bridging molecular biology to cGMP manufacturing.",
+        "dark": false,
+        "cards": [
+          {
+            "title": "Cell Line Development",
+            "link": "/services/cell-line",
+            "badge": "Cell Line Dev",
+            "image": "/images/celldev/CLD_Lab.png",
+            "description": "A well-characterized, productive cell line provides the foundation for a robust biologics manufacturing process across mammalian expression platforms.",
+            "bullets": [
+              "Gene construct design and optimization",
+              "Expression vector design and construction",
+              "Stable cell pool generation",
+              "Single-cell cloning for establishment of monoclonality"
+            ]
+          },
+          {
+            "title": "Process Development",
+            "link": "/services/process",
+            "badge": "Process Dev",
+            "image": "/images/upstream/AMBR250.png",
+            "description": "Upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability from bench to pilot scale.",
+            "bullets": [
+              "Media and feed optimization",
+              "Shake flask and bioreactor process development",
+              "DoE-based process optimization",
+              "Cell culture process optimization"
+            ]
+          },
+          {
+            "title": "Analytical Development",
+            "link": "/services/analytical",
+            "badge": "Analytical Dev",
+            "image": "/images/Analytical/UPLC.png",
+            "description": "Analytical methods supporting product and process development, comparability, stability assessment, and regulatory requirements.",
+            "bullets": [
+              "Analytical method development",
+              "Method optimization",
+              "Method qualification",
+              "Method validation"
+            ]
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What mammalian cell expression systems are supported at Lambda CDMO?",
+        "answer": "We support standard CHO expression platforms (including CHO-K1, CHO-GS, and CHO-DG44) as well as HEK293 systems, offering flexible, royalty-free, and high-titer production options for global clinical development."
+      },
+      {
+        "question": "How do you ensure monoclonality during cell line development?",
+        "answer": "Monoclonality is guaranteed through high-resolution single-cell printing and verified by multi-timepoint brightfield microscopic imaging, delivering comprehensive documentation and audit-ready monoclonality assurance reports for regulatory agencies (US FDA, EMA, PMDA)."
+      },
+      {
+        "question": "How are development processes transferred into cGMP manufacturing?",
+        "answer": "Our integrated operating model bridges process development directly with our cGMP manufacturing suites at Ahmedabad. Analytical methods, process control parameters, and operational batch records undergo structured tech transfer protocols, supported by joint cross-functional teams."
+      },
+      {
+        "question": "Can you support biosimilar development and comparative characterization?",
+        "answer": "Yes, we provide end-to-end biosimilar development including originator fingerprinting, Quality Target Product Profile (QTPP) establishment, iterative process tuning to match glycan/charge profiles, and state-of-the-art comparative analytical similarity assessment."
+      }
+    ],
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
+    "ctaTitle": "Let's Advance Your Next Biologics Program",
+    "ctaSubtitle": "Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.",
+    "primaryCta": {
+      "text": "Get in Touch",
+      "link": "/contact"
+    },
+    "secondaryCta": {
+      "text": "Virtual Tour",
+      "link": "/virtual-tour"
+    },
+    "isPublished": true,
+    "status": "published"
+  }
+,
+  {
+    "category": "manufacturing",
+    "slug": "manufacturing",
+    "title": "Manufacturing Services — cGMP Biomanufacturing & Clinical Supplies | Lambda CDMO",
+    "metaTitle": "Manufacturing Services — cGMP Biomanufacturing & Clinical Supplies | Lambda CDMO",
+    "metaDesc": "Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.",
+    "badge": "Manufacturing Services",
+    "heading": "From Process Development to Clinical Manufacturing. Delivered with Confidence.",
+    "description": "Manufacturing success depends on process consistency, product quality, and effective technology transfer. Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.\n\nOur manufacturing operations at Ahmedabad, India bring together process, analytical, manufacturing, and quality functions to support controlled execution, consistent product quality, and regulatory requirements across clinical programs.",
+    "image": "/images/upstream_GMP/GMP Production bioreactor.png",
+    "images": [
+      "/images/down stream/AKTA Pilot.png",
+      "/images/down stream/AKTA Pure 150_Akta Avant.png",
+      "/images/down stream/Column Storage Rack.png",
+      "/images/down stream/TFF System.png",
+      "/images/down stream/Tecan Freedom EVO.png"
+    ],
+    "sections": [
+      {
+        "id": "sec-manufacturing-pillars",
+        "style": "cards-grid",
+        "title": "cGMP Manufacturing Operations",
+        "subtitle": "DRUG SUBSTANCE & DRUG PRODUCT",
+        "text": "Single-use bioreactor facilities and automated robotic barrier isolator fill-finish suites adhering to global cGMP standards.",
+        "dark": false,
+        "cards": [
+          {
+            "title": "Drug Substance Manufacturing",
+            "link": "/manufacturing/drug-substance",
+            "badge": "Drug Substance",
+            "image": "/images/upstream_GMP/GMP Production bioreactor.png",
+            "description": "Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.",
+            "bullets": [
+              "GMP seed train and production bioreactor operations",
+              "Mammalian cell culture manufacturing",
+              "Upstream and downstream processing",
+              "Chromatographic purification and polishing"
+            ]
+          },
+          {
+            "title": "Drug Product Manufacturing",
+            "link": "/manufacturing/drug-product",
+            "badge": "Drug Product",
+            "image": "/images/insights/robotic_fill_finish.png",
+            "description": "Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products across liquid and lyophilized forms.",
+            "bullets": [
+              "Formulation development and optimization",
+              "Excipient compatibility studies",
+              "GMP aseptic fill-finish operations",
+              "Liquid and lyophilized dosage forms"
+            ]
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What batch scales and filling formats are supported at the Ahmedabad facility?",
+        "answer": "Our drug substance facility operates single-use bioreactors up to 2x 200L scale. Our drug product aseptic suite features an automated robotic isolator supporting liquid and lyophilized vials (2R to 50R), prefilled syringes (0.5 mL to 5 mL), and cartridges (1.5 mL to 3 mL)."
+      },
+      {
+        "question": "How do you prevent cross-contamination during multi-product operations?",
+        "answer": "We utilize dedicated single-use disposable flow paths across upstream, downstream, and fill-finish operations. Combined with Grade A/B/C cleanroom zoning, directional pressure differentials, and continuous environmental monitoring, product cross-contamination is eliminated."
+      },
+      {
+        "question": "What regulatory standards govern the manufacturing facility?",
+        "answer": "The Ahmedabad manufacturing campus operates under a harmonized Quality Management System compliant with US FDA (21 CFR Part 210, 211, and Part 11), EMA cGMP (EudraLex Vol 4, Annex 1), PIC/S, and WHO cGMP guidelines."
+      },
+      {
+        "question": "Do you support lyophilization cycle development and clinical scale freeze-drying?",
+        "answer": "Yes, we provide formulation screening, thermal characterization (Tg/Tcc), lyophilization cycle development, and clinical-scale freeze-drying with automated loading/unloading inside our barrier isolator system."
+      }
+    ],
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
+    "ctaTitle": "Let's Advance Your Next Biologics Program",
+    "ctaSubtitle": "Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.",
+    "primaryCta": {
+      "text": "Get in Touch",
+      "link": "/contact"
+    },
+    "secondaryCta": {
+      "text": "Virtual Tour",
+      "link": "/virtual-tour"
+    },
+    "isPublished": true,
+    "status": "published"
+  }
+,
+  {
+    "category": "characterization",
+    "slug": "characterization",
+    "title": "Analytical Characterization & Testing — Biologics Analytics | Lambda CDMO",
+    "metaTitle": "Analytical Characterization & Testing — Biologics Analytics | Lambda CDMO",
+    "metaDesc": "Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.",
+    "badge": "Analytical Characterization and Testing",
+    "heading": "Analytical Insights that Advance Biologics Development",
+    "description": "Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.\n\nOur analytical platform combines physicochemical, molecular, structural, biophysical, functional, and microbiological testing to generate data across development and manufacturing.",
+    "image": "/images/Analytical/Orbitrap.png",
+    "images": [
+      "/images/Analytical/Biacore 8K+.png",
+      "/images/Analytical/Orbitrap.png",
+      "/images/Analytical/Q ToF.png",
+      "/images/Analytical/Maurice.png",
+      "/images/Analytical/nanoDSF.png",
+      "/images/Analytical/Octet.png",
+      "/images/Analytical/UPLC.png"
+    ],
+    "sections": [
+      {
+        "id": "sec-char-pillars",
+        "style": "cards-grid",
+        "title": "Four Core Analytical Pillars",
+        "subtitle": "COMPREHENSIVE ANALYTICS",
+        "text": "Orthogonal testing suites for molecular, structural, functional, and microbiological characterization.",
+        "dark": false,
+        "cards": [
+          {
+            "title": "Analytical Testing",
+            "link": "/characterization/analytical-testing",
+            "badge": "Analytical Testing",
+            "image": "/images/Analytical/UPLC.png",
+            "description": "Reliable analytical testing for biologics drug substance and drug product, supporting in-process controls, batch release, stability programs, and regulatory compliance.",
+            "bullets": [
+              "Identity testing using peptide mapping, LC-MS, and immunological methods",
+              "Purity and impurity analysis using SEC-HPLC, CE-SDS, and IEF",
+              "Protein concentration analysis",
+              "Potency testing using cell-based and ligand-binding assays"
+            ]
+          },
+          {
+            "title": "Physicochemical Characterization",
+            "link": "/characterization/physicochemical",
+            "badge": "Physicochemical",
+            "image": "/images/Analytical/Orbitrap.png",
+            "description": "Comprehensive structural, molecular, and biophysical characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.",
+            "bullets": [
+              "Primary structure analysis",
+              "Intact mass and peptide mass analysis",
+              "Disulfide bond characterization",
+              "Glycan profiling"
+            ]
+          },
+          {
+            "title": "Bioassays & Immunogenicity Testing",
+            "link": "/characterization/bioassays",
+            "badge": "Bioassays & ADA",
+            "image": "/images/upstream/Biosaftey_cabinet.png",
+            "description": "Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.",
+            "bullets": [
+              "Cell-based potency assays",
+              "Reporter gene assays",
+              "Binding assays",
+              "ADCC and CDC functional assays"
+            ]
+          },
+          {
+            "title": "Microbiological Testing",
+            "link": "/characterization/microbiological",
+            "badge": "Microbiology",
+            "image": "/images/working employee2.png",
+            "description": "Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.",
+            "bullets": [
+              "Sterility testing",
+              "Bioburden testing",
+              "Bacterial endotoxin testing (BET)",
+              "Environmental monitoring"
+            ]
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How does Lambda CDMO approach comparability and biosimilar similarity studies?",
+        "answer": "We utilize a multi-tiered, orthogonal analytical characterization package comparing primary structure, higher-order structure, post-translational modifications (PTMs), charge/size heterogeneity, target binding kinetics, and functional bioassay potency against multiple reference product lots."
+      },
+      {
+        "question": "Are analytical methods qualified or validated according to ICH guidelines?",
+        "answer": "Yes, all analytical methods are developed and validated in accordance with ICH Q2(R1) guidelines, covering specificity, linearity, accuracy, precision (repeatability and intermediate precision), range, limit of detection (LOD), and limit of quantitation (LOQ)."
+      },
+      {
+        "question": "What stability conditions and programs are available for biologics?",
+        "answer": "We offer ICH-compliant stability chambers covering real-time storage (5°C ± 3°C), accelerated storage (25°C/60% RH), stress testing (40°C/75% RH), and frozen/ultra-low storage (-20°C, -80°C) with validated stability-indicating methods."
+      },
+      {
+        "question": "Can you support forced degradation studies for critical quality attribute (CQA) identification?",
+        "answer": "Yes, we perform structured forced degradation studies exposing molecules to thermal, pH (acid/base), oxidative, photolytic (ICH Q1B), and mechanical agitation stress to establish degradation pathways and validate method stability-indicating capability."
+      }
+    ],
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
+    "ctaTitle": "Let's Advance Your Next Biologics Program",
+    "ctaSubtitle": "Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.",
+    "primaryCta": {
+      "text": "Get in Touch",
+      "link": "/contact"
+    },
+    "secondaryCta": {
+      "text": "Virtual Tour",
+      "link": "/virtual-tour"
+    },
+    "isPublished": true,
+    "status": "published"
+  }
+,
+  {
+    "category": "facility&location",
+    "slug": "facility&location",
+    "title": "Facility and Locations — Biologics Development & Manufacturing | Lambda CDMO",
+    "metaTitle": "Facility and Locations — Biologics Development & Manufacturing | Lambda CDMO",
+    "metaDesc": "Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.",
+    "badge": "Facility & Locations",
+    "heading": "Biologics Development and Manufacturing Across India and Europe",
+    "description": "Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.\n\nOur facilities support with a strong focus, different aspects of biologics development, with Ahmedabad providing an integrated development and GMP manufacturing platform and London providing specialized biologics development and analytical capabilities, for drug substance process development and process characterisation.",
+    "image": "/images/CDMOblue.png",
+    "images": [
+      "/images/CDMOblue.png",
+      "/images/celldev.png",
+      "/images/cgmp2.png",
+      "/images/Lab.jpg",
+      "/images/development.jpg"
+    ],
+    "sections": [
+      {
+        "id": "sec-facility-locations",
+        "style": "dual-locations-map",
+        "title": "Dual Global Facilities",
+        "subtitle": "STRATEGIC GLOBAL FOOTPRINT",
+        "text": "Two state-of-the-art facilities across Ahmedabad, India and London, United Kingdom delivering end-to-end biologics support.",
+        "dark": false,
+        "locations": [
+          {
+            "name": "Ahmedabad Biologics Campus",
+            "country": "India",
+            "city": "Ahmedabad",
+            "type": "Primary Development & GMP Manufacturing Hub",
+            "description": "Integrated campus featuring mammalian cell line development, high-titer upstream & downstream bioprocess suites, single-use bioreactors up to 2x 200L, automated robotic barrier isolator fill-finish, and comprehensive analytical release testing.",
+            "tag": "Ahmedabad, India",
+            "address": "Lambda House, Ahmedabad, Gujarat, India",
+            "badge": "GMP Facility",
+            "color": "#f58634",
+            "image": "/images/CDMOblue.png",
+            "link": "/facility&location/India"
+          },
+          {
+            "name": "London Analytical Innovation Centre",
+            "country": "UK",
+            "city": "London",
+            "type": "Specialized Biologics & Characterization Hub",
+            "description": "Advanced analytical and early development center offering clone screening, multi-attribute LC-MS profiling, higher-order structure analysis, biophysical characterization, and early process characterization.",
+            "tag": "London, UK",
+            "address": "Lambda Therapeutic Research, London, UK",
+            "badge": "Analytical Hub",
+            "color": "#00aeef",
+            "image": "/images/Lab.jpg",
+            "link": "/facility&location/UK"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How do Lambda CDMO’s Ahmedabad and London facilities collaborate on a single program?",
+        "answer": "Our multi-site model allows sponsors to initiate clone screening, analytical development, and early process characterisation in our London centre, followed by seamless technology transfer to our Ahmedabad cGMP suites for scale-up (up to 2x 200L single-use bioreactors) and automated isolator fill-finish."
+      },
+      {
+        "question": "What regulatory standards do the facilities comply with?",
+        "answer": "Both facilities operate under a harmonized quality management system aligned with US FDA (21 CFR Part 210/211/11), EMA cGMP (EudraLex Volume 4, Annex 1), PMDA, and TGA requirements for global clinical and commercial submissions."
+      },
+      {
+        "question": "What filling and packaging formats are supported at the Ahmedabad GMP facility?",
+        "answer": "The drug product platform in Ahmedabad features a robotic isolator filling line supporting vials, pre-filled syringes (PFS), and cartridges with automated visual inspection and secondary packaging capabilities."
+      },
+      {
+        "question": "Can sponsors visit or audit the facilities?",
+        "answer": "Yes, we welcome sponsor on-site technical visits, vendor qualification audits, and remote virtual audits with full access to our quality management and batch release documentation."
+      }
+    ],
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
+    "ctaTitle": "Let's Advance Your Next Biologics Program",
+    "ctaSubtitle": "Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements.",
+    "primaryCta": {
+      "text": "Get in Touch",
+      "link": "/contact"
+    },
+    "secondaryCta": {
+      "text": "Virtual Tour",
+      "link": "/virtual-tour"
+    },
+    "isPublished": true,
+    "status": "published"
   }
 ];

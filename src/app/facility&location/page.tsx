@@ -12,11 +12,22 @@ import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import FacilityHeroCarousel from '@/components/FacilityHeroCarousel';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
+import { getStoredPage } from '@/lib/pagesStorage';
 
-export const metadata: Metadata = {
-  title: 'Facility and Locations — Biologics Development & Manufacturing | Lambda CDMO',
-  description: 'Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.',
-};
+interface PageProps {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const isPreview = resolvedSearchParams?.preview === 'true';
+  const page = getStoredPage('facility&location', 'facility&location', { previewDraft: isPreview });
+
+  return {
+    title: page?.metaTitle || page?.title || 'Facility and Locations — Biologics Development & Manufacturing | Lambda CDMO',
+    description: page?.metaDesc || page?.description || 'Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.',
+  };
+}
 
 interface CapabilityRow {
   capability: string;
@@ -92,7 +103,7 @@ const CAPABILITIES_TABLE: CapabilityRow[] = [
   },
 ];
 
-const FACILITY_FAQS = [
+const DEFAULT_FACILITY_FAQS = [
   {
     question: 'How do Lambda CDMO’s Ahmedabad and London facilities collaborate on a single program?',
     answer: 'Our multi-site model allows sponsors to initiate clone screening, analytical development, and early process characterisation in our London centre, followed by seamless technology transfer to our Ahmedabad cGMP suites for scale-up (up to 2x 200L single-use bioreactors) and automated isolator fill-finish.',
@@ -111,9 +122,30 @@ const FACILITY_FAQS = [
   },
 ];
 
-export default function FacilityAndLocationPage() {
+export default async function FacilityAndLocationPage({ searchParams }: PageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const isPreview = resolvedSearchParams?.preview === 'true';
+  const page = getStoredPage('facility&location', 'facility&location', { previewDraft: isPreview });
+
+  const badge = page?.badge || 'Facility & Locations';
+  const heading = page?.heading || 'Biologics Development and Manufacturing Across India and Europe';
+  const descriptionParagraphs = page?.description
+    ? page.description.split('\n\n').filter(Boolean)
+    : [
+        'Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.',
+        'Our facilities support with a strong focus, different aspects of biologics development, with Ahmedabad providing an integrated development and GMP manufacturing platform and London providing specialized biologics development and analytical capabilities, for drug substance process development and process characterisation.'
+      ];
+
+  const faqs = (page?.faqs && page.faqs.length > 0) ? page.faqs : DEFAULT_FACILITY_FAQS;
+
   return (
     <main className="min-h-screen bg-white">
+      {isPreview && (
+        <div className="bg-amber-500 text-black text-xs font-bold px-4 py-2 text-center sticky top-0 z-50 flex items-center justify-center gap-2 shadow-sm">
+          <span>⚠️ You are viewing an UNPUBLISHED DRAFT PREVIEW of the Facility & Locations Hub Page. Regular visitors see the live published version.</span>
+        </div>
+      )}
+
       {/* HERO SECTION */}
       <section className="relative bg-molecules-hero overflow-hidden px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 border-b border-neutral-100">
         <div className="absolute inset-0 opacity-[0.07] pointer-events-none">
@@ -131,20 +163,17 @@ export default function FacilityAndLocationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-semibold tracking-wider bg-brand-yellow text-black mb-6">
-                Facility & Locations
+                {badge}
               </span>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05]">
-                <span className="text-neutral-900">Biologics Development</span> and Manufacturing Across India and Europe
+                {heading}
               </h1>
 
               <div className="space-y-4 text-[17px] text-slate-600 font-normal leading-relaxed mt-6 max-w-xl">
-                <p>
-                  Lambda CDMO operates across <strong className="text-neutral-900 font-semibold">Ahmedabad, India, and London, UK</strong>, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.
-                </p>
-                <p>
-                  Our facilities support with a strong focus, different aspects of biologics development, with <strong className="text-neutral-900 font-semibold">Ahmedabad providing an integrated development and GMP manufacturing platform</strong> and <strong className="text-neutral-900 font-semibold">London providing specialized biologics development and analytical capabilities</strong>, for drug substance process development and process characterisation.
-                </p>
+                {descriptionParagraphs.map((para, pIdx) => (
+                  <p key={pIdx}>{para}</p>
+                ))}
               </div>
 
               {/* Quick Facility Action Buttons */}
@@ -309,10 +338,23 @@ export default function FacilityAndLocationPage() {
       </section>
 
       {/* FAQS SECTION */}
-      <FAQSection faqs={FACILITY_FAQS} />
+      <FAQSection 
+        faqs={faqs}
+        title={page?.faqTitle}
+        subtitle={page?.faqSubtitle}
+        buttonText={page?.faqButtonText}
+        buttonLink={page?.faqButtonLink}
+      />
 
       {/* CTA SECTION */}
-      <CommonCTA />
+      <CommonCTA 
+        title={page?.ctaTitle}
+        subtitle={page?.ctaSubtitle}
+        primaryButtonText={page?.primaryCta?.text}
+        primaryButtonHref={page?.primaryCta?.link}
+        secondaryButtonText={page?.secondaryCta?.text}
+        secondaryButtonHref={page?.secondaryCta?.link}
+      />
     </main>
   );
 }

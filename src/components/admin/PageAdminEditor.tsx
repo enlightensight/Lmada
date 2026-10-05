@@ -747,6 +747,9 @@ export default function PageAdminEditor({
 }: PageAdminEditorProps) {
   const [page, setPage] = useState<CDMOPage>(() => {
     const cloned: CDMOPage = JSON.parse(JSON.stringify(initialPage));
+    if (cloned.category?.toLowerCase() === 'modalities') {
+      cloned.sections = [];
+    }
     if (cloned.sections) {
       cloned.sections = cloned.sections.filter(
         (s) =>
@@ -791,9 +794,13 @@ export default function PageAdminEditor({
   const [faqPreviewActiveIdx, setFaqPreviewActiveIdx] = useState<number | null>(null);
 
   // Live URL
+  const isHome = page.category === 'home' && page.slug === 'home';
+  const isHub = page.slug === page.category;
   const liveUrl =
-    page.category === 'home' && page.slug === 'home'
+    isHome
       ? '/'
+      : isHub
+      ? `/${page.category}`
       : `/${page.category}/${page.slug}`;
 
   // Draft Preview URL
@@ -885,6 +892,7 @@ export default function PageAdminEditor({
     isFullyCustom
   );
   const supportsFaqs = true;
+  const supportsNarrativeSections = pageCategory !== 'modalities' || isFullyCustom;
 
   // Only show sections that are BOTH supported by this page's layout AND have existing content
   const hasStats = supportsStats && Boolean(page.stats && page.stats.length > 0);
@@ -918,7 +926,7 @@ export default function PageAdminEditor({
   const modalitiesSecNum = hasModalities ? secCounter++ : 0;
   const bioassaysSecNum = hasBioassays ? secCounter++ : 0;
   const analyticsSecNum = hasAnalytics ? secCounter++ : 0;
-  const narrativeSecNum = secCounter++;
+  const narrativeSecNum = supportsNarrativeSections ? secCounter++ : 0;
   const footerNoteSecNum = hasFooterNote ? secCounter++ : 0;
   const specsSecNum = hasSpecs ? secCounter++ : 0;
   const faqsSecNum = hasFaqs ? secCounter++ : 0;
@@ -1415,6 +1423,12 @@ export default function PageAdminEditor({
 
   // Helper to ensure sections are clean of fake FAQ and CTA blocks
   const sanitizePageForSave = (p: CDMOPage): CDMOPage => {
+    if (p.category?.toLowerCase() === 'modalities') {
+      return {
+        ...p,
+        sections: []
+      };
+    }
     const cleanedSections = (p.sections || []).filter(
       (s) =>
         s.style !== 'faq-accordion' &&
@@ -1703,7 +1717,7 @@ export default function PageAdminEditor({
     try {
       const pageToSave = sanitizePageForSave(page);
 
-      const res = await fetch(`/api/admin/pages/${page.category}/${page.slug}`, {
+      const res = await fetch(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: pageToSave, action: 'save_draft' })
@@ -1739,7 +1753,7 @@ export default function PageAdminEditor({
     try {
       const pageToSave = sanitizePageForSave(page);
 
-      const res = await fetch(`/api/admin/pages/${page.category}/${page.slug}`, {
+      const res = await fetch(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: pageToSave, action: 'save_draft' })
@@ -1769,7 +1783,7 @@ export default function PageAdminEditor({
     try {
       const pageToPublish = sanitizePageForSave(page);
 
-      const res = await fetch(`/api/admin/pages/${page.category}/${page.slug}`, {
+      const res = await fetch(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: pageToPublish, action: 'publish' })
@@ -1807,7 +1821,7 @@ export default function PageAdminEditor({
     }
     setReverting(true);
     try {
-      const res = await fetch(`/api/admin/pages/${page.category}/${page.slug}`, {
+      const res = await fetch(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'revert' })
@@ -1837,7 +1851,7 @@ export default function PageAdminEditor({
       return;
     }
     try {
-      const res = await fetch(`/api/admin/pages/${page.category}/${page.slug}`, {
+      const res = await fetch(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'unpublish' })
@@ -2052,14 +2066,16 @@ export default function PageAdminEditor({
           </button>
 
           {/* Quick Add Section Button */}
-          <button
-            type="button"
-            onClick={() => setIsLayoutModalOpen(true)}
-            className="ml-auto px-4 py-2 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95 transition-all shrink-0"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Add Section</span>
-          </button>
+          {supportsNarrativeSections && (
+            <button
+              type="button"
+              onClick={() => setIsLayoutModalOpen(true)}
+              className="ml-auto px-4 py-2 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95 transition-all shrink-0"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Add Section</span>
+            </button>
+          )}
         </div>
 
         {/* TAB 1: SECTIONS BUILDER WITH LIVE WEBSITE-MATCHING LAYOUTS */}
@@ -3156,7 +3172,9 @@ export default function PageAdminEditor({
             {/* =========================================================================
                 SECTION 7: NARRATIVE CONTENT SECTIONS (WYSIWYG CANVAS)
                ========================================================================= */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+            {supportsNarrativeSections && (
+              <>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
               <div>
                 <div className="flex items-center gap-2 flex-wrap mb-0.5">
                   <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-blue text-white shadow-2xs">
@@ -6383,6 +6401,8 @@ export default function PageAdminEditor({
                 })}
               </div>
             )}
+              </>
+            )}
 
             {/* =========================================================================
                 SECTION 8: PLATFORM SUMMARY / FOOTER NOTE CARD
@@ -6992,7 +7012,7 @@ export default function PageAdminEditor({
           )}
 
             {/* Quick Add Section Strip between Narrative/Specs/FAQs and CTA if no bottom sections exist */}
-            {!hasFooterNote && !hasSpecs && !hasFaqs && (
+            {supportsNarrativeSections && !hasFooterNote && !hasSpecs && !hasFaqs && (
               <div className="py-2 flex items-center justify-center">
                 <button
                   type="button"

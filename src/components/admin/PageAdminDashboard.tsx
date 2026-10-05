@@ -58,7 +58,7 @@ export default function PageAdminDashboard() {
     const key = `${category}-${slug}`;
     setPublishingKey(key);
     try {
-      const res = await fetch(`/api/admin/pages/${category}/${slug}`, {
+      const res = await fetch(`/api/admin/pages/${encodeURIComponent(category)}/${encodeURIComponent(slug)}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'publish' })
@@ -110,8 +110,9 @@ export default function PageAdminDashboard() {
   // Handle Delete / Reset Page
   const handleDeleteOrReset = async (category: string, slug: string, title: string) => {
     const isHome = category === 'home' && slug === 'home';
-    const confirmPrompt = isHome
-      ? `Are you sure you want to reset the Home Page back to factory defaults?`
+    const isHub = slug === category;
+    const confirmPrompt = (isHome || isHub)
+      ? `Are you sure you want to reset "${title}" (${isHome ? '/' : `/${category}`}) back to factory defaults?`
       : `Are you sure you want to delete or reset "${title}" (${category}/${slug})?`;
 
     if (!window.confirm(confirmPrompt)) return;
@@ -120,7 +121,7 @@ export default function PageAdminDashboard() {
     setDeletingKey(key);
 
     try {
-      const res = await fetch(`/api/admin/pages/${category}/${slug}`, {
+      const res = await fetch(`/api/admin/pages/${encodeURIComponent(category)}/${encodeURIComponent(slug)}`, {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -211,6 +212,13 @@ export default function PageAdminDashboard() {
       p.metaDesc?.toLowerCase().includes(searchQuery.toLowerCase());
 
     return matchesCategory && matchesSearch;
+  }).sort((a, b) => {
+    // Hub pages appear at the top of their category
+    const aIsHub = a.slug === a.category || (a.category === 'home' && a.slug === 'home');
+    const bIsHub = b.slug === b.category || (b.category === 'home' && b.slug === 'home');
+    if (aIsHub && !bIsHub) return -1;
+    if (!aIsHub && bIsHub) return 1;
+    return 0;
   });
 
   return (
@@ -333,7 +341,8 @@ export default function PageAdminDashboard() {
               <tbody className="divide-y divide-slate-100">
                 {filteredPages.map((p) => {
                   const isHome = p.category === 'home' && p.slug === 'home';
-                  const livePath = isHome ? '/' : `/${p.category}/${p.slug}`;
+                  const isHub = p.slug === p.category;
+                  const livePath = isHome ? '/' : isHub ? `/${p.category}` : `/${p.category}/${p.slug}`;
                   const previewPath = `${livePath}${livePath.includes('?') ? '&' : '?'}preview=true`;
                   const key = `${p.category}-${p.slug}`;
                   const isDraftOnly = p.isPublished === false;
@@ -352,10 +361,15 @@ export default function PageAdminDashboard() {
                             />
                           </div>
                           <div>
-                            <div className="flex items-center gap-1.5">
+                            <div className="flex items-center gap-1.5 flex-wrap">
                               {isHome && (
                                 <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">
                                   Home Page
+                                </span>
+                              )}
+                              {isHub && !isHome && (
+                                <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200/60">
+                                  Category Hub
                                 </span>
                               )}
                               <span className="text-[10px] font-bold uppercase tracking-wider text-brand-orange">

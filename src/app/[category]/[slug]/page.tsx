@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { cdmoData } from '@/data/cdmoData';
 import { getStoredPage, getAllStoredPages } from '@/lib/pagesStorage';
 import type { CDMOPage } from '@/data/cdmoData';
@@ -23,7 +23,7 @@ interface PageProps {
 export async function generateStaticParams() {
   const allPages = getAllStoredPages();
   return allPages
-    .filter((page) => page.category !== 'home' && page.slug !== 'home')
+    .filter((page) => page.category !== 'home' && page.slug !== 'home' && page.slug !== page.category)
     .map((page) => ({
       category: page.category,
       slug: page.slug,
@@ -374,6 +374,10 @@ export default async function CDMODynamicPage({ params, searchParams }: PageProp
 
   const category = decodeURIComponent(rawCategory);
   const slug = decodeURIComponent(rawSlug);
+
+  if (category === slug) {
+    redirect(`/${category}${isPreview ? '?preview=true' : ''}`);
+  }
 
   const page = getStoredPage(category, slug, { previewDraft: isPreview });
 
