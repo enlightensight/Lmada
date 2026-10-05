@@ -18,7 +18,11 @@ import {
   AlignLeft,
   CheckCircle2,
   Layers,
-  Newspaper
+  Newspaper,
+  Users,
+  HeartPulse,
+  Microscope,
+  Quote
 } from 'lucide-react';
 import type { CDMOSection } from '@/data/cdmoData';
 
@@ -35,63 +39,84 @@ export interface SectionLayoutOption {
 
 export const SECTION_LAYOUTS: SectionLayoutOption[] = [
   {
-    id: 'bento-insights',
-    name: 'Featured Research & Bento Insights Grid',
-    category: 'visual',
-    icon: Newspaper,
-    tag: 'Bento Insights',
-    description: 'Bento grid layout with 1 large featured article on left, 2 stacked horizontal cards on right, and top-right View All button.',
-    bestFor: 'Featured research, scientific articles, latest blogs, press releases',
+    id: 'leadership-grid',
+    name: 'Executive & Scientific Leadership Team Grid',
+    category: 'content',
+    icon: Users,
+    tag: 'Team Grid',
+    description: '2x2 executive leadership card grid with portrait photo, role badge, title, experience counter, academic credentials, and full bio.',
+    bestFor: 'Leadership team, scientific advisory board, executive bios',
     sampleData: {
-      style: 'bento-insights',
-      title: 'Featured Research and Insights',
-      subtitle: 'SCIENTIFIC PERSPECTIVES & NEWS',
-      text: 'Explore the latest perspectives from our scientists — blogs, news, and upcoming events.',
-      buttonText: 'View all insights',
-      buttonLink: '/insights/blogs',
+      style: 'leadership-grid',
+      title: 'Executive & Scientific Team',
+      subtitle: 'SCIENTIFIC LEADERSHIP',
+      text: 'Led by experienced biopharma leaders across technical product development, process sciences, analytical characterization, and global regulatory execution.',
       dark: false,
       cards: [
         {
-          title: 'Accelerating Cell Line Development for Monoclonal Antibodies',
-          description: 'How automated clone screening and stable CHO platforms shorten the path from gene to high-producing cell line.',
-          badge: 'CELL LINE DEVELOPMENT',
-          step: 'November 15, 2023 · 8 min read',
-          image: '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
-          link: '/insights/blogs/accelerating-cell-line-development-for-mabs'
+          title: 'Dr. M.S. Ramakrishnan',
+          link: 'EXECUTIVE VICE PRESIDENT - CDMO',
+          badge: 'EXECUTIVE LEADERSHIP',
+          step: '25+ Years Experience',
+          icon: 'Ph.D. in Biochemistry (University of Mysore) | Post-doctoral fellow (Howard Hughes Medical Institute, University of Chicago)',
+          description: 'Dr. M. S. Ramakrishnan is a biopharmaceutical development leader with more than 25 years of experience spanning technical product development and in vitro and in vivo pharmacology. His experience includes the development of novel biologics and biosimilars, with a focus on advancing complex biologic programs through the development pipeline.\n\nPreviously, Dr. Ramakrishnan served as Vice President of Research and Development at Biocon Biologics Limited, where he contributed to the development of analytical characterization technologies for novel and biosimilar monoclonal antibodies, with a focus on product quality, safety, and efficacy.\n\nHe holds a Ph.D. in Biochemistry from the University of Mysore and completed post-doctoral research at the Howard Hughes Medical Institute, University of Chicago. As Executive Vice President – CDMO, he provides strategic leadership for the CDMO business, with a focus on strengthening service capabilities and aligning development and manufacturing offerings with global industry requirements.',
+          image: '/images/team/MS Ramaki.jpg'
         },
         {
-          title: 'From DNA to Research Cell Bank in 16 Weeks',
-          description: 'A look inside the streamlined gene-to-RCB pathway that de-risks early biologics development timelines.',
-          badge: 'CELL LINE DEVELOPMENT',
-          step: '6 min read',
-          image: '/images/default_scientist.png',
-          link: '/insights/blogs/from-dna-to-research-cell-bank-in-16-weeks'
+          title: 'Jagannathan Sundaram',
+          link: 'VICE PRESIDENT - PROCESS SCIENCES (INDIA)',
+          badge: 'PROCESS SCIENCES (INDIA)',
+          step: '20+ Years Experience',
+          icon: 'Master’s in Engineering in Bio-Process Technology | B.Tech in Chemical & Bio-Chemical Engineering - Tech',
+          description: 'Jagannathan Sundaram is Vice President of Process Sciences at Lambda CDMO, leading bioprocess engineering, upstream cell culture development, downstream purification, and technology transfer for biologics and biosimilars.\n\nWith extensive expertise across biopharmaceutical process development and scale-up, he oversees the development of scalable single-use bioreactor systems and multi-modal downstream purification suites from bench scale through clinical and commercial cGMP biomanufacturing suites at Lambda’s Ahmedabad campus.\n\nHis leadership ensures robust tech transfer protocols, critical process parameter (CPP) control, high process yields, and full alignment with global US FDA, EMA, and WHO regulatory manufacturing expectations.',
+          image: '/images/team/Jagannathan.jpg'
         },
         {
-          title: 'Upstream Process Optimization: Feed and Perfusion Strategies',
-          description: 'How feed design, perfusion configurations, and scale-down models raise titers while protecting product quality.',
-          badge: 'PROCESS DEVELOPMENT',
-          step: '9 min read',
-          image: '/images/cdn/unsplash-1606206873764-fd15e242df52.jpg',
-          link: '/insights/blogs/upstream-process-optimization-feed-and-perfusion'
+          title: 'Dr. Abhishek Kulshrestha',
+          link: 'ASSOCIATE VICE PRESIDENT - ANALYTICAL SCIENCES (INDIA)',
+          badge: 'ANALYTICAL SCIENCES (INDIA)',
+          step: '20+ Years Experience',
+          icon: 'Ph.D. in Biochemistry (University of Delhi) | M.Sc. in Biotechnology (JNU) | B.Sc. in Life Sciences (Composite Honors)',
+          description: 'Dr. Abhishek Kulshrestha is Associate Vice President and Head of Analytical Sciences for the CDMO vertical at Lambda Therapeutic Research, with more than 20 years of experience in the biopharmaceutical industry. His expertise spans analytical sciences, quality control, and regulatory lifecycle management of complex biologics.\n\nAt Lambda, he leads analytical development and characterization for therapeutic antibodies and large-molecule bioanalytical services supporting domestic and international sponsors. His technical experience includes cell line development, orthogonal analytical and immunological strategies, process impurity clearance, asset evaluation, and immunogenicity risk assessment.\n\nPreviously, Dr. Kulshrestha served as General Manager and Head of Immunology at Biocon Biologics and as a Research Leader at Reliance Life Sciences. He has also contributed to regulatory interactions and preparation of dossier-related packages involving global health authorities. He holds a Ph.D. in Biochemistry from the University of Delhi, an M.Sc. in Biotechnology from Jawaharlal Nehru University (JNU). He is a co-inventor on granted European and US patents related to antibody drug detection methods, and has published research in peer-reviewed journals.',
+          image: '/images/team/Abhishek.png'
+        },
+        {
+          title: 'Bhargav Parla',
+          link: 'HEAD OF TECHNICAL DEVELOPMENT, BIOPHARMA R&D (HARROW)',
+          badge: 'EUROPEAN R&D (HARROW, UK)',
+          step: '20+ Years Experience',
+          icon: 'Qualified Chemist and Biologist | Qualified QP (QP Status) | US FDA, EMA, TGA, & Health Canada Regulatory Programs',
+          description: 'Bhargav Parla is a biopharmaceutical CMC and technical development leader with 20 years of experience across biologics and biosimilars. His expertise spans drug substance and drug product development, technology transfer, scale-up, product lifecycle management, CDMO management, and cross-development partnerships.\n\nHis experience includes developing and implementing development strategies, applying platform technologies, and coordinating internal and external capabilities to support biologics programs. He has worked across technical, regulatory, and operational functions to address complex development challenges and align program execution with business requirements.\n\nBhargav has supported regulatory programs involving EMA, FDA, TGA, and Health Canada, with experience in development strategies leading to regulatory outcomes. He also has extensive experience in building high-performing teams, scientific mentoring, resource management, and cross-functional governance.',
+          image: '/images/team/Bhargav.jpg'
         }
       ]
     }
   },
   {
-    id: 'locations-map',
-    name: 'CDMO Locations Map (India & Europe)',
-    category: 'visual',
-    icon: MapPin,
-    tag: 'Global Map',
-    description: 'Interactive global network map with dual facility cards for Ahmedabad (India cGMP campus) and London (UK innovation centre).',
-    bestFor: 'Facility overviews, global presence, international sponsor footprint',
+    id: 'capabilities-grid',
+    name: 'The Lambda Advantage (9-Card White Grid)',
+    category: 'content',
+    icon: LayoutGrid,
+    tag: 'Advantage Grid',
+    description: 'White 9-card capability grid with central quote icon, introductory narrative text, WHAT SETS US APART badge, and distinct capability cards matching live site.',
+    bestFor: 'Why partner with us, competitive advantages, core pillars, corporate credentials',
     sampleData: {
-      style: 'locations-map',
-      title: 'Global CDMO Capabilities Across India and Europe',
-      subtitle: 'INTEGRATED GLOBAL NETWORK',
-      text: 'Lambda CDMO operates purpose-built development and manufacturing facilities in Ahmedabad, India, and London, UK.',
-      dark: false
+      style: 'cards-grid',
+      title: 'The Lambda Advantage',
+      subtitle: 'WHAT SETS US APART',
+      text: 'Every biologic program has its own process, analytical, manufacturing, and regulatory requirements. Lambda CDMO brings together an integrated approach for process and analytical development, cGMP manufacturing, adequately supported by a quality management system to support programs from early development through clinical supplies.\n\nOur approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.',
+      dark: false,
+      cards: [
+        { title: 'Integrated biologics development, analytical, and manufacturing capabilities', description: '', icon: 'Workflow' },
+        { title: 'Extensive biologics development capabilities across India and Europe', description: '', icon: 'Globe' },
+        { title: 'Molecule-specific development approaches across cell line engineering, process development for Drug substance (upstream cell culture, downstream purification) and Drug product, and analytical development', description: '', icon: 'Dna' },
+        { title: 'Advanced analytical characterization supporting method development and validation, product understanding, and comparative analytical assessment.', description: '', icon: 'Microscope' },
+        { title: 'Process development focused on scalability, robustness, and manufacturability.', description: '', icon: 'TrendingUp' },
+        { title: 'Process characterisation studies to support process validation for both Drug Substance and Drug Product.', description: '', icon: 'Factory' },
+        { title: 'GMP manufacturing capabilities and flexible capacity supporting development batches through clinical supplies', description: '', icon: 'Package' },
+        { title: 'Quality and compliance systems supporting GMP operations and regulatory requirements', description: '', icon: 'ShieldCheck' },
+        { title: 'The above biologics development capabilities is well integrated with Lambda and Novum’s clinical research and regulated bioanalytical capabilities for peptides and biologics.', description: '', icon: 'Users' }
+      ]
     }
   },
   {
@@ -291,26 +316,7 @@ export const SECTION_LAYOUTS: SectionLayoutOption[] = [
       ]
     }
   },
-  {
-    id: 'faq-accordion',
-    name: 'FAQ Collapsible Accordion',
-    category: 'content',
-    icon: HelpCircle,
-    tag: 'FAQs',
-    description: 'Interactive expanding accordion list for answering technical, operational, and regulatory client inquiries.',
-    bestFor: 'Frequently asked questions, sponsor onboarding clarifications, regulatory policies',
-    sampleData: {
-      style: 'faq-accordion',
-      title: 'Frequently Asked Questions',
-      subtitle: 'TECHNICAL & REGULATORY CLARIFICATIONS',
-      text: 'Find direct answers regarding project timelines, tech transfer procedures, analytical comparability, and quality assurance.',
-      faqs: [
-        { question: 'What is the standard timeline from gene sequence to Research Cell Bank (RCB)?', answer: 'Our streamlined gene-to-RCB pathway typically delivers verified stable high-titer clonal lineages in 14 to 16 weeks.' },
-        { question: 'How is analytical comparability demonstrated for biosimilar programs?', answer: 'We employ orthogonal physicochemical, biophysical, and in vitro bioassays across 20+ CQAs to establish structural and functional biosimilarity against reference products.' },
-        { question: 'Do you support international regulatory submissions (IND / CTA / BLA)?', answer: 'Yes. Our QA and regulatory teams compile complete Module 3 (CMC) technical dossiers aligned with US FDA, EMA, and global ICH standards.' }
-      ]
-    }
-  },
+
   {
     id: 'video-hero-banner',
     name: 'Cinematic Video & Media Banner',
@@ -362,6 +368,54 @@ export const SECTION_LAYOUTS: SectionLayoutOption[] = [
       subtitle: 'OUR QUALITY PHILOSOPHY',
       text: 'Every biopharmaceutical program demands an uncompromising focus on quality, process understanding, and patient safety.\n\nOur Quality Management System (QMS) operates as a unified framework spanning analytical development, process validation, cGMP manufacturing, and lot release. With automated audit trails and 21 CFR Part 11 electronic data integrity, we ensure that every milestone produces bulletproof regulatory filings for worldwide submissions.'
     }
+  },
+  {
+    id: 'bioassays-suites',
+    name: 'Bioassay & Immunogenicity Testing Suites',
+    category: 'data',
+    icon: HeartPulse,
+    tag: 'Testing Suites',
+    description: 'Dual testing suites for cell-based bioassays (potency, reporter gene) and anti-drug antibody (ADA) immunogenicity assays.',
+    bestFor: 'Bioanalytical characterization, potency assays, immunogenicity assessment',
+    sampleData: {
+      style: 'bioassays-suites'
+    }
+  },
+  {
+    id: 'analytical-technologies',
+    name: 'Analytical Technologies Matrix',
+    category: 'data',
+    icon: Microscope,
+    tag: 'Instrumentation',
+    description: 'Comprehensive grid of analytical methods and instrumentation (HPLC, LC-MS/MS, cIEF, SPR) with method categories.',
+    bestFor: 'Analytical instrumentation, physicochemical testing, characterization methods',
+    sampleData: {
+      style: 'analytical-technologies'
+    }
+  },
+  {
+    id: 'regulatory-callout',
+    name: 'Platform Summary & Regulatory Callout',
+    category: 'content',
+    icon: Quote,
+    tag: 'Callout Note',
+    description: 'Prominent regulatory callout banner summarizing platform compliance, regulatory alignments, or scientific conclusions.',
+    bestFor: 'ICH regulatory declarations, compliance summaries, platform conclusions',
+    sampleData: {
+      style: 'regulatory-callout'
+    }
+  },
+  {
+    id: 'faq-accordion',
+    name: 'Frequently Asked Questions (FAQ Accordion)',
+    category: 'content',
+    icon: HelpCircle,
+    tag: 'FAQ Accordion',
+    description: 'Interactive question and answer accordion list with expandable answers and contact link.',
+    bestFor: 'Technical FAQs, process requirements, regulatory questions',
+    sampleData: {
+      style: 'faq-accordion'
+    }
   }
 ];
 
@@ -369,12 +423,14 @@ interface SectionLayoutGalleryModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSelectLayout: (layout: SectionLayoutOption) => void;
+  activeSectionIds?: string[];
 }
 
 export default function SectionLayoutGalleryModal({
   isOpen,
   onClose,
-  onSelectLayout
+  onSelectLayout,
+  activeSectionIds
 }: SectionLayoutGalleryModalProps) {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'content' | 'visual' | 'data' | 'conversion'>('all');
   const [searchFilter, setSearchFilter] = useState('');
@@ -458,23 +514,43 @@ export default function SectionLayoutGalleryModal({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {filteredLayouts.map((layout) => {
               const Icon = layout.icon;
+              const isActive = Boolean(activeSectionIds?.includes(layout.id));
+
               return (
                 <div
                   key={layout.id}
                   onClick={() => onSelectLayout(layout)}
-                  className="group relative bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs hover:shadow-xl hover:border-brand-blue transition-all duration-300 flex flex-col justify-between cursor-pointer text-left"
+                  className={`group relative bg-white rounded-xl border p-5 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer text-left ${
+                    isActive
+                      ? 'border-emerald-300 ring-2 ring-emerald-500/20 hover:border-emerald-500'
+                      : 'border-slate-200/80 hover:border-brand-blue'
+                  }`}
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
+                      <div className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-colors duration-300 ${
+                        isActive
+                          ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white'
+                          : 'bg-brand-blue/10 border-brand-blue/20 text-brand-blue group-hover:bg-brand-blue group-hover:text-white'
+                      }`}>
                         <Icon className="w-5 h-5" />
                       </div>
-                      <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200">
-                        {layout.tag}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        {isActive && (
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                            <CheckCircle2 className="w-3 h-3" />
+                            <span>On Page</span>
+                          </span>
+                        )}
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200">
+                          {layout.tag}
+                        </span>
+                      </div>
                     </div>
 
-                    <h4 className="text-sm sm:text-base font-bold text-neutral-900 group-hover:text-brand-blue transition-colors leading-snug mb-1.5">
+                    <h4 className={`text-sm sm:text-base font-bold transition-colors leading-snug mb-1.5 ${
+                      isActive ? 'text-neutral-900 group-hover:text-emerald-700' : 'text-neutral-900 group-hover:text-brand-blue'
+                    }`}>
                       {layout.name}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed mb-3 line-clamp-2">
@@ -486,8 +562,10 @@ export default function SectionLayoutGalleryModal({
                     <span className="text-[11px] font-medium text-slate-400 line-clamp-1">
                       {layout.bestFor}
                     </span>
-                    <span className="text-brand-orange font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                      Add
+                    <span className={`font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform ${
+                      isActive ? 'text-emerald-600' : 'text-brand-orange'
+                    }`}>
+                      {isActive ? 'Configure →' : '+ Add Section'}
                     </span>
                   </div>
                 </div>

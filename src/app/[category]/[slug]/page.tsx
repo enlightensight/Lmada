@@ -427,10 +427,13 @@ export default async function CDMODynamicPage({ params, searchParams }: PageProp
     }
   })();
 
-  // Separate any modular sections that are not standard feature-split
-  const modularCustomSections = (page.sections || []).filter(
-    (s) => s.style && s.style !== 'feature-split'
-  );
+  // For overview category, OverviewLayout already handles all specialized sections (hero, 50/50 split, locations map, advantage grid, faqs, cta)
+  const isOverviewCategory = page.category.toLowerCase() === 'overview';
+  const modularCustomSections = isOverviewCategory
+    ? []
+    : (page.sections || []).filter(
+        (s) => s.style && s.style !== 'feature-split' && s.style !== 'faq-accordion'
+      );
 
   return (
     <div className="bg-white text-neutral-900 min-h-screen font-sans pb-0 select-none">

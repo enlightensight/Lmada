@@ -312,7 +312,9 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
           <div className="w-full max-w-[1700px] mx-auto">
             <div className="flex flex-col gap-12 md:gap-20">
-              {content.sections.map((section, idx) => {
+              {content.sections
+                .filter((s: any) => s.style !== 'faq-accordion' && !s.id?.includes('faq') && s.title !== 'Frequently Asked Questions')
+                .map((section: any, idx: number) => {
                 const SectionIcon = sectionIcons[idx % sectionIcons.length];
                 return (
                   <Reveal key={idx} delay={idx * 0.05}>
@@ -373,9 +375,15 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         </section>
       )}
 
-      {/* FAQ */}
+      {/* FAQ Accordion (Bottom Section) */}
       {page.faqs && page.faqs.length > 0 && (
-        <FAQSection faqs={page.faqs} />
+        <FAQSection
+          faqs={page.faqs}
+          title={page.faqTitle || 'Frequently Asked Questions'}
+          subtitle={page.faqSubtitle || 'Answers to key questions regarding our biologics development platform, regulatory alignment, and facility infrastructure.'}
+          buttonText={page.faqButtonText}
+          buttonLink={page.faqButtonLink}
+        />
       )}
 
       {/* CTA */}

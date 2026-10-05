@@ -99,7 +99,7 @@ export default function AboutHeroCarousel({ images }: AboutHeroCarouselProps) {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={currentImage.src}
+            src={encodeURI(currentImage.src)}
             alt={currentImage.alt}
             className="w-full h-full object-cover"
             style={{ filter: 'contrast(1.08) brightness(0.97) saturate(1.04) hue-rotate(5deg)' }}

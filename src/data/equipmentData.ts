@@ -334,6 +334,12 @@ export const ANALYTICAL_EQUIPMENT: EquipmentItem[] = [
     tag: 'Robotic Liquid Handler',
   },
   {
+    src: '/images/Analytical/RT-PCR.png',
+    title: 'Real-Time Quantitative PCR (RT-qPCR) System',
+    subtitle: 'High-sensitivity residual host cell DNA (HCD) quantitation and genetic stability evaluation for biologic drug substance.',
+    tag: 'RT-qPCR Molecular',
+  },
+  {
     src: '/images/Analytical/AMBR15.png',
     title: 'Ambr® 15 Micro-Culture System',
     subtitle: 'Automated microbioreactor system supporting clone ranking, media evaluation, and analytical process sampling.',

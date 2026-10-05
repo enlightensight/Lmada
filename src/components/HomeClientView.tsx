@@ -263,20 +263,14 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       sec.id !== 'home-cta'
   );
 
-  const faqSection = pageData?.sections?.find(
-    (s) => s.id === 'home-faq' || s.style === 'faq-accordion' || s.title?.toLowerCase().includes('question')
-  );
-  const faqTitle = faqSection?.title || 'Common Questions';
-  const faqSubtitle = faqSection?.text || faqSection?.subtitle || 'Answers to questions about process, tech transfers, timelines, and facility validations.';
-  const faqs = (faqSection?.faqs && faqSection.faqs.length > 0)
-    ? faqSection.faqs
-    : (pageData?.faqs && pageData.faqs.length > 0)
+  const faqTitle = pageData?.faqTitle || 'Common Questions';
+  const faqSubtitle = pageData?.faqSubtitle || 'Answers to questions about process, tech transfers, timelines, and facility validations.';
+  const faqs = (pageData?.faqs && pageData.faqs.length > 0)
     ? pageData.faqs
     : defaultFaqs.slice(0, 5);
 
-  const ctaSection = pageData?.sections?.find(
-    (s) => s.id === 'home-cta' || s.style === 'cta-banner' || s.title?.toLowerCase().includes('accelerate') || s.title?.toLowerCase().includes('advance')
-  );
+  const ctaTitle = pageData?.ctaTitle || "Accelerate Your Biologics Journey Today";
+  const ctaSubtitle = pageData?.ctaSubtitle || "Connect directly with our senior scientific and technical experts in Ahmedabad and London to discuss your molecule specifications and timeline.";
 
   return (
     <div className="relative overflow-hidden pb-0 select-none">
@@ -348,7 +342,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
                           return (
                             <li key={item.name} className="border-b border-neutral-100 last:border-0">
                               <Link
-                                href={item.href}
+                                href={item.href || '#'}
                                 className="group/link flex items-center justify-between gap-2.5 sm:gap-3 py-2.5 text-xs sm:text-sm font-medium text-neutral-700 hover:text-brand-blue transition-colors"
                               >
                                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
@@ -619,12 +613,12 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
 
       {/* CTA */}
       <CommonCTA
-        title={ctaSection?.title || "Let's Advance Your Next Biologics Program"}
-        subtitle={ctaSection?.text || ctaSection?.subtitle || "Whether you're developing an innovator biologic, biosimilar, or next-generation therapeutic, our team is ready to discuss your development and manufacturing requirements."}
-        primaryButtonText={ctaSection?.buttonText || "Get in touch"}
-        primaryButtonHref={ctaSection?.buttonLink || "/contact"}
-        secondaryButtonText={ctaSection?.secondaryButtonText || "Virtual Tour"}
-        secondaryButtonHref={ctaSection?.secondaryButtonLink || "/virtual-tour/00%20MAIN%20BUILDING/index.htm"}
+        title={ctaTitle}
+        subtitle={ctaSubtitle}
+        primaryButtonText={pageData?.primaryCta?.text || "Get in touch"}
+        primaryButtonHref={pageData?.primaryCta?.link || "/contact"}
+        secondaryButtonText={pageData?.secondaryCta?.text || "Virtual Tour"}
+        secondaryButtonHref={pageData?.secondaryCta?.link || "/virtual-tour/00%20MAIN%20BUILDING/index.htm"}
       />
     </div>
   );

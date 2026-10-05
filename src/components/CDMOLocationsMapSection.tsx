@@ -40,6 +40,7 @@ interface LocationInfo {
     text: string;
   }[];
   href: string;
+  buttonText?: string;
   // Map positioning in percentage (relative to world-map.svg viewBox)
   xPercent: number;
   yPercent: number;
@@ -124,15 +125,38 @@ interface CDMOLocationsMapSectionProps {
   className?: string;
   title?: string;
   subtitle?: string | null;
+  cards?: {
+    title?: string;
+    description?: string;
+    badge?: string;
+    buttonText?: string;
+    link?: string;
+    href?: string;
+  }[];
 }
 
 export default function CDMOLocationsMapSection({
   id = 'our-cdmo-locations',
   className = '',
   title = 'Our CDMO Locations',
-  subtitle = null
+  subtitle = null,
+  cards = []
 }: CDMOLocationsMapSectionProps = {}) {
   const [activeLocationId, setActiveLocationId] = useState<'india' | 'uk'>('india');
+
+  // Merge custom card data if provided from admin panel / cdmoData
+  const locations = CDMO_LOCATIONS.map((loc, idx) => {
+    const customCard = cards && cards[idx];
+    if (!customCard) return loc;
+    return {
+      ...loc,
+      title: customCard.title || loc.title,
+      description: customCard.description || loc.description,
+      badge: customCard.badge || loc.badge,
+      href: customCard.link || customCard.href || loc.href,
+      buttonText: customCard.buttonText || (loc.id === 'india' ? 'Explore Ahmedabad Facility' : 'Explore London Centre')
+    };
+  });
 
   return (
     <section id={id} className={`scroll-mt-20 lg:scroll-mt-24 relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-white border-b border-neutral-100 overflow-hidden select-none ${className}`}>
@@ -161,7 +185,7 @@ export default function CDMOLocationsMapSection({
           
           {/* Left Column: 2 Separate Location Cards (India above, UK below) */}
           <div className="xl:col-span-5 flex flex-col gap-4 sm:gap-5 justify-between">
-            {CDMO_LOCATIONS.map((loc, idx) => {
+            {locations.map((loc, idx) => {
               const isIndia = loc.id === 'india';
               const isActive = activeLocationId === loc.id;
               const PrimaryIcon = loc.primaryIcon;
@@ -203,7 +227,7 @@ export default function CDMOLocationsMapSection({
                             isIndia ? 'text-brand-blue' : 'text-brand-orange'
                           }`}
                         >
-                          {loc.country}
+                          {loc.badge || loc.country}
                         </span>
                       </div>
 
@@ -240,7 +264,7 @@ export default function CDMOLocationsMapSection({
                             : 'bg-brand-orange hover:bg-brand-orange-hover text-black'
                         }`}
                       >
-                        <span>{isIndia ? 'Explore Ahmedabad Facility' : 'Explore London Centre'}</span>
+                        <span>{loc.buttonText || (isIndia ? 'Explore Ahmedabad Facility' : 'Explore London Centre')}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>

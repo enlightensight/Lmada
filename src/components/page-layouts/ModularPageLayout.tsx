@@ -191,8 +191,14 @@ export default function ModularPageLayout({ page, content }: ModularPageLayoutPr
       )}
 
       {/* FAQS (IF ATTACHED AT PAGE ROOT) */}
-      {page.faqs && page.faqs.length > 0 && !sections.some(s => s.style === 'faq-accordion' || (s.faqs && s.faqs.length > 0)) && (
-        <FAQSection faqs={page.faqs} />
+      {page.faqs && page.faqs.length > 0 && (
+        <FAQSection
+          faqs={page.faqs}
+          title={page.faqTitle || 'Frequently Asked Questions'}
+          subtitle={page.faqSubtitle || 'Answers to key questions regarding our biologics development platform, regulatory alignment, and facility infrastructure.'}
+          buttonText={page.faqButtonText}
+          buttonLink={page.faqButtonLink}
+        />
       )}
 
       {/* FOOTER CTA BANNER */}

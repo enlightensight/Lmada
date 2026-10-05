@@ -16,12 +16,16 @@ interface FAQSectionProps {
   faqs: FAQItem[];
   title?: string;
   subtitle?: string;
+  buttonText?: string;
+  buttonLink?: string;
 }
 
 export default function FAQSection({
   faqs,
-  title = 'Common Questions',
-  subtitle = 'Answers to questions about process, tech transfers, timelines, and facility validations.',
+  title = 'Frequently Asked Questions',
+  subtitle = 'Answers to key questions regarding our biologics development platform, regulatory alignment, and facility infrastructure.',
+  buttonText = 'Still have questions? Talk to us',
+  buttonLink = '/contact',
 }: FAQSectionProps) {
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
 
@@ -43,11 +47,11 @@ export default function FAQSection({
                 {subtitle}
               </p>
               <Link
-                href="/contact"
+                href={buttonLink || '/contact'}
                 className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-blue"
               >
                 <span className="w-8 h-0.5 bg-brand-yellow group-hover:w-12 transition-all duration-300" />
-                Still have questions? Talk to us
+                {buttonText || 'Still have questions? Talk to us'}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Reveal>

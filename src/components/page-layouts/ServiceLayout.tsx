@@ -162,7 +162,9 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="flex flex-col gap-10 md:gap-14">
-            {content.sections.map((section, idx) => {
+            {content.sections
+              .filter((s: any) => s.style !== 'faq-accordion' && !s.id?.includes('faq') && s.title !== 'Frequently Asked Questions')
+              .map((section: any, idx: number) => {
               const Icon = section.title.toLowerCase().includes('upstream')
                 ? FlaskConical
                 : section.title.toLowerCase().includes('downstream')
@@ -209,7 +211,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                 Key Capabilities
                               </span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                {section.bullets.map((b, bIdx) => {
+                                {section.bullets.map((b: string, bIdx: number) => {
                                   const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                                   return (
                                     <div
@@ -267,7 +269,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                 Key Capabilities
                               </span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                {section.bullets.map((b, bIdx) => {
+                                {section.bullets.map((b: string, bIdx: number) => {
                                   const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                                   return (
                                     <div
@@ -378,7 +380,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                 </span>
                               )}
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                {section.bullets.map((b, bIdx) => {
+                                {section.bullets.map((b: string, bIdx: number) => {
                                   const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                                   return (
                                     <div
@@ -475,9 +477,15 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
         </section>
       )}
 
-      {/* FAQ */}
+      {/* FAQ Accordion (Bottom Section) */}
       {page.faqs && page.faqs.length > 0 && (
-        <FAQSection faqs={page.faqs} />
+        <FAQSection
+          faqs={page.faqs}
+          title={page.faqTitle || 'Frequently Asked Questions'}
+          subtitle={page.faqSubtitle || 'Answers to key questions regarding our biologics development platform, regulatory alignment, and facility infrastructure.'}
+          buttonText={page.faqButtonText}
+          buttonLink={page.faqButtonLink}
+        />
       )}
 
       {/* CTA */}

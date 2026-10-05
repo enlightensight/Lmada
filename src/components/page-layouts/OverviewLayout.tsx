@@ -218,12 +218,22 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
   const narrativeSections = content.sections.filter(
     (sec) =>
-      !(page.slug === 'about' && (sec.title === 'The Lambda Advantage' || sec.title === "Developing Tomorrow's Biologics"))
+      sec.style !== 'faq-accordion' &&
+      !sec.id?.includes('faq') &&
+      sec.title !== 'Frequently Asked Questions' &&
+      !(
+        page.slug === 'about' &&
+        (sec.title === 'The Lambda Advantage' ||
+          sec.title === "Developing Tomorrow's Biologics" ||
+          sec.style === 'locations-map' ||
+          sec.style === 'cards-grid' ||
+          sec.style === 'capabilities-checklist')
+      )
   );
 
   const narrative = (
     <>
-      {narrativeSections.map((section, idx) => {
+      {narrativeSections.map((section: any, idx: number) => {
         if (section.dark) {
           // Blue quote / highlight block
           return (
@@ -294,8 +304,18 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               <div className="w-full max-w-[1700px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
                   <Reveal className={imageRight ? 'lg:order-2' : ''}>
-                    {section.images && section.images.length > 1 ? (
-                      <AboutHeroCarousel images={section.images} />
+                    {equipmentItems && equipmentItems.length > 0 ? (
+                      <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />
+                    ) : section.images && section.images.length > 1 ? (
+                      <EquipmentCarousel
+                        items={section.images.map((img: string, i: number) => ({
+                          src: img,
+                          title: `${section.title} Equipment ${i + 1}`,
+                          subtitle: `${section.title} instrumentation suite.`,
+                          tag: 'Equipment'
+                        }))}
+                        sectionTitle={section.title}
+                      />
                     ) : (section.video || (section.mediaType === 'video' && section.image) || (section.image && /\.(mp4|webm|ogg|mov)$/i.test(section.image))) ? (
                       <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950 border border-neutral-200 rounded-[10px] shadow-sm">
                         <video
@@ -307,8 +327,6 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                    ) : equipmentItems && equipmentItems.length > 0 ? (
-                      <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />
                     ) : page.slug === 'careers' ? (
                       <a
                         href="https://careers.lambda-cro.com/go/CDMO/752444/"
@@ -359,7 +377,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       </h3>
                       <div className="h-1 w-12 bg-brand-blue rounded-full mb-5" />
                       <div className="space-y-3.5 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
-                        {section.text.split('\n\n').map((para, pIdx) => (
+                        {section.text.split('\n\n').map((para: string, pIdx: number) => (
                           <p key={pIdx}>{renderFormattedText(para)}</p>
                         ))}
                       </div>
@@ -371,7 +389,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                             {(section as any).bulletsTitle || 'Key capabilities include:'}
                           </span>
                           <ul className="space-y-2.5">
-                            {section.bullets.map((bullet, bIdx) => (
+                            {section.bullets.map((bullet: string, bIdx: number) => (
                               <li key={bIdx} className="flex items-start gap-2.5">
                                 <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                   <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -393,7 +411,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                               Early-Stage Development
                             </span>
                             <ul className="space-y-2.5">
-                              {section.earlyStageBullets.map((bullet, bIdx) => (
+                              {section.earlyStageBullets.map((bullet: string, bIdx: number) => (
                                 <li key={bIdx} className="flex items-start gap-2.5">
                                   <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                     <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -411,7 +429,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                               Late-Stage Development
                             </span>
                             <ul className="space-y-2.5">
-                              {section.lateStageBullets.map((bullet, bIdx) => (
+                              {section.lateStageBullets.map((bullet: string, bIdx: number) => (
                                 <li key={bIdx} className="flex items-start gap-2.5">
                                   <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                     <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -435,7 +453,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                 Formulation Development
                               </span>
                               <ul className="space-y-2.5">
-                                {section.formulationBullets.map((bullet, bIdx) => (
+                                {section.formulationBullets.map((bullet: string, bIdx: number) => (
                                   <li key={bIdx} className="flex items-start gap-2.5">
                                     <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                       <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -455,7 +473,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                 Lyophilization Development
                               </span>
                               <ul className="space-y-2.5">
-                                {section.lyophilizationBullets.map((bullet, bIdx) => (
+                                {section.lyophilizationBullets.map((bullet: string, bIdx: number) => (
                                   <li key={bIdx} className="flex items-start gap-2.5">
                                     <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                       <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -475,7 +493,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                 Clinical GMP Manufacturing
                               </span>
                               <ul className="space-y-2.5">
-                                {section.gmpManufacturingBullets.map((bullet, bIdx) => (
+                                {section.gmpManufacturingBullets.map((bullet: string, bIdx: number) => (
                                   <li key={bIdx} className="flex items-start gap-2.5">
                                     <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                       <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -500,7 +518,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                 Physicochemical & Molecular Characterization
                               </span>
                               <ul className="space-y-2.5">
-                                {section.physicochemicalBullets.map((bullet, bIdx) => (
+                                {section.physicochemicalBullets.map((bullet: string, bIdx: number) => (
                                   <li key={bIdx} className="flex items-start gap-2.5">
                                     <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                       <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -520,7 +538,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                 Structural & Biophysical Characterization
                               </span>
                               <ul className="space-y-2.5">
-                                {section.structuralBullets.map((bullet, bIdx) => (
+                                {section.structuralBullets.map((bullet: string, bIdx: number) => (
                                   <li key={bIdx} className="flex items-start gap-2.5">
                                     <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                       <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -540,7 +558,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                 Functional & Cell-Based Analysis
                               </span>
                               <ul className="space-y-2.5">
-                                {section.functionalBullets.map((bullet, bIdx) => (
+                                {section.functionalBullets.map((bullet: string, bIdx: number) => (
                                   <li key={bIdx} className="flex items-start gap-2.5">
                                     <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
                                       <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
@@ -612,7 +630,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                             <div className="h-1 w-12 bg-brand-blue rounded-full mx-auto mt-3" />
                           </div>
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {section.applications.map((app, aIdx) => (
+                            {section.applications.map((app: any, aIdx: number) => (
                               <div
                                 key={aIdx}
                                 className="bg-white rounded-[12px] border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all flex flex-col"
@@ -670,7 +688,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 {` ${page.heading.split(' ').slice(1).join(' ')}`}
               </h1>
               <div className="space-y-4 text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl">
-                {page.description.split('\n\n').map((para, pIdx) => (
+                {page.description.split('\n\n').map((para: string, pIdx: number) => (
                   <p key={pIdx}>{renderFormattedText(para)}</p>
                 ))}
               </div>
@@ -728,7 +746,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
       {/* GLOBAL REACH & CDMO LOCATIONS MATRIX (ABOUT, FACILITY, LONDON) */}
       {page.slug === 'about' && (() => {
-        const sec1 = page.sections?.[0];
+        const sec1 = page.sections?.find((s) => s.style === 'feature-split') || page.sections?.[0];
+        const mapSec = page.sections?.find((s) => s.style === 'locations-map');
         const sec1Title = sec1?.title || "Developing Tomorrow's Biologics";
         const sec1Media = sec1?.image || sec1?.video || "/images/upstream/Carbon_di_Oxide_shaker_incubator.png";
         const sec1Images = (sec1?.images && sec1.images.length > 0) ? sec1.images : [sec1Media];
@@ -780,7 +799,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       
                       <div className="space-y-4 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed font-normal">
                         {paragraphs && paragraphs.length > 0 ? (
-                          paragraphs.map((p, pIdx) => {
+                          paragraphs.map((p: string, pIdx: number) => {
                             if (p.includes('Lambda Therapeutic Research') && p.includes('Novum Pharmaceutical')) {
                               return (
                                 <p key={pIdx}>
@@ -822,7 +841,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                 </p>
                               );
                             }
-                            return <p key={pIdx}>{p}</p>;
+                            return <p key={pIdx}>{renderFormattedText(p)}</p>;
                           })
                         ) : (
                           <>
@@ -863,227 +882,277 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 </div>
               </div>
             </section>
-            <CDMOLocationsMapSection />
+            <CDMOLocationsMapSection
+              title={mapSec?.title || 'Our CDMO Locations'}
+              subtitle={mapSec?.text || mapSec?.subtitle || null}
+              cards={mapSec?.cards}
+            />
           </>
         );
       })()}
 
       {/* CAPABILITIES / THE LAMBDA ADVANTAGE SECTION */}
-      {page.capabilities && page.capabilities.length > 0 && page.slug !== 'quality' && page.slug !== 'facility' && page.slug !== 'India' && page.slug !== 'london' && page.slug !== 'UK' && page.slug !== 'leadership' && (
-        <section className={`relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${page.slug === 'about' ? 'bg-molecules' : 'bg-neutral-50/60'} border-b border-neutral-100 overflow-hidden`}>
-          {page.slug === 'about' && <DnaScrollBackground />}
-          <div className="relative z-10 w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                {page.slug === 'about' ? (
-                  <div className="max-w-4xl mx-auto">
-                    <div className="w-14 h-14 mx-auto mb-8 rounded-[10px] bg-brand-yellow flex items-center justify-center shadow-xs">
-                      <Quote className="w-7 h-7 text-black" />
+      {page.capabilities && page.capabilities.length > 0 && page.slug !== 'quality' && page.slug !== 'facility' && page.slug !== 'India' && page.slug !== 'london' && page.slug !== 'UK' && page.slug !== 'leadership' && (() => {
+        const advantageSec = page.sections?.find((s) => s.style === 'cards-grid' || s.title?.toLowerCase().includes('advantage'));
+        const advantageTitle = advantageSec?.title || 'The Lambda Advantage';
+        const advantageFirstWord = advantageTitle.split(' ')[0] || 'The';
+        const advantageRemainingWords = advantageTitle.split(' ').slice(1).join(' ') || 'Lambda Advantage';
+        const advantageSubtitle = advantageSec?.subtitle || 'What Sets Us Apart';
+        const advantageCards = (advantageSec?.cards && advantageSec.cards.length > 0)
+          ? advantageSec.cards.map((c) => c.title)
+          : page.capabilities;
+
+        return (
+          <section className={`relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${page.slug === 'about' ? 'bg-molecules' : 'bg-neutral-50/60'} border-b border-neutral-100 overflow-hidden`}>
+            {page.slug === 'about' && <DnaScrollBackground />}
+            <div className="relative z-10 w-full max-w-[1700px] mx-auto">
+              <Reveal>
+                <div className="text-center mb-10 md:mb-14">
+                  {page.slug === 'about' ? (
+                    <div className="max-w-4xl mx-auto">
+                      <div className="w-14 h-14 mx-auto mb-8 rounded-[10px] bg-brand-yellow flex items-center justify-center shadow-xs">
+                        <Quote className="w-7 h-7 text-black" />
+                      </div>
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-6">
+                        <span className="text-neutral-900">{advantageFirstWord}</span>{' '}
+                        {advantageRemainingWords}
+                      </h2>
+                      <div className="space-y-4 max-w-3xl mx-auto text-[17px] md:text-[19px] text-slate-600 font-normal leading-relaxed text-center">
+                        {advantageSec?.text ? (
+                          advantageSec.text.split('\n\n').map((para: string, pIdx: number) => (
+                            <p key={pIdx}>{renderFormattedText(para)}</p>
+                          ))
+                        ) : (
+                          <>
+                            <p>
+                              Every biologic program has its own process, analytical, manufacturing, and regulatory requirements. Lambda CDMO brings together an integrated approach for process and analytical development, cGMP manufacturing, adequately supported by a quality management system to support programs from early development through clinical supplies.
+                            </p>
+                            <p>
+                              Our approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.
+                            </p>
+                          </>
+                        )}
+                      </div>
+                      <div className="mt-10 mb-2 flex flex-col items-center justify-center">
+                        <div className="h-1 w-16 bg-brand-yellow rounded-full mb-6" />
+                        <span className="text-sm font-semibold uppercase tracking-wider text-brand-orange">
+                          {advantageSubtitle}
+                        </span>
+                      </div>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-6">
-                      <span className="text-neutral-900">The Lambda</span> Advantage
-                    </h2>
-                    <div className="space-y-4 max-w-3xl mx-auto text-[17px] md:text-[19px] text-slate-600 font-normal leading-relaxed text-center">
-                      <p>
-                        Every biologic program has its own process, analytical, manufacturing, and regulatory requirements. Lambda CDMO brings together an integrated approach for process and analytical development, cGMP manufacturing, adequately supported by a quality management system to support programs from early development through clinical supplies.
+                  ) : (
+                    <>
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                        {page.slug === 'leadership' ? (
+                          <>
+                            <span className="text-black">Operational</span> Commitments
+                          </>
+                        ) : page.slug === 'quality' ? (
+                          <>
+                            <span className="text-black">Quality</span> & Regulatory Framework
+                          </>
+                        ) : page.slug === 'integrated' ? (
+                          <>
+                            <span className="text-black">Integrated</span> Services
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-black">Core</span> Lifecycle Capabilities
+                          </>
+                        )}
+                      </h2>
+                      <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
+                        {page.slug === 'leadership'
+                          ? 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery, with a working model built around six core commitments:'
+                          : page.slug === 'quality'
+                          ? 'Robust quality assurance, international compliance standards, and risk-managed processes across every program.'
+                          : 'Seamless coordination across development, analytical characterization, and GMP manufacturing under one roof.'}
                       </p>
-                      <p>
-                        Our approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.
-                      </p>
-                    </div>
-                    <div className="mt-10 mb-2 flex flex-col items-center justify-center">
-                      <div className="h-1 w-16 bg-brand-yellow rounded-full mb-6" />
-                      <span className="text-sm font-semibold uppercase tracking-wider text-brand-orange">
-                        What Sets Us Apart
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                      {page.slug === 'leadership' ? (
-                        <>
-                          <span className="text-black">Operational</span> Commitments
-                        </>
-                      ) : page.slug === 'quality' ? (
-                        <>
-                          <span className="text-black">Quality</span> & Regulatory Framework
-                        </>
-                      ) : page.slug === 'integrated' ? (
-                        <>
-                          <span className="text-black">Integrated</span> Services
-                        </>
-                      ) : (
-                        <>
-                          <span className="text-black">Core</span> Lifecycle Capabilities
-                        </>
-                      )}
-                    </h2>
-                    <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
-                      {page.slug === 'leadership'
-                        ? 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery, with a working model built around six core commitments:'
-                        : page.slug === 'quality'
-                        ? 'Robust quality assurance, international compliance standards, and risk-managed processes across every program.'
-                        : 'Seamless coordination across development, analytical characterization, and GMP manufacturing under one roof.'}
-                    </p>
-                  </>
-                )}
-              </div>
-            </Reveal>
+                    </>
+                  )}
+                </div>
+              </Reveal>
 
-            {page.slug === 'about' ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                {page.capabilities.map((cap, idx) => {
-                  const Icon = getOverviewCapabilityIcon(cap, idx);
-                  return (
-                    <Reveal key={idx} delay={idx * 0.04} className="h-full">
-                      <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-start gap-4">
-                        <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300 mt-0.5">
-                          <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-[15px] sm:text-base font-medium text-neutral-800 leading-snug group-hover:text-black transition-colors duration-300">
-                            {cap}
-                          </h4>
-                        </div>
-                      </div>
-                    </Reveal>
-                  );
-                })}
-              </div>
-            ) : page.slug === 'integrated' || page.slug === 'quality' || page.slug === 'leadership' ? (
-              <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
-                {page.capabilities.map((cap, idx) => {
-                  const Icon = getOverviewCapabilityIcon(cap, idx);
-                  return (
-                    <Reveal key={idx} delay={idx * 0.04} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex">
-                      <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                          <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
-                            {cap}
-                          </h4>
-                        </div>
-                      </div>
-                    </Reveal>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="flex flex-col gap-3.5 max-w-4xl mx-auto">
-                {page.capabilities.map((cap, idx) => {
-                  const Icon = getOverviewCapabilityIcon(cap, idx);
-                  return (
-                    <Reveal key={idx} delay={idx * 0.04}>
-                      <div className="group w-full bg-white border border-neutral-200/80 rounded-[10px] p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-center gap-4 sm:gap-5">
-                        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                          <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
-                            {cap}
-                          </h4>
-                        </div>
-                      </div>
-                    </Reveal>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* LEADERSHIP PROFILES GRID */}
-      {page.slug === 'leadership' && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-12 md:mb-16">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  <span className="text-neutral-900">Executive</span> & Scientific Team
-                </h2>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
-                  Led by experienced biopharma leaders across technical product development, process sciences, analytical characterization, and global regulatory execution.
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10 items-stretch">
-              {LEADERSHIP_PROFILES.map((leader, idx) => (
-                <Reveal key={idx} delay={idx * 0.08} className="h-full">
-                  <div className="group h-full bg-white border border-neutral-200/90 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
-                    {/* Top subtle accent bar */}
-                    <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-blue to-brand-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    <div>
-                      {/* Top Row: Photo & Header Info */}
-                      <div className="flex flex-col sm:flex-row gap-6 items-start mb-5">
-                        {/* Real Portrait Photograph Container */}
-                        <div className="relative w-full sm:w-48 h-64 sm:h-56 rounded-xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 shrink-0">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={encodeURI(leader.image)}
-                            alt={leader.name}
-                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl pointer-events-none" />
-                        </div>
-
-                        {/* Title & Metadata */}
-                        <div className="flex flex-col flex-1">
-                          <span className="inline-flex items-center self-start px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-2">
-                            {leader.role}
-                          </span>
-
-                          <h3 className="text-2xl font-bold tracking-tight text-neutral-900 group-hover:text-brand-blue transition-colors mb-1">
-                            {leader.name}
-                          </h3>
-
-                          <p className="text-xs sm:text-sm font-semibold text-brand-blue uppercase tracking-wider mb-3 leading-snug">
-                            {leader.title}
-                          </p>
-
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
-                              <Award className="w-3.5 h-3.5 text-brand-orange" />
-                              <span>{leader.experienceBadge}</span>
-                            </span>
+              {page.slug === 'about' ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                  {advantageCards.map((cap: any, idx: number) => {
+                    const Icon = getOverviewCapabilityIcon(cap, idx);
+                    return (
+                      <Reveal key={idx} delay={idx * 0.04} className="h-full">
+                        <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-start gap-4">
+                          <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300 mt-0.5">
+                            <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-[15px] sm:text-base font-medium text-neutral-800 leading-snug group-hover:text-black transition-colors duration-300">
+                              {cap}
+                            </h4>
                           </div>
                         </div>
-                      </div>
-
-                      {/* Credentials Callout */}
-                      {leader.credentials && (
-                        <div className="mb-4 p-3 sm:p-3.5 rounded-xl bg-slate-50/90 border border-slate-200/80 flex items-start gap-2.5 text-xs text-slate-700 font-medium">
-                          <GraduationCap className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
-                          <span className="leading-snug">{leader.credentials}</span>
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              ) : page.slug === 'integrated' || page.slug === 'quality' || page.slug === 'leadership' ? (
+                <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
+                  {page.capabilities.map((cap: any, idx: number) => {
+                    const Icon = getOverviewCapabilityIcon(cap, idx);
+                    return (
+                      <Reveal key={idx} delay={idx * 0.04} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex">
+                        <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                            <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
+                              {cap}
+                            </h4>
+                          </div>
                         </div>
-                      )}
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="flex flex-col gap-3.5 max-w-4xl mx-auto">
+                  {page.capabilities.map((cap: any, idx: number) => {
+                    const Icon = getOverviewCapabilityIcon(cap, idx);
+                    return (
+                      <Reveal key={idx} delay={idx * 0.04}>
+                        <div className="group w-full bg-white border border-neutral-200/80 rounded-[10px] p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-center gap-4 sm:gap-5">
+                          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                            <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
+                              {cap}
+                            </h4>
+                          </div>
+                        </div>
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </section>
+        );
+      })()}
 
-                      {/* Bio Paragraphs */}
-                      <div className="space-y-3 text-[14px] sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
-                        {leader.bio.map((para, pIdx) => (
-                          <p key={pIdx}>{para}</p>
-                        ))}
+      {/* LEADERSHIP PROFILES GRID */}
+      {page.slug === 'leadership' && (() => {
+        const leaderSec = page.sections?.find(
+          (s) => s.style === 'leadership-grid' || s.id === 'sec-leadership-team' || s.title?.toLowerCase().includes('leadership') || s.title?.toLowerCase().includes('executive')
+        );
+        const leadersToRender: LeaderProfile[] = (leaderSec?.cards && leaderSec.cards.length > 0)
+          ? leaderSec.cards.map((c) => ({
+              name: c.title,
+              title: c.link || c.href || '',
+              role: c.badge || 'Executive Leadership',
+              image: c.image || '/images/team/MS Ramaki.jpg',
+              experienceBadge: c.step || '25+ Years Experience',
+              credentials: c.icon || '',
+              bio: c.description ? c.description.split('\n\n').filter(Boolean) : []
+            }))
+          : LEADERSHIP_PROFILES;
+
+        const secTitle = leaderSec?.title || 'Executive & Scientific Team';
+        const secSubtitle = leaderSec?.text || leaderSec?.subtitle || 'Led by experienced biopharma leaders across technical product development, process sciences, analytical characterization, and global regulatory execution.';
+
+        return (
+          <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
+            <div className="w-full max-w-[1700px] mx-auto">
+              <Reveal>
+                <div className="text-center mb-12 md:mb-16">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                    {secTitle}
+                  </h2>
+                  <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
+                    {secSubtitle}
+                  </p>
+                </div>
+              </Reveal>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10 items-stretch">
+                {leadersToRender.map((leader: any, idx: number) => (
+                  <Reveal key={idx} delay={idx * 0.08} className="h-full">
+                    <div className="group h-full bg-white border border-neutral-200/90 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                      {/* Top subtle accent bar */}
+                      <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-blue to-brand-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      <div>
+                        {/* Top Row: Photo & Header Info */}
+                        <div className="flex flex-col sm:flex-row gap-6 items-start mb-5">
+                          {/* Real Portrait Photograph Container */}
+                          <div className="relative w-full sm:w-48 h-64 sm:h-56 rounded-xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 shrink-0">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={encodeURI(leader.image)}
+                              alt={leader.name}
+                              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl pointer-events-none" />
+                          </div>
+
+                          {/* Title & Metadata */}
+                          <div className="flex flex-col flex-1">
+                            <span className="inline-flex items-center self-start px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-2">
+                              {leader.role}
+                            </span>
+
+                            <h3 className="text-2xl font-bold tracking-tight text-neutral-900 group-hover:text-brand-blue transition-colors mb-1">
+                              {leader.name}
+                            </h3>
+
+                            <p className="text-xs sm:text-sm font-semibold text-brand-blue uppercase tracking-wider mb-3 leading-snug">
+                              {leader.title}
+                            </p>
+
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                                <Award className="w-3.5 h-3.5 text-brand-orange" />
+                                <span>{leader.experienceBadge}</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Credentials Callout */}
+                        {leader.credentials && (
+                          <div className="mb-4 p-3 sm:p-3.5 rounded-xl bg-slate-50/90 border border-slate-200/80 flex items-start gap-2.5 text-xs text-slate-700 font-medium">
+                            <GraduationCap className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
+                            <span className="leading-snug">{leader.credentials}</span>
+                          </div>
+                        )}
+
+                        {/* Bio Paragraphs */}
+                        <div className="space-y-3 text-[14px] sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
+                          {leader.bio.map((para: string, pIdx: number) => (
+                            <p key={pIdx}>{para}</p>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Reveal>
-              ))}
+                  </Reveal>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        );
+      })()}
 
       {/* Narrative Editorial Sections */}
       {narrative}
 
-      {/* FAQ */}
+      {/* FAQ Accordion (Bottom Section) */}
       {page.faqs && page.faqs.length > 0 && (
-        <FAQSection faqs={page.faqs} />
+        <FAQSection
+          faqs={page.faqs}
+          title={page.faqTitle || (page.category === 'home' ? 'Common Questions' : 'Frequently Asked Questions')}
+          subtitle={page.faqSubtitle || 'Answers to key questions regarding our biologics development platform, regulatory alignment, and facility infrastructure.'}
+          buttonText={page.faqButtonText}
+          buttonLink={page.faqButtonLink}
+        />
       )}
 
       {/* CTA */}

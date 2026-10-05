@@ -1,6 +1,6 @@
-import type { CDMOPage } from '@/data/cdmoData';
+import type { CDMOPage, CDMOSection } from '@/data/cdmoData';
 
-export type EnrichedSection = CDMOPage['sections'][number] & { image: string };
+export type EnrichedSection = CDMOSection & { image: string };
 
 export interface ProcessStep {
   step: string;

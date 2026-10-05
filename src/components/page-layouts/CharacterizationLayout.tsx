@@ -334,9 +334,15 @@ export default function CharacterizationLayout({ page, content }: Characterizati
         </section>
       )}
 
-      {/* FAQ */}
+      {/* FAQ Accordion (Bottom Section) */}
       {page.faqs && page.faqs.length > 0 && (
-        <FAQSection faqs={page.faqs} />
+        <FAQSection
+          faqs={page.faqs}
+          title={page.faqTitle || 'Frequently Asked Questions'}
+          subtitle={page.faqSubtitle || 'Answers to key questions regarding our biologics development platform, regulatory alignment, and facility infrastructure.'}
+          buttonText={page.faqButtonText}
+          buttonLink={page.faqButtonLink}
+        />
       )}
 
       {/* CTA */}
