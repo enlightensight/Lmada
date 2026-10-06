@@ -51,7 +51,7 @@ import LondonHeroCarousel from '@/components/LondonHeroCarousel';
 import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
-import { getSectionEquipment } from '@/data/equipmentData';
+import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -304,18 +304,22 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               <div className="w-full max-w-[1700px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
                   <Reveal className={imageRight ? 'lg:order-2' : ''}>
-                    {equipmentItems && equipmentItems.length > 0 ? (
-                      <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />
-                    ) : section.images && section.images.length > 1 ? (
+                    {section.images && section.images.length > 1 ? (
                       <EquipmentCarousel
-                        items={section.images.map((img: string, i: number) => ({
-                          src: img,
-                          title: `${section.title} Equipment ${i + 1}`,
-                          subtitle: `${section.title} instrumentation suite.`,
-                          tag: 'Equipment'
-                        }))}
+                        items={section.images.map((img: string, i: number) => {
+                          const match = (equipmentItems || []).find((eq) => eq.src === img) ||
+                            ALL_EQUIPMENT_ITEMS.find((eq) => eq.src === img);
+                          return match || {
+                            src: img,
+                            title: `${section.title} Equipment ${i + 1}`,
+                            subtitle: `${section.title} instrumentation suite.`,
+                            tag: 'Equipment'
+                          };
+                        })}
                         sectionTitle={section.title}
                       />
+                    ) : equipmentItems && equipmentItems.length > 0 ? (
+                      <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />
                     ) : (section.video || (section.mediaType === 'video' && section.image) || (section.image && /\.(mp4|webm|ogg|mov)$/i.test(section.image))) ? (
                       <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950 border border-neutral-200 rounded-[10px] shadow-sm">
                         <video

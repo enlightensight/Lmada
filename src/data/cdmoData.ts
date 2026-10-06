@@ -1036,7 +1036,23 @@ export const cdmoData: CDMOPage[] = [
         "subtitle": "03 — cGMP MANUFACTURING",
         "text": "The facility has two upstream cGMP manufacturing suites supporting process scale-up, technology transfer, and material generation for clinical batches.",
         "dark": false,
-        "image": "/images/upstream_GMP/GMP Production bioreactor.png",
+        "image": "/images/upstream_GMP/549A7821.png",
+        "images": [
+          "/images/upstream_GMP/549A7821.png",
+          "/images/upstream_GMP/GMP Production bioreactor.png",
+          "/images/upstream_GMP/GMP Seed bioreactor.png",
+          "/images/upstream_GMP/GMP Wave Bioreactor.png",
+          "/images/upstream_GMP/GMP Automated Bioanalyzer.png",
+          "/images/upstream_GMP/GMP Automated cell counter.png",
+          "/images/upstream_GMP/GMP Bentch top centrifuge.png",
+          "/images/upstream_GMP/GMP CO2 shaker incubator.png",
+          "/images/upstream_GMP/GMP Cell bank storage system.png",
+          "/images/upstream_GMP/GMP Depth filter holder.png",
+          "/images/upstream_GMP/GMP Inverted Microscope.png",
+          "/images/upstream_GMP/GMP Overhead stirrer.png",
+          "/images/upstream_GMP/GMP Quattroflow pump.png",
+          "/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png"
+        ],
         "imageSide": "left",
         "bullets": [
           "Vial thaw and seed expansion",
@@ -1077,7 +1093,15 @@ export const cdmoData: CDMOPage[] = [
         "subtitle": "05 — GMP PURIFICATION",
         "text": "The GMP downstream platform supports processing of biologic harvest through purification to drug substance.",
         "dark": false,
-        "image": "/images/down stream/AKTA Pilot.png",
+        "image": "/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png",
+        "images": [
+          "/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png",
+          "/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png",
+          "/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).png",
+          "/images/downstream_GMP/Axichrom column controller(DSP25-0230).png",
+          "/images/downstream_GMP/Chromatography Skid, Co-prime (DSP25-0118).png",
+          "/images/downstream_GMP/HiScale Column.png"
+],
         "imageSide": "left",
         "bullets": [
           "Dedicated pre-viral and post-viral processing suites",
@@ -1697,7 +1721,7 @@ export const cdmoData: CDMOPage[] = [
         "subtitle": "",
         "text": "Manufacturing capabilities are designed to support scalable production, controlled process execution, and regulatory requirements throughout clinical development.",
         "dark": false,
-        "image": "/images/upstream_GMP/GMP Production bioreactor.png",
+        "image": "/images/upstream_GMP/549A7821.png",
         "imageSide": "right",
         "bullets": []
       },
@@ -2547,7 +2571,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Manufacturing Services",
     "heading": "From Process Development to Clinical Manufacturing. Delivered with Confidence.",
     "description": "Manufacturing success depends on process consistency, product quality, and effective technology transfer. Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.\n\nOur manufacturing operations at Ahmedabad, India bring together process, analytical, manufacturing, and quality functions to support controlled execution, consistent product quality, and regulatory requirements across clinical programs.",
-    "image": "/images/upstream_GMP/GMP Production bioreactor.png",
+    "image": "/images/upstream_GMP/549A7821.png",
     "images": [
       "/images/down stream/AKTA Pilot.png",
       "/images/down stream/AKTA Pure 150_Akta Avant.png",
@@ -2568,7 +2592,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Drug Substance Manufacturing",
             "link": "/manufacturing/drug-substance",
             "badge": "Drug Substance",
-            "image": "/images/upstream_GMP/GMP Production bioreactor.png",
+            "image": "/images/upstream_GMP/549A7821.png",
             "description": "Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.",
             "bullets": [
               "GMP seed train and production bioreactor operations",

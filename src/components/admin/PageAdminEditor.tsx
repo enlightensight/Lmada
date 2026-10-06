@@ -68,7 +68,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import type { CDMOPage, CDMOSection } from '@/data/cdmoData';
-import { getSectionEquipment } from '@/data/equipmentData';
+import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
 import SectionLayoutGalleryModal, {
   SectionLayoutOption,
   SECTION_LAYOUTS
@@ -172,7 +172,105 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
     badge: 'Exterior'
   },
 
-  // 3. Upstream Bioprocess
+  // 3. Upstream Bioprocess & cGMP Upstream Manufacturing
+  {
+    label: 'cGMP Upstream Cleanroom Suite (549A7821)',
+    url: '/images/upstream_GMP/549A7821.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'GMP Suite'
+  },
+  {
+    label: 'GMP Production Bioreactor (200 L)',
+    url: '/images/upstream_GMP/GMP Production bioreactor.png',
+    type: 'image',
+    category: 'upstream',
+    badge: '200L SUB'
+  },
+  {
+    label: 'GMP Seed Bioreactor (50 L)',
+    url: '/images/upstream_GMP/GMP Seed bioreactor.png',
+    type: 'image',
+    category: 'upstream',
+    badge: '50L Seed Train'
+  },
+  {
+    label: 'GMP Wave Bioreactor System',
+    url: '/images/upstream_GMP/GMP Wave Bioreactor.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Wave Bioreactor'
+  },
+  {
+    label: 'GMP Automated Bioanalyzer',
+    url: '/images/upstream_GMP/GMP Automated Bioanalyzer.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Bioanalyzer'
+  },
+  {
+    label: 'GMP Automated Cell Counter',
+    url: '/images/upstream_GMP/GMP Automated cell counter.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Cell Counter'
+  },
+  {
+    label: 'GMP Refrigerated Benchtop Centrifuge',
+    url: '/images/upstream_GMP/GMP Bentch top centrifuge.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Centrifuge'
+  },
+  {
+    label: 'GMP Cleanroom CO2 Shaker Incubator',
+    url: '/images/upstream_GMP/GMP CO2 shaker incubator.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Vial Thaw'
+  },
+  {
+    label: 'GMP Cryogenic Cell Bank Storage System',
+    url: '/images/upstream_GMP/GMP Cell bank storage system.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Cryo Banking'
+  },
+  {
+    label: 'GMP Depth Filtration Harvest Skid',
+    url: '/images/upstream_GMP/GMP Depth filter holder.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Depth Filter'
+  },
+  {
+    label: 'GMP Inverted Phase Contrast Microscope',
+    url: '/images/upstream_GMP/GMP Inverted Microscope.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Microscope'
+  },
+  {
+    label: 'GMP Overhead Stirrer & Media Prep Tank',
+    url: '/images/upstream_GMP/GMP Overhead stirrer.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Media Prep'
+  },
+  {
+    label: 'GMP Quattroflow Diaphragm Fluid Transfer Pump',
+    url: '/images/upstream_GMP/GMP Quattroflow pump.png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Fluid Pump'
+  },
+  {
+    label: '50 L Single-Use Mixer (SUM)',
+    url: '/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png',
+    type: 'image',
+    category: 'upstream',
+    badge: 'Single-Use Mixer'
+  },
   {
     label: 'Ambr 250 High-Throughput Bioreactor',
     url: '/images/upstream/AMBR250.png',
@@ -209,9 +307,51 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
     badge: 'Viability Analytics'
   },
 
-  // 4. Downstream Chromatography & Purification
+  // 4. Downstream Chromatography & GMP Purification
   {
-    label: 'AKTA Pilot Chromatography Skid',
+    label: '300x300 AxiChrom Chromatography Column (GMP)',
+    url: '/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png',
+    type: 'image',
+    category: 'downstream',
+    badge: 'AxiChrom Column'
+  },
+  {
+    label: 'ÄKTA Pilot Chromatography Skid (GMP)',
+    url: '/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png',
+    type: 'image',
+    category: 'downstream',
+    badge: 'GMP Skid'
+  },
+  {
+    label: 'Automated TFF System with SUM (GMP)',
+    url: '/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).png',
+    type: 'image',
+    category: 'downstream',
+    badge: 'UF/DF System'
+  },
+  {
+    label: 'AxiChrom Column Intelligent Controller (GMP)',
+    url: '/images/downstream_GMP/Axichrom column controller(DSP25-0230).png',
+    type: 'image',
+    category: 'downstream',
+    badge: 'Column Control'
+  },
+  {
+    label: 'Chromatography Skid Co-Prime (GMP)',
+    url: '/images/downstream_GMP/Chromatography Skid, Co-prime (DSP25-0118).png',
+    type: 'image',
+    category: 'downstream',
+    badge: 'Chromatography'
+  },
+  {
+    label: 'HiScale High-Resolution Column (GMP)',
+    url: '/images/downstream_GMP/HiScale Column.png',
+    type: 'image',
+    category: 'downstream',
+    badge: 'Column Hardware'
+  },
+  {
+    label: 'AKTA Pilot Chromatography Skid (Process Dev)',
     url: '/images/down stream/AKTA Pilot.png',
     type: 'image',
     category: 'downstream',
@@ -1877,11 +2017,14 @@ export default function PageAdminEditor({
   // Filter preset media
   const filteredPresets = PRESET_MEDIA_GALLERY.filter((item) => {
     const matchesCategory =
-      gallerySelectedCategory === 'all' || item.category === gallerySelectedCategory;
+      gallerySelectedCategory === 'all' ||
+      item.category === gallerySelectedCategory ||
+      (gallerySelectedCategory === 'gmp' && (item.badge?.includes('GMP') || item.url.includes('GMP') || item.label.includes('GMP')));
     const matchesSearch =
       !gallerySearchFilter.trim() ||
       item.label.toLowerCase().includes(gallerySearchFilter.toLowerCase()) ||
-      item.url.toLowerCase().includes(gallerySearchFilter.toLowerCase());
+      item.url.toLowerCase().includes(gallerySearchFilter.toLowerCase()) ||
+      (item.badge && item.badge.toLowerCase().includes(gallerySearchFilter.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
@@ -5655,7 +5798,10 @@ export default function PageAdminEditor({
                                     const isMultiSlide = !isVideo && activeSectionSlides.length > 1;
                                     const currentSlideIdx = (sectionSlideIdxs[idx] || 0) % (activeSectionSlides.length || 1);
                                     const currentSlideUrl = activeSectionSlides[currentSlideIdx] || activeSectionSlides[0] || sec.image || '';
-                                    const currentEquipMeta = equipItems && equipItems[currentSlideIdx];
+                                    const currentEquipMeta =
+                                      (equipItems && equipItems.find((e) => e.src === currentSlideUrl)) ||
+                                      ALL_EQUIPMENT_ITEMS.find((eq) => eq.src === currentSlideUrl) ||
+                                      (equipItems && equipItems[currentSlideIdx]);
 
                                     return (
                                       <>
@@ -7901,6 +8047,7 @@ export default function PageAdminEditor({
                 {[
                   { id: 'all', label: 'All Media' },
                   { id: 'videos', label: '🎬 Videos (Playable)' },
+                  { id: 'gmp', label: '🏭 GMP Cleanroom & Mfg' },
                   { id: 'cleanroom', label: '🏢 Facilities' },
                   { id: 'upstream', label: '🧬 Upstream' },
                   { id: 'downstream', label: '🧪 Downstream' },

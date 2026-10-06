@@ -21,7 +21,7 @@ import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
-import { getPageEquipment, getSectionEquipment, DRUG_PRODUCT_EQUIPMENT } from '@/data/equipmentData';
+import { getPageEquipment, getSectionEquipment, DRUG_PRODUCT_EQUIPMENT, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -340,6 +340,23 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                             );
                           }
                           const equipmentItems = getSectionEquipment(section.title, page.slug);
+                          if (section.images && section.images.length > 1) {
+                            return (
+                              <EquipmentCarousel
+                                items={section.images.map((img: string, i: number) => {
+                                  const match = (equipmentItems || []).find((eq) => eq.src === img) ||
+                                    ALL_EQUIPMENT_ITEMS.find((eq) => eq.src === img);
+                                  return match || {
+                                    src: img,
+                                    title: `${section.title} Equipment ${i + 1}`,
+                                    subtitle: `${section.title} instrumentation suite.`,
+                                    tag: 'Equipment'
+                                  };
+                                })}
+                                sectionTitle={section.title}
+                              />
+                            );
+                          }
                           if (equipmentItems && equipmentItems.length > 0) {
                             return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;
                           }

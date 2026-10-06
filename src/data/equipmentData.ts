@@ -61,6 +61,12 @@ export const UPSTREAM_EQUIPMENT: EquipmentItem[] = [
 
 export const UPSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
   {
+    src: '/images/upstream_GMP/549A7821.png',
+    title: 'cGMP Upstream Cleanroom Suite',
+    subtitle: 'Grade C classified upstream production suite featuring closed single-use processing line architecture.',
+    tag: 'Cleanroom Suite',
+  },
+  {
     src: '/images/upstream_GMP/GMP Production bioreactor.png',
     title: 'GMP Production Bioreactor (200 L)',
     subtitle: 'Single-use production bioreactor train for clinical and commercial-ready biologic drug substance manufacturing.',
@@ -89,6 +95,12 @@ export const UPSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
     title: 'GMP Automated Cell Counter',
     subtitle: 'Validated 21 CFR Part 11 compliant automated cell count and viability assessment in cleanroom environments.',
     tag: 'Cleanroom QC',
+  },
+  {
+    src: '/images/upstream_GMP/GMP Bentch top centrifuge.png',
+    title: 'GMP Benchtop Centrifuge',
+    subtitle: 'High-speed refrigerated benchtop centrifuge for sample clarification and in-process cell pelleting.',
+    tag: 'Centrifugation',
   },
   {
     src: '/images/upstream_GMP/GMP CO2 shaker incubator.png',
@@ -132,47 +144,44 @@ export const UPSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
     subtitle: 'Closed single-use mixing system for sterile media hydration, buffer compounding, and harvest conditioning.',
     tag: 'Single-Use Mixer',
   },
+];
+
+export const DOWNSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
   {
-    src: '/images/upstream_GMP/300X300 Axichrom column(DSP25-0222).png',
+    src: '/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png',
     title: '300x300 AxiChrom Chromatography Column',
     subtitle: 'Automated hydraulic axial compression column for reproducible, scalable GMP purification cycles.',
     tag: 'Axial Compression',
   },
   {
-    src: '/images/upstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png',
+    src: '/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png',
     title: 'ÄKTA Pilot Chromatography Skid',
     subtitle: 'Sanitary bioprocess chromatography system supporting pre-clinical and Phase I/II clinical batch purification.',
     tag: 'GMP Skid',
   },
   {
-    src: '/images/upstream_GMP/Automated TFF system with SUM(DSP25-0117).png',
+    src: '/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).png',
     title: 'Automated TFF System with SUM',
     subtitle: 'Automated ultrafiltration and diafiltration system paired with single-use mixers for final drug substance concentration.',
     tag: 'UF/DF System',
   },
   {
-    src: '/images/upstream_GMP/Axichrom column controller(DSP25-0230).png',
+    src: '/images/downstream_GMP/Axichrom column controller(DSP25-0230).png',
     title: 'AxiChrom Column Intelligent Controller',
     subtitle: 'Automated bed height calculation, bed pressure sensing, and verified packing efficiency diagnostics.',
     tag: 'Column Control',
   },
   {
-    src: '/images/upstream_GMP/Chromatography Skid, Co-prime (DSP25-0118).png',
+    src: '/images/downstream_GMP/Chromatography Skid, Co-prime (DSP25-0118).png',
     title: 'Chromatography Skid (Co-Prime)',
     subtitle: 'Advanced multi-buffer inline dilution and multi-gradient chromatography skid with automated valve switching.',
     tag: 'Chromatography',
   },
   {
-    src: '/images/upstream_GMP/HiScale Column.png',
+    src: '/images/downstream_GMP/HiScale Column.png',
     title: 'HiScale High-Resolution Column',
     subtitle: 'Biocompatible pressure-rated glass column for pilot-scale affinity, IEX, and HIC purification polishing.',
     tag: 'Column Hardware',
-  },
-  {
-    src: '/images/upstream_GMP/549A7821.png',
-    title: 'cGMP Upstream Cleanroom Suite',
-    subtitle: 'Grade C classified upstream production suite featuring closed single-use processing line architecture.',
-    tag: 'Cleanroom Suite',
   },
 ];
 
@@ -537,6 +546,14 @@ export function getSectionEquipment(sectionTitle: string, pageSlug?: string): Eq
   if (combined.includes('upstream process') || combined.includes('upstream')) {
     return UPSTREAM_EQUIPMENT;
   }
+  if (
+    combined.includes('gmp downstream') ||
+    combined.includes('downstream gmp') ||
+    combined.includes('gmp purification') ||
+    (combined.includes('downstream') && combined.includes('gmp'))
+  ) {
+    return DOWNSTREAM_GMP_EQUIPMENT;
+  }
   if (combined.includes('downstream') || combined.includes('dsp') || combined.includes('purification')) {
     return DOWNSTREAM_EQUIPMENT;
   }
@@ -572,7 +589,22 @@ export function getPageEquipment(pageSlug: string): EquipmentItem[] | null {
     return DRUG_PRODUCT_EQUIPMENT;
   }
   if (lower.includes('drug-substance')) {
-    return UPSTREAM_GMP_EQUIPMENT;
+    return [...UPSTREAM_GMP_EQUIPMENT, ...DOWNSTREAM_GMP_EQUIPMENT];
   }
   return null;
 }
+
+export const ALL_EQUIPMENT_ITEMS: EquipmentItem[] = [
+  ...CELL_DEV_EQUIPMENT,
+  ...UPSTREAM_EQUIPMENT,
+  ...UPSTREAM_GMP_EQUIPMENT,
+  ...DOWNSTREAM_GMP_EQUIPMENT,
+  ...DOWNSTREAM_EQUIPMENT,
+  ...DRUG_PRODUCT_EQUIPMENT,
+  ...ANALYTICAL_EQUIPMENT,
+  ...UK_UPSTREAM_EQUIPMENT,
+  ...UK_DOWNSTREAM_EQUIPMENT,
+  ...UK_ANALYTICAL_EQUIPMENT,
+  ...UK_BIOSIMILAR_EQUIPMENT,
+];
+

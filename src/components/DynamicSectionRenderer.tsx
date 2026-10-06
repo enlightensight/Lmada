@@ -52,7 +52,7 @@ import EquipmentCarousel from '@/components/EquipmentCarousel';
 import CommonCTA from '@/components/CommonCTA';
 import FAQSection from '@/components/FAQSection';
 import type { CDMOSection } from '@/data/cdmoData';
-import { getSectionEquipment } from '@/data/equipmentData';
+import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
 
 // Map icon strings to Lucide components
 const ICON_MAP: Record<string, LucideIcon> = {
@@ -843,16 +843,31 @@ export default function DynamicSectionRenderer({
               </p>
             )}
           </div>
-          {equipItems && equipItems.length > 0 ? (
-            <EquipmentCarousel
-              items={equipItems}
-              sectionTitle={section.title || 'Laboratory & Process Equipment'}
-            />
-          ) : (
-            <div className="p-8 text-center text-slate-500">
-              <p>Equipment showcase active.</p>
-            </div>
-          )}
+          {(() => {
+            const displayItems = (section.images && section.images.length > 1)
+              ? section.images.map((img: string, i: number) => {
+                  const match = (equipItems || []).find((eq) => eq.src === img) ||
+                    ALL_EQUIPMENT_ITEMS.find((eq) => eq.src === img);
+                  return match || {
+                    src: img,
+                    title: `${section.title} Equipment ${i + 1}`,
+                    subtitle: `${section.title} instrumentation suite.`,
+                    tag: 'Equipment'
+                  };
+                })
+              : equipItems;
+
+            return displayItems && displayItems.length > 0 ? (
+              <EquipmentCarousel
+                items={displayItems}
+                sectionTitle={section.title || 'Laboratory & Process Equipment'}
+              />
+            ) : (
+              <div className="p-8 text-center text-slate-500">
+                <p>Equipment showcase active.</p>
+              </div>
+            );
+          })()}
         </div>
       </section>
     );
