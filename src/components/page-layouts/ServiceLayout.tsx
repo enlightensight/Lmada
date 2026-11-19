@@ -26,8 +26,6 @@ import {
   GitMerge
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import DownstreamProcessAnimation from '@/components/DownstreamProcessAnimation';
-import UpstreamProcessAnimation from '@/components/UpstreamProcessAnimation';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
@@ -190,7 +188,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                   {isUpstreamProcess ? (
                     <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
                       {/* Top 2-column: Carousel & Content */}
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-8">
+                      <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${section.footerText ? 'mb-8' : ''}`}>
                         <div className="lg:col-span-5">
                           <EquipmentCarousel items={UPSTREAM_EQUIPMENT} sectionTitle="Upstream Process Equipment" />
                         </div>
@@ -242,16 +240,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                           {section.footerText}
                         </p>
                       )}
-
-                      {/* 6-Stage Upstream Process Interactive Animation */}
-                      <div className="pt-6 border-t border-neutral-100">
-                        <UpstreamProcessAnimation />
-                      </div>
                     </div>
                   ) : isDownstreamProcess ? (
                     <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
                       {/* Top 2-column: Content & Carousel */}
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-8">
+                      <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${section.footerText ? 'mb-8' : ''}`}>
                         <div className="lg:col-span-7">
                           {/* Header */}
                           <div className="flex items-center gap-3 mb-4">
@@ -304,11 +297,6 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                           {section.footerText}
                         </div>
                       )}
-
-                      {/* 6-Stage Downstream Purification Interactive Animation */}
-                      <div className="pt-6 border-t border-neutral-100">
-                        <DownstreamProcessAnimation />
-                      </div>
                     </div>
                   ) : !hasMedia ? (
                     <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
