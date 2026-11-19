@@ -368,22 +368,14 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       </section>
 
       {/* SUPPORTING DIVERSE BIOLOGIC MODALITIES */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100">
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100 overflow-hidden">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
               {modalitiesSection?.title || 'Platform Capabilities for Next-Generation Biologics'}
             </h2>
-            <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-5xl mx-auto mt-4">
-              {(modalitiesSection?.text || '').includes('modalities with process sciences') ? (
-                <>
-                  Our integrated development and manufacturing platform is designed to support a range of biologic modalities with
-                  <br className="hidden md:inline" />{' '}
-                  process sciences, analytical sciences and manufacturing capabilities tailored to each molecule.
-                </>
-              ) : (
-                modalitiesSection?.text || 'Our integrated development and manufacturing platform is designed to support a range of biologic modalities with process sciences, analytical sciences and manufacturing capabilities tailored to each molecule.'
-              )}
+            <p className="text-[14px] sm:text-[15px] lg:text-[14px] xl:text-[15px] 2xl:text-[16.5px] text-slate-500 font-normal leading-relaxed max-w-none lg:whitespace-nowrap mx-auto mt-4">
+              {modalitiesSection?.text || 'Our integrated development and manufacturing platform is designed to support a range of biologic modalities with process sciences, analytical sciences and manufacturing capabilities tailored to each molecule.'}
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
