@@ -171,12 +171,12 @@ export default function CharacterizationLayout({ page, content }: Characterizati
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
               {page.capabilities.map((cap, idx) => {
                 const Icon = getCharCapabilityIcon(cap, idx);
                 return (
-                  <Reveal key={idx} delay={idx * 0.03} className="h-full">
-                    <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
+                  <Reveal key={idx} delay={idx * 0.03} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] flex">
+                    <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
                         <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                       </div>
@@ -209,12 +209,12 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                   </div>
                 </Reveal>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                   {page.bioassayCapabilities.map((cap, idx) => {
                     const Icon = getCharCapabilityIcon(cap, idx);
                     return (
-                      <Reveal key={idx} delay={idx * 0.03} className="h-full">
-                        <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
+                      <Reveal key={idx} delay={idx * 0.03} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] flex">
+                        <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
                           <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
                             <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                           </div>
@@ -242,12 +242,12 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                   </div>
                 </Reveal>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                   {page.immunogenicityCapabilities.map((cap, idx) => {
                     const Icon = getCharCapabilityIcon(cap, idx);
                     return (
-                      <Reveal key={idx} delay={idx * 0.03} className="h-full">
-                        <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
+                      <Reveal key={idx} delay={idx * 0.03} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] flex">
+                        <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
                           <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
                             <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
                           </div>
@@ -290,7 +290,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 max-w-6xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-5 max-w-6xl mx-auto">
               {page.analyticalTechnologies.map((tech, tIdx) => {
                 const title = typeof tech === 'string' ? tech : tech.name;
                 const desc = typeof tech === 'string' ? '' : tech.description;
@@ -298,8 +298,8 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                 const TechIcon = getTechIcon(title, tIdx);
 
                 return (
-                  <Reveal key={tIdx} delay={tIdx * 0.05} className="h-full">
-                    <div className="group h-full bg-neutral-50/60 border border-neutral-200/80 rounded-[10px] p-6 shadow-xs hover:shadow-xl hover:border-brand-yellow hover:bg-white transition-all duration-300 flex flex-col justify-between">
+                  <Reveal key={tIdx} delay={tIdx * 0.05} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] xl:w-[calc(25%-15px)] flex">
+                    <div className="group w-full h-full bg-neutral-50/60 border border-neutral-200/80 rounded-[10px] p-6 shadow-xs hover:shadow-xl hover:border-brand-yellow hover:bg-white transition-all duration-300 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center justify-between mb-4">
                           <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200">

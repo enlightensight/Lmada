@@ -483,7 +483,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-5 max-w-6xl mx-auto">
               {page.applicableModalities.map((modality, mIdx) => {
                 const ModIcon = modality.title.toLowerCase().includes('bispecific')
                   ? GitMerge
@@ -494,11 +494,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                       : Dna;
 
                 return (
-                  <Reveal key={mIdx} delay={mIdx * 0.05} className="h-full">
+                  <Reveal key={mIdx} delay={mIdx * 0.05} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] flex">
                     {modality.link ? (
                       <Link
                         href={modality.link}
-                        className="group block h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-lg hover:border-brand-yellow transition-all duration-300"
+                        className="group block w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-lg hover:border-brand-yellow transition-all duration-300"
                       >
                         <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200 mb-4">
                           <ModIcon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-200" />

@@ -966,12 +966,12 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               </Reveal>
 
               {page.slug === 'about' ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
                   {advantageCards.map((cap: any, idx: number) => {
                     const Icon = getOverviewCapabilityIcon(cap, idx);
                     return (
-                      <Reveal key={idx} delay={idx * 0.04} className="h-full">
-                        <div className="group h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-start gap-4">
+                      <Reveal key={idx} delay={idx * 0.04} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex">
+                        <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-start gap-4">
                           <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300 mt-0.5">
                             <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
                           </div>
