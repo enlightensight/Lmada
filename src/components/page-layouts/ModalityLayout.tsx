@@ -153,9 +153,11 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
           <div className="w-full max-w-[1700px] mx-auto">
             <Reveal>
               <div className="bg-neutral-50/80 border border-neutral-200/80 rounded-[12px] p-6 sm:p-8 lg:p-10 shadow-xs">
-                <div className="max-w-4xl space-y-4 text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
+                <div className="w-full space-y-2 text-[15px] sm:text-[16px] xl:text-[17px] text-slate-600 font-normal leading-relaxed">
                   {page.footerNote.split('\n\n').map((paragraph, idx) => (
-                    <p key={idx}>{paragraph}</p>
+                    <p key={idx} className="lg:whitespace-nowrap">
+                      {paragraph}
+                    </p>
                   ))}
                 </div>
               </div>

@@ -193,7 +193,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                     Manufacturing Capabilities
                   </h2>
-                  <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-4">
+                  <p className="text-[15px] sm:text-[16px] xl:text-[17px] text-slate-500 font-normal leading-relaxed max-w-5xl xl:max-w-none lg:whitespace-nowrap mx-auto mt-4">
                     cGMP cleanroom workflows, validated containment, and precision production systems for {page.title.split('—')[0].trim()}.
                   </p>
                 </div>

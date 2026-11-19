@@ -267,8 +267,8 @@ export default function CharacterizationLayout({ page, content }: Characterizati
             {/* Footer Note Callout */}
             {page.footerNote && (
               <Reveal>
-                <div className="bg-white border border-neutral-200/80 rounded-[12px] p-6 sm:p-8 lg:p-10 shadow-xs text-center max-w-4xl mx-auto">
-                  <p className="text-[15px] sm:text-[17px] text-slate-600 font-normal leading-relaxed">
+                <div className="bg-white border border-neutral-200/80 rounded-[12px] p-6 sm:p-8 lg:p-10 shadow-xs text-center max-w-6xl xl:max-w-none mx-auto">
+                  <p className="text-[15px] sm:text-[16px] xl:text-[17px] text-slate-600 font-normal leading-relaxed lg:whitespace-nowrap">
                     {page.footerNote}
                   </p>
                 </div>

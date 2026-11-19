@@ -284,10 +284,14 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         const imageRight = (section as any).imageSide
           ? (section as any).imageSide === 'right'
           : (idx % 2 === 1) !== flip;
+        const isRoadmap = Boolean(
+          section.image && (section.image.includes('roadmap') || section.image.includes('regulatory_cmc'))
+        );
         const isDiagram = Boolean(
           section.image &&
             (section.image.endsWith('.svg') ||
-              section.image.includes('gene_construct')) &&
+              section.image.includes('gene_construct') ||
+              isRoadmap) &&
             !section.image.includes('teamwork') &&
             !section.image.includes('CDMOblue')
         );
@@ -348,9 +352,13 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       </a>
                     ) : (
                       <div
-                        className={`relative aspect-[4/3] overflow-hidden ${
-                          isDiagram ? 'bg-white p-3 sm:p-5' : 'bg-neutral-100'
-                        } border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center`}
+                        className={`relative ${
+                          isRoadmap
+                            ? 'aspect-[1717/804] w-full bg-white p-2 sm:p-4'
+                            : isDiagram
+                            ? 'aspect-[4/3] bg-white p-3 sm:p-5'
+                            : 'aspect-[4/3] bg-neutral-100'
+                        } overflow-hidden border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center`}
                       >
                         <img
                           src={section.image}
@@ -945,7 +953,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           </>
                         )}
                       </h2>
-                      <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-3xl mx-auto mt-4">
+                      <p className={`text-[15px] sm:text-[16px] xl:text-[17px] text-neutral-600 leading-relaxed max-w-5xl xl:max-w-none ${page.slug === 'integrated' ? 'lg:whitespace-nowrap' : ''} mx-auto mt-4`}>
                         {page.slug === 'leadership'
                           ? 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery, with a working model built around six core commitments:'
                           : page.slug === 'quality'
@@ -1051,7 +1059,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                     {secTitle}
                   </h2>
-                  <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
+                  <p className="text-[15px] sm:text-[16px] xl:text-[17px] text-slate-500 font-normal leading-relaxed max-w-5xl xl:max-w-none lg:whitespace-nowrap mx-auto mt-4">
                     {secSubtitle}
                   </p>
                 </div>

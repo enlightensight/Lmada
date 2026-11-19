@@ -113,8 +113,18 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 </span>
               )}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05]">
-                <span className="text-neutral-900">{page.heading.split(' ')[0]}</span>
-                {` ${page.heading.split(' ').slice(1).join(' ')}`}
+                {page.heading.includes('We find it') ? (
+                  <>
+                    <span className="text-neutral-900">{page.heading.split('We find it')[0].trim()}</span>
+                    <br />
+                    <span>We find it.</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-neutral-900">{page.heading.split(' ')[0]}</span>
+                    {` ${page.heading.split(' ').slice(1).join(' ')}`}
+                  </>
+                )}
               </h1>
               <div className="text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl space-y-3">
                 {page.description.split('\n\n').map((paragraph, pIdx) => (
