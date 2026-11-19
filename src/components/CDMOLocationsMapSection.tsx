@@ -431,8 +431,8 @@ export default function CDMOLocationsMapSection({
       <div className="relative w-full max-w-[1280px] mx-auto">
         {/* Header Section with Theme Typography */}
         <Reveal>
-          <header className="text-center mb-10 md:mb-14 max-w-4xl lg:max-w-none mx-auto">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-3 lg:whitespace-nowrap">
+          <header className="text-center mb-10 md:mb-14 max-w-5xl lg:max-w-none mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[46px] 2xl:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-3 md:whitespace-nowrap">
               {title}
             </h2>
             {subtitle && (
