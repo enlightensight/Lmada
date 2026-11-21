@@ -768,12 +768,12 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   />
                 </div>
               ) : page.slug === 'quality' ? (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-neutral-200/90 shadow-xl bg-white">
+                <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-4 sm:p-6 md:p-8 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/quality-compliance-hero.webp"
+                    src="/images/quality-regulatory-framework.svg"
                     alt={page.title || 'Quality and Regulatory Framework'}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto max-h-[520px] object-contain drop-shadow-sm"
                   />
                 </div>
               ) : page.slug === 'facility' ? (
@@ -1242,116 +1242,48 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
                 {/* Tile 1: Global Regulatory Alignment */}
                 <Reveal delay={0.05} className="h-full">
-                  <div className="group h-full bg-slate-50/80 border border-neutral-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                  <div className="group h-full bg-slate-50/80 border border-neutral-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-start relative overflow-hidden">
                     <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-blue to-cyan-500 opacity-80" />
-                    <div>
-                      <div className="flex items-center gap-3.5 mb-5">
-                        <div className="w-12 h-12 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue shrink-0">
-                          <Globe className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-brand-blue block">
-                            cGMP Standardized
-                          </span>
-                          <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
-                            Global Regulatory Alignment
-                          </h3>
-                        </div>
+                    <div className="flex items-center gap-3.5 mb-6">
+                      <div className="w-12 h-12 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue shrink-0">
+                        <Globe className="w-6 h-6" />
                       </div>
-
-                      <div className="space-y-4 text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed font-normal mb-8">
-                        <p>
-                          Our development and manufacturing activities are aligned with applicable global cGMP requirements and supported by quality practices designed to meet regulatory expectations for programs targeting major global markets.
-                        </p>
-                        <p>
-                          We maintain rigorous standards for data integrity, data retention, customer transparency, information security, and intellectual property protection throughout the product lifecycle.
-                        </p>
-                      </div>
+                      <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
+                        Global Regulatory Alignment
+                      </h3>
                     </div>
 
-                    <div className="border-t border-neutral-200/70 pt-6 space-y-3">
-                      <div className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-blue" />
-                        </div>
-                        <span className="text-xs sm:text-sm font-medium text-neutral-800">
-                          <strong>International Standards:</strong> Harmonized with US FDA (21 CFR Part 210/211/11), EMA, and ICH Q8/Q9/Q10.
-                        </span>
-                      </div>
-                      <div className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-blue" />
-                        </div>
-                        <span className="text-xs sm:text-sm font-medium text-neutral-800">
-                          <strong>ALCOA+ Data Integrity:</strong> Complete electronic audit trails, automated backups, and access security.
-                        </span>
-                      </div>
-                      <div className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-blue" />
-                        </div>
-                        <span className="text-xs sm:text-sm font-medium text-neutral-800">
-                          <strong>Customer Transparency:</strong> Comprehensive client audit access, change notifications, and technical agreements.
-                        </span>
-                      </div>
+                    <div className="space-y-4 text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed font-normal">
+                      <p>
+                        Our development and manufacturing activities are aligned with applicable global cGMP requirements and supported by quality practices designed to meet regulatory expectations for programs targeting major global markets.
+                      </p>
+                      <p>
+                        We maintain rigorous standards for data integrity, data retention, customer transparency, information security, and intellectual property protection throughout the product lifecycle.
+                      </p>
                     </div>
                   </div>
                 </Reveal>
 
                 {/* Tile 2: Quality Control Laboratories */}
                 <Reveal delay={0.1} className="h-full">
-                  <div className="group h-full bg-slate-50/80 border border-neutral-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-orange/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                  <div className="group h-full bg-slate-50/80 border border-neutral-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-orange/40 transition-all duration-300 flex flex-col justify-start relative overflow-hidden">
                     <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-orange to-amber-500 opacity-80" />
-                    <div>
-                      <div className="flex items-center gap-3.5 mb-5">
-                        <div className="w-12 h-12 rounded-xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange shrink-0">
-                          <ClipboardCheck className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-brand-orange block">
-                            Analytical &amp; Release
-                          </span>
-                          <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
-                            Quality Control Laboratories
-                          </h3>
-                        </div>
+                    <div className="flex items-center gap-3.5 mb-6">
+                      <div className="w-12 h-12 rounded-xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange shrink-0">
+                        <ClipboardCheck className="w-6 h-6" />
                       </div>
-
-                      <div className="space-y-4 text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed font-normal mb-8">
-                        <p>
-                          Our Quality control laboratories are designed with state of art facilities to ensure product safety, identity, purity, potency, and consistency. The QC labs are established in strict alignment with global cGMP regulations and 21 CFR Part 11 data integrity standards.
-                        </p>
-                        <p>
-                          Our facility features advanced analytical instrumentation to cater to vigorous in-process testing and environmental monitoring. The QC labs are operated by scientists trained in all aspects of regulatory compliance driving meticulous data-driven batch release testing.
-                        </p>
-                      </div>
+                      <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
+                        Quality Control Laboratories
+                      </h3>
                     </div>
 
-                    <div className="border-t border-neutral-200/70 pt-6 space-y-3">
-                      <div className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange" />
-                        </div>
-                        <span className="text-xs sm:text-sm font-medium text-neutral-800">
-                          <strong>Batch Release Testing:</strong> Rigorous release analytics for DS &amp; DP identity, purity, potency, and safety.
-                        </span>
-                      </div>
-                      <div className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange" />
-                        </div>
-                        <span className="text-xs sm:text-sm font-medium text-neutral-800">
-                          <strong>Cleanroom Environmental Monitoring:</strong> Continuous particle monitoring, viable bioburden, and sterility assurance.
-                        </span>
-                      </div>
-                      <div className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 mt-0.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange" />
-                        </div>
-                        <span className="text-xs sm:text-sm font-medium text-neutral-800">
-                          <strong>Validated Instrumentation:</strong> 21 CFR Part 11 compliant audit-trailed chromatography, mass spec, and bioassays.
-                        </span>
-                      </div>
+                    <div className="space-y-4 text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed font-normal">
+                      <p>
+                        Our Quality control laboratories are designed with state of art facilities to ensure product safety, identity, purity, potency, and consistency. The QC labs are established in strict alignment with global cGMP regulations and 21 CFR Part 11 data integrity standards.
+                      </p>
+                      <p>
+                        Our facility features advanced analytical instrumentation to cater to vigorous in-process testing and environmental monitoring. The QC labs are operated by scientists trained in all aspects of regulatory compliance driving meticulous data-driven batch release testing.
+                      </p>
                     </div>
                   </div>
                 </Reveal>
@@ -1359,53 +1291,62 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             </div>
           </section>
 
-          {/* Section 2: Regulatory Affairs Support with FULL-WIDTH Infographic */}
+          {/* Section 2: Regulatory Affairs Support - Reverted Side-by-Side Layout with Enlarged Roadmap Infographic */}
           <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
             <div className="w-full max-w-[1700px] mx-auto">
-              <Reveal>
-                {/* Header & text */}
-                <div className="max-w-4xl mx-auto text-center mb-10 md:mb-12">
-                  <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-blue/10 text-brand-blue border border-brand-blue/20 mb-4">
-                    Lifecycle CMC Alignment
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-5">
-                    Regulatory Affairs Support
-                  </h2>
-                  <div className="h-1 w-12 bg-brand-blue rounded-full mx-auto mb-6" />
-                  <p className="text-[16px] sm:text-[18px] text-neutral-600 leading-relaxed font-normal max-w-3xl mx-auto">
-                    Our Regulatory Affairs team works closely with development, manufacturing, analytical, and quality functions to support Chemistry, Manufacturing, and Controls (CMC) requirements throughout the product lifecycle.
-                  </p>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
+                {/* Left Column: Regulatory Content & Capabilities */}
+                <Reveal delay={0.05} className="lg:col-span-5 xl:col-span-4">
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-blue/10 text-brand-blue border border-brand-blue/20 mb-4">
+                      Lifecycle CMC Alignment
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-5">
+                      Regulatory Affairs Support
+                    </h2>
+                    <div className="h-1 w-12 bg-brand-blue rounded-full mb-6" />
+                    <p className="text-[15px] sm:text-[16px] xl:text-[17px] text-neutral-600 leading-relaxed font-normal mb-8">
+                      Our Regulatory Affairs team works closely with development, manufacturing, analytical, and quality functions to support Chemistry, Manufacturing, and Controls (CMC) requirements throughout the product lifecycle.
+                    </p>
 
-                  {/* Key Capabilities Pills */}
-                  <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-6">
-                    {[
-                      'IND and IMPD submissions',
-                      'Biologics License Application (BLA) submissions',
-                      'Lifecycle variations',
-                      'CMC documentation',
-                      'Scientific interactions with global health authorities'
-                    ].map((cap, cIdx) => (
-                      <span
-                        key={cIdx}
-                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold bg-white text-neutral-800 border border-neutral-200/90 shadow-2xs hover:border-brand-blue/50 transition-colors"
-                      >
-                        <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                        <span>{cap}</span>
+                    <div className="pt-6 border-t border-neutral-200/80">
+                      <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-4">
+                        Key capabilities include:
                       </span>
-                    ))}
+                      <ul className="space-y-3">
+                        {[
+                          'IND and IMPD submissions',
+                          'Biologics License Application (BLA) submissions',
+                          'Lifecycle variations',
+                          'CMC documentation',
+                          'Scientific interactions with global health authorities'
+                        ].map((cap, cIdx) => (
+                          <li key={cIdx} className="flex items-start gap-3">
+                            <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                              <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                            </div>
+                            <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                              {cap}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                </Reveal>
 
-                {/* FULL-WIDTH Infographic Container */}
-                <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-4 sm:p-6 md:p-8 lg:p-10 flex items-center justify-center overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/insights/regulatory_cmc_roadmap.png"
-                    alt="Regulatory Affairs Support — CMC Biologics Roadmap"
-                    className="w-full h-auto max-h-[850px] object-contain"
-                  />
-                </div>
-              </Reveal>
+                {/* Right Column: Enlarged Roadmap Graphic Card */}
+                <Reveal delay={0.1} className="lg:col-span-7 xl:col-span-8">
+                  <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-4 sm:p-6 md:p-8 lg:p-10 flex items-center justify-center overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/insights/regulatory_cmc_roadmap.png"
+                      alt="Regulatory Affairs Support — CMC Biologics Roadmap"
+                      className="w-full h-auto max-h-[640px] xl:max-h-[700px] object-contain drop-shadow-sm transition-transform duration-500 hover:scale-[1.01]"
+                    />
+                  </div>
+                </Reveal>
+              </div>
             </div>
           </section>
         </>
