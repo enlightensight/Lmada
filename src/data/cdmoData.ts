@@ -265,8 +265,8 @@ export const cdmoData: CDMOPage[] = [
               },
               {
                 "name": "Analytical Development",
-                  "href": "/services/analytical-development",
-                  "icon": "FlaskConical"
+                "href": "/services/analytical-development",
+                "icon": "FlaskConical"
               }
             ]
           },

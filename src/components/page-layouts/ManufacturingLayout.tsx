@@ -100,8 +100,8 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
   // Per-slug accent: drug-substance = blue, drug-product = yellow
   const isSubstance = page.slug === 'drug-substance';
   const isProduct = page.slug === 'drug-product';
-  const isMfgCustomHero = isSubstance || isProduct;
-  const customHeroImage = isSubstance ? '/images/drugsubstance.png' : '/images/drugproduct.png';
+  const isMfgCustomHero = isProduct;
+  const customHeroImage = '/images/drugproduct.png';
 
   const accentText = isSubstance ? 'text-brand-blue' : 'text-brand-yellow';
   const accentBox = isSubstance ? 'bg-brand-blue' : 'bg-brand-yellow';
@@ -326,85 +326,133 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                 const SectionIcon = sectionIcons[idx % sectionIcons.length];
                 return (
                   <Reveal key={idx} delay={idx * 0.05}>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                      <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                        {(() => {
-                          if (section.images && section.images.length > 1) {
-                            return <AboutHeroCarousel images={section.images} />;
-                          }
-                          const isVideo = section.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(section.video || section.image || '');
-                          if (isVideo && (section.video || section.image)) {
+                    {isSubstance ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+                        {/* Tile 1: Seamless Development to GMP Transfer */}
+                        <div className="group bg-white border border-neutral-200/80 rounded-[12px] p-8 sm:p-10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-0.5">
+                          <div>
+                            <div className="w-12 h-12 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-6 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200">
+                              <Factory className="w-6 h-6 text-brand-blue group-hover:text-white transition-colors duration-200" />
+                            </div>
+                            <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-2.5">
+                              Technology Transfer
+                            </span>
+                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4 leading-snug">
+                              {section.title}
+                            </h3>
+                            <p className="text-[16px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
+                              {section.text}
+                            </p>
+                          </div>
+                          <div className="pt-6 mt-8 border-t border-neutral-100 flex items-center gap-2 text-sm font-semibold text-brand-blue group-hover:text-brand-orange transition-colors duration-200">
+                            <span>Scalable Process Execution</span>
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                          </div>
+                        </div>
+
+                        {/* Tile 2: Single-Use Bioreactor Production Suites */}
+                        <div className="group bg-white border border-neutral-200/80 rounded-[12px] p-8 sm:p-10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-0.5">
+                          <div>
+                            <div className="w-12 h-12 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-6 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200">
+                              <Dna className="w-6 h-6 text-brand-blue group-hover:text-white transition-colors duration-200" />
+                            </div>
+                            <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-2.5">
+                              Production Architecture
+                            </span>
+                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4 leading-snug">
+                              {section.secondaryTitle || 'Single-Use Bioreactor Production Suites'}
+                            </h3>
+                            <p className="text-[16px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
+                              {section.secondaryText}
+                            </p>
+                          </div>
+                          <div className="pt-6 mt-8 border-t border-neutral-100 flex items-center gap-2 text-sm font-semibold text-brand-blue group-hover:text-brand-orange transition-colors duration-200">
+                            <span>Flexible 50 L to 500 L SUB Trains</span>
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                        <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
+                          {(() => {
+                            if (section.images && section.images.length > 1) {
+                              return <AboutHeroCarousel images={section.images} />;
+                            }
+                            const isVideo = section.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(section.video || section.image || '');
+                            if (isVideo && (section.video || section.image)) {
+                              return (
+                                <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
+                                  <video
+                                    src={section.video || section.image}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              );
+                            }
+                            const equipmentItems = getSectionEquipment(section.title, page.slug);
+                            if (section.images && section.images.length > 1) {
+                              return (
+                                <EquipmentCarousel
+                                  items={section.images.map((img: string, i: number) => {
+                                    const match = (equipmentItems || []).find((eq) => eq.src === img) ||
+                                      ALL_EQUIPMENT_ITEMS.find((eq) => eq.src === img);
+                                    return match || {
+                                      src: img,
+                                      title: `${section.title} Equipment ${i + 1}`,
+                                      subtitle: `${section.title} instrumentation suite.`,
+                                      tag: 'Equipment'
+                                    };
+                                  })}
+                                  sectionTitle={section.title}
+                                />
+                              );
+                            }
+                            if (equipmentItems && equipmentItems.length > 0) {
+                              return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;
+                            }
                             return (
-                              <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
-                                <video
-                                  src={section.video || section.image}
-                                  autoPlay
-                                  loop
-                                  muted
-                                  playsInline
+                              <div className="relative rounded-[10px] overflow-hidden border border-neutral-200 bg-neutral-100 aspect-[4/3] shadow-sm flex items-center justify-center">
+                                <img
+                                  src={section.image}
+                                  alt={section.title}
                                   className="w-full h-full object-cover"
                                 />
                               </div>
                             );
-                          }
-                          const equipmentItems = getSectionEquipment(section.title, page.slug);
-                          if (section.images && section.images.length > 1) {
-                            return (
-                              <EquipmentCarousel
-                                items={section.images.map((img: string, i: number) => {
-                                  const match = (equipmentItems || []).find((eq) => eq.src === img) ||
-                                    ALL_EQUIPMENT_ITEMS.find((eq) => eq.src === img);
-                                  return match || {
-                                    src: img,
-                                    title: `${section.title} Equipment ${i + 1}`,
-                                    subtitle: `${section.title} instrumentation suite.`,
-                                    tag: 'Equipment'
-                                  };
-                                })}
-                                sectionTitle={section.title}
-                              />
-                            );
-                          }
-                          if (equipmentItems && equipmentItems.length > 0) {
-                            return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;
-                          }
-                          return (
-                            <div className="relative rounded-[10px] overflow-hidden border border-neutral-200 bg-neutral-100 aspect-[4/3] shadow-sm flex items-center justify-center">
-                              <img
-                                src={section.image}
-                                alt={section.title}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          );
-                        })()}
-                      </div>
-                      <div className={`${idx % 2 === 1 ? 'lg:order-1' : ''} space-y-6 md:space-y-8`}>
-                        <div>
-                          <h3 className="text-2xl md:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-3 sm:mb-4">
-                            {section.title}
-                          </h3>
-                          <p className="text-[15px] md:text-[17px] text-slate-500 font-normal leading-relaxed">
-                            {section.text}
-                          </p>
+                          })()}
                         </div>
-
-                        {(section.secondaryTitle || section.secondaryText) && (
-                          <div className="pt-6 border-t border-neutral-100">
-                            {section.secondaryTitle && (
-                              <h3 className="text-2xl md:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-3 sm:mb-4">
-                                {section.secondaryTitle}
-                              </h3>
-                            )}
-                            {section.secondaryText && (
-                              <p className="text-[15px] md:text-[17px] text-slate-500 font-normal leading-relaxed">
-                                {section.secondaryText}
-                              </p>
-                            )}
+                        <div className={`${idx % 2 === 1 ? 'lg:order-1' : ''} space-y-6 md:space-y-8`}>
+                          <div>
+                            <h3 className="text-2xl md:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-3 sm:mb-4">
+                              {section.title}
+                            </h3>
+                            <p className="text-[15px] md:text-[17px] text-slate-500 font-normal leading-relaxed">
+                              {section.text}
+                            </p>
                           </div>
-                        )}
+
+                          {(section.secondaryTitle || section.secondaryText) && (
+                            <div className="pt-6 border-t border-neutral-100">
+                              {section.secondaryTitle && (
+                                <h3 className="text-2xl md:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-3 sm:mb-4">
+                                  {section.secondaryTitle}
+                                </h3>
+                              )}
+                              {section.secondaryText && (
+                                <p className="text-[15px] md:text-[17px] text-slate-500 font-normal leading-relaxed">
+                                  {section.secondaryText}
+                                </p>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </Reveal>
                 );
               })}

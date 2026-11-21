@@ -144,35 +144,77 @@ export const UPSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
     subtitle: 'Closed single-use mixing system for sterile media hydration, buffer compounding, and harvest conditioning.',
     tag: 'Single-Use Mixer',
   },
-];
-
-export const DOWNSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
   {
-    src: '/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png',
+    src: '/images/downstream_GMP/300x300-axichrom-column.webp',
     title: '300x300 AxiChrom Chromatography Column',
     subtitle: 'Automated hydraulic axial compression column for reproducible, scalable GMP purification cycles.',
     tag: 'Axial Compression',
   },
   {
-    src: '/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png',
-    title: 'ÄKTA Pilot Chromatography Skid',
-    subtitle: 'Sanitary bioprocess chromatography system supporting pre-clinical and Phase I/II clinical batch purification.',
-    tag: 'GMP Skid',
+    src: '/images/downstream_GMP/hiscale-column.webp',
+    title: 'HiScale High-Resolution Column',
+    subtitle: 'Biocompatible pressure-rated glass column for pilot-scale affinity, IEX, and HIC purification polishing.',
+    tag: 'Column Hardware',
   },
   {
-    src: '/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).png',
-    title: 'Automated TFF System with SUM',
-    subtitle: 'Automated ultrafiltration and diafiltration system paired with single-use mixers for final drug substance concentration.',
-    tag: 'UF/DF System',
+    src: '/images/downstream_GMP/chromatography-skid-coprime.webp',
+    title: 'Chromatography Skid, Co-prime',
+    subtitle: 'Automated multi-column chromatography purification skid engineered for high-recovery cGMP bioprocessing.',
+    tag: 'Chromatography Skid',
   },
   {
-    src: '/images/downstream_GMP/Axichrom column controller(DSP25-0230).png',
+    src: '/images/downstream_GMP/axichrom-column-controller.webp',
     title: 'AxiChrom Column Intelligent Controller',
     subtitle: 'Automated bed height calculation, bed pressure sensing, and verified packing efficiency diagnostics.',
     tag: 'Column Control',
   },
   {
-    src: '/images/downstream_GMP/HiScale Column.png',
+    src: '/images/downstream_GMP/automated-tff-system-with-sum.webp',
+    title: 'Automated TFF System with SUM',
+    subtitle: 'Automated ultrafiltration and diafiltration system paired with single-use mixers for final drug substance concentration.',
+    tag: 'UF/DF System',
+  },
+  {
+    src: '/images/downstream_GMP/akta-pilot-chromatography-system.webp',
+    title: 'ÄKTA Pilot Chromatography Skid',
+    subtitle: 'Sanitary bioprocess chromatography system supporting pre-clinical and Phase I/II clinical batch purification.',
+    tag: 'GMP Skid',
+  },
+];
+
+export const DOWNSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
+  {
+    src: '/images/downstream_GMP/300x300-axichrom-column.webp',
+    title: '300x300 AxiChrom Chromatography Column',
+    subtitle: 'Automated hydraulic axial compression column for reproducible, scalable GMP purification cycles.',
+    tag: 'Axial Compression',
+  },
+  {
+    src: '/images/downstream_GMP/akta-pilot-chromatography-system.webp',
+    title: 'ÄKTA Pilot Chromatography Skid',
+    subtitle: 'Sanitary bioprocess chromatography system supporting pre-clinical and Phase I/II clinical batch purification.',
+    tag: 'GMP Skid',
+  },
+  {
+    src: '/images/downstream_GMP/chromatography-skid-coprime.webp',
+    title: 'Chromatography Skid, Co-prime',
+    subtitle: 'Automated multi-column chromatography purification skid engineered for high-recovery cGMP bioprocessing.',
+    tag: 'Chromatography Skid',
+  },
+  {
+    src: '/images/downstream_GMP/automated-tff-system-with-sum.webp',
+    title: 'Automated TFF System with SUM',
+    subtitle: 'Automated ultrafiltration and diafiltration system paired with single-use mixers for final drug substance concentration.',
+    tag: 'UF/DF System',
+  },
+  {
+    src: '/images/downstream_GMP/axichrom-column-controller.webp',
+    title: 'AxiChrom Column Intelligent Controller',
+    subtitle: 'Automated bed height calculation, bed pressure sensing, and verified packing efficiency diagnostics.',
+    tag: 'Column Control',
+  },
+  {
+    src: '/images/downstream_GMP/hiscale-column.webp',
     title: 'HiScale High-Resolution Column',
     subtitle: 'Biocompatible pressure-rated glass column for pilot-scale affinity, IEX, and HIC purification polishing.',
     tag: 'Column Hardware',
@@ -577,7 +619,7 @@ export function getPageEquipment(pageSlug: string): EquipmentItem[] | null {
     return null;
   }
   if (lower.includes('drug-substance')) {
-    return null;
+    return UPSTREAM_GMP_EQUIPMENT;
   }
   return null;
 }
