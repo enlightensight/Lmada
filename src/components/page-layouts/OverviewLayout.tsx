@@ -227,6 +227,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         page.slug === 'about' &&
         (sec.title === 'The Lambda Advantage' ||
           sec.title === "Developing Tomorrow's Biologics" ||
+          sec.title === 'Integrated Biologics Development and Manufacturing' ||
+          sec.style === 'feature-split' ||
           sec.style === 'locations-map' ||
           sec.style === 'cards-grid' ||
           sec.style === 'capabilities-checklist')
