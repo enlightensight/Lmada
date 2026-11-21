@@ -101,7 +101,7 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
   const isSubstance = page.slug === 'drug-substance';
   const isProduct = page.slug === 'drug-product';
   const isMfgCustomHero = isProduct;
-  const customHeroImage = '/images/drugproduct.png';
+  const customHeroImage = '/images/menufacturing.png';
 
   const accentText = isSubstance ? 'text-brand-blue' : 'text-brand-yellow';
   const accentBox = isSubstance ? 'bg-brand-blue' : 'bg-brand-yellow';
@@ -213,9 +213,9 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                     {/* Right Content Box */}
                     <div className="lg:col-span-7">
                       <div>
-                        <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-4">
-                          Key Capabilities
-                        </span>
+                        <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-6 leading-tight">
+                          Formulation Development &amp; Drug Product Manufacturing Capabilities
+                        </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                           {page.capabilities.map((cap, idx) => {
                             const Icon = getMfgCapabilityIcon(cap, idx);
@@ -274,16 +274,6 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                   From Bulk Drug Substance to Clinical Supply
                 </h2>
-                <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-4xl mx-auto">
-                  {drugProductWorkflow.map((item, idx) => (
-                    <span key={idx} className="inline-flex items-center gap-1.5 sm:gap-2">
-                      <span>{item.title}</span>
-                      {idx < drugProductWorkflow.length - 1 && (
-                        <span className="text-slate-400">→</span>
-                      )}
-                    </span>
-                  ))}
-                </div>
               </div>
             </Reveal>
 
@@ -329,47 +319,23 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                     {isSubstance ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
                         {/* Tile 1: Seamless Development to GMP Transfer */}
-                        <div className="group bg-white border border-neutral-200/80 rounded-[12px] p-8 sm:p-10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-0.5">
-                          <div>
-                            <div className="w-12 h-12 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-6 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200">
-                              <Factory className="w-6 h-6 text-brand-blue group-hover:text-white transition-colors duration-200" />
-                            </div>
-                            <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-2.5">
-                              Technology Transfer
-                            </span>
-                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4 leading-snug">
-                              {section.title}
-                            </h3>
-                            <p className="text-[16px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
-                              {section.text}
-                            </p>
-                          </div>
-                          <div className="pt-6 mt-8 border-t border-neutral-100 flex items-center gap-2 text-sm font-semibold text-brand-blue group-hover:text-brand-orange transition-colors duration-200">
-                            <span>Scalable Process Execution</span>
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                          </div>
+                        <div className="bg-white border border-neutral-200/80 rounded-[12px] p-8 sm:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
+                          <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4 leading-snug">
+                            {section.title}
+                          </h3>
+                          <p className="text-[16px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
+                            {section.text}
+                          </p>
                         </div>
 
                         {/* Tile 2: Single-Use Bioreactor Production Suites */}
-                        <div className="group bg-white border border-neutral-200/80 rounded-[12px] p-8 sm:p-10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-0.5">
-                          <div>
-                            <div className="w-12 h-12 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-6 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors duration-200">
-                              <Dna className="w-6 h-6 text-brand-blue group-hover:text-white transition-colors duration-200" />
-                            </div>
-                            <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-2.5">
-                              Production Architecture
-                            </span>
-                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4 leading-snug">
-                              {section.secondaryTitle || 'Single-Use Bioreactor Production Suites'}
-                            </h3>
-                            <p className="text-[16px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
-                              {section.secondaryText}
-                            </p>
-                          </div>
-                          <div className="pt-6 mt-8 border-t border-neutral-100 flex items-center gap-2 text-sm font-semibold text-brand-blue group-hover:text-brand-orange transition-colors duration-200">
-                            <span>Flexible 50 L to 500 L SUB Trains</span>
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                          </div>
+                        <div className="bg-white border border-neutral-200/80 rounded-[12px] p-8 sm:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
+                          <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4 leading-snug">
+                            {section.secondaryTitle || 'Single-Use Bioreactor Production Suites'}
+                          </h3>
+                          <p className="text-[16px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
+                            {section.secondaryText}
+                          </p>
                         </div>
                       </div>
                     ) : (

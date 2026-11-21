@@ -1468,7 +1468,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Manufacturing",
     "heading": "Reliable Drug Product Manufacturing for Clinical Supply",
     "description": "Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products. The platform supports formulation, aseptic fill-finish, lyophilization, packaging, and quality control for clinical supply.",
-    "image": "/images/drugproduct.png",
+    "image": "/images/menufacturing.png",
     "capabilities": [
       "Formulation development and optimization",
       "Excipient compatibility studies",
