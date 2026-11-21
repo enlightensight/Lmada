@@ -15,14 +15,14 @@ export default function Footer() {
         { name: 'Ahmedabad Facility', href: '/facility&location/India' },
         { name: 'London Facility', href: '/facility&location/UK' },
         { name: 'Virtual Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
-        { name: 'Integrated Development to Manufacturing', href: '/overview/integrated' },
+        { name: 'Integrated Development to Manufacturing', href: '/overview/integrated-development-to-manufacturing' },
         { name: 'Careers', href: '/overview/careers' },
       ],
     },
     {
       title: 'Development & Manufacturing',
       links: [
-        { name: 'Cell Line Development', href: '/services/cell-line' },
+        { name: 'Cell Line Development', href: '/services/cell-line-development' },
         { name: 'Process Development', href: '/services/process' },
         { name: 'Analytical Development', href: '/services/analytical' },
         { name: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance' },

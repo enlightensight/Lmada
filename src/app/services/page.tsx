@@ -186,25 +186,25 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
               {/* Quick Jump Buttons */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
-                  href="/services/cell-line"
+                  href="/services/cell-line-development"
                   className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <Dna className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  <span>Cell Line Dev</span>
+                  <span>Cell Line Development</span>
                 </Link>
                 <Link
                   href="/services/process"
                   className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-orange text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <Settings className="w-4 h-4 text-brand-orange group-hover:text-white transition-colors" />
-                  <span>Process Dev</span>
+                  <span>Process Development</span>
                 </Link>
                 <Link
                   href="/services/analytical"
                   className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <FlaskConical className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  <span>Analytical Dev</span>
+                  <span>Analytical Development</span>
                 </Link>
               </div>
             </div>

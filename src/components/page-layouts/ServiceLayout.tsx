@@ -23,8 +23,10 @@ import {
   Repeat,
   Zap,
   Workflow,
-  GitMerge
+  GitMerge,
+  Target
 } from 'lucide-react';
+import { AntibodyPayloadIcon, PeptideChainIcon } from '@/components/icons/BiologicsIcons';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
@@ -40,6 +42,34 @@ interface ServiceLayoutProps {
 }
 
 const CAPABILITY_ICONS = [FlaskConical, Dna, Microscope, Activity, Search, Beaker];
+
+function getBulletSvgIcon(text: string): string | null {
+  const lower = text.toLowerCase();
+  if (lower.includes('stable cell pool') || lower.includes('pool generation') || lower.includes('cell culture')) {
+    return '/images/cell culture.svg';
+  }
+  if (lower.includes('high-throughput') || lower.includes('clone screening')) {
+    return '/images/High-Throughput Clone Screening.svg';
+  }
+  if (lower.includes('cho-k1') || lower.includes('cho-s') || lower.includes('host cell') || lower.includes('host platform')) {
+    return '/images/Host cell line.svg';
+  }
+  if (lower.includes('rcb') || lower.includes('mcb') || lower.includes('cell bank') || lower.includes('cryovial')) {
+    return '/images/cell banking - cryovial.svg';
+  }
+  if (lower.includes('single-cell') || lower.includes('monoclonality') || lower.includes('cloning')) {
+    return '/images/single cell cloning.svg';
+  }
+  return null;
+}
+
+function getModalityIcon(title: string) {
+  const lower = title.toLowerCase();
+  if (lower.includes('bispecific')) return GitMerge;
+  if (lower.includes('adc') || lower.includes('conjugate')) return AntibodyPayloadIcon;
+  if (lower.includes('protein') || lower.includes('peptide') || lower.includes('recombinant')) return PeptideChainIcon;
+  return Target;
+}
 
 function getBulletCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
@@ -126,7 +156,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                   </>
                 )}
               </h1>
-              <div className="text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-xl space-y-3">
+              <div className="text-[17px] text-slate-500 font-normal leading-relaxed mt-6 max-w-2xl space-y-3">
                 {page.description.split('\n\n').map((paragraph, pIdx) => (
                   <p key={pIdx}>{paragraph}</p>
                 ))}
@@ -224,14 +254,19 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                               </span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 {section.bullets.map((b: string, bIdx: number) => {
+                                  const svgIcon = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? getBulletSvgIcon(b) : null;
                                   const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                                   return (
                                     <div
                                       key={bIdx}
                                       className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                     >
-                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                                        {svgIcon ? (
+                                          <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                                        ) : (
+                                          <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                        )}
                                       </div>
                                       <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                         {b}
@@ -277,14 +312,19 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                               </span>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 {section.bullets.map((b: string, bIdx: number) => {
+                                  const svgIcon = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? getBulletSvgIcon(b) : null;
                                   const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                                   return (
                                     <div
                                       key={bIdx}
                                       className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                     >
-                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                                        {svgIcon ? (
+                                          <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                                        ) : (
+                                          <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                        )}
                                       </div>
                                       <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                         {b}
@@ -341,14 +381,19 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                           )}
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                             {section.bullets.map((b: string, bIdx: number) => {
+                              const svgIcon = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? getBulletSvgIcon(b) : null;
                               const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                               return (
                                 <div
                                   key={bIdx}
                                   className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                 >
-                                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                    <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                                    {svgIcon ? (
+                                      <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                                    ) : (
+                                      <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                    )}
                                   </div>
                                   <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                     {b}
@@ -433,14 +478,19 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                               )}
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 {section.bullets.map((b: string, bIdx: number) => {
+                                  const svgIcon = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? getBulletSvgIcon(b) : null;
                                   const BulletIcon = getBulletCapabilityIcon(b, bIdx);
                                   return (
                                     <div
                                       key={bIdx}
                                       className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                     >
-                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                                        {svgIcon ? (
+                                          <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                                        ) : (
+                                          <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                        )}
                                       </div>
                                       <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                         {b}
@@ -483,44 +533,38 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
               </div>
             </Reveal>
 
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-5 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
               {page.applicableModalities.map((modality, mIdx) => {
-                const ModIcon = modality.title.toLowerCase().includes('bispecific')
-                  ? GitMerge
-                  : modality.title.toLowerCase().includes('recombinant')
-                    ? FlaskConical
-                    : modality.title.toLowerCase().includes('other') || modality.title.toLowerCase().includes('biosimilar')
-                      ? Atom
-                      : Dna;
-
+                const ModIcon = getModalityIcon(modality.title);
                 return (
-                  <Reveal key={mIdx} delay={mIdx * 0.05} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] flex">
-                    {modality.link ? (
-                      <Link
-                        href={modality.link}
-                        className="group block w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-lg hover:border-brand-yellow transition-all duration-300"
-                      >
+                  <Reveal key={mIdx} delay={mIdx * 0.05} className="flex h-full">
+                    <Link
+                      href={modality.link || '#'}
+                      className="group flex flex-col justify-between w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-lg hover:border-brand-yellow transition-all duration-300"
+                    >
+                      <div>
                         <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200 mb-4">
                           <ModIcon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-200" />
                         </div>
-
-                        <div className="flex items-center justify-between gap-2">
-                          <h3 className="text-base sm:text-lg font-semibold text-neutral-900 group-hover:text-brand-blue transition-colors duration-200 leading-snug">
-                            {modality.title}
-                          </h3>
-                          <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-blue group-hover:translate-x-1 transition-all duration-200 shrink-0" />
-                        </div>
-                      </Link>
-                    ) : (
-                      <div className="h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs">
-                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-4">
-                          <ModIcon className="w-6 h-6 text-brand-blue" />
-                        </div>
-                        <h3 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug">
+                        {modality.badge && (
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-brand-orange block mb-1">
+                            {modality.badge}
+                          </span>
+                        )}
+                        <h3 className="text-base sm:text-lg font-semibold text-neutral-900 group-hover:text-brand-blue transition-colors duration-200 leading-snug mb-2">
                           {modality.title}
                         </h3>
+                        {modality.description && (
+                          <p className="text-xs sm:text-sm text-slate-500 line-clamp-3 leading-relaxed mb-4">
+                            {modality.description}
+                          </p>
+                        )}
                       </div>
-                    )}
+                      <div className="flex items-center text-xs font-semibold text-brand-blue group-hover:text-brand-orange transition-colors gap-1 pt-2 border-t border-neutral-100">
+                        <span>Learn More</span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </Link>
                   </Reveal>
                 );
               })}

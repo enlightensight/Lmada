@@ -148,7 +148,22 @@ export function getStoredPage(
   options: { previewDraft?: boolean } = {}
 ): CDMOPage | null {
   const normCat = decodeURIComponent(category || '').toLowerCase();
-  const normSlug = decodeURIComponent(slug || '').toLowerCase();
+  let normSlug = decodeURIComponent(slug || '').toLowerCase();
+
+  // Alias support for full human-friendly URLs
+  if (normCat === 'overview' && (normSlug === 'integrated-development-to-manufacturing' || normSlug === 'integrated-development' || normSlug === 'integrated-manufacturing')) {
+    normSlug = 'integrated';
+  }
+  if (normCat === 'services' && normSlug === 'cell-line-development') {
+    normSlug = 'cell-line';
+  }
+  if (normCat === 'services' && normSlug === 'process-development') {
+    normSlug = 'process';
+  }
+  if (normCat === 'services' && normSlug === 'analytical-development') {
+    normSlug = 'analytical';
+  }
+
   const records = getRawStoredRecords();
 
   const found = records.find(

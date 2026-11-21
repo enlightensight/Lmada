@@ -22,12 +22,21 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const allPages = getAllStoredPages();
-  return allPages
+  const base = allPages
     .filter((page) => page.category !== 'home' && page.slug !== 'home' && page.slug !== page.category)
     .map((page) => ({
       category: page.category,
       slug: page.slug,
     }));
+
+  const aliases = [
+    { category: 'overview', slug: 'integrated-development-to-manufacturing' },
+    { category: 'services', slug: 'cell-line-development' },
+    { category: 'services', slug: 'process-development' },
+    { category: 'services', slug: 'analytical-development' },
+  ];
+
+  return [...base, ...aliases];
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -77,7 +86,7 @@ function getDynamicContent(
     }
     if (cat === 'overview' && pageSlug === 'leadership') {
       const imgs = [
-        '/images/teamwork.png',
+        '/images/wokingemplyee.png',
         '/images/cdn/unsplash-1522071820081-009f0129c71c.jpg',
         '/images/cdn/unsplash-1552664730-d307ca884978.jpg',
       ];

@@ -45,7 +45,7 @@ export default function Navigation() {
         {
           title: 'Commitment',
           links: [
-            { label: 'Integrated development to manufacturing', href: '/overview/integrated', icon: Layers },
+            { label: 'Integrated development to manufacturing', href: '/overview/integrated-development-to-manufacturing', icon: Layers },
             { label: 'Quality and Compliance', href: '/overview/quality', icon: ShieldCheck },
             { label: 'Careers', href: '/overview/careers', icon: Briefcase },
           ],
@@ -60,7 +60,7 @@ export default function Navigation() {
           title: 'Development Services',
           href: '/services',
           links: [
-            { label: 'Cell Line Development', href: '/services/cell-line', icon: Dna },
+            { label: 'Cell Line Development', href: '/services/cell-line-development', icon: Dna },
             { label: 'Process Development', href: '/services/process', icon: Settings },
             { label: 'Analytical Development', href: '/services/analytical', icon: FlaskConical },
           ],

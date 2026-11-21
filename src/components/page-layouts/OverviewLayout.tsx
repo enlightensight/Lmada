@@ -51,6 +51,7 @@ import LondonHeroCarousel from '@/components/LondonHeroCarousel';
 import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
+import BiologicsWorkflowGraphic from '@/components/BiologicsWorkflowGraphic';
 import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
@@ -235,7 +236,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
           sec.id === 'sec-leadership-team' ||
           sec.title?.toLowerCase().includes('leadership') ||
           sec.title?.toLowerCase().includes('executive'))
-      )
+      ) &&
+      page.slug !== 'integrated'
   );
 
   const narrative = (
@@ -718,6 +720,22 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     className="w-full h-full object-cover"
                   />
                 </div>
+              ) : page.slug === 'leadership' ? (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
+                  <img
+                    src="/images/wokingemplyee.png"
+                    alt={page.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : page.slug === 'integrated' ? (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white flex items-center justify-center p-3 sm:p-5">
+                  <img
+                    src="/images/Biologics CDMO.png"
+                    alt={page.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               ) : (page.slug === 'facility' || page.slug === 'India') ? (
                 <FacilityHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
               ) : (page.slug === 'UK' || page.slug === 'london') ? (
@@ -768,28 +786,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               <div className="w-full max-w-[1700px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                   <Reveal>
-                    {sec1Images.length > 1 ? (
-                      <AboutHeroCarousel images={sec1Images} />
-                    ) : sec1IsVideo ? (
-                      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950 border border-neutral-200 rounded-[10px] shadow-sm">
-                        <video
-                          src={sec1Media}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <div className="relative aspect-[4/3] overflow-hidden bg-white border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center p-2 sm:p-4">
-                        <img
-                          src={sec1Media}
-                          alt={sec1Title}
-                          className="w-full h-full object-contain transition-transform duration-700 hover:scale-105"
-                        />
-                      </div>
-                    )}
+                    <BiologicsWorkflowGraphic />
                   </Reveal>
                   <Reveal delay={0.1}>
                     <div>
@@ -892,6 +889,54 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         );
       })()}
 
+      {/* INTEGRATED DEVELOPMENT TO MANUFACTURING: 2-COLUMN SIDE-BY-SIDE CARDS */}
+      {page.slug === 'integrated' && (() => {
+        const sec1 = page.sections?.find((s) => s.title?.includes('End-to-End') || s.title?.includes('Under One Roof')) || page.sections?.[0];
+        const sec2 = page.sections?.find((s) => s.title?.includes('Technology Transfer') || s.title?.includes('Operational Simplicity')) || page.sections?.[1];
+        
+        return (
+          <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
+            <div className="w-full max-w-[1700px] mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+                {/* Card 1 */}
+                <Reveal delay={0.05} className="h-full">
+                  <div className="group h-full bg-neutral-50/70 border border-neutral-200/80 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                      <span className="inline-flex items-center px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-blue/10 text-brand-blue border border-brand-blue/20 mb-4">
+                        {sec1?.subtitle || 'END-TO-END CDMO INTEGRATION'}
+                      </span>
+                      <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 group-hover:text-brand-blue transition-colors mb-4">
+                        {sec1?.title || 'End-to-End Support Under One Roof'}
+                      </h3>
+                      <p className="text-[15px] sm:text-[17px] text-neutral-600 font-normal leading-relaxed">
+                        {sec1?.text || 'We provide end-to-end support across the biologics development lifecycle, from cell line engineering and development through GMP manufacturing and analytical testing, enabling sponsors to collaborate with a single partner throughout their program.'}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+
+                {/* Card 2 */}
+                <Reveal delay={0.1} className="h-full">
+                  <div className="group h-full bg-neutral-50/70 border border-neutral-200/80 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-orange/40 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                      <span className="inline-flex items-center px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-4">
+                        {sec2?.subtitle || 'RISK MITIGATION & SPEED TO CLINIC'}
+                      </span>
+                      <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 group-hover:text-brand-orange transition-colors mb-4">
+                        {sec2?.title || 'Reduced Technology Transfer Risk & Operational Simplicity'}
+                      </h3>
+                      <p className="text-[15px] sm:text-[17px] text-neutral-600 font-normal leading-relaxed">
+                        {sec2?.text || 'By bringing process, analytical, manufacturing, and quality expertise together within a coordinated quality framework, we help sponsors simplify development, reduce operational complexity, and minimize risks associated with technology transfer. This integrated approach supports efficient progression from early development to clinical supply, while maintaining product quality and regulatory readiness.'}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
+
       {/* CAPABILITIES / THE LAMBDA ADVANTAGE SECTION */}
       {page.capabilities && page.capabilities.length > 0 && page.slug !== 'quality' && page.slug !== 'facility' && page.slug !== 'India' && page.slug !== 'london' && page.slug !== 'UK' && page.slug !== 'leadership' && (() => {
         const advantageSec = page.sections?.find((s) => s.style === 'cards-grid' || s.title?.toLowerCase().includes('advantage'));
@@ -962,7 +1007,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           </>
                         )}
                       </h2>
-                      <p className={`text-[15px] sm:text-[16px] xl:text-[17px] text-neutral-600 leading-relaxed max-w-5xl xl:max-w-none ${page.slug === 'integrated' ? 'lg:whitespace-nowrap' : ''} mx-auto mt-4`}>
+                      <p className={`text-[15px] sm:text-[16px] xl:text-[17px] text-neutral-600 leading-relaxed max-w-5xl xl:max-w-none ${page.slug === 'integrated' ? 'md:whitespace-nowrap' : ''} mx-auto mt-4`}>
                         {page.slug === 'leadership'
                           ? 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery, with a working model built around six core commitments:'
                           : page.slug === 'quality'

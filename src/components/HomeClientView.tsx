@@ -77,7 +77,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
         '/images/upstream/Cedex_automated_cell_counter.png',
       ],
       items: [
-        { name: 'Cell Line Development', icon: Dna, href: '/services/cell-line' },
+        { name: 'Cell Line Development', icon: Dna, href: '/services/cell-line-development' },
         { name: 'Process Development', icon: Activity, href: '/services/process' },
         { name: 'Analytical Development', icon: FlaskConical, href: '/services/analytical' },
       ],

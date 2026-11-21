@@ -608,7 +608,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Our Leadership Team",
     "heading": "Experienced Scientists. Collaborative Partners.",
     "description": "Lambda CDMO is led by a multidisciplinary team spanning biologics development, analytical sciences, manufacturing, quality, and technology transfer. The leadership team brings together functional expertise across the biologics development and manufacturing lifecycle, with a shared focus on scientific rigor, operational execution, and sponsor needs.\n\nOur leaders work closely with sponsors and internal teams to guide programs from development and characterization through manufacturing and clinical supply, aligning scientific decisions with program objectives, quality requirements, and timelines.",
-    "image": "/images/teamwork.png",
+    "image": "/images/wokingemplyee.png",
     "sections": [
       {
         "id": "sec-leadership-team",
@@ -1051,7 +1051,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Overview",
     "heading": "One Partner Across the Development Journey.",
     "description": "Successful biologics development requires seamless coordination across development, manufacturing, analytical sciences, and quality functions. At Lambda CDMO, these capabilities are brought together across our Ahmedabad, India and London, UK facilities, with complementary capabilities supporting different stages of the development journey.\n\nOur integrated model helps maintain process continuity, reduce technology transfer risks, and support efficient progression from development to clinical supply.",
-    "image": "/images/insights/lyophilization_vials.jpg",
+    "image": "/images/Biologics CDMO.png",
     "capabilities": [
       "Cell line development",
       "Upstream and downstream process development",
