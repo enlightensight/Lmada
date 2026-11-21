@@ -1107,7 +1107,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Quality",
     "heading": "Quality and Regulatory Framework",
     "description": "Lambda CDMO's quality framework supports **product quality, process consistency, data integrity, and regulatory compliance** across biologics development and manufacturing.\n\nFrom process development and analytical characterization through GMP manufacturing and quality control, our operations are supported by defined systems for **documentation, traceability, risk management, change control, and continuous improvement**.",
-    "image": "/images/cdn/pexels-3938022.jpg",
+    "image": "/images/quality-compliance-hero.webp",
     "sections": [
       {
         "id": "sec-vntb1mo",
@@ -1116,7 +1116,7 @@ export const cdmoData: CDMOPage[] = [
         "subtitle": "",
         "text": "Our development and manufacturing activities are aligned with applicable global cGMP requirements and supported by quality practices designed to meet regulatory expectations for programs targeting major global markets.\n\nWe maintain rigorous standards for data integrity, data retention, customer transparency, information security, and intellectual property protection throughout the product lifecycle.",
         "dark": false,
-        "image": "/images/Lab.jpg",
+        "image": "",
         "imageSide": "right",
         "bullets": []
       },
@@ -1127,7 +1127,7 @@ export const cdmoData: CDMOPage[] = [
         "subtitle": "",
         "text": "Our Quality control laboratories are designed with state of art facilities to ensure product safety, identity, purity, potency, and consistency. The QC labs are established in strict alignment with global cGMP regulations and 21 CFR Part 11 data integrity standards, our facility feature advanced analytical instrumentation to cater to vigorous in-process testing and environmental monitoring. The QC labs are operated by scientists trained in all aspects of regulatory compliance driving meticulous data driven batch release testing.",
         "dark": false,
-        "image": "/images/analytical_instruments.jpg",
+        "image": "",
         "imageSide": "left",
         "bullets": []
       },
