@@ -767,7 +767,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     className="w-full h-auto max-h-[520px] object-contain"
                   />
                 </div>
-              ) : page.slug === 'quality' ? (
+              ) : (page.slug === 'quality' || page.slug === 'quality-and-compliance') ? (
                 <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-4 sm:p-6 md:p-8 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -1222,7 +1222,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
       })()}
 
       {/* Narrative Editorial Sections */}
-      {page.slug === 'quality' ? (
+      {(page.slug === 'quality' || page.slug === 'quality-and-compliance') ? (
         <>
           {/* Dual Pillar Tiles: Global Regulatory Alignment & Quality Control Laboratories */}
           <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
@@ -1334,12 +1334,12 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
                 {/* Right Column: Full-Bleed Roadmap Graphic Card */}
                 <Reveal delay={0.1} className="lg:col-span-7 xl:col-span-8">
-                  <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-0 overflow-hidden flex items-center justify-center">
+                  <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-1.5 sm:p-2.5 md:p-3 overflow-hidden flex items-center justify-center">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/insights/regulatory_cmc_roadmap.png"
                       alt="Regulatory Affairs Support — CMC Biologics Roadmap"
-                      className="w-full h-auto block drop-shadow-xs"
+                      className="w-full h-auto block object-contain rounded-xl drop-shadow-xs"
                     />
                   </div>
                 </Reveal>
