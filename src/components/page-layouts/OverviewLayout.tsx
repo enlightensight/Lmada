@@ -768,12 +768,12 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   />
                 </div>
               ) : (page.slug === 'quality' || page.slug === 'quality-and-compliance') ? (
-                <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-4 sm:p-6 md:p-8 flex items-center justify-center overflow-hidden">
+                <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-1.5 sm:p-2.5 md:p-3.5 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/quality-regulatory-framework.svg"
                     alt={page.title || 'Quality and Regulatory Framework'}
-                    className="w-full h-auto max-h-[520px] object-contain drop-shadow-sm"
+                    className="w-full h-auto max-h-[640px] xl:max-h-[720px] object-contain drop-shadow-xs"
                   />
                 </div>
               ) : page.slug === 'facility' ? (
