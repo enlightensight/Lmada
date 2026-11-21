@@ -681,7 +681,11 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             <span className="text-brand-yellow">{page.title ? page.title.split('—')[0].split('|')[0].trim() : page.slug.replace(/-/g, ' ')}</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className={`grid items-center ${
+            page.slug === 'integrated'
+              ? 'grid-cols-1 lg:grid-cols-[1fr_1.4fr] xl:grid-cols-[1fr_1.5fr] gap-8 lg:gap-14'
+              : 'grid-cols-1 lg:grid-cols-2 gap-12'
+          }`}>
             <div>
               {page.badge && (
                 <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-semibold tracking-wider bg-brand-yellow text-black mb-6">

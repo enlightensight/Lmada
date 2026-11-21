@@ -208,9 +208,9 @@ export default function BiologicsCircularGraphic() {
   return (
     <div className="w-full flex items-center justify-center select-none py-2">
       {/* DESKTOP / TABLET SVG INFOGRAPHIC */}
-      <div className="w-full max-w-[960px] aspect-[960/700] hidden sm:block">
+      <div className="w-full max-w-[1250px] aspect-[940/505] hidden sm:block">
         <svg
-          viewBox="0 0 960 700"
+          viewBox="10 100 940 505"
           className="w-full h-full overflow-visible font-sans"
         >
           {/* DEFINITIONS / FILTERS */}
