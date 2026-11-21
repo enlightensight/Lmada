@@ -753,7 +753,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               ) : page.slug === 'leadership' ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
-                    src="/images/Collaborative Biomedical Research Lab (1).webp"
+                    src="/images/team.webp"
                     alt={page.title}
                     className="w-full h-full object-cover"
                   />
@@ -768,12 +768,11 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   />
                 </div>
               ) : (page.slug === 'quality' || page.slug === 'quality-and-compliance') ? (
-                <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-1.5 sm:p-2.5 md:p-3.5 flex items-center justify-center overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
                     src="/images/quality.webp"
                     alt={page.title || 'Quality and Regulatory Framework'}
-                    className="w-full h-auto max-h-[640px] xl:max-h-[720px] object-contain drop-shadow-xs"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ) : page.slug === 'facility' ? (

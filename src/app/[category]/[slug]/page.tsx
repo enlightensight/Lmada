@@ -130,7 +130,7 @@ function getDynamicContent(
     }
     if (cat === 'overview' && pageSlug === 'leadership') {
       const imgs = [
-        '/images/Collaborative Biomedical Research Lab (1).webp',
+        '/images/team.webp',
         '/images/cdn/unsplash-1522071820081-009f0129c71c.jpg',
         '/images/cdn/unsplash-1552664730-d307ca884978.jpg',
       ];
