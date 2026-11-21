@@ -1884,13 +1884,16 @@ export const cdmoData: CDMOPage[] = [
     "description": "Monoclonal antibodies (mAbs) continue to be one of the most widely developed biologic modalities, driving innovation across oncology, immunology, and other therapeutic areas. Lambda CDMO offers integrated development and manufacturing capabilities for monoclonal antibodies, supporting sponsors from cell line development and process optimization through analytical characterization and GMP manufacturing.",
     "image": "/images/modalities/mAb.png",
     "capabilities": [
-      "Cell line development using mammalian expression systems",
-      "Upstream and downstream process development",
-      "Analytical characterization for IgG1, IgG2, and IgG4 subclasses",
-      "Process scale-up and technology transfer",
+      "Mammalian cell line development and clone selection",
+      "High-throughput clone screening and selection",
+      "High-throughput mammalian cell culture and process screening",
+      "Upstream process development and optimization",
+      "Downstream process development and purification",
+      "Media and feed optimization",
+      "Process characterization and scale-up",
+      "Analytical characterization and testing",
       "Drug substance and drug product manufacturing",
-      "Quality control and analytical testing",
-      "Support for clinical development programs"
+      "Technology transfer and clinical supply"
     ],
     "footerNote": "Our platform is designed to support innovator and biosimilar programs across IgG1, IgG2, and IgG4 subclasses.\n\nBy integrating development, manufacturing, analytical sciences, and quality functions within a unified operating model, we help simplify technology transfer and support efficient progression to clinical manufacturing.",
     "sections": [],

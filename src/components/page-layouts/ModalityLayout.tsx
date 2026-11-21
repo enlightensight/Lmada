@@ -13,7 +13,9 @@ import {
   TrendingUp, 
   Boxes, 
   TestTubes,
-  PackageCheck
+  PackageCheck,
+  Droplets,
+  ArrowRightLeft
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
@@ -29,23 +31,27 @@ interface ModalityLayoutProps {
 
 function getCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
-  if (lower.includes('clone') || lower.includes('screening')) return Microscope;
-  if (lower.includes('mammalian expression') || lower.includes('cell line') || lower.includes('expression system') || lower.includes('expression platform')) return Dna;
+  
+  if (lower.includes('media') || lower.includes('feed')) return Droplets;
+  if (lower.includes('cell culture') || lower.includes('process screening')) return TestTubes;
+  if (lower.includes('clone screening') || (lower.includes('clone') && lower.includes('screening'))) return Microscope;
+  if (lower.includes('mammalian cell line') || lower.includes('cell line') || lower.includes('mammalian expression') || lower.includes('expression system')) return Dna;
   if (lower.includes('upstream') || lower.includes('process development') || lower.includes('process optimization')) return FlaskConical;
+  if (lower.includes('downstream') || lower.includes('purification') || lower.includes('impurity') || lower.includes('refolding') || lower.includes('purity')) return Filter;
+  if (lower.includes('scale-up') || lower.includes('process characterization')) return TrendingUp;
+  if (lower.includes('analytical') || lower.includes('characterization') || lower.includes('subclasses')) return Atom;
+  if (lower.includes('drug substance') || lower.includes('drug product') || lower.includes('manufacturing')) return Boxes;
+  if (lower.includes('technology transfer') || lower.includes('clinical supply') || lower.includes('transfer')) return ArrowRightLeft;
+
   if (lower.includes('homodimer') || lower.includes('mispairing') || lower.includes('bifunctional')) return GitMerge;
   if (lower.includes('conjugation') || lower.includes('payload') || lower.includes('adc')) return Syringe;
   if (lower.includes('dar') || lower.includes('structural')) return Atom;
   if (lower.includes('peptide') || lower.includes('synthetic')) return TestTubes;
-  if (lower.includes('purification') || lower.includes('impurity') || lower.includes('refolding') || lower.includes('aggregation') || lower.includes('purity')) return Filter;
-  if (lower.includes('analytical') || lower.includes('characterization') || lower.includes('physicochemical') || lower.includes('subclasses')) return Microscope;
   if (lower.includes('bioassay') || lower.includes('potency') || lower.includes('immunogenicity')) return Activity;
   if (lower.includes('quality') || lower.includes('stability') || lower.includes('degradation')) return ShieldCheck;
-  if (lower.includes('drug product')) return PackageCheck;
-  if (lower.includes('drug substance') || lower.includes('manufacturing')) return Boxes;
-  if (lower.includes('scale-up') || lower.includes('transfer')) return TrendingUp;
   if (lower.includes('clinical')) return Dna;
   
-  const fallbacks = [Dna, FlaskConical, Microscope, Atom, TestTubes, ShieldCheck, Activity, Boxes];
+  const fallbacks = [Dna, Microscope, TestTubes, FlaskConical, Filter, Droplets, TrendingUp, Atom, Boxes, ArrowRightLeft];
   return fallbacks[index % fallbacks.length];
 }
 
@@ -128,7 +134,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
               {page.capabilities.map((cap, idx) => {
                 const Icon = getCapabilityIcon(cap, idx);
                 return (
-                  <Reveal key={idx} delay={idx * 0.04} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] flex">
+                  <Reveal key={idx} delay={idx * 0.04} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex">
                     <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
                         <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
