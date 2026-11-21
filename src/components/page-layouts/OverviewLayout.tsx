@@ -732,8 +732,13 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   />
                 </div>
               ) : page.slug === 'integrated' ? (
-                <div className="w-full flex items-center justify-center">
-                  <BiologicsCircularGraphic />
+                <div className="w-full flex items-center justify-center p-2 sm:p-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/Biologics%20CDMO.png"
+                    alt={page.title || 'Biologics Development & Manufacturing — From Gene to Clinic'}
+                    className="w-full h-auto max-h-[560px] object-contain drop-shadow-sm"
+                  />
                 </div>
               ) : (page.slug === 'facility' || page.slug === 'India') ? (
                 <FacilityHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
