@@ -76,7 +76,7 @@ const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
     title: 'Bioassays & Immunogenicity Testing',
     slug: 'bioassays',
     href: '/characterization/bioassays-immunogenicity-testing',
-    image: '/images/upstream/Biosaftey_cabinet.png',
+    image: '/images/Analytical/Biacore 8K+.webp',
     description: 'Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.',
     capabilities: [
       'Cell-based potency assays',
@@ -89,7 +89,7 @@ const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
     title: 'Microbiological Testing',
     slug: 'microbiological',
     href: '/characterization/microbiological-testing',
-    image: '/images/Analytical/microbiology/environmental_monitoring_cleanroom.webp',
+    image: '/images/Analytical/Microbiology Testing.webp',
     description: 'Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.',
     capabilities: [
       'Sterility testing',

@@ -2454,7 +2454,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Bioassays & Immunogenicity Testing",
             "link": "/characterization/bioassays-immunogenicity-testing",
             "badge": "Bioassays & ADA",
-            "image": "/images/upstream/Biosaftey_cabinet.png",
+            "image": "/images/Analytical/Biacore 8K+.webp",
             "description": "Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.",
             "bullets": [
               "Cell-based potency assays",
@@ -2467,7 +2467,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Microbiological Testing",
             "link": "/characterization/microbiological-testing",
             "badge": "Microbiology",
-            "image": "/images/Analytical/microbiology/environmental_monitoring_cleanroom.webp",
+            "image": "/images/Analytical/Microbiology Testing.webp",
             "description": "Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.",
             "bullets": [
               "Sterility testing",
