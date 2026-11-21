@@ -314,95 +314,19 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
           return (
             <div key={idx}>
-              <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
+              <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
                 <div className="w-full max-w-[1700px] mx-auto">
                   <Reveal>
-                    {/* Header */}
-                    <div className="max-w-3xl mb-10 md:mb-14">
-                      <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-4">
-                        Purpose-Built Biologics Infrastructure
-                      </span>
+                    <div className="bg-white rounded-2xl border border-neutral-200/90 shadow-sm p-6 sm:p-8 md:p-12 lg:p-14">
                       <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-5">
                         {displayTitle}
                       </h2>
-                      <div className="h-1 w-12 bg-brand-blue rounded-full" />
-                    </div>
+                      <div className="h-1 w-12 bg-brand-blue rounded-full mb-8" />
 
-                    {/* Main Content & Architecture Highlight */}
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch mb-12">
-                      <div className="lg:col-span-7 flex flex-col justify-center space-y-4 text-[16px] md:text-[18px] text-neutral-600 leading-relaxed font-normal">
-                        {paragraphs.slice(0, 2).map((para: string, pIdx: number) => (
+                      <div className="space-y-5 text-[16px] sm:text-[17px] md:text-[18px] text-neutral-600 leading-relaxed font-normal">
+                        {paragraphs.map((para: string, pIdx: number) => (
                           <p key={pIdx}>{renderFormattedText(para)}</p>
                         ))}
-                      </div>
-
-                      <div className="lg:col-span-5 bg-slate-50/90 rounded-2xl border border-neutral-200/80 p-6 sm:p-8 shadow-xs flex flex-col justify-center relative overflow-hidden">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange shrink-0">
-                            <ShieldCheck className="w-4 h-4" />
-                          </div>
-                          <span className="text-xs font-bold uppercase tracking-wider text-brand-orange">
-                            Operational Flow &amp; Segregation
-                          </span>
-                        </div>
-                        <p className="text-[14px] sm:text-[15px] text-neutral-700 leading-relaxed font-normal">
-                          {paragraphs[2] ? renderFormattedText(paragraphs[2]) : (
-                            <>
-                              Manufacturing operations incorporate <strong className="text-neutral-900 font-semibold">segregated areas, controlled material and personnel flows, single-use processing systems, and dedicated pre- and post-viral processing areas</strong> to support the manufacture of biologic drug substance and drug product for clinical development.
-                            </>
-                          )}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* 4 Feature Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                      <div className="bg-white rounded-xl border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all">
-                        <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue mb-4">
-                          <FlaskConical className="w-5 h-5" />
-                        </div>
-                        <h3 className="text-base font-bold text-neutral-900 mb-1.5">
-                          Development &amp; QC Labs
-                        </h3>
-                        <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
-                          Specialized cell line development, bioprocess optimization, and comprehensive QC testing suites under one roof.
-                        </p>
-                      </div>
-
-                      <div className="bg-white rounded-xl border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all">
-                        <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue mb-4">
-                          <Factory className="w-5 h-5" />
-                        </div>
-                        <h3 className="text-base font-bold text-neutral-900 mb-1.5">
-                          cGMP Cleanroom Suites
-                        </h3>
-                        <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
-                          Grade A/B/C/D cleanrooms equipped with automated single-use bioreactors supporting clinical Phase 1/2 campaigns.
-                        </p>
-                      </div>
-
-                      <div className="bg-white rounded-xl border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all">
-                        <div className="w-10 h-10 rounded-xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange mb-4">
-                          <ShieldCheck className="w-5 h-5" />
-                        </div>
-                        <h3 className="text-base font-bold text-neutral-900 mb-1.5">
-                          Viral Safety &amp; Segregation
-                        </h3>
-                        <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
-                          Dedicated pre- and post-viral segregation with strict unidirectional air, personnel, and material flow controls.
-                        </p>
-                      </div>
-
-                      <div className="bg-white rounded-xl border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all">
-                        <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue mb-4">
-                          <PackageCheck className="w-5 h-5" />
-                        </div>
-                        <h3 className="text-base font-bold text-neutral-900 mb-1.5">
-                          DS &amp; DP Manufacturing
-                        </h3>
-                        <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
-                          Integrated drug substance bulk production and robotic isolator sterile fill-finish in vials, PFS, and cartridges.
-                        </p>
                       </div>
                     </div>
                   </Reveal>
