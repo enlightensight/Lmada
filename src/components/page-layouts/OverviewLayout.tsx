@@ -771,7 +771,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-1.5 sm:p-2.5 md:p-3.5 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/quality-regulatory-framework.svg"
+                    src="/images/quality.webp"
                     alt={page.title || 'Quality and Regulatory Framework'}
                     className="w-full h-auto max-h-[640px] xl:max-h-[720px] object-contain drop-shadow-xs"
                   />
