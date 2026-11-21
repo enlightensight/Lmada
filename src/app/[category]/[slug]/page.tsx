@@ -86,7 +86,7 @@ function getDynamicContent(
     }
     if (cat === 'overview' && pageSlug === 'leadership') {
       const imgs = [
-        '/images/wokingemplyee.png',
+        '/images/Collaborative Medical Research Lab.webp',
         '/images/cdn/unsplash-1522071820081-009f0129c71c.jpg',
         '/images/cdn/unsplash-1552664730-d307ca884978.jpg',
       ];

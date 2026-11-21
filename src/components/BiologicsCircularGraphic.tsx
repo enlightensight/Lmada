@@ -23,10 +23,10 @@ const ITEMS: SegmentItem[] = [
     color: '#00a0e9',
     angle: 30,
     side: 'right',
-    labelX: 620,
-    labelY: 140,
-    elbowX: 570,
-    elbowY: 140,
+    labelX: 685,
+    labelY: 145,
+    elbowX: 630,
+    elbowY: 145,
   },
   {
     id: 2,
@@ -34,10 +34,10 @@ const ITEMS: SegmentItem[] = [
     color: '#fbb03b',
     angle: 60,
     side: 'right',
-    labelX: 680,
-    labelY: 220,
-    elbowX: 620,
-    elbowY: 220,
+    labelX: 745,
+    labelY: 225,
+    elbowX: 685,
+    elbowY: 225,
   },
   {
     id: 3,
@@ -45,10 +45,10 @@ const ITEMS: SegmentItem[] = [
     color: '#f37021',
     angle: 90,
     side: 'right',
-    labelX: 710,
-    labelY: 305,
-    elbowX: 635,
-    elbowY: 305,
+    labelX: 775,
+    labelY: 312,
+    elbowX: 700,
+    elbowY: 312,
   },
   {
     id: 4,
@@ -56,10 +56,10 @@ const ITEMS: SegmentItem[] = [
     color: '#65cbf0',
     angle: 120,
     side: 'right',
-    labelX: 710,
-    labelY: 395,
-    elbowX: 635,
-    elbowY: 395,
+    labelX: 775,
+    labelY: 405,
+    elbowX: 700,
+    elbowY: 405,
   },
   {
     id: 5,
@@ -67,10 +67,10 @@ const ITEMS: SegmentItem[] = [
     color: '#1a4e8a',
     angle: 150,
     side: 'right',
-    labelX: 670,
-    labelY: 485,
-    elbowX: 620,
-    elbowY: 485,
+    labelX: 735,
+    labelY: 498,
+    elbowX: 685,
+    elbowY: 498,
   },
   {
     id: 6,
@@ -78,10 +78,10 @@ const ITEMS: SegmentItem[] = [
     color: '#00a0e9',
     angle: 170,
     side: 'right',
-    labelX: 610,
-    labelY: 570,
-    elbowX: 550,
-    elbowY: 570,
+    labelX: 675,
+    labelY: 585,
+    elbowX: 610,
+    elbowY: 585,
   },
 
   // LEFT SIDE (Top to Bottom)
@@ -91,10 +91,10 @@ const ITEMS: SegmentItem[] = [
     color: '#65cbf0',
     angle: 330,
     side: 'left',
-    labelX: 340,
-    labelY: 140,
-    elbowX: 390,
-    elbowY: 140,
+    labelX: 395,
+    labelY: 145,
+    elbowX: 450,
+    elbowY: 145,
   },
   {
     id: 8,
@@ -102,10 +102,10 @@ const ITEMS: SegmentItem[] = [
     color: '#1a4e8a',
     angle: 300,
     side: 'left',
-    labelX: 280,
-    labelY: 220,
-    elbowX: 340,
-    elbowY: 220,
+    labelX: 335,
+    labelY: 225,
+    elbowX: 395,
+    elbowY: 225,
   },
   {
     id: 9,
@@ -113,10 +113,10 @@ const ITEMS: SegmentItem[] = [
     color: '#0d3268',
     angle: 270,
     side: 'left',
-    labelX: 250,
-    labelY: 305,
-    elbowX: 325,
-    elbowY: 305,
+    labelX: 305,
+    labelY: 312,
+    elbowX: 380,
+    elbowY: 312,
   },
   {
     id: 10,
@@ -124,10 +124,10 @@ const ITEMS: SegmentItem[] = [
     color: '#00a0e9',
     angle: 240,
     side: 'left',
-    labelX: 250,
-    labelY: 400,
-    elbowX: 325,
-    elbowY: 400,
+    labelX: 305,
+    labelY: 410,
+    elbowX: 380,
+    elbowY: 410,
   },
   {
     id: 11,
@@ -135,10 +135,10 @@ const ITEMS: SegmentItem[] = [
     color: '#fbb03b',
     angle: 210,
     side: 'left',
-    labelX: 290,
-    labelY: 490,
-    elbowX: 340,
-    elbowY: 490,
+    labelX: 345,
+    labelY: 502,
+    elbowX: 400,
+    elbowY: 502,
   },
   {
     id: 12,
@@ -146,10 +146,10 @@ const ITEMS: SegmentItem[] = [
     color: '#f37021',
     angle: 190,
     side: 'left',
-    labelX: 350,
-    labelY: 570,
-    elbowX: 410,
-    elbowY: 570,
+    labelX: 405,
+    labelY: 585,
+    elbowX: 470,
+    elbowY: 585,
   },
 ];
 
@@ -183,10 +183,10 @@ function describeArc(x: number, y: number, innerR: number, outerR: number, start
 export default function BiologicsCircularGraphic() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
-  const CX = 480;
-  const CY = 350;
-  const INNER_R = 145;
-  const OUTER_R = 162;
+  const CX = 540;
+  const CY = 360;
+  const INNER_R = 148;
+  const OUTER_R = 166;
 
   // 12 segments of 27.5 deg with 2.5 deg gap
   const SEGMENTS = Array.from({ length: 12 }, (_, i) => {
@@ -208,9 +208,9 @@ export default function BiologicsCircularGraphic() {
   return (
     <div className="w-full flex items-center justify-center select-none py-2">
       {/* DESKTOP / TABLET SVG INFOGRAPHIC */}
-      <div className="w-full max-w-[1250px] aspect-[940/505] hidden sm:block">
+      <div className="w-full max-w-[1080px] aspect-[1080/720] hidden sm:block">
         <svg
-          viewBox="10 100 940 505"
+          viewBox="0 0 1080 720"
           className="w-full h-full overflow-visible font-sans"
         >
           {/* DEFINITIONS / FILTERS */}
@@ -235,9 +235,9 @@ export default function BiologicsCircularGraphic() {
           <g className="text-center pointer-events-none select-none">
             <text
               x={CX}
-              y={CY - 40}
+              y={CY - 42}
               textAnchor="middle"
-              className="fill-neutral-900 font-bold text-[25px] tracking-tight"
+              className="fill-neutral-900 font-bold text-[28px] tracking-tight"
             >
               Biologics
             </text>
@@ -245,23 +245,23 @@ export default function BiologicsCircularGraphic() {
               x={CX}
               y={CY - 10}
               textAnchor="middle"
-              className="fill-neutral-900 font-bold text-[25px] tracking-tight"
+              className="fill-neutral-900 font-bold text-[28px] tracking-tight"
             >
               Development &amp;
             </text>
             <text
               x={CX}
-              y={CY + 20}
+              y={CY + 22}
               textAnchor="middle"
-              className="fill-neutral-900 font-bold text-[25px] tracking-tight"
+              className="fill-neutral-900 font-bold text-[28px] tracking-tight"
             >
               Manufacturing
             </text>
             <text
               x={CX}
-              y={CY + 52}
+              y={CY + 56}
               textAnchor="middle"
-              className="fill-[#00a0e9] font-semibold text-[17px] tracking-normal"
+              className="fill-[#00a0e9] font-semibold text-[19px] tracking-normal"
             >
               From Gene to Clinic
             </text>
@@ -334,19 +334,19 @@ export default function BiologicsCircularGraphic() {
                 {/* Multi-line Label Text */}
                 <text
                   x={item.side === 'left' ? item.labelX - 12 : item.labelX + 12}
-                  y={item.labelY - (labelLines.length - 1) * 7 + 4}
+                  y={item.labelY - (labelLines.length - 1) * 8 + 4}
                   textAnchor={item.side === 'left' ? 'end' : 'start'}
-                  className={`text-[13.5px] tracking-tight leading-tight transition-all duration-300 ${
+                  className={`text-[16px] tracking-tight leading-tight transition-all duration-300 ${
                     isHovered
                       ? 'fill-[#00a0e9] font-bold'
-                      : 'fill-neutral-700 font-medium'
+                      : 'fill-neutral-800 font-semibold'
                   }`}
                 >
                   {labelLines.map((line, lIdx) => (
                     <tspan
                       key={lIdx}
                       x={item.side === 'left' ? item.labelX - 12 : item.labelX + 12}
-                      dy={lIdx === 0 ? 0 : '1.35em'}
+                      dy={lIdx === 0 ? 0 : '1.3em'}
                     >
                       {line}
                     </tspan>
@@ -381,7 +381,7 @@ export default function BiologicsCircularGraphic() {
                 style={{ backgroundColor: item.color }}
                 className="w-3.5 h-3.5 rounded-full shrink-0 shadow-xs"
               />
-              <span className="text-xs font-semibold text-neutral-800 leading-snug">
+              <span className="text-sm font-semibold text-neutral-800 leading-snug">
                 {item.label.replace(/\n/g, ' ')}
               </span>
             </div>
