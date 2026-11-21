@@ -25,51 +25,6 @@ import { getPageEquipment, getSectionEquipment, DRUG_PRODUCT_EQUIPMENT, ALL_EQUI
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
-const drugProductWorkflow = [
-  {
-    step: '01',
-    title: 'Drug Substance',
-    description: 'Bulk cGMP active biologics received and verified under strict chain of custody.',
-    icon: FlaskConical
-  },
-  {
-    step: '02',
-    title: 'Formulation',
-    description: 'Buffer exchange, excipient compounding, and formulation stabilization.',
-    icon: Sliders
-  },
-  {
-    step: '03',
-    title: 'Filtration',
-    description: 'Bioburden reduction and sterile 0.22 µm membrane filtration.',
-    icon: Filter
-  },
-  {
-    step: '04',
-    title: 'Aseptic Fill-Finish',
-    description: 'Automated robotic vial filling, stoppering, and capping in Grade A isolators.',
-    icon: Sparkles
-  },
-  {
-    step: '05',
-    title: 'Inspection',
-    description: '100% automated and visual inspection for particulates and container closure integrity.',
-    icon: Eye
-  },
-  {
-    step: '06',
-    title: 'Packaging',
-    description: 'Secondary packaging, serialization, temperature-controlled boxing, and labelling.',
-    icon: Package
-  },
-  {
-    step: '07',
-    title: 'Clinical Supply',
-    description: 'QP/QA lot release and validated cold-chain global clinical site distribution.',
-    icon: Truck
-  }
-];
-
 interface ManufacturingLayoutProps {
   page: CDMOPage;
   content: PageContent;
@@ -146,11 +101,11 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
             </div>
             <Reveal className="w-full">
               {isMfgCustomHero ? (
-                <div className="w-full rounded-[10px] border border-neutral-200/90 shadow-xl bg-white p-4 sm:p-6 lg:p-8 flex items-center justify-center relative overflow-hidden group">
+                <div className="w-full aspect-[4/3] rounded-[10px] border border-neutral-200/90 shadow-xl overflow-hidden relative group">
                   <img
                     src={customHeroImage}
                     alt={page.title}
-                    className="w-full h-auto max-h-[460px] object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               ) : page.images && page.images.length > 1 ? (
@@ -261,46 +216,6 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                 })}
               </div>
             )}
-          </div>
-        </section>
-      )}
-
-      {/* DRUG PRODUCT PROCESS FLOW — FROM BULK DRUG SUBSTANCE TO CLINICAL SUPPLY */}
-      {page.slug === 'drug-product' && (
-        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-14 md:py-20 bg-white border-b border-neutral-100">
-          <div className="w-full max-w-[1700px] mx-auto">
-            <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  From Bulk Drug Substance to Clinical Supply
-                </h2>
-              </div>
-            </Reveal>
-
-            {/* Big Icons Stepped Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4 lg:gap-3.5">
-              {drugProductWorkflow.map((item, idx) => {
-                const IconComponent = item.icon;
-                return (
-                  <Reveal key={idx} delay={idx * 0.04} className="h-full">
-                    <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-3 bg-white px-2.5 py-0.5 rounded-full border border-neutral-200/60 group-hover:border-brand-blue/30 group-hover:text-brand-blue transition-colors">
-                        Step {item.step}
-                      </span>
-
-                      {/* BIG ICON */}
-                      <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-[16px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mb-4 group-hover:bg-brand-blue group-hover:scale-105 transition-all duration-300">
-                        <IconComponent className="w-8 h-8 sm:w-9 sm:h-9 text-brand-blue group-hover:text-white transition-colors duration-300" />
-                      </div>
-
-                      <h3 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors">
-                        {item.title}
-                      </h3>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
           </div>
         </section>
       )}

@@ -6,7 +6,13 @@ import {
   Beaker, 
   Package, 
   ArrowRight, 
-  Check
+  Check,
+  FlaskConical,
+  Sliders,
+  Filter,
+  Sparkles,
+  Eye,
+  Truck
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -67,6 +73,44 @@ const DEFAULT_MANUFACTURING_SUB_SERVICES = [
       'Liquid and lyophilized dosage forms'
     ],
   },
+];
+
+const MANUFACTURING_WORKFLOW = [
+  {
+    step: '01',
+    title: 'Drug Substance',
+    icon: FlaskConical
+  },
+  {
+    step: '02',
+    title: 'Formulation',
+    icon: Sliders
+  },
+  {
+    step: '03',
+    title: 'Filtration',
+    icon: Filter
+  },
+  {
+    step: '04',
+    title: 'Aseptic Fill-Finish',
+    icon: Sparkles
+  },
+  {
+    step: '05',
+    title: 'Inspection',
+    icon: Eye
+  },
+  {
+    step: '06',
+    title: 'Packaging',
+    icon: Package
+  },
+  {
+    step: '07',
+    title: 'Clinical Supply',
+    icon: Truck
+  }
 ];
 
 const DEFAULT_MANUFACTURING_FAQS = [
@@ -270,6 +314,44 @@ export default async function ManufacturingServicesPage({ searchParams }: PagePr
                         </Link>
                       </div>
                     </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* MANUFACTURING PROCESS FLOW — FROM BULK DRUG SUBSTANCE TO CLINICAL SUPPLY */}
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-20 bg-white border-b border-neutral-100">
+        <div className="w-full max-w-[1700px] mx-auto">
+          <Reveal>
+            <div className="text-center mb-10 md:mb-14">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                From Bulk Drug Substance to Clinical Supply
+              </h2>
+            </div>
+          </Reveal>
+
+          {/* Big Icons Stepped Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4 lg:gap-3.5">
+            {MANUFACTURING_WORKFLOW.map((item, idx) => {
+              const IconComponent = item.icon;
+              return (
+                <Reveal key={idx} delay={idx * 0.04} className="h-full">
+                  <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-3 bg-white px-2.5 py-0.5 rounded-full border border-neutral-200/60 group-hover:border-brand-blue/30 group-hover:text-brand-blue transition-colors">
+                      Step {item.step}
+                    </span>
+
+                    {/* BIG ICON */}
+                    <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-[16px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mb-4 group-hover:bg-brand-blue group-hover:scale-105 transition-all duration-300">
+                      <IconComponent className="w-8 h-8 sm:w-9 sm:h-9 text-brand-blue group-hover:text-white transition-colors duration-300" />
+                    </div>
+
+                    <h3 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors">
+                      {item.title}
+                    </h3>
                   </div>
                 </Reveal>
               );
