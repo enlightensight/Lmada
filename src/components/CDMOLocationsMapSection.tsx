@@ -87,6 +87,7 @@ interface CDMOLocationsMapSectionProps {
   className?: string;
   title?: string;
   subtitle?: string | null;
+  hideHeader?: boolean;
   cards?: {
     title?: string;
     description?: string;
@@ -103,6 +104,7 @@ export default function CDMOLocationsMapSection({
   className = '',
   title = 'Global CDMO Capabilities Across India and Europe',
   subtitle = 'Bespoke Biologics Infrastructure',
+  hideHeader = false,
   cards = []
 }: CDMOLocationsMapSectionProps = {}) {
   const [activeKey, setActiveKey] = useState<'amd' | 'lon'>('amd');
@@ -430,18 +432,22 @@ export default function CDMOLocationsMapSection({
 
       <div className="relative w-full max-w-[1280px] mx-auto">
         {/* Header Section with Theme Typography */}
-        <Reveal>
-          <header className="text-center mb-10 md:mb-14 max-w-5xl lg:max-w-none mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[46px] 2xl:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-3 md:whitespace-nowrap">
-              {title}
-            </h2>
-            {subtitle && (
-              <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
-                {subtitle}
-              </p>
-            )}
-          </header>
-        </Reveal>
+        {!hideHeader && (title || subtitle) && (
+          <Reveal>
+            <header className="text-center mb-10 md:mb-14 max-w-5xl lg:max-w-none mx-auto">
+              {title && (
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[46px] 2xl:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-3 md:whitespace-nowrap">
+                  {title}
+                </h2>
+              )}
+              {subtitle && (
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
+                  {subtitle}
+                </p>
+              )}
+            </header>
+          </Reveal>
+        )}
 
         {/* Main Showcase Layout: 2 Columns on Desktop, Stacked on Mobile */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-14 items-center">

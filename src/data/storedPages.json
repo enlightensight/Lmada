@@ -2360,13 +2360,10 @@
     "badge": "Facility & Locations",
     "heading": "Biologics Development and Manufacturing Across India and Europe",
     "description": "Lambda CDMO operates across Ahmedabad, India, and London, UK, bringing together complementary capabilities in biologics development, analytical sciences, process development, and GMP manufacturing.\n\nOur facilities support with a strong focus, different aspects of biologics development, with Ahmedabad providing an integrated development and GMP manufacturing platform and London providing specialized biologics development and analytical capabilities, for drug substance process development and process characterisation.",
-    "image": "/images/CDMOblue.png",
+    "image": "/images/uk/uksite.webp",
     "images": [
-      "/images/CDMOblue.png",
-      "/images/celldev.png",
-      "/images/cgmp2.png",
-      "/images/Lab.jpg",
-      "/images/development.jpg"
+      "/images/uk/uksite.webp",
+      "/images/ahmedabadsite.webp"
     ],
     "sections": [
       {

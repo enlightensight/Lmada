@@ -199,31 +199,25 @@ export default async function FacilityAndLocationPage({ searchParams }: PageProp
             </div>
 
             <Reveal delay={0.1}>
-              <FacilityHeroCarousel />
+              <FacilityHeroCarousel images={['/images/uk/uksite.webp', '/images/ahmedabadsite.webp']} />
             </Reveal>
           </div>
         </div>
       </section>
 
       {/* INTERACTIVE MAP SECTION WITH UK & INDIA HIGHLIGHTED */}
-      <CDMOLocationsMapSection 
-        title="Global CDMO Capabilities Across India and Europe"
-        subtitle="Bespoke Biologics Infrastructure"
-      />
+      <CDMOLocationsMapSection hideHeader />
 
       {/* COMPLEMENTARY CAPABILITIES ACROSS TWO LOCATIONS — MATRIX TABLE */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-molecules border-b border-neutral-100">
-        <div className="w-full max-w-[1400px] mx-auto">
+        <div className="w-full max-w-[1600px] mx-auto">
           <Reveal>
-            <div className="text-center mb-12 md:mb-16 max-w-4xl mx-auto">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                Strategic Global Footprint
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-5">
+            <div className="text-center mb-12 md:mb-16 w-full max-w-none mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-4 whitespace-normal lg:whitespace-nowrap">
                 Complementary Capabilities Across Two Locations
               </h2>
-              <div className="h-1 w-16 bg-brand-yellow rounded-full mx-auto mb-6" />
-              <p className="text-[16px] sm:text-[18px] text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto">
+              <div className="h-1 w-16 bg-brand-yellow rounded-full mx-auto mb-5" />
+              <p className="text-[15px] sm:text-[16px] lg:text-[17px] text-slate-600 font-normal leading-relaxed w-full max-w-none mx-auto whitespace-normal lg:whitespace-nowrap">
                 Complementary capabilities across Ahmedabad and London enable Lambda CDMO to support biologics programs across development, characterization, manufacturing, and clinical supply.
               </p>
             </div>

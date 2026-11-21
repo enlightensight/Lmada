@@ -6,24 +6,14 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const FACILITY_IMAGES = [
   {
-    src: '/images/ahmedabad/Screenshot4.png',
-    alt: 'Lambda CDMO Biologics Facility Infrastructure',
-    caption: 'Integrated Biologics Development & Manufacturing Facility',
+    src: '/images/uk/uksite.webp',
+    alt: 'Lambda CDMO London UK Facility',
+    caption: 'European Innovation & Biologics Facility — London, UK',
   },
   {
-    src: '/images/Screenshot%202026-09-11%20132304.png',
-    alt: 'Lambda CDMO Downstream Purification Operations',
-    caption: 'Multi-Modal Chromatography & Purification',
-  },
-  {
-    src: '/images/Screenshot%202026-09-11%20132325.png',
-    alt: 'Lambda CDMO QC Testing & Bioassay Lab',
-    caption: 'Quality Control & Functional Bioassay Labs',
-  },
-  {
-    src: '/images/Screenshot%202026-09-11%20131847.png',
-    alt: 'Lambda CDMO Analytical Science Suite',
-    caption: 'Advanced Analytical & Physicochemical Suites',
+    src: '/images/ahmedabadsite.webp',
+    alt: 'Lambda CDMO Ahmedabad India Facility',
+    caption: 'Integrated Biologics Development & Manufacturing Facility — Ahmedabad, India',
   },
 ];
 
