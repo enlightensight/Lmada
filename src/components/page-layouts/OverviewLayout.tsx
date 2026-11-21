@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { 
-  ArrowRight, 
+import {
+  ArrowRight,
   Quote,
-  ShieldCheck, 
-  Microscope, 
-  Factory, 
-  Dna, 
-  FileCheck, 
+  ShieldCheck,
+  Microscope,
+  Factory,
+  Dna,
+  FileCheck,
   Users,
   Sliders,
   Filter,
@@ -155,7 +155,7 @@ function getOverviewCapabilityIcon(text: string, index: number) {
   if (lower.includes('bioassay') || lower.includes('immunogen') || lower.includes('potency') || lower.includes('cell-based') || lower.includes('adcc')) return Activity;
   if (lower.includes('integrated biologics') || lower.includes('upstream and downstream') || lower.includes('process development') || lower.includes('workflow')) return Workflow;
   if (lower.includes('analytical development') || lower.includes('physicochemical') || lower.includes('characterization') || lower.includes('lc-ms') || lower.includes('sec-hplc') || lower.includes('comparability')) return Microscope;
-  
+
   // 2. Drug Substance vs Drug Product Manufacturing
   if (lower.includes('drug product') || lower.includes('fill-finish') || lower.includes('vials') || lower.includes('pfs') || lower.includes('cartridges') || lower.includes('filling line')) return PackageCheck;
   if (lower.includes('drug substance') || lower.includes('upstream production suites') || lower.includes('200l') || lower.includes('bioreactor capacity') || lower.includes('clinical gmp') || lower.includes('gmp manufacturing') || lower.includes('clinical supply')) return Factory;
@@ -294,11 +294,11 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         );
         const isDiagram = Boolean(
           section.image &&
-            (section.image.endsWith('.svg') ||
-              section.image.includes('gene_construct') ||
-              isRoadmap) &&
-            !section.image.includes('teamwork') &&
-            !section.image.includes('CDMOblue')
+          (section.image.endsWith('.svg') ||
+            section.image.includes('gene_construct') ||
+            isRoadmap) &&
+          !section.image.includes('teamwork') &&
+          !section.image.includes('CDMOblue')
         );
 
         const equipmentItems = getSectionEquipment(section.title, page.slug);
@@ -357,20 +357,18 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       </a>
                     ) : (
                       <div
-                        className={`relative ${
-                          isRoadmap
-                            ? 'aspect-[1717/804] w-full bg-white p-2 sm:p-4'
-                            : isDiagram
+                        className={`relative ${isRoadmap
+                          ? 'aspect-[1717/804] w-full bg-white p-2 sm:p-4'
+                          : isDiagram
                             ? 'aspect-[4/3] bg-white p-3 sm:p-5'
                             : 'aspect-[4/3] bg-neutral-100'
-                        } overflow-hidden border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center`}
+                          } overflow-hidden border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center`}
                       >
                         <img
                           src={section.image}
                           alt={section.title}
-                          className={`w-full h-full ${
-                            isDiagram ? 'object-contain' : 'object-cover'
-                          } transition-transform duration-700 hover:scale-105`}
+                          className={`w-full h-full ${isDiagram ? 'object-contain' : 'object-cover'
+                            } transition-transform duration-700 hover:scale-105`}
                         />
                       </div>
                     )}
@@ -732,12 +730,12 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   />
                 </div>
               ) : page.slug === 'integrated' ? (
-                <div className="w-full flex items-center justify-center p-2 sm:p-4">
+                <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-6 sm:p-8 md:p-10 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/Biologics%20CDMO.png"
                     alt={page.title || 'Biologics Development & Manufacturing — From Gene to Clinic'}
-                    className="w-full h-auto max-h-[560px] object-contain drop-shadow-sm"
+                    className="w-full h-auto max-h-[520px] object-contain"
                   />
                 </div>
               ) : (page.slug === 'facility' || page.slug === 'India') ? (
@@ -798,7 +796,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         {sec1Title}
                       </h2>
                       <div className="h-1 w-12 bg-brand-blue rounded-full mb-6" />
-                      
+
                       <div className="space-y-4 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed font-normal">
                         {paragraphs && paragraphs.length > 0 ? (
                           paragraphs.map((p: string, pIdx: number) => {
@@ -897,7 +895,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
       {page.slug === 'integrated' && (() => {
         const sec1 = page.sections?.find((s) => s.title?.includes('End-to-End') || s.title?.includes('Under One Roof')) || page.sections?.[0];
         const sec2 = page.sections?.find((s) => s.title?.includes('Technology Transfer') || s.title?.includes('Operational Simplicity')) || page.sections?.[1];
-        
+
         return (
           <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
             <div className="w-full max-w-[1700px] mx-auto">
@@ -1009,8 +1007,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         {page.slug === 'leadership'
                           ? 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery, with a working model built around six core commitments:'
                           : page.slug === 'quality'
-                          ? 'Robust quality assurance, international compliance standards, and risk-managed processes across every program.'
-                          : 'Seamless coordination across development, analytical characterization, and GMP manufacturing under one roof.'}
+                            ? 'Robust quality assurance, international compliance standards, and risk-managed processes across every program.'
+                            : 'Seamless coordination across development, analytical characterization, and GMP manufacturing under one roof.'}
                       </p>
                     </>
                   )}
@@ -1090,14 +1088,14 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         );
         const leadersToRender: LeaderProfile[] = (leaderSec?.cards && leaderSec.cards.length > 0)
           ? leaderSec.cards.map((c) => ({
-              name: c.title,
-              title: c.link || c.href || '',
-              role: c.badge || 'Executive Leadership',
-              image: c.image || '/images/team/MS Ramaki.jpg',
-              experienceBadge: c.step || '25+ Years Experience',
-              credentials: c.icon || '',
-              bio: c.description ? c.description.split('\n\n').filter(Boolean) : []
-            }))
+            name: c.title,
+            title: c.link || c.href || '',
+            role: c.badge || 'Executive Leadership',
+            image: c.image || '/images/team/MS Ramaki.jpg',
+            experienceBadge: c.step || '25+ Years Experience',
+            credentials: c.icon || '',
+            bio: c.description ? c.description.split('\n\n').filter(Boolean) : []
+          }))
           : LEADERSHIP_PROFILES;
 
         const secTitle = leaderSec?.title || 'Executive & Scientific Team';
