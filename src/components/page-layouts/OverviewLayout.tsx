@@ -1229,9 +1229,6 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             <div className="w-full max-w-[1700px] mx-auto">
               <Reveal>
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-                  <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-4">
-                    Comprehensive Quality Assurance
-                  </span>
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-4">
                     Quality &amp; Regulatory Pillars
                   </h2>
@@ -1335,14 +1332,14 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   </div>
                 </Reveal>
 
-                {/* Right Column: Enlarged Roadmap Graphic Card */}
+                {/* Right Column: Full-Bleed Roadmap Graphic Card */}
                 <Reveal delay={0.1} className="lg:col-span-7 xl:col-span-8">
-                  <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-4 sm:p-6 md:p-8 lg:p-10 flex items-center justify-center overflow-hidden">
+                  <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-0 overflow-hidden flex items-center justify-center">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/insights/regulatory_cmc_roadmap.png"
                       alt="Regulatory Affairs Support — CMC Biologics Roadmap"
-                      className="w-full h-auto max-h-[640px] xl:max-h-[700px] object-contain drop-shadow-sm transition-transform duration-500 hover:scale-[1.01]"
+                      className="w-full h-auto block drop-shadow-xs"
                     />
                   </div>
                 </Reveal>
