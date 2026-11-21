@@ -1,20 +1,20 @@
 export interface CDMOSection {
   id?: string;
   style?:
-    | 'feature-split'
-    | 'cards-grid'
-    | 'process-steps'
-    | 'stats-metrics'
-    | 'capabilities-checklist'
-    | 'equipment-carousel'
-    | 'faq-accordion'
-    | 'locations-map'
-    | 'modalities-grid'
-    | 'technical-specs'
-    | 'video-hero-banner'
-    | 'cta-banner'
-    | 'rich-text'
-    | string;
+  | 'feature-split'
+  | 'cards-grid'
+  | 'process-steps'
+  | 'stats-metrics'
+  | 'capabilities-checklist'
+  | 'equipment-carousel'
+  | 'faq-accordion'
+  | 'locations-map'
+  | 'modalities-grid'
+  | 'technical-specs'
+  | 'video-hero-banner'
+  | 'cta-banner'
+  | 'rich-text'
+  | string;
   title: string;
   subtitle?: string;
   text: string;
@@ -1551,7 +1551,7 @@ export const cdmoData: CDMOPage[] = [
       "/images/Analytical/Liquid Handling System.webp",
       "/images/Analytical/Cell Celector.webp",
       "/images/Analytical/AMBR15.webp"
-],
+    ],
     "capabilities": [
       "Identity testing using peptide mapping, LC-MS, and immunological methods",
       "Purity and impurity analysis using SEC-HPLC, CE-SDS, and IEF",
@@ -2204,7 +2204,7 @@ export const cdmoData: CDMOPage[] = [
       }
     ]
   }
-,
+  ,
   {
     "category": "services",
     "slug": "services",
@@ -2306,7 +2306,7 @@ export const cdmoData: CDMOPage[] = [
     "isPublished": true,
     "status": "published"
   }
-,
+  ,
   {
     "category": "manufacturing",
     "slug": "manufacturing",
@@ -2318,11 +2318,14 @@ export const cdmoData: CDMOPage[] = [
     "description": "Manufacturing success depends on process consistency, product quality, and effective technology transfer. Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.\n\nOur manufacturing operations at Ahmedabad, India bring together process, analytical, manufacturing, and quality functions to support controlled execution, consistent product quality, and regulatory requirements across clinical programs.",
     "image": "/images/upstream_GMP/549A7821.png",
     "images": [
-      "/images/down stream/AKTA Pilot.png",
-      "/images/down stream/AKTA Pure 150_Akta Avant.png",
-      "/images/down stream/Column Storage Rack.png",
-      "/images/down stream/TFF System.png",
-      "/images/down stream/Tecan Freedom EVO.png"
+      "/images/manufacturing/1-gmp-production-bioreactor.webp",
+      "/images/manufacturing/2-gmp-seed-bioreactor.webp",
+      "/images/manufacturing/3-300x300-axichrom-column.webp",
+      "/images/manufacturing/4-chromatography-skid-coprime.webp",
+      "/images/manufacturing/5-50l-single-use-mixer-sum.webp",
+      "/images/manufacturing/6-automated-tff-system-with-sum.webp",
+      "/images/manufacturing/7-akta-pilot-chromatography-system.webp",
+      "/images/manufacturing/8-lyophilizer-in-fdl-lab.webp"
     ],
     "sections": [
       {
@@ -2395,7 +2398,7 @@ export const cdmoData: CDMOPage[] = [
     "isPublished": true,
     "status": "published"
   }
-,
+  ,
   {
     "category": "characterization",
     "slug": "characterization",
@@ -2511,7 +2514,7 @@ export const cdmoData: CDMOPage[] = [
     "isPublished": true,
     "status": "published"
   }
-,
+  ,
   {
     "category": "facility&location",
     "slug": "facility&location",

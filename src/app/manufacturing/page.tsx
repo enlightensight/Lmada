@@ -29,12 +29,15 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   };
 }
 
-const DOWNSTREAM_HERO_IMAGES = [
-  '/images/down stream/AKTA Pilot.png',
-  '/images/down stream/AKTA Pure 150_Akta Avant.png',
-  '/images/down stream/Column Storage Rack.png',
-  '/images/down stream/TFF System.png',
-  '/images/down stream/Tecan Freedom EVO.png',
+const MANUFACTURING_HERO_IMAGES = [
+  '/images/manufacturing/1-gmp-production-bioreactor.webp',
+  '/images/manufacturing/2-gmp-seed-bioreactor.webp',
+  '/images/manufacturing/3-300x300-axichrom-column.webp',
+  '/images/manufacturing/4-chromatography-skid-coprime.webp',
+  '/images/manufacturing/5-50l-single-use-mixer-sum.webp',
+  '/images/manufacturing/6-automated-tff-system-with-sum.webp',
+  '/images/manufacturing/7-akta-pilot-chromatography-system.webp',
+  '/images/manufacturing/8-lyophilizer-in-fdl-lab.webp',
 ];
 
 const DEFAULT_MANUFACTURING_SUB_SERVICES = [
@@ -99,7 +102,7 @@ export default async function ManufacturingServicesPage({ searchParams }: PagePr
 
   const badge = page?.badge || 'MANUFACTURING SERVICES';
   const heading = page?.heading || 'From Process Development to Clinical Manufacturing. Delivered with Confidence.';
-  const heroImages = (page?.images && page.images.length > 0) ? page.images : DOWNSTREAM_HERO_IMAGES;
+  const heroImages = (page?.images && page.images.length > 0) ? page.images : MANUFACTURING_HERO_IMAGES;
 
   const descriptionParagraphs = page?.description
     ? page.description.split('\n\n').filter(Boolean)
