@@ -34,7 +34,7 @@ Our facilities support with a strong focus, different aspects of biologics devel
       headline: 'Integrated Biologics Development & GMP Manufacturing',
       categoryBadge: 'PRIMARY BIOMANUFACTURING FACILITY',
       location: 'Gujarat, India',
-      statHighlight: '27,000 sq. ft. Facility',
+      statHighlight: '35,000 sq. ft. Facility',
       badge: 'India HQ',
       image: '/images/Lamdabuilding.jpg',
       href: '/facility&location/India',

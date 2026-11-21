@@ -180,7 +180,7 @@ function getOverviewCapabilityIcon(text: string, index: number) {
   if (lower.includes('visual inspection') || lower.includes('secondary packaging') || lower.includes('inspection suite')) return Eye;
   if (lower.includes('qtpp') || lower.includes('analytical sciences workflow')) return Search;
   if (lower.includes('regulatory') || lower.includes('fda') || lower.includes('ema') || lower.includes('pmda') || lower.includes('tga') || lower.includes('cmc')) return Scale;
-  if (lower.includes('campus') || lower.includes('facility') || lower.includes('infrastructure') || lower.includes('27,000 sqft') || lower.includes('sqft')) return Building2;
+  if (lower.includes('campus') || lower.includes('facility') || lower.includes('infrastructure') || lower.includes('27,000 sqft') || lower.includes('35,000') || lower.includes('sqft')) return Building2;
   if (lower.includes('global') || lower.includes('market')) return Globe;
   if (lower.includes('phase-aligned') || lower.includes('lifecycle')) return Milestone;
   if (lower.includes('scalable') || lower.includes('capacity')) return Maximize2;
@@ -303,11 +303,121 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
         const equipmentItems = getSectionEquipment(section.title, page.slug);
 
+        const isFacilityCapacitySection =
+          (page.slug === 'India' || page.slug?.toLowerCase() === 'india' || page.slug === 'facility') &&
+          idx === 0;
+
+        if (isFacilityCapacitySection) {
+          const displayTitle = section.title.replace('27,000', '35,000');
+          const displayText = section.text.replace(/27,000/g, '35,000');
+          const paragraphs = displayText.split('\n\n').filter(Boolean);
+
+          return (
+            <div key={idx}>
+              <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
+                <div className="w-full max-w-[1700px] mx-auto">
+                  <Reveal>
+                    {/* Header */}
+                    <div className="max-w-3xl mb-10 md:mb-14">
+                      <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-4">
+                        Purpose-Built Biologics Infrastructure
+                      </span>
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-5">
+                        {displayTitle}
+                      </h2>
+                      <div className="h-1 w-12 bg-brand-blue rounded-full" />
+                    </div>
+
+                    {/* Main Content & Architecture Highlight */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch mb-12">
+                      <div className="lg:col-span-7 flex flex-col justify-center space-y-4 text-[16px] md:text-[18px] text-neutral-600 leading-relaxed font-normal">
+                        {paragraphs.slice(0, 2).map((para: string, pIdx: number) => (
+                          <p key={pIdx}>{renderFormattedText(para)}</p>
+                        ))}
+                      </div>
+
+                      <div className="lg:col-span-5 bg-slate-50/90 rounded-2xl border border-neutral-200/80 p-6 sm:p-8 shadow-xs flex flex-col justify-center relative overflow-hidden">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-8 h-8 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange shrink-0">
+                            <ShieldCheck className="w-4 h-4" />
+                          </div>
+                          <span className="text-xs font-bold uppercase tracking-wider text-brand-orange">
+                            Operational Flow &amp; Segregation
+                          </span>
+                        </div>
+                        <p className="text-[14px] sm:text-[15px] text-neutral-700 leading-relaxed font-normal">
+                          {paragraphs[2] ? renderFormattedText(paragraphs[2]) : (
+                            <>
+                              Manufacturing operations incorporate <strong className="text-neutral-900 font-semibold">segregated areas, controlled material and personnel flows, single-use processing systems, and dedicated pre- and post-viral processing areas</strong> to support the manufacture of biologic drug substance and drug product for clinical development.
+                            </>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* 4 Feature Cards */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                      <div className="bg-white rounded-xl border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all">
+                        <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue mb-4">
+                          <FlaskConical className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-base font-bold text-neutral-900 mb-1.5">
+                          Development &amp; QC Labs
+                        </h3>
+                        <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
+                          Specialized cell line development, bioprocess optimization, and comprehensive QC testing suites under one roof.
+                        </p>
+                      </div>
+
+                      <div className="bg-white rounded-xl border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all">
+                        <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue mb-4">
+                          <Factory className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-base font-bold text-neutral-900 mb-1.5">
+                          cGMP Cleanroom Suites
+                        </h3>
+                        <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
+                          Grade A/B/C/D cleanrooms equipped with automated single-use bioreactors supporting clinical Phase 1/2 campaigns.
+                        </p>
+                      </div>
+
+                      <div className="bg-white rounded-xl border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all">
+                        <div className="w-10 h-10 rounded-xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange mb-4">
+                          <ShieldCheck className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-base font-bold text-neutral-900 mb-1.5">
+                          Viral Safety &amp; Segregation
+                        </h3>
+                        <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
+                          Dedicated pre- and post-viral segregation with strict unidirectional air, personnel, and material flow controls.
+                        </p>
+                      </div>
+
+                      <div className="bg-white rounded-xl border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/30 transition-all">
+                        <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue mb-4">
+                          <PackageCheck className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-base font-bold text-neutral-900 mb-1.5">
+                          DS &amp; DP Manufacturing
+                        </h3>
+                        <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed">
+                          Integrated drug substance bulk production and robotic isolator sterile fill-finish in vials, PFS, and cartridges.
+                        </p>
+                      </div>
+                    </div>
+                  </Reveal>
+                </div>
+              </section>
+              {(page.slug === 'facility' || page.slug === 'India') && idx === 0 && <FacilityGallery />}
+            </div>
+          );
+        }
+
         return (
           <div key={idx}>
             <section className={`px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}>
               <div className="w-full max-w-[1700px] mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 ${section.qtppText ? 'items-start' : 'items-center'}`}>
                   <Reveal className={imageRight ? 'lg:order-2' : ''}>
                     {section.images && section.images.length > 1 ? (
                       <EquipmentCarousel
@@ -370,6 +480,23 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           className={`w-full h-full ${isDiagram ? 'object-contain' : 'object-cover'
                             } transition-transform duration-700 hover:scale-105`}
                         />
+                      </div>
+                    )}
+
+                    {/* Move paragraph below slideshow for better alignment */}
+                    {section.qtppText && (
+                      <div className="mt-6 bg-slate-50/90 rounded-[12px] border border-neutral-200/80 p-5 sm:p-6 shadow-xs">
+                        <div className="flex items-center gap-2.5 mb-2.5">
+                          <div className="w-7 h-7 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue shrink-0">
+                            <Target className="w-4 h-4" />
+                          </div>
+                          <h4 className="text-base font-bold text-neutral-900 tracking-tight">
+                            Quality Target Product Profile (QTPP) Alignment
+                          </h4>
+                        </div>
+                        <p className="text-[14px] sm:text-[15px] text-neutral-600 leading-relaxed font-normal">
+                          {renderFormattedText(section.qtppText)}
+                        </p>
                       </div>
                     )}
                   </Reveal>
@@ -599,57 +726,35 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   </Reveal>
                 </div>
 
-                {/* Analytical QTPP & Applications Showcase */}
-                {(section.qtppText || (section.applications && section.applications.length > 0)) && (
+                {/* Selected Analytical Applications Showcase */}
+                {section.applications && section.applications.length > 0 && (
                   <div className="mt-14 md:mt-20 pt-10 border-t border-neutral-200/80">
-                    {section.qtppText && (
-                      <Reveal>
-                        <div className="bg-neutral-50/80 rounded-[12px] border border-neutral-200/80 p-6 md:p-8 mb-10 max-w-5xl mx-auto">
-                          <div className="flex items-center gap-3 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue shrink-0">
-                              <Target className="w-4 h-4" />
+                    <Reveal delay={0.1}>
+                      <div>
+                        <div className="text-center max-w-2xl mx-auto mb-8">
+                          {/* Applications & Modalities orange tag removed as requested */}
+                          <h4 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
+                            Selected Analytical Applications
+                          </h4>
+                          <div className="h-1 w-12 bg-brand-blue rounded-full mx-auto mt-3" />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          {section.applications.map((app: any, aIdx: number) => (
+                            <div
+                              key={aIdx}
+                              className="bg-white rounded-[12px] border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all flex flex-col"
+                            >
+                              <h5 className="text-base font-bold text-neutral-900 mb-2">
+                                {app.title}
+                              </h5>
+                              <p className="text-[14px] text-neutral-600 leading-relaxed flex-1">
+                                {app.description}
+                              </p>
                             </div>
-                            <h4 className="text-base md:text-lg font-bold text-neutral-900">
-                              Quality Target Product Profile (QTPP) Alignment
-                            </h4>
-                          </div>
-                          <p className="text-[15px] md:text-[16px] text-neutral-600 leading-relaxed font-normal">
-                            {renderFormattedText(section.qtppText)}
-                          </p>
+                          ))}
                         </div>
-                      </Reveal>
-                    )}
-
-                    {section.applications && section.applications.length > 0 && (
-                      <Reveal delay={0.1}>
-                        <div>
-                          <div className="text-center max-w-2xl mx-auto mb-8">
-                            <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-2">
-                              Applications & Modalities
-                            </span>
-                            <h4 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
-                              Selected Analytical Applications
-                            </h4>
-                            <div className="h-1 w-12 bg-brand-blue rounded-full mx-auto mt-3" />
-                          </div>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {section.applications.map((app: any, aIdx: number) => (
-                              <div
-                                key={aIdx}
-                                className="bg-white rounded-[12px] border border-neutral-200/80 p-6 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all flex flex-col"
-                              >
-                                <h5 className="text-base font-bold text-neutral-900 mb-2">
-                                  {app.title}
-                                </h5>
-                                <p className="text-[14px] text-neutral-600 leading-relaxed flex-1">
-                                  {app.description}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </Reveal>
-                    )}
+                      </div>
+                    </Reveal>
                   </div>
                 )}
               </div>
@@ -729,7 +834,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              ) : page.slug === 'integrated' ? (
+              ) : (page.slug === 'integrated' || page.slug === 'India' || page.slug?.toLowerCase() === 'india') ? (
                 <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-6 sm:p-8 md:p-10 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -738,7 +843,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     className="w-full h-auto max-h-[520px] object-contain"
                   />
                 </div>
-              ) : (page.slug === 'facility' || page.slug === 'India') ? (
+              ) : page.slug === 'facility' ? (
                 <FacilityHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
               ) : (page.slug === 'UK' || page.slug === 'london') ? (
                 <LondonHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
