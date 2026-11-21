@@ -49,7 +49,9 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
 
   const heroHeading = pageData?.heading || 'Biologics Development and Manufacturing.';
   const heroSubtitle = pageData?.subtitle || 'From Gene to Clinic.';
-  const heroDesc = pageData?.description || 'Supporting biopharmaceutical companies with integrated biologics development, from Gene to GMP – cell line engineering, process development of Drug substance and Drug product, analytical characterization, GMP manufacturing, and clinical supply capabilities to accelerate the journey from molecule to market.';
+  const heroDesc = (pageData?.description && !pageData.description.includes('Supporting biopharmaceutical companies with integrated biologics development, from Gene to GMP'))
+    ? pageData.description
+    : 'Lambda CDMO provides integrated development, analytical characterization, and GMP manufacturing services, supporting biopharmaceutical innovators from early-stage development through clinical supply.';
   const heroVideo = (pageData?.heroVideo && pageData.heroVideo !== '/videos/hero5.mp4') ? pageData.heroVideo : '/videos/newhero.mp4';
   const heroPrimaryCta = {
     text: pageData?.heroPrimaryCtaText || pageData?.primaryCta?.text || 'GET IN TOUCH',
@@ -268,7 +270,9 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
     ? pageData.faqs
     : defaultFaqs.slice(0, 5);
 
-  const ctaTitle = pageData?.ctaTitle || "Accelerate Your Biologics Journey Today";
+  const ctaTitle = (pageData?.ctaTitle && pageData.ctaTitle !== 'Accelerate Your Biologics Journey Today')
+    ? pageData.ctaTitle
+    : "Let's Advance Your Next Biologics Program";
   const ctaSubtitle = pageData?.ctaSubtitle || "Connect directly with our senior scientific and technical experts in Ahmedabad and London to discuss your molecule specifications and timeline.";
 
   return (

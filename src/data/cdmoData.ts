@@ -194,7 +194,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "INTEGRATED BIOLOGICS CDMO",
     "heading": "Biologics Development and Manufacturing.",
     "subtitle": "From Gene to Clinic.",
-    "description": "Supporting biopharmaceutical companies with integrated biologics development, from Gene to GMP – cell line engineering, process development of Drug substance and Drug product, analytical characterization, GMP manufacturing, and clinical supply capabilities to accelerate the journey from molecule to market.",
+    "description": "Lambda CDMO provides integrated development, analytical characterization, and GMP manufacturing services, supporting biopharmaceutical innovators from early-stage development through clinical supply.",
     "image": "/images/hero_cleanroom.png",
     "heroVideo": "/videos/newhero.mp4",
     "heroMediaType": "video",
@@ -434,7 +434,7 @@ export const cdmoData: CDMOPage[] = [
         "buttonLink": "/insights/blogs"
       }
     ],
-    "ctaTitle": "Accelerate Your Biologics Journey Today",
+    "ctaTitle": "Let's Advance Your Next Biologics Program",
     "ctaSubtitle": "Connect directly with our senior scientific and technical experts in Ahmedabad and London to discuss your molecule specifications and timeline.",
     "faqTitle": "Common Questions",
     "faqSubtitle": "Answers to questions about process, tech transfers, timelines, and facility validations.",

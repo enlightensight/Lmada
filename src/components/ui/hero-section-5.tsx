@@ -16,14 +16,14 @@ interface HeroSectionProps {
 export function HeroSection({
     heading = 'Biologics Development and Manufacturing.',
     subtitle = 'From Gene to Clinic.',
-    description = 'Supporting biopharmaceutical companies with integrated biologics development, from Gene to GMP – cell line engineering, process development of Drug substance and Drug product, analytical characterization, GMP manufacturing, and clinical supply capabilities to accelerate the journey from molecule to market.',
+    description = 'Lambda CDMO provides integrated development, analytical characterization, and GMP manufacturing services, supporting biopharmaceutical innovators from early-stage development through clinical supply.',
     videoSrc = '/videos/newhero.mp4',
     primaryCta = { text: 'Get in touch', link: '/contact' },
     secondaryCta = { text: 'Explore Services', link: '/services/cell-line' }
 }: HeroSectionProps = {}) {
     return (
-        <section className="relative w-full px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-4 min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] flex flex-col justify-center">
-            <div className="relative w-full max-w-[1700px] mx-auto rounded-[10px] overflow-hidden border border-neutral-200 shadow-sm min-h-[calc(100vh-96px)] lg:min-h-[calc(100vh-120px)] flex items-center bg-brand-navy">
+        <section className="relative w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-3 sm:py-4 min-h-[auto] md:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] flex flex-col justify-center">
+            <div className="relative w-full max-w-[1700px] mx-auto rounded-[10px] overflow-hidden border border-neutral-200 shadow-sm min-h-[520px] sm:min-h-[580px] md:min-h-[calc(100vh-96px)] lg:min-h-[calc(100vh-120px)] flex items-center bg-brand-navy">
                 {/* Background Video confined within container */}
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <video
@@ -33,11 +33,11 @@ export function HeroSection({
                         loop
                         muted
                         playsInline
-                        className="absolute inset-0 w-full h-full object-cover object-[75%_center] sm:object-[65%_center] md:object-center"
+                        className="absolute inset-0 w-full h-full object-cover object-center md:object-center"
                     />
-                    {/* Left-side blurry overlay: gradual decrease to half width (50%) */}
+                    {/* Left-side blurry overlay: gradual decrease to half width (50%) - desktop only to preserve mobile clarity */}
                     <div
-                        className="absolute inset-0 pointer-events-none"
+                        className="absolute inset-0 pointer-events-none hidden md:block"
                         style={{
                             backdropFilter: 'blur(16px)',
                             WebkitBackdropFilter: 'blur(16px)',
@@ -52,25 +52,25 @@ export function HeroSection({
                             background: 'linear-gradient(to right, rgba(15, 34, 49, 0.95) 0%, rgba(15, 34, 49, 0.85) 22%, rgba(15, 34, 49, 0.5) 36%, rgba(15, 34, 49, 0.15) 45%, rgba(15, 34, 49, 0) 50%)',
                         }}
                     />
-                    {/* Mobile fallback scrim for small screens */}
+                    {/* Mobile scrim: balanced vertical-horizontal gradient so video is fully visible */}
                     <div
-                        className="absolute inset-0 pointer-events-none md:hidden bg-gradient-to-r from-brand-navy/95 via-brand-navy/85 to-brand-navy/35"
+                        className="absolute inset-0 pointer-events-none md:hidden bg-gradient-to-t from-brand-navy/95 via-brand-navy/70 to-brand-navy/35"
                     />
                 </div>
 
-                <div className="relative z-10 w-full px-8 sm:px-12 md:px-16 lg:px-20 py-16 md:py-24 lg:py-28 flex items-center">
+                <div className="relative z-10 w-full px-6 sm:px-12 md:px-16 lg:px-20 py-12 sm:py-16 md:py-24 lg:py-28 flex items-center">
                     {/* Left: Text */}
                     <div className="text-left max-w-2xl">
-                        <h1 className="text-[34px] sm:text-[46px] lg:text-[58px] font-normal tracking-tight text-white leading-[1.12] drop-shadow-sm">
+                        <h1 className="text-[30px] sm:text-[44px] lg:text-[58px] font-normal tracking-tight text-white leading-[1.12] drop-shadow-sm">
                             {heading}
                             {subtitle && (
-                                <span className="block text-white/95 text-2xl sm:text-3xl lg:text-4xl font-light mt-5 sm:mt-6">
+                                <span className="block text-white/95 text-xl sm:text-2xl lg:text-3xl font-light mt-3 sm:mt-5">
                                     {subtitle}
                                 </span>
                             )}
                         </h1>
 
-                        <p className="text-[15px] sm:text-[17px] text-neutral-100 font-normal mt-8 sm:mt-10 max-w-xl leading-relaxed drop-shadow-sm">
+                        <p className="text-[14px] sm:text-[16px] lg:text-[17px] text-neutral-100 font-normal mt-6 sm:mt-8 max-w-xl leading-relaxed drop-shadow-sm">
                             {description}
                         </p>
 

@@ -102,7 +102,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const groups: MobileGroup[] = [
     {
       label: 'Overview',
-      headline: 'Biologics Development and Manufacturing. From Gene to Clinic.',
+      headline: 'Biologics Development and Manufacturing.',
       description: 'Supporting biopharmaceutical companies with integrated biologics development, from Gene to GMP – cell line engineering, process development of Drug substance and Drug product, analytical characterization, GMP manufacturing, and clinical supply capabilities to accelerate the journey from molecule to market.',
       columns: [
         {

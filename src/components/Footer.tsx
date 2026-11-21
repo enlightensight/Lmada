@@ -9,40 +9,40 @@ export default function Footer() {
     {
       title: 'Overview & Facilities',
       links: [
-        { name: 'About Lambda', href: '/overview/about' },
+        { name: 'About Lambda CDMO', href: '/overview/about' },
         { name: 'Leadership', href: '/overview/leadership' },
         { name: 'Facilities Overview', href: '/facility&location' },
         { name: 'Ahmedabad Facility', href: '/facility&location/India' },
-        { name: 'London UK Facility', href: '/facility&location/UK' },
+        { name: 'London Facility', href: '/facility&location/UK' },
         { name: 'Virtual Tour', href: '/virtual-tour/00%20MAIN%20BUILDING/index.htm' },
-        { name: 'Integrated Development', href: '/overview/integrated' },
+        { name: 'Integrated Development to Manufacturing', href: '/overview/integrated' },
         { name: 'Careers', href: '/overview/careers' },
       ],
     },
     {
-      title: 'Services',
+      title: 'Development & Manufacturing',
       links: [
-        { name: 'Cell Line', href: '/services/cell-line' },
-        { name: 'Process Dev', href: '/services/process' },
-        { name: 'Analytical', href: '/services/analytical' },
-        { name: 'Drug Substance', href: '/manufacturing/drug-substance' },
-        { name: 'Drug Product', href: '/manufacturing/drug-product' },
+        { name: 'Cell Line Development', href: '/services/cell-line' },
+        { name: 'Process Development', href: '/services/process' },
+        { name: 'Analytical Development', href: '/services/analytical' },
+        { name: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance' },
+        { name: 'Drug Product Manufacturing', href: '/manufacturing/drug-product' },
       ],
     },
     {
-      title: 'Characterization',
+      title: 'Analytical Characterization & Testing',
       links: [
         { name: 'Analytical Testing', href: '/characterization/analytical-testing' },
-        { name: 'Physicochemical', href: '/characterization/physicochemical' },
-        { name: 'Bioassays', href: '/characterization/bioassays' },
-        { name: 'Microbiological', href: '/characterization/microbiological' },
+        { name: 'Physicochemical Characterization', href: '/characterization/physicochemical' },
+        { name: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays' },
+        { name: 'Microbiological Testing', href: '/characterization/microbiological' },
       ],
     },
     {
       title: 'Modalities',
       links: [
         { name: 'Monoclonal Antibodies', href: '/modalities/mabs' },
-        { name: 'Bispecifics', href: '/modalities/bispecifics' },
+        { name: 'Bispecific Antibodies', href: '/modalities/bispecifics' },
         { name: 'ADCs', href: '/modalities/adcs' },
         { name: 'Proteins & Peptides', href: '/modalities/proteins-peptides' },
       ],
@@ -67,8 +67,8 @@ export default function Footer() {
                 unoptimized
               />
             </Link>
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6 lg:max-w-sm">
-              Lambda CDMO is an integrated biologics solutions provider, accelerating therapeutic programs from cell line engineering to GMP drug product release.
+            <p className="text-sm text-neutral-500 leading-relaxed mb-6 lg:max-w-md">
+              Lambda CDMO is the biologics Contract Development and Manufacturing Organization of Lambda Therapeutic Research, providing integrated development, analytical characterization, and GMP manufacturing services for biologics, biosimilars, and complex therapeutic modalities. With capabilities across India and the UK, we support biopharmaceutical companies from early development through clinical supply.
             </p>
             <div className="flex items-center gap-3">
               {/* LinkedIn */}
