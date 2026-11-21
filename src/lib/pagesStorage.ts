@@ -147,21 +147,107 @@ export function getStoredPage(
   slug: string,
   options: { previewDraft?: boolean } = {}
 ): CDMOPage | null {
-  const normCat = decodeURIComponent(category || '').toLowerCase();
+  let normCat = decodeURIComponent(category || '').toLowerCase();
   let normSlug = decodeURIComponent(slug || '').toLowerCase();
 
-  // Alias support for full human-friendly URLs
-  if (normCat === 'overview' && (normSlug === 'integrated-development-to-manufacturing' || normSlug === 'integrated-development' || normSlug === 'integrated-manufacturing' || normSlug === 'integrated development to manufacturing')) {
-    normSlug = 'integrated';
+  // Category normalization aliases
+  if (normCat === 'development-services') {
+    normCat = 'services';
+  } else if (normCat === 'manufacturing-services') {
+    normCat = 'manufacturing';
+  } else if (
+    normCat === 'analytical-characterization-testing' ||
+    normCat === 'analytical-characterization-and-testing' ||
+    normCat === 'analytical-characterization'
+  ) {
+    normCat = 'characterization';
   }
-  if (normCat === 'services' && (normSlug === 'cell-line-development' || normSlug === 'cell-line' || normSlug === 'cell line development')) {
-    normSlug = 'cell-line';
+
+  // Slug normalization aliases
+  // Overview:
+  if (normCat === 'overview') {
+    if (normSlug === 'about-lambda-cdmo' || normSlug === 'about-lambda' || normSlug === 'about') {
+      normSlug = 'about';
+    } else if (normSlug === 'leadership-team' || normSlug === 'leadership') {
+      normSlug = 'leadership';
+    } else if (
+      normSlug === 'integrated-development-to-manufacturing' ||
+      normSlug === 'integrated-development' ||
+      normSlug === 'integrated-manufacturing' ||
+      normSlug === 'integrated development to manufacturing' ||
+      normSlug === 'integrated'
+    ) {
+      normSlug = 'integrated';
+    } else if (normSlug === 'quality-and-compliance' || normSlug === 'quality-compliance' || normSlug === 'quality') {
+      normSlug = 'quality';
+    }
   }
-  if (normCat === 'services' && (normSlug === 'process-development' || normSlug === 'process development' || normSlug === 'process')) {
-    normSlug = 'process';
+
+  // Services:
+  if (normCat === 'services') {
+    if (normSlug === 'cell-line-development' || normSlug === 'cell-line' || normSlug === 'cell line development') {
+      normSlug = 'cell-line';
+    } else if (normSlug === 'process-development' || normSlug === 'process development' || normSlug === 'process') {
+      normSlug = 'process';
+    } else if (normSlug === 'analytical-development' || normSlug === 'analytical development' || normSlug === 'analytical') {
+      normSlug = 'analytical';
+    }
   }
-  if (normCat === 'services' && (normSlug === 'analytical-development' || normSlug === 'analytical development' || normSlug === 'analytical')) {
-    normSlug = 'analytical';
+
+  // Manufacturing:
+  if (normCat === 'manufacturing') {
+    if (normSlug === 'drug-substance-manufacturing' || normSlug === 'drug-substance' || normSlug === 'drug substance manufacturing') {
+      normSlug = 'drug-substance';
+    } else if (normSlug === 'drug-product-manufacturing' || normSlug === 'drug-product' || normSlug === 'drug product manufacturing') {
+      normSlug = 'drug-product';
+    }
+  }
+
+  // Characterization:
+  if (normCat === 'characterization') {
+    if (normSlug === 'analytical-testing' || normSlug === 'analytical testing') {
+      normSlug = 'analytical-testing';
+    } else if (normSlug === 'physicochemical-characterization' || normSlug === 'physicochemical' || normSlug === 'physicochemical characterization') {
+      normSlug = 'physicochemical';
+    } else if (
+      normSlug === 'bioassays-immunogenicity-testing' ||
+      normSlug === 'bioassays-and-immunogenicity-testing' ||
+      normSlug === 'bioassays' ||
+      normSlug === 'bioassays & immunogenicity testing'
+    ) {
+      normSlug = 'bioassays';
+    } else if (normSlug === 'microbiological-testing' || normSlug === 'microbiological' || normSlug === 'microbiological testing') {
+      normSlug = 'microbiological';
+    }
+  }
+
+  // Modalities:
+  if (normCat === 'modalities') {
+    if (normSlug === 'monoclonal-antibodies' || normSlug === 'mabs' || normSlug === 'monoclonal antibodies') {
+      normSlug = 'mabs';
+    } else if (normSlug === 'bispecific-antibodies' || normSlug === 'bispecifics' || normSlug === 'bispecific antibodies') {
+      normSlug = 'bispecifics';
+    } else if (
+      normSlug === 'antibody-drug-conjugates' ||
+      normSlug === 'antibody-drug-conjugates-adcs' ||
+      normSlug === 'adcs' ||
+      normSlug === 'antibody drug conjugates'
+    ) {
+      normSlug = 'adcs';
+    } else if (normSlug === 'proteins-peptides' || normSlug === 'proteins-and-peptides' || normSlug === 'proteins & peptides') {
+      normSlug = 'proteins-peptides';
+    }
+  }
+
+  // Insights:
+  if (normCat === 'insights') {
+    if (normSlug === 'blogs-articles' || normSlug === 'blogs-and-articles' || normSlug === 'blogs') {
+      normSlug = 'blogs';
+    } else if (normSlug === 'news-press' || normSlug === 'news-and-press' || normSlug === 'news') {
+      normSlug = 'news';
+    } else if (normSlug === 'events-webinars' || normSlug === 'events-and-webinars' || normSlug === 'events') {
+      normSlug = 'events';
+    }
   }
 
   const records = getRawStoredRecords();

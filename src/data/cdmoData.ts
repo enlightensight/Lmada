@@ -288,12 +288,12 @@ export const cdmoData: CDMOPage[] = [
             "items": [
               {
                 "name": "Drug Substance Manufacturing",
-                "href": "/manufacturing/drug-substance",
+                "href": "/manufacturing/drug-substance-manufacturing",
                 "icon": "Beaker"
               },
               {
                 "name": "Drug Product Manufacturing",
-                "href": "/manufacturing/drug-product",
+                "href": "/manufacturing/drug-product-manufacturing",
                 "icon": "Package"
               }
             ]
@@ -302,7 +302,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Analytical Characterization & Testing",
             "description": "Orthogonal physicochemical characterization, bioassays, and QC microbiology under a unified quality system.",
             "icon": "Microscope",
-            "link": "/characterization",
+            "link": "/analytical-characterization-testing",
             "badge": "03 — Characterization",
             "step": "03 — Characterization",
             "image": "/images/Analytical/Orbitrap.webp",
@@ -322,17 +322,17 @@ export const cdmoData: CDMOPage[] = [
               },
               {
                 "name": "Physicochemical Characterization",
-                "href": "/characterization/physicochemical",
+                "href": "/characterization/physicochemical-characterization",
                 "icon": "Scale"
               },
               {
                 "name": "Bioassays & Immunogenicity Testing",
-                "href": "/characterization/bioassays",
+                "href": "/characterization/bioassays-immunogenicity-testing",
                 "icon": "HeartPulse"
               },
               {
                 "name": "Microbiological Testing",
-                "href": "/characterization/microbiological",
+                "href": "/characterization/microbiological-testing",
                 "icon": "Bug"
               }
             ]
@@ -353,19 +353,19 @@ export const cdmoData: CDMOPage[] = [
           {
             "title": "Monoclonal Antibodies",
             "description": "Platform capabilities for IgG1, IgG2, and IgG4 subclasses.",
-            "link": "/modalities/mabs",
+            "link": "/modalities/monoclonal-antibodies",
             "image": "/images/modalities/mAb.png"
           },
           {
             "title": "Bispecific Antibodies",
             "description": "Addressing chain pairing, homodimer, and mispairing challenges.",
-            "link": "/modalities/bispecifics",
+            "link": "/modalities/bispecific-antibodies",
             "image": "/images/modalities/Bispecific_Antibody.png"
           },
           {
             "title": "Antibody-Drug Conjugates",
             "description": "Conjugation process development, DAR characterization, and GMP manufacturing.",
-            "link": "/modalities/adcs",
+            "link": "/modalities/antibody-drug-conjugates",
             "image": "/images/modalities/Antibody-Drug_Conjugate.png"
           },
           {
@@ -1228,14 +1228,14 @@ export const cdmoData: CDMOPage[] = [
         "title": "Monoclonal Antibodies",
         "subtitle": "mAbs & IgG Formats",
         "description": "High-titer CHO stable cell lines with verified single-cell monoclonality, robust growth, and high productivity for standard and engineered IgGs.",
-        "link": "/modalities/mabs",
+        "link": "/modalities/monoclonal-antibodies",
         "badge": "Core Focus"
       },
       {
         "title": "Bispecific Antibodies",
         "subtitle": "Multi-Specific Formats",
         "description": "Optimized vector design, heavy/light chain ratio tuning, and high-yield clone screening for asymmetric heterodimers and multi-chain formats.",
-        "link": "/modalities/bispecifics",
+        "link": "/modalities/bispecific-antibodies",
         "badge": "Multi-Specific"
       },
       {
@@ -2338,7 +2338,7 @@ export const cdmoData: CDMOPage[] = [
         "cards": [
           {
             "title": "Drug Substance Manufacturing",
-            "link": "/manufacturing/drug-substance",
+            "link": "/manufacturing/drug-substance-manufacturing",
             "badge": "Drug Substance",
             "image": "/images/upstream_GMP/549A7821.png",
             "description": "Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.",
@@ -2351,7 +2351,7 @@ export const cdmoData: CDMOPage[] = [
           },
           {
             "title": "Drug Product Manufacturing",
-            "link": "/manufacturing/drug-product",
+            "link": "/manufacturing/drug-product-manufacturing",
             "badge": "Drug Product",
             "image": "/images/insights/robotic_fill_finish.png",
             "description": "Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products across liquid and lyophilized forms.",
@@ -2441,7 +2441,7 @@ export const cdmoData: CDMOPage[] = [
           },
           {
             "title": "Physicochemical Characterization",
-            "link": "/characterization/physicochemical",
+            "link": "/characterization/physicochemical-characterization",
             "badge": "Physicochemical",
             "image": "/images/Analytical/Orbitrap.webp",
             "description": "Comprehensive structural, molecular, and biophysical characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.",
@@ -2454,7 +2454,7 @@ export const cdmoData: CDMOPage[] = [
           },
           {
             "title": "Bioassays & Immunogenicity Testing",
-            "link": "/characterization/bioassays",
+            "link": "/characterization/bioassays-immunogenicity-testing",
             "badge": "Bioassays & ADA",
             "image": "/images/upstream/Biosaftey_cabinet.png",
             "description": "Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.",
@@ -2467,7 +2467,7 @@ export const cdmoData: CDMOPage[] = [
           },
           {
             "title": "Microbiological Testing",
-            "link": "/characterization/microbiological",
+            "link": "/characterization/microbiological-testing",
             "badge": "Microbiology",
             "image": "/images/Analytical/microbiology/environmental_monitoring_cleanroom.webp",
             "description": "Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.",

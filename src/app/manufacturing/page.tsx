@@ -50,7 +50,7 @@ const DEFAULT_MANUFACTURING_SUB_SERVICES = [
   {
     title: 'Drug Substance Manufacturing',
     slug: 'drug-substance',
-    href: '/manufacturing/drug-substance',
+    href: '/manufacturing/drug-substance-manufacturing',
     image: '/images/upstream_GMP/GMP Production bioreactor.png',
     description: 'Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.',
     capabilities: [
@@ -63,7 +63,7 @@ const DEFAULT_MANUFACTURING_SUB_SERVICES = [
   {
     title: 'Drug Product Manufacturing',
     slug: 'drug-product',
-    href: '/manufacturing/drug-product',
+    href: '/manufacturing/drug-product-manufacturing',
     image: '/images/insights/robotic_fill_finish.png',
     description: 'Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products across liquid and lyophilized forms.',
     capabilities: [

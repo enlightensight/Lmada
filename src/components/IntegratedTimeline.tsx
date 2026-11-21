@@ -160,7 +160,7 @@ const CONTINUUM_STAGES = [
     ],
     metric: 'Capacity: 10,000+',
     metricLabel: 'Vials / cGMP Batch',
-    link: '/manufacturing/drug-substance',
+    link: '/manufacturing/drug-substance-manufacturing',
     icon: ManufacturingVialIcon,
   },
   {

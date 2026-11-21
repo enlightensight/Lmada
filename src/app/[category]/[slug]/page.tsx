@@ -30,10 +30,54 @@ export async function generateStaticParams() {
     }));
 
   const aliases = [
+    // Overview
+    { category: 'overview', slug: 'about-lambda-cdmo' },
+    { category: 'overview', slug: 'leadership-team' },
     { category: 'overview', slug: 'integrated-development-to-manufacturing' },
+    { category: 'overview', slug: 'quality-and-compliance' },
+
+    // Services
     { category: 'services', slug: 'cell-line-development' },
     { category: 'services', slug: 'process-development' },
     { category: 'services', slug: 'analytical-development' },
+
+    // Manufacturing
+    { category: 'manufacturing', slug: 'drug-substance-manufacturing' },
+    { category: 'manufacturing', slug: 'drug-product-manufacturing' },
+
+    // Characterization
+    { category: 'characterization', slug: 'analytical-testing' },
+    { category: 'characterization', slug: 'physicochemical-characterization' },
+    { category: 'characterization', slug: 'bioassays-immunogenicity-testing' },
+    { category: 'characterization', slug: 'microbiological-testing' },
+
+    // Modalities
+    { category: 'modalities', slug: 'monoclonal-antibodies' },
+    { category: 'modalities', slug: 'bispecific-antibodies' },
+    { category: 'modalities', slug: 'antibody-drug-conjugates' },
+    { category: 'modalities', slug: 'antibody-drug-conjugates-adcs' },
+
+    // Insights
+    { category: 'insights', slug: 'blogs-articles' },
+    { category: 'insights', slug: 'news-press' },
+    { category: 'insights', slug: 'events-webinars' },
+
+    // Category alias: development-services
+    { category: 'development-services', slug: 'cell-line-development' },
+    { category: 'development-services', slug: 'process-development' },
+    { category: 'development-services', slug: 'analytical-development' },
+
+    // Category alias: manufacturing-services
+    { category: 'manufacturing-services', slug: 'drug-substance-manufacturing' },
+    { category: 'manufacturing-services', slug: 'drug-product-manufacturing' },
+    { category: 'manufacturing-services', slug: 'drug-substance' },
+    { category: 'manufacturing-services', slug: 'drug-product' },
+
+    // Category alias: analytical-characterization-testing
+    { category: 'analytical-characterization-testing', slug: 'analytical-testing' },
+    { category: 'analytical-characterization-testing', slug: 'physicochemical-characterization' },
+    { category: 'analytical-characterization-testing', slug: 'bioassays-immunogenicity-testing' },
+    { category: 'analytical-characterization-testing', slug: 'microbiological-testing' },
   ];
 
   return [...base, ...aliases];

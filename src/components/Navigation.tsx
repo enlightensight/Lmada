@@ -38,15 +38,15 @@ export default function Navigation() {
         {
           title: 'Company',
           links: [
-            { label: 'About Lambda CDMO', href: '/overview/about', icon: Building2 },
-            { label: 'Leadership Team', href: '/overview/leadership', icon: Users },
+            { label: 'About Lambda CDMO', href: '/overview/about-lambda-cdmo', icon: Building2 },
+            { label: 'Leadership Team', href: '/overview/leadership-team', icon: Users },
           ],
         },
         {
           title: 'Commitment',
           links: [
             { label: 'Integrated development to manufacturing', href: '/overview/integrated-development-to-manufacturing', icon: Layers },
-            { label: 'Quality and Compliance', href: '/overview/quality', icon: ShieldCheck },
+            { label: 'Quality and Compliance', href: '/overview/quality-and-compliance', icon: ShieldCheck },
             { label: 'Careers', href: '/overview/careers', icon: Briefcase },
           ],
         },
@@ -58,7 +58,7 @@ export default function Navigation() {
       columns: [
         {
           title: 'Development Services',
-          href: '/services',
+          href: '/development-services',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line-development', icon: Dna },
             { label: 'Process Development', href: '/services/process-development', icon: Settings },
@@ -67,20 +67,20 @@ export default function Navigation() {
         },
         {
           title: 'Manufacturing Services',
-          href: '/manufacturing',
+          href: '/manufacturing-services',
           links: [
-            { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance', icon: Beaker },
-            { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product', icon: Package },
+            { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance-manufacturing', icon: Beaker },
+            { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product-manufacturing', icon: Package },
           ],
         },
         {
           title: 'Analytical Characterization and Testing',
-          href: '/characterization',
+          href: '/analytical-characterization-testing',
           links: [
             { label: 'Analytical Testing', href: '/characterization/analytical-testing', icon: Microscope },
-            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Atom },
-            { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays', icon: HeartPulse },
-            { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: PetriDishIcon },
+            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical-characterization', icon: Atom },
+            { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays-immunogenicity-testing', icon: HeartPulse },
+            { label: 'Microbiological Testing', href: '/characterization/microbiological-testing', icon: PetriDishIcon },
           ],
         },
       ],
@@ -108,14 +108,14 @@ export default function Navigation() {
         {
           title: 'Molecule Types',
           links: [
-            { label: 'Monoclonal Antibodies', href: '/modalities/mabs', icon: Target },
-            { label: 'Bispecific Antibodies', href: '/modalities/bispecifics', icon: GitMerge },
+            { label: 'Monoclonal Antibodies', href: '/modalities/monoclonal-antibodies', icon: Target },
+            { label: 'Bispecific Antibodies', href: '/modalities/bispecific-antibodies', icon: GitMerge },
           ],
         },
         {
           title: 'Advanced Therapeutics',
           links: [
-            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs', icon: AntibodyPayloadIcon },
+            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/antibody-drug-conjugates', icon: AntibodyPayloadIcon },
             { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides', icon: PeptideChainIcon },
           ],
         },

@@ -241,7 +241,7 @@ export default function SearchModal({ isOpen, onClose, initialQuery = '' }: Sear
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-neutral-100">
                     <Link
-                      href="/services"
+                      href="/development-services"
                       onClick={onClose}
                       className="group p-3 rounded-xl border border-neutral-100 bg-neutral-50/50 hover:bg-sky-50/50 hover:border-sky-200 transition-all flex items-center justify-between"
                     >

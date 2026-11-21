@@ -59,7 +59,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
   };
   const heroSecondaryCta = {
     text: pageData?.heroSecondaryCtaText || pageData?.secondaryCta?.text || 'EXPLORE SERVICES',
-    link: pageData?.heroSecondaryCtaLink || pageData?.secondaryCta?.link || '/services',
+    link: pageData?.heroSecondaryCtaLink || pageData?.secondaryCta?.link || '/development-services',
   };
 
   const defaultServiceCards = [
@@ -81,7 +81,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
         { name: 'Process Development', icon: Activity, href: '/services/process-development' },
         { name: 'Analytical Development', icon: FlaskConical, href: '/services/analytical-development' },
       ],
-      href: '/services',
+      href: '/development-services',
     },
     {
       title: 'Manufacturing Services',
@@ -97,10 +97,10 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
         '/images/down stream/Tecan Freedom EVO.png',
       ],
       items: [
-        { name: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance' },
-        { name: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product' },
+        { name: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance-manufacturing' },
+        { name: 'Drug Product Manufacturing', icon: Package, href: '/manufacturing/drug-product-manufacturing' },
       ],
-      href: '/manufacturing',
+      href: '/manufacturing-services',
     },
     {
       title: 'Analytical Characterization & Testing',
@@ -118,30 +118,30 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       ],
       items: [
         { name: 'Analytical Testing', icon: Microscope, href: '/characterization/analytical-testing' },
-        { name: 'Physicochemical Characterization', icon: Scale, href: '/characterization/physicochemical' },
-        { name: 'Bioassays & Immunogenicity Testing', icon: HeartPulse, href: '/characterization/bioassays' },
-        { name: 'Microbiological Testing', icon: Bug, href: '/characterization/microbiological' },
+        { name: 'Physicochemical Characterization', icon: Scale, href: '/characterization/physicochemical-characterization' },
+        { name: 'Bioassays & Immunogenicity Testing', icon: HeartPulse, href: '/characterization/bioassays-immunogenicity-testing' },
+        { name: 'Microbiological Testing', icon: Bug, href: '/characterization/microbiological-testing' },
       ],
-      href: '/characterization',
+      href: '/analytical-characterization-testing',
     },
   ];
 
   const defaultModalities = [
     {
       title: 'Monoclonal Antibodies',
-      slug: 'mabs',
+      slug: 'monoclonal-antibodies',
       desc: 'Platform capabilities for IgG1, IgG2, and IgG4 subclasses.',
       image: '/images/modalities/mAb.png',
     },
     {
       title: 'Bispecific Antibodies',
-      slug: 'bispecifics',
+      slug: 'bispecific-antibodies',
       desc: 'Addressing chain pairing, homodimer, and mispairing challenges.',
       image: '/images/modalities/Bispecific_Antibody.png',
     },
     {
       title: 'Antibody-Drug Conjugates',
-      slug: 'adcs',
+      slug: 'antibody-drug-conjugates',
       desc: 'Conjugation process development, DAR characterization, and GMP manufacturing.',
       image: '/images/modalities/Antibody-Drug_Conjugate.png',
     },

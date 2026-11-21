@@ -2,11 +2,11 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Dna, 
-  Settings, 
-  FlaskConical, 
-  ArrowRight, 
+import {
+  Dna,
+  Settings,
+  FlaskConical,
+  ArrowRight,
   Check
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
@@ -42,7 +42,7 @@ const DEFAULT_SUB_SERVICES = [
   {
     title: 'Cell Line Development',
     slug: 'cell-line',
-    href: '/services/cell-line',
+    href: '/services/cell-line-development',
     image: '/images/celldev/CLD_Lab.png',
     description: 'A well-characterized, productive cell line provides the foundation for a robust biologics manufacturing process across mammalian expression platforms.',
     capabilities: [
@@ -121,21 +121,21 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
   const descriptionParagraphs = page?.description
     ? page.description.split('\n\n').filter(Boolean)
     : [
-        'Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes, generate meaningful development data, and support efficient technology transfer into GMP manufacturing.',
-        'Our development approach spans early-stage development through process characterization and technology transfer, with capabilities supporting monoclonal antibodies, bispecific antibodies, biosimilars, recombinant proteins, peptides, and other biologic modalities.'
-      ];
+      'Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes, generate meaningful development data, and support efficient technology transfer into GMP manufacturing.',
+      'Our development approach spans early-stage development through process characterization and technology transfer, with capabilities supporting monoclonal antibodies, bispecific antibodies, biosimilars, recombinant proteins, peptides, and other biologic modalities.'
+    ];
 
   // Dynamic Cards
   const cardsSection = page?.sections?.find((s) => s.cards && s.cards.length > 0) || page?.sections?.[0];
   const renderedCards = (cardsSection?.cards && cardsSection.cards.length > 0)
     ? cardsSection.cards.map((card, idx) => ({
-        title: card.title || DEFAULT_SUB_SERVICES[idx]?.title || `Service ${idx + 1}`,
-        slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `service-${idx + 1}`,
-        href: card.link || DEFAULT_SUB_SERVICES[idx]?.href || '/services',
-        image: card.image || DEFAULT_SUB_SERVICES[idx]?.image || '/images/celldev/CLD_Lab.png',
-        description: card.description || DEFAULT_SUB_SERVICES[idx]?.description || '',
-        capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_SUB_SERVICES[idx]?.capabilities || []),
-      }))
+      title: card.title || DEFAULT_SUB_SERVICES[idx]?.title || `Service ${idx + 1}`,
+      slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `service-${idx + 1}`,
+      href: card.link || DEFAULT_SUB_SERVICES[idx]?.href || '/services',
+      image: card.image || DEFAULT_SUB_SERVICES[idx]?.image || '/images/celldev/CLD_Lab.png',
+      description: card.description || DEFAULT_SUB_SERVICES[idx]?.description || '',
+      capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_SUB_SERVICES[idx]?.capabilities || []),
+    }))
     : DEFAULT_SUB_SERVICES;
 
   const faqs = (page?.faqs && page.faqs.length > 0) ? page.faqs : DEFAULT_DEVELOPMENT_FAQS;
@@ -244,7 +244,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/50 via-transparent to-transparent" />
-                      
+
                       <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2.5 text-white">
                         <div className="w-8 h-8 rounded-lg bg-brand-orange text-white flex items-center justify-center shrink-0 shadow-sm">
                           <ServiceIcon className="w-4 h-4" />
@@ -300,8 +300,8 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
       </section>
 
       {/* FAQS */}
-      <FAQSection 
-        faqs={faqs} 
+      <FAQSection
+        faqs={faqs}
         title={page?.faqTitle}
         subtitle={page?.faqSubtitle}
         buttonText={page?.faqButtonText}
@@ -309,7 +309,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
       />
 
       {/* CTA */}
-      <CommonCTA 
+      <CommonCTA
         title={page?.ctaTitle}
         subtitle={page?.ctaSubtitle}
         primaryButtonText={page?.primaryCta?.text}

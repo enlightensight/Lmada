@@ -57,7 +57,7 @@ const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
   {
     title: 'Physicochemical Characterization',
     slug: 'physicochemical',
-    href: '/characterization/physicochemical',
+    href: '/characterization/physicochemical-characterization',
     image: '/images/Analytical/Orbitrap.png',
     description: 'Comprehensive structural, molecular, and biophysical characterization to evaluate identity, purity, structural attributes, heterogeneity, stability, and product comparability.',
     capabilities: [
@@ -70,7 +70,7 @@ const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
   {
     title: 'Bioassays & Immunogenicity Testing',
     slug: 'bioassays',
-    href: '/characterization/bioassays',
+    href: '/characterization/bioassays-immunogenicity-testing',
     image: '/images/upstream/Biosaftey_cabinet.png',
     description: 'Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.',
     capabilities: [
@@ -83,7 +83,7 @@ const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
   {
     title: 'Microbiological Testing',
     slug: 'microbiological',
-    href: '/characterization/microbiological',
+    href: '/characterization/microbiological-testing',
     image: '/images/Analytical/microbiology/environmental_monitoring_cleanroom.webp',
     description: 'Controlled microbiological testing services supporting biologics manufacturing, environmental monitoring, bioburden reduction, and sterility assurance.',
     capabilities: [

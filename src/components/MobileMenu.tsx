@@ -110,15 +110,15 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         {
           title: 'Company',
           links: [
-            { label: 'About Lambda CDMO', href: '/overview/about', icon: Building2 },
-            { label: 'Leadership Team', href: '/overview/leadership', icon: Users },
+            { label: 'About Lambda CDMO', href: '/overview/about-lambda-cdmo', icon: Building2 },
+            { label: 'Leadership Team', href: '/overview/leadership-team', icon: Users },
           ],
         },
         {
           title: 'Commitment',
           links: [
             { label: 'Integrated development to manufacturing', href: '/overview/integrated-development-to-manufacturing', icon: Layers },
-            { label: 'Quality and Compliance', href: '/overview/quality', icon: ShieldCheck },
+            { label: 'Quality and Compliance', href: '/overview/quality-and-compliance', icon: ShieldCheck },
             { label: 'Careers', href: '/overview/careers', icon: Briefcase },
           ],
         },
@@ -130,7 +130,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       columns: [
         {
           title: 'Development Services',
-          href: '/services',
+          href: '/development-services',
           headline: 'Development Designed for Manufacturing',
           description: 'Every development decision influences downstream manufacturing. Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes, generate meaningful development data, and support efficient technology transfer into GMP manufacturing.',
           links: [
@@ -141,24 +141,24 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         },
         {
           title: 'Manufacturing Services',
-          href: '/manufacturing',
+          href: '/manufacturing-services',
           headline: 'From Process Development to Clinical Manufacturing. Delivered with Confidence.',
           description: 'Manufacturing success depends on process consistency, product quality, and effective technology transfer. Lambda CDMO provides integrated manufacturing capabilities for biologics, supporting the transition from development into GMP drug substance and drug product manufacturing for clinical supplies.',
           links: [
-            { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance', icon: Beaker },
-            { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product', icon: Package },
+            { label: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance-manufacturing', icon: Beaker },
+            { label: 'Drug Product Manufacturing', href: '/manufacturing/drug-product-manufacturing', icon: Package },
           ],
         },
         {
           title: 'Analytical Characterization and Testing',
-          href: '/characterization',
+          href: '/analytical-characterization-testing',
           headline: 'Analytical Insights that Advance Biologics Development',
           description: 'Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.',
           links: [
             { label: 'Analytical Testing', href: '/characterization/analytical-testing', icon: Microscope },
-            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Atom },
-            { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays', icon: HeartPulse },
-            { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: PetriDishIcon },
+            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical-characterization', icon: Atom },
+            { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays-immunogenicity-testing', icon: HeartPulse },
+            { label: 'Microbiological Testing', href: '/characterization/microbiological-testing', icon: PetriDishIcon },
           ],
         },
       ],
@@ -186,14 +186,14 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         {
           title: 'Molecule Types',
           links: [
-            { label: 'Monoclonal Antibodies', href: '/modalities/mabs', icon: Target },
-            { label: 'Bispecific Antibodies', href: '/modalities/bispecifics', icon: GitMerge },
+            { label: 'Monoclonal Antibodies', href: '/modalities/monoclonal-antibodies', icon: Target },
+            { label: 'Bispecific Antibodies', href: '/modalities/bispecific-antibodies', icon: GitMerge },
           ],
         },
         {
           title: 'Advanced Therapeutics',
           links: [
-            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs', icon: AntibodyPayloadIcon },
+            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/antibody-drug-conjugates', icon: AntibodyPayloadIcon },
             { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides', icon: PeptideChainIcon },
           ],
         },
