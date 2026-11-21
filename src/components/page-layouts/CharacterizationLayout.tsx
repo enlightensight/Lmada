@@ -130,7 +130,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
               </div>
             </div>
             <Reveal delay={0.1} className="w-full">
-              {page.images && page.images.length > 1 ? (
+              {page.images && page.images.length > 0 ? (
                 <AboutHeroCarousel images={page.images} />
               ) : heroEquipment && heroEquipment.length > 0 ? (
                 <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />

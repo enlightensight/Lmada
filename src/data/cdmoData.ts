@@ -1548,9 +1548,7 @@ export const cdmoData: CDMOPage[] = [
       "/images/Analytical/RT-PCR.webp",
       "/images/Analytical/Multimode reader.webp",
       "/images/Analytical/Flow Cytometer.webp",
-      "/images/Analytical/Liquid Handling System.webp",
-      "/images/Analytical/Cell Celector.webp",
-      "/images/Analytical/AMBR15.webp"
+      "/images/Analytical/Liquid Handling System.webp"
     ],
     "capabilities": [
       "Identity testing using peptide mapping, LC-MS, and immunological methods",
@@ -1629,9 +1627,7 @@ export const cdmoData: CDMOPage[] = [
       "/images/Analytical/UPLC.webp",
       "/images/Analytical/UPLC - Thermo.webp",
       "/images/Analytical/Q ToF.webp",
-      "/images/Analytical/Orbitrap.webp",
-      "/images/Analytical/Biacore 8K Plus.webp",
-      "/images/Analytical/Octet.webp"
+      "/images/Analytical/Orbitrap.webp"
     ],
     "capabilities": [
       "Primary structure analysis",
@@ -1742,7 +1738,7 @@ export const cdmoData: CDMOPage[] = [
     "images": [
       "/images/Analytical/Multimode reader.webp",
       "/images/Analytical/Flow Cytometer.webp",
-      "/images/Analytical/Biacore 8K Plus.webp",
+      "/images/Analytical/Biacore 8K+.webp",
       "/images/Analytical/Octet.webp",
       "/images/Analytical/Liquid Handling System.webp"
     ],
@@ -1818,10 +1814,9 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Characterization",
     "heading": "Microbiological Testing for Manufacturing and Product Quality",
     "description": "Lambda CDMO provides microbiological testing services to support biologics manufacturing, environmental monitoring, and product release. Our microbiology laboratory performs compendial and validated assays to ensure microbiological quality and compliance with global pharmacopeial requirements.\n\nTesting is conducted in accordance with USP, EP, and IP standards within an established quality management system.",
-    "image": "/images/Analytical/microbiology/petri_dish_culture.webp",
+    "image": "/images/Analytical/Microbiology Testing.webp",
     "images": [
-      "/images/Analytical/microbiology/petri_dish_culture.webp",
-      "/images/Analytical/microbiology/environmental_monitoring_cleanroom.webp"
+      "/images/Analytical/Microbiology Testing.webp"
     ],
     "capabilities": [
       "Sterility testing",

@@ -68,13 +68,13 @@ export default function AboutHeroCarousel({ images }: AboutHeroCarouselProps) {
 
   // Auto-advance every 5 seconds (5000ms)
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || activeImages.length <= 1) return;
     const timer = setInterval(() => {
       nextSlide();
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [isPaused, nextSlide]);
+  }, [isPaused, nextSlide, activeImages.length]);
 
   const currentImage = activeImages[currentIndex] || activeImages[0];
 
@@ -104,51 +104,61 @@ export default function AboutHeroCarousel({ images }: AboutHeroCarouselProps) {
             className="w-full h-full object-cover"
           />
           {/* Subtle bottom vignette gradient for readable controls */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 pointer-events-none" />
+          {activeImages.length > 1 && (
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 pointer-events-none" />
+          )}
         </motion.div>
       </AnimatePresence>
 
       {/* Left Navigation Arrow */}
-      <button
-        type="button"
-        onClick={prevSlide}
-        aria-label="Previous image"
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-neutral-800 backdrop-blur-md shadow-md hover:shadow-lg border border-white/40 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer opacity-90 hover:opacity-100"
-      >
-        <ChevronLeft className="w-5 h-5 -translate-x-0.5" />
-      </button>
+      {activeImages.length > 1 && (
+        <button
+          type="button"
+          onClick={prevSlide}
+          aria-label="Previous image"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-neutral-800 backdrop-blur-md shadow-md hover:shadow-lg border border-white/40 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer opacity-90 hover:opacity-100"
+        >
+          <ChevronLeft className="w-5 h-5 -translate-x-0.5" />
+        </button>
+      )}
 
       {/* Right Navigation Arrow */}
-      <button
-        type="button"
-        onClick={nextSlide}
-        aria-label="Next image"
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-neutral-800 backdrop-blur-md shadow-md hover:shadow-lg border border-white/40 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer opacity-90 hover:opacity-100"
-      >
-        <ChevronRight className="w-5 h-5 translate-x-0.5" />
-      </button>
+      {activeImages.length > 1 && (
+        <button
+          type="button"
+          onClick={nextSlide}
+          aria-label="Next image"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-neutral-800 backdrop-blur-md shadow-md hover:shadow-lg border border-white/40 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer opacity-90 hover:opacity-100"
+        >
+          <ChevronRight className="w-5 h-5 translate-x-0.5" />
+        </button>
+      )}
 
       {/* Top Floating Slide Counter Badge */}
-      <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider">
-        {String(currentIndex + 1).padStart(2, '0')} / {String(activeImages.length).padStart(2, '0')}
-      </div>
+      {activeImages.length > 1 && (
+        <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider">
+          {String(currentIndex + 1).padStart(2, '0')} / {String(activeImages.length).padStart(2, '0')}
+        </div>
+      )}
 
       {/* Bottom Floating Navigation Dots */}
-      <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15">
-        {activeImages.map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => goToSlide(idx)}
-            aria-label={`Go to slide ${idx + 1}`}
-            className={`transition-all duration-300 rounded-full cursor-pointer ${
-              currentIndex === idx
-                ? 'w-6 h-2 bg-[#f58634]'
-                : 'w-2 h-2 bg-white/60 hover:bg-white'
-            }`}
-          />
-        ))}
-      </div>
+      {activeImages.length > 1 && (
+        <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15">
+          {activeImages.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => goToSlide(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+              className={`transition-all duration-300 rounded-full cursor-pointer ${
+                currentIndex === idx
+                  ? 'w-6 h-2 bg-[#f58634]'
+                  : 'w-2 h-2 bg-white/60 hover:bg-white'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
