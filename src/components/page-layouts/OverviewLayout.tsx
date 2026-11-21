@@ -52,6 +52,7 @@ import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
 import CommonCTA from '@/components/CommonCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
 import BiologicsWorkflowGraphic from '@/components/BiologicsWorkflowGraphic';
+import BiologicsCircularGraphic from '@/components/BiologicsCircularGraphic';
 import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
@@ -729,12 +730,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   />
                 </div>
               ) : page.slug === 'integrated' ? (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white flex items-center justify-center p-3 sm:p-5">
-                  <img
-                    src="/images/Biologics CDMO.png"
-                    alt={page.title}
-                    className="w-full h-full object-contain"
-                  />
+                <div className="w-full flex items-center justify-center">
+                  <BiologicsCircularGraphic />
                 </div>
               ) : (page.slug === 'facility' || page.slug === 'India') ? (
                 <FacilityHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
@@ -902,9 +899,6 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <Reveal delay={0.05} className="h-full">
                   <div className="group h-full bg-neutral-50/70 border border-neutral-200/80 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between">
                     <div>
-                      <span className="inline-flex items-center px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-blue/10 text-brand-blue border border-brand-blue/20 mb-4">
-                        {sec1?.subtitle || 'END-TO-END CDMO INTEGRATION'}
-                      </span>
                       <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 group-hover:text-brand-blue transition-colors mb-4">
                         {sec1?.title || 'End-to-End Support Under One Roof'}
                       </h3>
@@ -919,9 +913,6 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <Reveal delay={0.1} className="h-full">
                   <div className="group h-full bg-neutral-50/70 border border-neutral-200/80 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-orange/40 transition-all duration-300 flex flex-col justify-between">
                     <div>
-                      <span className="inline-flex items-center px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-4">
-                        {sec2?.subtitle || 'RISK MITIGATION & SPEED TO CLINIC'}
-                      </span>
                       <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 group-hover:text-brand-orange transition-colors mb-4">
                         {sec2?.title || 'Reduced Technology Transfer Risk & Operational Simplicity'}
                       </h3>

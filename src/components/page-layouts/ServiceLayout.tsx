@@ -367,7 +367,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                       )}
 
                       {section.text && (
-                        <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-5xl mb-6">
+                        <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed w-full max-w-none mb-6">
                           {section.text}
                         </p>
                       )}
@@ -527,7 +527,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                   Applicable Modalities
                 </h2>
-                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mt-3">
+                <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-none md:whitespace-nowrap mx-auto mt-3">
                   Our mammalian cell line development platform supports a comprehensive range of complex biologic modalities.
                 </p>
               </div>
@@ -542,27 +542,15 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                       href={modality.link || '#'}
                       className="group flex flex-col justify-between w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-lg hover:border-brand-yellow transition-all duration-300"
                     >
-                      <div>
-                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200 mb-4">
-                          <ModIcon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-200" />
-                        </div>
-                        {modality.badge && (
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-brand-orange block mb-1">
-                            {modality.badge}
-                          </span>
-                        )}
-                        <h3 className="text-base sm:text-lg font-semibold text-neutral-900 group-hover:text-brand-blue transition-colors duration-200 leading-snug mb-2">
+                      <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200 mb-6">
+                        <ModIcon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-200" />
+                      </div>
+
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="text-base sm:text-lg font-semibold text-neutral-900 group-hover:text-brand-blue transition-colors duration-200 leading-snug">
                           {modality.title}
                         </h3>
-                        {modality.description && (
-                          <p className="text-xs sm:text-sm text-slate-500 line-clamp-3 leading-relaxed mb-4">
-                            {modality.description}
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex items-center text-xs font-semibold text-brand-blue group-hover:text-brand-orange transition-colors gap-1 pt-2 border-t border-neutral-100">
-                        <span>Learn More</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-blue group-hover:translate-x-1 transition-all duration-200 shrink-0" />
                       </div>
                     </Link>
                   </Reveal>
