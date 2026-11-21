@@ -293,19 +293,19 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
                 Analytical Support Across the Development Lifecycle
               </h2>
-              <p className="text-[16px] sm:text-[17px] text-slate-600 font-normal leading-relaxed max-w-4xl mx-auto mt-4">
+              <p className="text-[15px] sm:text-[16px] lg:text-[16.5px] text-slate-600 font-normal leading-relaxed w-full max-w-none mx-auto mt-4 whitespace-normal lg:whitespace-nowrap">
                 Lambda CDMO&apos;s analytical capabilities support biologics programs from early product and reference characterization through process development, comparability, manufacturing, batch release, and stability assessment.
               </p>
             </div>
           </Reveal>
 
           {/* Stepped Lifecycle Flow */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-3.5 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-3.5">
             {ANALYTICAL_LIFECYCLE_STEPS.map((item, idx) => {
               const IconComponent = item.icon;
               return (
                 <Reveal key={idx} delay={idx * 0.05} className="h-full">
-                  <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300 relative">
+                  <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-4 bg-white px-2.5 py-0.5 rounded-full border border-neutral-200/60 group-hover:border-brand-blue/30 group-hover:text-brand-blue transition-colors">
                       Step {item.step}
                     </span>
@@ -318,13 +318,6 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
                     <h3 className="text-sm sm:text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors flex-1 flex items-center justify-center">
                       {item.title}
                     </h3>
-
-                    {/* Step connector arrow on desktop */}
-                    {idx < ANALYTICAL_LIFECYCLE_STEPS.length - 1 && (
-                      <div className="hidden lg:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 w-5 h-5 rounded-full bg-white border border-neutral-200/80 shadow-xs items-center justify-center text-neutral-400 pointer-events-none group-hover:border-brand-blue group-hover:text-brand-blue transition-colors">
-                        <ArrowRight className="w-3 h-3" />
-                      </div>
-                    )}
                   </div>
                 </Reveal>
               );
