@@ -726,7 +726,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               ) : page.slug === 'leadership' ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
-                    src="/images/Collaborative Medical Research Lab.webp"
+                    src="/images/Collaborative Biomedical Research Lab (1).webp"
                     alt={page.title}
                     className="w-full h-full object-cover"
                   />
