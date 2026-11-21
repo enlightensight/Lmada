@@ -23,8 +23,8 @@ export default function Footer() {
       title: 'Development & Manufacturing',
       links: [
         { name: 'Cell Line Development', href: '/services/cell-line-development' },
-        { name: 'Process Development', href: '/services/process' },
-        { name: 'Analytical Development', href: '/services/analytical' },
+        { name: 'Process Development', href: '/services/process-development' },
+        { name: 'Analytical Development', href: '/services/analytical-development' },
         { name: 'Drug Substance Manufacturing', href: '/manufacturing/drug-substance' },
         { name: 'Drug Product Manufacturing', href: '/manufacturing/drug-product' },
       ],

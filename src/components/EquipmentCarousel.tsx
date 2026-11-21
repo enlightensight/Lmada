@@ -89,10 +89,10 @@ export default function EquipmentCarousel({
           <img
             src={encodeURI(currentItem.src)}
             alt={currentItem.title || sectionTitle || 'Equipment'}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.05] contrast-[1.03]"
           />
           {/* Subtle Gradient Overlays for Navigation and Indicator Contrast */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10 pointer-events-none z-10" />
         </motion.div>
       </AnimatePresence>
 

@@ -69,17 +69,17 @@
             "items": [
               {
                 "name": "Cell Line Development",
-                "href": "/services/cell-line",
+                "href": "/services/cell-line-development",
                 "icon": "Dna"
               },
               {
                 "name": "Process Development",
-                "href": "/services/process",
+                "href": "/services/process-development",
                 "icon": "Activity"
               },
               {
                 "name": "Analytical Development",
-                "href": "/services/analytical",
+                "href": "/services/analytical-development",
                 "icon": "FlaskConical"
               }
             ]
@@ -2068,7 +2068,7 @@
         "cards": [
           {
             "title": "Cell Line Development",
-            "link": "/services/cell-line",
+            "link": "/services/cell-line-development",
             "badge": "Cell Line Dev",
             "image": "/images/celldev/CLD_Lab.png",
             "description": "A well-characterized, productive cell line provides the foundation for a robust biologics manufacturing process across mammalian expression platforms.",
@@ -2081,7 +2081,7 @@
           },
           {
             "title": "Process Development",
-            "link": "/services/process",
+            "link": "/services/process-development",
             "badge": "Process Dev",
             "image": "/images/upstream/AMBR250.png",
             "description": "Upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability from bench to pilot scale.",
@@ -2094,7 +2094,7 @@
           },
           {
             "title": "Analytical Development",
-            "link": "/services/analytical",
+            "link": "/services/analytical-development",
             "badge": "Analytical Dev",
             "image": "/images/Analytical/UPLC.webp",
             "description": "Analytical methods supporting product and process development, comparability, stability assessment, and regulatory requirements.",

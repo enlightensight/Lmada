@@ -78,8 +78,8 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       ],
       items: [
         { name: 'Cell Line Development', icon: Dna, href: '/services/cell-line-development' },
-        { name: 'Process Development', icon: Activity, href: '/services/process' },
-        { name: 'Analytical Development', icon: FlaskConical, href: '/services/analytical' },
+        { name: 'Process Development', icon: Activity, href: '/services/process-development' },
+        { name: 'Analytical Development', icon: FlaskConical, href: '/services/analytical-development' },
       ],
       href: '/services',
     },

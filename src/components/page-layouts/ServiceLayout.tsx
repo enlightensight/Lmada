@@ -118,6 +118,11 @@ function getBulletCapabilityIcon(text: string, index: number) {
 
 export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
   const heroEquipment = getPageEquipment(page.slug);
+  const isProcess = page.slug === 'process' || page.slug === 'process-development';
+  const isAnalytical = page.slug === 'analytical' || page.slug === 'analytical-development';
+
+  const hidePointerIcons = isProcess || isAnalytical;
+  const hideHeaderIcons = isAnalytical;
 
   return (
     <>
@@ -175,7 +180,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover brightness-[1.05] contrast-[1.03]"
                   />
                 </div>
               ) : (
@@ -183,7 +188,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                   <img
                     src={page.image || '/images/hero_cleanroom.png'}
                     alt={page.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover brightness-[1.05] contrast-[1.03]"
                   />
                 </div>
               )}
@@ -211,17 +216,17 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         ? Beaker
                         : CAPABILITY_ICONS[idx % CAPABILITY_ICONS.length];
 
-              const isUpstreamProcess = page.slug === 'process' && section.title.toLowerCase().includes('upstream');
-              const isDownstreamProcess = page.slug === 'process' && section.title.toLowerCase().includes('downstream');
+              const isUpstreamProcess = isProcess && section.title.toLowerCase().includes('upstream');
+              const isDownstreamProcess = isProcess && section.title.toLowerCase().includes('downstream');
               const imageRight = idx % 2 === 1;
 
-              const equipmentItems = (page.slug === 'cell-line') ? null : getSectionEquipment(section.title, page.slug);
+              const equipmentItems = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? null : getSectionEquipment(section.title, page.slug);
               const isVideo = section.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(section.video || section.image || '');
               const hasEquipment = Boolean(equipmentItems && equipmentItems.length > 0);
               const hasMultiImages = Boolean(section.images && section.images.length > 1);
               const hasSingleImage = Boolean(section.image && section.image.trim() !== '');
               const hasVideo = Boolean(isVideo && (section.video || section.image));
-              const hasMedia = page.slug !== 'cell-line' && (hasMultiImages || hasVideo || hasEquipment || hasSingleImage);
+              const hasMedia = page.slug !== 'cell-line' && page.slug !== 'cell-line-development' && (hasMultiImages || hasVideo || hasEquipment || hasSingleImage);
 
               return (
                 <Reveal key={idx} delay={idx * 0.08}>
@@ -235,9 +240,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         <div className="lg:col-span-7">
                           {/* Header */}
                           <div className="flex items-center gap-3 mb-4">
-                            <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                              <Icon className="w-6 h-6 text-brand-blue" />
-                            </span>
+                            {!hideHeaderIcons && (
+                              <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                                <Icon className="w-6 h-6 text-brand-blue" />
+                              </span>
+                            )}
                             <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
                               {section.title}
                             </h3>
@@ -261,13 +268,15 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                       key={bIdx}
                                       className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                     >
-                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
-                                        {svgIcon ? (
-                                          <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
-                                        ) : (
-                                          <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                        )}
-                                      </div>
+                                      {!hidePointerIcons && (
+                                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                                          {svgIcon ? (
+                                            <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                                          ) : (
+                                            <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                          )}
+                                        </div>
+                                      )}
                                       <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                         {b}
                                       </span>
@@ -293,9 +302,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         <div className="lg:col-span-7">
                           {/* Header */}
                           <div className="flex items-center gap-3 mb-4">
-                            <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                              <Icon className="w-6 h-6 text-brand-blue" />
-                            </span>
+                            {!hideHeaderIcons && (
+                              <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                                <Icon className="w-6 h-6 text-brand-blue" />
+                              </span>
+                            )}
                             <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
                               {section.title}
                             </h3>
@@ -319,13 +330,15 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                       key={bIdx}
                                       className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                     >
-                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
-                                        {svgIcon ? (
-                                          <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
-                                        ) : (
-                                          <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                        )}
-                                      </div>
+                                      {!hidePointerIcons && (
+                                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                                          {svgIcon ? (
+                                            <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                                          ) : (
+                                            <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                          )}
+                                        </div>
+                                      )}
                                       <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                         {b}
                                       </span>
@@ -352,9 +365,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                     <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
                       {/* Header */}
                       <div className="flex items-center gap-3 mb-4">
-                        <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-6 h-6 text-brand-blue" />
-                        </span>
+                        {!hideHeaderIcons && (
+                          <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                            <Icon className="w-6 h-6 text-brand-blue" />
+                          </span>
+                        )}
                         <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
                           {section.title}
                         </h3>
@@ -388,13 +403,15 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                   key={bIdx}
                                   className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                 >
-                                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
-                                    {svgIcon ? (
-                                      <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
-                                    ) : (
-                                      <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                    )}
-                                  </div>
+                                  {!hidePointerIcons && (
+                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                                      {svgIcon ? (
+                                        <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                                      ) : (
+                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                      )}
+                                    </div>
+                                  )}
                                   <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                     {b}
                                   </span>
@@ -430,7 +447,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                     loop
                                     muted
                                     playsInline
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-cover brightness-[1.05] contrast-[1.03]"
                                   />
                                 </div>
                               );
@@ -444,7 +461,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                   <img
                                     src={section.image}
                                     alt={section.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.05] contrast-[1.03]"
                                   />
                                 )}
                               </div>
@@ -455,9 +472,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         {/* Content Box */}
                         <div className={`lg:col-span-7 ${imageRight ? 'lg:order-1' : 'lg:order-2'}`}>
                           <div className="flex items-center gap-3 mb-4">
-                            <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                              <Icon className="w-6 h-6 text-brand-blue" />
-                            </span>
+                            {!hideHeaderIcons && (
+                              <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                                <Icon className="w-6 h-6 text-brand-blue" />
+                              </span>
+                            )}
                             <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
                               {section.title}
                             </h3>
@@ -485,13 +504,15 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                                       key={bIdx}
                                       className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                                     >
-                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
-                                        {svgIcon ? (
-                                          <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
-                                        ) : (
-                                          <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                        )}
-                                      </div>
+                                      {!hidePointerIcons && (
+                                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                                          {svgIcon ? (
+                                            <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                                          ) : (
+                                            <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                                          )}
+                                        </div>
+                                      )}
                                       <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                         {b}
                                       </span>

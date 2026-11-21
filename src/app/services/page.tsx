@@ -55,7 +55,7 @@ const DEFAULT_SUB_SERVICES = [
   {
     title: 'Process Development',
     slug: 'process',
-    href: '/services/process',
+    href: '/services/process-development',
     image: '/images/upstream/AMBR250.png',
     description: 'Upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability from bench to pilot scale.',
     capabilities: [
@@ -68,7 +68,7 @@ const DEFAULT_SUB_SERVICES = [
   {
     title: 'Analytical Development',
     slug: 'analytical',
-    href: '/services/analytical',
+    href: '/services/analytical-development',
     image: '/images/Analytical/UPLC.png',
     description: 'Analytical methods supporting product and process development, comparability, stability assessment, and regulatory requirements.',
     capabilities: [
@@ -193,14 +193,14 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
                   <span>Cell Line Development</span>
                 </Link>
                 <Link
-                  href="/services/process"
+                  href="/services/process-development"
                   className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-orange text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <Settings className="w-4 h-4 text-brand-orange group-hover:text-white transition-colors" />
                   <span>Process Development</span>
                 </Link>
                 <Link
-                  href="/services/analytical"
+                  href="/services/analytical-development"
                   className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <FlaskConical className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
@@ -240,10 +240,10 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
                         src={service.image}
                         alt={service.title}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.05] contrast-[1.03]"
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/70 via-brand-navy/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/50 via-transparent to-transparent" />
                       
                       <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2.5 text-white">
                         <div className="w-8 h-8 rounded-lg bg-brand-orange text-white flex items-center justify-center shrink-0 shadow-sm">

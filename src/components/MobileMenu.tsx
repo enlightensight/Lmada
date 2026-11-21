@@ -135,8 +135,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           description: 'Every development decision influences downstream manufacturing. Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes, generate meaningful development data, and support efficient technology transfer into GMP manufacturing.',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line-development', icon: Dna },
-            { label: 'Process Development', href: '/services/process', icon: Settings },
-            { label: 'Analytical Development', href: '/services/analytical', icon: FlaskConical },
+            { label: 'Process Development', href: '/services/process-development', icon: Settings },
+            { label: 'Analytical Development', href: '/services/analytical-development', icon: FlaskConical },
           ],
         },
         {

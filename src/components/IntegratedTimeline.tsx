@@ -85,7 +85,7 @@ const CONTINUUM_STAGES = [
     ],
     metric: 'Titer: 4.8 – 8.5 g/L',
     metricLabel: 'Fed-Batch Yield',
-    link: '/services/cell-line',
+    link: '/services/cell-line-development',
     icon: Dna,
   },
   {
@@ -110,7 +110,7 @@ const CONTINUUM_STAGES = [
     ],
     metric: 'Recovery: >88.5%',
     metricLabel: 'Purification Yield',
-    link: '/services/process',
+    link: '/services/process-development',
     icon: BioreactorIcon,
   },
   {
@@ -135,7 +135,7 @@ const CONTINUUM_STAGES = [
     ],
     metric: 'Purity: >98.5%',
     metricLabel: 'Monomer SEC-HPLC',
-    link: '/services/analytical',
+    link: '/services/analytical-development',
     icon: Microscope,
   },
   {

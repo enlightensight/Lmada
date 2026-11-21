@@ -13,6 +13,21 @@ const nextConfig: NextConfig = {
         destination: '/modalities/mabs',
         permanent: true,
       },
+      {
+        source: '/services/process',
+        destination: '/services/process-development',
+        permanent: true,
+      },
+      {
+        source: '/services/analytical',
+        destination: '/services/analytical-development',
+        permanent: true,
+      },
+      {
+        source: '/services/cell-line',
+        destination: '/services/cell-line-development',
+        permanent: true,
+      },
     ];
   },
 };

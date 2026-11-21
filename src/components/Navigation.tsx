@@ -61,8 +61,8 @@ export default function Navigation() {
           href: '/services',
           links: [
             { label: 'Cell Line Development', href: '/services/cell-line-development', icon: Dna },
-            { label: 'Process Development', href: '/services/process', icon: Settings },
-            { label: 'Analytical Development', href: '/services/analytical', icon: FlaskConical },
+            { label: 'Process Development', href: '/services/process-development', icon: Settings },
+            { label: 'Analytical Development', href: '/services/analytical-development', icon: FlaskConical },
           ],
         },
         {

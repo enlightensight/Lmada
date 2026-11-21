@@ -151,16 +151,16 @@ export function getStoredPage(
   let normSlug = decodeURIComponent(slug || '').toLowerCase();
 
   // Alias support for full human-friendly URLs
-  if (normCat === 'overview' && (normSlug === 'integrated-development-to-manufacturing' || normSlug === 'integrated-development' || normSlug === 'integrated-manufacturing')) {
+  if (normCat === 'overview' && (normSlug === 'integrated-development-to-manufacturing' || normSlug === 'integrated-development' || normSlug === 'integrated-manufacturing' || normSlug === 'integrated development to manufacturing')) {
     normSlug = 'integrated';
   }
-  if (normCat === 'services' && normSlug === 'cell-line-development') {
+  if (normCat === 'services' && (normSlug === 'cell-line-development' || normSlug === 'cell-line' || normSlug === 'cell line development')) {
     normSlug = 'cell-line';
   }
-  if (normCat === 'services' && normSlug === 'process-development') {
+  if (normCat === 'services' && (normSlug === 'process-development' || normSlug === 'process development' || normSlug === 'process')) {
     normSlug = 'process';
   }
-  if (normCat === 'services' && normSlug === 'analytical-development') {
+  if (normCat === 'services' && (normSlug === 'analytical-development' || normSlug === 'analytical development' || normSlug === 'analytical')) {
     normSlug = 'analytical';
   }
 
