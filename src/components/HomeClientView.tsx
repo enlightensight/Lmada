@@ -178,54 +178,54 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
 
   const serviceCards = (servicesSection?.cards && servicesSection.cards.length > 0)
     ? servicesSection.cards.map((card, idx) => {
-        const fallback = defaultServiceCards[idx] || defaultServiceCards[0];
-        const iconComp = resolveIcon(card.icon, fallback.icon);
-        const imagesList = (card.images && card.images.length > 0)
-          ? card.images
-          : (card.image ? [card.image] : fallback.images);
+      const fallback = defaultServiceCards[idx] || defaultServiceCards[0];
+      const iconComp = resolveIcon(card.icon, fallback.icon);
+      const imagesList = (card.images && card.images.length > 0)
+        ? card.images
+        : (card.image ? [card.image] : fallback.images);
 
-        const itemsList = (card.items && card.items.length > 0)
-          ? card.items.map((it) => ({
-              name: it.name,
-              href: it.href,
-              icon: resolveIcon(it.icon, Dna),
-            }))
-          : (fallback.items || []);
+      const itemsList = (card.items && card.items.length > 0)
+        ? card.items.map((it) => ({
+          name: it.name,
+          href: it.href,
+          icon: resolveIcon(it.icon, Dna),
+        }))
+        : (fallback.items || []);
 
-        return {
-          title: card.title || fallback.title,
-          step: card.badge || card.step || fallback.step,
-          desc: card.description || fallback.desc,
-          icon: iconComp,
-          image: card.image || fallback.image,
-          images: imagesList,
-          items: itemsList,
-          href: card.link || card.href || fallback.href,
-        };
-      })
+      return {
+        title: card.title || fallback.title,
+        step: card.badge || card.step || fallback.step,
+        desc: card.description || fallback.desc,
+        icon: iconComp,
+        image: card.image || fallback.image,
+        images: imagesList,
+        items: itemsList,
+        href: card.link || card.href || fallback.href,
+      };
+    })
     : defaultServiceCards;
 
   const modalities = (modalitiesSection?.cards && modalitiesSection.cards.length > 0)
     ? modalitiesSection.cards.map((modal, idx) => {
-        const fallback = defaultModalities[idx] || defaultModalities[0];
-        const slug = modal.link ? modal.link.replace('/modalities/', '') : fallback.slug;
-        return {
-          title: modal.title || fallback.title,
-          slug: slug || fallback.slug,
-          desc: modal.description || fallback.desc,
-          image: modal.image || fallback.image,
-        };
-      })
+      const fallback = defaultModalities[idx] || defaultModalities[0];
+      const slug = modal.link ? modal.link.replace('/modalities/', '') : fallback.slug;
+      return {
+        title: modal.title || fallback.title,
+        slug: slug || fallback.slug,
+        desc: modal.description || fallback.desc,
+        image: modal.image || fallback.image,
+      };
+    })
     : defaultModalities;
 
   const advantages = (advantagesSection?.bullets && advantagesSection.bullets.length > 0)
     ? advantagesSection.bullets.map((b, idx) => {
-        const fallback = defaultAdvantages[idx] || defaultAdvantages[0];
-        return {
-          title: b,
-          icon: fallback.icon,
-        };
-      })
+      const fallback = defaultAdvantages[idx] || defaultAdvantages[0];
+      return {
+        title: b,
+        icon: fallback.icon,
+      };
+    })
     : defaultAdvantages;
 
   const insightsSection = pageData?.sections?.find(
@@ -496,23 +496,23 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
           {(() => {
             const bentoArticles = (insightsSection?.cards && insightsSection.cards.length >= 3)
               ? insightsSection.cards.map((c, cIdx) => ({
-                  title: c.title,
-                  subtitle: c.description,
-                  category: c.badge || 'INSIGHTS',
-                  image: c.image || '/images/default_scientist.png',
-                  date: c.step || '8 min read',
-                  readingTime: c.step || '',
-                  link: c.link || '/insights/blogs',
-                }))
+                title: c.title,
+                subtitle: c.description,
+                category: c.badge || 'INSIGHTS',
+                image: c.image || '/images/default_scientist.png',
+                date: c.step || '8 min read',
+                readingTime: c.step || '',
+                link: c.link || '/insights/blogs',
+              }))
               : articles.map((a) => ({
-                  title: a.title,
-                  subtitle: a.subtitle,
-                  category: a.category,
-                  image: a.image,
-                  date: a.date,
-                  readingTime: a.readingTime,
-                  link: `/insights/blogs/${a.slug}`,
-                }));
+                title: a.title,
+                subtitle: a.subtitle,
+                category: a.category,
+                image: a.image,
+                date: a.date,
+                readingTime: a.readingTime,
+                link: `/insights/blogs/${a.slug}`,
+              }));
 
             const featuredArticle = bentoArticles[0];
             const secondaryArticles = bentoArticles.slice(1, 3);

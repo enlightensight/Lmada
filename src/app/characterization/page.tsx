@@ -8,7 +8,12 @@ import {
   HeartPulse, 
   Bug, 
   ArrowRight, 
-  Check
+  Check,
+  Target,
+  Sliders,
+  FlaskConical,
+  Activity,
+  ShieldCheck
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -92,6 +97,39 @@ const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
       'Bacterial endotoxin testing (BET)',
       'Environmental monitoring'
     ],
+  },
+];
+
+const ANALYTICAL_LIFECYCLE_STEPS = [
+  {
+    step: '01',
+    title: 'Reference Product Characterization',
+    icon: Target,
+  },
+  {
+    step: '02',
+    title: 'Method Development & Qualification',
+    icon: Sliders,
+  },
+  {
+    step: '03',
+    title: 'Product & Process Characterization',
+    icon: FlaskConical,
+  },
+  {
+    step: '04',
+    title: 'Comparability / Analytical Similarity /Comparative Analytical Assessment',
+    icon: Scale,
+  },
+  {
+    step: '05',
+    title: 'In-Process & Release Testing',
+    icon: Activity,
+  },
+  {
+    step: '06',
+    title: 'Stability Assessment',
+    icon: ShieldCheck,
   },
 ];
 
@@ -205,28 +243,28 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
                   className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <Microscope className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  <span>Analytical Testing</span>
+                  <span>ANALYTICAL TESTING</span>
                 </Link>
                 <Link
-                  href="/characterization/physicochemical"
+                  href="/characterization/physicochemical-characterization"
                   className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-orange text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <Scale className="w-4 h-4 text-brand-orange group-hover:text-white transition-colors" />
-                  <span>Physicochemical</span>
+                  <span>PHYSICOCHEMICAL CHARACTERIZATION</span>
                 </Link>
                 <Link
-                  href="/characterization/bioassays"
+                  href="/characterization/bioassays-immunogenicity-testing"
                   className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <HeartPulse className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  <span>Bioassays & ADA</span>
+                  <span>BIOASSAYS & IMMUNOGENICITY</span>
                 </Link>
                 <Link
-                  href="/characterization/microbiological"
+                  href="/characterization/microbiological-testing"
                   className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-orange text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
                 >
                   <Bug className="w-4 h-4 text-brand-orange group-hover:text-white transition-colors" />
-                  <span>Microbiology</span>
+                  <span>MICROBIOLOGICAL TESTING</span>
                 </Link>
               </div>
             </div>
@@ -243,6 +281,54 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
                 </div>
               </Reveal>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ANALYTICAL SUPPORT ACROSS THE DEVELOPMENT LIFECYCLE */}
+      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-20 bg-white border-b border-neutral-100">
+        <div className="w-full max-w-[1700px] mx-auto">
+          <Reveal>
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                Analytical Support Across the Development Lifecycle
+              </h2>
+              <p className="text-[16px] sm:text-[17px] text-slate-600 font-normal leading-relaxed max-w-4xl mx-auto mt-4">
+                Lambda CDMO&apos;s analytical capabilities support biologics programs from early product and reference characterization through process development, comparability, manufacturing, batch release, and stability assessment.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Stepped Lifecycle Flow */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-3.5 relative">
+            {ANALYTICAL_LIFECYCLE_STEPS.map((item, idx) => {
+              const IconComponent = item.icon;
+              return (
+                <Reveal key={idx} delay={idx * 0.05} className="h-full">
+                  <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300 relative">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-4 bg-white px-2.5 py-0.5 rounded-full border border-neutral-200/60 group-hover:border-brand-blue/30 group-hover:text-brand-blue transition-colors">
+                      Step {item.step}
+                    </span>
+
+                    {/* ICON CONTAINER */}
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[16px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mb-4 group-hover:bg-brand-blue group-hover:scale-105 transition-all duration-300">
+                      <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 text-brand-blue group-hover:text-white transition-colors duration-300" />
+                    </div>
+
+                    <h3 className="text-sm sm:text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors flex-1 flex items-center justify-center">
+                      {item.title}
+                    </h3>
+
+                    {/* Step connector arrow on desktop */}
+                    {idx < ANALYTICAL_LIFECYCLE_STEPS.length - 1 && (
+                      <div className="hidden lg:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 w-5 h-5 rounded-full bg-white border border-neutral-200/80 shadow-xs items-center justify-center text-neutral-400 pointer-events-none group-hover:border-brand-blue group-hover:text-brand-blue transition-colors">
+                        <ArrowRight className="w-3 h-3" />
+                      </div>
+                    )}
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
