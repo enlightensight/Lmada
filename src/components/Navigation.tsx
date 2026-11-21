@@ -4,7 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, Compass, HelpCircle, MapPin, LucideIcon, ArrowRight, Check, Globe, FlaskConical } from 'lucide-react';
+import { Menu, ChevronDown, Building2, Users, Factory, Layers, ShieldCheck, Briefcase, Settings, Search, Beaker, Package, Microscope, Scale, HeartPulse, Bug, Target, GitMerge, Syringe, Dna, BookOpen, FileText, FileDown, Newspaper, Calendar, Compass, HelpCircle, MapPin, LucideIcon, ArrowRight, Check, Globe, FlaskConical, Atom } from 'lucide-react';
+import { PetriDishIcon, AntibodyPayloadIcon, PeptideChainIcon } from './icons/BiologicsIcons';
 import MobileMenu from './MobileMenu';
 import NavSearchBar from './NavSearchBar';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,7 +19,7 @@ interface NavItem {
   columns?: { 
     title: string; 
     href?: string;
-    links: { label: string; href: string; icon: LucideIcon; isExternal?: boolean; sublabel?: string }[] 
+    links: { label: string; href: string; icon: LucideIcon | React.ComponentType<{ className?: string }>; isExternal?: boolean; sublabel?: string }[] 
   }[];
 }
 
@@ -53,7 +54,7 @@ export default function Navigation() {
     },
     {
       label: 'Services',
-      description: 'From cell line engineering to GMP manufacturing and QC testing.',
+      description: 'Integrated biologics development, analytical characterization, and GMP manufacturing services.',
       columns: [
         {
           title: 'Development Services',
@@ -77,9 +78,9 @@ export default function Navigation() {
           href: '/characterization',
           links: [
             { label: 'Analytical Testing', href: '/characterization/analytical-testing', icon: Microscope },
-            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Scale },
+            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Atom },
             { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays', icon: HeartPulse },
-            { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: Bug },
+            { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: PetriDishIcon },
           ],
         },
       ],
@@ -114,8 +115,8 @@ export default function Navigation() {
         {
           title: 'Advanced Therapeutics',
           links: [
-            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs', icon: Syringe },
-            { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides', icon: Dna },
+            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs', icon: AntibodyPayloadIcon },
+            { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides', icon: PeptideChainIcon },
           ],
         },
       ],

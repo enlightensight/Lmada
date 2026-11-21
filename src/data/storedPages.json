@@ -291,11 +291,11 @@
       {
         "id": "sec-about-biologics",
         "style": "feature-split",
-        "title": "Developing Tomorrow's Biologics",
+        "title": "Integrated Biologics Development and Manufacturing",
         "subtitle": "01 — INTEGRATED BIOLOGICS SOLUTIONS",
         "text": "With capabilities across **India and Europe**, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.\n\nBacked by a combined legacy of more than 75 years from [Lambda Therapeutic Research Ltd.](https://www.lambda-cro.com/) and [Novum Pharmaceutical Research Services](https://www.novumprs.com/), Lambda CDMO now brings together process and analytical development, robust quality systems, and manufacturing capabilities within an integrated framework.\n\nFrom **monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides**, our multidisciplinary teams work closely with sponsors to support different aspects of process development, analytical characterization, technology transfer, and clinical supplies.",
         "dark": false,
-        "image": "/images/upstream/Carbon_di_Oxide_shaker_incubator.png",
+        "image": "/images/Biologics CDMO Cell Line to Clinical Supply - High res.png",
         "imageSide": "left",
         "bullets": []
       },
@@ -426,7 +426,7 @@
     "badge": "Our Leadership Team",
     "heading": "Experienced Scientists. Collaborative Partners.",
     "description": "Lambda CDMO is led by a multidisciplinary team spanning biologics development, analytical sciences, manufacturing, quality, and technology transfer. The leadership team brings together functional expertise across the biologics development and manufacturing lifecycle, with a shared focus on scientific rigor, operational execution, and sponsor needs.\n\nOur leaders work closely with sponsors and internal teams to guide programs from development and characterization through manufacturing and clinical supply, aligning scientific decisions with program objectives, quality requirements, and timelines.",
-    "image": "/images/development.jpg",
+    "image": "/images/teamwork.png",
     "sections": [
       {
         "id": "sec-leadership-team",

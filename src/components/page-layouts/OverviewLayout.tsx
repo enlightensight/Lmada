@@ -708,7 +708,16 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
             </div>
             <Reveal delay={0.1}>
               {page.slug === 'about' ? (
-                <AboutHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-brand-navy">
+                  <video
+                    src="/videos/newhero.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (page.slug === 'facility' || page.slug === 'India') ? (
                 <FacilityHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
               ) : (page.slug === 'UK' || page.slug === 'london') ? (
@@ -744,8 +753,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
       {page.slug === 'about' && (() => {
         const sec1 = page.sections?.find((s) => s.style === 'feature-split') || page.sections?.[0];
         const mapSec = page.sections?.find((s) => s.style === 'locations-map');
-        const sec1Title = sec1?.title || "Developing Tomorrow's Biologics";
-        const sec1Media = sec1?.image || sec1?.video || "/images/upstream/Carbon_di_Oxide_shaker_incubator.png";
+        const sec1Title = sec1?.title || "Integrated Biologics Development and Manufacturing";
+        const sec1Media = sec1?.image || sec1?.video || "/images/Biologics CDMO Cell Line to Clinical Supply - High res.png";
         const sec1Images = (sec1?.images && sec1.images.length > 0) ? sec1.images : [sec1Media];
         const sec1IsVideo = sec1?.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(sec1Media);
 
@@ -773,11 +782,11 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         />
                       </div>
                     ) : (
-                      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm">
+                      <div className="relative aspect-[4/3] overflow-hidden bg-white border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center p-2 sm:p-4">
                         <img
                           src={sec1Media}
                           alt={sec1Title}
-                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                          className="w-full h-full object-contain transition-transform duration-700 hover:scale-105"
                         />
                       </div>
                     )}

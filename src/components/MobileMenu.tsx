@@ -34,8 +34,10 @@ import {
   Globe,
   ArrowRight,
   FlaskConical,
-  LucideIcon 
+  LucideIcon,
+  Atom 
 } from 'lucide-react';
+import { PetriDishIcon, AntibodyPayloadIcon, PeptideChainIcon } from './icons/BiologicsIcons';
 import SearchModal from './SearchModal';
 
 interface MobileMenuProps {
@@ -87,7 +89,7 @@ interface MobileGroup {
     links: { 
       label: string; 
       href: string; 
-      icon: LucideIcon; 
+      icon: LucideIcon | React.ComponentType<{ className?: string }>; 
       badge?: string; 
       isExternal?: boolean 
     }[] 
@@ -124,7 +126,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     },
     {
       label: 'Services',
-      description: 'Integrated biologics development, clinical GMP manufacturing, and comprehensive analytical characterization.',
+      description: 'Integrated biologics development, analytical characterization, and GMP manufacturing services.',
       columns: [
         {
           title: 'Development Services',
@@ -154,9 +156,9 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           description: 'Lambda CDMO provides analytical characterization and testing capabilities to support product understanding, process development, comparability, manufacturing, batch release, and stability assessment across biologics programs.',
           links: [
             { label: 'Analytical Testing', href: '/characterization/analytical-testing', icon: Microscope },
-            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Scale },
+            { label: 'Physicochemical Characterization', href: '/characterization/physicochemical', icon: Atom },
             { label: 'Bioassays & Immunogenicity Testing', href: '/characterization/bioassays', icon: HeartPulse },
-            { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: Bug },
+            { label: 'Microbiological Testing', href: '/characterization/microbiological', icon: PetriDishIcon },
           ],
         },
       ],
@@ -191,8 +193,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         {
           title: 'Advanced Therapeutics',
           links: [
-            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs', icon: Syringe },
-            { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides', icon: Dna },
+            { label: 'Antibody-Drug Conjugates (ADCs)', href: '/modalities/adcs', icon: AntibodyPayloadIcon },
+            { label: 'Proteins & Peptides', href: '/modalities/proteins-peptides', icon: PeptideChainIcon },
           ],
         },
       ],

@@ -53,10 +53,10 @@ export default function Footer() {
     <footer className="bg-white text-neutral-900 border-t border-neutral-200 select-none px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
       <div className="w-full max-w-[1700px] mx-auto py-16 md:py-20">
         {/* Top Section */}
-        <div className="flex flex-col xl:flex-row justify-between gap-10 lg:gap-12 xl:gap-16 2xl:gap-20">
+        <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-16 xl:gap-20">
           
           {/* Left: Branding */}
-          <div className="w-full xl:w-[380px] 2xl:w-[420px] shrink-0">
+          <div className="lg:max-w-sm shrink-0">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image
                 src="/images/lambda_novum_logo.png"
@@ -67,7 +67,7 @@ export default function Footer() {
                 unoptimized
               />
             </Link>
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-2xl xl:max-w-none">
+            <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm">
               Lambda CDMO is the biologics Contract Development and Manufacturing Organization of Lambda Therapeutic Research, providing integrated development, analytical characterization, and GMP manufacturing services for biologics, biosimilars, and complex therapeutic modalities. With capabilities across India and the UK, we support biopharmaceutical companies from early development through clinical supply.
             </p>
             <div className="flex items-center gap-3">
@@ -128,7 +128,7 @@ export default function Footer() {
           </div>
 
           {/* Right: Links */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-10 xl:gap-8 2xl:gap-12 flex-1 min-w-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-10 xl:gap-12 flex-1 max-w-4xl">
             {sections.map((section) => (
               <div key={section.title} className="min-w-0">
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-900 mb-4 break-words">
