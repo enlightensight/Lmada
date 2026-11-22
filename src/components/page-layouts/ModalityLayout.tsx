@@ -1,22 +1,5 @@
 import Link from 'next/link';
-import { 
-  ArrowRight, 
-  Dna, 
-  Atom, 
-  FlaskConical, 
-  Microscope, 
-  ShieldCheck, 
-  Activity, 
-  GitMerge, 
-  Syringe, 
-  Filter, 
-  TrendingUp, 
-  Boxes, 
-  TestTubes,
-  PackageCheck,
-  Droplets,
-  ArrowRightLeft
-} from 'lucide-react';
+import { getCapabilityIconsForList } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import FAQSection from '@/components/FAQSection';
@@ -30,34 +13,10 @@ interface ModalityLayoutProps {
   content: PageContent;
 }
 
-function getCapabilityIcon(text: string, index: number) {
-  const lower = text.toLowerCase();
-  
-  if (lower.includes('media') || lower.includes('feed')) return Droplets;
-  if (lower.includes('cell culture') || lower.includes('process screening')) return TestTubes;
-  if (lower.includes('clone screening') || (lower.includes('clone') && lower.includes('screening'))) return Microscope;
-  if (lower.includes('mammalian cell line') || lower.includes('cell line') || lower.includes('mammalian expression') || lower.includes('expression system')) return Dna;
-  if (lower.includes('upstream') || lower.includes('process development') || lower.includes('process optimization')) return FlaskConical;
-  if (lower.includes('downstream') || lower.includes('purification') || lower.includes('impurity') || lower.includes('refolding') || lower.includes('purity')) return Filter;
-  if (lower.includes('scale-up') || lower.includes('process characterization')) return TrendingUp;
-  if (lower.includes('analytical') || lower.includes('characterization') || lower.includes('subclasses')) return Atom;
-  if (lower.includes('drug substance') || lower.includes('drug product') || lower.includes('manufacturing')) return Boxes;
-  if (lower.includes('technology transfer') || lower.includes('clinical supply') || lower.includes('transfer')) return ArrowRightLeft;
-
-  if (lower.includes('homodimer') || lower.includes('mispairing') || lower.includes('bifunctional')) return GitMerge;
-  if (lower.includes('conjugation') || lower.includes('payload') || lower.includes('adc')) return Syringe;
-  if (lower.includes('dar') || lower.includes('structural')) return Atom;
-  if (lower.includes('peptide') || lower.includes('synthetic')) return TestTubes;
-  if (lower.includes('bioassay') || lower.includes('potency') || lower.includes('immunogenicity')) return Activity;
-  if (lower.includes('quality') || lower.includes('stability') || lower.includes('degradation')) return ShieldCheck;
-  if (lower.includes('clinical')) return Dna;
-  
-  const fallbacks = [Dna, Microscope, TestTubes, FlaskConical, Filter, Droplets, TrendingUp, Atom, Boxes, ArrowRightLeft];
-  return fallbacks[index % fallbacks.length];
-}
-
 export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
   const [firstWord, ...restWords] = page.heading.split(' ');
+
+  const capabilityIcons = getCapabilityIconsForList(page.capabilities || []);
 
   return (
     <>
@@ -133,13 +92,18 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {page.capabilities.map((cap, idx) => {
-                const Icon = getCapabilityIcon(cap, idx);
+                // A drawn icon per point, but only when every point on the page has its own
+                const Icon = capabilityIcons?.[idx];
                 return (
                   <Reveal key={idx} delay={idx * 0.04} className="h-full">
                     <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                        <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                      </div>
+                      {Icon ? (
+                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-yellow group-hover:border-brand-yellow group-hover:text-black transition-colors duration-300">
+                          <Icon className="w-6 h-6" />
+                        </div>
+                      ) : (
+                        <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                      )}
                       <div className="flex-1 min-w-0">
                         <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
                           {cap}

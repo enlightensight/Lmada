@@ -1,32 +1,5 @@
 import Link from 'next/link';
-import {
-  ArrowRight,
-  Check,
-  FlaskConical,
-  Search,
-  FileCheck,
-  Scale,
-  Dna,
-  Microscope,
-  HeartPulse,
-  Activity,
-  ShieldCheck,
-  Bug,
-  Beaker,
-  Shield,
-  Atom,
-  Layers,
-  Filter,
-  Syringe,
-  Sparkles,
-  Droplets,
-  TestTubes,
-  Gauge,
-  PackageCheck,
-  LineChart,
-  Sliders,
-  GitMerge
-} from 'lucide-react';
+import { getCapabilityIconsForList } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import PageCTA from '@/components/PageCTA';
@@ -44,52 +17,6 @@ interface CharacterizationLayoutProps {
   page: CDMOPage;
   /** Kept for the shared layout signature; sections are read from the page record itself. */
   content?: PageContent;
-}
-
-// Per-slug lab icon sets so sibling pages feel distinct
-const SLUG_ICONS: Record<string, typeof FlaskConical[]> = {
-  'analytical-testing': [FlaskConical, Search, FileCheck],
-  physicochemical: [Scale, Dna, Microscope],
-  bioassays: [HeartPulse, Activity, ShieldCheck],
-  microbiological: [Bug, Beaker, Shield],
-};
-
-function getTechIcon(text: string, index: number) {
-  const lower = text.toLowerCase();
-  if (lower.includes('hplc') || lower.includes('uplc') || lower.includes('chromatograph')) return LineChart;
-  if (lower.includes('lc-ms') || lower.includes('mass')) return Microscope;
-  if (lower.includes('capillary') || lower.includes('electrophoresis') || lower.includes('cief') || lower.includes('ce-sds')) return Sliders;
-  if (lower.includes('circular dichroism') || lower.includes('cd')) return Atom;
-  if (lower.includes('ftir') || lower.includes('infrared') || lower.includes('spectroscopy')) return Search;
-  if (lower.includes('nano-dsf') || lower.includes('dsf') || lower.includes('fluorimetry')) return FlaskConical;
-  if (lower.includes('spr') || lower.includes('octet') || lower.includes('interaction') || lower.includes('binding')) return GitMerge;
-
-  const fallbacks = [LineChart, Microscope, Sliders, Atom, Search, FlaskConical, GitMerge];
-  return fallbacks[index % fallbacks.length];
-}
-
-function getCharCapabilityIcon(text: string, index: number) {
-  const lower = text.toLowerCase();
-  if (lower.includes('peptide mapping') || lower.includes('primary structure') || lower.includes('mass analysis')) return Dna;
-  if (lower.includes('sec-hplc') || lower.includes('ce-sds') || lower.includes('ief') || lower.includes('purity') || lower.includes('aggregation') || lower.includes('fragmentation') || lower.includes('impurity')) return Filter;
-  if (lower.includes('potency') || lower.includes('adcc') || lower.includes('cdc') || lower.includes('bioassay') || lower.includes('activity')) return Activity;
-  if (lower.includes('concentration') || lower.includes('water') || lower.includes('utility')) return Droplets;
-  if (lower.includes('stability') || lower.includes('forced degradation') || lower.includes('stress')) return ShieldCheck;
-  if (lower.includes('endotoxin') || lower.includes('lal') || lower.includes('bet') || lower.includes('mycoplasma') || lower.includes('microbial') || lower.includes('bioburden')) return Bug;
-  if (lower.includes('sterility') || lower.includes('particulate')) return Sparkles;
-  if (lower.includes('batch release') || lower.includes('regulatory') || lower.includes('standard qualification') || lower.includes('submissions')) return FileCheck;
-  if (lower.includes('disulfide') || lower.includes('glycan')) return Atom;
-  if (lower.includes('charge variant') || lower.includes('higher-order') || lower.includes('structure')) return Layers;
-  if (lower.includes('comparability') || lower.includes('biosimilar') || lower.includes('reference product')) return Scale;
-  if (lower.includes('reporter gene') || lower.includes('mechanism-of-action')) return HeartPulse;
-  if (lower.includes('binding')) return GitMerge;
-  if (lower.includes('anti-drug antibody') || lower.includes('ada') || lower.includes('neutralizing') || lower.includes('immunogenicity')) return Shield;
-  if (lower.includes('environmental monitoring')) return Gauge;
-  if (lower.includes('container closure')) return PackageCheck;
-  if (lower.includes('identity') || lower.includes('lc-ms') || lower.includes('immunological')) return Microscope;
-  
-  const fallbacks = [Microscope, Scale, HeartPulse, Bug, FlaskConical, Beaker, ShieldCheck, Dna];
-  return fallbacks[index % fallbacks.length];
 }
 
 function splitHeading(heading: string) {
@@ -112,6 +39,14 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
   // This layout has no section block of its own: every section of the record is drawn with
   // DynamicSectionRenderer just before the FAQ block.
   const sections = getRenderableSections(page);
+
+  // Drawn icons per capability point. A list gets icons only when every point in it has its own.
+  const capabilityIcons = getCapabilityIconsForList(page.capabilities || []);
+  const bioassayIcons = getCapabilityIconsForList(page.bioassayCapabilities || []);
+  const immunogenicityIcons = getCapabilityIconsForList(page.immunogenicityCapabilities || []);
+  const technologyIcons = getCapabilityIconsForList(
+    (page.analyticalTechnologies || []).map((tech) => (typeof tech === 'string' ? tech : tech.name))
+  );
 
   return (
     <>
@@ -190,13 +125,17 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
 
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
               {page.capabilities.map((cap, idx) => {
-                const Icon = getCharCapabilityIcon(cap, idx);
+                const Icon = capabilityIcons?.[idx];
                 return (
                   <Reveal key={idx} delay={idx * 0.03} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] flex">
                     <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                        <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                      </div>
+                      {Icon ? (
+                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-yellow group-hover:border-brand-yellow group-hover:text-black transition-colors duration-300">
+                          <Icon className="w-6 h-6" />
+                        </div>
+                      ) : (
+                        <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                      )}
                       <div className="flex-1 min-w-0">
                         <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
                           {cap}
@@ -228,13 +167,17 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
 
                 <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                   {page.bioassayCapabilities.map((cap, idx) => {
-                    const Icon = getCharCapabilityIcon(cap, idx);
+                    const Icon = bioassayIcons?.[idx];
                     return (
                       <Reveal key={idx} delay={idx * 0.03} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] flex">
                         <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                            <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                          </div>
+                          {Icon ? (
+                            <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-yellow group-hover:border-brand-yellow group-hover:text-black transition-colors duration-300">
+                              <Icon className="w-6 h-6" />
+                            </div>
+                          ) : (
+                            <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                          )}
                           <div className="flex-1 min-w-0">
                             <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
                               {cap}
@@ -261,13 +204,17 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
 
                 <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                   {page.immunogenicityCapabilities.map((cap, idx) => {
-                    const Icon = getCharCapabilityIcon(cap, idx);
+                    const Icon = immunogenicityIcons?.[idx];
                     return (
                       <Reveal key={idx} delay={idx * 0.03} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] flex">
                         <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                            <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                          </div>
+                          {Icon ? (
+                            <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-yellow group-hover:border-brand-yellow group-hover:text-black transition-colors duration-300">
+                              <Icon className="w-6 h-6" />
+                            </div>
+                          ) : (
+                            <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                          )}
                           <div className="flex-1 min-w-0">
                             <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
                               {cap}
@@ -312,22 +259,28 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
                 const title = typeof tech === 'string' ? tech : tech.name;
                 const desc = typeof tech === 'string' ? '' : tech.description;
                 const category = typeof tech === 'string' ? '' : tech.category;
-                const TechIcon = getTechIcon(title, tIdx);
+                const TechIcon = technologyIcons?.[tIdx];
 
                 return (
                   <Reveal key={tIdx} delay={tIdx * 0.05} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] xl:w-[calc(25%-15px)] flex">
                     <div className="group w-full h-full bg-neutral-50/60 border border-neutral-200/80 rounded-[10px] p-6 shadow-xs hover:shadow-xl hover:border-brand-yellow hover:bg-white transition-all duration-300 flex flex-col justify-between">
                       <div>
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-200">
-                            <TechIcon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-200" />
+                        {(TechIcon || category) && (
+                          <div className="flex items-center justify-between gap-3 mb-4">
+                            {TechIcon ? (
+                              <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-yellow group-hover:border-brand-yellow group-hover:text-black transition-colors duration-200">
+                                <TechIcon className="w-5 h-5" />
+                              </div>
+                            ) : (
+                              <span />
+                            )}
+                            {category && (
+                              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 group-hover:bg-brand-yellow/30 group-hover:text-neutral-900 transition-colors">
+                                {category}
+                              </span>
+                            )}
                           </div>
-                          {category && (
-                            <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 group-hover:bg-brand-yellow/30 group-hover:text-neutral-900 transition-colors">
-                              {category}
-                            </span>
-                          )}
-                        </div>
+                        )}
 
                         <h3 className="text-lg font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors mb-2">
                           {title}

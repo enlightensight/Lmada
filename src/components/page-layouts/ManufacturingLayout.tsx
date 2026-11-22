@@ -1,21 +1,9 @@
 import Link from 'next/link';
-import { 
-  ArrowRight, 
-  FlaskConical, 
-  ShieldCheck, 
-  Factory, 
-  Dna,
-  Filter,
-  Eye,
-  FileCheck2,
-  Sparkles,
-  Package,
-  Snowflake,
-  Timer,
-  Sliders,
-  Truck,
-  ArrowRightLeft
+import {
+  FlaskConical,
+  ArrowRightLeft,
 } from 'lucide-react';
+import { getCapabilityIconsForList } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import PillarCard from '@/components/PillarCard';
 import FAQSection from '@/components/FAQSection';
@@ -35,26 +23,9 @@ interface ManufacturingLayoutProps {
   content?: PageContent;
 }
 
-function getMfgCapabilityIcon(text: string, index: number) {
-  const lower = text.toLowerCase();
-  if (lower.includes('seed train') || lower.includes('bioreactor') || lower.includes('cell culture')) return Dna;
-  if (lower.includes('upstream') || lower.includes('downstream')) return FlaskConical;
-  if (lower.includes('chromatographic') || lower.includes('purification') || lower.includes('filtration') || lower.includes('uf/df')) return Filter;
-  if (lower.includes('in-process') || lower.includes('monitoring') || lower.includes('visual inspection')) return Eye;
-  if (lower.includes('batch record') || lower.includes('documentation') || lower.includes('batch release')) return FileCheck2;
-  if (lower.includes('chain of custody') || lower.includes('chain of identity') || lower.includes('sample management')) return ShieldCheck;
-  if (lower.includes('clinical supply') || lower.includes('phase')) return Factory;
-  if (lower.includes('formulation') || lower.includes('excipient')) return FlaskConical;
-  if (lower.includes('aseptic') || lower.includes('fill-finish')) return Sparkles;
-  if (lower.includes('lyophilized') || lower.includes('lyophilization')) return Snowflake;
-  if (lower.includes('vial') || lower.includes('container') || lower.includes('packaging') || lower.includes('labelling')) return Package;
-  if (lower.includes('stability')) return Timer;
-  
-  const fallbacks = [Factory, FlaskConical, Filter, ShieldCheck, Package, Sparkles];
-  return fallbacks[index % fallbacks.length];
-}
-
 export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) {
+  // Drawn icons per capability point. The list gets icons only when every point has its own.
+  const capabilityIcons = getCapabilityIconsForList(page.capabilities || []);
   const t = makePageText(page, SERVICES_TEXT_SLOTS);
   // Editable copy where the page has a slot registered; the stock wording anywhere else.
   const pageSlotKeys = new Set(slotsForPage(page, SERVICES_TEXT_SLOTS).map((slot) => slot.key));
@@ -87,6 +58,7 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
 
   const renderSectionBullets = (section: CDMOSection, className = '') => {
     if (!section.bullets || section.bullets.length === 0) return null;
+    const bulletIcons = getCapabilityIconsForList(section.bullets);
     return (
       <div className={className}>
         {section.bulletsTitle && (
@@ -96,15 +68,19 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           {section.bullets.map((b: string, bIdx: number) => {
-            const BulletIcon = getMfgCapabilityIcon(b, bIdx);
+            const Icon = bulletIcons?.[bIdx];
             return (
               <div
                 key={bIdx}
                 className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
               >
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                  <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                </div>
+                {Icon ? (
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow group-hover/pill:text-black transition-colors duration-200">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                ) : (
+                  <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover/pill:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                )}
                 <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                   {b}
                 </span>
@@ -218,15 +194,19 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                           {page.capabilities.map((cap, idx) => {
-                            const Icon = getMfgCapabilityIcon(cap, idx);
+                            const Icon = capabilityIcons?.[idx];
                             return (
                               <div
                                 key={idx}
                                 className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
                               >
-                                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
-                                  <Icon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                </div>
+                                {Icon ? (
+                                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow group-hover/pill:text-black transition-colors duration-200">
+                                    <Icon className="w-5 h-5" />
+                                  </div>
+                                ) : (
+                                  <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover/pill:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                                )}
                                 <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
                                   {cap}
                                 </span>
@@ -243,13 +223,17 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
             ) : (
               <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                 {page.capabilities.map((cap, idx) => {
-                  const Icon = getMfgCapabilityIcon(cap, idx);
+                  const Icon = capabilityIcons?.[idx];
                   return (
                     <Reveal key={idx} delay={idx * 0.03} className={`w-full sm:w-[calc(50%-12px)] ${page.slug === 'drug-substance' ? 'lg:w-[calc(33.333%-16px)]' : 'lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)]'} flex`}>
                       <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-6 shadow-sm hover:shadow-lg hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                          <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                        </div>
+                        {Icon ? (
+                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover:bg-brand-yellow group-hover:border-brand-yellow group-hover:text-black transition-colors duration-300">
+                            <Icon className="w-6 h-6" />
+                          </div>
+                        ) : (
+                          <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                        )}
                         <div className="flex-1 min-w-0">
                           <h4 className="text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors duration-300">
                             {cap}

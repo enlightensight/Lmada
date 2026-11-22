@@ -41,6 +41,7 @@ import {
   GraduationCap,
   Briefcase
 } from 'lucide-react';
+import { getCapabilityIconsForList } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import PillarCard from '@/components/PillarCard';
 import FacilityGallery from '@/components/FacilityGallery';
@@ -1034,6 +1035,9 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
           'Seamless coordination across development, analytical characterization, and GMP manufacturing under one roof.'
         );
 
+        // Drawn icons per capability point; the list gets icons only when every point has its own
+        const capabilityIcons = getCapabilityIconsForList((page.capabilities || []) as string[]);
+
         return (
           <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100 overflow-hidden">
             <div className="relative z-10 w-full max-w-[1700px] mx-auto">
@@ -1054,13 +1058,17 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               {isIntegrated ? (
                 <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
                   {page.capabilities.map((cap: any, idx: number) => {
-                    const Icon = getOverviewCapabilityIcon(cap, idx);
+                    const Icon = capabilityIcons?.[idx];
                     return (
                       <Reveal key={idx} delay={idx * 0.04} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex">
                         <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                            <Icon className="w-6 h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                          </div>
+                          {Icon ? (
+                            <div className="w-12 h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover:text-black group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                              <Icon className="w-6 h-6" />
+                            </div>
+                          ) : (
+                            <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                          )}
                           <div className="flex-1 min-w-0">
                             <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
                               {cap}
@@ -1074,13 +1082,17 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               ) : (
                 <div className="flex flex-col gap-3.5 max-w-4xl mx-auto">
                   {page.capabilities.map((cap: any, idx: number) => {
-                    const Icon = getOverviewCapabilityIcon(cap, idx);
+                    const Icon = capabilityIcons?.[idx];
                     return (
                       <Reveal key={idx} delay={idx * 0.04}>
                         <div className="group w-full bg-white border border-neutral-200/80 rounded-[10px] p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-center gap-4 sm:gap-5">
-                          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
-                            <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                          </div>
+                          {Icon ? (
+                            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue group-hover:text-black group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300">
+                              <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </div>
+                          ) : (
+                            <span aria-hidden="true" className="w-1 self-stretch min-h-5 rounded-full bg-brand-blue/70 group-hover:bg-brand-yellow transition-colors duration-200 shrink-0" />
+                          )}
                           <div className="flex-1 min-w-0">
                             <h4 className="text-base sm:text-lg font-semibold text-neutral-900 leading-snug group-hover:text-black transition-colors duration-300">
                               {cap}
