@@ -1736,7 +1736,7 @@ export const cdmoData: CDMOPage[] = [
     "images": [
       "/images/Analytical/Multimode reader.webp",
       "/images/Analytical/Flow Cytometer.webp",
-      "/images/Analytical/Biacore 8K+.webp",
+      "/images/Analytical/Biacore 8K Plus.webp",
       "/images/Analytical/Octet.webp",
       "/images/Analytical/Liquid Handling System.webp"
     ],
@@ -2123,12 +2123,12 @@ export const cdmoData: CDMOPage[] = [
     "images": [
       "/images/manufacturing/1-gmp-production-bioreactor.webp",
       "/images/manufacturing/2-gmp-seed-bioreactor.webp",
-      "/images/manufacturing/3-300x300-axichrom-column.webp",
+      "/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png",
       "/images/manufacturing/4-chromatography-skid-coprime.webp",
-      "/images/manufacturing/5-50l-single-use-mixer-sum.webp",
+      "/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png",
       "/images/manufacturing/6-automated-tff-system-with-sum.webp",
-      "/images/manufacturing/7-akta-pilot-chromatography-system.webp",
-      "/images/manufacturing/8-lyophilizer-in-fdl-lab.webp"
+      "/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png",
+      "/images/Drugproductdev/Lyophilizer in FDL Lab.png"
     ],
     "sections": [
       {
@@ -2343,7 +2343,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Bioassays & Immunogenicity Testing",
             "link": "/characterization/bioassays-immunogenicity-testing",
             "badge": "BIOASSAYS & IMMUNOGENICITY",
-            "image": "/images/Analytical/Biacore 8K+.webp",
+            "image": "/images/Analytical/Biacore 8K Plus.webp",
             "description": "Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.",
             "bullets": [
               "Cell-based potency assays",

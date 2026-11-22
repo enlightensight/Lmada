@@ -80,7 +80,7 @@ const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
     title: 'Bioassays & Immunogenicity Testing',
     slug: 'bioassays',
     href: '/characterization/bioassays-immunogenicity-testing',
-    image: '/images/Analytical/Biacore 8K+.webp',
+    image: '/images/Analytical/Biacore 8K Plus.webp',
     description: 'Bioassay capabilities to evaluate biological activity, potency, binding, and functional properties of biologic products across development and manufacturing.',
     capabilities: [
       'Cell-based potency assays',

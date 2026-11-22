@@ -42,12 +42,12 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 const MANUFACTURING_HERO_IMAGES = [
   '/images/manufacturing/1-gmp-production-bioreactor.webp',
   '/images/manufacturing/2-gmp-seed-bioreactor.webp',
-  '/images/manufacturing/3-300x300-axichrom-column.webp',
+  '/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png',
   '/images/manufacturing/4-chromatography-skid-coprime.webp',
-  '/images/manufacturing/5-50l-single-use-mixer-sum.webp',
+  '/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png',
   '/images/manufacturing/6-automated-tff-system-with-sum.webp',
-  '/images/manufacturing/7-akta-pilot-chromatography-system.webp',
-  '/images/manufacturing/8-lyophilizer-in-fdl-lab.webp',
+  '/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png',
+  '/images/Drugproductdev/Lyophilizer in FDL Lab.png',
 ];
 
 const DEFAULT_MANUFACTURING_SUB_SERVICES = [
