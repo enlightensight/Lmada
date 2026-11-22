@@ -23,10 +23,9 @@ import {
   Repeat,
   Zap,
   Workflow,
-  GitMerge,
-  Target
+  GitMerge
 } from 'lucide-react';
-import { AntibodyPayloadIcon, PeptideChainIcon } from '@/components/icons/BiologicsIcons';
+import { getModalityIcon } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import PageCTA from '@/components/PageCTA';
@@ -65,14 +64,6 @@ function getBulletSvgIcon(text: string): string | null {
     return '/images/single cell cloning.svg';
   }
   return null;
-}
-
-function getModalityIcon(title: string) {
-  const lower = title.toLowerCase();
-  if (lower.includes('bispecific')) return GitMerge;
-  if (lower.includes('adc') || lower.includes('conjugate')) return AntibodyPayloadIcon;
-  if (lower.includes('protein') || lower.includes('peptide') || lower.includes('recombinant')) return PeptideChainIcon;
-  return Target;
 }
 
 function getBulletCapabilityIcon(text: string, index: number) {

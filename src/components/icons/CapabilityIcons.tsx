@@ -366,6 +366,37 @@ export const AntibodyIcon: CapabilityIcon = ({ className }) => (
   </Svg>
 );
 
+/** An antibody whose two arms bind two different targets: bispecific antibodies. */
+export const BispecificAntibodyIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M12 21.500v-8" />
+    <path d="M12 13.500L7.400 7.600M12 13.500l4.600-5.900" />
+    <path d="M8.700 13L5.300 8.600M15.300 13l3.400-4.400" />
+    <circle cx="5.200" cy="4.800" r="2.300" />
+    <rect x="16.500" y="2.500" width="4.600" height="4.600" rx="0.800" {...dot} />
+  </Svg>
+);
+
+/** A chain folded back on itself: recombinant proteins. */
+export const RecombinantProteinIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M4.500 6.500C7 3 11.500 3.500 11.500 7c0 3.500-5.500 3-5 6.500.500 4 5 4 7.500 1.500s1-5.500 4.500-6 3.500 5 1 8.500" />
+    <circle cx="4.500" cy="6.500" r="1.700" {...dot} />
+    <circle cx="19.500" cy="17.500" r="1.700" {...dot} />
+  </Svg>
+);
+
+/** A mammalian cell with a plus: other biologics made in mammalian cells. */
+export const OtherBiologicsIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <circle cx="9.500" cy="9.500" r="6.500" />
+    <circle cx="9" cy="9.500" r="2.300" />
+    <circle cx="12.600" cy="6.600" r="0.600" {...dot} />
+    <circle cx="17.500" cy="17.500" r="4" />
+    <path d="M17.500 15.600v3.800M15.600 17.500h3.800" />
+  </Svg>
+);
+
 /** An antibody carrying payloads on linkers: conjugation process development. */
 export const ConjugationIcon: CapabilityIcon = ({ className }) => (
   <Svg className={className}>
@@ -995,4 +1026,17 @@ export function getCapabilityIconsForList(points: string[]): CapabilityIcon[] | 
   if (points.length === 0) return null;
   const icons = points.map(getCapabilityIcon);
   return icons.every(Boolean) ? (icons as CapabilityIcon[]) : null;
+}
+
+/**
+ * Icon for a molecule type (modality cards): mAbs, bispecifics, ADCs, proteins, peptides.
+ * Anything else made in mammalian cells gets the generic "cell plus" icon.
+ */
+export function getModalityIcon(title: string): CapabilityIcon {
+  if (/bispecific|bifunctional/i.test(title)) return BispecificAntibodyIcon;
+  if (/ADCs?|conjugate/i.test(title)) return ConjugationIcon;
+  if (/monoclonal|mAbs?|antibod/i.test(title)) return AntibodyIcon;
+  if (/peptide/i.test(title)) return PeptideChainIcon;
+  if (/protein|recombinant/i.test(title)) return RecombinantProteinIcon;
+  return OtherBiologicsIcon;
 }
