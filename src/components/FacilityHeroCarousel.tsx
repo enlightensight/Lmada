@@ -19,13 +19,15 @@ const FACILITY_IMAGES = [
 
 interface FacilityHeroCarouselProps {
   images?: string[];
+  /** Optional alt text base for the slides (e.g. the page title). */
+  alt?: string;
 }
 
-export default function FacilityHeroCarousel({ images }: FacilityHeroCarouselProps) {
+export default function FacilityHeroCarousel({ images, alt }: FacilityHeroCarouselProps) {
   const imageList = (images && images.length > 0)
     ? images.map((img, idx) => ({
         src: img,
-        alt: `Lambda CDMO Facility Slide ${idx + 1}`,
+        alt: alt ? `${alt} image ${idx + 1}` : `Lambda CDMO Facility Slide ${idx + 1}`,
         caption: `Biologics Facility Infrastructure ${idx + 1}`,
       }))
     : FACILITY_IMAGES;

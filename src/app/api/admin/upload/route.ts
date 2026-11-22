@@ -6,6 +6,13 @@ export const dynamic = 'force-dynamic';
 
 const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
 
+// Only media the site can display. Anything else (html, js, svg with scripts, executables)
+// would be served back from /uploads and could run in a visitor's browser.
+const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif'];
+const VIDEO_EXTENSIONS = ['.mp4', '.webm', '.mov', '.ogg', '.ogv', '.m4v'];
+const DOCUMENT_EXTENSIONS = ['.pdf'];
+const ALLOWED_EXTENSIONS = [...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS, ...DOCUMENT_EXTENSIONS];
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -24,7 +31,17 @@ export async function POST(request: Request) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const originalName = file.name || 'upload';
-    const ext = path.extname(originalName) || '.jpg';
+    const ext = (path.extname(originalName) || '').toLowerCase();
+
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `"${ext || 'no extension'}" files cannot be uploaded. Allowed: images (${IMAGE_EXTENSIONS.join(', ')}), videos (${VIDEO_EXTENSIONS.join(', ')}) and PDF.`,
+        },
+        { status: 400 }
+      );
+    }
     const baseName = path.basename(originalName, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
     const timestamp = Date.now();
     const uniqueFilename = `${baseName}_${timestamp}${ext}`;
@@ -34,7 +51,7 @@ export async function POST(request: Request) {
 
     const publicUrl = `/uploads/${uniqueFilename}`;
     const mimeType = file.type || '';
-    const isVideo = mimeType.startsWith('video/') || ['.mp4', '.webm', '.mov', '.ogg'].includes(ext.toLowerCase());
+    const isVideo = VIDEO_EXTENSIONS.includes(ext);
 
     return NextResponse.json({
       success: true,

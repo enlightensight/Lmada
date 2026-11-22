@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, CheckCircle2, ChevronRight } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import CommonCTA from '@/components/CommonCTA';
+import PageCTA from '@/components/PageCTA';
 import FAQSection from '@/components/FAQSection';
 import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
@@ -208,7 +208,7 @@ export default function ModularPageLayout({ page, content }: ModularPageLayoutPr
       )}
 
       {/* FOOTER CTA BANNER */}
-      <CommonCTA />
+      <PageCTA page={page} />
     </div>
   );
 }

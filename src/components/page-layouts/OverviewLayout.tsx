@@ -42,19 +42,22 @@ import {
   Briefcase
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
+import PillarCard from '@/components/PillarCard';
 import FacilityGallery from '@/components/FacilityGallery';
 import FAQSection from '@/components/FAQSection';
-import DnaScrollBackground from '@/components/DnaScrollBackground';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import FacilityHeroCarousel from '@/components/FacilityHeroCarousel';
 import LondonHeroCarousel from '@/components/LondonHeroCarousel';
 import CDMOLocationsMapSection from '@/components/CDMOLocationsMapSection';
-import CommonCTA from '@/components/CommonCTA';
+import PageCTA from '@/components/PageCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
 import BiologicsWorkflowGraphic from '@/components/BiologicsWorkflowGraphic';
 import BiologicsCircularGraphic from '@/components/BiologicsCircularGraphic';
 import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
-import type { CDMOPage } from '@/data/cdmoData';
+import { makePageText, slotsForPage } from '@/lib/pageText';
+import { OVERVIEW_TEXT_SLOTS, INDIA_GALLERY_TILE_COUNT } from '@/data/textSlots/overview';
+import type { CDMOPage, CDMOSection } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
 interface OverviewLayoutProps {
@@ -62,9 +65,16 @@ interface OverviewLayoutProps {
   content: PageContent;
 }
 
+const INLINE_LINK = /\[[^\]]+\]\([^)\s]+\)/;
+
+/**
+ * Renders CMS copy with the two inline marks editors can use:
+ * `**bold**` and `[label](https://link)`.
+ */
 function renderFormattedText(text: string) {
-  if (!text.includes('**')) return text;
-  const parts = text.split(/(\*\*.*?\*\*)/g);
+  if (!text) return text;
+  if (!text.includes('**') && !INLINE_LINK.test(text)) return text;
+  const parts = text.split(/(\*\*.*?\*\*|\[[^\]]+\]\([^)\s]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
@@ -73,73 +83,47 @@ function renderFormattedText(text: string) {
         </strong>
       );
     }
+    const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+    if (link) {
+      const external = /^https?:\/\//i.test(link[2]);
+      return (
+        <a
+          key={i}
+          href={link[2]}
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener noreferrer' : undefined}
+          className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
+        >
+          <span>{link[1]}</span>
+          {external && <ExternalLink className="w-3.5 h-3.5 inline-block" />}
+        </a>
+      );
+    }
     return part;
   });
 }
 
-interface LeaderProfile {
-  name: string;
-  title: string;
-  role: string;
-  image: string;
-  experienceBadge: string;
-  credentials?: string;
-  bio: string[];
-}
+const isVideoUrl = (url?: string) => Boolean(url && /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url));
 
-const LEADERSHIP_PROFILES: LeaderProfile[] = [
+/** Sections this layout renders with its own editorial image + text block. */
+const isSplitSection = (sec: CDMOSection) => !sec.style || sec.style === 'feature-split';
+
+/** Accent styling of the two pillar tiles on the quality page (first tile blue, second orange). */
+const QUALITY_TILE_STYLES = [
   {
-    name: 'Dr. M.S. Ramakrishnan',
-    title: 'Executive Vice President – CDMO',
-    role: 'Executive Leadership',
-    image: '/images/team/MS Ramaki.jpg',
-    experienceBadge: '27+ Years Experience',
-    credentials: 'Ph.D. in Biochemistry (University of Mysore) • Post-Doctoral Fellow (Howard Hughes Medical Institute, University of Chicago)',
-    bio: [
-      'Dr. M. S. Ramakrishnan is a biopharmaceutical development leader with more than 27 years of experience spanning technical product development and in vitro and in vivo pharmacology. His experience includes the development of novel biologics and biosimilars, with a focus on advancing complex biologic programs through the development pipeline.',
-      'Previously, Dr. Ramakrishnan served as Vice President of Research and Development at Biocon Biologics Limited, where he contributed to the development of analytical characterization technologies for novel and biosimilar monoclonal antibodies, with a focus on product quality, safety, and efficacy.',
-      'He holds a Ph.D. in Biochemistry from the University of Mysore and completed post-doctoral research at the Howard Hughes Medical Institute, University of Chicago. As Executive Vice President – CDMO, he provides strategic leadership for the CDMO business, with a focus on strengthening service capabilities and aligning development and manufacturing offerings with global industry requirements.'
-    ]
+    icon: Globe,
+    hover: 'hover:border-brand-blue/40',
+    bar: 'from-brand-blue to-cyan-500',
+    iconBox: 'bg-brand-blue/10 border border-brand-blue/20',
+    iconColor: 'text-brand-blue',
   },
   {
-    name: 'Jagannathan Sundaram',
-    title: 'Vice President – Process Sciences (India)',
-    role: 'Process Sciences (India)',
-    image: '/images/team/Jagan Sundaram Profile Picture.png',
-    experienceBadge: '25+ Years Experience',
-    credentials: 'Bioprocess Engineering & cGMP Scale-Up • Upstream & Downstream Technology Transfer',
-    bio: [
-      'Jagannathan Sundaram is Vice President of Process Sciences at Lambda CDMO, leading bioprocess engineering, upstream cell culture development, downstream purification, and technology transfer for biologics and biosimilars.',
-      'With extensive expertise across biopharmaceutical process development and scale-up, he oversees the development of scalable single-use bioreactor systems and multi-modal downstream purification trains from bench scale through clinical and commercial cGMP biomanufacturing suites at Lambda\'s Ahmedabad facility.',
-      'His leadership ensures robust tech transfer protocols, critical process parameter (CPP) control, high process yields, and full alignment with global US FDA, EMA, and WHO regulatory manufacturing expectations.'
-    ]
+    icon: ClipboardCheck,
+    hover: 'hover:border-brand-orange/40',
+    bar: 'from-brand-orange to-amber-500',
+    iconBox: 'bg-brand-orange/10 border border-brand-orange/20',
+    iconColor: 'text-brand-orange',
   },
-  {
-    name: 'Dr. Abhishek Kulshrestha',
-    title: 'Associate Vice President – Analytical Sciences (India)',
-    role: 'Analytical Sciences (India)',
-    image: '/images/team/Abhishek.jpeg',
-    experienceBadge: '20+ Years Experience',
-    credentials: 'Ph.D. in Biochemistry (University of Delhi) • M.Sc. in Biotechnology (JNU) • Co-Inventor on US & European Patents',
-    bio: [
-      'Dr. Abhishek Kulshrestha is Associate Vice President and Head of Analytical Sciences for the CDMO vertical at Lambda Therapeutic Research, with more than 20 years of experience in the biopharmaceutical industry. His expertise spans analytical sciences, quality control, and regulatory lifecycle management of complex biologics.',
-      'At Lambda, he leads analytical development and characterization for therapeutic antibodies and large molecule bioanalytical services supporting domestic and international sponsors. His technical experience includes cell line development, orthogonal analytical and immunological strategies, process impurity clearance, asset evaluation, and immunogenicity risk assessment.',
-      'Previously, Dr. Kulshrestha served as General Manager and Head of Immunology at Biocon Biologics and as a Research Leader at Reliance Life Sciences. He has also contributed to regulatory interactions and inspection-related data packages involving global health authorities. He holds a Ph.D. in Biochemistry from the University of Delhi, an M.Sc. in Biotechnology from Jawaharlal Nehru University (JNU), is a co-inventor on granted European and US patents related to antibody drug detection methods, and has published research in peer-reviewed journals.'
-    ]
-  },
-  {
-    name: 'Bhargav Perla',
-    title: 'Head of Technical Development, Biopharma R&D (Harrow)',
-    role: 'European R&D (Harrow, UK)',
-    image: '/images/team/Bhargav Perla.png',
-    experienceBadge: '20+ Years Experience',
-    credentials: 'Biopharmaceutical CMC & Tech Transfer • EMA, FDA, TGA & Health Canada Regulatory Programs',
-    bio: [
-      'Bhargav Perla is a biopharmaceutical CMC and technical development leader with 20 years of experience across biologics and biosimilars. His expertise spans drug substance and drug product development, technology transfer, scale-up, product lifecycle management, CDMO management, and co-development partnerships.',
-      'His experience includes developing and implementing development strategies, applying platform technologies, and coordinating internal and external capabilities to support biologics programs. He has worked across technical, regulatory, and operational functions to address complex development challenges and align program execution with business objectives.',
-      'Bhargav has supported regulatory programs involving EMA, FDA, TGA, and Health Canada, with experience in development strategies leading to regulatory outcomes. He also has extensive experience in building high performing teams, scientific mentoring, resource management, and cross-functional governance.'
-    ]
-  }
 ];
 
 const OVERVIEW_SLUGS = ['about', 'leadership', 'facility', 'integrated', 'quality', 'careers'];
@@ -203,6 +187,32 @@ function getOverviewCapabilityIcon(text: string, index: number) {
   return distinctScientificIcons[index % distinctScientificIcons.length];
 }
 
+/**
+ * Splits a "X includes a, b, c, and d." style paragraph into a label, list items
+ * and trailing clause. Returns null when the paragraph is not list-shaped, so
+ * CMS-edited copy falls back to a normal paragraph.
+ */
+function parseFacilityListParagraph(para: string): { intro: string; items: string[]; outro: string } | null {
+  const cap = (t: string) => (t ? t.charAt(0).toUpperCase() + t.slice(1) : t);
+  const toItems = (list: string) =>
+    list
+      .split(/,\s*(?:and\s+)?/)
+      .map((item) => cap(item.trim().replace(/\.$/, '')))
+      .filter(Boolean);
+  const commaCount = (t: string) => (t.match(/,/g) || []).length;
+
+  const bold = para.match(/^(.*?)\*\*(.+?)\*\*(.*)$/);
+  if (bold && bold[1].trim() && commaCount(bold[2]) >= 2) {
+    return { intro: bold[1].trim(), items: toItems(bold[2]), outro: cap(bold[3].trim()) };
+  }
+
+  const plain = para.replace(/\*\*/g, '').match(/^(.+?\b(?:includes?|incorporates?|comprises?))\s+(.+?)\.?$/i);
+  if (plain && commaCount(plain[2]) >= 2) {
+    return { intro: plain[1].trim(), items: toItems(plain[2]), outro: '' };
+  }
+  return null;
+}
+
 function AccentHeading({ text, className = '' }: { text: string; className?: string }) {
   const [first, ...rest] = text.split(' ');
   return (
@@ -216,31 +226,90 @@ function AccentHeading({ text, className = '' }: { text: string; className?: str
 export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
   const slugIndex = OVERVIEW_SLUGS.indexOf(page.slug);
   const flip = slugIndex % 2 === 1;
-  const heroImage = page.image || '/images/hero_cleanroom.png';
+  const slugLower = (page.slug || '').toLowerCase();
+  const isAbout = page.slug === 'about';
+  const isIntegrated = page.slug === 'integrated';
+  const isLeadership = page.slug === 'leadership';
+  const isCareers = page.slug === 'careers';
+  const isQuality = page.slug === 'quality' || page.slug === 'quality-and-compliance';
+  const isIndia = slugLower === 'india';
+  const isUK = slugLower === 'uk' || slugLower === 'london';
 
-  const narrativeSections = content.sections.filter(
-    (sec) =>
-      sec.style !== 'faq-accordion' &&
-      !sec.id?.includes('faq') &&
-      sec.title !== 'Frequently Asked Questions' &&
-      !(
-        page.slug === 'about' &&
-        (sec.title === 'The Lambda Advantage' ||
-          sec.title === "Developing Tomorrow's Biologics" ||
-          sec.title === 'Integrated Biologics Development and Manufacturing' ||
-          sec.style === 'feature-split' ||
-          sec.style === 'locations-map' ||
-          sec.style === 'cards-grid' ||
-          sec.style === 'capabilities-checklist')
-      ) &&
-      !(
-        page.slug === 'leadership' &&
-        (sec.style === 'leadership-grid' ||
-          sec.id === 'sec-leadership-team' ||
-          sec.title?.toLowerCase().includes('leadership') ||
-          sec.title?.toLowerCase().includes('executive'))
-      ) &&
-      page.slug !== 'integrated'
+  // ---- Editable copy that has no field of its own on the record ("text slots") ----
+  const t = makePageText(page, OVERVIEW_TEXT_SLOTS);
+  const slotKeys = new Set(slotsForPage(page, OVERVIEW_TEXT_SLOTS).map((s) => s.key));
+  /** Slot text when this page registers the slot, otherwise the given fallback. */
+  const tx = (key: string, fallback = '') => (slotKeys.has(key) ? t(key) : fallback);
+
+  const bulletsLabel = tx('bulletsLabel', 'Key capabilities include:');
+  const careersLabel = tx('careersButtonText', 'Explore Open Roles');
+  const careersHref = tx('careersButtonLink', 'https://careers.lambda-cro.com/go/CDMO/752444/');
+
+  // ---- Hero media: page.images (2+ = carousel, 1 = single), else page.heroVideo / page.image ----
+  const heroSlides = (page.images || []).filter(Boolean);
+  const heroMedia = heroSlides.length === 1 ? heroSlides[0] : page.heroVideo || page.image || '';
+  const heroIsVideo = isVideoUrl(heroMedia) || (heroSlides.length !== 1 && Boolean(page.heroVideo));
+  const heroImage = heroMedia || '/images/hero_cleanroom.png';
+  // The integrated and Ahmedabad pages show their hero graphic uncropped inside a white card.
+  const heroContain = isIntegrated || isIndia;
+
+  // ---- Which block renders which section -------------------------------------------------
+  // Bespoke blocks are picked by id / style / position (never by title alone, an editor may
+  // retitle a section). Remaining image + text sections use this layout's editorial rows;
+  // everything else goes through DynamicSectionRenderer just above the FAQ.
+  const sections: CDMOSection[] = page.sections || [];
+  const splitIdx = sections.map((sec, i) => (isSplitSection(sec) ? i : -1)).filter((i) => i >= 0);
+
+  let aboutIntroIdx = -1;
+  let aboutMapIdx = -1;
+  if (isAbout) {
+    aboutIntroIdx = sections.findIndex((sec) => sec.id === 'sec-about-biologics');
+    if (aboutIntroIdx < 0 && splitIdx.length > 0) aboutIntroIdx = splitIdx[0];
+    aboutMapIdx = sections.findIndex((sec) => sec.style === 'locations-map');
+  }
+
+  // Integrated page: the first two image + text sections are the two pillar cards.
+  const pillarIdx = isIntegrated ? splitIdx.slice(0, 2) : [];
+
+  // Quality page: first two image + text sections are the pillar tiles, the third is the
+  // regulatory block with the roadmap graphic.
+  const qualityTileIdx = isQuality ? splitIdx.slice(0, 2) : [];
+  const qualityRegulatoryIdx = isQuality && splitIdx.length > 2 ? splitIdx[2] : -1;
+
+  let leaderIdx = -1;
+  if (isLeadership) {
+    leaderIdx = sections.findIndex((sec) => sec.style === 'leadership-grid' || sec.id === 'sec-leadership-team');
+    if (leaderIdx < 0) {
+      leaderIdx = sections.findIndex(
+        (sec) =>
+          sec.style === 'cards-grid' &&
+          (sec.title?.toLowerCase().includes('leadership') || sec.title?.toLowerCase().includes('executive'))
+      );
+    }
+  }
+
+  const bespokeIdx = new Set<number>(
+    [aboutIntroIdx, aboutMapIdx, ...pillarIdx, ...qualityTileIdx, qualityRegulatoryIdx, leaderIdx].filter((i) => i >= 0)
+  );
+  const usesEditorialRows = !isAbout && !isIntegrated && !isQuality;
+  const narrativeIdx = usesEditorialRows ? splitIdx.filter((i) => !bespokeIdx.has(i)) : [];
+  const genericIdx = sections.map((_, i) => i).filter((i) => !bespokeIdx.has(i) && !narrativeIdx.includes(i));
+
+  // Editorial rows read the enriched copy (same order as page.sections) so a section without
+  // any media still gets a placeholder image.
+  const narrativeSections = narrativeIdx.map((i) => content.sections[i] ?? sections[i]);
+
+  const facilityGallery = isIndia ? (
+    <FacilityGallery
+      heading={t('galleryHeading')}
+      intro={t('galleryIntro')}
+      items={Array.from({ length: INDIA_GALLERY_TILE_COUNT }, (_, i) => ({
+        name: t(`galleryItem${i + 1}Name`),
+        image: t(`galleryItem${i + 1}Image`),
+      }))}
+    />
+  ) : (
+    <FacilityGallery />
   );
 
   const narrative = (
@@ -263,15 +332,15 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     <p className="text-[17px] md:text-[19px] text-slate-500 font-normal leading-relaxed">
                       {section.text}
                     </p>
-                    {page.slug === 'careers' ? (
+                    {isCareers ? (
                       <div className="mt-8">
                         <a
-                          href="https://careers.lambda-cro.com/go/CDMO/752444/"
+                          href={careersHref}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all group/btn"
                         >
-                          <span>Explore Open Roles</span>
+                          <span>{careersLabel}</span>
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </a>
                       </div>
@@ -302,37 +371,127 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         );
 
         const equipmentItems = getSectionEquipment(section.title, page.slug);
+        // CMS-managed photo carousel (section.images). The title-matched equipment list above
+        // is only a fallback for sections that have no photos of their own.
+        const sectionImages: string[] = (section.images || []).filter(Boolean);
 
-        const isFacilityCapacitySection =
-          (page.slug === 'India' || page.slug?.toLowerCase() === 'india' || page.slug === 'facility') &&
-          idx === 0;
+        const isFacilityCapacitySection = (isIndia || page.slug === 'facility') && idx === 0;
 
         if (isFacilityCapacitySection) {
-          const displayTitle = section.title.replace('27,000', '35,000');
-          const displayText = section.text.replace(/27,000/g, '35,000');
-          const paragraphs = displayText.split('\n\n').filter(Boolean);
+          const displayTitle: string = section.title || '';
+          const paragraphs: string[] = (section.text || '').split('\n\n').filter(Boolean);
+
+          const parsed = paragraphs.map((para: string) => ({ para, list: parseFacilityListParagraph(para) }));
+          const leadParagraphs = parsed.filter((p) => !p.list).map((p) => p.para);
+          const listBlocks = parsed.flatMap((p) => (p.list ? [p.list] : []));
+          const eyebrow = (section.subtitle || '').replace(/^\d+\s*[—–-]\s*/, '');
+          const titleParts = displayTitle.split(/(\d[\d,]*\s*sq\.?\s*ft\.?)/i);
 
           return (
             <div key={idx}>
-              <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
+              <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-14 md:py-24 bg-neutral-50/60 border-b border-neutral-100">
                 <div className="w-full max-w-[1700px] mx-auto">
                   <Reveal>
-                    <div className="bg-white rounded-2xl border border-neutral-200/90 shadow-sm p-6 sm:p-8 md:p-12 lg:p-14">
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-5">
-                        {displayTitle}
-                      </h2>
-                      <div className="h-1 w-12 bg-brand-blue rounded-full mb-8" />
-
-                      <div className="space-y-5 text-[16px] sm:text-[17px] md:text-[18px] text-neutral-600 leading-relaxed font-normal">
-                        {paragraphs.map((para: string, pIdx: number) => (
-                          <p key={pIdx}>{renderFormattedText(para)}</p>
-                        ))}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 lg:items-end">
+                      <div className="lg:col-span-7">
+                        {eyebrow && (
+                          <div className="flex items-center gap-3 mb-5">
+                            <span className="h-px w-8 bg-brand-orange" />
+                            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand-orange">
+                              {eyebrow}
+                            </span>
+                          </div>
+                        )}
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] text-balance">
+                          {titleParts.map((part: string, i: number) =>
+                            i % 2 === 1 ? (
+                              <span key={i} className="text-brand-blue whitespace-nowrap">{part}</span>
+                            ) : (
+                              part
+                            )
+                          )}
+                        </h2>
                       </div>
+                      {leadParagraphs.length > 0 && (
+                        <div className="lg:col-span-5 space-y-4 text-[16px] md:text-[18px] text-neutral-600 leading-relaxed lg:border-l lg:border-neutral-200 lg:pl-8">
+                          {leadParagraphs.map((para: string, pIdx: number) => (
+                            <p key={pIdx}>{renderFormattedText(para)}</p>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </Reveal>
+
+                  {listBlocks.length > 0 && (
+                    <div className="mt-10 md:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
+                      {listBlocks.map((block, bIdx) => {
+                        const paired = listBlocks.length === 2;
+                        const span = !paired ? 'lg:col-span-12' : bIdx === 0 ? 'lg:col-span-7' : 'lg:col-span-5';
+
+                        if (bIdx === 0) {
+                          return (
+                            <Reveal key={bIdx} className={span}>
+                              <div className="h-full bg-white rounded-2xl border border-neutral-200/90 shadow-sm p-6 sm:p-8 md:p-10">
+                                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mb-6">
+                                  {block.intro}
+                                </p>
+                                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                  {block.items.map((item, iIdx) => {
+                                    const Icon = getOverviewCapabilityIcon(item, iIdx);
+                                    const isOddLast = block.items.length % 2 === 1 && iIdx === block.items.length - 1;
+                                    return (
+                                      <li
+                                        key={iIdx}
+                                        className={`flex items-center gap-4 rounded-xl border border-neutral-200/80 bg-neutral-50/70 px-4 py-4 ${isOddLast ? 'sm:col-span-2' : ''}`}
+                                      >
+                                        <span className="shrink-0 w-11 h-11 rounded-[10px] bg-brand-blue/10 text-brand-blue flex items-center justify-center">
+                                          <Icon className="w-5 h-5" strokeWidth={1.75} />
+                                        </span>
+                                        <span className="text-[16px] md:text-[17px] font-medium text-neutral-900 leading-snug">
+                                          {item}
+                                        </span>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                                {block.outro && (
+                                  <p className="mt-6 text-[15px] text-neutral-600 leading-relaxed">{block.outro}</p>
+                                )}
+                              </div>
+                            </Reveal>
+                          );
+                        }
+
+                        return (
+                          <Reveal key={bIdx} className={span}>
+                            <div className="h-full rounded-2xl border border-brand-blue/20 bg-brand-blue/[0.06] p-6 sm:p-8 md:p-10 flex flex-col">
+                              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand-navy-muted mb-6">
+                                {block.intro}
+                              </p>
+                              <ul className="divide-y divide-brand-blue/15">
+                                {block.items.map((item, iIdx) => (
+                                  <li key={iIdx} className="flex items-start gap-3 py-3.5 first:pt-0">
+                                    <CheckCircle2 className="shrink-0 w-5 h-5 mt-0.5 text-brand-blue" strokeWidth={1.75} />
+                                    <span className="text-[16px] md:text-[17px] font-medium text-brand-navy leading-snug">
+                                      {item}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                              {block.outro && (
+                                <p className="mt-auto pt-6 text-[15px] text-brand-navy-muted leading-relaxed">
+                                  {block.outro}
+                                </p>
+                              )}
+                            </div>
+                          </Reveal>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </section>
-              {(page.slug === 'facility' || page.slug === 'India') && idx === 0 && <FacilityGallery />}
+              {(page.slug === 'facility' || isIndia) && idx === 0 && facilityGallery}
             </div>
           );
         }
@@ -343,9 +502,9 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               <div className="w-full max-w-[1700px] mx-auto">
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 ${section.qtppText ? 'items-start' : 'items-center'}`}>
                   <Reveal className={imageRight ? 'lg:order-2' : ''}>
-                    {section.images && section.images.length > 1 ? (
+                    {sectionImages.length > 0 ? (
                       <EquipmentCarousel
-                        items={section.images.map((img: string, i: number) => {
+                        items={sectionImages.map((img: string, i: number) => {
                           const match = (equipmentItems || []).find((eq) => eq.src === img) ||
                             ALL_EQUIPMENT_ITEMS.find((eq) => eq.src === img);
                           return match || {
@@ -370,9 +529,9 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                    ) : page.slug === 'careers' ? (
+                    ) : isCareers ? (
                       <a
-                        href="https://careers.lambda-cro.com/go/CDMO/752444/"
+                        href={careersHref}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="block relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm group cursor-pointer"
@@ -415,7 +574,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                             <Target className="w-4 h-4" />
                           </div>
                           <h4 className="text-base font-bold text-neutral-900 tracking-tight">
-                            Quality Target Product Profile (QTPP) Alignment
+                            {tx('qtppHeading', 'Quality Target Product Profile (QTPP) Alignment')}
                           </h4>
                         </div>
                         <p className="text-[14px] sm:text-[15px] text-neutral-600 leading-relaxed font-normal">
@@ -431,7 +590,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       </h3>
                       <div className="h-1 w-12 bg-brand-blue rounded-full mb-5" />
                       <div className="space-y-3.5 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed">
-                        {section.text.split('\n\n').map((para: string, pIdx: number) => (
+                        {(section.text || '').split('\n\n').map((para: string, pIdx: number) => (
                           <p key={pIdx}>{renderFormattedText(para)}</p>
                         ))}
                       </div>
@@ -440,7 +599,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       {section.bullets && section.bullets.length > 0 && (
                         <div className="mt-6 pt-5 border-t border-neutral-200/70">
                           <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3.5">
-                            {(section as any).bulletsTitle || 'Key capabilities include:'}
+                            {(section as any).bulletsTitle || bulletsLabel}
                           </span>
                           <ul className="space-y-2.5">
                             {section.bullets.map((bullet: string, bIdx: number) => (
@@ -462,7 +621,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         <div className="mt-6 pt-5 border-t border-neutral-200/70 space-y-6">
                           <div>
                             <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                              Early-Stage Development
+                              {tx('earlyStageHeading', 'Early-Stage Development')}
                             </span>
                             <ul className="space-y-2.5">
                               {section.earlyStageBullets.map((bullet: string, bIdx: number) => (
@@ -480,7 +639,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
                           <div>
                             <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                              Late-Stage Development
+                              {tx('lateStageHeading', 'Late-Stage Development')}
                             </span>
                             <ul className="space-y-2.5">
                               {section.lateStageBullets.map((bullet: string, bIdx: number) => (
@@ -504,7 +663,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           {section.formulationBullets && section.formulationBullets.length > 0 && (
                             <div>
                               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                                Formulation Development
+                                {tx('formulationHeading', 'Formulation Development')}
                               </span>
                               <ul className="space-y-2.5">
                                 {section.formulationBullets.map((bullet: string, bIdx: number) => (
@@ -524,7 +683,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           {section.lyophilizationBullets && section.lyophilizationBullets.length > 0 && (
                             <div>
                               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                                Lyophilization Development
+                                {tx('lyophilizationHeading', 'Lyophilization Development')}
                               </span>
                               <ul className="space-y-2.5">
                                 {section.lyophilizationBullets.map((bullet: string, bIdx: number) => (
@@ -544,7 +703,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           {section.gmpManufacturingBullets && section.gmpManufacturingBullets.length > 0 && (
                             <div>
                               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                                Clinical GMP Manufacturing
+                                {tx('gmpManufacturingHeading', 'Clinical GMP Manufacturing')}
                               </span>
                               <ul className="space-y-2.5">
                                 {section.gmpManufacturingBullets.map((bullet: string, bIdx: number) => (
@@ -569,7 +728,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           {section.physicochemicalBullets && section.physicochemicalBullets.length > 0 && (
                             <div>
                               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                                Physicochemical & Molecular Characterization
+                                {tx('physicochemicalHeading', 'Physicochemical & Molecular Characterization')}
                               </span>
                               <ul className="space-y-2.5">
                                 {section.physicochemicalBullets.map((bullet: string, bIdx: number) => (
@@ -589,7 +748,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           {section.structuralBullets && section.structuralBullets.length > 0 && (
                             <div>
                               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                                Structural & Biophysical Characterization
+                                {tx('structuralHeading', 'Structural & Biophysical Characterization')}
                               </span>
                               <ul className="space-y-2.5">
                                 {section.structuralBullets.map((bullet: string, bIdx: number) => (
@@ -609,7 +768,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           {section.functionalBullets && section.functionalBullets.length > 0 && (
                             <div>
                               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                                Functional & Cell-Based Analysis
+                                {tx('functionalHeading', 'Functional & Cell-Based Analysis')}
                               </span>
                               <ul className="space-y-2.5">
                                 {section.functionalBullets.map((bullet: string, bIdx: number) => (
@@ -633,15 +792,15 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           {renderFormattedText((section as any).footerText)}
                         </p>
                       )}
-                      {page.slug === 'careers' && (
+                      {isCareers && (
                         <div className="mt-7">
                           <a
-                            href="https://careers.lambda-cro.com/go/CDMO/752444/"
+                            href={careersHref}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all group/btn"
                           >
-                            <span>Explore Open Roles</span>
+                            <span>{careersLabel}</span>
                             <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                           </a>
                         </div>
@@ -658,7 +817,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         <div className="text-center max-w-2xl mx-auto mb-8">
                           {/* Applications & Modalities orange tag removed as requested */}
                           <h4 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
-                            Selected Analytical Applications
+                            {tx('applicationsHeading', 'Selected Analytical Applications')}
                           </h4>
                           <div className="h-1 w-12 bg-brand-blue rounded-full mx-auto mt-3" />
                         </div>
@@ -683,7 +842,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 )}
               </div>
             </section>
-            {(page.slug === 'facility' || page.slug === 'India') && idx === 0 && <FacilityGallery />}
+            {(page.slug === 'facility' || isIndia) && idx === 0 && facilityGallery}
           </div>
         );
       })}
@@ -724,25 +883,40 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   <p key={pIdx}>{renderFormattedText(para)}</p>
                 ))}
               </div>
-              {page.slug === 'careers' && (
+              {isCareers && (
                 <div className="mt-8">
                   <a
-                    href="https://careers.lambda-cro.com/go/CDMO/752444/"
+                    href={careersHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 px-8 py-4 rounded-[10px] bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all group/btn"
                   >
-                    <span>Explore Open Roles</span>
+                    <span>{careersLabel}</span>
                     <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </a>
                 </div>
               )}
             </div>
             <Reveal delay={0.1}>
-              {page.slug === 'about' ? (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-brand-navy">
+              {heroSlides.length > 1 ? (
+                isUK ? (
+                  <LondonHeroCarousel images={heroSlides} alt={page.title} />
+                ) : isIndia || page.slug === 'facility' ? (
+                  <FacilityHeroCarousel images={heroSlides} alt={page.title} />
+                ) : (
+                  <AboutHeroCarousel
+                    images={heroSlides.map((src, i) => ({
+                      src,
+                      alt: `${page.title} image ${i + 1}`,
+                      title: `Facility View ${i + 1}`,
+                    }))}
+                  />
+                )
+              ) : heroIsVideo ? (
+                <div className={`relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg ${isAbout ? 'bg-brand-navy' : 'bg-neutral-950'}`}>
                   <video
-                    src="/videos/newhero.mp4"
+                    src={heroMedia}
+                    aria-label={page.title}
                     autoPlay
                     loop
                     muted
@@ -750,46 +924,13 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              ) : page.slug === 'leadership' ? (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
-                  <img
-                    src="/images/team.webp"
-                    alt={page.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ) : (page.slug === 'integrated' || page.slug === 'India' || page.slug?.toLowerCase() === 'india') ? (
+              ) : heroContain ? (
                 <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-6 sm:p-8 md:p-10 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/Biologics%20CDMO.png"
+                    src={heroImage}
                     alt={page.title || 'Biologics Development & Manufacturing — From Gene to Clinic'}
                     className="w-full h-auto max-h-[520px] object-contain"
-                  />
-                </div>
-              ) : (page.slug === 'quality' || page.slug === 'quality-and-compliance') ? (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
-                  <img
-                    src="/images/quality.webp"
-                    alt={page.title || 'Quality and Regulatory Framework'}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ) : page.slug === 'facility' ? (
-                <FacilityHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
-              ) : (page.slug === 'UK' || page.slug === 'london') ? (
-                <LondonHeroCarousel images={page.images && page.images.length > 0 ? page.images : undefined} />
-              ) : (page.images && page.images.length > 1) ? (
-                <AboutHeroCarousel images={page.images} />
-              ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
-                  <video
-                    src={page.heroVideo || page.image}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
                   />
                 </div>
               ) : (
@@ -806,161 +947,43 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         </div>
       </section>
 
-      {/* GLOBAL REACH & CDMO LOCATIONS MATRIX (ABOUT, FACILITY, LONDON) */}
-      {page.slug === 'about' && (() => {
-        const sec1 = page.sections?.find((s) => s.style === 'feature-split') || page.sections?.[0];
-        const mapSec = page.sections?.find((s) => s.style === 'locations-map');
-        const sec1Title = sec1?.title || "Integrated Biologics Development and Manufacturing";
-        const sec1Media = sec1?.image || sec1?.video || "/images/Biologics CDMO Cell Line to Clinical Supply - High res.png";
-        const sec1Images = (sec1?.images && sec1.images.length > 0) ? sec1.images : [sec1Media];
-        const sec1IsVideo = sec1?.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(sec1Media);
-
-        // Parse paragraphs
-        const rawText = sec1?.text;
-        const paragraphs = rawText ? rawText.split('\n\n').filter(Boolean) : null;
-
-        return (
-          <>
-            <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
-              <div className="w-full max-w-[1700px] mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                  <Reveal>
-                    <BiologicsWorkflowGraphic />
-                  </Reveal>
-                  <Reveal delay={0.1}>
-                    <div>
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-5">
-                        {sec1Title}
-                      </h2>
-                      <div className="h-1 w-12 bg-brand-blue rounded-full mb-6" />
-
-                      <div className="space-y-4 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed font-normal">
-                        {paragraphs && paragraphs.length > 0 ? (
-                          paragraphs.map((p: string, pIdx: number) => {
-                            if (p.includes('Lambda Therapeutic Research') && p.includes('Novum Pharmaceutical')) {
-                              return (
-                                <p key={pIdx}>
-                                  Backed by a combined legacy of more than 75 years from{' '}
-                                  <a
-                                    href="https://www.lambda-cro.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
-                                  >
-                                    <span>Lambda Therapeutic Research Ltd.</span>
-                                    <ExternalLink className="w-3.5 h-3.5 inline-block" />
-                                  </a>{' '}
-                                  and{' '}
-                                  <a
-                                    href="https://www.novumprs.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
-                                  >
-                                    <span>Novum Pharmaceutical Research Services</span>
-                                    <ExternalLink className="w-3.5 h-3.5 inline-block" />
-                                  </a>
-                                  , Lambda CDMO now brings together process and analytical development, robust quality systems, and manufacturing capabilities within an integrated framework.
-                                </p>
-                              );
-                            }
-                            if (p.includes('India and Europe')) {
-                              return (
-                                <p key={pIdx}>
-                                  With capabilities across <strong className="text-neutral-900 font-semibold">India and Europe</strong>, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.
-                                </p>
-                              );
-                            }
-                            if (p.includes('monoclonal antibodies')) {
-                              return (
-                                <p key={pIdx}>
-                                  From <strong className="text-neutral-900 font-semibold">monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides</strong>, our multidisciplinary teams work closely with sponsors to support different aspects of process development, analytical characterization, technology transfer, and clinical supplies.
-                                </p>
-                              );
-                            }
-                            return <p key={pIdx}>{renderFormattedText(p)}</p>;
-                          })
-                        ) : (
-                          <>
-                            <p>
-                              With capabilities across <strong className="text-neutral-900 font-semibold">India and Europe</strong>, Lambda CDMO supports biologics programs through cell line development, upstream and downstream process development, analytical development and characterization, and GMP manufacturing.
-                            </p>
-                            <p>
-                              Backed by a combined legacy of more than 75 years from{' '}
-                              <a
-                                href="https://www.lambda-cro.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
-                              >
-                                <span>Lambda Therapeutic Research Ltd.</span>
-                                <ExternalLink className="w-3.5 h-3.5 inline-block" />
-                              </a>{' '}
-                              and{' '}
-                              <a
-                                href="https://www.novumprs.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
-                              >
-                                <span>Novum Pharmaceutical Research Services</span>
-                                <ExternalLink className="w-3.5 h-3.5 inline-block" />
-                              </a>
-                              , Lambda CDMO now brings together process and analytical development, robust quality systems, and manufacturing capabilities within an integrated framework.
-                            </p>
-                            <p>
-                              From <strong className="text-neutral-900 font-semibold">monoclonal antibodies and bispecific antibodies to ADCs, recombinant proteins, and peptides</strong>, our multidisciplinary teams work closely with sponsors to support different aspects of process development, analytical characterization, technology transfer, and clinical supplies.
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </Reveal>
-                </div>
-              </div>
-            </section>
-            <CDMOLocationsMapSection
-              title={mapSec?.title || 'Global CDMO Capabilities Across India and Europe'}
-              subtitle={mapSec?.subtitle || mapSec?.text || 'Bespoke Biologics Infrastructure'}
-              cards={mapSec?.cards}
-            />
-          </>
-        );
-      })()}
-
-      {/* INTEGRATED DEVELOPMENT TO MANUFACTURING: 2-COLUMN SIDE-BY-SIDE CARDS */}
-      {page.slug === 'integrated' && (() => {
-        const sec1 = page.sections?.find((s) => s.title?.includes('End-to-End') || s.title?.includes('Under One Roof')) || page.sections?.[0];
-        const sec2 = page.sections?.find((s) => s.title?.includes('Technology Transfer') || s.title?.includes('Operational Simplicity')) || page.sections?.[1];
+      {/* ABOUT: INTRO (graphic + copy) */}
+      {isAbout && aboutIntroIdx >= 0 && (() => {
+        const intro = sections[aboutIntroIdx];
+        const introMedia = intro.video || intro.image || intro.images?.[0] || '';
+        const paragraphs = (intro.text || '').split('\n\n').filter(Boolean);
 
         return (
           <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
             <div className="w-full max-w-[1700px] mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                {/* Card 1 */}
-                <Reveal delay={0.05} className="h-full">
-                  <div className="group h-full bg-neutral-50/70 border border-neutral-200/80 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 group-hover:text-brand-blue transition-colors mb-4">
-                        {sec1?.title || 'End-to-End Support Under One Roof'}
-                      </h3>
-                      <p className="text-[15px] sm:text-[17px] text-neutral-600 font-normal leading-relaxed">
-                        {sec1?.text || 'We provide end-to-end support across the biologics development lifecycle, from cell line engineering and development through GMP manufacturing and analytical testing, enabling sponsors to collaborate with a single partner throughout their program.'}
-                      </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <Reveal>
+                  {isVideoUrl(introMedia) ? (
+                    <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950 border border-neutral-200 rounded-[10px] shadow-sm">
+                      <video
+                        src={introMedia}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  </div>
+                  ) : introMedia ? (
+                    <BiologicsWorkflowGraphic src={introMedia} />
+                  ) : null}
                 </Reveal>
+                <Reveal delay={0.1}>
+                  <div>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-5">
+                      {intro.title}
+                    </h2>
+                    <div className="h-1 w-12 bg-brand-blue rounded-full mb-6" />
 
-                {/* Card 2 */}
-                <Reveal delay={0.1} className="h-full">
-                  <div className="group h-full bg-neutral-50/70 border border-neutral-200/80 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-orange/40 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 group-hover:text-brand-orange transition-colors mb-4">
-                        {sec2?.title || 'Reduced Technology Transfer Risk & Operational Simplicity'}
-                      </h3>
-                      <p className="text-[15px] sm:text-[17px] text-neutral-600 font-normal leading-relaxed">
-                        {sec2?.text || 'By bringing process, analytical, manufacturing, and quality expertise together within a coordinated quality framework, we help sponsors simplify development, reduce operational complexity, and minimize risks associated with technology transfer. This integrated approach supports efficient progression from early development to clinical supply, while maintaining product quality and regulatory readiness.'}
-                      </p>
+                    <div className="space-y-4 text-[15px] md:text-[17px] text-neutral-600 leading-relaxed font-normal">
+                      {paragraphs.map((p: string, pIdx: number) => (
+                        <p key={pIdx}>{renderFormattedText(p)}</p>
+                      ))}
                     </div>
                   </div>
                 </Reveal>
@@ -970,109 +993,65 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         );
       })()}
 
-      {/* CAPABILITIES / THE LAMBDA ADVANTAGE SECTION */}
-      {page.capabilities && page.capabilities.length > 0 && page.slug !== 'quality' && page.slug !== 'facility' && page.slug !== 'India' && page.slug !== 'london' && page.slug !== 'UK' && page.slug !== 'leadership' && (() => {
-        const advantageSec = page.sections?.find((s) => s.style === 'cards-grid' || s.title?.toLowerCase().includes('advantage'));
-        const advantageTitle = advantageSec?.title || 'The Lambda Advantage';
-        const advantageFirstWord = advantageTitle.split(' ')[0] || 'The';
-        const advantageRemainingWords = advantageTitle.split(' ').slice(1).join(' ') || 'Lambda Advantage';
-        const advantageSubtitle = advantageSec?.subtitle || 'What Sets Us Apart';
-        const advantageCards = (advantageSec?.cards && advantageSec.cards.length > 0)
-          ? advantageSec.cards.map((c) => c.title)
-          : page.capabilities;
+      {/* ABOUT: GLOBAL REACH & CDMO LOCATIONS MAP */}
+      {isAbout && aboutMapIdx >= 0 && (
+        <CDMOLocationsMapSection
+          title={sections[aboutMapIdx].title || undefined}
+          subtitle={sections[aboutMapIdx].subtitle || sections[aboutMapIdx].text || null}
+          cards={sections[aboutMapIdx].cards}
+        />
+      )}
+
+      {/* INTEGRATED DEVELOPMENT TO MANUFACTURING: 2-COLUMN SIDE-BY-SIDE CARDS */}
+      {pillarIdx.length > 0 && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+              {pillarIdx.map((secIdx, n) => {
+                const sec = sections[secIdx];
+                return (
+                  <Reveal key={sec.id || secIdx} delay={n === 0 ? 0.05 : 0.1} className="h-full">
+                    <PillarCard
+                      icon={n === 0 ? Workflow : ShieldCheck}
+                      title={sec.title}
+                      text={sec.text}
+                      accent={n === 0 ? 'blue' : 'orange'}
+                    />
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CAPABILITIES LIST (page.capabilities) */}
+      {page.capabilities && page.capabilities.length > 0 && !isQuality && page.slug !== 'facility' && !isIndia && !isUK && !isLeadership && (() => {
+        const capHeading = tx('capabilitiesHeading', 'Core Lifecycle Capabilities');
+        const [capFirstWord, ...capOtherWords] = capHeading.split(' ');
+        const capIntro = tx(
+          'capabilitiesIntro',
+          'Seamless coordination across development, analytical characterization, and GMP manufacturing under one roof.'
+        );
 
         return (
-          <section className={`relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${page.slug === 'about' ? 'bg-molecules' : 'bg-neutral-50/60'} border-b border-neutral-100 overflow-hidden`}>
-            {page.slug === 'about' && <DnaScrollBackground />}
+          <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100 overflow-hidden">
             <div className="relative z-10 w-full max-w-[1700px] mx-auto">
               <Reveal>
                 <div className="text-center mb-10 md:mb-14">
-                  {page.slug === 'about' ? (
-                    <div className="max-w-4xl mx-auto">
-                      <div className="w-14 h-14 mx-auto mb-8 rounded-[10px] bg-brand-yellow flex items-center justify-center shadow-xs">
-                        <Quote className="w-7 h-7 text-black" />
-                      </div>
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15] mb-6">
-                        <span className="text-neutral-900">{advantageFirstWord}</span>{' '}
-                        {advantageRemainingWords}
-                      </h2>
-                      <div className="space-y-4 max-w-3xl mx-auto text-[17px] md:text-[19px] text-slate-600 font-normal leading-relaxed text-center">
-                        {advantageSec?.text ? (
-                          advantageSec.text.split('\n\n').map((para: string, pIdx: number) => (
-                            <p key={pIdx}>{renderFormattedText(para)}</p>
-                          ))
-                        ) : (
-                          <>
-                            <p>
-                              Every biologic program has its own process, analytical, manufacturing, and regulatory requirements. Lambda CDMO brings together an integrated approach for process and analytical development, cGMP manufacturing, adequately supported by a quality management system to support programs from early development through clinical supplies.
-                            </p>
-                            <p>
-                              Our approach combines flexible development strategies, scalable processes, and quality systems designed to support evolving program requirements and global regulatory expectations.
-                            </p>
-                          </>
-                        )}
-                      </div>
-                      <div className="mt-10 mb-2 flex flex-col items-center justify-center">
-                        <div className="h-1 w-16 bg-brand-yellow rounded-full mb-6" />
-                        <span className="text-sm font-semibold uppercase tracking-wider text-brand-orange">
-                          {advantageSubtitle}
-                        </span>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                        {page.slug === 'leadership' ? (
-                          <>
-                            <span className="text-black">Operational</span> Commitments
-                          </>
-                        ) : page.slug === 'quality' ? (
-                          <>
-                            <span className="text-black">Quality</span> & Regulatory Framework
-                          </>
-                        ) : page.slug === 'integrated' ? (
-                          <>
-                            <span className="text-black">Integrated</span> Services
-                          </>
-                        ) : (
-                          <>
-                            <span className="text-black">Core</span> Lifecycle Capabilities
-                          </>
-                        )}
-                      </h2>
-                      <p className={`text-[15px] sm:text-[16px] xl:text-[17px] text-neutral-600 leading-relaxed max-w-5xl xl:max-w-none ${page.slug === 'integrated' ? 'md:whitespace-nowrap' : ''} mx-auto mt-4`}>
-                        {page.slug === 'leadership'
-                          ? 'Every project is supported by a dedicated team focused on delivering solutions that are scientifically sound, operationally efficient, and aligned with regulatory expectations. The team is focused on client requirements and the criticality of on-time, in-full delivery, with a working model built around six core commitments:'
-                          : page.slug === 'quality'
-                            ? 'Robust quality assurance, international compliance standards, and risk-managed processes across every program.'
-                            : 'Seamless coordination across development, analytical characterization, and GMP manufacturing under one roof.'}
-                      </p>
-                    </>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                    <span className="text-black">{capFirstWord}</span>
+                    {capOtherWords.length > 0 ? ` ${capOtherWords.join(' ')}` : ''}
+                  </h2>
+                  {capIntro && (
+                    <p className={`text-[15px] sm:text-[16px] xl:text-[17px] text-neutral-600 leading-relaxed max-w-5xl xl:max-w-none ${isIntegrated ? 'md:whitespace-nowrap' : ''} mx-auto mt-4`}>
+                      {capIntro}
+                    </p>
                   )}
                 </div>
               </Reveal>
 
-              {page.slug === 'about' ? (
-                <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
-                  {advantageCards.map((cap: any, idx: number) => {
-                    const Icon = getOverviewCapabilityIcon(cap, idx);
-                    return (
-                      <Reveal key={idx} delay={idx * 0.04} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex">
-                        <div className="group w-full h-full bg-white border border-neutral-200/80 rounded-[10px] p-5 sm:p-6 shadow-xs hover:shadow-md hover:border-brand-yellow transition-all duration-300 flex items-start gap-4">
-                          <div className="w-11 h-11 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow group-hover:border-brand-yellow transition-colors duration-300 mt-0.5">
-                            <Icon className="w-5 h-5 text-brand-blue group-hover:text-black transition-colors duration-300" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="text-[15px] sm:text-base font-medium text-neutral-800 leading-snug group-hover:text-black transition-colors duration-300">
-                              {cap}
-                            </h4>
-                          </div>
-                        </div>
-                      </Reveal>
-                    );
-                  })}
-                </div>
-              ) : page.slug === 'integrated' || page.slug === 'quality' || page.slug === 'leadership' ? (
+              {isIntegrated ? (
                 <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
                   {page.capabilities.map((cap: any, idx: number) => {
                     const Icon = getOverviewCapabilityIcon(cap, idx);
@@ -1118,25 +1097,21 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         );
       })()}
 
-      {/* LEADERSHIP PROFILES GRID */}
-      {page.slug === 'leadership' && (() => {
-        const leaderSec = page.sections?.find(
-          (s) => s.style === 'leadership-grid' || s.id === 'sec-leadership-team' || s.title?.toLowerCase().includes('leadership') || s.title?.toLowerCase().includes('executive')
-        );
-        const leadersToRender: LeaderProfile[] = (leaderSec?.cards && leaderSec.cards.length > 0)
-          ? leaderSec.cards.map((c) => ({
-            name: c.title,
-            title: c.link || c.href || '',
-            role: c.badge || 'Executive Leadership',
-            image: c.image || '/images/team/MS Ramaki.jpg',
-            experienceBadge: c.step || '25+ Years Experience',
-            credentials: c.icon || '',
-            bio: c.description ? c.description.split('\n\n').filter(Boolean) : []
-          }))
-          : LEADERSHIP_PROFILES;
-
-        const secTitle = leaderSec?.title || 'Executive & Scientific Team';
-        const secSubtitle = leaderSec?.text || leaderSec?.subtitle || 'Led by experienced biopharma leaders across technical product development, process sciences, analytical characterization, and global regulatory execution.';
+      {/* LEADERSHIP PROFILES GRID (cards of the leadership-grid section) */}
+      {leaderIdx >= 0 && (() => {
+        const leaderSec = sections[leaderIdx];
+        // Card fields as the admin "leadership" editor stores them:
+        // title = name, link = job title, badge = function, step = experience, icon = credentials.
+        const leaders = (leaderSec.cards || []).map((c) => ({
+          name: c.title,
+          title: c.link || c.href || '',
+          role: c.badge || '',
+          image: c.image || '',
+          experienceBadge: c.step || '',
+          credentials: c.icon || '',
+          bio: c.description ? c.description.split('\n\n').filter(Boolean) : [],
+        }));
+        const secSubtitle = leaderSec.text || leaderSec.subtitle || '';
 
         return (
           <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
@@ -1144,16 +1119,18 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               <Reveal>
                 <div className="text-center mb-12 md:mb-16">
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                    {secTitle}
+                    {leaderSec.title}
                   </h2>
-                  <p className="text-[15px] sm:text-[16px] xl:text-[17px] text-slate-500 font-normal leading-relaxed max-w-5xl xl:max-w-none lg:whitespace-nowrap mx-auto mt-4">
-                    {secSubtitle}
-                  </p>
+                  {secSubtitle && (
+                    <p className="text-[15px] sm:text-[16px] xl:text-[17px] text-slate-500 font-normal leading-relaxed max-w-5xl xl:max-w-none lg:whitespace-nowrap mx-auto mt-4">
+                      {secSubtitle}
+                    </p>
+                  )}
                 </div>
               </Reveal>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10 items-stretch">
-                {leadersToRender.map((leader: any, idx: number) => (
+                {leaders.map((leader, idx: number) => (
                   <Reveal key={idx} delay={idx * 0.08} className="h-full">
                     <div className="group h-full bg-white border border-neutral-200/90 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
                       {/* Top subtle accent bar */}
@@ -1163,21 +1140,25 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                         {/* Top Row: Photo & Header Info */}
                         <div className="flex flex-col sm:flex-row gap-6 items-start mb-5">
                           {/* Real Portrait Photograph Container */}
-                          <div className="relative w-full sm:w-48 h-64 sm:h-56 rounded-xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 shrink-0">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={encodeURI(leader.image)}
-                              alt={leader.name}
-                              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl pointer-events-none" />
-                          </div>
+                          {leader.image && (
+                            <div className="relative w-full sm:w-48 h-64 sm:h-56 rounded-xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 shrink-0">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={encodeURI(leader.image)}
+                                alt={leader.name}
+                                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                              />
+                              <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl pointer-events-none" />
+                            </div>
+                          )}
 
                           {/* Title & Metadata */}
                           <div className="flex flex-col flex-1">
-                            <span className="inline-flex items-center self-start px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-2">
-                              {leader.role}
-                            </span>
+                            {leader.role && (
+                              <span className="inline-flex items-center self-start px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-orange/10 text-brand-orange border border-brand-orange/20 mb-2">
+                                {leader.role}
+                              </span>
+                            )}
 
                             <h3 className="text-2xl font-bold tracking-tight text-neutral-900 group-hover:text-brand-blue transition-colors mb-1">
                               {leader.name}
@@ -1187,12 +1168,14 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                               {leader.title}
                             </p>
 
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
-                                <Award className="w-3.5 h-3.5 text-brand-orange" />
-                                <span>{leader.experienceBadge}</span>
-                              </span>
-                            </div>
+                            {leader.experienceBadge && (
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                                  <Award className="w-3.5 h-3.5 text-brand-orange" />
+                                  <span>{leader.experienceBadge}</span>
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
 
@@ -1220,135 +1203,148 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         );
       })()}
 
-      {/* Narrative Editorial Sections */}
-      {(page.slug === 'quality' || page.slug === 'quality-and-compliance') ? (
-        <>
-          {/* Dual Pillar Tiles: Global Regulatory Alignment & Quality Control Laboratories */}
-          <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
-            <div className="w-full max-w-[1700px] mx-auto">
-              <Reveal>
-                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-4">
-                    Quality &amp; Regulatory Pillars
-                  </h2>
-                  <div className="h-1 w-12 bg-brand-blue rounded-full mx-auto" />
-                </div>
-              </Reveal>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
-                {/* Tile 1: Global Regulatory Alignment */}
-                <Reveal delay={0.05} className="h-full">
-                  <div className="group h-full bg-slate-50/80 border border-neutral-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-blue/40 transition-all duration-300 flex flex-col justify-start relative overflow-hidden">
-                    <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-blue to-cyan-500 opacity-80" />
-                    <div className="flex items-center gap-3.5 mb-6">
-                      <div className="w-12 h-12 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue shrink-0">
-                        <Globe className="w-6 h-6" />
-                      </div>
-                      <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
-                        Global Regulatory Alignment
-                      </h3>
-                    </div>
-
-                    <div className="space-y-4 text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed font-normal">
-                      <p>
-                        Our development and manufacturing activities are aligned with applicable global cGMP requirements and supported by quality practices designed to meet regulatory expectations for programs targeting major global markets.
-                      </p>
-                      <p>
-                        We maintain rigorous standards for data integrity, data retention, customer transparency, information security, and intellectual property protection throughout the product lifecycle.
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
-
-                {/* Tile 2: Quality Control Laboratories */}
-                <Reveal delay={0.1} className="h-full">
-                  <div className="group h-full bg-slate-50/80 border border-neutral-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl hover:border-brand-orange/40 transition-all duration-300 flex flex-col justify-start relative overflow-hidden">
-                    <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-orange to-amber-500 opacity-80" />
-                    <div className="flex items-center gap-3.5 mb-6">
-                      <div className="w-12 h-12 rounded-xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange shrink-0">
-                        <ClipboardCheck className="w-6 h-6" />
-                      </div>
-                      <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
-                        Quality Control Laboratories
-                      </h3>
-                    </div>
-
-                    <div className="space-y-4 text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed font-normal">
-                      <p>
-                        Our Quality control laboratories are designed with state of art facilities to ensure product safety, identity, purity, potency, and consistency. The QC labs are established in strict alignment with global cGMP regulations and 21 CFR Part 11 data integrity standards.
-                      </p>
-                      <p>
-                        Our facility features advanced analytical instrumentation to cater to vigorous in-process testing and environmental monitoring. The QC labs are operated by scientists trained in all aspects of regulatory compliance driving meticulous data-driven batch release testing.
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
+      {/* QUALITY: DUAL PILLAR TILES (first two sections of the page) */}
+      {qualityTileIdx.length > 0 && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-white border-b border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
+            <Reveal>
+              <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-4">
+                  {tx('pillarsHeading', 'Quality & Regulatory Pillars')}
+                </h2>
+                <div className="h-1 w-12 bg-brand-blue rounded-full mx-auto" />
               </div>
-            </div>
-          </section>
+            </Reveal>
 
-          {/* Section 2: Regulatory Affairs Support - Reverted Side-by-Side Layout with Enlarged Roadmap Infographic */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+              {qualityTileIdx.map((secIdx, n) => {
+                const sec = sections[secIdx];
+                const tile = QUALITY_TILE_STYLES[n % QUALITY_TILE_STYLES.length];
+                const TileIcon = tile.icon;
+                return (
+                  <Reveal key={sec.id || secIdx} delay={n === 0 ? 0.05 : 0.1} className="h-full">
+                    <div className={`group h-full bg-slate-50/80 border border-neutral-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl ${tile.hover} transition-all duration-300 flex flex-col justify-start relative overflow-hidden`}>
+                      <div className={`absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r ${tile.bar} opacity-80`} />
+                      <div className="flex items-center gap-3.5 mb-6">
+                        <div className={`w-12 h-12 rounded-xl ${tile.iconBox} flex items-center justify-center ${tile.iconColor} shrink-0`}>
+                          <TileIcon className="w-6 h-6" />
+                        </div>
+                        <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900">
+                          {sec.title}
+                        </h3>
+                      </div>
+
+                      <div className="space-y-4 text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed font-normal">
+                        {(sec.text || '').split('\n\n').filter(Boolean).map((para: string, pIdx: number) => (
+                          <p key={pIdx}>{renderFormattedText(para)}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* QUALITY: REGULATORY AFFAIRS SUPPORT (third section) - copy + bullets beside the roadmap graphic */}
+      {qualityRegulatoryIdx >= 0 && (() => {
+        const reg = sections[qualityRegulatoryIdx];
+        const regParagraphs = (reg.text || '').split('\n\n').filter(Boolean);
+        const regBullets = (reg.bullets || []).filter(Boolean);
+        const regMedia = reg.video || reg.image || reg.images?.[0] || '';
+
+        return (
           <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
             <div className="w-full max-w-[1700px] mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
                 {/* Left Column: Regulatory Content & Capabilities */}
                 <Reveal delay={0.05} className="lg:col-span-5 xl:col-span-4">
                   <div>
-                    <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-blue/10 text-brand-blue border border-brand-blue/20 mb-4">
-                      Lifecycle CMC Alignment
-                    </span>
+                    {reg.subtitle && (
+                      <span className="inline-block px-3 py-1 rounded-[10px] text-[10px] uppercase font-bold tracking-wider bg-brand-blue/10 text-brand-blue border border-brand-blue/20 mb-4">
+                        {reg.subtitle}
+                      </span>
+                    )}
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.15] mb-5">
-                      Regulatory Affairs Support
+                      {reg.title}
                     </h2>
                     <div className="h-1 w-12 bg-brand-blue rounded-full mb-6" />
-                    <p className="text-[15px] sm:text-[16px] xl:text-[17px] text-neutral-600 leading-relaxed font-normal mb-8">
-                      Our Regulatory Affairs team works closely with development, manufacturing, analytical, and quality functions to support Chemistry, Manufacturing, and Controls (CMC) requirements throughout the product lifecycle.
-                    </p>
+                    {regParagraphs.map((para: string, pIdx: number) => (
+                      <p
+                        key={pIdx}
+                        className={`text-[15px] sm:text-[16px] xl:text-[17px] text-neutral-600 leading-relaxed font-normal ${pIdx === regParagraphs.length - 1 ? 'mb-8' : 'mb-4'}`}
+                      >
+                        {renderFormattedText(para)}
+                      </p>
+                    ))}
 
-                    <div className="pt-6 border-t border-neutral-200/80">
-                      <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-4">
-                        Key capabilities include:
-                      </span>
-                      <ul className="space-y-3">
-                        {[
-                          'IND and IMPD submissions',
-                          'Biologics License Application (BLA) submissions',
-                          'Lifecycle variations',
-                          'CMC documentation',
-                          'Scientific interactions with global health authorities'
-                        ].map((cap, cIdx) => (
-                          <li key={cIdx} className="flex items-start gap-3">
-                            <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
-                              <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                            </div>
-                            <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
-                              {cap}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {regBullets.length > 0 && (
+                      <div className="pt-6 border-t border-neutral-200/80">
+                        <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-4">
+                          {reg.bulletsTitle || bulletsLabel}
+                        </span>
+                        <ul className="space-y-3">
+                          {regBullets.map((cap: string, cIdx: number) => (
+                            <li key={cIdx} className="flex items-start gap-3">
+                              <div className="w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mt-0.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                              </div>
+                              <span className="text-[14px] sm:text-[15px] font-medium text-neutral-800 leading-snug">
+                                {renderFormattedText(cap)}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </Reveal>
 
                 {/* Right Column: Full-Bleed Roadmap Graphic Card */}
-                <Reveal delay={0.1} className="lg:col-span-7 xl:col-span-8">
-                  <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-1.5 sm:p-2.5 md:p-3 overflow-hidden flex items-center justify-center">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/images/insights/regulatory_cmc_roadmap.png"
-                      alt="Regulatory Affairs Support — CMC Biologics Roadmap"
-                      className="w-full h-auto block object-contain rounded-xl drop-shadow-xs"
-                    />
-                  </div>
-                </Reveal>
+                {regMedia && (
+                  <Reveal delay={0.1} className="lg:col-span-7 xl:col-span-8">
+                    <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-1.5 sm:p-2.5 md:p-3 overflow-hidden flex items-center justify-center">
+                      {isVideoUrl(regMedia) ? (
+                        <video
+                          src={regMedia}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-auto block object-contain rounded-xl"
+                        />
+                      ) : (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          src={regMedia}
+                          alt={`${reg.title} — CMC Biologics Roadmap`}
+                          className="w-full h-auto block object-contain rounded-xl drop-shadow-xs"
+                        />
+                      )}
+                    </div>
+                  </Reveal>
+                )}
               </div>
             </div>
           </section>
-        </>
-      ) : (
-        narrative
-      )}
+        );
+      })()}
+
+      {/* Editorial image + text rows (facility pages, careers, extra sections on leadership) */}
+      {narrative}
+
+      {/* Any other section an editor adds renders generically */}
+      {genericIdx.map((secIdx) => (
+        <DynamicSectionRenderer
+          key={sections[secIdx].id || secIdx}
+          section={sections[secIdx]}
+          index={secIdx}
+          pageSlug={page.slug}
+          category={page.category}
+        />
+      ))}
 
       {/* FAQ Accordion (Bottom Section) */}
       {page.faqs && page.faqs.length > 0 && (
@@ -1361,17 +1357,8 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         />
       )}
 
-      {/* CTA */}
-      {page.slug === 'careers' ? (
-        <CommonCTA
-          primaryButtonText="Explore Open Roles"
-          primaryButtonHref="https://careers.lambda-cro.com/go/CDMO/752444/"
-          primaryButtonTarget="_blank"
-          primaryButtonRel="noopener noreferrer"
-        />
-      ) : (
-        <CommonCTA />
-      )}
+      {/* CTA (page record: ctaTitle, ctaSubtitle, primaryCta, secondaryCta) */}
+      <PageCTA page={page} />
     </>
   );
 }

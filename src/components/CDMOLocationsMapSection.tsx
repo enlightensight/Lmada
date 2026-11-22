@@ -24,6 +24,10 @@ interface LocationData {
   tourHref?: string;
   photo: string;
   photoPosition?: string;
+  /** Tab label; falls back to `name`. */
+  tabName?: string;
+  /** Label of the secondary (virtual tour) button. */
+  tourLabel?: string;
 }
 
 const DEFAULT_LOCATIONS: Record<'amd' | 'lon', LocationData> = {
@@ -96,6 +100,15 @@ interface CDMOLocationsMapSectionProps {
     link?: string;
     href?: string;
     image?: string;
+    /** Optional: tab label when it should differ from the card title. */
+    tabLabel?: string;
+    /** Optional: short label on the globe pin (e.g. the city). */
+    pinLabel?: string;
+    /** Optional: capability pills shown under the description. */
+    bullets?: string[];
+    /** Optional: label / link of the secondary (virtual tour) button. */
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
   }[];
 }
 
@@ -126,7 +139,11 @@ export default function CDMOLocationsMapSection({
       href: cards?.[0]?.href || cards?.[0]?.link || DEFAULT_LOCATIONS.amd.href,
       photo: cards?.[0]?.image || DEFAULT_LOCATIONS.amd.photo,
       photoPosition: 'center 80%',
-      tourHref: '/virtual-tour/00%20MAIN%20BUILDING/index.htm'
+      tourHref: cards?.[0]?.secondaryButtonLink || '/virtual-tour/00%20MAIN%20BUILDING/index.htm',
+      tourLabel: cards?.[0]?.secondaryButtonText,
+      tabName: cards?.[0]?.tabLabel,
+      short: cards?.[0]?.pinLabel || DEFAULT_LOCATIONS.amd.short,
+      caps: cards?.[0]?.bullets?.length ? cards[0].bullets : DEFAULT_LOCATIONS.amd.caps
     },
     lon: {
       ...DEFAULT_LOCATIONS.lon,
@@ -136,9 +153,16 @@ export default function CDMOLocationsMapSection({
       cta: cards?.[1]?.buttonText || DEFAULT_LOCATIONS.lon.cta,
       href: cards?.[1]?.href || cards?.[1]?.link || DEFAULT_LOCATIONS.lon.href,
       photo: cards?.[1]?.image || DEFAULT_LOCATIONS.lon.photo,
-      photoPosition: 'center center'
+      photoPosition: 'center center',
+      tourHref: cards?.[1]?.secondaryButtonLink || DEFAULT_LOCATIONS.lon.tourHref,
+      tourLabel: cards?.[1]?.secondaryButtonText,
+      tabName: cards?.[1]?.tabLabel,
+      short: cards?.[1]?.pinLabel || DEFAULT_LOCATIONS.lon.short,
+      caps: cards?.[1]?.bullets?.length ? cards[1].bullets : DEFAULT_LOCATIONS.lon.caps
     }
   };
+  const amdPinLabel = locations.amd.short;
+  const lonPinLabel = locations.lon.short;
 
   const activeLoc = locations[activeKey];
 
@@ -333,7 +357,8 @@ export default function CDMOLocationsMapSection({
             .attr('class', 'plabel')
             .attr('transform', 'translate(14, -13)');
 
-          const pillWidth = s.short.length * 7.5 + 24;
+          const pinLabel = s.key === 'amd' ? amdPinLabel : lonPinLabel;
+          const pillWidth = pinLabel.length * 7.5 + 24;
           lbl
             .append('rect')
             .attr('rx', 8)
@@ -353,7 +378,7 @@ export default function CDMOLocationsMapSection({
 
           lbl
             .append('text')
-            .text(s.short)
+            .text(pinLabel)
             .attr('x', 19)
             .attr('y', 17)
             .attr('font-size', 12)
@@ -414,7 +439,7 @@ export default function CDMOLocationsMapSection({
       isMounted = false;
       if (animTimer) animTimer.stop();
     };
-  }, [handleSelectLocation]);
+  }, [handleSelectLocation, amdPinLabel, lonPinLabel]);
 
   return (
     <section
@@ -485,7 +510,7 @@ export default function CDMOLocationsMapSection({
                       }`}
                       style={{ '--tab-color': loc.color } as React.CSSProperties}
                     >
-                      <span className="relative z-10">{loc.name}</span>
+                      <span className="relative z-10">{loc.tabName || loc.name}</span>
                       {isOn && (
                         <span
                           key={`prog-${key}-${progressKey}`}
@@ -581,7 +606,7 @@ export default function CDMOLocationsMapSection({
                         className="inline-flex items-center justify-center gap-2 h-[42px] px-5 rounded-[10px] text-sm font-medium tracking-wide text-neutral-900 border border-neutral-900 bg-white hover:bg-neutral-900 hover:text-white transition-all shadow-xs hover:-translate-y-0.5 active:scale-98 w-full sm:w-auto"
                       >
                         <Video className="w-4 h-4 shrink-0" />
-                        <span>Virtual Tour</span>
+                        <span>{activeLoc.tourLabel || 'Virtual Tour'}</span>
                       </a>
                     )}
                   </div>

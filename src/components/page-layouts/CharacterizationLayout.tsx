@@ -29,16 +29,21 @@ import {
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
-import CommonCTA from '@/components/CommonCTA';
+import PageCTA from '@/components/PageCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
 import { getPageEquipment } from '@/data/equipmentData';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
+import { makePageText, slotsForPage } from '@/lib/pageText';
+import { SERVICES_TEXT_SLOTS } from '@/data/textSlots/services';
+import { getHeroMedia, getRenderableSections } from './cmsMedia';
 
 interface CharacterizationLayoutProps {
   page: CDMOPage;
-  content: PageContent;
+  /** Kept for the shared layout signature; sections are read from the page record itself. */
+  content?: PageContent;
 }
 
 // Per-slug lab icon sets so sibling pages feel distinct
@@ -92,9 +97,21 @@ function splitHeading(heading: string) {
   return { first: words[0], rest: words.slice(1).join(' ') };
 }
 
-export default function CharacterizationLayout({ page, content }: CharacterizationLayoutProps) {
+export default function CharacterizationLayout({ page }: CharacterizationLayoutProps) {
   const heroHeading = splitHeading(page.heading);
-  const heroEquipment = getPageEquipment(page.slug);
+  const t = makePageText(page, SERVICES_TEXT_SLOTS);
+  // Editable copy where the page has a slot registered; the stock wording anywhere else.
+  const pageSlotKeys = new Set(slotsForPage(page, SERVICES_TEXT_SLOTS).map((slot) => slot.key));
+  const slotText = (key: string, fallback: string) => (pageSlotKeys.has(key) ? t(key) : fallback);
+
+  // Hero media comes from the page record: a video, the `images` carousel, or the single `image`.
+  const { video: heroVideo, slides: heroSlides } = getHeroMedia(page);
+  // Only used when the record holds no hero media at all.
+  const fallbackHeroEquipment = !heroVideo && heroSlides.length === 0 ? getPageEquipment(page.slug) : null;
+
+  // This layout has no section block of its own: every section of the record is drawn with
+  // DynamicSectionRenderer just before the FAQ block.
+  const sections = getRenderableSections(page);
 
   return (
     <>
@@ -130,14 +147,10 @@ export default function CharacterizationLayout({ page, content }: Characterizati
               </div>
             </div>
             <Reveal delay={0.1} className="w-full">
-              {page.images && page.images.length > 0 ? (
-                <AboutHeroCarousel images={page.images} />
-              ) : heroEquipment && heroEquipment.length > 0 ? (
-                <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />
-              ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
+              {heroVideo ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
                   <video
-                    src={page.heroVideo || page.image}
+                    src={heroVideo}
                     autoPlay
                     loop
                     muted
@@ -145,10 +158,14 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                     className="w-full h-full object-cover"
                   />
                 </div>
+              ) : heroSlides.length > 0 ? (
+                <AboutHeroCarousel images={heroSlides} />
+              ) : fallbackHeroEquipment && fallbackHeroEquipment.length > 0 ? (
+                <EquipmentCarousel items={fallbackHeroEquipment} sectionTitle={page.heading} />
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
-                    src={page.image || '/images/hero_cleanroom.png'}
+                    src="/images/hero_cleanroom.png"
                     alt={page.title}
                     className="w-full h-full object-cover"
                   />
@@ -166,7 +183,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  Capabilities
+                  {slotText('capabilitiesHeading', 'Capabilities')}
                 </h2>
               </div>
             </Reveal>
@@ -204,7 +221,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                 <Reveal>
                   <div className="text-center mb-10 md:mb-12">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                      Bioassay Capabilities
+                      {slotText('bioassayHeading', 'Bioassay Capabilities')}
                     </h2>
                   </div>
                 </Reveal>
@@ -237,7 +254,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
                 <Reveal>
                   <div className="text-center mb-10 md:mb-12">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                      Immunogenicity Testing
+                      {slotText('immunogenicityHeading', 'Immunogenicity Testing')}
                     </h2>
                   </div>
                 </Reveal>
@@ -285,7 +302,7 @@ export default function CharacterizationLayout({ page, content }: Characterizati
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  Analytical Technologies
+                  {slotText('technologiesHeading', 'Analytical Technologies')}
                 </h2>
               </div>
             </Reveal>
@@ -330,6 +347,21 @@ export default function CharacterizationLayout({ page, content }: Characterizati
         </section>
       )}
 
+      {/* Sections of the page record (added in the admin panel) */}
+      {sections.length > 0 && (
+        <div className="divide-y divide-neutral-100 border-t border-neutral-200">
+          {sections.map((sec, idx) => (
+            <DynamicSectionRenderer
+              key={sec.id || idx}
+              section={sec}
+              index={idx}
+              pageSlug={page.slug}
+              category={page.category}
+            />
+          ))}
+        </div>
+      )}
+
       {/* FAQ Accordion (Bottom Section) */}
       {page.faqs && page.faqs.length > 0 && (
         <FAQSection
@@ -341,8 +373,8 @@ export default function CharacterizationLayout({ page, content }: Characterizati
         />
       )}
 
-      {/* CTA */}
-      <CommonCTA />
+      {/* CTA (page record: ctaTitle, ctaSubtitle, primaryCta, secondaryCta) */}
+      <PageCTA page={page} />
     </>
   );
 }

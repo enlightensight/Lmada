@@ -115,6 +115,9 @@ export default function DynamicSectionRenderer({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const style = section.style || 'feature-split';
+  // The layout an editor picked always wins. Only sections saved without a style are
+  // matched by the shape of their content (legacy records).
+  const guessStyle = !section.style;
   const isDark = section.dark ?? false;
 
   // 1. LOCATIONS MAP SECTION
@@ -208,7 +211,7 @@ export default function DynamicSectionRenderer({
   }
 
   // 3. STATS / METRICS COUNTERS GRID
-  if (style === 'stats-metrics' || (section.stats && section.stats.length > 0 && !section.cards && !section.bullets)) {
+  if (style === 'stats-metrics' || (guessStyle && section.stats && section.stats.length > 0 && !section.cards && !section.bullets)) {
     const statsList = section.stats || [];
     return (
       <section className={`px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${isDark ? 'bg-brand-navy text-white' : 'bg-slate-50 text-neutral-900'} border-y border-neutral-200/60`}>
@@ -261,7 +264,7 @@ export default function DynamicSectionRenderer({
   }
 
   // 4. PROCESS FLOW / TIMELINE STEPS (01, 02, 03)
-  if (style === 'process-steps' || (section.steps && section.steps.length > 0)) {
+  if (style === 'process-steps' || (guessStyle && section.steps && section.steps.length > 0)) {
     const stepsList = section.steps || [
       { step: '01', title: 'Target Specification & Molecule Assessment', description: 'Comprehensive review of molecule structure, purity, and clinical phase timelines.' },
       { step: '02', title: 'Process & Analytical Development', description: 'Robust media screening, parameter optimization, and ICH method development.' },
@@ -598,7 +601,7 @@ export default function DynamicSectionRenderer({
   }
 
   // 6. MODALITIES GRID SECTION
-  if (style === 'modalities-grid' || (section.cards && section.cards.some((c) => c.link?.includes('/modalities')))) {
+  if (style === 'modalities-grid' || (guessStyle && section.cards && section.cards.some((c) => c.link?.includes('/modalities')))) {
     const modalitiesList = section.cards || [];
     return (
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 border-y border-neutral-100 bg-white">
@@ -658,7 +661,7 @@ export default function DynamicSectionRenderer({
   }
 
   // 7. CAPABILITIES CHECKLIST / ADVANTAGE LIST
-  if (style === 'capabilities-checklist' || (section.bullets && section.bullets.length > 0 && !section.image)) {
+  if (style === 'capabilities-checklist' || (guessStyle && section.bullets && section.bullets.length > 0 && !section.image)) {
     const bullets = section.bullets || [];
     return (
       <section className={`px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 ${isDark ? 'bg-brand-navy text-white' : 'bg-molecules text-neutral-900'} border-y border-neutral-100`}>
@@ -706,7 +709,7 @@ export default function DynamicSectionRenderer({
   }
 
   // 8. FAQ ACCORDION SECTION (Matching Image 1 Live Layout)
-  if (style === 'faq-accordion' || (section.faqs && section.faqs.length > 0)) {
+  if (style === 'faq-accordion' || (guessStyle && section.faqs && section.faqs.length > 0)) {
     const faqs = (section.faqs && section.faqs.length > 0)
       ? section.faqs
       : [
@@ -725,7 +728,7 @@ export default function DynamicSectionRenderer({
   }
 
   // 9. TECHNICAL SPECIFICATIONS TABLE
-  if (style === 'technical-specs' || (section.specs && section.specs.length > 0)) {
+  if (style === 'technical-specs' || (guessStyle && section.specs && section.specs.length > 0)) {
     const specsList = section.specs || [];
     return (
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-slate-50 border-y border-neutral-200/80">

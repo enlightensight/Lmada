@@ -3,7 +3,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function BiologicsWorkflowGraphic() {
+interface BiologicsWorkflowGraphicProps {
+  /** Image to show; comes from the CMS section's image field. */
+  src?: string;
+  alt?: string;
+}
+
+export default function BiologicsWorkflowGraphic({
+  src = '/images/Biologics CDMO Cell Line to Clinical Supply - High res.png',
+  alt = 'Integrated Biologics Development and Manufacturing Workflow',
+}: BiologicsWorkflowGraphicProps = {}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -14,8 +23,8 @@ export default function BiologicsWorkflowGraphic() {
     >
       <div className="w-full max-w-[760px] flex items-center justify-center">
         <img
-          src="/images/Biologics CDMO Cell Line to Clinical Supply - High res.png"
-          alt="Integrated Biologics Development and Manufacturing Workflow"
+          src={src}
+          alt={alt}
           className="w-full h-auto object-contain transition-transform duration-500 hover:scale-[1.015]"
           loading="eager"
         />
@@ -23,4 +32,3 @@ export default function BiologicsWorkflowGraphic() {
     </motion.div>
   );
 }
-

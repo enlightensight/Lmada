@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   ArrowRight,
   BookOpen,
@@ -15,7 +16,11 @@ import {
   Sparkles,
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import CommonCTA from '@/components/CommonCTA';
+import PageCTA from '@/components/PageCTA';
+import FAQSection from '@/components/FAQSection';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
+import { makePageText } from '@/lib/pageText';
+import { MISC_TEXT_SLOTS } from '@/data/textSlots/misc';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 import { insightsData, INSIGHT_TABS, type InsightItem } from '@/data/insightsData';
@@ -23,6 +28,8 @@ import { insightsData, INSIGHT_TABS, type InsightItem } from '@/data/insightsDat
 interface InsightsLayoutProps {
   page: CDMOPage;
   content: PageContent;
+  /** Live articles from the Insights CMS, so the first render is already current. */
+  initialInsights?: Record<string, InsightItem[]>;
 }
 
 const TAB_ICONS = {
@@ -33,11 +40,16 @@ const TAB_ICONS = {
   Calendar,
 };
 
-export default function InsightsLayout({ page }: InsightsLayoutProps) {
+export default function InsightsLayout({ page, initialInsights }: InsightsLayoutProps) {
   // Active category slug derived or selected by user
-  const [userSelectedTab, setUserSelectedTab] = useState<string | null>(null);
-  const activeTab = userSelectedTab ?? (INSIGHT_TABS.some((t) => t.slug === page.slug) ? page.slug : 'blogs');
-  const [liveData, setLiveData] = useState<Record<string, InsightItem[]>>(insightsData);
+  const router = useRouter();
+  const t = makePageText(page, MISC_TEXT_SLOTS);
+  const pageTab = INSIGHT_TABS.some((tab) => tab.slug === page.slug) ? page.slug : 'blogs';
+  // Optimistic tab highlight while the next category page loads; cleared once it arrives.
+  const [pendingTab, setPendingTab] = useState<{ from: string; to: string } | null>(null);
+  const userSelectedTab = pendingTab && pendingTab.from === pageTab ? pendingTab.to : null;
+  const activeTab = userSelectedTab ?? pageTab;
+  const [liveData, setLiveData] = useState<Record<string, InsightItem[]>>(initialInsights || insightsData);
 
   // Fetch latest insights dynamically from storage
   useEffect(() => {
@@ -51,17 +63,23 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
       .catch((err) => console.log('Using local static insightsData:', err));
   }, []);
 
-  // Switch tabs and update browser URL without full reload
+  // Switch tabs with a client-side navigation so the hero copy of the target
+  // category page (edited in the admin panel) is loaded with it.
   const handleTabChange = (slug: string) => {
-    setUserSelectedTab(slug);
-    if (typeof window !== 'undefined') {
-      window.history.pushState(null, '', `/insights/${slug}`);
-    }
+    if (slug === activeTab) return;
+    setPendingTab({ from: pageTab, to: slug });
+    const query = typeof window !== 'undefined' ? window.location.search : '';
+    router.push(`/insights/${slug}${query}`, { scroll: false });
   };
 
   const currentTabConfig = INSIGHT_TABS.find((t) => t.slug === activeTab) || INSIGHT_TABS[0];
   const items = liveData[activeTab] || insightsData[activeTab] || [];
   const [featuredItem, ...supportingItems] = items;
+
+  // Hero copy comes from this category page's CMS record. While another tab is
+  // loading, show that tab's built-in description instead of the old page's.
+  const [headingFirst, ...headingRest] = (page.heading || 'Lambda Insights').split(' ');
+  const heroDescription = userSelectedTab ? currentTabConfig.description : (page.description || currentTabConfig.description);
 
   return (
     <div className="min-h-screen bg-neutral-50/50">
@@ -84,22 +102,22 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-navy/5 text-brand-navy text-[11px] font-semibold uppercase tracking-wider mb-3">
                 <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
-                <span>Scientifically Proven Biologics Intelligence</span>
+                <span>{page.badge || 'Scientifically Proven Biologics Intelligence'}</span>
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-neutral-900 tracking-tight leading-tight">
-                Lambda <span className="font-normal text-brand-navy">Insights</span>
+                {headingFirst}{headingRest.length > 0 && <> <span className="font-normal text-brand-navy">{headingRest.join(' ')}</span></>}
               </h1>
               <p className="mt-2 text-base md:text-lg text-slate-600 max-w-3xl font-normal leading-relaxed">
-                {currentTabConfig.description}
+                {heroDescription}
               </p>
             </div>
 
             <div className="shrink-0 flex items-center gap-3">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Category
+                {t('heroTagLabel')}
               </span>
               <span className="px-3 py-1.5 rounded-lg bg-brand-navy text-white text-xs font-medium tracking-wide">
-                Peer-Reviewed Dossiers
+                {t('heroTagValue')}
               </span>
             </div>
           </div>
@@ -242,11 +260,11 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
                     More in {currentTabConfig.label}
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Peer-reviewed methodologies and validated technical reports
+                    {t('moreListSubtitle')}
                   </p>
                 </div>
                 <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                  Technical Reports
+                  {t('moreListTag')}
                 </span>
               </div>
 
@@ -329,8 +347,25 @@ export default function InsightsLayout({ page }: InsightsLayoutProps) {
         </div>
       </main>
 
+      {/* Sections added in the admin panel */}
+      {(page.sections || [])
+        .filter((sec) => sec.style !== 'faq-accordion')
+        .map((sec, idx) => (
+          <DynamicSectionRenderer key={sec.id || idx} section={sec} index={idx} pageSlug={page.slug} category={page.category} />
+        ))}
+
+      {page.faqs && page.faqs.length > 0 && (
+        <FAQSection
+          faqs={page.faqs}
+          title={page.faqTitle || 'Frequently Asked Questions'}
+          subtitle={page.faqSubtitle}
+          buttonText={page.faqButtonText}
+          buttonLink={page.faqButtonLink}
+        />
+      )}
+
       {/* COMMON CTA */}
-      <CommonCTA />
+      <PageCTA page={page} />
     </div>
   );
 }

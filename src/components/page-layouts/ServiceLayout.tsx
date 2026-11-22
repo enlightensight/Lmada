@@ -29,16 +29,20 @@ import {
 import { AntibodyPayloadIcon, PeptideChainIcon } from '@/components/icons/BiologicsIcons';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
-import CommonCTA from '@/components/CommonCTA';
+import PageCTA from '@/components/PageCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
-import AboutHeroCarousel from '@/components/AboutHeroCarousel';
-import { getSectionEquipment, getPageEquipment, UPSTREAM_EQUIPMENT, DOWNSTREAM_EQUIPMENT, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
-import type { CDMOPage } from '@/data/cdmoData';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
+import { getPageEquipment } from '@/data/equipmentData';
+import type { CDMOPage, CDMOSection } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
+import { makePageText, slotsForPage } from '@/lib/pageText';
+import { SERVICES_TEXT_SLOTS, MODALITIES_BLOCK_DEFAULTS } from '@/data/textSlots/services';
+import { getHeroMedia, getSectionMedia, partitionSections, toCarouselItems } from './cmsMedia';
 
 interface ServiceLayoutProps {
   page: CDMOPage;
-  content: PageContent;
+  /** Kept for the shared layout signature; sections are read from the page record itself. */
+  content?: PageContent;
 }
 
 const CAPABILITY_ICONS = [FlaskConical, Dna, Microscope, Activity, Search, Beaker];
@@ -116,13 +120,67 @@ function getBulletCapabilityIcon(text: string, index: number) {
   return fallbacks[index % fallbacks.length];
 }
 
-export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
-  const heroEquipment = getPageEquipment(page.slug);
+export default function ServiceLayout({ page }: ServiceLayoutProps) {
+  const t = makePageText(page, SERVICES_TEXT_SLOTS);
+  // Editable copy where the page has a slot registered; the stock wording anywhere else.
+  const pageSlotKeys = new Set(slotsForPage(page, SERVICES_TEXT_SLOTS).map((slot) => slot.key));
+  const slotText = (key: string, fallback: string) => (pageSlotKeys.has(key) ? t(key) : fallback);
   const isProcess = page.slug === 'process' || page.slug === 'process-development';
   const isAnalytical = page.slug === 'analytical' || page.slug === 'analytical-development';
+  const isCellLine = page.slug === 'cell-line' || page.slug === 'cell-line-development';
 
   const hidePointerIcons = isProcess || isAnalytical;
   const hideHeaderIcons = isAnalytical;
+
+  // Hero media comes from the page record: a video, the `images` carousel, or the single `image`.
+  const { video: heroVideo, slides: heroSlides } = getHeroMedia(page);
+  // Only used when the record holds no hero media at all.
+  const fallbackHeroEquipment = !heroVideo && heroSlides.length === 0 ? getPageEquipment(page.slug) : null;
+
+  // Every section of the record renders once: feature-split sections as capability cards below,
+  // any other style through DynamicSectionRenderer just before the FAQ block.
+  const { split: splitSections, other: otherSections } = partitionSections(page);
+
+  const tagline = 'We find it';
+  const taglineAt = page.heading.indexOf(tagline);
+
+  const renderBullets = (section: CDMOSection, gridClass: string) => {
+    if (!section.bullets || section.bullets.length === 0) return null;
+    return (
+      <div className={section.text ? "pt-5 border-t border-neutral-100" : ""}>
+        {section.bulletsTitle && (
+          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+            {section.bulletsTitle}
+          </span>
+        )}
+        <div className={gridClass}>
+          {section.bullets.map((b: string, bIdx: number) => {
+            const svgIcon = isCellLine ? getBulletSvgIcon(b) : null;
+            const BulletIcon = getBulletCapabilityIcon(b, bIdx);
+            return (
+              <div
+                key={bIdx}
+                className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+              >
+                {!hidePointerIcons && (
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
+                    {svgIcon ? (
+                      <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                    ) : (
+                      <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                    )}
+                  </div>
+                )}
+                <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
+                  {b}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -148,11 +206,11 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                 </span>
               )}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.05]">
-                {page.heading.includes('We find it') ? (
+                {taglineAt >= 0 ? (
                   <>
-                    <span className="text-neutral-900">{page.heading.split('We find it')[0].trim()}</span>
+                    <span className="text-neutral-900">{page.heading.slice(0, taglineAt).trim()}</span>
                     <br />
-                    <span>We find it.</span>
+                    <span>{page.heading.slice(taglineAt).trim()}</span>
                   </>
                 ) : (
                   <>
@@ -168,14 +226,10 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
               </div>
             </div>
             <Reveal delay={0.1} className="w-full">
-              {page.images && page.images.length > 1 ? (
-                <AboutHeroCarousel images={page.images} />
-              ) : heroEquipment && heroEquipment.length > 0 ? (
-                <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />
-              ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
+              {heroVideo ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
                   <video
-                    src={page.heroVideo || page.image}
+                    src={heroVideo}
                     autoPlay
                     loop
                     muted
@@ -183,10 +237,14 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                     className="w-full h-full object-cover brightness-[1.05] contrast-[1.03]"
                   />
                 </div>
+              ) : heroSlides.length > 1 ? (
+                <EquipmentCarousel items={toCarouselItems(heroSlides)} sectionTitle={page.heading} />
+              ) : fallbackHeroEquipment && fallbackHeroEquipment.length > 0 ? (
+                <EquipmentCarousel items={fallbackHeroEquipment} sectionTitle={page.heading} />
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
-                    src={page.image || '/images/hero_cleanroom.png'}
+                    src={heroSlides[0] || '/images/hero_cleanroom.png'}
                     alt={page.title}
                     className="w-full h-full object-cover brightness-[1.05] contrast-[1.03]"
                   />
@@ -198,188 +256,94 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
       </section>
 
       {/* TECHNICAL FOCUS AREAS — HORIZONTAL SECTIONS WITH KEY CAPABILITIES ICONS */}
+      {splitSections.length > 0 && (
       <section className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="flex flex-col gap-10 md:gap-14">
-            {content.sections
-              .filter((s: any) => s.style !== 'faq-accordion' && !s.id?.includes('faq') && s.title !== 'Frequently Asked Questions')
-              .map((section: any, idx: number) => {
-              const Icon = section.title.toLowerCase().includes('upstream')
+            {splitSections.map((section, idx) => {
+              const titleLower = (section.title || '').toLowerCase();
+              const Icon = titleLower.includes('upstream')
                 ? FlaskConical
-                : section.title.toLowerCase().includes('downstream')
+                : titleLower.includes('downstream')
                   ? Filter
-                  : section.title.toLowerCase().includes('analytical')
+                  : titleLower.includes('analytical')
                     ? Microscope
-                    : section.title.toLowerCase().includes('cell line') || section.title.toLowerCase().includes('clone')
+                    : titleLower.includes('cell line') || titleLower.includes('clone')
                       ? Dna
-                      : section.title.toLowerCase().includes('formulation')
+                      : titleLower.includes('formulation')
                         ? Beaker
                         : CAPABILITY_ICONS[idx % CAPABILITY_ICONS.length];
 
-              const isUpstreamProcess = isProcess && section.title.toLowerCase().includes('upstream');
-              const isDownstreamProcess = isProcess && section.title.toLowerCase().includes('downstream');
               const imageRight = idx % 2 === 1;
+              const { video, slides } = getSectionMedia(section);
+              const hasMedia = Boolean(video) || slides.length > 0;
 
-              const equipmentItems = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? null : getSectionEquipment(section.title, page.slug);
-              const isVideo = section.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(section.video || section.image || '');
-              const hasEquipment = Boolean(equipmentItems && equipmentItems.length > 0);
-              const hasMultiImages = Boolean(section.images && section.images.length > 1);
-              const hasSingleImage = Boolean(section.image && section.image.trim() !== '');
-              const hasVideo = Boolean(isVideo && (section.video || section.image));
-              const hasMedia = page.slug !== 'cell-line' && page.slug !== 'cell-line-development' && (hasMultiImages || hasVideo || hasEquipment || hasSingleImage);
+              const header = (
+                <div className="flex items-center gap-3 mb-4">
+                  {!hideHeaderIcons && (
+                    <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-6 h-6 text-brand-blue" />
+                    </span>
+                  )}
+                  <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
+                    {section.title}
+                  </h3>
+                </div>
+              );
+
+              const subtitle = section.subtitle ? (
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-3">
+                  {section.subtitle}
+                </span>
+              ) : null;
+
+              const media =
+                slides.length > 1 ? (
+                  <EquipmentCarousel items={toCarouselItems(slides)} sectionTitle={section.title} />
+                ) : video ? (
+                  <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
+                    <video
+                      src={video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover brightness-[1.05] contrast-[1.03]"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-100 border border-neutral-200/90 shadow-inner group">
+                    {slides[0] && (
+                      <img
+                        src={slides[0]}
+                        alt={section.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.05] contrast-[1.03]"
+                      />
+                    )}
+                  </div>
+                );
+
+              const mediaContent = (
+                <>
+                  {header}
+                  {subtitle}
+                  {section.text && (
+                    <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
+                      {section.text}
+                    </p>
+                  )}
+                  {renderBullets(section, 'grid grid-cols-1 sm:grid-cols-2 gap-3.5')}
+                </>
+              );
 
               return (
-                <Reveal key={idx} delay={idx * 0.08}>
-                  {isUpstreamProcess ? (
-                    <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
-                      {/* Top 2-column: Carousel & Content */}
-                      <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${section.footerText ? 'mb-8' : ''}`}>
-                        <div className="lg:col-span-5">
-                          <EquipmentCarousel items={UPSTREAM_EQUIPMENT} sectionTitle="Upstream Process Equipment" />
-                        </div>
-                        <div className="lg:col-span-7">
-                          {/* Header */}
-                          <div className="flex items-center gap-3 mb-4">
-                            {!hideHeaderIcons && (
-                              <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                                <Icon className="w-6 h-6 text-brand-blue" />
-                              </span>
-                            )}
-                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
-                              {section.title}
-                            </h3>
-                          </div>
-
-                          <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
-                            {section.text}
-                          </p>
-
-                          {section.bullets && section.bullets.length > 0 && (
-                            <div className="pt-5 border-t border-neutral-100">
-                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                                Key Capabilities
-                              </span>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                {section.bullets.map((b: string, bIdx: number) => {
-                                  const svgIcon = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? getBulletSvgIcon(b) : null;
-                                  const BulletIcon = getBulletCapabilityIcon(b, bIdx);
-                                  return (
-                                    <div
-                                      key={bIdx}
-                                      className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
-                                    >
-                                      {!hidePointerIcons && (
-                                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
-                                          {svgIcon ? (
-                                            <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
-                                          ) : (
-                                            <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                          )}
-                                        </div>
-                                      )}
-                                      <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
-                                        {b}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {section.footerText && (
-                        <p className="text-sm sm:text-[15px] text-slate-600 font-medium leading-relaxed mb-6 pt-4 border-t border-neutral-100">
-                          {section.footerText}
-                        </p>
-                      )}
-                    </div>
-                  ) : isDownstreamProcess ? (
-                    <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
-                      {/* Top 2-column: Content & Carousel */}
-                      <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${section.footerText ? 'mb-8' : ''}`}>
-                        <div className="lg:col-span-7">
-                          {/* Header */}
-                          <div className="flex items-center gap-3 mb-4">
-                            {!hideHeaderIcons && (
-                              <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                                <Icon className="w-6 h-6 text-brand-blue" />
-                              </span>
-                            )}
-                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
-                              {section.title}
-                            </h3>
-                          </div>
-
-                          <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
-                            {section.text}
-                          </p>
-
-                          {section.bullets && section.bullets.length > 0 && (
-                            <div className="pt-5 border-t border-neutral-100">
-                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                                Key Capabilities
-                              </span>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                {section.bullets.map((b: string, bIdx: number) => {
-                                  const svgIcon = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? getBulletSvgIcon(b) : null;
-                                  const BulletIcon = getBulletCapabilityIcon(b, bIdx);
-                                  return (
-                                    <div
-                                      key={bIdx}
-                                      className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
-                                    >
-                                      {!hidePointerIcons && (
-                                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
-                                          {svgIcon ? (
-                                            <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
-                                          ) : (
-                                            <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                          )}
-                                        </div>
-                                      )}
-                                      <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
-                                        {b}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="lg:col-span-5">
-                          <EquipmentCarousel items={DOWNSTREAM_EQUIPMENT} sectionTitle="Downstream Process Equipment" />
-                        </div>
-                      </div>
-
-                      {section.footerText && (
-                        <div className="mb-6 p-4 rounded-[8px] bg-neutral-50 border border-neutral-200/80 text-sm sm:text-[15px] text-slate-700 font-normal leading-relaxed">
-                          {section.footerText}
-                        </div>
-                      )}
-                    </div>
-                  ) : !hasMedia ? (
+                <Reveal key={section.id || idx} delay={idx * 0.08}>
+                  {!hasMedia ? (
                     <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
                       {/* Header */}
-                      <div className="flex items-center gap-3 mb-4">
-                        {!hideHeaderIcons && (
-                          <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                            <Icon className="w-6 h-6 text-brand-blue" />
-                          </span>
-                        )}
-                        <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
-                          {section.title}
-                        </h3>
-                      </div>
+                      {header}
 
-                      {section.subtitle && (
-                        <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-3">
-                          {section.subtitle}
-                        </span>
-                      )}
+                      {subtitle}
 
                       {section.text && (
                         <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed w-full max-w-none mb-6">
@@ -387,43 +351,25 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
                         </p>
                       )}
 
-                      {section.bullets && section.bullets.length > 0 && (
-                        <div className={section.text ? "pt-5 border-t border-neutral-100" : ""}>
-                          {section.bulletsTitle && (
-                            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                              {section.bulletsTitle}
-                            </span>
-                          )}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                            {section.bullets.map((b: string, bIdx: number) => {
-                              const svgIcon = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? getBulletSvgIcon(b) : null;
-                              const BulletIcon = getBulletCapabilityIcon(b, bIdx);
-                              return (
-                                <div
-                                  key={bIdx}
-                                  className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
-                                >
-                                  {!hidePointerIcons && (
-                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
-                                      {svgIcon ? (
-                                        <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
-                                      ) : (
-                                        <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                      )}
-                                    </div>
-                                  )}
-                                  <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
-                                    {b}
-                                  </span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
+                      {renderBullets(section, 'grid grid-cols-1 md:grid-cols-2 gap-3.5')}
 
                       {section.footerText && (
                         <div className="mt-6 p-4 rounded-[8px] bg-neutral-50 border border-neutral-200/80 text-sm sm:text-[15px] text-slate-700 font-normal leading-relaxed">
+                          {section.footerText}
+                        </div>
+                      )}
+                    </div>
+                  ) : isProcess ? (
+                    /* Process Development: columns follow reading order (carousel first on even cards, copy first on odd cards) */
+                    <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
+                      <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${section.footerText ? 'mb-8' : ''}`}>
+                        {!imageRight && <div className="lg:col-span-5">{media}</div>}
+                        <div className="lg:col-span-7">{mediaContent}</div>
+                        {imageRight && <div className="lg:col-span-5">{media}</div>}
+                      </div>
+
+                      {section.footerText && (
+                        <div className="mb-6 p-4 rounded-[8px] bg-neutral-50 border border-neutral-200/80 text-sm sm:text-[15px] text-slate-700 font-normal leading-relaxed">
                           {section.footerText}
                         </div>
                       )}
@@ -434,97 +380,21 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
 
                         {/* Image Box */}
                         <div className={`lg:col-span-5 ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
-                          {(() => {
-                            if (section.images && section.images.length > 1) {
-                              return <AboutHeroCarousel images={section.images} />;
-                            }
-                            if (isVideo && (section.video || section.image)) {
-                              return (
-                                <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
-                                  <video
-                                    src={section.video || section.image}
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    className="w-full h-full object-cover brightness-[1.05] contrast-[1.03]"
-                                  />
-                                </div>
-                              );
-                            }
-                            if (equipmentItems && equipmentItems.length > 0) {
-                              return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;
-                            }
-                            return (
-                              <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-100 border border-neutral-200/90 shadow-inner group">
-                                {section.image && (
-                                  <img
-                                    src={section.image}
-                                    alt={section.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.05] contrast-[1.03]"
-                                  />
-                                )}
-                              </div>
-                            );
-                          })()}
+                          {media}
                         </div>
 
                         {/* Content Box */}
                         <div className={`lg:col-span-7 ${imageRight ? 'lg:order-1' : 'lg:order-2'}`}>
-                          <div className="flex items-center gap-3 mb-4">
-                            {!hideHeaderIcons && (
-                              <span className="w-11 h-11 rounded-[10px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                                <Icon className="w-6 h-6 text-brand-blue" />
-                              </span>
-                            )}
-                            <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900">
-                              {section.title}
-                            </h3>
-                          </div>
-
-                          {section.text && (
-                            <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed mb-6">
-                              {section.text}
-                            </p>
-                          )}
-
-                          {section.bullets && section.bullets.length > 0 && (
-                            <div className={section.text ? "pt-5 border-t border-neutral-100" : ""}>
-                              {section.bulletsTitle && (
-                                <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                                  {section.bulletsTitle}
-                                </span>
-                              )}
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                {section.bullets.map((b: string, bIdx: number) => {
-                                  const svgIcon = (page.slug === 'cell-line' || page.slug === 'cell-line-development') ? getBulletSvgIcon(b) : null;
-                                  const BulletIcon = getBulletCapabilityIcon(b, bIdx);
-                                  return (
-                                    <div
-                                      key={bIdx}
-                                      className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
-                                    >
-                                      {!hidePointerIcons && (
-                                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
-                                          {svgIcon ? (
-                                            <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
-                                          ) : (
-                                            <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
-                                          )}
-                                        </div>
-                                      )}
-                                      <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
-                                        {b}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
+                          {mediaContent}
                         </div>
 
                       </div>
+
+                      {section.footerText && (
+                        <div className="mt-6 p-4 rounded-[8px] bg-neutral-50 border border-neutral-200/80 text-sm sm:text-[15px] text-slate-700 font-normal leading-relaxed">
+                          {section.footerText}
+                        </div>
+                      )}
                     </div>
                   )}
                 </Reveal>
@@ -533,8 +403,7 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
           </div>
         </div>
       </section>
-
-
+      )}
 
       {/* APPLICABLE MODALITIES */}
       {page.applicableModalities && page.applicableModalities.length > 0 && (
@@ -543,20 +412,20 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
             <Reveal>
               <div className="text-center mb-10 md:mb-14">
                 <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-brand-orange block mb-2.5">
-                  Therapeutic Scope
+                  {slotText('modalitiesEyebrow', MODALITIES_BLOCK_DEFAULTS.eyebrow)}
                 </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                  Applicable Modalities
+                  {slotText('modalitiesHeading', MODALITIES_BLOCK_DEFAULTS.heading)}
                 </h2>
                 <p className="text-[15px] sm:text-[17px] text-slate-500 font-normal leading-relaxed max-w-none md:whitespace-nowrap mx-auto mt-3">
-                  Our mammalian cell line development platform supports a comprehensive range of complex biologic modalities.
+                  {slotText('modalitiesIntro', MODALITIES_BLOCK_DEFAULTS.intro)}
                 </p>
               </div>
             </Reveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
               {page.applicableModalities.map((modality, mIdx) => {
-                const ModIcon = getModalityIcon(modality.title);
+                const ModIcon = getModalityIcon(modality.title || '');
                 return (
                   <Reveal key={mIdx} delay={mIdx * 0.05} className="flex h-full">
                     <Link
@@ -582,6 +451,21 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
         </section>
       )}
 
+      {/* Sections of any other style (added in the admin panel) */}
+      {otherSections.length > 0 && (
+        <div className="divide-y divide-neutral-100 border-t border-neutral-200">
+          {otherSections.map((sec, idx) => (
+            <DynamicSectionRenderer
+              key={sec.id || idx}
+              section={sec}
+              index={idx}
+              pageSlug={page.slug}
+              category={page.category}
+            />
+          ))}
+        </div>
+      )}
+
       {/* FAQ Accordion (Bottom Section) */}
       {page.faqs && page.faqs.length > 0 && (
         <FAQSection
@@ -593,8 +477,8 @@ export default function ServiceLayout({ page, content }: ServiceLayoutProps) {
         />
       )}
 
-      {/* CTA */}
-      <CommonCTA />
+      {/* CTA (page record: ctaTitle, ctaSubtitle, primaryCta, secondaryCta) */}
+      <PageCTA page={page} />
     </>
   );
 }

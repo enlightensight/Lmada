@@ -1,10 +1,17 @@
 import { getStoredPage } from '@/lib/pagesStorage';
 import HomeClientView from '@/components/HomeClientView';
 
-export const metadata = {
-  title: 'Lambda CDMO - Integrated Biologics Development & GMP Manufacturing',
-  description: 'Lambda CDMO provides end-to-end biologics development and manufacturing solutions across India and Europe, spanning cell line development, upstream & downstream bioprocessing, analytical characterization, and clinical cGMP production.',
-};
+const DEFAULT_TITLE = 'Lambda CDMO - Integrated Biologics Development & GMP Manufacturing';
+const DEFAULT_DESCRIPTION = 'Lambda CDMO provides end-to-end biologics development and manufacturing solutions across India and Europe, spanning cell line development, upstream & downstream bioprocessing, analytical characterization, and clinical cGMP production.';
+
+// SEO title/description come from the home page record in the admin panel ("Page Settings & SEO").
+export async function generateMetadata() {
+  const home = getStoredPage('home', 'home');
+  return {
+    title: home?.metaTitle?.trim() || DEFAULT_TITLE,
+    description: home?.metaDesc?.trim() || DEFAULT_DESCRIPTION,
+  };
+}
 
 interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;

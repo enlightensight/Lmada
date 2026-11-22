@@ -1,0 +1,350 @@
+{
+  "home/home": {
+    "hero": [],
+    "sections": {}
+  },
+  "overview/about": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {
+      "sec-about-biologics": [
+        "subtitle",
+        "bullets",
+        "buttonText"
+      ],
+      "sec-about-locations": [
+        "text",
+        "bullets",
+        "image",
+        "buttonText"
+      ]
+    }
+  },
+  "overview/leadership": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {
+      "sec-leadership-team": [
+        "subtitle",
+        "bullets",
+        "image",
+        "buttonText"
+      ]
+    }
+  },
+  "facility&location/India": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {
+      "sec-9cqax0o": [
+        "bullets",
+        "image",
+        "buttonText"
+      ],
+      "sec-cwsunt1": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-b63e0po": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-hnx40v9": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-07lv5rh": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-zueipz3": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-xi2krgc": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-6enu0h1": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ]
+    }
+  },
+  "facility&location/UK": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {
+      "sec-rdd9qpr": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-dxxhlf9": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-c0n371e": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ],
+      "sec-1dy7goe": [
+        "subtitle",
+        "image",
+        "buttonText"
+      ]
+    }
+  },
+  "overview/integrated": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {
+      "sec-ejkxs3x": [
+        "subtitle",
+        "bullets",
+        "image",
+        "buttonText"
+      ],
+      "sec-8pprmrg": [
+        "subtitle",
+        "bullets",
+        "image",
+        "buttonText"
+      ]
+    }
+  },
+  "overview/quality": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {
+      "sec-vntb1mo": [
+        "subtitle",
+        "bullets",
+        "image",
+        "buttonText"
+      ],
+      "sec-mmmfgd9": [
+        "subtitle",
+        "bullets",
+        "image",
+        "buttonText"
+      ],
+      "sec-cg42u89": [
+        "buttonText"
+      ]
+    }
+  },
+  "overview/careers": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {}
+  },
+  "services/cell-line": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {
+      "sec-o149fkn": [
+        "buttonText"
+      ],
+      "sec-cell-line-02": [
+        "buttonText"
+      ]
+    }
+  },
+  "services/process": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {
+      "sec-y0rvoup": [
+        "buttonText"
+      ],
+      "sec-b8qznf5": [
+        "buttonText"
+      ]
+    }
+  },
+  "services/analytical": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {
+      "sec-k58exll": [
+        "buttonText"
+      ],
+      "sec-3be1omm": [
+        "buttonText"
+      ]
+    }
+  },
+  "manufacturing/drug-substance": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {
+      "sec-qr6n571": [
+        "buttonText"
+      ]
+    }
+  },
+  "manufacturing/drug-product": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {}
+  },
+  "characterization/analytical-testing": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {}
+  },
+  "characterization/physicochemical": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {}
+  },
+  "characterization/bioassays": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {}
+  },
+  "characterization/microbiological": {
+    "hero": [
+      "subtitle",
+      "image"
+    ],
+    "sections": {}
+  },
+  "modalities/mabs": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {}
+  },
+  "modalities/bispecifics": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {}
+  },
+  "modalities/adcs": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {}
+  },
+  "modalities/proteins-peptides": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {}
+  },
+  "insights/blogs": {
+    "hero": [],
+    "sections": {}
+  },
+  "insights/case-studies": {
+    "hero": [],
+    "sections": {}
+  },
+  "insights/brochures": {
+    "hero": [],
+    "sections": {}
+  },
+  "insights/news": {
+    "hero": [],
+    "sections": {}
+  },
+  "insights/events": {
+    "hero": [],
+    "sections": {}
+  },
+  "services/services": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {
+      "sec-services-pillars": [
+        "bullets",
+        "image",
+        "buttonText"
+      ]
+    }
+  },
+  "manufacturing/manufacturing": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {
+      "sec-manufacturing-pillars": [
+        "bullets",
+        "image",
+        "buttonText"
+      ],
+      "sec-manufacturing-workflow": [
+        "bullets",
+        "image",
+        "buttonText"
+      ]
+    }
+  },
+  "characterization/characterization": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {
+      "sec-char-lifecycle": [
+        "bullets",
+        "image",
+        "buttonText"
+      ],
+      "sec-char-pillars": [
+        "bullets",
+        "image",
+        "buttonText"
+      ]
+    }
+  },
+  "facility&location/facility&location": {
+    "hero": [
+      "subtitle"
+    ],
+    "sections": {
+      "sec-facility-locations": [
+        "subtitle",
+        "bullets",
+        "image",
+        "buttonText"
+      ]
+    }
+  }
+}

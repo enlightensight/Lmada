@@ -50,16 +50,6 @@ function ensureStorageFileExists(): void {
             lastSavedAt: new Date().toISOString(),
           });
           changed = true;
-        } else {
-          // If default page exists, make sure heroVideo on home is fixed to /videos/newhero.mp4
-          if (
-            defPage.category === 'home' &&
-            defPage.slug === 'home' &&
-            parsed[foundIdx].heroVideo !== '/videos/newhero.mp4'
-          ) {
-            parsed[foundIdx].heroVideo = '/videos/newhero.mp4';
-            changed = true;
-          }
         }
       }
       if (changed) {

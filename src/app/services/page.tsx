@@ -13,7 +13,11 @@ import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import CardImageCarousel from '@/components/CardImageCarousel';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
 import { getStoredPage } from '@/lib/pagesStorage';
+import { makePageText } from '@/lib/pageText';
+import { HUBS_TEXT_SLOTS } from '@/data/textSlots/hubs';
+import type { CDMOPage } from '@/data/cdmoData';
 
 interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -99,6 +103,18 @@ const DEFAULT_DEVELOPMENT_FAQS = [
   },
 ];
 
+const VIDEO_URL = /\.(mp4|webm|ogg|mov)$/i;
+
+/** Hero media from the record: a video (heroVideo, or a video URL in image) or the image carousel (image first, then images[]). */
+function resolveHeroMedia(page: CDMOPage | null, fallbackImages: string[]) {
+  const imageIsVideo = Boolean(page?.image && VIDEO_URL.test(page.image));
+  const video = page?.heroMediaType === 'image' ? '' : (page?.heroVideo || (imageIsVideo ? page?.image : '') || '');
+  const gallery = (page?.images || []).filter(Boolean);
+  const lead = page?.image && !imageIsVideo ? page.image : '';
+  const images = lead && !gallery.includes(lead) ? [lead, ...gallery] : gallery;
+  return { video, images: images.length > 0 ? images : fallbackImages };
+}
+
 function getServiceIcon(title: string, index: number) {
   const t = title.toLowerCase();
   if (t.includes('cell')) return Dna;
@@ -116,7 +132,10 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
 
   const badge = page?.badge || 'DEVELOPMENT SERVICES';
   const heading = page?.heading || 'Development Designed for Manufacturing';
-  const heroImages = (page?.images && page.images.length > 0) ? page.images : UPSTREAM_HERO_IMAGES;
+  const hero = resolveHeroMedia(page, UPSTREAM_HERO_IMAGES);
+  const t = makePageText(page ?? ({ category: 'services', slug: 'services' } as CDMOPage), HUBS_TEXT_SLOTS);
+  // Breadcrumb label: the part of the page title before the "—" (same convention as the detail pages)
+  const breadcrumbLabel = page?.title?.split('—')[0].split('|')[0].trim() || 'Development Services';
 
   const descriptionParagraphs = page?.description
     ? page.description.split('\n\n').filter(Boolean)
@@ -125,18 +144,28 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
       'Our development approach spans early-stage development through process characterization and technology transfer, with capabilities supporting monoclonal antibodies, bispecific antibodies, biosimilars, recombinant proteins, peptides, and other biologic modalities.'
     ];
 
-  // Dynamic Cards
-  const cardsSection = page?.sections?.find((s) => s.cards && s.cards.length > 0) || page?.sections?.[0];
+  // Service cards: the bespoke cards section (by id, else the first section that has cards)
+  const sections = page?.sections || [];
+  const cardsSection = sections.find((s) => s.id === 'sec-services-pillars') || sections.find((s) => s.cards && s.cards.length > 0);
   const renderedCards = (cardsSection?.cards && cardsSection.cards.length > 0)
-    ? cardsSection.cards.map((card, idx) => ({
-      title: card.title || DEFAULT_SUB_SERVICES[idx]?.title || `Service ${idx + 1}`,
-      slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `service-${idx + 1}`,
-      href: card.link || DEFAULT_SUB_SERVICES[idx]?.href || '/services',
-      image: card.image || DEFAULT_SUB_SERVICES[idx]?.image || '/images/celldev/CLD_Lab.png',
-      description: card.description || DEFAULT_SUB_SERVICES[idx]?.description || '',
-      capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_SUB_SERVICES[idx]?.capabilities || []),
-    }))
-    : DEFAULT_SUB_SERVICES;
+    ? cardsSection.cards.map((card, idx) => {
+      const title = card.title || DEFAULT_SUB_SERVICES[idx]?.title || `Service ${idx + 1}`;
+      return {
+        title,
+        slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `service-${idx + 1}`,
+        href: card.link || card.href || DEFAULT_SUB_SERVICES[idx]?.href || '/services',
+        image: card.image || DEFAULT_SUB_SERVICES[idx]?.image || '/images/celldev/CLD_Lab.png',
+        description: card.description || DEFAULT_SUB_SERVICES[idx]?.description || '',
+        capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_SUB_SERVICES[idx]?.capabilities || []),
+        // Short label for the hero quick-jump button
+        jumpLabel: card.badge || title,
+        buttonText: card.buttonText || `Explore ${title}`,
+      };
+    })
+    : DEFAULT_SUB_SERVICES.map((card) => ({ ...card, jumpLabel: card.title, buttonText: `Explore ${card.title}` }));
+
+  // Any other section (added in the admin panel) renders generically before the FAQ block
+  const extraSections = sections.filter((s) => s !== cardsSection);
 
   const faqs = (page?.faqs && page.faqs.length > 0) ? page.faqs : DEFAULT_DEVELOPMENT_FAQS;
 
@@ -161,7 +190,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
             <span>/</span>
             <span className="text-neutral-500">Services</span>
             <span>/</span>
-            <span className="text-brand-orange">Development Services</span>
+            <span className="text-brand-orange">{breadcrumbLabel}</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -183,29 +212,22 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
                 ))}
               </div>
 
-              {/* Quick Jump Buttons */}
+              {/* Quick Jump Buttons — one per service card (label = card tag, link = card link) */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/services/cell-line-development"
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
-                >
-                  <Dna className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  <span>Cell Line Development</span>
-                </Link>
-                <Link
-                  href="/services/process-development"
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-orange text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
-                >
-                  <Settings className="w-4 h-4 text-brand-orange group-hover:text-white transition-colors" />
-                  <span>Process Development</span>
-                </Link>
-                <Link
-                  href="/services/analytical-development"
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
-                >
-                  <FlaskConical className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  <span>Analytical Development</span>
-                </Link>
+                {renderedCards.map((service, idx) => {
+                  const JumpIcon = getServiceIcon(service.title, idx);
+                  const isOrange = idx % 2 === 1;
+                  return (
+                    <Link
+                      key={`${service.slug}-${idx}`}
+                      href={service.href}
+                      className={`group inline-flex items-center gap-2 px-5 py-2.5 rounded-[10px] bg-neutral-900 ${isOrange ? 'hover:bg-brand-orange' : 'hover:bg-brand-blue'} text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all`}
+                    >
+                      <JumpIcon className={`w-4 h-4 ${isOrange ? 'text-brand-orange' : 'text-brand-blue'} group-hover:text-white transition-colors`} />
+                      <span>{service.jumpLabel}</span>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
@@ -213,11 +235,17 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
             <div className="lg:col-span-5">
               <Reveal delay={0.15}>
                 <div className="relative rounded-2xl overflow-hidden border border-neutral-200 shadow-xl bg-white group">
-                  <CardImageCarousel
-                    images={heroImages}
-                    alt="Lambda CDMO Biologics Development Services"
-                    aspectRatio="aspect-[4/3]"
-                  />
+                  {hero.video ? (
+                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
+                      <video src={hero.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <CardImageCarousel
+                      images={hero.images}
+                      alt={page?.title || 'Lambda CDMO Biologics Development Services'}
+                      aspectRatio="aspect-[4/3]"
+                    />
+                  )}
                 </div>
               </Reveal>
             </div>
@@ -228,6 +256,29 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
       {/* CORE DEVELOPMENT PILLARS — CARDS */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-molecules border-b border-neutral-100">
         <div className="w-full max-w-[1700px] mx-auto">
+          {/* Optional section header — only shown when the cards section has a heading, tag or intro text */}
+          {cardsSection && (cardsSection.title || cardsSection.subtitle || cardsSection.text) && (
+            <Reveal>
+              <div className="text-center mb-10 md:mb-14">
+                {cardsSection.subtitle && (
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-orange mb-3 block">
+                    {cardsSection.subtitle}
+                  </span>
+                )}
+                {cardsSection.title && (
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                    {cardsSection.title}
+                  </h2>
+                )}
+                {cardsSection.text && (
+                  <p className="text-[15px] sm:text-[16px] text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
+                    {cardsSection.text}
+                  </p>
+                )}
+              </div>
+            </Reveal>
+          )}
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {renderedCards.map((service, idx) => {
               const ServiceIcon = getServiceIcon(service.title, idx);
@@ -265,7 +316,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
                         {service.capabilities && service.capabilities.length > 0 && (
                           <div className="border-t border-neutral-100 pt-4 mb-6">
                             <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3">
-                              Key Capabilities
+                              {t('cardsBulletsLabel')}
                             </span>
                             <ul className="space-y-2.5">
                               {service.capabilities.map((cap, cIdx) => (
@@ -286,7 +337,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
                           href={service.href}
                           className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-neutral-50 hover:bg-brand-orange text-neutral-900 hover:text-white font-semibold text-xs uppercase tracking-wider transition-all group/btn shadow-2xs"
                         >
-                          <span>Explore {service.title}</span>
+                          <span>{service.buttonText}</span>
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </Link>
                       </div>
@@ -298,6 +349,17 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
           </div>
         </div>
       </section>
+
+      {/* ADDITIONAL CMS SECTIONS (added in the admin panel) */}
+      {extraSections.map((sec, i) => (
+        <DynamicSectionRenderer
+          key={sec.id || `extra-${i}`}
+          section={sec}
+          index={i}
+          pageSlug={page?.slug}
+          category={page?.category}
+        />
+      ))}
 
       {/* FAQS */}
       <FAQSection

@@ -49,13 +49,15 @@ const UK_FACILITY_IMAGES = [
 
 interface LondonHeroCarouselProps {
   images?: string[];
+  /** Optional alt text base for the slides (e.g. the page title). */
+  alt?: string;
 }
 
-export default function LondonHeroCarousel({ images }: LondonHeroCarouselProps) {
+export default function LondonHeroCarousel({ images, alt }: LondonHeroCarouselProps) {
   const imageList = (images && images.length > 0)
     ? images.map((img, idx) => ({
         src: img,
-        alt: `London UK Biologics Facility Slide ${idx + 1}`,
+        alt: alt ? `${alt} image ${idx + 1}` : `London UK Biologics Facility Slide ${idx + 1}`,
       }))
     : UK_FACILITY_IMAGES;
 

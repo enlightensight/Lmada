@@ -4,7 +4,6 @@ import {
   FlaskConical, 
   ShieldCheck, 
   Factory, 
-  Settings2,
   Dna,
   Filter,
   Eye,
@@ -14,20 +13,26 @@ import {
   Snowflake,
   Timer,
   Sliders,
-  Truck
+  Truck,
+  ArrowRightLeft
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
+import PillarCard from '@/components/PillarCard';
 import FAQSection from '@/components/FAQSection';
-import CommonCTA from '@/components/CommonCTA';
+import PageCTA from '@/components/PageCTA';
 import EquipmentCarousel from '@/components/EquipmentCarousel';
-import AboutHeroCarousel from '@/components/AboutHeroCarousel';
-import { getPageEquipment, getSectionEquipment, DRUG_PRODUCT_EQUIPMENT, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
-import type { CDMOPage } from '@/data/cdmoData';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
+import { getPageEquipment } from '@/data/equipmentData';
+import type { CDMOPage, CDMOSection } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
+import { makePageText, slotsForPage } from '@/lib/pageText';
+import { SERVICES_TEXT_SLOTS, DRUG_PRODUCT_CAROUSEL_SLIDE_COUNT } from '@/data/textSlots/services';
+import { getHeroMedia, getSectionMedia, partitionSections, toCarouselItems } from './cmsMedia';
 
 interface ManufacturingLayoutProps {
   page: CDMOPage;
-  content: PageContent;
+  /** Kept for the shared layout signature; sections are read from the page record itself. */
+  content?: PageContent;
 }
 
 function getMfgCapabilityIcon(text: string, index: number) {
@@ -49,22 +54,67 @@ function getMfgCapabilityIcon(text: string, index: number) {
   return fallbacks[index % fallbacks.length];
 }
 
-export default function ManufacturingLayout({ page, content }: ManufacturingLayoutProps) {
-  const heroEquipment = getPageEquipment(page.slug);
+export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) {
+  const t = makePageText(page, SERVICES_TEXT_SLOTS);
+  // Editable copy where the page has a slot registered; the stock wording anywhere else.
+  const pageSlotKeys = new Set(slotsForPage(page, SERVICES_TEXT_SLOTS).map((slot) => slot.key));
+  const slotText = (key: string, fallback: string) => (pageSlotKeys.has(key) ? t(key) : fallback);
 
   // Per-slug accent: drug-substance = blue, drug-product = yellow
   const isSubstance = page.slug === 'drug-substance';
   const isProduct = page.slug === 'drug-product';
-  const isMfgCustomHero = isProduct;
-  const customHeroImage = '/images/menufacturing.png';
 
-  const accentText = isSubstance ? 'text-brand-blue' : 'text-brand-yellow';
-  const accentBox = isSubstance ? 'bg-brand-blue' : 'bg-brand-yellow';
-  const accentIcon = isSubstance ? 'text-white' : 'text-black';
-  // Accent for text sitting on blue sections (accentText would be blue-on-blue for drug-substance)
-  const accentTextOnBlue = 'text-brand-yellow';
+  // Hero media comes from the page record: a video, the `images` carousel, or the single `image`.
+  const { video: heroVideo, slides: heroSlides } = getHeroMedia(page);
+  // Only used when the record holds no hero media at all.
+  const fallbackHeroEquipment = !heroVideo && heroSlides.length === 0 ? getPageEquipment(page.slug) : null;
 
-  const sectionIcons = [FlaskConical, ShieldCheck, Factory, Settings2];
+  // Drug Product capabilities card: carousel photos are "additional page content" slots.
+  const capabilityCardSlides = isProduct
+    ? Array.from({ length: DRUG_PRODUCT_CAROUSEL_SLIDE_COUNT }, (_, i) => slotText(`capabilitiesImage${i + 1}`, '')).filter(Boolean)
+    : [];
+
+  // Every section of the record renders once: feature-split sections in the block below,
+  // any other style through DynamicSectionRenderer just before the FAQ block.
+  const { split: splitSections, other: otherSections } = partitionSections(page);
+
+  const renderSectionSubtitle = (section: CDMOSection) =>
+    section.subtitle ? (
+      <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-3">
+        {section.subtitle}
+      </span>
+    ) : null;
+
+  const renderSectionBullets = (section: CDMOSection, className = '') => {
+    if (!section.bullets || section.bullets.length === 0) return null;
+    return (
+      <div className={className}>
+        {section.bulletsTitle && (
+          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-900 block mb-3">
+            {section.bulletsTitle}
+          </span>
+        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          {section.bullets.map((b: string, bIdx: number) => {
+            const BulletIcon = getMfgCapabilityIcon(b, bIdx);
+            return (
+              <div
+                key={bIdx}
+                className="group/pill flex items-center gap-3.5 p-3.5 rounded-[8px] bg-neutral-50 border border-neutral-200/70 hover:border-brand-yellow hover:bg-white transition-all duration-200"
+              >
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200">
+                  <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
+                </div>
+                <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug group-hover/pill:text-black">
+                  {b}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -100,22 +150,10 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
               </div>
             </div>
             <Reveal className="w-full">
-              {isMfgCustomHero ? (
-                <div className="w-full aspect-[4/3] rounded-[10px] border border-neutral-200/90 shadow-xl overflow-hidden relative group">
-                  <img
-                    src={customHeroImage}
-                    alt={page.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-              ) : page.images && page.images.length > 1 ? (
-                <AboutHeroCarousel images={page.images} />
-              ) : heroEquipment && heroEquipment.length > 0 ? (
-                <EquipmentCarousel items={heroEquipment} sectionTitle={page.heading} />
-              ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
+              {heroVideo ? (
                 <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-neutral-950 relative">
                   <video
-                    src={page.heroVideo || page.image}
+                    src={heroVideo}
                     autoPlay
                     loop
                     muted
@@ -123,12 +161,16 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
                     className="w-full h-full object-cover"
                   />
                 </div>
+              ) : heroSlides.length > 1 ? (
+                <EquipmentCarousel items={toCarouselItems(heroSlides)} sectionTitle={page.heading} />
+              ) : fallbackHeroEquipment && fallbackHeroEquipment.length > 0 ? (
+                <EquipmentCarousel items={fallbackHeroEquipment} sectionTitle={page.heading} />
               ) : (
-                <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-white relative">
+                <div className="w-full aspect-[4/3] rounded-[10px] border border-neutral-200/90 shadow-xl overflow-hidden relative group">
                   <img
-                    src={page.image || '/images/hero_cleanroom.png'}
+                    src={heroSlides[0] || '/images/hero_cleanroom.png'}
                     alt={page.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               )}
@@ -142,34 +184,37 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
       {page.capabilities && page.capabilities.length > 0 && (
         <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100">
           <div className="w-full max-w-[1700px] mx-auto">
-            {page.slug !== 'drug-product' && (
+            {!isProduct && (
               <Reveal>
                 <div className="text-center mb-10 md:mb-14">
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                    Manufacturing Capabilities
+                    {slotText('capabilitiesHeading', 'Manufacturing Capabilities')}
                   </h2>
                   <p className="text-[15px] sm:text-[16px] xl:text-[17px] text-slate-500 font-normal leading-relaxed max-w-5xl xl:max-w-none lg:whitespace-nowrap mx-auto mt-4">
-                    cGMP cleanroom workflows, validated containment, and precision production systems for {page.title.split('—')[0].trim()}.
+                    {slotText(
+                      'capabilitiesIntro',
+                      `cGMP cleanroom workflows, validated containment, and precision production systems for ${page.title.split('—')[0].trim()}.`
+                    )}
                   </p>
                 </div>
               </Reveal>
             )}
 
-            {page.slug === 'drug-product' ? (
+            {isProduct ? (
               <Reveal>
                 <div className="bg-white border border-neutral-200/80 rounded-[10px] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                    
+
                     {/* Left Image Box */}
                     <div className="lg:col-span-5">
-                      <EquipmentCarousel items={DRUG_PRODUCT_EQUIPMENT} sectionTitle="Drug Product & Formulation Equipment" />
+                      <EquipmentCarousel items={toCarouselItems(capabilityCardSlides)} sectionTitle="Drug Product & Formulation Equipment" />
                     </div>
 
                     {/* Right Content Box */}
                     <div className="lg:col-span-7">
                       <div>
                         <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-6 leading-tight">
-                          Formulation Development &amp; Drug Product Manufacturing Capabilities
+                          {slotText('capabilitiesHeading', 'Formulation Development & Drug Product Manufacturing Capabilities')}
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                           {page.capabilities.map((cap, idx) => {
@@ -220,104 +265,81 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         </section>
       )}
 
-      {/* CAPABILITIES — split sections with accent icon boxes */}
-      {page.slug !== 'drug-product' && content.sections && content.sections.length > 0 && (
+      {/* CAPABILITIES — feature-split sections (pillar tiles on Drug Substance, media + copy otherwise) */}
+      {splitSections.length > 0 && (
         <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20">
           <div className="w-full max-w-[1700px] mx-auto">
             <div className="flex flex-col gap-12 md:gap-20">
-              {content.sections
-                .filter((s: any) => s.style !== 'faq-accordion' && !s.id?.includes('faq') && s.title !== 'Frequently Asked Questions')
-                .map((section: any, idx: number) => {
-                const SectionIcon = sectionIcons[idx % sectionIcons.length];
-                return (
-                  <Reveal key={idx} delay={idx * 0.05}>
-                    {isSubstance ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                        {/* Tile 1: Seamless Development to GMP Transfer */}
-                        <div className="bg-white border border-neutral-200/80 rounded-[12px] p-8 sm:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
-                          <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4 leading-snug">
-                            {section.title}
-                          </h3>
-                          <p className="text-[16px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
-                            {section.text}
-                          </p>
-                        </div>
+              {splitSections.map((section, idx) => {
+                const { video, slides } = getSectionMedia(section);
+                const hasMedia = Boolean(video) || slides.length > 0;
+                const hasSecondary = Boolean(section.secondaryTitle || section.secondaryText);
 
-                        {/* Tile 2: Single-Use Bioreactor Production Suites */}
-                        <div className="bg-white border border-neutral-200/80 rounded-[12px] p-8 sm:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
-                          <h3 className="text-2xl sm:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-4 leading-snug">
-                            {section.secondaryTitle || 'Single-Use Bioreactor Production Suites'}
-                          </h3>
-                          <p className="text-[16px] sm:text-[17px] text-slate-500 font-normal leading-relaxed">
-                            {section.secondaryText}
-                          </p>
+                return (
+                  <Reveal key={section.id || idx} delay={idx * 0.05}>
+                    {isSubstance && !hasMedia ? (
+                      <>
+                        {renderSectionSubtitle(section)}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+                          {/* Tile 1: section title + text */}
+                          <PillarCard icon={ArrowRightLeft} title={section.title} text={section.text} accent="blue" />
+
+                          {/* Tile 2: section secondary title + text */}
+                          {hasSecondary && (
+                            <PillarCard
+                              icon={FlaskConical}
+                              title={section.secondaryTitle || ''}
+                              text={section.secondaryText}
+                              accent="orange"
+                            />
+                          )}
                         </div>
-                      </div>
+                        {renderSectionBullets(section, 'mt-8')}
+                      </>
                     ) : (
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                        <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                          {(() => {
-                            if (section.images && section.images.length > 1) {
-                              return <AboutHeroCarousel images={section.images} />;
-                            }
-                            const isVideo = section.mediaType === 'video' || /\.(mp4|webm|ogg|mov)$/i.test(section.video || section.image || '');
-                            if (isVideo && (section.video || section.image)) {
-                              return (
-                                <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
-                                  <video
-                                    src={section.video || section.image}
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    className="w-full h-full object-cover"
-                                  />
-                                </div>
-                              );
-                            }
-                            const equipmentItems = getSectionEquipment(section.title, page.slug);
-                            if (section.images && section.images.length > 1) {
-                              return (
-                                <EquipmentCarousel
-                                  items={section.images.map((img: string, i: number) => {
-                                    const match = (equipmentItems || []).find((eq) => eq.src === img) ||
-                                      ALL_EQUIPMENT_ITEMS.find((eq) => eq.src === img);
-                                    return match || {
-                                      src: img,
-                                      title: `${section.title} Equipment ${i + 1}`,
-                                      subtitle: `${section.title} instrumentation suite.`,
-                                      tag: 'Equipment'
-                                    };
-                                  })}
-                                  sectionTitle={section.title}
+                      <div className={`grid grid-cols-1 ${hasMedia ? 'lg:grid-cols-2' : ''} gap-8 lg:gap-16 items-center`}>
+                        {hasMedia && (
+                          <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
+                            {slides.length > 1 ? (
+                              <EquipmentCarousel items={toCarouselItems(slides)} sectionTitle={section.title} />
+                            ) : video ? (
+                              <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
+                                <video
+                                  src={video}
+                                  autoPlay
+                                  loop
+                                  muted
+                                  playsInline
+                                  className="w-full h-full object-cover"
                                 />
-                              );
-                            }
-                            if (equipmentItems && equipmentItems.length > 0) {
-                              return <EquipmentCarousel items={equipmentItems} sectionTitle={section.title} />;
-                            }
-                            return (
+                              </div>
+                            ) : (
                               <div className="relative rounded-[10px] overflow-hidden border border-neutral-200 bg-neutral-100 aspect-[4/3] shadow-sm flex items-center justify-center">
                                 <img
-                                  src={section.image}
+                                  src={slides[0]}
                                   alt={section.title}
                                   className="w-full h-full object-cover"
                                 />
                               </div>
-                            );
-                          })()}
-                        </div>
-                        <div className={`${idx % 2 === 1 ? 'lg:order-1' : ''} space-y-6 md:space-y-8`}>
+                            )}
+                          </div>
+                        )}
+                        <div className={`${hasMedia && idx % 2 === 1 ? 'lg:order-1' : ''} space-y-6 md:space-y-8`}>
                           <div>
+                            {renderSectionSubtitle(section)}
                             <h3 className="text-2xl md:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-3 sm:mb-4">
                               {section.title}
                             </h3>
-                            <p className="text-[15px] md:text-[17px] text-slate-500 font-normal leading-relaxed">
-                              {section.text}
-                            </p>
+                            {section.text && (
+                              <p className="text-[15px] md:text-[17px] text-slate-500 font-normal leading-relaxed">
+                                {section.text}
+                              </p>
+                            )}
                           </div>
 
-                          {(section.secondaryTitle || section.secondaryText) && (
+                          {renderSectionBullets(section)}
+
+                          {hasSecondary && (
                             <div className="pt-6 border-t border-neutral-100">
                               {section.secondaryTitle && (
                                 <h3 className="text-2xl md:text-3xl font-light md:font-normal tracking-tight text-neutral-900 mb-3 sm:mb-4">
@@ -342,6 +364,21 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         </section>
       )}
 
+      {/* Sections of any other style (added in the admin panel) */}
+      {otherSections.length > 0 && (
+        <div className="divide-y divide-neutral-100 border-t border-neutral-200">
+          {otherSections.map((sec, idx) => (
+            <DynamicSectionRenderer
+              key={sec.id || idx}
+              section={sec}
+              index={idx}
+              pageSlug={page.slug}
+              category={page.category}
+            />
+          ))}
+        </div>
+      )}
+
       {/* FAQ Accordion (Bottom Section) */}
       {page.faqs && page.faqs.length > 0 && (
         <FAQSection
@@ -353,8 +390,8 @@ export default function ManufacturingLayout({ page, content }: ManufacturingLayo
         />
       )}
 
-      {/* CTA */}
-      <CommonCTA />
+      {/* CTA (page record: ctaTitle, ctaSubtitle, primaryCta, secondaryCta) */}
+      <PageCTA page={page} />
     </>
   );
 }

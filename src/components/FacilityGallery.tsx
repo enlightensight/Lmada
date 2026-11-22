@@ -3,7 +3,12 @@
 import React from 'react';
 import Reveal from '@/components/Reveal';
 
-const equipment = [
+export interface FacilityGalleryItem {
+  name: string;
+  image: string;
+}
+
+const DEFAULT_EQUIPMENT: FacilityGalleryItem[] = [
   {
     name: 'ÄKTA Process (Cytiva)',
     image: '/images/Akta%20Process%20(Cytiva).jpeg',
@@ -26,30 +31,44 @@ const equipment = [
   },
 ];
 
+interface FacilityGalleryProps {
+  /** Section heading; editable from the CMS ("Additional page content"). */
+  heading?: string;
+  intro?: string;
+  /** Gallery tiles (name + image); editable from the CMS. */
+  items?: FacilityGalleryItem[];
+}
+
 /**
  * Expanding equipment gallery for Ahmedabad Facility —
- * five vertical strips that expand on hover.
+ * vertical strips that expand on hover.
  */
-export default function FacilityGallery() {
+export default function FacilityGallery({
+  heading = 'Inside the Facility',
+  intro = 'Purpose-built process and analytical equipment supporting development through GMP manufacturing.',
+  items,
+}: FacilityGalleryProps = {}) {
+  const equipment = items && items.length > 0 ? items : DEFAULT_EQUIPMENT;
+
   return (
     <section className="px-6 py-12 md:py-20">
       <div className="w-full">
         <Reveal>
           <div className="mb-10 md:mb-14">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black leading-[1.15]">
-              Inside the Facility
+              {heading}
             </h2>
             <p className="text-[15px] sm:text-[17px] text-neutral-600 leading-relaxed max-w-2xl mt-4">
-              Purpose-built process and analytical equipment supporting development through GMP manufacturing.
+              {intro}
             </p>
           </div>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="flex flex-col md:flex-row gap-4 md:h-[440px]">
-            {equipment.map((item) => (
+            {equipment.map((item, idx) => (
               <div
-                key={item.name}
+                key={`${item.name}-${idx}`}
                 className="group relative h-72 md:h-full flex-1 md:hover:flex-[2.75] transition-all duration-500 ease-out rounded-[10px] overflow-hidden shadow-sm hover:shadow-2xl bg-neutral-900 select-none"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}

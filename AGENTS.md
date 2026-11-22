@@ -187,6 +187,32 @@ To verify changes before committing:
 
 If you add a test framework, update this section and `package.json` accordingly.
 
+### CMS end-to-end checks
+
+The site has a file-based CMS (admin panel at `/admin`, API under `/api/admin/*`, content in
+`src/data/storedPages.json` and `src/data/storedInsights.json`; `src/data/cdmoData.ts` holds the factory
+defaults). With the dev server running, these scripts exercise it through the real API and restore the data
+files when they finish:
+
+```bash
+node scripts/cms_e2e_audit.mjs            # every page: draft/preview/publish, every field reaches the live page
+node scripts/cms_custom_page_e2e.mjs      # create -> publish -> unpublish -> delete a custom page, all section styles
+node scripts/cms_insights_e2e.mjs         # Insights & Articles: create, list, article page, edit, delete
+node scripts/test_admin_crud.mjs          # basic API CRUD
+```
+
+Rules the audit enforces — keep them true when changing a layout:
+
+- Everything a visitor sees on a page comes from that page's CMS record. Copy that belongs to a page's fixed
+  design goes in a text slot (`src/lib/pageText.ts`, registries in `src/data/textSlots/`), which the editor shows
+  under "Additional Page Content".
+- Every layout renders all of `page.sections`: bespoke blocks first, anything else through
+  `DynamicSectionRenderer`. Footer banners use `<PageCTA page={page} />`.
+- Change stored content with `node scripts/cms_data_patch.mjs patch.json` (updates the live data and the
+  defaults together) rather than editing the JSON by hand.
+- After changing which fields a layout displays, regenerate the editor's "not shown on this page" hints:
+  `node scripts/cms_e2e_audit.mjs --usage-out src/data/cmsFieldUsage.json`.
+
 ---
 
 ## Deployment

@@ -19,7 +19,11 @@ import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
 import CardImageCarousel from '@/components/CardImageCarousel';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
 import { getStoredPage } from '@/lib/pagesStorage';
+import { makePageText } from '@/lib/pageText';
+import { HUBS_TEXT_SLOTS } from '@/data/textSlots/hubs';
+import type { CDMOPage } from '@/data/cdmoData';
 
 interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -100,38 +104,47 @@ const DEFAULT_CHARACTERIZATION_SUB_SERVICES = [
   },
 ];
 
-const ANALYTICAL_LIFECYCLE_STEPS = [
-  {
-    step: '01',
-    title: 'Reference Product Characterization',
-    icon: Target,
-  },
-  {
-    step: '02',
-    title: 'Method Development & Qualification',
-    icon: Sliders,
-  },
-  {
-    step: '03',
-    title: 'Product & Process Characterization',
-    icon: FlaskConical,
-  },
-  {
-    step: '04',
-    title: 'Comparability / Analytical Similarity /Comparative Analytical Assessment',
-    icon: Scale,
-  },
-  {
-    step: '05',
-    title: 'In-Process & Release Testing',
-    icon: Activity,
-  },
-  {
-    step: '06',
-    title: 'Stability Assessment',
-    icon: ShieldCheck,
-  },
+// Fallback lifecycle block, used only when the page record is missing
+const DEFAULT_LIFECYCLE_TITLE = 'Analytical Support Across the Development Lifecycle';
+const DEFAULT_LIFECYCLE_TEXT = "Lambda CDMO's analytical capabilities support biologics programs from early product and reference characterization through process development, comparability, manufacturing, batch release, and stability assessment.";
+const DEFAULT_LIFECYCLE_STEPS = [
+  { step: 'Step 01', title: 'Reference Product Characterization', description: '' },
+  { step: 'Step 02', title: 'Method Development & Qualification', description: '' },
+  { step: 'Step 03', title: 'Product & Process Characterization', description: '' },
+  { step: 'Step 04', title: 'Comparability / Analytical Similarity /Comparative Analytical Assessment', description: '' },
+  { step: 'Step 05', title: 'In-Process & Release Testing', description: '' },
+  { step: 'Step 06', title: 'Stability Assessment', description: '' },
 ];
+
+// Icons for the lifecycle steps, by position
+const LIFECYCLE_ICONS = [Target, Sliders, FlaskConical, Scale, Activity, ShieldCheck];
+
+// Icons for the hero quick-jump buttons, by position
+const JUMP_ICONS = [Microscope, Scale, HeartPulse, Bug];
+
+// Desktop column count follows the number of steps
+const LIFECYCLE_GRID_COLS: Record<number, string> = {
+  1: 'lg:grid-cols-1',
+  2: 'lg:grid-cols-2',
+  3: 'lg:grid-cols-3',
+  4: 'lg:grid-cols-4',
+  5: 'lg:grid-cols-5',
+  6: 'lg:grid-cols-6',
+  7: 'lg:grid-cols-7',
+  8: 'lg:grid-cols-8',
+};
+
+const VIDEO_URL = /\.(mp4|webm|ogg|mov)$/i;
+
+/** Hero media from the record: a video (heroVideo, or a video URL in image) or the image carousel (image first, then images[]). */
+function resolveHeroMedia(page: CDMOPage | null, fallbackImages: string[]) {
+  const imageIsVideo = Boolean(page?.image && VIDEO_URL.test(page.image));
+  const video = page?.heroMediaType === 'image' ? '' : (page?.heroVideo || (imageIsVideo ? page?.image : '') || '');
+  const gallery = (page?.images || []).filter(Boolean);
+  const lead = page?.image && !imageIsVideo ? page.image : '';
+  const images = lead && !gallery.includes(lead) ? [lead, ...gallery] : gallery;
+  return { video, images: images.length > 0 ? images : fallbackImages };
+}
 
 const DEFAULT_CHARACTERIZATION_FAQS = [
   {
@@ -169,7 +182,10 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
 
   const badge = page?.badge || 'ANALYTICAL CHARACTERIZATION AND TESTING';
   const heading = page?.heading || 'Analytical Insights that Advance Biologics Development';
-  const heroImages = (page?.images && page.images.length > 0) ? page.images : ANALYTICAL_HERO_IMAGES;
+  const hero = resolveHeroMedia(page, ANALYTICAL_HERO_IMAGES);
+  const t = makePageText(page ?? ({ category: 'characterization', slug: 'characterization' } as CDMOPage), HUBS_TEXT_SLOTS);
+  // Breadcrumb label: the part of the page title before the "—" (same convention as the detail pages)
+  const breadcrumbLabel = page?.title?.split('—')[0].split('|')[0].trim() || 'Analytical Characterization and Testing';
 
   const descriptionParagraphs = page?.description
     ? page.description.split('\n\n').filter(Boolean)
@@ -178,18 +194,36 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
         'Our analytical platform combines physicochemical, molecular, structural, biophysical, functional, and microbiological testing to generate data across development and manufacturing.'
       ];
 
-  // Dynamic Cards
-  const cardsSection = page?.sections?.find((s) => s.cards && s.cards.length > 0) || page?.sections?.[0];
+  // Service cards: the bespoke cards section (by id, else the first section that has cards)
+  const sections = page?.sections || [];
+  const cardsSection = sections.find((s) => s.id === 'sec-char-pillars') || sections.find((s) => s.cards && s.cards.length > 0);
   const renderedCards = (cardsSection?.cards && cardsSection.cards.length > 0)
-    ? cardsSection.cards.map((card, idx) => ({
-        title: card.title || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.title || `Capability ${idx + 1}`,
-        slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `cap-${idx + 1}`,
-        href: card.link || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.href || '/characterization',
-        image: card.image || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.image || '/images/Analytical/UPLC.png',
-        description: card.description || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.description || '',
-        capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.capabilities || []),
-      }))
-    : DEFAULT_CHARACTERIZATION_SUB_SERVICES;
+    ? cardsSection.cards.map((card, idx) => {
+        const title = card.title || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.title || `Capability ${idx + 1}`;
+        return {
+          title,
+          slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `cap-${idx + 1}`,
+          href: card.link || card.href || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.href || '/characterization',
+          image: card.image || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.image || '/images/Analytical/UPLC.png',
+          description: card.description || DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.description || '',
+          capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_CHARACTERIZATION_SUB_SERVICES[idx]?.capabilities || []),
+          // Short label for the hero quick-jump button
+          jumpLabel: card.badge || title,
+          buttonText: card.buttonText || `Explore ${title}`,
+        };
+      })
+    : DEFAULT_CHARACTERIZATION_SUB_SERVICES.map((card) => ({ ...card, jumpLabel: card.title, buttonText: `Explore ${card.title}` }));
+
+  // Lifecycle block: the bespoke process-steps section (by id, else the first process-steps section)
+  const lifecycleSection = sections.find((s) => s.id === 'sec-char-lifecycle')
+    || sections.find((s) => s !== cardsSection && (s.style === 'process-steps' || (s.steps && s.steps.length > 0)));
+  const lifecycleTitle = page ? (lifecycleSection?.title || '') : DEFAULT_LIFECYCLE_TITLE;
+  const lifecycleText = page ? (lifecycleSection?.text || '') : DEFAULT_LIFECYCLE_TEXT;
+  const lifecycleSteps = page ? (lifecycleSection?.steps || []) : DEFAULT_LIFECYCLE_STEPS;
+  const showLifecycle = page ? Boolean(lifecycleSection) : true;
+
+  // Any other section (added in the admin panel) renders generically before the FAQ block
+  const extraSections = sections.filter((s) => s !== cardsSection && s !== lifecycleSection);
 
   const faqs = (page?.faqs && page.faqs.length > 0) ? page.faqs : DEFAULT_CHARACTERIZATION_FAQS;
 
@@ -214,7 +248,7 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
             <span>/</span>
             <span className="text-neutral-500">Services</span>
             <span>/</span>
-            <span className="text-brand-orange">Analytical Characterization and Testing</span>
+            <span className="text-brand-orange">{breadcrumbLabel}</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -236,36 +270,22 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
                 ))}
               </div>
 
-              {/* Quick Jump Buttons */}
+              {/* Quick Jump Buttons — one per service card (label = card tag, link = card link) */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/characterization/analytical-testing"
-                  className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
-                >
-                  <Microscope className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  <span>ANALYTICAL TESTING</span>
-                </Link>
-                <Link
-                  href="/characterization/physicochemical-characterization"
-                  className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-orange text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
-                >
-                  <Scale className="w-4 h-4 text-brand-orange group-hover:text-white transition-colors" />
-                  <span>PHYSICOCHEMICAL CHARACTERIZATION</span>
-                </Link>
-                <Link
-                  href="/characterization/bioassays-immunogenicity-testing"
-                  className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-blue text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
-                >
-                  <HeartPulse className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  <span>BIOASSAYS & IMMUNOGENICITY</span>
-                </Link>
-                <Link
-                  href="/characterization/microbiological-testing"
-                  className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 hover:bg-brand-orange text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all"
-                >
-                  <Bug className="w-4 h-4 text-brand-orange group-hover:text-white transition-colors" />
-                  <span>MICROBIOLOGICAL TESTING</span>
-                </Link>
+                {renderedCards.map((service, idx) => {
+                  const JumpIcon = JUMP_ICONS[idx % JUMP_ICONS.length];
+                  const isOrange = idx % 2 === 1;
+                  return (
+                    <Link
+                      key={`${service.slug}-${idx}`}
+                      href={service.href}
+                      className={`group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-neutral-900 ${isOrange ? 'hover:bg-brand-orange' : 'hover:bg-brand-blue'} text-white text-xs font-semibold uppercase tracking-wider shadow-sm transition-all`}
+                    >
+                      <JumpIcon className={`w-4 h-4 ${isOrange ? 'text-brand-orange' : 'text-brand-blue'} group-hover:text-white transition-colors`} />
+                      <span>{service.jumpLabel}</span>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
@@ -273,11 +293,17 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
             <div className="lg:col-span-5">
               <Reveal delay={0.15}>
                 <div className="relative rounded-2xl overflow-hidden border border-neutral-200 shadow-xl bg-white group">
-                  <CardImageCarousel
-                    images={heroImages}
-                    alt="Lambda CDMO Analytical Characterization and Testing"
-                    aspectRatio="aspect-[4/3]"
-                  />
+                  {hero.video ? (
+                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
+                      <video src={hero.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <CardImageCarousel
+                      images={hero.images}
+                      alt={page?.title || 'Lambda CDMO Analytical Characterization and Testing'}
+                      aspectRatio="aspect-[4/3]"
+                    />
+                  )}
                 </div>
               </Reveal>
             </div>
@@ -285,50 +311,93 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
         </div>
       </section>
 
-      {/* ANALYTICAL SUPPORT ACROSS THE DEVELOPMENT LIFECYCLE */}
-      <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-20 bg-white border-b border-neutral-100">
-        <div className="w-full max-w-[1700px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
-                Analytical Support Across the Development Lifecycle
-              </h2>
-              <p className="text-[15px] sm:text-[16px] lg:text-[16.5px] text-slate-600 font-normal leading-relaxed w-full max-w-none mx-auto mt-4 whitespace-normal lg:whitespace-nowrap">
-                Lambda CDMO&apos;s analytical capabilities support biologics programs from early product and reference characterization through process development, comparability, manufacturing, batch release, and stability assessment.
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Stepped Lifecycle Flow */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-3.5">
-            {ANALYTICAL_LIFECYCLE_STEPS.map((item, idx) => {
-              const IconComponent = item.icon;
-              return (
-                <Reveal key={idx} delay={idx * 0.05} className="h-full">
-                  <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-4 bg-white px-2.5 py-0.5 rounded-full border border-neutral-200/60 group-hover:border-brand-blue/30 group-hover:text-brand-blue transition-colors">
-                      Step {item.step}
+      {/* ANALYTICAL SUPPORT ACROSS THE DEVELOPMENT LIFECYCLE — the "process-steps" section of the page record */}
+      {showLifecycle && (
+        <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-20 bg-white border-b border-neutral-100">
+          <div className="w-full max-w-[1700px] mx-auto">
+            {(lifecycleTitle || lifecycleSection?.subtitle || lifecycleText) && (
+              <Reveal>
+                <div className="text-center mb-12 md:mb-16">
+                  {lifecycleSection?.subtitle && (
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-orange mb-3 block">
+                      {lifecycleSection.subtitle}
                     </span>
+                  )}
+                  {lifecycleTitle && (
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                      {lifecycleTitle}
+                    </h2>
+                  )}
+                  {lifecycleText && (
+                    <p className="text-[15px] sm:text-[16px] lg:text-[16.5px] text-slate-600 font-normal leading-relaxed w-full max-w-none mx-auto mt-4 whitespace-normal lg:whitespace-nowrap">
+                      {lifecycleText}
+                    </p>
+                  )}
+                </div>
+              </Reveal>
+            )}
 
-                    {/* ICON CONTAINER */}
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[16px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mb-4 group-hover:bg-brand-blue group-hover:scale-105 transition-all duration-300">
-                      <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 text-brand-blue group-hover:text-white transition-colors duration-300" />
+            {/* Stepped Lifecycle Flow */}
+            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${LIFECYCLE_GRID_COLS[lifecycleSteps.length] || 'lg:grid-cols-6'} gap-4 lg:gap-3.5`}>
+              {lifecycleSteps.map((item, idx) => {
+                const IconComponent = LIFECYCLE_ICONS[idx % LIFECYCLE_ICONS.length];
+                return (
+                  <Reveal key={idx} delay={idx * 0.05} className="h-full">
+                    <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300">
+                      {item.step && (
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-4 bg-white px-2.5 py-0.5 rounded-full border border-neutral-200/60 group-hover:border-brand-blue/30 group-hover:text-brand-blue transition-colors">
+                          {item.step}
+                        </span>
+                      )}
+
+                      {/* ICON CONTAINER */}
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[16px] bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 mb-4 group-hover:bg-brand-blue group-hover:scale-105 transition-all duration-300">
+                        <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 text-brand-blue group-hover:text-white transition-colors duration-300" />
+                      </div>
+
+                      <h3 className="text-sm sm:text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors flex-1 flex items-center justify-center">
+                        {item.title}
+                      </h3>
+                      {item.description && (
+                        <p className="text-[13px] text-slate-600 font-normal leading-relaxed mt-2">
+                          {item.description}
+                        </p>
+                      )}
                     </div>
-
-                    <h3 className="text-sm sm:text-base font-semibold text-neutral-900 leading-snug group-hover:text-brand-blue transition-colors flex-1 flex items-center justify-center">
-                      {item.title}
-                    </h3>
-                  </div>
-                </Reveal>
-              );
-            })}
+                  </Reveal>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 4 CORE CHARACTERIZATION & TESTING PILLARS */}
       <section className="px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-24 bg-molecules border-b border-neutral-100">
         <div className="w-full max-w-[1700px] mx-auto">
+          {/* Optional section header — only shown when the cards section has a heading, tag or intro text */}
+          {cardsSection && (cardsSection.title || cardsSection.subtitle || cardsSection.text) && (
+            <Reveal>
+              <div className="text-center mb-10 md:mb-14">
+                {cardsSection.subtitle && (
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-orange mb-3 block">
+                    {cardsSection.subtitle}
+                  </span>
+                )}
+                {cardsSection.title && (
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-light md:font-normal tracking-tight text-neutral-900 leading-[1.15]">
+                    {cardsSection.title}
+                  </h2>
+                )}
+                {cardsSection.text && (
+                  <p className="text-[15px] sm:text-[16px] text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto mt-4">
+                    {cardsSection.text}
+                  </p>
+                )}
+              </div>
+            </Reveal>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {renderedCards.map((service, idx) => {
               const ServiceIcon = getCharacterizationIcon(service.title, idx);
@@ -366,7 +435,7 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
                         {service.capabilities && service.capabilities.length > 0 && (
                           <div className="border-t border-neutral-100 pt-5 mb-6">
                             <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 block mb-3.5">
-                              Key Capabilities
+                              {t('cardsBulletsLabel')}
                             </span>
                             <ul className="space-y-3">
                               {service.capabilities.map((cap, cIdx) => (
@@ -387,7 +456,7 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
                           href={service.href}
                           className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-neutral-50 hover:bg-brand-orange text-neutral-900 hover:text-white font-semibold text-xs uppercase tracking-wider transition-all group/btn shadow-2xs"
                         >
-                          <span>Explore {service.title}</span>
+                          <span>{service.buttonText}</span>
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </Link>
                       </div>
@@ -399,6 +468,17 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
           </div>
         </div>
       </section>
+
+      {/* ADDITIONAL CMS SECTIONS (added in the admin panel) */}
+      {extraSections.map((sec, i) => (
+        <DynamicSectionRenderer
+          key={sec.id || `extra-${i}`}
+          section={sec}
+          index={i}
+          pageSlug={page?.slug}
+          category={page?.category}
+        />
+      ))}
 
       {/* FAQS */}
       <FAQSection 

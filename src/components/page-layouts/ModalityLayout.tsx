@@ -20,7 +20,8 @@ import {
 import Reveal from '@/components/Reveal';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import FAQSection from '@/components/FAQSection';
-import CommonCTA from '@/components/CommonCTA';
+import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
+import PageCTA from '@/components/PageCTA';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 
@@ -173,6 +174,13 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
       )}
 
       {/* FAQ Accordion (Bottom Section) */}
+      {/* Sections added in the admin panel */}
+      {(page.sections || [])
+        .filter((sec) => sec.style !== 'faq-accordion')
+        .map((sec, idx) => (
+          <DynamicSectionRenderer key={sec.id || idx} section={sec} index={idx} pageSlug={page.slug} category={page.category} />
+        ))}
+
       {page.faqs && page.faqs.length > 0 && (
         <FAQSection
           faqs={page.faqs}
@@ -184,7 +192,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
       )}
 
       {/* CTA */}
-      <CommonCTA />
+      <PageCTA page={page} />
     </>
   );
 }

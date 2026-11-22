@@ -1,6 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { cdmoData } from '@/data/cdmoData';
 import { getStoredPage, getAllStoredPages } from '@/lib/pagesStorage';
+import { getAllStoredInsights } from '@/lib/insightsStorage';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 import OverviewLayout from '@/components/page-layouts/OverviewLayout';
@@ -10,7 +11,6 @@ import CharacterizationLayout from '@/components/page-layouts/CharacterizationLa
 import ModalityLayout from '@/components/page-layouts/ModalityLayout';
 import InsightsLayout from '@/components/page-layouts/InsightsLayout';
 import ModularPageLayout from '@/components/page-layouts/ModularPageLayout';
-import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
 
 interface PageProps {
   params: Promise<{
@@ -95,8 +95,9 @@ export async function generateMetadata({ params }: PageProps) {
     };
   }
 
+  // "SEO meta title" from the admin panel wins; fall back to the page title.
   return {
-    title: `${page.title} | Lambda CDMO`,
+    title: page.metaTitle?.trim() || `${page.title} | Lambda CDMO`,
     description: page.metaDesc || page.description,
   };
 }
@@ -486,14 +487,8 @@ export default async function CDMODynamicPage({ params, searchParams }: PageProp
     }
   })();
 
-  // For overview category, OverviewLayout already handles all specialized sections (hero, 50/50 split, locations map, advantage grid, faqs, cta)
-  const isOverviewCategory = page.category.toLowerCase() === 'overview';
-  const modularCustomSections = isOverviewCategory
-    ? []
-    : (page.sections || []).filter(
-        (s) => s.style && s.style !== 'feature-split' && s.style !== 'faq-accordion'
-      );
-
+  // Each layout renders every section of the page itself (bespoke blocks first, then any
+  // remaining sections through DynamicSectionRenderer), so nothing is appended here.
   return (
     <div className="bg-white text-neutral-900 min-h-screen font-sans pb-0 select-none">
       {isPreview && (
@@ -501,19 +496,10 @@ export default async function CDMODynamicPage({ params, searchParams }: PageProp
           <span>⚠️ You are viewing an UNPUBLISHED DRAFT PREVIEW of &quot;{page.title}&quot;. Regular visitors see only published content.</span>
         </div>
       )}
-      <LayoutComponent page={page} content={content} />
-      {modularCustomSections.length > 0 && (
-        <div className="divide-y divide-neutral-100 border-t border-neutral-200">
-          {modularCustomSections.map((sec, idx) => (
-            <DynamicSectionRenderer
-              key={idx}
-              section={sec}
-              index={idx}
-              pageSlug={page.slug}
-              category={page.category}
-            />
-          ))}
-        </div>
+      {page.category.toLowerCase() === 'insights' ? (
+        <InsightsLayout page={page} content={content} initialInsights={getAllStoredInsights()} />
+      ) : (
+        <LayoutComponent page={page} content={content} />
       )}
     </div>
   );

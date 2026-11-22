@@ -52,7 +52,12 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
   const heroDesc = (pageData?.description && !pageData.description.includes('Supporting biopharmaceutical companies with integrated biologics development, from Gene to GMP'))
     ? pageData.description
     : 'Lambda CDMO provides integrated development, analytical characterization, and GMP manufacturing services, supporting biopharmaceutical innovators from early-stage development through clinical supply.';
-  const heroVideo = (pageData?.heroVideo && pageData.heroVideo !== '/videos/hero5.mp4') ? pageData.heroVideo : '/videos/newhero.mp4';
+  const isVideoFile = (url?: string) => /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(url || '');
+  const storedHeroMedia = pageData?.heroVideo || pageData?.image;
+  const heroMedia = (storedHeroMedia && storedHeroMedia !== '/videos/hero5.mp4') ? storedHeroMedia : '/videos/newhero.mp4';
+  // The admin panel stores the chosen media type; fall back to the file extension.
+  const heroMediaType: 'image' | 'video' =
+    isVideoFile(heroMedia) ? 'video' : (pageData?.heroMediaType === 'image' || !pageData?.heroMediaType ? 'image' : 'video');
   const heroPrimaryCta = {
     text: pageData?.heroPrimaryCtaText || pageData?.primaryCta?.text || 'GET IN TOUCH',
     link: pageData?.heroPrimaryCtaLink || pageData?.primaryCta?.link || '/contact',
@@ -282,7 +287,8 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
         heading={heroHeading}
         subtitle={heroSubtitle}
         description={heroDesc}
-        videoSrc={heroVideo}
+        videoSrc={heroMedia}
+        mediaType={heroMediaType}
         primaryCta={heroPrimaryCta}
         secondaryCta={heroSecondaryCta}
       />
@@ -291,6 +297,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       <CDMOLocationsMapSection
         title={locationsMapSection?.title || 'Global CDMO Capabilities Across India and Europe'}
         subtitle={locationsMapSection?.subtitle || 'Bespoke Biologics Infrastructure'}
+        cards={locationsMapSection?.cards}
       />
 
       {/* AN INTEGRATED PARTNER */}

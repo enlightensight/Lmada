@@ -9,6 +9,8 @@ interface HeroSectionProps {
     subtitle?: string;
     description?: string;
     videoSrc?: string;
+    /** Set to 'image' to show `videoSrc` as a still background image instead of a looping video. */
+    mediaType?: 'image' | 'video';
     primaryCta?: { text: string; link: string };
     secondaryCta?: { text: string; link: string };
 }
@@ -18,6 +20,7 @@ export function HeroSection({
     subtitle = 'From Gene to Clinic.',
     description = 'Lambda CDMO provides integrated development, analytical characterization, and GMP manufacturing services, supporting biopharmaceutical innovators from early-stage development through clinical supply.',
     videoSrc = '/videos/newhero.mp4',
+    mediaType = 'video',
     primaryCta = { text: 'Get in touch', link: '/contact' },
     secondaryCta = { text: 'Explore Services', link: '/services/cell-line' }
 }: HeroSectionProps = {}) {
@@ -26,15 +29,25 @@ export function HeroSection({
             <div className="relative w-full max-w-[1700px] mx-auto rounded-[10px] overflow-hidden border border-neutral-200 shadow-sm min-h-[520px] sm:min-h-[580px] md:min-h-[calc(100vh-96px)] lg:min-h-[calc(100vh-120px)] flex items-center bg-brand-navy">
                 {/* Background Video confined within container */}
                 <div className="absolute inset-0 z-0 overflow-hidden">
-                    <video
-                        key={videoSrc || '/videos/newhero.mp4'}
-                        src={videoSrc || '/videos/newhero.mp4'}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover object-center md:object-center"
-                    />
+                    {mediaType === 'image' ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                            key={videoSrc}
+                            src={videoSrc}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover object-center"
+                        />
+                    ) : (
+                        <video
+                            key={videoSrc || '/videos/newhero.mp4'}
+                            src={videoSrc || '/videos/newhero.mp4'}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover object-center md:object-center"
+                        />
+                    )}
                     {/* Left-side blurry overlay: gradual decrease to half width (50%) - desktop only to preserve mobile clarity */}
                     <div
                         className="absolute inset-0 pointer-events-none hidden md:block"

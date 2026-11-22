@@ -8,6 +8,8 @@ import {
   deleteStoredPage
 } from '@/lib/pagesStorage';
 import type { CDMOPage } from '@/data/cdmoData';
+import { slotsForPage } from '@/lib/pageText';
+import { ALL_TEXT_SLOTS } from '@/data/textSlots';
 
 interface RouteContext {
   params: Promise<{
@@ -28,7 +30,8 @@ export async function GET(req: Request, context: RouteContext) {
       );
     }
 
-    return NextResponse.json({ success: true, page });
+    // textSlots: extra editable copy/media for this page (stored in page.customText)
+    return NextResponse.json({ success: true, page, textSlots: slotsForPage(page, ALL_TEXT_SLOTS) });
   } catch (error: any) {
     console.error('Error getting single page:', error);
     return NextResponse.json(
