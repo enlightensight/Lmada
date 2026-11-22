@@ -230,6 +230,18 @@ Current `next.config.ts` is empty/default. Add explicit config only if deploymen
 
 No environment variables or secrets are required for the current build.
 
+### Virtual tour
+
+The facility virtual tour (about 700 MB, 46,000 image tiles) is not in this repository: `public/virtual-tour` is
+git-ignored and exists only on a developer machine. It lives in its own repository
+(`enlightensight/lambda-virtual-tour`) and is hosted as a separate static site at
+`https://lambda-virtual-tour.onrender.com`.
+
+- Production builds redirect every `/virtual-tour/...` link to that site (`next.config.ts`).
+- `npm run dev` does not redirect, so the tour is served from the local `public/virtual-tour` copy.
+- To host the tour somewhere else, set the `VIRTUAL_TOUR_URL` environment variable (no trailing slash) and redeploy.
+- To update the tour, commit and push in the tour repository; its static site redeploys on its own.
+
 ---
 
 ## Security Considerations

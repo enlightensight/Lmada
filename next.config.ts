@@ -1,8 +1,36 @@
 import type { NextConfig } from "next";
 
+// The virtual tour (about 700 MB of image tiles) is not part of this repository. It lives in its
+// own repository (enlightensight/lambda-virtual-tour) and is hosted as a separate static site.
+// Production builds send every /virtual-tour/... link on the site there. In local development
+// (`npm run dev`) nothing is redirected, so the tour is served from public/virtual-tour as before.
+// Set VIRTUAL_TOUR_URL (no trailing slash) to use a different host, e.g. after moving the tour.
+const HOSTED_VIRTUAL_TOUR_URL = 'https://lambda-virtual-tour.onrender.com';
+const virtualTourUrl = (
+  process.env.VIRTUAL_TOUR_URL || (process.env.NODE_ENV === 'production' ? HOSTED_VIRTUAL_TOUR_URL : '')
+)
+  .trim()
+  .replace(/\/+$/, '');
+const virtualTourRedirects = virtualTourUrl
+  ? [
+      {
+        source: '/virtual-tour',
+        destination: `${virtualTourUrl}/00%20MAIN%20BUILDING/index.htm`,
+        permanent: false,
+      },
+      {
+        source: '/virtual-tour/:path*',
+        destination: `${virtualTourUrl}/:path*`,
+        permanent: false,
+      },
+    ]
+  : [];
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      ...virtualTourRedirects,
+
       // Primary Hub Canonical Redirects
       {
         source: '/characterization',
