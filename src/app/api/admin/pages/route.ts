@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
-import { getAllStoredPages, saveDraftPage, publishStoredPage } from '@/lib/pagesStorage';
+import { getAllStoredPages, saveDraftPage, publishStoredPage, getBuiltInPageKeys } from '@/lib/pagesStorage';
+import { findPageOwningAddress, getPublicPath } from '@/lib/pageUrls';
 import type { CDMOPage } from '@/data/cdmoData';
 
 export async function GET() {
   try {
     // Admin dashboard fetches all pages including draft metadata
     const pages = getAllStoredPages({ includeDrafts: true });
-    return NextResponse.json({ success: true, pages });
+    // builtInKeys: pages that ship with the site; their addresses are fixed in src/lib/pageUrls.ts
+    return NextResponse.json({ success: true, pages, builtInKeys: getBuiltInPageKeys() });
   } catch (error: any) {
     console.error('Error fetching pages for admin:', error);
     return NextResponse.json(
@@ -32,6 +34,16 @@ export async function POST(req: Request) {
     // Clean formatting
     pageData.slug = pageData.slug.trim().toLowerCase().replace(/^\/+|\/+$/g, '');
     pageData.category = pageData.category.trim().toLowerCase();
+
+    // A new page may not take the public address of a built-in page
+    // (e.g. /services/cell-line-development belongs to the Cell Line Development page).
+    const owner = findPageOwningAddress(pageData.category, pageData.slug);
+    if (owner) {
+      return NextResponse.json(
+        { success: false, error: `The address "${getPublicPath(owner)}" is already used by an existing page.` },
+        { status: 409 }
+      );
+    }
 
     // Ensure sections array exists
     if (!Array.isArray(pageData.sections)) {

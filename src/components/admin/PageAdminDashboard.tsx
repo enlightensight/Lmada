@@ -23,6 +23,7 @@ import {
   Eye
 } from 'lucide-react';
 import type { CDMOPage } from '@/data/cdmoData';
+import { getPublicPath, getPreviewPath } from '@/lib/pageUrls';
 import PageAdminEditor from './PageAdminEditor';
 import CreatePageModal from './CreatePageModal';
 
@@ -87,6 +88,9 @@ export default function PageAdminDashboard() {
     }
   };
 
+  // Pages that ship with the site: their public address is fixed (src/lib/pageUrls.ts)
+  const [builtInKeys, setBuiltInKeys] = useState<string[]>([]);
+
   // Load all pages from storage API
   const loadPages = async () => {
     setLoading(true);
@@ -95,6 +99,7 @@ export default function PageAdminDashboard() {
       const data = await res.json();
       if (data.success && Array.isArray(data.pages)) {
         setPages(data.pages);
+        if (Array.isArray(data.builtInKeys)) setBuiltInKeys(data.builtInKeys);
       }
     } catch (err) {
       console.error('Failed to load pages:', err);
@@ -112,8 +117,8 @@ export default function PageAdminDashboard() {
     const isHome = category === 'home' && slug === 'home';
     const isHub = slug === category;
     const confirmPrompt = (isHome || isHub)
-      ? `Are you sure you want to reset "${title}" (${isHome ? '/' : `/${category}`}) back to factory defaults?`
-      : `Are you sure you want to delete or reset "${title}" (${category}/${slug})?`;
+      ? `Are you sure you want to reset "${title}" (${getPublicPath({ category, slug })}) back to factory defaults?`
+      : `Are you sure you want to delete or reset "${title}" (${getPublicPath({ category, slug })})?`;
 
     if (!window.confirm(confirmPrompt)) return;
 
@@ -185,6 +190,7 @@ export default function PageAdminDashboard() {
     return (
       <PageAdminEditor
         initialPage={editingPage}
+        isBuiltIn={builtInKeys.includes(`${editingPage.category}/${editingPage.slug}`)}
         onBack={() => {
           setEditingPage(null);
           loadPages();
@@ -342,8 +348,9 @@ export default function PageAdminDashboard() {
                 {filteredPages.map((p) => {
                   const isHome = p.category === 'home' && p.slug === 'home';
                   const isHub = p.slug === p.category;
-                  const livePath = isHome ? '/' : isHub ? `/${p.category}` : `/${p.category}/${p.slug}`;
-                  const previewPath = `${livePath}${livePath.includes('?') ? '&' : '?'}preview=true`;
+                  // Same address the live site and its navigation use
+                  const livePath = getPublicPath(p);
+                  const previewPath = getPreviewPath(p);
                   const key = `${p.category}-${p.slug}`;
                   const isDraftOnly = p.isPublished === false;
                   const hasUnpublished = Boolean(p.hasUnpublishedChanges);

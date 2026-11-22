@@ -208,6 +208,10 @@ Rules the audit enforces — keep them true when changing a layout:
   under "Additional Page Content".
 - Every layout renders all of `page.sections`: bespoke blocks first, anything else through
   `DynamicSectionRenderer`. Footer banners use `<PageCTA page={page} />`.
+- Page records keep short internal keys (`services/cell-line`); visitors use longer public addresses
+  (`/services/cell-line-development`, `/development-services`). `src/lib/pageUrls.ts` is the one mapping between
+  them and is what the admin panel shows and links to. When a public address changes, update it there, keep the
+  alias in `getStoredPage` and add a redirect in `next.config.ts`; the audit fails if the admin's address redirects.
 - Change stored content with `node scripts/cms_data_patch.mjs patch.json` (updates the live data and the
   defaults together) rather than editing the JSON by hand.
 - After changing which fields a layout displays, regenerate the editor's "not shown on this page" hints:

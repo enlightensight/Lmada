@@ -119,11 +119,15 @@ const fetch = async (url, init) => {
   }
 };
 const api = (p) => `${BASE}/api/admin/pages/${encodeURIComponent(p.category)}/${encodeURIComponent(p.slug)}`;
-const liveUrl = (p) => {
-  if (p.category === 'home') return `${BASE}/`;
-  if (p.slug === p.category) return `${BASE}/${p.category}`;
-  return `${BASE}/${p.category}/${p.slug}`;
-};
+// The address the admin panel shows for a page (GET /api/admin/pages/... -> publicPath).
+const publicPaths = new Map();
+const liveUrl = (p) => `${BASE}${publicPaths.get(`${p.category}/${p.slug}`) || (p.category === 'home' ? '/' : p.slug === p.category ? `/${p.category}` : `/${p.category}/${p.slug}`)}`;
+async function loadPublicPaths(records) {
+  for (const p of records) {
+    const info = await (await fetch(api(p))).json();
+    if (info.publicPath) publicPaths.set(`${p.category}/${p.slug}`, info.publicPath);
+  }
+}
 async function put(p, action, page) {
   const res = await fetch(api(p), {
     method: 'PUT',
@@ -215,6 +219,7 @@ function visibleContent(html) {
 
 if (SNAPSHOT || COMPARE) {
   const records = JSON.parse(ORIGINAL.toString('utf-8'));
+  await loadPublicPaths(records);
   const before = COMPARE ? JSON.parse(fs.readFileSync(COMPARE, 'utf-8')) : null;
   const snap = {};
   let changedPages = 0;
@@ -251,6 +256,7 @@ try {
   // Work from the raw published records so restore comparisons are exact
   const records = JSON.parse(ORIGINAL.toString('utf-8'));
   console.log(`Admin API lists ${list.pages.length} pages; storage has ${records.length}.`);
+  await loadPublicPaths(records);
 
   for (const page of records) {
     const key = `${page.category}/${page.slug}`;
@@ -264,6 +270,10 @@ try {
     const base = await get(r.url);
     r.finalUrl = base.url.replace(BASE, '');
     r.checks.baseline200 = base.status === 200;
+    // The admin's address must be the page's real address: it opens directly, with no redirect.
+    const shown = publicPaths.get(key);
+    r.checks.adminAddressIsLiveAddress =
+      (Boolean(shown) && decodeURI(r.finalUrl) === decodeURI(shown)) || `admin shows ${shown}, site answers at ${r.finalUrl}`;
     const slots = (await (await fetch(api(page))).json()).textSlots || [];
     r.counts.slots = slots.length;
     r.hardcoded = findHardcoded(base.html, clean, slots);

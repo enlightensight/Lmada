@@ -100,15 +100,41 @@ try {
   check(live.includes(m('video-hero-bannervideo')) || live.includes(m('video-hero-bannerimage')), 'video banner section shows its media');
   check((await (await fetch(`${BASE}/api/admin/pages`)).json()).pages.some((p) => p.slug === SLUG), 'page listed in the admin dashboard');
 
+  // 2b. change the page's address: it must move the same page, not create a second one
+  const NEW_SLUG = 'all-section-styles-moved';
+  const NEW_URL = `${BASE}/${CATEGORY}/${NEW_SLUG}`;
+  const NEW_API = `${BASE}/api/admin/pages/${CATEGORY}/${NEW_SLUG}`;
+  const movedPage = { ...page, slug: NEW_SLUG };
+  const moved = await (await fetch(NEW_API, send('PUT', { action: 'publish', page: movedPage, renameFrom: { category: CATEGORY, slug: SLUG } }))).json();
+  check(moved.success === true, 'change the page address (URL slug)');
+  check((await fetch(NEW_URL)).status === 200, 'page opens at its new address');
+  check((await fetch(URL)).status === 404, 'old address no longer serves the page');
+  const listed = (await (await fetch(`${BASE}/api/admin/pages`)).json()).pages.filter((p) => p.category === CATEGORY);
+  check(listed.length === 1 && listed[0].slug === NEW_SLUG, `still exactly one page in the admin (found ${listed.length})`);
+  const info = await (await fetch(NEW_API)).json();
+  check(info.publicPath === `/${CATEGORY}/${NEW_SLUG}` && info.builtIn === false, 'admin shows the new address for the page');
+
+  // addresses that belong to built-in pages are protected
+  const clash = await fetch(`${BASE}/api/admin/pages/services/cell-line-development`, send('PUT', { action: 'publish', page: { ...movedPage, category: 'services', slug: 'cell-line-development' }, renameFrom: { category: CATEGORY, slug: NEW_SLUG } }));
+  check(clash.status === 409, `moving onto a built-in page's public address is refused (got ${clash.status})`);
+  const builtInMove = await fetch(`${BASE}/api/admin/pages/overview/about-us`, send('PUT', { action: 'save_draft', page: { ...page, category: 'overview', slug: 'about-us' }, renameFrom: { category: 'overview', slug: 'about' } }));
+  check(builtInMove.status === 409, `changing a built-in page's address is refused (got ${builtInMove.status})`);
+  const dupCreate = await fetch(`${BASE}/api/admin/pages`, send('POST', { page: { ...page, category: 'modalities', slug: 'monoclonal-antibodies' } }));
+  check(dupCreate.status === 409, `creating a page at a built-in page's public address is refused (got ${dupCreate.status})`);
+  check((await (await fetch(`${BASE}/api/admin/pages`)).json()).pages.length === JSON.parse(ORIGINAL.toString('utf-8')).length + 1, 'no stray pages were created by the refused requests');
+
+  // from here on the page lives at its new address
+  const MOVED = { URL: NEW_URL, API: NEW_API };
+
   // 3. unpublish
-  const unpublished = await (await fetch(API, send('PUT', { action: 'unpublish' }))).json();
+  const unpublished = await (await fetch(MOVED.API, send('PUT', { action: 'unpublish' }))).json();
   check(unpublished.success === true, 'unpublish page');
-  check((await fetch(URL)).status === 404, 'unpublished page is no longer public (404)');
+  check((await fetch(MOVED.URL)).status === 404, 'unpublished page is no longer public (404)');
 
   // 4. delete
-  const deleted = await (await fetch(API, { method: 'DELETE' })).json();
+  const deleted = await (await fetch(MOVED.API, { method: 'DELETE' })).json();
   check(deleted.success === true, 'delete page');
-  check((await fetch(API)).status === 404, 'deleted page is gone from the admin API');
+  check((await fetch(MOVED.API)).status === 404, 'deleted page is gone from the admin API');
 } finally {
   fs.writeFileSync(STORE, ORIGINAL);
 }

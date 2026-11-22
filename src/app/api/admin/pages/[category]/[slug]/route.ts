@@ -5,8 +5,11 @@ import {
   publishStoredPage,
   revertDraftPage,
   unpublishStoredPage,
-  deleteStoredPage
+  deleteStoredPage,
+  renameStoredPage,
+  isBuiltInPage
 } from '@/lib/pagesStorage';
+import { getPublicPath } from '@/lib/pageUrls';
 import type { CDMOPage } from '@/data/cdmoData';
 import { slotsForPage } from '@/lib/pageText';
 import { ALL_TEXT_SLOTS } from '@/data/textSlots';
@@ -31,7 +34,13 @@ export async function GET(req: Request, context: RouteContext) {
     }
 
     // textSlots: extra editable copy/media for this page (stored in page.customText)
-    return NextResponse.json({ success: true, page, textSlots: slotsForPage(page, ALL_TEXT_SLOTS) });
+    return NextResponse.json({
+      success: true,
+      page,
+      textSlots: slotsForPage(page, ALL_TEXT_SLOTS),
+      publicPath: getPublicPath(page), // the address visitors use (see src/lib/pageUrls.ts)
+      builtIn: isBuiltInPage(page.category, page.slug),
+    });
   } catch (error: any) {
     console.error('Error getting single page:', error);
     return NextResponse.json(
@@ -73,6 +82,25 @@ export async function PUT(req: Request, context: RouteContext) {
         { success: false, error: 'Missing page data' },
         { status: 400 }
       );
+    }
+
+    // The editor changed this custom page's address: move the existing record first so the
+    // save below updates the same page instead of creating a second one.
+    const renameFrom = body.renameFrom as { category?: string; slug?: string } | undefined;
+    if (
+      renameFrom?.category &&
+      renameFrom?.slug &&
+      (renameFrom.category.toLowerCase() !== decodeURIComponent(category).toLowerCase() ||
+        renameFrom.slug.toLowerCase() !== decodeURIComponent(slug).toLowerCase())
+    ) {
+      try {
+        renameStoredPage(renameFrom.category, renameFrom.slug, category, slug);
+      } catch (err) {
+        return NextResponse.json(
+          { success: false, error: err instanceof Error ? err.message : 'Could not change the page address.' },
+          { status: 409 }
+        );
+      }
     }
 
     // Force route consistency

@@ -1,5 +1,6 @@
 'use client';
 
+import { findPageOwningAddress, getPublicPath } from '@/lib/pageUrls';
 import React, { useState } from 'react';
 import {
   X,
@@ -279,6 +280,13 @@ export default function CreatePageModal({
 
     if (collision) {
       setError(`A page already exists at "${liveUrlPath}". Please use a unique slug.`);
+      return;
+    }
+
+    // The public address of a built-in page (e.g. /services/cell-line-development) is taken too
+    const addressOwner = findPageOwningAddress(finalCategory, slug.trim());
+    if (addressOwner) {
+      setError(`"${getPublicPath(addressOwner)}" is already the address of an existing page. Please use a different slug.`);
       return;
     }
 

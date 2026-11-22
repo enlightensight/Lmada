@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
         destination: '/overview/quality-and-compliance',
         permanent: true,
       },
+      {
+        source: '/overview/integrated',
+        destination: '/overview/integrated-development-to-manufacturing',
+        permanent: true,
+      },
 
       // Services Slug Redirects
       {

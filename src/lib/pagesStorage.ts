@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { cdmoData } from '@/data/cdmoData';
 import type { CDMOPage } from '@/data/cdmoData';
+import { findPageOwningAddress } from '@/lib/pageUrls';
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data');
 const STORAGE_FILE = path.join(DATA_DIR, 'storedPages.json');
@@ -599,4 +600,57 @@ export function deleteStoredPage(category: string, slug: string): { success: boo
     fs.writeFileSync(STORAGE_FILE, JSON.stringify(filtered, null, 2), 'utf-8');
     return { success: true, isReset: false };
   }
+}
+
+/** True for the pages that ship with the site (they have factory defaults in cdmoData). */
+export function isBuiltInPage(category: string, slug: string): boolean {
+  const cat = decodeURIComponent(category || '').toLowerCase();
+  const sl = decodeURIComponent(slug || '').toLowerCase();
+  return cdmoData.some((p) => p.category.toLowerCase() === cat && p.slug.toLowerCase() === sl);
+}
+
+/** "category/slug" keys of every built-in page, for the admin panel. */
+export function getBuiltInPageKeys(): string[] {
+  return cdmoData.map((p) => `${p.category}/${p.slug}`);
+}
+
+/**
+ * Moves a custom page to a new address, keeping its content, draft and publish state.
+ * Built-in pages cannot be moved: their layouts and public addresses are defined in code
+ * (see src/lib/pageUrls.ts).
+ */
+export function renameStoredPage(
+  fromCategory: string,
+  fromSlug: string,
+  toCategory: string,
+  toSlug: string
+): CDMOPage {
+  ensureStorageFileExists();
+  const norm = (v: string) => decodeURIComponent(v || '').trim().toLowerCase();
+  const from = { category: norm(fromCategory), slug: norm(fromSlug) };
+  const to = { category: norm(toCategory), slug: norm(toSlug) };
+
+  if (!to.category || !to.slug) throw new Error('The new address needs both a category and a URL slug.');
+  if (isBuiltInPage(from.category, from.slug)) {
+    throw new Error('The address of a built-in page cannot be changed from the admin panel.');
+  }
+
+  const allRecords = getRawStoredRecords();
+  const idx = allRecords.findIndex(
+    (p) => p.category.toLowerCase() === from.category && p.slug.toLowerCase() === from.slug
+  );
+  if (idx === -1) throw new Error('Page not found to move.');
+
+  const taken =
+    allRecords.some((p, i) => i !== idx && p.category.toLowerCase() === to.category && p.slug.toLowerCase() === to.slug) ||
+    isBuiltInPage(to.category, to.slug) ||
+    Boolean(findPageOwningAddress(to.category, to.slug)) ||
+    to.category === to.slug;
+  if (taken) throw new Error(`The address "/${to.category}/${to.slug}" is already used by another page.`);
+
+  const moved: CDMOPage = { ...allRecords[idx], category: to.category, slug: to.slug };
+  if (moved.draftContent) moved.draftContent = { ...moved.draftContent, category: to.category, slug: to.slug };
+  allRecords[idx] = moved;
+  fs.writeFileSync(STORAGE_FILE, JSON.stringify(allRecords, null, 2), 'utf-8');
+  return moved;
 }
