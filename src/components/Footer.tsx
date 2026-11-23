@@ -55,8 +55,8 @@ export default function Footer() {
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-16">
           
-          {/* Left: Branding */}
-          <div className="shrink-0">
+          {/* Left: Branding. Starts at its minimum width and grows into any free space (up to 640px); the links never give way to it */}
+          <div className="shrink-0 lg:grow min-[1024px]:basis-96 min-[1280px]:basis-[460px] min-[1440px]:basis-[500px] lg:max-w-[640px]">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image
                 src="/images/lambda_novum_logo.png"
@@ -67,7 +67,7 @@ export default function Footer() {
                 unoptimized
               />
             </Link>
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm min-[1280px]:max-w-[460px] min-[1440px]:max-w-[500px]">
+            <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm lg:max-w-none">
               Lambda CDMO is the biologics Contract Development and Manufacturing Organization of Lambda Therapeutic Research, providing integrated development, analytical characterization, and GMP manufacturing services for biologics, biosimilars, and complex therapeutic modalities. With capabilities across India and the UK, we support biopharmaceutical companies from early development through clinical supply.
             </p>
             <div className="flex items-center gap-3">
@@ -129,7 +129,7 @@ export default function Footer() {
 
           {/* Right: Links */}
           {/* Headings share one grid row (subgrid), so every column's links start at the same height */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 md:gap-y-0 flex-1 max-w-4xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 md:gap-y-0 flex-1 max-w-4xl lg:grow-0 lg:basis-[56rem]">
             {sections.map((section) => (
               <div key={section.title} className="min-w-0 md:grid md:grid-rows-subgrid md:row-span-2">
                 <h3 className="text-xs font-semibold uppercase tracking-wider leading-snug text-neutral-900 mb-4 break-words">
