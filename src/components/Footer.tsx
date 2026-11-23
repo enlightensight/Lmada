@@ -53,7 +53,7 @@ export default function Footer() {
     <footer className="bg-white text-neutral-900 border-t border-neutral-200 select-none px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
       <div className="w-full max-w-[1700px] mx-auto py-16 md:py-20">
         {/* Top Section */}
-        <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-16 xl:gap-20">
+        <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-16">
           
           {/* Left: Branding */}
           <div className="shrink-0">
@@ -67,7 +67,7 @@ export default function Footer() {
                 unoptimized
               />
             </Link>
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm min-[1600px]:max-w-[500px]">
+            <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm min-[1280px]:max-w-[460px] min-[1440px]:max-w-[500px]">
               Lambda CDMO is the biologics Contract Development and Manufacturing Organization of Lambda Therapeutic Research, providing integrated development, analytical characterization, and GMP manufacturing services for biologics, biosimilars, and complex therapeutic modalities. With capabilities across India and the UK, we support biopharmaceutical companies from early development through clinical supply.
             </p>
             <div className="flex items-center gap-3">
@@ -128,10 +128,11 @@ export default function Footer() {
           </div>
 
           {/* Right: Links */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-10 xl:gap-12 flex-1 max-w-4xl">
+          {/* Headings share one grid row (subgrid), so every column's links start at the same height */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 md:gap-y-0 flex-1 max-w-4xl">
             {sections.map((section) => (
-              <div key={section.title} className="min-w-0">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-900 mb-4 break-words">
+              <div key={section.title} className="min-w-0 md:grid md:grid-rows-subgrid md:row-span-2">
+                <h3 className="text-xs font-semibold uppercase tracking-wider leading-snug text-neutral-900 mb-4 break-words">
                   {section.title}
                 </h3>
                 <ul className="space-y-3">
