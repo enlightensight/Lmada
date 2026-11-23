@@ -55,51 +55,9 @@ import type { CDMOSection } from '@/data/cdmoData';
 import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
 import { iconFromRef, pickIcon } from '@/components/icons/SiteIcon';
 
-// Map icon strings to Lucide components
-const ICON_MAP: Record<string, LucideIcon> = {
-  FlaskConical,
-  Factory,
-  Microscope,
-  Dna,
-  Activity,
-  HeartPulse,
-  Bug,
-  ShieldCheck,
-  Gauge,
-  BookOpen,
-  FileText,
-  Globe,
-  Users,
-  Building2,
-  Search,
-  Settings,
-  Package,
-  Scale,
-  Calendar,
-  Newspaper,
-  FileDown,
-  Beaker,
-  Layers,
-  Sparkles,
-  Zap,
-  Target,
-  GitMerge,
-  Syringe,
-  Boxes,
-  HelpCircle,
-  ExternalLink,
-  ShieldAlert,
-  Droplets,
-  LineChart,
-  Atom,
-  Clock
-};
-
-export function resolveIcon(name?: string, fallback: LucideIcon = Sparkles): LucideIcon {
-  if (!name) return fallback;
-  // Accepts admin icon references too ("draw:VialIcon", "lucide:Factory", "/uploads/icon.svg")
-  return ICON_MAP[name] || (iconFromRef(name) as unknown as LucideIcon) || fallback;
-}
+// Icon names ("FlaskConical") and admin icon references resolve in the shared icon rules
+import { resolveIcon, WorkflowIconFallback } from '@/lib/autoIcons';
+export { resolveIcon };
 
 interface DynamicSectionRendererProps {
   section: CDMOSection;
@@ -988,7 +946,3 @@ export default function DynamicSectionRenderer({
   );
 }
 
-function WorkflowIconFallback(idx: number): LucideIcon {
-  const icons: LucideIcon[] = [FlaskConical, Settings, ShieldCheck, Factory];
-  return icons[idx % icons.length] || FlaskConical;
-}

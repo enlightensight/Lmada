@@ -27,6 +27,7 @@ import { makePageText } from '@/lib/pageText';
 import { HUBS_TEXT_SLOTS } from '@/data/textSlots/hubs';
 import type { CDMOPage } from '@/data/cdmoData';
 import { pickIcon } from '@/components/icons/SiteIcon';
+import { JUMP_ICONS, LIFECYCLE_ICONS, getCharacterizationIcon } from '@/lib/autoIcons';
 
 interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -119,11 +120,7 @@ const DEFAULT_LIFECYCLE_STEPS = [
   { step: 'Step 06', title: 'Stability Assessment', description: '' },
 ];
 
-// Fallback icons for lifecycle steps, by position (used only when a step has no drawn icon of its own)
-const LIFECYCLE_ICONS = [Target, Sliders, FlaskConical, Scale, Activity, ShieldCheck];
 
-// Icons for the hero quick-jump buttons, by position
-const JUMP_ICONS = [Microscope, Scale, HeartPulse, Bug];
 
 // Desktop column count follows the number of steps
 const LIFECYCLE_GRID_COLS: Record<number, string> = {
@@ -168,15 +165,6 @@ const DEFAULT_CHARACTERIZATION_FAQS = [
   },
 ];
 
-function getCharacterizationIcon(title: string, index: number) {
-  const t = title.toLowerCase();
-  if (t.includes('testing')) return Microscope;
-  if (t.includes('physico')) return Scale;
-  if (t.includes('bioassay') || t.includes('immun')) return HeartPulse;
-  if (t.includes('microbio')) return Bug;
-  const icons = [Microscope, Scale, HeartPulse, Bug];
-  return icons[index % icons.length];
-}
 
 export default async function AnalyticalCharacterizationPage({ searchParams }: PageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : {};

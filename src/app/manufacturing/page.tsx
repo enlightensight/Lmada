@@ -25,6 +25,7 @@ import { makePageText } from '@/lib/pageText';
 import { HUBS_TEXT_SLOTS } from '@/data/textSlots/hubs';
 import type { CDMOPage } from '@/data/cdmoData';
 import { pickIcon } from '@/components/icons/SiteIcon';
+import { WORKFLOW_ICONS, getManufacturingIcon } from '@/lib/autoIcons';
 
 interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -93,8 +94,6 @@ const DEFAULT_WORKFLOW_STEPS = [
   { step: 'Step 07', title: 'Clinical Supply', description: '' },
 ];
 
-// Icons for the workflow steps, by position
-const WORKFLOW_ICONS = [FlaskConical, Sliders, Filter, Sparkles, Eye, Package, Truck];
 
 // Desktop column count follows the number of steps
 const WORKFLOW_GRID_COLS: Record<number, string> = {
@@ -139,12 +138,6 @@ const DEFAULT_MANUFACTURING_FAQS = [
   },
 ];
 
-function getManufacturingIcon(title: string, index: number) {
-  const t = title.toLowerCase();
-  if (t.includes('substance') || t.includes('bioreactor')) return Beaker;
-  if (t.includes('product') || t.includes('fill') || t.includes('finish')) return Package;
-  return index === 0 ? Beaker : Package;
-}
 
 export default async function ManufacturingServicesPage({ searchParams }: PageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : {};

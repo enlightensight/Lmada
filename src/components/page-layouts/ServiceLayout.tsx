@@ -39,6 +39,7 @@ import { makePageText, slotsForPage } from '@/lib/pageText';
 import { SERVICES_TEXT_SLOTS, MODALITIES_BLOCK_DEFAULTS } from '@/data/textSlots/services';
 import { getHeroMedia, getSectionMedia, partitionSections, toCarouselItems } from './cmsMedia';
 import { pickIcon } from '@/components/icons/SiteIcon';
+import { getBulletSvgIcon, getBulletCapabilityIcon, getServiceSectionIcon } from '@/lib/autoIcons';
 
 interface ServiceLayoutProps {
   page: CDMOPage;
@@ -46,77 +47,8 @@ interface ServiceLayoutProps {
   content?: PageContent;
 }
 
-const CAPABILITY_ICONS = [FlaskConical, Dna, Microscope, Activity, Search, Beaker];
 
-function getBulletSvgIcon(text: string): string | null {
-  const lower = text.toLowerCase();
-  // These points keep their own line icons (document, microscope, test tubes): the client's cryovial and
-  // clone-screening drawings are for cell bank generation and clone screening, not for these.
-  if (lower.includes('documentation') || lower.includes('image-based') || lower.includes('gmp-compliant')) {
-    return null;
-  }
-  if (lower.includes('stable cell pool') || lower.includes('pool generation') || lower.includes('cell culture')) {
-    return '/images/cell culture.svg';
-  }
-  if (lower.includes('high-throughput') || lower.includes('clone screening')) {
-    return '/images/High-Throughput Clone Screening.svg';
-  }
-  if (lower.includes('cho-k1') || lower.includes('cho-s') || lower.includes('host cell') || lower.includes('host platform')) {
-    return '/images/Host cell line.svg';
-  }
-  if (lower.includes('rcb') || lower.includes('mcb') || lower.includes('cell bank') || lower.includes('cryovial')) {
-    return '/images/cell banking - cryovial.svg';
-  }
-  if (lower.includes('single-cell') || lower.includes('monoclonality') || lower.includes('cloning')) {
-    return '/images/single cell cloning.svg';
-  }
-  return null;
-}
 
-function getBulletCapabilityIcon(text: string, index: number) {
-  const lower = text.toLowerCase();
-  if (lower.includes('gene construct') || lower.includes('codon') || lower.includes('gene synthesis')) return Dna;
-  if (lower.includes('vector') || lower.includes('construct')) return Workflow;
-  if (lower.includes('stable cell pool') || lower.includes('pool generation')) return FlaskConical;
-  if (lower.includes('single-cell') || lower.includes('monoclonality')) return Microscope;
-  if (lower.includes('high-throughput') || lower.includes('selection')) return Sliders;
-  if (lower.includes('monitoring') || lower.includes('metabolite')) return LineChart;
-  if (lower.includes('growth') || lower.includes('product quality')) return ShieldCheck;
-  if (lower.includes('productivity') || lower.includes('assessment')) return Activity;
-  if (lower.includes('research cell bank') || lower.includes('rcb')) return TestTubes;
-  if (lower.includes('master cell bank') || lower.includes('mcb') || lower.includes('cgmp')) return Award;
-  if (lower.includes('documentation') || lower.includes('regulatory') || lower.includes('submissions') || lower.includes('validation') || lower.includes('qualification')) return FileCheck;
-  if (lower.includes('media') || lower.includes('feed')) return FlaskConical;
-  if (lower.includes('bioreactor') || lower.includes('shake flask')) return TestTubes;
-  if (lower.includes('doe') || lower.includes('optimization') || lower.includes('characterization')) return Sliders;
-  if (lower.includes('cell culture') || lower.includes('clone') || lower.includes('cell line')) return Dna;
-  if (lower.includes('intensification') || lower.includes('perfusion') || lower.includes('atf') || lower.includes('fed-batch')) return Repeat;
-  if (lower.includes('glycosylation')) return Atom;
-  if (lower.includes('resin') || lower.includes('screening')) return Search;
-  if (lower.includes('affinity') || lower.includes('chromatography')) return Filter;
-  if (lower.includes('anion') || lower.includes('cation') || lower.includes('ion exchange') || lower.includes('mixed-mode')) return Layers;
-  if (lower.includes('hydrophobic')) return Droplets;
-  if (lower.includes('virus') || lower.includes('viral')) return ShieldAlert;
-  if (lower.includes('ultrafiltration') || lower.includes('diafiltration') || lower.includes('uf/df') || lower.includes('filtration')) return Filter;
-  if (lower.includes('impurity') || lower.includes('clearance')) return ShieldCheck;
-  if (lower.includes('formulation')) return Beaker;
-  if (lower.includes('lc-ms') || lower.includes('mass spec')) return Microscope;
-  if (lower.includes('electrophoresis') || lower.includes('capillary')) return LineChart;
-  if (lower.includes('elisa')) return TestTubes;
-  if (lower.includes('identity') || lower.includes('purity') || lower.includes('testing')) return Search;
-  if (lower.includes('hplc') || lower.includes('uplc') || lower.includes('ce-sds') || lower.includes('ief')) return LineChart;
-  if (lower.includes('potency') || lower.includes('binding') || lower.includes('cell-based') || lower.includes('assay')) return Activity;
-  if (lower.includes('forced degradation') || lower.includes('stability')) return ShieldCheck;
-  if (lower.includes('reference standard')) return Award;
-  if (lower.includes('transfer') || lower.includes('tech transfer')) return Share2;
-  if (lower.includes('comparability') || lower.includes('biosimilar')) return GitMerge;
-  if (lower.includes('support')) return Workflow;
-  if (lower.includes('method development') || lower.includes('method')) return FileCheck;
-  if (lower.includes('scalability') || lower.includes('scale-up')) return Maximize2;
-
-  const fallbacks = [Dna, Workflow, FlaskConical, Microscope, Sliders, Activity, TestTubes, Award, FileCheck];
-  return fallbacks[index % fallbacks.length];
-}
 
 export default function ServiceLayout({ page }: ServiceLayoutProps) {
   const t = makePageText(page, SERVICES_TEXT_SLOTS);
@@ -267,18 +199,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
         <div className="w-full max-w-[1700px] mx-auto">
           <div className="flex flex-col gap-10 md:gap-14">
             {splitSections.map((section, idx) => {
-              const titleLower = (section.title || '').toLowerCase();
-              const AutoIcon = titleLower.includes('upstream')
-                ? FlaskConical
-                : titleLower.includes('downstream')
-                  ? Filter
-                  : titleLower.includes('analytical')
-                    ? Microscope
-                    : titleLower.includes('cell line') || titleLower.includes('clone')
-                      ? Dna
-                      : titleLower.includes('formulation')
-                        ? Beaker
-                        : CAPABILITY_ICONS[idx % CAPABILITY_ICONS.length];
+              const AutoIcon = getServiceSectionIcon(section.title || '', idx);
               const Icon = pickIcon(page.itemIcons, section.title || '', AutoIcon) as LucideIcon;
 
               const imageRight = idx % 2 === 1;

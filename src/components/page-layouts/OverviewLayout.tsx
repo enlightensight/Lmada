@@ -62,6 +62,7 @@ import type { CDMOPage, CDMOSection } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
 import { getListIcons, pickIcon } from '@/components/icons/SiteIcon';
 import { parseFacilityListParagraph } from '@/lib/facilityList';
+import { getOverviewCapabilityIcon } from '@/lib/autoIcons';
 
 interface OverviewLayoutProps {
   page: CDMOPage;
@@ -131,64 +132,6 @@ const QUALITY_TILE_STYLES = [
 
 const OVERVIEW_SLUGS = ['about', 'leadership', 'facility', 'integrated', 'quality', 'careers'];
 
-function getOverviewCapabilityIcon(text: string, index: number) {
-  const lower = text.toLowerCase();
-
-  // 1. Specific Scientific & Laboratory Modalities
-  if (lower.includes('europe') || lower.includes('india') || lower.includes('across india')) return Globe;
-  if (lower.includes('novum') || lower.includes('bioanalytical') || lower.includes('partner') || lower.includes('one roof')) return Users;
-  if (lower.includes('cell line') || lower.includes('clone') || lower.includes('gene construct') || lower.includes('expression system') || lower.includes('molecule-specific')) return Dna;
-  if (lower.includes('microbiolog') || lower.includes('endotoxin') || lower.includes('bioburden') || lower.includes('sterility') || lower.includes('mycoplasma')) return Bug;
-  if (lower.includes('bioassay') || lower.includes('immunogen') || lower.includes('potency') || lower.includes('cell-based') || lower.includes('adcc')) return Activity;
-  if (lower.includes('integrated biologics') || lower.includes('upstream and downstream') || lower.includes('process development') || lower.includes('workflow')) return Workflow;
-  if (lower.includes('analytical development') || lower.includes('physicochemical') || lower.includes('characterization') || lower.includes('lc-ms') || lower.includes('sec-hplc') || lower.includes('comparability')) return Microscope;
-
-  // 2. Drug Substance vs Drug Product Manufacturing
-  if (lower.includes('drug product') || lower.includes('fill-finish') || lower.includes('vials') || lower.includes('pfs') || lower.includes('cartridges') || lower.includes('filling line')) return PackageCheck;
-  if (lower.includes('drug substance') || lower.includes('upstream production suites') || lower.includes('200l') || lower.includes('bioreactor capacity') || lower.includes('clinical gmp') || lower.includes('gmp manufacturing') || lower.includes('clinical supply')) return Factory;
-
-  // 3. Quality & Batch Release & Compliance
-  if (lower.includes('batch release') || lower.includes('quality control') || lower.includes('qc batch') || lower.includes('coa release')) return ClipboardCheck;
-  if (lower.includes('data integrity') || lower.includes('ip protection') || lower.includes('21 cfr')) return Lock;
-  if (lower.includes('product quality') || lower.includes('quality framework') || lower.includes('integrated qms') || lower.includes('audit') || lower.includes('compliance systems') || lower.includes('quality and compliance')) return ShieldCheck;
-  if (lower.includes('continuous improvement') || lower.includes('advancement') || lower.includes('robustness') || lower.includes('manufacturability')) return TrendingUp;
-  if (lower.includes('transparent') || lower.includes('project management') || lower.includes('governance')) return FileCheck;
-  if (lower.includes('scientific excellence') || lower.includes('peer-reviewed') || lower.includes('awards')) return Award;
-
-  // 4. Equipment & Facility Specifics
-  if (lower.includes('ambr') || lower.includes('media/feed')) return FlaskConical;
-  if (lower.includes('scale') || lower.includes('linear scale') || lower.includes('intermediate suite')) return Sliders;
-  if (lower.includes('50l sus') || lower.includes('single-use')) return Layers;
-  if (lower.includes('perfusion') || lower.includes('fed-batch')) return Repeat;
-  if (lower.includes('liquid handling') || lower.includes('microliter') || lower.includes('resin screening')) return Pipette;
-  if (lower.includes('chromatography') || lower.includes('purification') || lower.includes('column') || lower.includes('pcc')) return Filter;
-  if (lower.includes('lyophil') || lower.includes('nucleation') || lower.includes('freeze')) return Snowflake;
-  if (lower.includes('viral') || lower.includes('segregat') || lower.includes('grade c')) return ShieldAlert;
-  if (lower.includes('visual inspection') || lower.includes('secondary packaging') || lower.includes('inspection suite')) return Eye;
-  if (lower.includes('qtpp') || lower.includes('analytical sciences workflow')) return Search;
-  if (lower.includes('regulatory') || lower.includes('fda') || lower.includes('ema') || lower.includes('pmda') || lower.includes('tga') || lower.includes('cmc')) return Scale;
-  if (lower.includes('campus') || lower.includes('facility') || lower.includes('infrastructure') || lower.includes('27,000 sqft') || lower.includes('35,000') || lower.includes('sqft')) return Building2;
-  if (lower.includes('global') || lower.includes('market')) return Globe;
-  if (lower.includes('phase-aligned') || lower.includes('lifecycle')) return Milestone;
-  if (lower.includes('scalable') || lower.includes('capacity')) return Maximize2;
-
-  // Diverse Fallback Array of Real Scientific Symbols
-  const distinctScientificIcons = [
-    Dna,
-    Workflow,
-    Microscope,
-    Factory,
-    PackageCheck,
-    Activity,
-    Bug,
-    ClipboardCheck,
-    FlaskConical,
-    Filter,
-    Snowflake,
-    Scale,
-  ];
-  return distinctScientificIcons[index % distinctScientificIcons.length];
-}
 
 
 function AccentHeading({ text, className = '' }: { text: string; className?: string }) {

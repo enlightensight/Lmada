@@ -20,6 +20,7 @@ import { makePageText } from '@/lib/pageText';
 import { HUBS_TEXT_SLOTS } from '@/data/textSlots/hubs';
 import type { CDMOPage } from '@/data/cdmoData';
 import { pickIcon } from '@/components/icons/SiteIcon';
+import { getServiceIcon } from '@/lib/autoIcons';
 
 interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -117,15 +118,6 @@ function resolveHeroMedia(page: CDMOPage | null, fallbackImages: string[]) {
   return { video, images: images.length > 0 ? images : fallbackImages };
 }
 
-function getServiceIcon(title: string, index: number) {
-  const t = title.toLowerCase();
-  if (t.includes('cell')) return Dna;
-  if (t.includes('process')) return Settings;
-  if (t.includes('analytical') || t.includes('testing')) return FlaskConical;
-  if (index === 0) return Dna;
-  if (index === 1) return Settings;
-  return FlaskConical;
-}
 
 export default async function DevelopmentServicesPage({ searchParams }: PageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : {};
