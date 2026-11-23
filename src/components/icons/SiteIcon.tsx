@@ -83,7 +83,7 @@ const LUCIDE: Record<string, LucideIcon> = {
 };
 
 const DRAWN: Record<string, CapabilityIcon> = Object.fromEntries(
-  Object.entries(Drawn).filter(([name, value]) => name.endsWith('Icon') && typeof value === 'function')
+  Object.entries(Drawn).filter(([name, value]) => /^[A-Z]\w*Icon$/.test(name) && typeof value === 'function')
 ) as Record<string, CapabilityIcon>;
 
 const humanize = (name: string) =>

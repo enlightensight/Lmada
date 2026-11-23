@@ -69,15 +69,11 @@ interface IconPickerPanelProps {
 export default function IconPickerPanel({ page, onChange, onUploadFile, uploading, order, sectionNumber }: IconPickerPanelProps) {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<string | null>(null);
-  const [query, setQuery] = useState('');
-  const fileRef = useRef<HTMLInputElement>(null);
 
   const groups = useMemo(() => collectIconItems(page), [page]);
   const itemIcons = page.itemIcons || {};
   const total = groups.reduce((n, g) => n + g.items.length, 0);
   const chosenCount = groups.reduce((n, g) => n + g.items.filter((t) => itemIcons[t]).length, 0);
-
-  const filtered = ICON_LIBRARY.filter((entry) => !query.trim() || entry.label.toLowerCase().includes(query.trim().toLowerCase()));
 
   const setIcon = (text: string, ref: string | null) => {
     const next = { ...itemIcons };
@@ -151,7 +147,7 @@ export default function IconPickerPanel({ page, onChange, onUploadFile, uploadin
                         </div>
                         <button
                           type="button"
-                          onClick={() => { setEditing(isEditing ? null : `${group.title}::${text}`); setQuery(''); }}
+                          onClick={() => setEditing(isEditing ? null : `${group.title}::${text}`)}
                           className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 bg-white hover:border-brand-blue hover:text-brand-blue cursor-pointer"
                         >
                           {isEditing ? 'Done' : 'Change'}
@@ -169,67 +165,13 @@ export default function IconPickerPanel({ page, onChange, onUploadFile, uploadin
                       </div>
 
                       {isEditing && (
-                        <div className="border-t border-slate-200 p-3 space-y-3 bg-white rounded-b-xl">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <div className="relative flex-1 min-w-[200px]">
-                              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                              <input
-                                type="text"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                placeholder="Search icons (vial, bioreactor, antibody…)"
-                                className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-brand-blue"
-                              />
-                            </div>
-                            <button
-                              type="button"
-                              disabled={uploading}
-                              onClick={() => fileRef.current?.click()}
-                              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-orange text-white text-xs font-semibold hover:bg-brand-orange-hover disabled:opacity-60 cursor-pointer"
-                            >
-                              <Upload className="w-3.5 h-3.5" />
-                              <span>{uploading ? 'Uploading…' : 'Upload SVG'}</span>
-                            </button>
-                            <input
-                              ref={fileRef}
-                              type="file"
-                              accept=".svg,image/svg+xml,image/png,image/webp"
-                              className="hidden"
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) onUploadFile(file, (url) => setIcon(text, url));
-                                e.target.value = '';
-                              }}
-                            />
-                            {ref && (
-                              <button type="button" onClick={() => setIcon(text, null)} className="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer">
-                                <X className="w-3.5 h-3.5" />
-                                <span>Use automatic</span>
-                              </button>
-                            )}
-                          </div>
-                          {(['Biologics & lab (drawn for this site)', 'General'] as const).map((section) => {
-                            const entries = filtered.filter((e) => e.group === section);
-                            if (!entries.length) return null;
-                            return (
-                              <div key={section}>
-                                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">{section}</p>
-                                <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 gap-1.5 max-h-56 overflow-y-auto pr-1">
-                                  {entries.map(({ ref: entryRef, label, Icon }) => (
-                                    <button
-                                      key={entryRef}
-                                      type="button"
-                                      title={label}
-                                      onClick={() => setIcon(text, entryRef)}
-                                      className={`aspect-square rounded-lg border flex items-center justify-center cursor-pointer transition-colors ${ref === entryRef ? 'border-brand-blue bg-brand-blue/10 text-brand-blue' : 'border-slate-200 text-slate-700 hover:border-brand-blue hover:text-brand-blue'}`}
-                                    >
-                                      <Icon className="w-5 h-5" />
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-                            );
-                          })}
+                        <div className="border-t border-slate-200 p-3 bg-white rounded-b-xl">
+                          <IconChooser
+                            value={ref}
+                            onChange={(next) => setIcon(text, next)}
+                            onUploadFile={onUploadFile}
+                            uploading={uploading}
+                          />
                         </div>
                       )}
                     </div>
@@ -240,6 +182,86 @@ export default function IconPickerPanel({ page, onChange, onUploadFile, uploadin
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+interface IconChooserProps {
+  /** The current icon reference (empty for automatic). */
+  value?: string | null;
+  onChange: (ref: string | null) => void;
+  onUploadFile: (file: File, done: (url: string) => void) => void;
+  uploading?: boolean;
+}
+
+/** Search the icon library, pick an icon, upload an SVG, or go back to the automatic icon. */
+export function IconChooser({ value, onChange, onUploadFile, uploading }: IconChooserProps) {
+  const [query, setQuery] = useState('');
+  const fileRef = useRef<HTMLInputElement>(null);
+  const filtered = ICON_LIBRARY.filter((entry) => !query.trim() || entry.label.toLowerCase().includes(query.trim().toLowerCase()));
+
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="relative flex-1 min-w-[200px]">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search icons (vial, bioreactor, antibody…)"
+            className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-brand-blue"
+          />
+        </div>
+        <button
+          type="button"
+          disabled={uploading}
+          onClick={() => fileRef.current?.click()}
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-brand-orange text-white text-xs font-semibold hover:bg-brand-orange-hover disabled:opacity-60 cursor-pointer"
+        >
+          <Upload className="w-3.5 h-3.5" />
+          <span>{uploading ? 'Uploading…' : 'Upload SVG'}</span>
+        </button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept=".svg,image/svg+xml,image/png,image/webp"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) onUploadFile(file, (url) => onChange(url));
+            e.target.value = '';
+          }}
+        />
+        {value && (
+          <button type="button" onClick={() => onChange(null)} className="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer">
+            <X className="w-3.5 h-3.5" />
+            <span>Use automatic</span>
+          </button>
+        )}
+      </div>
+      {(['Biologics & lab (drawn for this site)', 'General'] as const).map((section) => {
+        const entries = filtered.filter((e) => e.group === section);
+        if (!entries.length) return null;
+        return (
+          <div key={section}>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">{section}</p>
+            <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 gap-1.5 max-h-56 overflow-y-auto pr-1">
+              {entries.map(({ ref: entryRef, label, Icon }) => (
+                <button
+                  key={entryRef}
+                  type="button"
+                  title={label}
+                  onClick={() => onChange(entryRef)}
+                  className={`aspect-square rounded-lg border flex items-center justify-center cursor-pointer transition-colors ${value === entryRef ? 'border-brand-blue bg-brand-blue/10 text-brand-blue' : 'border-slate-200 text-slate-700 hover:border-brand-blue hover:text-brand-blue'}`}
+                >
+                  <Icon className="w-5 h-5" />
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
