@@ -199,6 +199,7 @@ node scripts/cms_e2e_audit.mjs            # every page: draft/preview/publish, e
 node scripts/cms_custom_page_e2e.mjs      # create -> publish -> unpublish -> delete a custom page, all section styles
 node scripts/cms_insights_e2e.mjs         # Insights & Articles: create, list, article page, edit, delete
 node scripts/test_admin_crud.mjs          # basic API CRUD
+node scripts/cms_icons_e2e.mjs            # every icon the admin lists can be replaced on the live page
 ```
 
 Rules the audit enforces — keep them true when changing a layout:
@@ -214,6 +215,13 @@ Rules the audit enforces — keep them true when changing a layout:
   alias in `getStoredPage` and add a redirect in `next.config.ts`; the audit fails if the admin's address redirects.
 - Change stored content with `node scripts/cms_data_patch.mjs patch.json` (updates the live data and the
   defaults together) rather than editing the JSON by hand.
+- Icons of points, cards, steps and headings are replaceable from the admin ("Icons on This Page"). Choices are stored in
+  `page.itemIcons` keyed by the item text; layouts must resolve every such icon with `pickIcon(page.itemIcons, text, auto)`
+  or `getListIcons(points, page.itemIcons)` from `src/components/icons/SiteIcon.tsx`. After adding or removing icons in a
+  layout, regenerate the panel's list: `node scripts/cms_icons_e2e.mjs --usage-out src/data/cmsIconUsage.json`.
+- The editor's Live Preview renders the real page from unsaved edits (`/api/admin/preview`, in-memory, `?previewId=`).
+  Editor blocks are ordered like the live layout (`blockSequence` in `PageAdminEditor.tsx`); update it when a layout
+  moves a block.
 - After changing which fields a layout displays, regenerate the editor's "not shown on this page" hints:
   `node scripts/cms_e2e_audit.mjs --usage-out src/data/cmsFieldUsage.json`.
 

@@ -26,7 +26,8 @@ import {
   Calendar,
   Newspaper,
   FileDown,
-  Beaker
+  Beaker,
+  type LucideIcon,
 } from 'lucide-react';
 import { HeroSection } from '@/components/ui/hero-section-5';
 import Reveal from '@/components/Reveal';
@@ -39,6 +40,8 @@ import CommonCTA from '@/components/CommonCTA';
 import CardImageCarousel from '@/components/CardImageCarousel';
 import DynamicSectionRenderer, { resolveIcon } from '@/components/DynamicSectionRenderer';
 import type { CDMOPage } from '@/data/cdmoData';
+import { pickIcon } from '@/components/icons/SiteIcon';
+import { HOME_ADVANTAGE_ICONS } from '@/components/icons/homeAdvantageIcons';
 
 interface HomeClientViewProps {
   pageData?: CDMOPage | null;
@@ -184,7 +187,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
   const serviceCards = (servicesSection?.cards && servicesSection.cards.length > 0)
     ? servicesSection.cards.map((card, idx) => {
       const fallback = defaultServiceCards[idx] || defaultServiceCards[0];
-      const iconComp = resolveIcon(card.icon, fallback.icon);
+      const iconComp = pickIcon(pageData?.itemIcons, card.title || '', resolveIcon(card.icon, fallback.icon)) as LucideIcon;
       const imagesList = (card.images && card.images.length > 0)
         ? card.images
         : (card.image ? [card.image] : fallback.images);
@@ -193,7 +196,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
         ? card.items.map((it) => ({
           name: it.name,
           href: it.href,
-          icon: resolveIcon(it.icon, Dna),
+          icon: pickIcon(pageData?.itemIcons, it.name || '', resolveIcon(it.icon, Dna)) as LucideIcon,
         }))
         : (fallback.items || []);
 
@@ -228,7 +231,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       const fallback = defaultAdvantages[idx] || defaultAdvantages[0];
       return {
         title: b,
-        icon: fallback.icon,
+        icon: pickIcon(pageData?.itemIcons, b, HOME_ADVANTAGE_ICONS[idx % HOME_ADVANTAGE_ICONS.length]) as LucideIcon,
       };
     })
     : defaultAdvantages;
@@ -464,7 +467,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       {customSections.length > 0 && (
         <div className="divide-y divide-neutral-100">
           {customSections.map((section, idx) => (
-            <DynamicSectionRenderer
+            <DynamicSectionRenderer itemIcons={pageData?.itemIcons}
               key={idx}
               section={section}
               index={idx}

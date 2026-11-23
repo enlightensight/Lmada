@@ -27,6 +27,19 @@ const virtualTourRedirects = virtualTourUrl
   : [];
 
 const nextConfig: NextConfig = {
+  // Uploaded SVG icons are displayed as images. If one is opened directly it may not run
+  // scripts or load anything (the upload API also refuses SVGs that contain script).
+  async headers() {
+    return [
+      {
+        source: '/uploads/:file(.*\.svg)',
+        headers: [
+          { key: 'Content-Security-Policy', value: "default-src 'none'; style-src 'unsafe-inline'; img-src data:; sandbox" },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       ...virtualTourRedirects,

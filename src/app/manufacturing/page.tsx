@@ -14,6 +14,7 @@ import {
   Eye,
   Truck
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
@@ -23,6 +24,7 @@ import { getStoredPage } from '@/lib/pagesStorage';
 import { makePageText } from '@/lib/pageText';
 import { HUBS_TEXT_SLOTS } from '@/data/textSlots/hubs';
 import type { CDMOPage } from '@/data/cdmoData';
+import { pickIcon } from '@/components/icons/SiteIcon';
 
 interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -31,7 +33,7 @@ interface PageProps {
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const isPreview = resolvedSearchParams?.preview === 'true';
-  const page = getStoredPage('manufacturing', 'manufacturing', { previewDraft: isPreview });
+  const page = getStoredPage('manufacturing', 'manufacturing', { previewDraft: isPreview, previewId: typeof resolvedSearchParams?.previewId === 'string' ? resolvedSearchParams.previewId : undefined });
 
   return {
     title: page?.metaTitle || page?.title || 'Manufacturing Services — cGMP Biomanufacturing & Clinical Supplies | Lambda CDMO',
@@ -147,7 +149,7 @@ function getManufacturingIcon(title: string, index: number) {
 export default async function ManufacturingServicesPage({ searchParams }: PageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const isPreview = resolvedSearchParams?.preview === 'true';
-  const page = getStoredPage('manufacturing', 'manufacturing', { previewDraft: isPreview });
+  const page = getStoredPage('manufacturing', 'manufacturing', { previewDraft: isPreview, previewId: typeof resolvedSearchParams?.previewId === 'string' ? resolvedSearchParams.previewId : undefined });
 
   const badge = page?.badge || 'MANUFACTURING SERVICES';
   const heading = page?.heading || 'From Process Development to Clinical Manufacturing. Delivered with Confidence.';
@@ -241,7 +243,7 @@ export default async function ManufacturingServicesPage({ searchParams }: PagePr
               {/* Quick Jump Buttons — one per service card (label = card tag, link = card link) */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 {renderedCards.map((service, idx) => {
-                  const JumpIcon = getManufacturingIcon(service.title, idx);
+                  const JumpIcon = pickIcon(page?.itemIcons, service.title, getManufacturingIcon(service.title, idx)) as LucideIcon;
                   const isOrange = idx % 2 === 1;
                   return (
                     <Link
@@ -307,7 +309,7 @@ export default async function ManufacturingServicesPage({ searchParams }: PagePr
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {renderedCards.map((service, idx) => {
-              const ServiceIcon = getManufacturingIcon(service.title, idx);
+              const ServiceIcon = pickIcon(page?.itemIcons, service.title, getManufacturingIcon(service.title, idx)) as LucideIcon;
               return (
                 <Reveal key={service.slug || idx} delay={idx * 0.12}>
                   <div className="group h-full bg-white rounded-2xl border border-neutral-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden hover:-translate-y-1">
@@ -405,7 +407,7 @@ export default async function ManufacturingServicesPage({ searchParams }: PagePr
             {/* Big Icons Stepped Grid */}
             <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${WORKFLOW_GRID_COLS[workflowSteps.length] || 'lg:grid-cols-7'} gap-4 lg:gap-3.5`}>
               {workflowSteps.map((item, idx) => {
-                const IconComponent = WORKFLOW_ICONS[idx % WORKFLOW_ICONS.length];
+                const IconComponent = pickIcon(page?.itemIcons, item.title || '', WORKFLOW_ICONS[idx % WORKFLOW_ICONS.length]) as LucideIcon;
                 return (
                   <Reveal key={idx} delay={idx * 0.04} className="h-full">
                     <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300">
@@ -439,7 +441,7 @@ export default async function ManufacturingServicesPage({ searchParams }: PagePr
 
       {/* ADDITIONAL CMS SECTIONS (added in the admin panel) */}
       {extraSections.map((sec, i) => (
-        <DynamicSectionRenderer
+        <DynamicSectionRenderer itemIcons={page?.itemIcons}
           key={sec.id || `extra-${i}`}
           section={sec}
           index={i}

@@ -53,6 +53,7 @@ import CommonCTA from '@/components/CommonCTA';
 import FAQSection from '@/components/FAQSection';
 import type { CDMOSection } from '@/data/cdmoData';
 import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
+import { iconFromRef, pickIcon } from '@/components/icons/SiteIcon';
 
 // Map icon strings to Lucide components
 const ICON_MAP: Record<string, LucideIcon> = {
@@ -96,7 +97,8 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 export function resolveIcon(name?: string, fallback: LucideIcon = Sparkles): LucideIcon {
   if (!name) return fallback;
-  return ICON_MAP[name] || fallback;
+  // Accepts admin icon references too ("draw:VialIcon", "lucide:Factory", "/uploads/icon.svg")
+  return ICON_MAP[name] || (iconFromRef(name) as unknown as LucideIcon) || fallback;
 }
 
 interface DynamicSectionRendererProps {
@@ -104,13 +106,16 @@ interface DynamicSectionRendererProps {
   index?: number;
   pageSlug?: string;
   category?: string;
+  /** Icons chosen in the admin panel, keyed by item text (page.itemIcons). */
+  itemIcons?: Record<string, string>;
 }
 
 export default function DynamicSectionRenderer({
   section,
   index = 0,
   pageSlug = '',
-  category = ''
+  category = '',
+  itemIcons
 }: DynamicSectionRendererProps) {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -293,7 +298,7 @@ export default function DynamicSectionRenderer({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stepsList.map((step, idx) => {
-              const StepIcon = resolveIcon(step.icon, WorkflowIconFallback(idx));
+              const StepIcon = pickIcon(itemIcons, step.title || '', resolveIcon(step.icon, WorkflowIconFallback(idx))) as LucideIcon;
               return (
                 <motion.div
                   key={idx}
@@ -501,7 +506,7 @@ export default function DynamicSectionRenderer({
 
           <div className={`grid grid-cols-1 ${section.cards.length === 2 ? 'md:grid-cols-2' : section.cards.length === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-2 lg:grid-cols-3'} gap-6 lg:gap-8`}>
             {section.cards.map((card, idx) => {
-              const CardIcon = resolveIcon(card.icon, FlaskConical);
+              const CardIcon = pickIcon(itemIcons, card.title || '', resolveIcon(card.icon, FlaskConical)) as LucideIcon;
               return (
                 <motion.div
                   key={idx}
@@ -555,7 +560,7 @@ export default function DynamicSectionRenderer({
                       {card.items && card.items.length > 0 && (
                         <ul className="border-t border-neutral-100 pt-1">
                           {card.items.map((item, itIdx) => {
-                            const ItemIcon = resolveIcon(item.icon, Dna);
+                            const ItemIcon = pickIcon(itemIcons, item.name || '', resolveIcon(item.icon, Dna)) as LucideIcon;
                             return (
                               <li key={itIdx} className="border-b border-neutral-100 last:border-0">
                                 <Link

@@ -351,7 +351,7 @@ export default function InsightsLayout({ page, initialInsights }: InsightsLayout
       {(page.sections || [])
         .filter((sec) => sec.style !== 'faq-accordion')
         .map((sec, idx) => (
-          <DynamicSectionRenderer key={sec.id || idx} section={sec} index={idx} pageSlug={page.slug} category={page.category} />
+          <DynamicSectionRenderer itemIcons={page.itemIcons} key={sec.id || idx} section={sec} index={idx} pageSlug={page.slug} category={page.category} />
         ))}
 
       {page.faqs && page.faqs.length > 0 && (

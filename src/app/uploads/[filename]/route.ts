@@ -87,6 +87,9 @@ export async function GET(
         'Content-Length': String(fileSize),
         'Accept-Ranges': isMedia ? 'bytes' : 'none',
         'Cache-Control': 'public, max-age=31536000, immutable',
+        'X-Content-Type-Options': 'nosniff',
+        // Uploaded SVGs are shown as images; opened directly they may not run anything
+        ...(ext === '.svg' ? { 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'; img-src data:; sandbox" } : {}),
       },
     });
   } catch (error) {

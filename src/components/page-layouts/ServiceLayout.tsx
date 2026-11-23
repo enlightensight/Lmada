@@ -23,7 +23,8 @@ import {
   Repeat,
   Zap,
   Workflow,
-  GitMerge
+  GitMerge,
+  type LucideIcon,
 } from 'lucide-react';
 import { getModalityIcon } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
@@ -37,6 +38,7 @@ import type { PageContent } from '@/types/page';
 import { makePageText, slotsForPage } from '@/lib/pageText';
 import { SERVICES_TEXT_SLOTS, MODALITIES_BLOCK_DEFAULTS } from '@/data/textSlots/services';
 import { getHeroMedia, getSectionMedia, partitionSections, toCarouselItems } from './cmsMedia';
+import { pickIcon } from '@/components/icons/SiteIcon';
 
 interface ServiceLayoutProps {
   page: CDMOPage;
@@ -151,8 +153,10 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
         )}
         <div className={gridClass}>
           {section.bullets.map((b: string, bIdx: number) => {
-            const svgIcon = isCellLine ? getBulletSvgIcon(b) : null;
-            const BulletIcon = getBulletCapabilityIcon(b, bIdx);
+            // An icon chosen in the admin panel wins over the client SVGs and the automatic icon
+            const chosenIcon = pickIcon(page.itemIcons, b, null) as LucideIcon | null;
+            const svgIcon = !chosenIcon && isCellLine ? getBulletSvgIcon(b) : null;
+            const BulletIcon = chosenIcon || getBulletCapabilityIcon(b, bIdx);
             return (
               <div
                 key={bIdx}
@@ -264,7 +268,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
           <div className="flex flex-col gap-10 md:gap-14">
             {splitSections.map((section, idx) => {
               const titleLower = (section.title || '').toLowerCase();
-              const Icon = titleLower.includes('upstream')
+              const AutoIcon = titleLower.includes('upstream')
                 ? FlaskConical
                 : titleLower.includes('downstream')
                   ? Filter
@@ -275,6 +279,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
                       : titleLower.includes('formulation')
                         ? Beaker
                         : CAPABILITY_ICONS[idx % CAPABILITY_ICONS.length];
+              const Icon = pickIcon(page.itemIcons, section.title || '', AutoIcon) as LucideIcon;
 
               const imageRight = idx % 2 === 1;
               const { video, slides } = getSectionMedia(section);
@@ -427,7 +432,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
               {page.applicableModalities.map((modality, mIdx) => {
-                const ModIcon = getModalityIcon(modality.title || '');
+                const ModIcon = pickIcon(page.itemIcons, modality.title || '', getModalityIcon(modality.title || ''));
                 return (
                   <Reveal key={mIdx} delay={mIdx * 0.05} className="flex h-full">
                     <Link
@@ -457,7 +462,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
       {otherSections.length > 0 && (
         <div className="divide-y divide-neutral-100 border-t border-neutral-200">
           {otherSections.map((sec, idx) => (
-            <DynamicSectionRenderer
+            <DynamicSectionRenderer itemIcons={page.itemIcons}
               key={sec.id || idx}
               section={sec}
               index={idx}

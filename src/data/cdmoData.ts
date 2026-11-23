@@ -160,6 +160,8 @@ export interface CDMOPage {
   date?: string;
   readTime?: string;
   bullets?: string[];
+  /** Icons chosen in the admin panel for individual points, keyed by the point text (see SiteIcon.tsx). */
+  itemIcons?: Record<string, string>;
   processSteps?: {
     step: string;
     title: string;

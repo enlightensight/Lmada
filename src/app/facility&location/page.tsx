@@ -25,7 +25,7 @@ interface PageProps {
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const isPreview = resolvedSearchParams?.preview === 'true';
-  const page = getStoredPage('facility&location', 'facility&location', { previewDraft: isPreview });
+  const page = getStoredPage('facility&location', 'facility&location', { previewDraft: isPreview, previewId: typeof resolvedSearchParams?.previewId === 'string' ? resolvedSearchParams.previewId : undefined });
 
   return {
     title: page?.metaTitle || page?.title || 'Facility and Locations — Biologics Development & Manufacturing | Lambda CDMO',
@@ -109,7 +109,7 @@ const DEFAULT_FACILITY_FAQS = [
 export default async function FacilityAndLocationPage({ searchParams }: PageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const isPreview = resolvedSearchParams?.preview === 'true';
-  const page = getStoredPage('facility&location', 'facility&location', { previewDraft: isPreview });
+  const page = getStoredPage('facility&location', 'facility&location', { previewDraft: isPreview, previewId: typeof resolvedSearchParams?.previewId === 'string' ? resolvedSearchParams.previewId : undefined });
 
   const badge = page?.badge || 'Facility & Locations';
   const heading = page?.heading || 'Biologics Development and Manufacturing Across India and Europe';
@@ -379,7 +379,7 @@ export default async function FacilityAndLocationPage({ searchParams }: PageProp
 
       {/* ADDITIONAL CMS SECTIONS (added in the admin panel) */}
       {extraSections.map((sec, i) => (
-        <DynamicSectionRenderer
+        <DynamicSectionRenderer itemIcons={page?.itemIcons}
           key={sec.id || `extra-${i}`}
           section={sec}
           index={i}

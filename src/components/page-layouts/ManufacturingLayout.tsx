@@ -2,8 +2,8 @@ import Link from 'next/link';
 import {
   FlaskConical,
   ArrowRightLeft,
+  type LucideIcon,
 } from 'lucide-react';
-import { getCapabilityIconsForList } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import PillarCard from '@/components/PillarCard';
 import FAQSection from '@/components/FAQSection';
@@ -16,6 +16,7 @@ import type { PageContent } from '@/types/page';
 import { makePageText, slotsForPage } from '@/lib/pageText';
 import { SERVICES_TEXT_SLOTS, DRUG_PRODUCT_CAROUSEL_SLIDE_COUNT } from '@/data/textSlots/services';
 import { getHeroMedia, getSectionMedia, partitionSections, toCarouselItems } from './cmsMedia';
+import { getListIcons, pickIcon } from '@/components/icons/SiteIcon';
 
 interface ManufacturingLayoutProps {
   page: CDMOPage;
@@ -25,7 +26,7 @@ interface ManufacturingLayoutProps {
 
 export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) {
   // Drawn icons per capability point. The list gets icons only when every point has its own.
-  const capabilityIcons = getCapabilityIconsForList(page.capabilities || []);
+  const capabilityIcons = getListIcons(page.capabilities || [], page.itemIcons);
   const t = makePageText(page, SERVICES_TEXT_SLOTS);
   // Editable copy where the page has a slot registered; the stock wording anywhere else.
   const pageSlotKeys = new Set(slotsForPage(page, SERVICES_TEXT_SLOTS).map((slot) => slot.key));
@@ -58,7 +59,7 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
 
   const renderSectionBullets = (section: CDMOSection, className = '') => {
     if (!section.bullets || section.bullets.length === 0) return null;
-    const bulletIcons = getCapabilityIconsForList(section.bullets);
+    const bulletIcons = getListIcons(section.bullets, page.itemIcons);
     return (
       <div className={className}>
         {section.bulletsTitle && (
@@ -266,12 +267,12 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
                         {renderSectionSubtitle(section)}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
                           {/* Tile 1: section title + text */}
-                          <PillarCard icon={ArrowRightLeft} title={section.title} text={section.text} accent="blue" />
+                          <PillarCard icon={pickIcon(page.itemIcons, section.title || '', ArrowRightLeft) as LucideIcon} title={section.title} text={section.text} accent="blue" />
 
                           {/* Tile 2: section secondary title + text */}
                           {hasSecondary && (
                             <PillarCard
-                              icon={FlaskConical}
+                              icon={pickIcon(page.itemIcons, section.secondaryTitle || '', FlaskConical) as LucideIcon}
                               title={section.secondaryTitle || ''}
                               text={section.secondaryText}
                               accent="orange"
@@ -352,7 +353,7 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
       {otherSections.length > 0 && (
         <div className="divide-y divide-neutral-100 border-t border-neutral-200">
           {otherSections.map((sec, idx) => (
-            <DynamicSectionRenderer
+            <DynamicSectionRenderer itemIcons={page.itemIcons}
               key={sec.id || idx}
               section={sec}
               index={idx}

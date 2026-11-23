@@ -1,0 +1,689 @@
+{
+  "home/home": {
+    "shown": [
+      "Development Services",
+      "Cell Line Development",
+      "Process Development",
+      "Analytical Development",
+      "Manufacturing Services",
+      "Drug Substance Manufacturing",
+      "Drug Product Manufacturing",
+      "Analytical Characterization & Testing",
+      "Analytical Testing",
+      "Physicochemical Characterization",
+      "Bioassays & Immunogenicity Testing",
+      "Microbiological Testing",
+      "Integrated biologics development, process and analytical sciences, and manufacturing capabilities",
+      "Extensive CDMO capabilities across India and Europe",
+      "Molecule-specific development approaches across cell line, upstream, downstream, drug product and analytical development",
+      "Advanced analytical characterization supporting method development and validation, state of art characterisation, and comparative analytical assessment.",
+      "Process development focused on scalability, robustness, and manufacturability.",
+      "Quality and compliance systems supporting cGMP operations and global regulatory expectations"
+    ],
+    "checked": [
+      "Global CDMO Capabilities Across India and Europe",
+      "Ahmedabad, India",
+      "London, UK",
+      "An Integrated Partner for Biologics Development and Manufacturing",
+      "Development Services",
+      "Cell Line Development",
+      "Process Development",
+      "Analytical Development",
+      "Manufacturing Services",
+      "Drug Substance Manufacturing",
+      "Drug Product Manufacturing",
+      "Analytical Characterization & Testing",
+      "Analytical Testing",
+      "Physicochemical Characterization",
+      "Bioassays & Immunogenicity Testing",
+      "Microbiological Testing",
+      "Platform Capabilities for Next-Generation Biologics",
+      "Monoclonal Antibodies",
+      "Bispecific Antibodies",
+      "Antibody-Drug Conjugates",
+      "Proteins & Peptides",
+      "Lambda CDMO Advantage",
+      "Integrated biologics development, process and analytical sciences, and manufacturing capabilities",
+      "Extensive CDMO capabilities across India and Europe",
+      "Molecule-specific development approaches across cell line, upstream, downstream, drug product and analytical development",
+      "Advanced analytical characterization supporting method development and validation, state of art characterisation, and comparative analytical assessment.",
+      "Process development focused on scalability, robustness, and manufacturability.",
+      "Quality and compliance systems supporting cGMP operations and global regulatory expectations",
+      "Featured Research and Insights",
+      "Accelerating Cell Line Development for Monoclonal Antibodies",
+      "From DNA to Research Cell Bank in 16 Weeks",
+      "Upstream Process Optimization: Feed and Perfusion Strategies"
+    ]
+  },
+  "overview/about": {
+    "shown": [],
+    "checked": [
+      "Integrated Biologics Development and Manufacturing",
+      "Monoclonal antibodies and bispecific antibodies to ADCs",
+      "Recombinant proteins",
+      "Peptides",
+      "Global CDMO Capabilities Across India and Europe",
+      "Ahmedabad, India",
+      "London, UK"
+    ]
+  },
+  "overview/leadership": {
+    "shown": [],
+    "checked": [
+      "Executive & Scientific Team",
+      "Dr. M.S. Ramakrishnan",
+      "Jagannathan Sundaram",
+      "Dr. Abhishek Kulshrestha",
+      "Bhargav Perla"
+    ]
+  },
+  "facility&location/India": {
+    "shown": [
+      "Development laboratories",
+      "Analytical laboratories",
+      "GMP manufacturing suites",
+      "Quality control laboratories",
+      "Supporting infrastructure"
+    ],
+    "checked": [
+      "Integrated 35,000 sq. ft. Biologics Facility",
+      "Development laboratories",
+      "Analytical laboratories",
+      "GMP manufacturing suites",
+      "Quality control laboratories",
+      "Supporting infrastructure",
+      "Segregated areas",
+      "Controlled material and personnel flows",
+      "Single-use processing systems",
+      "Dedicated pre- and post-viral processing areas",
+      "Cell Line Development",
+      "Stable cell line development",
+      "High-throughput clone screening and selection to ensure monoclonality",
+      "Electroporation-based transfection",
+      "Automated cell selection using CellCelector",
+      "Cell growth and productivity assessment",
+      "High-throughput cell culture and screening using Ambr 15",
+      "Bioprocess monitoring using bioprofile analyzers",
+      "Upstream Process Development",
+      "High-throughput clone screening and process development",
+      "Media and feed optimization",
+      "DoE-based process parameter optimization",
+      "Fed-batch and intensified fed-batch processes",
+      "Perfusion-based processes using ATF",
+      "Scale-up and process characterization",
+      "Monitoring of cell growth, metabolites, and key process parameters",
+      "Upstream cGMP Manufacturing",
+      "Vial thaw and seed expansion",
+      "Scale-up through intermediate bioreactor stages",
+      "50 L bioreactor",
+      "200 L production bioreactors",
+      "400 L total upstream bioreactor capacity",
+      "Single-use processing",
+      "Fed-batch and intensified cell culture",
+      "Clarification by depth filtration",
+      "Downstream Process Development & Manufacturing",
+      "Affinity chromatography",
+      "Anion and cation exchange chromatography",
+      "Virus inactivation and neutralization",
+      "Virus filtration",
+      "Ultrafiltration and diafiltration (UF/DF)",
+      "Resin and chromatography screening",
+      "High-throughput liquid handling",
+      "Purification process development",
+      "Process scale-up and technology transfer",
+      "GMP Downstream Processing",
+      "Dedicated pre-viral and post-viral processing suites",
+      "GMP chromatography systems",
+      "Viral filtration",
+      "UF/DF",
+      "Protein purification",
+      "Processing capability for harvest volumes up to 200 L",
+      "Grade C downstream processing areas",
+      "Drug Product Development & Manufacturing",
+      "Formulation",
+      "Process development",
+      "Lyophilization",
+      "Clinical GMP manufacturing",
+      "Analytical Development & Characterization",
+      "Physicochemical",
+      "Structural",
+      "Functional characterization"
+    ]
+  },
+  "facility&location/UK": {
+    "shown": [],
+    "checked": [
+      "Upstream Process Development",
+      "Media screening and optimization",
+      "Feed strategy and operating parameter optimization",
+      "Design of Experiments (DoE)",
+      "Cell culture process development",
+      "Glycosylation and product quality optimization",
+      "Scale-up and process characterization",
+      "Downstream Process Development",
+      "Resin and chromatography screening",
+      "Chromatography process development",
+      "Impurity clearance studies",
+      "Process characterization",
+      "Scale-down model development and qualification",
+      "Scale-up evaluation",
+      "Technology transfer support",
+      "Analytical Development & Characterization",
+      "HPLC",
+      "Mass spectrometry",
+      "Capillary electrophoresis",
+      "Cell-based assays",
+      "ELISA",
+      "Ligand/receptor binding assays",
+      "Product structure and functional characterization",
+      "Biosimilar Development"
+    ]
+  },
+  "overview/integrated": {
+    "shown": [
+      "Cell line development",
+      "Upstream and downstream process development",
+      "Analytical development and characterization",
+      "Drug substance manufacturing",
+      "Drug product manufacturing",
+      "Bioassays and immunogenicity testing",
+      "Microbiological testing",
+      "Quality control and batch release support",
+      "End-to-End Support Under One Roof",
+      "Reduced Technology Transfer Risk & Operational Simplicity"
+    ],
+    "checked": [
+      "Cell line development",
+      "Upstream and downstream process development",
+      "Analytical development and characterization",
+      "Drug substance manufacturing",
+      "Drug product manufacturing",
+      "Bioassays and immunogenicity testing",
+      "Microbiological testing",
+      "Quality control and batch release support",
+      "End-to-End Support Under One Roof",
+      "Reduced Technology Transfer Risk & Operational Simplicity"
+    ]
+  },
+  "overview/quality": {
+    "shown": [
+      "Global Regulatory Alignment",
+      "Quality Control Laboratories"
+    ],
+    "checked": [
+      "Global Regulatory Alignment",
+      "Quality Control Laboratories",
+      "Regulatory Affairs Support",
+      "IND and IMPD submissions",
+      "Biologics License Application (BLA) submissions",
+      "Lifecycle variations",
+      "CMC documentation",
+      "Scientific interactions with global health authorities"
+    ]
+  },
+  "overview/careers": {
+    "shown": [],
+    "checked": []
+  },
+  "services/cell-line": {
+    "shown": [
+      "Monoclonal Antibodies",
+      "Bispecific Antibodies",
+      "Recombinant Proteins",
+      "Other Mammalian Biologics",
+      "Mammalian Expression Systems",
+      "Gene construct design and optimization",
+      "Expression vector design and construction",
+      "Stable cell pool generation",
+      "Single-cell cloning for establishment of monoclonality",
+      "High-throughput clone screening and selection",
+      "Clone characterization and productivity assessment",
+      "Cell growth and product quality assessment",
+      "Research Cell Bank (RCB) generation",
+      "Master Cell Bank (MCB) generation",
+      "Cell bank characterization and documentation",
+      "High-Yield Clone Selection & Host Lineages",
+      "High-throughput single-cell cloning and image-based verification of monoclonality",
+      "CHO-K1 and CHO-S host platform lineages with proven high productivity (3-8 g/L)",
+      "Comprehensive stability screening across 60+ generations",
+      "GMP-compliant Research Cell Bank (RCB) generation and testing"
+    ],
+    "checked": [
+      "Monoclonal Antibodies",
+      "Bispecific Antibodies",
+      "Recombinant Proteins",
+      "Other Mammalian Biologics",
+      "Mammalian Expression Systems",
+      "Gene construct design and optimization",
+      "Expression vector design and construction",
+      "Stable cell pool generation",
+      "Single-cell cloning for establishment of monoclonality",
+      "High-throughput clone screening and selection",
+      "Clone characterization and productivity assessment",
+      "Cell growth and product quality assessment",
+      "Research Cell Bank (RCB) generation",
+      "Master Cell Bank (MCB) generation",
+      "Cell bank characterization and documentation",
+      "High-Yield Clone Selection & Host Lineages",
+      "High-throughput single-cell cloning and image-based verification of monoclonality",
+      "CHO-K1 and CHO-S host platform lineages with proven high productivity (3-8 g/L)",
+      "Comprehensive stability screening across 60+ generations",
+      "GMP-compliant Research Cell Bank (RCB) generation and testing"
+    ]
+  },
+  "services/process": {
+    "shown": [
+      "Upstream Process Development",
+      "Downstream Process Development"
+    ],
+    "checked": [
+      "Upstream Process Development",
+      "Media and feed optimization",
+      "Shake flask and bioreactor process development",
+      "DoE-based process optimization",
+      "Cell culture process optimization",
+      "Fed-batch and intensified fed-batch development",
+      "Perfusion process development using ATF",
+      "Glycosylation optimization",
+      "Process scalability assessment",
+      "Process characterization",
+      "Monitoring of cell growth, metabolites, productivity, and process parameters",
+      "Downstream Process Development",
+      "Resin and chromatography screening",
+      "Affinity chromatography",
+      "Anion and cation exchange chromatography",
+      "Hydrophobic interaction chromatography",
+      "Mixed-mode chromatography",
+      "Virus inactivation",
+      "Virus filtration",
+      "Ultrafiltration and diafiltration (UF/DF)",
+      "Impurity clearance studies",
+      "Scale-up evaluation",
+      "Technology transfer support"
+    ]
+  },
+  "services/analytical": {
+    "shown": [],
+    "checked": [
+      "Capabilities",
+      "Analytical method development",
+      "Method optimization",
+      "Method qualification",
+      "Method validation",
+      "Stability-indicating method development",
+      "Reference standard qualification",
+      "Analytical method transfer",
+      "Analytical support for process development",
+      "Analytical methods for comparability and biosimilar development",
+      "Analytical Platforms",
+      "HPLC and UPLC",
+      "SEC-HPLC",
+      "Ion exchange chromatography",
+      "Capillary electrophoresis",
+      "LC-MS",
+      "Cell-based assays",
+      "ELISA",
+      "Ligand/receptor binding assays"
+    ]
+  },
+  "manufacturing/drug-substance": {
+    "shown": [
+      "GMP seed train and production bioreactor operations",
+      "Mammalian cell culture manufacturing",
+      "Upstream and downstream processing",
+      "Chromatographic purification and polishing",
+      "Ultrafiltration and diafiltration (UF/DF)",
+      "In-process quality control and process monitoring",
+      "Batch record review and manufacturing documentation",
+      "Complete chain of identity and chain of custody management",
+      "Clinical supply manufacturing for Phase I to Phase III studies",
+      "Seamless Development to GMP Transfer",
+      "Single-Use Bioreactor Production Suites"
+    ],
+    "checked": [
+      "GMP seed train and production bioreactor operations",
+      "Mammalian cell culture manufacturing",
+      "Upstream and downstream processing",
+      "Chromatographic purification and polishing",
+      "Ultrafiltration and diafiltration (UF/DF)",
+      "In-process quality control and process monitoring",
+      "Batch record review and manufacturing documentation",
+      "Complete chain of identity and chain of custody management",
+      "Clinical supply manufacturing for Phase I to Phase III studies",
+      "Seamless Development to GMP Transfer",
+      "Single-Use Bioreactor Production Suites"
+    ]
+  },
+  "manufacturing/drug-product": {
+    "shown": [
+      "Formulation development and optimization",
+      "Excipient compatibility studies",
+      "GMP aseptic fill-finish operations",
+      "Liquid and lyophilized dosage forms",
+      "Vial filling and primary container systems",
+      "Lyophilization cycle development",
+      "Visual inspection and product release support",
+      "Labelling and secondary packaging",
+      "Stability storage and sample management",
+      "Quality control documentation and batch release support"
+    ],
+    "checked": [
+      "Formulation development and optimization",
+      "Excipient compatibility studies",
+      "GMP aseptic fill-finish operations",
+      "Liquid and lyophilized dosage forms",
+      "Vial filling and primary container systems",
+      "Lyophilization cycle development",
+      "Visual inspection and product release support",
+      "Labelling and secondary packaging",
+      "Stability storage and sample management",
+      "Quality control documentation and batch release support"
+    ]
+  },
+  "characterization/analytical-testing": {
+    "shown": [
+      "Identity testing using peptide mapping, LC-MS, and immunological methods",
+      "Purity and impurity analysis using SEC-HPLC, CE-SDS, and IEF",
+      "Protein concentration analysis",
+      "Potency testing using cell-based and ligand-binding assays",
+      "Stability testing and stability-indicating methods",
+      "Bacterial endotoxin testing",
+      "Sterility and bioburden testing",
+      "Particulate matter testing",
+      "Drug substance and drug product batch release testing"
+    ],
+    "checked": [
+      "Identity testing using peptide mapping, LC-MS, and immunological methods",
+      "Purity and impurity analysis using SEC-HPLC, CE-SDS, and IEF",
+      "Protein concentration analysis",
+      "Potency testing using cell-based and ligand-binding assays",
+      "Stability testing and stability-indicating methods",
+      "Bacterial endotoxin testing",
+      "Sterility and bioburden testing",
+      "Particulate matter testing",
+      "Drug substance and drug product batch release testing"
+    ]
+  },
+  "characterization/physicochemical": {
+    "shown": [
+      "Primary structure analysis",
+      "Intact mass and peptide mass analysis",
+      "Disulfide bond characterization",
+      "Glycan profiling",
+      "Charge variant analysis",
+      "Aggregation and fragmentation analysis",
+      "Higher-order structure characterization",
+      "Forced degradation and stress studies",
+      "Reference product characterization",
+      "Biosimilar comparability and analytical similarity assessment",
+      "Product characterization supporting regulatory submissions",
+      "HPLC and UPLC",
+      "LC-MS",
+      "Capillary Electrophoresis",
+      "Circular Dichroism",
+      "FTIR",
+      "Nano-DSF",
+      "Protein Interaction and Binding Analysis (SPR and Octet)"
+    ],
+    "checked": [
+      "Primary structure analysis",
+      "Intact mass and peptide mass analysis",
+      "Disulfide bond characterization",
+      "Glycan profiling",
+      "Charge variant analysis",
+      "Aggregation and fragmentation analysis",
+      "Higher-order structure characterization",
+      "Forced degradation and stress studies",
+      "Reference product characterization",
+      "Biosimilar comparability and analytical similarity assessment",
+      "Product characterization supporting regulatory submissions",
+      "HPLC and UPLC",
+      "LC-MS",
+      "Capillary Electrophoresis",
+      "Circular Dichroism",
+      "FTIR",
+      "Nano-DSF",
+      "Protein Interaction and Binding Analysis (SPR and Octet)"
+    ]
+  },
+  "characterization/bioassays": {
+    "shown": [
+      "Cell-based potency assays",
+      "Reporter gene assays",
+      "Binding assays",
+      "ADCC and CDC functional assays",
+      "Mechanism-of-action assays",
+      "Reference standard qualification",
+      "Potency assignment studies",
+      "Anti-drug antibody (ADA) screening",
+      "ADA confirmation and titration",
+      "Neutralizing antibody (NAb) assays",
+      "In vitro immunogenicity risk assessment",
+      "Immunogenicity support for clinical development"
+    ],
+    "checked": [
+      "Cell-based potency assays",
+      "Reporter gene assays",
+      "Binding assays",
+      "ADCC and CDC functional assays",
+      "Mechanism-of-action assays",
+      "Reference standard qualification",
+      "Potency assignment studies",
+      "Anti-drug antibody (ADA) screening",
+      "ADA confirmation and titration",
+      "Neutralizing antibody (NAb) assays",
+      "In vitro immunogenicity risk assessment",
+      "Immunogenicity support for clinical development"
+    ]
+  },
+  "characterization/microbiological": {
+    "shown": [
+      "Sterility testing",
+      "Bioburden testing",
+      "Bacterial endotoxin testing (BET)",
+      "Environmental monitoring",
+      "Mycoplasma detection",
+      "Microbial limit testing",
+      "Water and utility microbiological testing where applicable"
+    ],
+    "checked": [
+      "Sterility testing",
+      "Bioburden testing",
+      "Bacterial endotoxin testing (BET)",
+      "Environmental monitoring",
+      "Mycoplasma detection",
+      "Microbial limit testing",
+      "Water and utility microbiological testing where applicable"
+    ]
+  },
+  "modalities/mabs": {
+    "shown": [
+      "Mammalian cell line development and clone selection",
+      "High-throughput clone screening and selection",
+      "High-throughput mammalian cell culture and process screening",
+      "Upstream process development and optimization",
+      "Downstream process development and purification",
+      "Media and feed optimization",
+      "Process characterization and scale-up",
+      "Analytical characterization and testing",
+      "Drug substance and drug product manufacturing",
+      "Technology transfer and clinical supply"
+    ],
+    "checked": [
+      "Mammalian cell line development and clone selection",
+      "High-throughput clone screening and selection",
+      "High-throughput mammalian cell culture and process screening",
+      "Upstream process development and optimization",
+      "Downstream process development and purification",
+      "Media and feed optimization",
+      "Process characterization and scale-up",
+      "Analytical characterization and testing",
+      "Drug substance and drug product manufacturing",
+      "Technology transfer and clinical supply"
+    ]
+  },
+  "modalities/bispecifics": {
+    "shown": [
+      "Cell line development for bispecific and bifunctional antibodies",
+      "Clone screening and selection",
+      "Upstream and downstream process development",
+      "Process optimization",
+      "Purification and impurity clearance",
+      "Analytical characterization",
+      "Structural and functional characterization",
+      "Forced degradation and stability studies",
+      "In vitro bioassays for functional assessment",
+      "Drug substance and drug product manufacturing"
+    ],
+    "checked": [
+      "Cell line development for bispecific and bifunctional antibodies",
+      "Clone screening and selection",
+      "Upstream and downstream process development",
+      "Process optimization",
+      "Purification and impurity clearance",
+      "Analytical characterization",
+      "Structural and functional characterization",
+      "Forced degradation and stability studies",
+      "In vitro bioassays for functional assessment",
+      "Drug substance and drug product manufacturing"
+    ]
+  },
+  "modalities/adcs": {
+    "shown": [
+      "Monoclonal antibody development for ADC programs",
+      "Conjugation process development",
+      "Drug-to-antibody ratio (DAR) characterization",
+      "Product purity and aggregation analysis",
+      "Physicochemical characterization",
+      "Orthogonal analytical characterization",
+      "In vitro bioassays for potency assessment",
+      "Drug substance manufacturing",
+      "Drug product manufacturing"
+    ],
+    "checked": [
+      "Monoclonal antibody development for ADC programs",
+      "Conjugation process development",
+      "Drug-to-antibody ratio (DAR) characterization",
+      "Product purity and aggregation analysis",
+      "Physicochemical characterization",
+      "Orthogonal analytical characterization",
+      "In vitro bioassays for potency assessment",
+      "Drug substance manufacturing",
+      "Drug product manufacturing"
+    ]
+  },
+  "modalities/proteins-peptides": {
+    "shown": [
+      "Mammalian expression platforms",
+      "Recombinant protein expression using CHO, HEK293, and E. coli expression systems",
+      "Process development and optimization",
+      "Protein purification",
+      "Synthetic peptide development using recombinant technologies",
+      "Analytical characterization and testing",
+      "Product quality and stability assessment",
+      "In vitro immunogenicity assessment",
+      "Drug substance manufacturing",
+      "Drug product manufacturing"
+    ],
+    "checked": [
+      "Mammalian expression platforms",
+      "Recombinant protein expression using CHO, HEK293, and E. coli expression systems",
+      "Process development and optimization",
+      "Protein purification",
+      "Synthetic peptide development using recombinant technologies",
+      "Analytical characterization and testing",
+      "Product quality and stability assessment",
+      "In vitro immunogenicity assessment",
+      "Drug substance manufacturing",
+      "Drug product manufacturing"
+    ]
+  },
+  "insights/blogs": {
+    "shown": [],
+    "checked": []
+  },
+  "insights/case-studies": {
+    "shown": [],
+    "checked": []
+  },
+  "insights/brochures": {
+    "shown": [],
+    "checked": []
+  },
+  "insights/news": {
+    "shown": [],
+    "checked": []
+  },
+  "insights/events": {
+    "shown": [],
+    "checked": []
+  },
+  "services/services": {
+    "shown": [
+      "Cell Line Development",
+      "Process Development",
+      "Analytical Development"
+    ],
+    "checked": [
+      "Cell Line Development",
+      "Process Development",
+      "Analytical Development"
+    ]
+  },
+  "manufacturing/manufacturing": {
+    "shown": [
+      "Drug Substance Manufacturing",
+      "Drug Product Manufacturing",
+      "Drug Substance",
+      "Formulation",
+      "Filtration",
+      "Aseptic Fill-Finish",
+      "Inspection",
+      "Packaging",
+      "Clinical Supply"
+    ],
+    "checked": [
+      "Drug Substance Manufacturing",
+      "Drug Product Manufacturing",
+      "From Bulk Drug Substance to Clinical Supply",
+      "Drug Substance",
+      "Formulation",
+      "Filtration",
+      "Aseptic Fill-Finish",
+      "Inspection",
+      "Packaging",
+      "Clinical Supply"
+    ]
+  },
+  "characterization/characterization": {
+    "shown": [
+      "Reference Product Characterization",
+      "Method Development & Qualification",
+      "Product & Process Characterization",
+      "Comparability / Analytical Similarity /Comparative Analytical Assessment",
+      "In-Process & Release Testing",
+      "Stability Assessment",
+      "Analytical Testing",
+      "Physicochemical Characterization",
+      "Bioassays & Immunogenicity Testing",
+      "Microbiological Testing"
+    ],
+    "checked": [
+      "Analytical Support Across the Development Lifecycle",
+      "Reference Product Characterization",
+      "Method Development & Qualification",
+      "Product & Process Characterization",
+      "Comparability / Analytical Similarity /Comparative Analytical Assessment",
+      "In-Process & Release Testing",
+      "Stability Assessment",
+      "Analytical Testing",
+      "Physicochemical Characterization",
+      "Bioassays & Immunogenicity Testing",
+      "Microbiological Testing"
+    ]
+  },
+  "facility&location/facility&location": {
+    "shown": [],
+    "checked": []
+  }
+}

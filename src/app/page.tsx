@@ -20,7 +20,7 @@ interface PageProps {
 export default async function Home({ searchParams }: PageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const isPreview = resolvedSearchParams?.preview === 'true';
-  const homePageData = getStoredPage('home', 'home', { previewDraft: isPreview });
+  const homePageData = getStoredPage('home', 'home', { previewDraft: isPreview, previewId: typeof resolvedSearchParams?.previewId === 'string' ? resolvedSearchParams.previewId : undefined });
 
   return (
     <>

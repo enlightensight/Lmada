@@ -146,7 +146,7 @@ export default function ModularPageLayout({ page, content }: ModularPageLayoutPr
       {sections && sections.length > 0 && (
         <div className="divide-y divide-neutral-100">
           {sections.map((section, idx) => (
-            <DynamicSectionRenderer
+            <DynamicSectionRenderer itemIcons={page.itemIcons}
               key={idx}
               section={section}
               index={idx}

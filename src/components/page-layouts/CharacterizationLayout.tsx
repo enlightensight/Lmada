@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { getCapabilityIconsForList } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import PageCTA from '@/components/PageCTA';
@@ -12,6 +11,7 @@ import type { PageContent } from '@/types/page';
 import { makePageText, slotsForPage } from '@/lib/pageText';
 import { SERVICES_TEXT_SLOTS } from '@/data/textSlots/services';
 import { getHeroMedia, getRenderableSections } from './cmsMedia';
+import { getListIcons, pickIcon } from '@/components/icons/SiteIcon';
 
 interface CharacterizationLayoutProps {
   page: CDMOPage;
@@ -41,12 +41,12 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
   const sections = getRenderableSections(page);
 
   // Drawn icons per capability point. A list gets icons only when every point in it has its own.
-  const capabilityIcons = getCapabilityIconsForList(page.capabilities || []);
-  const bioassayIcons = getCapabilityIconsForList(page.bioassayCapabilities || []);
-  const immunogenicityIcons = getCapabilityIconsForList(page.immunogenicityCapabilities || []);
-  const technologyIcons = getCapabilityIconsForList(
+  const capabilityIcons = getListIcons(page.capabilities || [], page.itemIcons);
+  const bioassayIcons = getListIcons(page.bioassayCapabilities || [], page.itemIcons);
+  const immunogenicityIcons = getListIcons(page.immunogenicityCapabilities || [], page.itemIcons);
+  const technologyIcons = getListIcons(
     (page.analyticalTechnologies || []).map((tech) => (typeof tech === 'string' ? tech : tech.name))
-  );
+  , page.itemIcons);
 
   return (
     <>
@@ -304,7 +304,7 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
       {sections.length > 0 && (
         <div className="divide-y divide-neutral-100 border-t border-neutral-200">
           {sections.map((sec, idx) => (
-            <DynamicSectionRenderer
+            <DynamicSectionRenderer itemIcons={page.itemIcons}
               key={sec.id || idx}
               section={sec}
               index={idx}

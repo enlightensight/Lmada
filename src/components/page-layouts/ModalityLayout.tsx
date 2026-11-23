@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { getCapabilityIconsForList } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
 import FAQSection from '@/components/FAQSection';
@@ -7,6 +6,7 @@ import DynamicSectionRenderer from '@/components/DynamicSectionRenderer';
 import PageCTA from '@/components/PageCTA';
 import type { CDMOPage } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
+import { getListIcons, pickIcon } from '@/components/icons/SiteIcon';
 
 interface ModalityLayoutProps {
   page: CDMOPage;
@@ -16,7 +16,7 @@ interface ModalityLayoutProps {
 export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
   const [firstWord, ...restWords] = page.heading.split(' ');
 
-  const capabilityIcons = getCapabilityIconsForList(page.capabilities || []);
+  const capabilityIcons = getListIcons(page.capabilities || [], page.itemIcons);
 
   return (
     <>
@@ -142,7 +142,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
       {(page.sections || [])
         .filter((sec) => sec.style !== 'faq-accordion')
         .map((sec, idx) => (
-          <DynamicSectionRenderer key={sec.id || idx} section={sec} index={idx} pageSlug={page.slug} category={page.category} />
+          <DynamicSectionRenderer itemIcons={page.itemIcons} key={sec.id || idx} section={sec} index={idx} pageSlug={page.slug} category={page.category} />
         ))}
 
       {page.faqs && page.faqs.length > 0 && (

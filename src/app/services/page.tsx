@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Check
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
@@ -18,6 +19,7 @@ import { getStoredPage } from '@/lib/pagesStorage';
 import { makePageText } from '@/lib/pageText';
 import { HUBS_TEXT_SLOTS } from '@/data/textSlots/hubs';
 import type { CDMOPage } from '@/data/cdmoData';
+import { pickIcon } from '@/components/icons/SiteIcon';
 
 interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -26,7 +28,7 @@ interface PageProps {
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const isPreview = resolvedSearchParams?.preview === 'true';
-  const page = getStoredPage('services', 'services', { previewDraft: isPreview });
+  const page = getStoredPage('services', 'services', { previewDraft: isPreview, previewId: typeof resolvedSearchParams?.previewId === 'string' ? resolvedSearchParams.previewId : undefined });
 
   return {
     title: page?.metaTitle || page?.title || 'Development Services — Biologics Development & Process Sciences | Lambda CDMO',
@@ -128,7 +130,7 @@ function getServiceIcon(title: string, index: number) {
 export default async function DevelopmentServicesPage({ searchParams }: PageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const isPreview = resolvedSearchParams?.preview === 'true';
-  const page = getStoredPage('services', 'services', { previewDraft: isPreview });
+  const page = getStoredPage('services', 'services', { previewDraft: isPreview, previewId: typeof resolvedSearchParams?.previewId === 'string' ? resolvedSearchParams.previewId : undefined });
 
   const badge = page?.badge || 'DEVELOPMENT SERVICES';
   const heading = page?.heading || 'Development Designed for Manufacturing';
@@ -215,7 +217,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
               {/* Quick Jump Buttons — one per service card (label = card tag, link = card link) */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 {renderedCards.map((service, idx) => {
-                  const JumpIcon = getServiceIcon(service.title, idx);
+                  const JumpIcon = pickIcon(page?.itemIcons, service.title, getServiceIcon(service.title, idx)) as LucideIcon;
                   const isOrange = idx % 2 === 1;
                   return (
                     <Link
@@ -281,7 +283,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {renderedCards.map((service, idx) => {
-              const ServiceIcon = getServiceIcon(service.title, idx);
+              const ServiceIcon = pickIcon(page?.itemIcons, service.title, getServiceIcon(service.title, idx)) as LucideIcon;
               return (
                 <Reveal key={service.slug || idx} delay={idx * 0.1}>
                   <div className="group h-full bg-white rounded-2xl border border-neutral-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden hover:-translate-y-1">
@@ -352,7 +354,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
 
       {/* ADDITIONAL CMS SECTIONS (added in the admin panel) */}
       {extraSections.map((sec, i) => (
-        <DynamicSectionRenderer
+        <DynamicSectionRenderer itemIcons={page?.itemIcons}
           key={sec.id || `extra-${i}`}
           section={sec}
           index={i}

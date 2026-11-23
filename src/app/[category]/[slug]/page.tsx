@@ -435,7 +435,7 @@ export default async function CDMODynamicPage({ params, searchParams }: PageProp
     redirect(`/${category}${isPreview ? '?preview=true' : ''}`);
   }
 
-  const page = getStoredPage(category, slug, { previewDraft: isPreview });
+  const page = getStoredPage(category, slug, { previewDraft: isPreview, previewId: typeof resolvedSearchParams?.previewId === 'string' ? resolvedSearchParams.previewId : undefined });
 
   if (!page) {
     notFound();

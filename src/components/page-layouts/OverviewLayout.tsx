@@ -39,9 +39,9 @@ import {
   GitMerge,
   Syringe,
   GraduationCap,
-  Briefcase
+  Briefcase,
+  type LucideIcon,
 } from 'lucide-react';
-import { getCapabilityIconsForList } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import PillarCard from '@/components/PillarCard';
 import FacilityGallery from '@/components/FacilityGallery';
@@ -60,6 +60,8 @@ import { makePageText, slotsForPage } from '@/lib/pageText';
 import { OVERVIEW_TEXT_SLOTS, INDIA_GALLERY_TILE_COUNT } from '@/data/textSlots/overview';
 import type { CDMOPage, CDMOSection } from '@/data/cdmoData';
 import type { PageContent } from '@/types/page';
+import { getListIcons, pickIcon } from '@/components/icons/SiteIcon';
+import { parseFacilityListParagraph } from '@/lib/facilityList';
 
 interface OverviewLayoutProps {
   page: CDMOPage;
@@ -188,31 +190,6 @@ function getOverviewCapabilityIcon(text: string, index: number) {
   return distinctScientificIcons[index % distinctScientificIcons.length];
 }
 
-/**
- * Splits a "X includes a, b, c, and d." style paragraph into a label, list items
- * and trailing clause. Returns null when the paragraph is not list-shaped, so
- * CMS-edited copy falls back to a normal paragraph.
- */
-function parseFacilityListParagraph(para: string): { intro: string; items: string[]; outro: string } | null {
-  const cap = (t: string) => (t ? t.charAt(0).toUpperCase() + t.slice(1) : t);
-  const toItems = (list: string) =>
-    list
-      .split(/,\s*(?:and\s+)?/)
-      .map((item) => cap(item.trim().replace(/\.$/, '')))
-      .filter(Boolean);
-  const commaCount = (t: string) => (t.match(/,/g) || []).length;
-
-  const bold = para.match(/^(.*?)\*\*(.+?)\*\*(.*)$/);
-  if (bold && bold[1].trim() && commaCount(bold[2]) >= 2) {
-    return { intro: bold[1].trim(), items: toItems(bold[2]), outro: cap(bold[3].trim()) };
-  }
-
-  const plain = para.replace(/\*\*/g, '').match(/^(.+?\b(?:includes?|incorporates?|comprises?))\s+(.+?)\.?$/i);
-  if (plain && commaCount(plain[2]) >= 2) {
-    return { intro: plain[1].trim(), items: toItems(plain[2]), outro: '' };
-  }
-  return null;
-}
 
 function AccentHeading({ text, className = '' }: { text: string; className?: string }) {
   const [first, ...rest] = text.split(' ');
@@ -438,7 +415,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                                 </p>
                                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                   {block.items.map((item, iIdx) => {
-                                    const Icon = getOverviewCapabilityIcon(item, iIdx);
+                                    const Icon = pickIcon(page.itemIcons, item, getOverviewCapabilityIcon(item, iIdx)) as LucideIcon;
                                     const isOddLast = block.items.length % 2 === 1 && iIdx === block.items.length - 1;
                                     return (
                                       <li
@@ -1013,7 +990,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 return (
                   <Reveal key={sec.id || secIdx} delay={n === 0 ? 0.05 : 0.1} className="h-full">
                     <PillarCard
-                      icon={n === 0 ? Workflow : ShieldCheck}
+                      icon={pickIcon(page.itemIcons, sec.title || '', n === 0 ? Workflow : ShieldCheck) as LucideIcon}
                       title={sec.title}
                       text={sec.text}
                       accent={n === 0 ? 'blue' : 'orange'}
@@ -1036,7 +1013,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
         );
 
         // Drawn icons per capability point; the list gets icons only when every point has its own
-        const capabilityIcons = getCapabilityIconsForList((page.capabilities || []) as string[]);
+        const capabilityIcons = getListIcons((page.capabilities || []) as string[], page.itemIcons);
 
         return (
           <section className="relative px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 bg-neutral-50/60 border-b border-neutral-100 overflow-hidden">
@@ -1232,7 +1209,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               {qualityTileIdx.map((secIdx, n) => {
                 const sec = sections[secIdx];
                 const tile = QUALITY_TILE_STYLES[n % QUALITY_TILE_STYLES.length];
-                const TileIcon = tile.icon;
+                const TileIcon = pickIcon(page.itemIcons, sec.title || '', tile.icon) as LucideIcon;
                 return (
                   <Reveal key={sec.id || secIdx} delay={n === 0 ? 0.05 : 0.1} className="h-full">
                     <div className={`group h-full bg-slate-50/80 border border-neutral-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-xl ${tile.hover} transition-all duration-300 flex flex-col justify-start relative overflow-hidden`}>
@@ -1349,7 +1326,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
 
       {/* Any other section an editor adds renders generically */}
       {genericIdx.map((secIdx) => (
-        <DynamicSectionRenderer
+        <DynamicSectionRenderer itemIcons={page.itemIcons}
           key={sections[secIdx].id || secIdx}
           section={sections[secIdx]}
           index={secIdx}

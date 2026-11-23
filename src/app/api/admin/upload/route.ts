@@ -11,7 +11,11 @@ const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif'];
 const VIDEO_EXTENSIONS = ['.mp4', '.webm', '.mov', '.ogg', '.ogv', '.m4v'];
 const DOCUMENT_EXTENSIONS = ['.pdf'];
-const ALLOWED_EXTENSIONS = [...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS, ...DOCUMENT_EXTENSIONS];
+// SVG icons are allowed, but only plain drawings: anything that could run script is refused,
+// and /uploads serves SVGs with a sandboxing Content-Security-Policy as a second line of defence.
+const SVG_EXTENSIONS = ['.svg'];
+const ALLOWED_EXTENSIONS = [...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS, ...DOCUMENT_EXTENSIONS, ...SVG_EXTENSIONS];
+const UNSAFE_SVG = /<script|<foreignObject|<iframe|<embed|<object|<use[^>]+href\s*=\s*["']?(?!#)|\son[a-z]+\s*=|javascript:|data:text\/html|<!ENTITY/i;
 
 export async function POST(request: Request) {
   try {
@@ -37,10 +41,19 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: `"${ext || 'no extension'}" files cannot be uploaded. Allowed: images (${IMAGE_EXTENSIONS.join(', ')}), videos (${VIDEO_EXTENSIONS.join(', ')}) and PDF.`,
+          error: `"${ext || 'no extension'}" files cannot be uploaded. Allowed: images (${IMAGE_EXTENSIONS.join(', ')}), SVG icons, videos (${VIDEO_EXTENSIONS.join(', ')}) and PDF.`,
         },
         { status: 400 }
       );
+    }
+    if (SVG_EXTENSIONS.includes(ext)) {
+      const svgText = buffer.toString('utf-8');
+      if (!/<svg[\s>]/i.test(svgText) || UNSAFE_SVG.test(svgText)) {
+        return NextResponse.json(
+          { success: false, error: 'This SVG contains scripts, links or embedded content and cannot be uploaded. Export a plain SVG drawing and try again.' },
+          { status: 400 }
+        );
+      }
     }
     const baseName = path.basename(originalName, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
     const timestamp = Date.now();

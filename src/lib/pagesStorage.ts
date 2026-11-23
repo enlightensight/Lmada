@@ -3,6 +3,7 @@ import path from 'path';
 import { cdmoData } from '@/data/cdmoData';
 import type { CDMOPage } from '@/data/cdmoData';
 import { findPageOwningAddress } from '@/lib/pageUrls';
+import { getPreviewPage } from '@/lib/previewStore';
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data');
 const STORAGE_FILE = path.join(DATA_DIR, 'storedPages.json');
@@ -136,7 +137,7 @@ export function getAllStoredPages(options: { includeDrafts?: boolean } = {}): CD
 export function getStoredPage(
   category: string,
   slug: string,
-  options: { previewDraft?: boolean } = {}
+  options: { previewDraft?: boolean; previewId?: string } = {}
 ): CDMOPage | null {
   let normCat = decodeURIComponent(category || '').toLowerCase();
   let normSlug = decodeURIComponent(slug || '').toLowerCase();
@@ -238,6 +239,14 @@ export function getStoredPage(
       normSlug = 'news';
     } else if (normSlug === 'events-webinars' || normSlug === 'events-and-webinars' || normSlug === 'events') {
       normSlug = 'events';
+    }
+  }
+
+  // Editor live preview: the unsaved copy of this page, if the URL carries its previewId
+  if (options.previewDraft && options.previewId) {
+    const live = getPreviewPage(options.previewId);
+    if (live && live.category.toLowerCase() === normCat && live.slug.toLowerCase() === normSlug) {
+      return { ...live, isPublished: live.isPublished !== false, hasUnpublishedChanges: true };
     }
   }
 
