@@ -222,8 +222,9 @@ Rules the audit enforces — keep them true when changing a layout:
 - The editor's Live Preview renders the real page from unsaved edits (`/api/admin/preview`, in-memory, `?previewId=`).
   Editor blocks are ordered like the live layout (`blockSequence` in `PageAdminEditor.tsx`); update it when a layout
   moves a block.
-- After changing which fields a layout displays, regenerate the editor's "not shown on this page" hints:
-  `node scripts/cms_e2e_audit.mjs --usage-out src/data/cmsFieldUsage.json`.
+- The editor shows no "not shown on this page" notices (removed at the client's request).
+  `node scripts/cms_e2e_audit.mjs --usage-out src/data/cmsFieldUsage.json` still records which fields each page's
+  design does not display, for reference.
 
 ---
 
