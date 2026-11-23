@@ -56,7 +56,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-16 xl:gap-20">
           
           {/* Left: Branding */}
-          <div className="lg:max-w-sm shrink-0">
+          <div className="shrink-0">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image
                 src="/images/lambda_novum_logo.png"
@@ -67,7 +67,7 @@ export default function Footer() {
                 unoptimized
               />
             </Link>
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm">
+            <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm min-[1600px]:max-w-[500px]">
               Lambda CDMO is the biologics Contract Development and Manufacturing Organization of Lambda Therapeutic Research, providing integrated development, analytical characterization, and GMP manufacturing services for biologics, biosimilars, and complex therapeutic modalities. With capabilities across India and the UK, we support biopharmaceutical companies from early development through clinical supply.
             </p>
             <div className="flex items-center gap-3">
