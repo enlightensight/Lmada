@@ -907,6 +907,45 @@ export const DossierIcon: CapabilityIcon = ({ className }) => (
   </Svg>
 );
 
+/* ───────────────────────────── Analytical lifecycle steps ───────────────────────────── */
+
+/** A method's chromatogram passed with a tick: method development and qualification. */
+export const MethodQualificationIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M3.500 3.500v13.500h9" />
+    <path d="M5.500 14c1.300 0 1.300-8 2.600-8s1.300 8 2.600 8c.900 0 .900-3.600 1.800-3.600" />
+    <circle cx="17.500" cy="17.500" r="4" />
+    <path d="M15.800 17.600l1.200 1.200 2.200-2.500" />
+  </Svg>
+);
+
+/** A molecule tied to the vessel that makes it: product and process characterization. */
+export const ProductProcessIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M7.500 3.500l3.460 2v4L7.500 11.500 4.040 9.500v-4z" />
+    <path d="M10.960 5.500l2-1.200" />
+    <circle cx="14.200" cy="3.700" r="1.200" {...dot} />
+    <path d="M7.500 11.500v4a2 2 0 0 0 2 2h1.600" />
+    <path d="M10 16.300l1.200 1.200-1.200 1.200" />
+    <path d="M13.300 13.500h8.200" />
+    <path d="M14.300 13.500v4.300a3.100 3.100 0 0 0 6.200 0v-4.300" />
+    <path d="M17.400 10.800v6.700M16 17.500h2.800" />
+  </Svg>
+);
+
+/** A sample tube cleared with a tick: in-process and release testing. */
+export const SampleReleaseIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M4.800 3h7.400" />
+    <path d="M6 3v13.800a2.500 2.500 0 0 0 5 0V3" />
+    <path d="M6 10.500h5" />
+    <circle cx="8.500" cy="14.300" r="0.700" {...dot} />
+    <circle cx="17.500" cy="17.500" r="4" />
+    <path d="M15.800 17.600l1.200 1.200 2.200-2.500" />
+    <path d="M15 5.500h5M15 9h3.500" />
+  </Svg>
+);
+
 /* ───────────────────────────── Which icon belongs to which point ───────────────────────────── */
 
 /**
@@ -924,6 +963,7 @@ const RULES: [RegExp, CapabilityIcon][] = [
   [/^drug substance manufactur/i, TankIcon],
   [/^drug product manufactur/i, VialIcon],
   [/ultrafiltration|diafiltration|uf\s*\/\s*df/i, TffIcon],
+  [/in-process (&|and) release|^release testing/i, SampleReleaseIcon],
   [/process monitoring|in-process/i, MonitoringIcon],
   [/upstream and downstream/i, ProcessTrainIcon],
   [/bioreactor/i, BioreactorIcon],
@@ -1007,6 +1047,11 @@ const RULES: [RegExp, CapabilityIcon][] = [
   [/mass analysis|intact mass|^LC-MS/i, MassSpectrumIcon],
   [/structural and functional|physicochemical characteri[sz]ation/i, StructureIcon],
   [/purity and impurity|analytical (development|characteri[sz]ation)|HPLC|UPLC/i, ChromatogramIcon],
+
+  // analytical lifecycle steps
+  [/method development/i, MethodQualificationIcon],
+  [/product (&|and) process characteri[sz]ation/i, ProductProcessIcon],
+  [/stability/i, StabilityTimeIcon],
 
   // broad service areas (overview pages)
   [/^bioassays?\b/i, CellAssayIcon],

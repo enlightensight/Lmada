@@ -48,6 +48,11 @@ const CAPABILITY_ICONS = [FlaskConical, Dna, Microscope, Activity, Search, Beake
 
 function getBulletSvgIcon(text: string): string | null {
   const lower = text.toLowerCase();
+  // These points keep their own line icons (document, microscope, test tubes): the client's cryovial and
+  // clone-screening drawings are for cell bank generation and clone screening, not for these.
+  if (lower.includes('documentation') || lower.includes('image-based') || lower.includes('gmp-compliant')) {
+    return null;
+  }
   if (lower.includes('stable cell pool') || lower.includes('pool generation') || lower.includes('cell culture')) {
     return '/images/cell culture.svg';
   }
@@ -156,7 +161,13 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
                 {!hidePointerIcons && (
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
                     {svgIcon ? (
-                      <img src={svgIcon} alt={b} className="w-5 h-5 object-contain" />
+                      <img
+                        src={svgIcon}
+                        alt=""
+                        aria-hidden="true"
+                        // The client SVGs have a fixed blue stroke; brightness(0) turns them black on hover like the other icons
+                        className="w-5 h-5 object-contain transition-[filter] duration-200 group-hover/pill:brightness-0"
+                      />
                     ) : (
                       <BulletIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-brand-blue group-hover/pill:text-black transition-colors duration-200" />
                     )}

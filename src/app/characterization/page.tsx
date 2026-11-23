@@ -15,6 +15,7 @@ import {
   Activity,
   ShieldCheck
 } from 'lucide-react';
+import { getCapabilityIcon } from '@/components/icons/CapabilityIcons';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
 import CommonCTA from '@/components/CommonCTA';
@@ -116,7 +117,7 @@ const DEFAULT_LIFECYCLE_STEPS = [
   { step: 'Step 06', title: 'Stability Assessment', description: '' },
 ];
 
-// Icons for the lifecycle steps, by position
+// Fallback icons for lifecycle steps, by position (used only when a step has no drawn icon of its own)
 const LIFECYCLE_ICONS = [Target, Sliders, FlaskConical, Scale, Activity, ShieldCheck];
 
 // Icons for the hero quick-jump buttons, by position
@@ -340,7 +341,8 @@ export default async function AnalyticalCharacterizationPage({ searchParams }: P
             {/* Stepped Lifecycle Flow */}
             <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${LIFECYCLE_GRID_COLS[lifecycleSteps.length] || 'lg:grid-cols-6'} gap-4 lg:gap-3.5`}>
               {lifecycleSteps.map((item, idx) => {
-                const IconComponent = LIFECYCLE_ICONS[idx % LIFECYCLE_ICONS.length];
+                // Drawn icon matched to the step's subject; stock icon by position as a fallback
+                const IconComponent = getCapabilityIcon(item.title || '') || LIFECYCLE_ICONS[idx % LIFECYCLE_ICONS.length];
                 return (
                   <Reveal key={idx} delay={idx * 0.05} className="h-full">
                     <div className="group h-full bg-neutral-50/80 border border-neutral-200/80 hover:border-brand-blue rounded-[12px] p-5 flex flex-col items-center text-center shadow-xs hover:shadow-xl hover:bg-white transition-all duration-300">
