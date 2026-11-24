@@ -1358,13 +1358,13 @@ export const cdmoData: CDMOPage[] = [
     ],
     "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
     "images": [
+      "/images/down stream/AKTA Pure 150_Akta Avant.png",
       "/images/upstream/AMBR250.png",
       "/images/upstream/Bioreactor_control.png",
       "/images/upstream/Biosaftey_cabinet.png",
       "/images/upstream/Carbon_di_Oxide_shaker_incubator.png",
       "/images/upstream/Cedex_automated_cell_counter.png",
       "/images/down stream/AKTA Pilot.png",
-      "/images/down stream/AKTA Pure 150_Akta Avant.png",
       "/images/down stream/Tecan Freedom EVO.png",
       "/images/down stream/TFF System.png",
       "/images/down stream/Column Storage Rack.png"
@@ -1398,25 +1398,6 @@ export const cdmoData: CDMOPage[] = [
           "Analytical method transfer",
           "Analytical support for process development",
           "Analytical methods for comparability and biosimilar development"
-        ],
-        "images": [
-          "/images/Analytical/Orbitrap.webp",
-          "/images/Analytical/Q ToF.webp",
-          "/images/Analytical/Octet.webp",
-          "/images/Analytical/BIOPHASE.webp",
-          "/images/Analytical/Maurice.webp",
-          "/images/Analytical/UPLC- Thermo.webp",
-          "/images/Analytical/UPLC.webp",
-          "/images/Analytical/Circular Dichroism.webp",
-          "/images/Analytical/FT-IR.webp",
-          "/images/Analytical/nanoDSF.webp",
-          "/images/Analytical/SoloVPE.webp",
-          "/images/Analytical/Flow Cytometer.webp",
-          "/images/Analytical/Multimode reader.webp",
-          "/images/Analytical/Cell Celector.webp",
-          "/images/Analytical/Liquid Handling System.webp",
-          "/images/Analytical/RT-PCR.webp",
-          "/images/Analytical/AMBR15.webp"
         ]
       },
       {
@@ -1436,25 +1417,6 @@ export const cdmoData: CDMOPage[] = [
           "Cell-based assays",
           "ELISA",
           "Ligand/receptor binding assays"
-        ],
-        "images": [
-          "/images/Analytical/Orbitrap.webp",
-          "/images/Analytical/Q ToF.webp",
-          "/images/Analytical/Octet.webp",
-          "/images/Analytical/BIOPHASE.webp",
-          "/images/Analytical/Maurice.webp",
-          "/images/Analytical/UPLC- Thermo.webp",
-          "/images/Analytical/UPLC.webp",
-          "/images/Analytical/Circular Dichroism.webp",
-          "/images/Analytical/FT-IR.webp",
-          "/images/Analytical/nanoDSF.webp",
-          "/images/Analytical/SoloVPE.webp",
-          "/images/Analytical/Flow Cytometer.webp",
-          "/images/Analytical/Multimode reader.webp",
-          "/images/Analytical/Cell Celector.webp",
-          "/images/Analytical/Liquid Handling System.webp",
-          "/images/Analytical/RT-PCR.webp",
-          "/images/Analytical/AMBR15.webp"
         ]
       }
     ],
@@ -1474,9 +1436,9 @@ export const cdmoData: CDMOPage[] = [
     ],
     "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
     "images": [
+      "/images/Analytical/Octet.webp",
       "/images/Analytical/Orbitrap.webp",
       "/images/Analytical/Q ToF.webp",
-      "/images/Analytical/Octet.webp",
       "/images/Analytical/BIOPHASE.webp",
       "/images/Analytical/Maurice.webp",
       "/images/Analytical/UPLC- Thermo.webp",

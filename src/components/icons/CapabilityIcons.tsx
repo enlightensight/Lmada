@@ -601,6 +601,33 @@ export const CircularDichroismIcon: CapabilityIcon = ({ className }) => (
   </Svg>
 );
 
+/** A cluster of cells, each with its nucleus: stable cell pool generation. */
+export const CellClusterIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <circle cx="8" cy="8.500" r="4.200" />
+    <circle cx="16.200" cy="7.800" r="3.600" />
+    <circle cx="11.500" cy="16.300" r="4.300" />
+    <circle cx="18.800" cy="15.600" r="3" />
+    <circle cx="7.300" cy="8.900" r="1.200" {...dot} />
+    <circle cx="16.600" cy="7.300" r="1" {...dot} />
+    <circle cx="12.200" cy="16.800" r="1.200" {...dot} />
+    <circle cx="18.600" cy="15.800" r="0.900" {...dot} />
+  </Svg>
+);
+
+/** A DNA strand whose gene is expressed into a glowing signal: reporter gene assays. */
+export const GeneExpressionIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M3.500 3c0 4.500 6.500 4.500 6.500 9s-6.500 4.500-6.500 9" />
+    <path d="M10 3c0 4.500-6.500 4.500-6.500 9s6.500 4.500 6.500 9" />
+    <path d="M4.600 4.800h4.300M3.800 12h5.900M4.600 19.200h4.300" strokeWidth="1.400" />
+    <path d="M12.300 12h4.600" />
+    <path d="M15.200 10.300l1.700 1.700-1.700 1.700" />
+    <circle cx="20.300" cy="12" r="1.700" {...dot} />
+    <path d="M20.300 7.300v1.400M20.300 15.300v1.400" />
+  </Svg>
+);
+
 /** A light beam passing through a cuvette: protein concentration. */
 export const CuvetteIcon: CapabilityIcon = ({ className }) => (
   <Svg className={className}>
@@ -619,6 +646,18 @@ export const FingerprintIcon: CapabilityIcon = ({ className }) => (
     <path d="M8.300 19.5c-.4-6-.2-11.500 3.700-11.500s4.100 5.500 3.700 11.500" />
     <path d="M12 11.500v9" />
     <path d="M5.500 20c-.2-.7-.3-1.300-.4-2" />
+  </Svg>
+);
+
+/** A molecule examined under a magnifying glass: identity testing. */
+export const MoleculeLensIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <circle cx="10" cy="10" r="7" />
+    <path d="M15.100 15.100l5.900 5.900" />
+    <path d="M10 6.800l2.800 1.600v3.200L10 13.200l-2.800-1.600V8.400z" strokeWidth="1.400" />
+    <circle cx="10" cy="6.800" r="1" {...dot} />
+    <circle cx="12.800" cy="11.600" r="1" {...dot} />
+    <circle cx="7.200" cy="11.600" r="1" {...dot} />
   </Svg>
 );
 
@@ -802,6 +841,33 @@ export const PetriDishIcon: CapabilityIcon = ({ className }) => (
   </Svg>
 );
 
+/** A sample filtered through a membrane onto a plate where colonies grow: bioburden testing. */
+export const MembraneFiltrationIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M4.500 3.500h15l-5 6.300h-5z" />
+    <path d="M10.300 9.800v2.400h3.400V9.800" />
+    <circle cx="12" cy="14.600" r="0.900" {...dot} />
+    <ellipse cx="12" cy="19" rx="8" ry="2.600" />
+    <circle cx="8.800" cy="19.200" r="0.800" {...dot} />
+    <circle cx="12.800" cy="18.500" r="0.800" {...dot} />
+    <circle cx="15.600" cy="19.500" r="0.700" {...dot} />
+  </Svg>
+);
+
+/** A Petri dish (rim and lid) with colonies of different sizes: microbial limit testing. */
+export const PetriColoniesIcon: CapabilityIcon = ({ className }) => (
+  <Svg className={className}>
+    <circle cx="12" cy="12" r="9" />
+    <circle cx="12" cy="12" r="7.200" strokeWidth="1.100" />
+    <circle cx="9" cy="9.300" r="1.500" {...dot} />
+    <circle cx="13.900" cy="8.200" r="0.900" {...dot} />
+    <circle cx="15.300" cy="12.600" r="1.700" {...dot} />
+    <circle cx="9.600" cy="14.300" r="1.100" {...dot} />
+    <circle cx="13.300" cy="16" r="0.800" {...dot} />
+    <circle cx="11.800" cy="11.600" r="0.600" {...dot} />
+  </Svg>
+);
+
 /** A bacterium shedding endotoxin: bacterial endotoxin testing. */
 export const EndotoxinIcon: CapabilityIcon = ({ className }) => (
   <Svg className={className}>
@@ -981,6 +1047,7 @@ const RULES: [RegExp, CapabilityIcon][] = [
 
   // cell line, expression and process development
   [/clone screening/i, CloneScreeningIcon],
+  [/stable cell pool|cell pool generation/i, CellClusterIcon],
   [/cell line development/i, CellLineIcon],
   [/expression platforms?/i, ExpressionCellIcon],
   [/recombinant protein expression/i, PlasmidIcon],
@@ -1007,7 +1074,7 @@ const RULES: [RegExp, CapabilityIcon][] = [
   [/clinical development/i, ClinicalClipboardIcon],
 
   // bioassays
-  [/reporter gene/i, ReporterIcon],
+  [/reporter gene/i, GeneExpressionIcon],
   [/\bADCC\b|\bCDC\b/i, CellKillingIcon],
   [/mechanism-of-action/i, PathwayIcon],
   [/^binding assays?/i, AntibodyBindingIcon],
@@ -1018,15 +1085,15 @@ const RULES: [RegExp, CapabilityIcon][] = [
   // microbiology
   [/endotoxin/i, EndotoxinIcon],
   [/sterility/i, SterilityIcon],
-  [/bioburden/i, PetriDishIcon],
+  [/bioburden/i, MembraneFiltrationIcon],
   [/environmental monitoring/i, AirMonitoringIcon],
   [/mycoplasma/i, MycoplasmaIcon],
-  [/microbial limit/i, MicrobialLimitIcon],
+  [/microbial limit/i, PetriColoniesIcon],
   [/water/i, WaterTestingIcon],
   [/particulate/i, ParticulateIcon],
 
   // physicochemical methods and attributes
-  [/identity testing/i, FingerprintIcon],
+  [/identity testing/i, MoleculeLensIcon],
   [/primary structure/i, SequenceIcon],
   [/disulfide/i, DisulfideIcon],
   [/glycan/i, GlycanIcon],

@@ -64,7 +64,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { CDMOPage, CDMOSection } from '@/data/cdmoData';
-import { getCapabilityIcon, getModalityIcon } from '@/components/icons/CapabilityIcons';
+import { getCapabilityIcon, getModalityIcon, CellClusterIcon } from '@/components/icons/CapabilityIcons';
 import { HOME_ADVANTAGE_ICONS } from '@/components/icons/homeAdvantageIcons';
 import { iconFromRef, pickIcon, type IconComponent } from '@/components/icons/SiteIcon';
 
@@ -123,7 +123,9 @@ export function getBulletSvgIcon(text: string): string | null {
   if (lower.includes('documentation') || lower.includes('image-based') || lower.includes('gmp-compliant')) {
     return null;
   }
-  if (lower.includes('stable cell pool') || lower.includes('pool generation') || lower.includes('cell culture')) {
+  // Stable cell pools use the drawn cell cluster (getBulletCapabilityIcon), not the culture-flask drawing.
+  if (lower.includes('stable cell pool') || lower.includes('pool generation')) return null;
+  if (lower.includes('cell culture')) {
     return '/images/cell culture.svg';
   }
   if (lower.includes('high-throughput') || lower.includes('clone screening')) {
@@ -145,7 +147,7 @@ export function getBulletCapabilityIcon(text: string, index: number) {
   const lower = text.toLowerCase();
   if (lower.includes('gene construct') || lower.includes('codon') || lower.includes('gene synthesis')) return Dna;
   if (lower.includes('vector') || lower.includes('construct')) return Workflow;
-  if (lower.includes('stable cell pool') || lower.includes('pool generation')) return FlaskConical;
+  if (lower.includes('stable cell pool') || lower.includes('pool generation')) return CellClusterIcon as unknown as typeof FlaskConical;
   if (lower.includes('single-cell') || lower.includes('monoclonality')) return Microscope;
   if (lower.includes('high-throughput') || lower.includes('selection')) return Sliders;
   if (lower.includes('monitoring') || lower.includes('metabolite')) return LineChart;
