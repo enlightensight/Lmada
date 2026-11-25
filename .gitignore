@@ -49,3 +49,6 @@ Panaroma Photo*
 scratch/
 
 .cms-audit.lock
+
+# server packages built by scripts/build_server_package.mjs
+/deploy/

@@ -14,6 +14,8 @@ export function proxy(request: NextRequest) {
   if (!PREVIEW_PARAMS.some((p) => url.searchParams.has(p))) return NextResponse.next();
   if (verifySessionValue(request.cookies.get(ADMIN_SESSION_COOKIE)?.value)) return NextResponse.next();
 
+  // Next.js needs an absolute URL here; behind Apache/Nginx it is built from the forwarded Host and protocol
+  // (the server's proxy config must pass them: ProxyPreserveHost On + X-Forwarded-Proto).
   const published = url.clone();
   PREVIEW_PARAMS.forEach((p) => published.searchParams.delete(p));
   return NextResponse.redirect(published, 307);
