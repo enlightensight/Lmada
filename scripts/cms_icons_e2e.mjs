@@ -17,6 +17,9 @@ import path from 'path';
 const args = process.argv.slice(2);
 const arg = (name, fallback) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : fallback; };
 const BASE = arg('--base', 'http://localhost:3000');
+// The admin API requires a signed-in session (src/lib/adminSession.ts)
+import { signInAdmin } from './admin_session.mjs';
+await signInAdmin(BASE);
 const ONLY = arg('--only', null);
 const USAGE_OUT = arg('--usage-out', null);
 

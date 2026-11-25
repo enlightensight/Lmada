@@ -202,6 +202,9 @@ node scripts/test_admin_crud.mjs          # basic API CRUD
 node scripts/cms_icons_e2e.mjs            # every icon the admin lists can be replaced on the live page
 ```
 
+The scripts sign in first (`scripts/admin_session.mjs`) with `ADMIN_USERNAME` / `ADMIN_PASSWORD` from the
+environment or `.env.local`. Any new script that calls `/api/admin/*` or opens `?preview=true` must do the same.
+
 Rules the audit enforces — keep them true when changing a layout:
 
 - Everything a visitor sees on a page comes from that page's CMS record. Copy that belongs to a page's fixed
@@ -256,7 +259,13 @@ git-ignored and exists only on a developer machine. It lives in its own reposito
 ## Security Considerations
 
 - **No real backend**: The contact form simulates a submission with `setTimeout` and does not send data anywhere. If you wire it to a real endpoint, validate all inputs server-side and protect against spam/abuse.
-- **No auth**: There is no authentication, authorization, or session handling.
+- **Admin sign-in** (`src/lib/adminSession.ts`): `/api/admin/auth` checks `ADMIN_USERNAME` / `ADMIN_PASSWORD`
+  from the server environment and sets an httpOnly, signed session cookie (12 hours; 8 failed attempts per address
+  lock sign-in for 15 minutes). Every handler under `src/app/api/admin/` must start with
+  `const denied = requireAdmin(request); if (denied) return denied;` (`/api/admin/auth` excepted).
+  `src/proxy.ts` sends visitors without a session away from `?preview=true` / `?previewId=` (unpublished drafts).
+  In production the variables are required (see `.env.example`); `npm run dev` falls back to a development login.
+  Never put credentials in client components or commit them; local values go in the git-ignored `.env.local`.
 - **External images**: Several components load images from `https://images.unsplash.com` and `https://images.pexels.com`. If you add a strict Content Security Policy, allowlist these domains or move assets to `/public`.
 - **Client-side code**: Because the site is mostly static, do not place secrets or API keys in client components. Use server-side Next.js features or environment variables only if a backend is introduced.
 - **Custom cursor**: `CustomCursor.tsx` reads `window` and `document` inside `useEffect` and uses a React Hook lint rule workaround. It intentionally returns early on touch devices to avoid broken behavior on mobile.

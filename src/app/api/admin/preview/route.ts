@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/adminSession';
 import { savePreviewPage } from '@/lib/previewStore';
 import type { CDMOPage } from '@/data/cdmoData';
 
@@ -9,6 +10,8 @@ export const dynamic = 'force-dynamic';
  * Body: { page, id? } -> { success, id }. Open the page with ?preview=true&previewId=<id>.
  */
 export async function POST(request: Request) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const body = await request.json();
     const page = body?.page as CDMOPage | undefined;

@@ -37,7 +37,7 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
       if (!res.ok || !data.success) {
         setError(data.error || 'Invalid credentials. Access denied.');
@@ -45,28 +45,11 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
         return;
       }
 
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('lambda_admin_auth', 'true');
-        localStorage.setItem('lambda_admin_token', data.token);
-        localStorage.setItem('lambda_admin_user', JSON.stringify(data.user));
-      }
-
+      // The server has set an httpOnly session cookie; nothing secret is kept in the browser.
+      setPassword('');
       onLogin(data.user);
-    } catch (err: any) {
-      // Local client fallback validation if offline
-      if (username === 'adminlamda' && password === 'Insight2026@Lamda') {
-        const dummyUser = {
-          username: 'adminlamda',
-          role: 'CDMO Content Administrator',
-        };
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('lambda_admin_auth', 'true');
-          localStorage.setItem('lambda_admin_user', JSON.stringify(dummyUser));
-        }
-        onLogin(dummyUser);
-      } else {
-        setError('Connection error or invalid credentials.');
-      }
+    } catch {
+      setError('Could not reach the server. Please check your connection and try again.');
     } finally {
       setLoading(false);
     }
@@ -130,7 +113,7 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                  placeholder="adminlamda"
+                  placeholder="Username"
                   className="w-full pl-12 pr-4 py-3.5 bg-slate-50/70 border border-slate-200 rounded-xl text-sm sm:text-base font-medium text-neutral-900 placeholder:text-slate-400 focus:outline-none focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-brand-blue/15 transition-all"
                 />
               </div>

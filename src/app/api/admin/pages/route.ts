@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/adminSession';
 import { getAllStoredPages, saveDraftPage, publishStoredPage, getBuiltInPageKeys } from '@/lib/pagesStorage';
 import { findPageOwningAddress, getPublicPath } from '@/lib/pageUrls';
 import type { CDMOPage } from '@/data/cdmoData';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     // Admin dashboard fetches all pages including draft metadata
     const pages = getAllStoredPages({ includeDrafts: true });
@@ -19,6 +22,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   try {
     const body = await req.json();
     const pageData: CDMOPage = body.page || body;

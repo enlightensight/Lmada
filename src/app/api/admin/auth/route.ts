@@ -1,48 +1,76 @@
 import { NextResponse } from 'next/server';
+import {
+  ADMIN_SESSION_COOKIE,
+  adminFromRequest,
+  adminLoginConfigured,
+  checkCredentials,
+  clearFailedSignIns,
+  clientAddress,
+  createSessionValue,
+  recordFailedSignIn,
+  sessionCookieOptions,
+  tooManyFailedSignIns,
+} from '@/lib/adminSession';
 
 export const dynamic = 'force-dynamic';
 
-const ADMIN_USERNAME = 'adminlamda';
-const ADMIN_PASSWORD = 'Insight2026@Lamda';
+const userInfo = (username: string) => ({
+  username,
+  role: 'CDMO Content Administrator',
+  name: 'Lambda Administrator',
+});
 
+/** Sign in: checks the credentials on the server and sets the session cookie. */
 export async function POST(request: Request) {
+  const address = clientAddress(request);
   try {
-    const body = await request.json();
-    const { username, password } = body;
-
-    if (!username || !password) {
+    if (!adminLoginConfigured()) {
       return NextResponse.json(
-        { success: false, error: 'Username and password are required' },
-        { status: 400 }
+        { success: false, error: 'Admin sign-in is not set up on this server yet (ADMIN_USERNAME / ADMIN_PASSWORD).' },
+        { status: 503 }
+      );
+    }
+    if (tooManyFailedSignIns(address)) {
+      return NextResponse.json(
+        { success: false, error: 'Too many failed attempts. Please wait 15 minutes and try again.' },
+        { status: 429 }
       );
     }
 
-    if (username.trim() === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-      // Generate secure session token
-      const sessionToken = Buffer.from(
-        `lambda_cdmo_admin_${username}_${Date.now()}`
-      ).toString('base64');
-
-      return NextResponse.json({
-        success: true,
-        message: 'Authentication successful',
-        token: sessionToken,
-        user: {
-          username: ADMIN_USERNAME,
-          role: 'CDMO Content Administrator',
-          name: 'Lambda Administrator',
-        },
-      });
+    const body = await request.json().catch(() => ({}));
+    const username = typeof body?.username === 'string' ? body.username : '';
+    const password = typeof body?.password === 'string' ? body.password : '';
+    if (!username || !password) {
+      return NextResponse.json({ success: false, error: 'Username and password are required' }, { status: 400 });
     }
 
-    return NextResponse.json(
-      { success: false, error: 'Invalid username or password. Access denied.' },
-      { status: 401 }
-    );
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, error: error?.message || 'Authentication failed' },
-      { status: 500 }
-    );
+    if (!checkCredentials(username, password)) {
+      recordFailedSignIn(address);
+      return NextResponse.json({ success: false, error: 'Invalid username or password. Access denied.' }, { status: 401 });
+    }
+
+    clearFailedSignIns(address);
+    const signedIn = username.trim();
+    const response = NextResponse.json({ success: true, message: 'Authentication successful', user: userInfo(signedIn) });
+    response.cookies.set(ADMIN_SESSION_COOKIE, createSessionValue(signedIn), sessionCookieOptions(request));
+    return response;
+  } catch {
+    return NextResponse.json({ success: false, error: 'Authentication failed' }, { status: 500 });
   }
+}
+
+/** Is this browser signed in? Used by the admin screens when they open. */
+export async function GET(request: Request) {
+  const username = adminFromRequest(request);
+  return NextResponse.json(
+    username ? { success: true, authenticated: true, user: userInfo(username) } : { success: true, authenticated: false },
+    { headers: { 'Cache-Control': 'no-store' } }
+  );
+}
+
+/** Sign out: removes the session cookie. */
+export async function DELETE(request: Request) {
+  const response = NextResponse.json({ success: true });
+  response.cookies.set(ADMIN_SESSION_COOKIE, '', sessionCookieOptions(request, 0));
+  return response;
 }

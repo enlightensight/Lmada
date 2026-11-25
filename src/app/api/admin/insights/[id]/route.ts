@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/adminSession';
 import { getAllStoredInsightList, deleteStoredInsight, saveStoredInsight } from '@/lib/insightsStorage';
 
 export const dynamic = 'force-dynamic';
@@ -7,6 +8,8 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = await params;
     const allItems = getAllStoredInsightList();
@@ -32,6 +35,8 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = await params;
     const body = await request.json();
@@ -77,6 +82,8 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = await params;
     const deleted = deleteStoredInsight(id);

@@ -11,6 +11,9 @@ import path from 'path';
 
 const i = process.argv.indexOf('--base');
 const BASE = i >= 0 ? process.argv[i + 1] : 'http://localhost:3000';
+// The admin API requires a signed-in session (src/lib/adminSession.ts)
+import { signInAdmin } from './admin_session.mjs';
+await signInAdmin(BASE);
 const STORE = path.join(process.cwd(), 'src', 'data', 'storedPages.json');
 const ORIGINAL = fs.readFileSync(STORE);
 

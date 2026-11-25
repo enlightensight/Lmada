@@ -21,6 +21,7 @@ import type { InsightItem } from '@/data/insightsData';
 import { INSIGHT_TABS } from '@/data/insightsData';
 import BlogAdminEditor from './BlogAdminEditor';
 import BlogAdminLogin from './BlogAdminLogin';
+import { fetchAdminSession, signOutAdmin } from './adminAuthClient';
 
 interface BlogAdminDashboardProps {
   hideHeader?: boolean;
@@ -38,22 +39,17 @@ export default function BlogAdminDashboard({ hideHeader = false }: BlogAdminDash
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
-  // Check auth on mount
+  // Ask the server whether this browser has a valid admin session
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const isAuth = localStorage.getItem('lambda_admin_auth') === 'true';
-      const storedUser = localStorage.getItem('lambda_admin_user');
-      if (isAuth) {
-        setIsAuthenticated(true);
-        if (storedUser) {
-          try {
-            setCurrentUser(JSON.parse(storedUser));
-          } catch (e) {}
-        }
-      } else {
-        setIsAuthenticated(false);
-      }
-    }
+    let active = true;
+    fetchAdminSession().then((user) => {
+      if (!active) return;
+      setCurrentUser(user);
+      setIsAuthenticated(!!user);
+    });
+    return () => {
+      active = false;
+    };
   }, []);
 
   // Fetch all insights from storage API
@@ -84,12 +80,8 @@ export default function BlogAdminDashboard({ hideHeader = false }: BlogAdminDash
     loadInsights();
   };
 
-  const handleLogout = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('lambda_admin_auth');
-      localStorage.removeItem('lambda_admin_token');
-      localStorage.removeItem('lambda_admin_user');
-    }
+  const handleLogout = async () => {
+    await signOutAdmin();
     setIsAuthenticated(false);
     setCurrentUser(null);
   };

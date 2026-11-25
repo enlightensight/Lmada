@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/adminSession';
 import fs from 'fs';
 import path from 'path';
 
@@ -18,6 +19,8 @@ const ALLOWED_EXTENSIONS = [...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS, ...DOCUMEN
 const UNSAFE_SVG = /<script|<foreignObject|<iframe|<embed|<object|<use[^>]+href\s*=\s*["']?(?!#)|\son[a-z]+\s*=|javascript:|data:text\/html|<!ENTITY/i;
 
 export async function POST(request: Request) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File | null;

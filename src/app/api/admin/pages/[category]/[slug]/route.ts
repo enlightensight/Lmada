@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/adminSession';
 import {
   getDraftPageForAdmin,
   saveDraftPage,
@@ -22,6 +23,8 @@ interface RouteContext {
 }
 
 export async function GET(req: Request, context: RouteContext) {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   try {
     const { category, slug } = await context.params;
     const page = getDraftPageForAdmin(category, slug);
@@ -51,6 +54,8 @@ export async function GET(req: Request, context: RouteContext) {
 }
 
 export async function PUT(req: Request, context: RouteContext) {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   try {
     const { category, slug } = await context.params;
     const body = await req.json();
@@ -135,6 +140,8 @@ export async function PUT(req: Request, context: RouteContext) {
 }
 
 export async function DELETE(req: Request, context: RouteContext) {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   try {
     const { category, slug } = await context.params;
     const result = deleteStoredPage(category, slug);

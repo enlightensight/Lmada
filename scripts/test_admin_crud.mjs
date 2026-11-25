@@ -1,5 +1,8 @@
 // scripts/test_admin_crud.mjs
 const BASE_URL = 'http://localhost:3000';
+// The admin API requires a signed-in session (src/lib/adminSession.ts)
+import { signInAdmin } from './admin_session.mjs';
+await signInAdmin(BASE_URL);
 
 async function run() {
   console.log('=== Starting Admin Pages & Insights CRUD Verification ===\n');
