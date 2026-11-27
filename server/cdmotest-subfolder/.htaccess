@@ -1,0 +1,42 @@
+# https://www.lambda-cro.com/CDMOtest (this folder: /var/www/lambda-cro.com/CDMOtest)
+# - /CDMOtest/virtualtour/...  the virtual tour, served by Apache straight from disk (virtualtour/ here)
+# - everything else            the Next.js app (pm2 "lambda-cdmotest" on 127.0.0.1:3107), via __node_bridge.php
+# WordPress (the main site) never sees /CDMOtest: its rules skip existing folders such as this one.
+Options -Indexes
+DirectoryIndex disabled
+# The app's home is /CDMOtest (no trailing slash); Apache must not add one (Next.js would remove it again: a loop)
+DirectorySlash Off
+# For the folder's own address (/CDMOtest, no slash) Apache skips the rewrite rules below and would refuse to list
+# the folder (403); that refusal is handed to the bridge instead, which serves the home page. Only GET requests reach
+# the home page this way (no form posts to it).
+ErrorDocument 403 /CDMOtest/__node_bridge.php
+
+# Hidden files are never served
+RedirectMatch 404 ^/CDMOtest(/.*)?/\.
+
+# Let the bridge read raw request bodies (file uploads in /admin) instead of PHP parsing them
+<IfModule php_module>
+    php_flag enable_post_data_reading Off
+    php_value post_max_size 64M
+    php_value upload_max_filesize 64M
+    php_value max_execution_time 180
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /CDMOtest/
+
+    # The virtual tour: files on disk (its index.html opens the start scene with relative links, so the address
+    # must end in a slash)
+    RewriteRule ^virtualtour$ virtualtour/ [R=301,L]
+    RewriteRule ^virtualtour/$ virtualtour/index.html [L]
+    RewriteRule ^virtualtour/ - [L]
+
+    # The bridge itself is not a page
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^__node_bridge\.php$ - [R=404,L]
+    RewriteRule ^__node_bridge\.php$ - [L]
+
+    # Everything else (including /CDMOtest itself) goes to the app
+    RewriteRule ^ __node_bridge.php [L]
+</IfModule>

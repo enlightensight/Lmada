@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, MapPin, Phone, Check, ArrowRight } from 'lucide-react';
@@ -23,7 +24,7 @@ export default function Contact() {
     setStatus('loading');
 
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(withBase('/api/contact'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

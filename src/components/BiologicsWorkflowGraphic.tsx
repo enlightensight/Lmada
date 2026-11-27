@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -23,7 +24,7 @@ export default function BiologicsWorkflowGraphic({
     >
       <div className="w-full max-w-[760px] flex items-center justify-center">
         <img
-          src={src}
+          src={withBase(src)}
           alt={alt}
           className="w-full h-auto object-contain transition-transform duration-500 hover:scale-[1.015]"
           loading="eager"

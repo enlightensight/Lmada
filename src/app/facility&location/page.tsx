@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -230,7 +231,7 @@ export default async function FacilityAndLocationPage({ searchParams }: PageProp
             <Reveal delay={0.1}>
               {hero.video ? (
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-900">
-                  <video src={hero.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                  <video src={withBase(hero.video)} autoPlay loop muted playsInline className="w-full h-full object-cover" />
                 </div>
               ) : (
                 <FacilityHeroCarousel images={hero.images} alt={page?.title} />

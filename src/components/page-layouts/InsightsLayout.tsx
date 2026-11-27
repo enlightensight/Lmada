@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -53,7 +54,7 @@ export default function InsightsLayout({ page, initialInsights }: InsightsLayout
 
   // Fetch latest insights dynamically from storage
   useEffect(() => {
-    fetch('/api/insights')
+    fetch(withBase('/api/insights'))
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.data) {
@@ -177,7 +178,7 @@ export default function InsightsLayout({ page, initialInsights }: InsightsLayout
                   {/* Left Column: Featured Article Image */}
                   <div className="lg:col-span-5 relative aspect-[16/10] lg:aspect-auto min-h-[300px] lg:min-h-[440px] overflow-hidden bg-neutral-100">
                     <img
-                      src={featuredItem.image}
+                      src={withBase(featuredItem.image)}
                       alt={featuredItem.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -278,7 +279,7 @@ export default function InsightsLayout({ page, initialInsights }: InsightsLayout
                     {/* Top image */}
                     <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100">
                       <img
-                        src={item.image}
+                        src={withBase(item.image)}
                         alt={item.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />

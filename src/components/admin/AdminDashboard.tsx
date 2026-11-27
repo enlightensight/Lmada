@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -73,7 +74,7 @@ export default function AdminDashboard() {
               className="flex items-center shrink-0 cursor-pointer"
             >
               <Image
-                src="/images/lambda_novum_logo.png"
+                src={withBase("/images/lambda_novum_logo.png")}
                 alt="Lambda & Novum CDMO"
                 width={2991}
                 height={358}

@@ -34,7 +34,12 @@ const virtualTourRedirects = virtualTourUrl
     ]
   : [];
 
+// Optional sub-folder, e.g. NEXT_BASE_PATH=/CDMOtest for https://www.lambda-cro.com/CDMOtest. Next.js prefixes its
+// links, redirects and /_next files; src/lib/basePath.ts (withBase) prefixes everything else.
+const basePath = (process.env.NEXT_BASE_PATH || '').trim().replace(/\/+$/, '');
+
 const nextConfig: NextConfig = {
+  ...(basePath ? { basePath, env: { NEXT_PUBLIC_BASE_PATH: basePath } } : {}),
   // Self-contained build (`node server.js`) for servers without npm, e.g. the client's SFTP-only host.
   // Only when asked for (scripts/build_server_package.mjs sets it); Render keeps the normal `next start` build.
   ...(process.env.NEXT_STANDALONE === '1' ? { output: 'standalone' as const } : {}),
@@ -54,6 +59,9 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...virtualTourRedirects,
+
+      // The admin sign-in form is on /admin itself; /admin/login is a familiar address for it
+      { source: '/admin/login', destination: '/admin', permanent: false },
 
       // Primary Hub Canonical Redirects
       {

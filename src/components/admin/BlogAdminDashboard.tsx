@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -56,7 +57,7 @@ export default function BlogAdminDashboard({ hideHeader = false }: BlogAdminDash
   const loadInsights = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/insights');
+      const res = await fetch(withBase('/api/admin/insights'));
       const data = await res.json();
       if (data.success && Array.isArray(data.items)) {
         setItems(data.items);
@@ -122,7 +123,7 @@ export default function BlogAdminDashboard({ hideHeader = false }: BlogAdminDash
 
     setDeletingId(id);
     try {
-      const res = await fetch(`/api/admin/insights/${id}`, {
+      const res = await fetch(withBase(`/api/admin/insights/${id}`), {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -302,7 +303,7 @@ export default function BlogAdminDashboard({ hideHeader = false }: BlogAdminDash
                       <div className="flex items-center gap-3.5 max-w-md">
                         <div className="relative w-16 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                           <img
-                            src={item.image}
+                            src={withBase(item.image)}
                             alt={item.title}
                             className="w-full h-full object-cover"
                           />
@@ -416,7 +417,7 @@ export default function BlogAdminDashboard({ hideHeader = false }: BlogAdminDash
             className="flex items-center shrink-0 cursor-pointer"
           >
             <Image
-              src="/images/lambda_novum_logo.png"
+              src={withBase("/images/lambda_novum_logo.png")}
               alt="Lambda & Novum CDMO"
               width={2991}
               height={358}

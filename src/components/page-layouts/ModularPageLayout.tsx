@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -115,13 +116,13 @@ export default function ModularPageLayout({ page, content }: ModularPageLayoutPr
                       playsInline
                       className="w-full h-full object-cover"
                     >
-                      <source src={page.heroVideo || page.image} type="video/mp4" />
+                      <source src={withBase(page.heroVideo || page.image)} type="video/mp4" />
                     </video>
                   </div>
                 ) : (
                   <div className="relative aspect-[4/3] rounded-[14px] overflow-hidden bg-slate-950 border border-slate-200 shadow-xl">
                     <img
-                      src={heroImage}
+                      src={withBase(heroImage)}
                       alt={page.title}
                       className={`w-full h-full ${
                         page.category?.toLowerCase() === 'modalities' || heroImage.includes('/modalities/')

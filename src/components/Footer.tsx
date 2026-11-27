@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, MapPin } from 'lucide-react';
@@ -59,7 +60,7 @@ export default function Footer() {
           <div className="shrink-0 lg:grow min-[1024px]:basis-96 min-[1280px]:basis-[460px] min-[1440px]:basis-[500px] lg:max-w-[640px]">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image
-                src="/images/lambda_novum_logo.png"
+                src={withBase("/images/lambda_novum_logo.png")}
                 alt="Lambda CDMO"
                 width={2991}
                 height={358}
@@ -142,7 +143,7 @@ export default function Footer() {
                       <li key={link.name}>
                         {isExternal ? (
                           <a
-                            href={link.href}
+                            href={withBase(link.href)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-neutral-500 hover:text-brand-blue transition-colors"

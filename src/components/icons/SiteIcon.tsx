@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import React from 'react';
 import {
   Activity,
@@ -117,7 +118,7 @@ function imageIcon(src: string): IconComponent {
   const ImageIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={src}
+      src={withBase(src)}
       alt=""
       aria-hidden="true"
       className={`${className} object-contain transition-[filter] duration-200 group-hover:brightness-0 group-hover/pill:brightness-0`}

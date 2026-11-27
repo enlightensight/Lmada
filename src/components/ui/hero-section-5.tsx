@@ -1,4 +1,5 @@
 'use client'
+import { withBase } from '@/lib/basePath';
 import React from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -33,14 +34,14 @@ export function HeroSection({
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                             key={videoSrc}
-                            src={videoSrc}
+                            src={withBase(videoSrc)}
                             alt=""
                             className="absolute inset-0 w-full h-full object-cover object-center"
                         />
                     ) : (
                         <video
                             key={videoSrc || '/videos/newhero.mp4'}
-                            src={videoSrc || '/videos/newhero.mp4'}
+                            src={withBase(videoSrc || '/videos/newhero.mp4')}
                             autoPlay
                             loop
                             muted

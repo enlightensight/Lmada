@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -31,7 +32,7 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/admin/auth', {
+      const res = await fetch(withBase('/api/admin/auth'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -80,7 +81,7 @@ export default function BlogAdminLogin({ onLogin }: BlogAdminLoginProps) {
         <div className="w-full mb-8">
           <Link href="/" className="block w-full transition-transform hover:scale-[1.01] focus:outline-none">
             <Image
-              src="/images/lambda_novum_logo.png"
+              src={withBase("/images/lambda_novum_logo.png")}
               alt="Lambda & Novum"
               width={2991}
               height={358}

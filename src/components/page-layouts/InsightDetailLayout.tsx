@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import { useState } from 'react';
 import Link from 'next/link';
 import {
@@ -157,7 +158,7 @@ export default function InsightDetailLayout({ item, relatedItems }: InsightDetai
             {/* Featured Hero Banner Image */}
             <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-neutral-200/90 shadow-md bg-neutral-100 group">
               <img
-                src={item.image}
+                src={withBase(item.image)}
                 alt={item.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
@@ -413,7 +414,7 @@ export default function InsightDetailLayout({ item, relatedItems }: InsightDetai
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
                 <a
-                  href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+                  href={withBase("/virtual-tour/00%20MAIN%20BUILDING/index.htm")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center px-5 py-2.5 rounded-xl border border-white/30 text-white hover:bg-white hover:text-brand-navy font-semibold text-xs uppercase tracking-wider transition-all"
@@ -479,7 +480,7 @@ export default function InsightDetailLayout({ item, relatedItems }: InsightDetai
                 >
                   <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100">
                     <img
-                      src={rel.image}
+                      src={withBase(rel.image)}
                       alt={rel.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />

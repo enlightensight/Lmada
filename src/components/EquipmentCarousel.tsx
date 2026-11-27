@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -87,7 +88,7 @@ export default function EquipmentCarousel({
           {/* Foreground Main Image: object-cover perfectly fits panel edge to edge */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={encodeURI(currentItem.src)}
+            src={withBase(encodeURI(currentItem.src))}
             alt={currentItem.title || sectionTitle || 'Equipment'}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.05] contrast-[1.03]"
           />

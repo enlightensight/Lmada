@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -229,8 +230,8 @@ export default function CDMOLocationsMapSection({
     }
 
     Promise.all([
-      fetch('/data/countries-110m.json').then((r) => r.json()),
-      fetch('/data/india.json').then((r) => r.json())
+      fetch(withBase('/data/countries-110m.json')).then((r) => r.json()),
+      fetch(withBase('/data/india.json')).then((r) => r.json())
     ])
       .then(([t, it]) => {
         if (!isMounted || !svgRef.current) return;
@@ -551,7 +552,7 @@ export default function CDMOLocationsMapSection({
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={encodeURI(activeLoc.photo)}
+                      src={withBase(encodeURI(activeLoc.photo))}
                       alt={`${activeLoc.name} Biologics Facility`}
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                       style={{
@@ -600,7 +601,7 @@ export default function CDMOLocationsMapSection({
 
                     {activeLoc.tourHref && (
                       <a
-                        href={activeLoc.tourHref}
+                        href={withBase(activeLoc.tourHref)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center gap-2 h-[42px] px-5 rounded-[10px] text-sm font-medium tracking-wide text-neutral-900 border border-neutral-900 bg-white hover:bg-neutral-900 hover:text-white transition-all shadow-xs hover:-translate-y-0.5 active:scale-98 w-full sm:w-auto"

@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -113,7 +114,7 @@ export default function LondonHeroCarousel({ images, alt }: LondonHeroCarouselPr
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={currentImage.src}
+            src={withBase(currentImage.src)}
             alt={currentImage.alt}
             className="w-full h-full object-cover"
           />

@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import type { Metadata } from "next";
 import "./globals.css";
 import LayoutWrapper from "@/components/LayoutWrapper";
@@ -6,9 +7,9 @@ export const metadata: Metadata = {
   title: "Lambda CDMO — Integrated Biologics Solutions & GMP Manufacturing",
   description: "Lambda operates as an integrated solutions provider for biologics drug development, cGMP manufacturing, cell line engineering, and clinical trials enablement globally.",
   icons: {
-    icon: "/images/fav.png",
-    shortcut: "/images/fav.png",
-    apple: "/images/fav.png",
+    icon: withBase("/images/fav.png"),
+    shortcut: withBase("/images/fav.png"),
+    apple: withBase("/images/fav.png"),
   },
   keywords: [
     "biologics CDMO",

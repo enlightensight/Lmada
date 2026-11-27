@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -93,7 +94,7 @@ function renderFormattedText(text: string) {
       return (
         <a
           key={i}
-          href={link[2]}
+          href={withBase(link[2])}
           target={external ? '_blank' : undefined}
           rel={external ? 'noopener noreferrer' : undefined}
           className="text-brand-blue hover:text-brand-blue-hover underline font-medium inline-flex items-center gap-1"
@@ -256,7 +257,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     {isCareers ? (
                       <div className="mt-8">
                         <a
-                          href={careersHref}
+                          href={withBase(careersHref)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all group/btn"
@@ -442,7 +443,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     ) : (section.video || (section.mediaType === 'video' && section.image) || (section.image && /\.(mp4|webm|ogg|mov)$/i.test(section.image))) ? (
                       <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950 border border-neutral-200 rounded-[10px] shadow-sm">
                         <video
-                          src={section.video || section.image}
+                          src={withBase(section.video || section.image)}
                           autoPlay
                           loop
                           muted
@@ -452,13 +453,13 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       </div>
                     ) : isCareers ? (
                       <a
-                        href={careersHref}
+                        href={withBase(careersHref)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="block relative aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200 rounded-[10px] shadow-sm group cursor-pointer"
                       >
                         <img
-                          src={section.image}
+                          src={withBase(section.image)}
                           alt={section.title}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
@@ -479,7 +480,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                           } overflow-hidden border border-neutral-200 rounded-[10px] shadow-sm flex items-center justify-center`}
                       >
                         <img
-                          src={section.image}
+                          src={withBase(section.image)}
                           alt={section.title}
                           className={`w-full h-full ${isDiagram ? 'object-contain' : 'object-cover'
                             } transition-transform duration-700 hover:scale-105`}
@@ -716,7 +717,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       {isCareers && (
                         <div className="mt-7">
                           <a
-                            href={careersHref}
+                            href={withBase(careersHref)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all group/btn"
@@ -807,7 +808,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               {isCareers && (
                 <div className="mt-8">
                   <a
-                    href={careersHref}
+                    href={withBase(careersHref)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 px-8 py-4 rounded-[10px] bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold text-sm uppercase tracking-wider shadow-md hover:shadow-lg active:scale-95 transition-all group/btn"
@@ -836,7 +837,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               ) : heroIsVideo ? (
                 <div className={`relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg ${isAbout ? 'bg-brand-navy' : 'bg-neutral-950'}`}>
                   <video
-                    src={heroMedia}
+                    src={withBase(heroMedia)}
                     aria-label={page.title}
                     autoPlay
                     loop
@@ -849,7 +850,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                 <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-6 sm:p-8 md:p-10 flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={heroImage}
+                    src={withBase(heroImage)}
                     alt={page.title || 'Biologics Development & Manufacturing — From Gene to Clinic'}
                     className="w-full h-auto max-h-[520px] object-contain"
                   />
@@ -857,7 +858,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
-                    src={heroImage}
+                    src={withBase(heroImage)}
                     alt={page.title}
                     className="w-full h-full object-cover"
                   />
@@ -882,7 +883,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                   {isVideoUrl(introMedia) ? (
                     <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950 border border-neutral-200 rounded-[10px] shadow-sm">
                       <video
-                        src={introMedia}
+                        src={withBase(introMedia)}
                         autoPlay
                         loop
                         muted
@@ -891,7 +892,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       />
                     </div>
                   ) : introMedia ? (
-                    <BiologicsWorkflowGraphic src={introMedia} />
+                    <BiologicsWorkflowGraphic src={withBase(introMedia)} />
                   ) : null}
                 </Reveal>
                 <Reveal delay={0.1}>
@@ -1076,7 +1077,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                             <div className="relative w-full sm:w-48 h-64 sm:h-56 rounded-xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 shrink-0">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
-                                src={encodeURI(leader.image)}
+                                src={withBase(encodeURI(leader.image))}
                                 alt={leader.name}
                                 className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                               />
@@ -1240,7 +1241,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                     <div className="relative w-full rounded-2xl border border-neutral-200/90 shadow-xl bg-white p-1.5 sm:p-2.5 md:p-3 overflow-hidden flex items-center justify-center">
                       {isVideoUrl(regMedia) ? (
                         <video
-                          src={regMedia}
+                          src={withBase(regMedia)}
                           autoPlay
                           loop
                           muted
@@ -1250,7 +1251,7 @@ export default function OverviewLayout({ page, content }: OverviewLayoutProps) {
                       ) : (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
-                          src={regMedia}
+                          src={withBase(regMedia)}
                           alt={`${reg.title} — CMC Biologics Roadmap`}
                           className="w-full h-auto block object-contain rounded-xl drop-shadow-xs"
                         />

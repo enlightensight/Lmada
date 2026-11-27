@@ -242,11 +242,16 @@ Current `next.config.ts` is empty/default. Add explicit config only if deploymen
 
 Production servers need `ADMIN_USERNAME` / `ADMIN_PASSWORD` for the CMS sign-in (see `.env.example`).
 
-### Client test server (cdmotest.lambda-cro.com)
+### Client test server (www.lambda-cro.com/CDMOtest)
 
-Apache + PHP bridge in front of a pm2-run standalone build, virtual tour served from disk at `/virtualtour`.
+The site runs in a sub-folder of the client's main (WordPress) site: Apache + PHP bridge in front of a pm2-run
+standalone build with `basePath` `/CDMOtest`, virtual tour served from disk at `/CDMOtest/virtualtour`.
+Because of the sub-folder, raw asset paths in code (`<img src>`, `<video>`, `fetch('/api/...')`, plain `<a href>`,
+`window.open`) must go through `withBase()` from `src/lib/basePath.ts`; Next.js `Link`, `redirect()` and router
+calls are prefixed automatically. Without `NEXT_BASE_PATH` (dev, Render) `withBase()` changes nothing.
 Build with `node scripts/build_server_package.mjs`, deploy with `node scripts/deploy_cdmotest.mjs`; everything else
-(layout, rollback, admin password) is in `docs/DEPLOY_CDMOTEST.md`. Server files live in `server/cdmotest/`.
+(layout, rollback, admin password) is in `docs/DEPLOY_CDMOTEST.md`. Server files live in `server/cdmotest-subfolder/`
+(public entry) and `server/cdmotest/` (redirect from the retired cdmotest.lambda-cro.com).
 
 ### Virtual tour
 

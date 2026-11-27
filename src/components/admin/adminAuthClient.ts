@@ -4,6 +4,7 @@
  * Browser side of the admin sign-in. The session itself is an httpOnly cookie set by
  * /api/admin/auth; these helpers only ask the server about it.
  */
+import { withBase } from '@/lib/basePath';
 export interface AdminUser {
   username: string;
   role?: string;
@@ -25,7 +26,7 @@ function clearLegacyKeys() {
 export async function fetchAdminSession(): Promise<AdminUser | null> {
   clearLegacyKeys();
   try {
-    const res = await fetch('/api/admin/auth', { cache: 'no-store' });
+    const res = await fetch(withBase('/api/admin/auth'), { cache: 'no-store' });
     const data = await res.json();
     return data?.authenticated ? (data.user as AdminUser) : null;
   } catch {
@@ -36,7 +37,7 @@ export async function fetchAdminSession(): Promise<AdminUser | null> {
 export async function signOutAdmin(): Promise<void> {
   clearLegacyKeys();
   try {
-    await fetch('/api/admin/auth', { method: 'DELETE' });
+    await fetch(withBase('/api/admin/auth'), { method: 'DELETE' });
   } catch {
     /* the cookie expires on its own */
   }

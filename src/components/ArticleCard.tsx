@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import Link from 'next/link';
 import { Article } from '@/data/articles';
 
@@ -16,7 +17,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
      <div className="relative overflow-hidden rounded-[10px] border border-neutral-200 bg-neutral-100 aspect-[16/10] shadow-sm hover:shadow-md transition-all duration-300">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={article.image}
+          src={withBase(article.image)}
           alt={article.title}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
         />

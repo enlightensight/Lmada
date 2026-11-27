@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import Link from 'next/link';
 import {
   FlaskConical,
@@ -130,7 +131,7 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
               {heroVideo ? (
                 <div className="w-full aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-2xl bg-neutral-950 relative">
                   <video
-                    src={heroVideo}
+                    src={withBase(heroVideo)}
                     autoPlay
                     loop
                     muted
@@ -145,7 +146,7 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
               ) : (
                 <div className="w-full aspect-[4/3] rounded-[10px] border border-neutral-200/90 shadow-xl overflow-hidden relative group">
                   <img
-                    src={heroSlides[0] || '/images/hero_cleanroom.png'}
+                    src={withBase(heroSlides[0] || '/images/hero_cleanroom.png')}
                     alt={page.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -290,7 +291,7 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
                             ) : video ? (
                               <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
                                 <video
-                                  src={video}
+                                  src={withBase(video)}
                                   autoPlay
                                   loop
                                   muted
@@ -301,7 +302,7 @@ export default function ManufacturingLayout({ page }: ManufacturingLayoutProps) 
                             ) : (
                               <div className="relative rounded-[10px] overflow-hidden border border-neutral-200 bg-neutral-100 aspect-[4/3] shadow-sm flex items-center justify-center">
                                 <img
-                                  src={slides[0]}
+                                  src={withBase(slides[0])}
                                   alt={section.title}
                                   className="w-full h-full object-cover"
                                 />

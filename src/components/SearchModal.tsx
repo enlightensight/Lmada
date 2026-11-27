@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -101,7 +102,7 @@ export default function SearchModal({ isOpen, onClose, initialQuery = '' }: Sear
         const selected = results[selectedIndex];
         onClose();
         if (selected.href.endsWith('.htm') || selected.href.startsWith('http')) {
-          window.open(selected.href, '_blank');
+          window.open(withBase(selected.href), '_blank');
         } else {
           router.push(selected.href);
         }

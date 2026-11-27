@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -99,7 +100,7 @@ export default function AboutHeroCarousel({ images }: AboutHeroCarouselProps) {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={encodeURI(currentImage.src)}
+            src={withBase(encodeURI(currentImage.src))}
             alt={currentImage.alt}
             className="w-full h-full object-cover"
           />

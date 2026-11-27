@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import {
@@ -278,7 +279,7 @@ export default function BlogAdminEditor({
       const formData = new FormData();
       formData.append('file', file);
 
-      const res = await fetch('/api/admin/upload', {
+      const res = await fetch(withBase('/api/admin/upload'), {
         method: 'POST',
         body: formData,
       });
@@ -482,7 +483,7 @@ export default function BlogAdminEditor({
     try {
       const payload = constructInsightItem();
 
-      const res = await fetch('/api/admin/insights', {
+      const res = await fetch(withBase('/api/admin/insights'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -661,7 +662,7 @@ export default function BlogAdminEditor({
               </h3>
               <div className="rounded-xl overflow-hidden border border-slate-200 max-w-lg bg-white shadow-sm">
                 <div className="relative aspect-[1200/630] w-full bg-slate-100 overflow-hidden">
-                  <img src={image} alt={title} className="w-full h-full object-cover" />
+                  <img src={withBase(image)} alt={title} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-4 space-y-1 bg-slate-50">
                   <span className="text-[10px] uppercase font-bold text-slate-400">lambdacdmo.com</span>
@@ -778,9 +779,9 @@ export default function BlogAdminEditor({
               {image && (
                 <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-slate-200 bg-slate-100 group">
                   {image.endsWith('.mp4') || image.endsWith('.webm') ? (
-                    <video src={image} controls className="w-full h-full object-cover" />
+                    <video src={withBase(image)} controls className="w-full h-full object-cover" />
                   ) : (
-                    <img src={image} alt="Hero Media" className="w-full h-full object-cover" />
+                    <img src={withBase(image)} alt="Hero Media" className="w-full h-full object-cover" />
                   )}
                   <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded text-[10px] text-white font-medium">
                     Featured Media Preview

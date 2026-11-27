@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { INSIGHT_TABS, type InsightItem } from '@/data/insightsData';
@@ -65,7 +66,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: item.summary,
       images: [
         {
-          url: item.image,
+          url: withBase(item.image),
           width: 1200,
           height: 630,
           alt: item.title,

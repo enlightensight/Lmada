@@ -1,11 +1,10 @@
 <?php
 /**
- * cdmotest.lambda-cro.com: hands every request (except /virtualtour, served from disk) to the Next.js app that
- * pm2 runs on 127.0.0.1:3107, and returns its response unchanged.
+ * https://www.lambda-cro.com/CDMOtest: hands every request under /CDMOtest (except /CDMOtest/virtualtour, served
+ * from disk) to the Next.js app that pm2 runs on 127.0.0.1:3107 (built with basePath /CDMOtest), and returns its
+ * response unchanged. Lives in /var/www/lambda-cro.com/CDMOtest next to its .htaccess.
  *
- * Used because Apache's proxy module is not enabled on this server and we have no root access. If the server
- * team enables it (a2enmod proxy proxy_http headers + ProxyPass in the vhost, see docs/DEPLOY_CDMOTEST.md),
- * this file and the rewrite rules in .htaccess can simply be removed.
+ * Used because Apache's proxy module is not enabled on this server and we have no root access.
  */
 const NODE_ORIGIN = 'http://127.0.0.1:3107';
 
@@ -13,9 +12,14 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 if ($uri === '' || $uri[0] !== '/') $uri = '/' . $uri;
 
-$https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (($_SERVER['SERVER_PORT'] ?? '') === '443');
-$clientIp = $_SERVER['REMOTE_ADDR'] ?? '';
-$host = $_SERVER['HTTP_HOST'] ?? 'cdmotest.lambda-cro.com';
+// www.lambda-cro.com is behind the Sucuri firewall, and the server only accepts web traffic from Sucuri (and a
+// few allow-listed addresses). Sucuri passes the visitor's real address and protocol in its own headers.
+$sucuriIp = trim($_SERVER['HTTP_X_SUCURI_CLIENTIP'] ?? '');
+$forwardedProto = strtolower(trim(explode(',', $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')[0]));
+$https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (($_SERVER['SERVER_PORT'] ?? '') === '443')
+    || ($sucuriIp !== '' && $forwardedProto === 'https');
+$clientIp = filter_var($sucuriIp, FILTER_VALIDATE_IP) ? $sucuriIp : ($_SERVER['REMOTE_ADDR'] ?? '');
+$host = $_SERVER['HTTP_HOST'] ?? 'www.lambda-cro.com';
 
 // Request headers: everything the browser sent, minus hop-by-hop ones and anything a client could use to
 // pretend to be the proxy. The forwarded headers are set here, from what Apache actually saw.

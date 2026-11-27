@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import AboutHeroCarousel from '@/components/AboutHeroCarousel';
@@ -55,7 +56,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
               ) : (page.heroVideo || (page.image && /\.(mp4|webm|ogg|mov)$/i.test(page.image))) ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
                   <video
-                    src={page.heroVideo || page.image}
+                    src={withBase(page.heroVideo || page.image)}
                     autoPlay
                     loop
                     muted
@@ -66,7 +67,7 @@ export default function ModalityLayout({ page, content }: ModalityLayoutProps) {
               ) : page.image ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-[#000a1c]">
                   <img
-                    src={page.image}
+                    src={withBase(page.image)}
                     alt={page.title}
                     className="w-full h-full object-fill"
                     style={{ objectFit: 'fill' }}

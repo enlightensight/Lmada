@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -231,7 +232,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
                 <div className="relative rounded-2xl overflow-hidden border border-neutral-200 shadow-xl bg-white group">
                   {hero.video ? (
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
-                      <video src={hero.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                      <video src={withBase(hero.video)} autoPlay loop muted playsInline className="w-full h-full object-cover" />
                     </div>
                   ) : (
                     <CardImageCarousel
@@ -282,7 +283,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
                     {/* Header Image */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
                       <Image
-                        src={service.image}
+                        src={withBase(service.image)}
                         alt={service.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.05] contrast-[1.03]"

@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -59,7 +60,7 @@ export default function CardImageCarousel({
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={encodeURI(images[currentIndex])}
+            src={withBase(encodeURI(images[currentIndex]))}
             alt={`${alt} image ${currentIndex + 1}`}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />

@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -127,7 +128,7 @@ export default function DynamicSectionRenderer({
                 <div className="flex items-center justify-center gap-4 flex-wrap pt-4">
                   {isPrimaryExternal ? (
                     <a
-                      href={section.buttonLink || '/contact'}
+                      href={withBase(section.buttonLink || '/contact')}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-8 py-4 rounded-[10px] bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-semibold uppercase tracking-wider transition-all shadow-lg hover:shadow-xl active:scale-95 flex items-center gap-2"
@@ -148,7 +149,7 @@ export default function DynamicSectionRenderer({
                   {secBtnText && (
                     isSecExternal ? (
                       <a
-                        href={secBtnLink}
+                        href={withBase(secBtnLink)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-8 py-4 rounded-[10px] border border-white/30 hover:bg-white/10 text-white text-sm font-semibold uppercase tracking-wider transition-all backdrop-blur-xs"
@@ -372,7 +373,7 @@ export default function DynamicSectionRenderer({
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
                 <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
                   <img
-                    src={cardsList[0].image || '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg'}
+                    src={withBase(cardsList[0].image || '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg')}
                     alt={cardsList[0].title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -411,7 +412,7 @@ export default function DynamicSectionRenderer({
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
                     <div className="relative w-2/5 overflow-hidden bg-neutral-100 flex-shrink-0">
                       <img
-                        src={card.image || '/images/default_scientist.png'}
+                        src={withBase(card.image || '/images/default_scientist.png')}
                         alt={card.title}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
@@ -488,7 +489,7 @@ export default function DynamicSectionRenderer({
                     ) : card.image ? (
                       <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
                         <img
-                          src={card.image}
+                          src={withBase(card.image)}
                           alt={card.title}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
@@ -597,7 +598,7 @@ export default function DynamicSectionRenderer({
                   <div className="h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
                     <div className="relative aspect-[4/3] overflow-hidden bg-[#000a1c]">
                       <img
-                        src={modal.image || '/images/modalities/mAb.png'}
+                        src={withBase(modal.image || '/images/modalities/mAb.png')}
                         alt={modal.title}
                         className="w-full h-full object-fill transition-transform duration-700 group-hover:scale-105"
                         style={{ objectFit: 'fill' }}
@@ -746,7 +747,7 @@ export default function DynamicSectionRenderer({
             playsInline
             className="absolute inset-0 w-full h-full object-cover opacity-35"
           >
-            <source src={section.video} type="video/mp4" />
+            <source src={withBase(section.video)} type="video/mp4" />
           </video>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
@@ -876,11 +877,11 @@ export default function DynamicSectionRenderer({
                   playsInline
                   className="w-full h-full object-cover"
                 >
-                  <source src={section.video || section.image} type="video/mp4" />
+                  <source src={withBase(section.video || section.image)} type="video/mp4" />
                 </video>
               ) : (
                 <img
-                  src={section.image || '/images/hero_cleanroom.png'}
+                  src={withBase(section.image || '/images/hero_cleanroom.png')}
                   alt={section.title}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />

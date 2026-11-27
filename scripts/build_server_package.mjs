@@ -1,12 +1,14 @@
 /**
- * Builds the package for the client's server (cdmotest.lambda-cro.com: Ubuntu 24.04, Apache, Node 20, pm2,
- * SFTP-only access) into deploy/server-package/app:
+ * Builds the package for the client's server (Ubuntu 24.04, Apache with PHP, Node 20, pm2) into
+ * deploy/server-package. The site is served at https://www.lambda-cro.com/CDMOtest (see docs/DEPLOY_CDMOTEST.md):
  *
- *   node scripts/build_server_package.mjs [--port 3107]
+ *   node scripts/build_server_package.mjs [--base-path /CDMOtest] [--port 3107]
  *
  * - `next build` as a self-contained app (NEXT_STANDALONE=1 -> `node server.js`, no npm needed on the server)
- * - Virtual Tour links go to /virtualtour on the same site (VIRTUAL_TOUR_URL=/virtualtour); the tour files are
- *   uploaded separately to <site>/virtualtour and served by Apache straight from disk
+ *   under the sub-folder (NEXT_BASE_PATH); asset paths in the code go through withBase() (src/lib/basePath.ts),
+ *   and url(/...) paths in the built CSS (fonts) are prefixed here
+ * - Virtual Tour links go to <sub-folder>/virtualtour (VIRTUAL_TOUR_URL=/virtualtour); the tour files sit in that
+ *   folder on the server and are served by Apache straight from disk
  * - Linux builds of native modules (sharp) replace the Windows ones
  * - CMS data (src/data/*.json) and uploads (public/uploads) are included; on later deploys the upload step keeps
  *   the server's own copies, so edits made in the server's admin are never overwritten
@@ -24,16 +26,25 @@ const arg = (name, fallback) => {
   return i >= 0 ? process.argv[i + 1] : fallback;
 };
 const PORT = arg('--port', '3107');
+const BASE_PATH = arg('--base-path', '/CDMOtest').replace(/\/+$/, '');
+// The app runs from the site user's own folder (not web-served); only the public entry (.htaccess, bridge, tour)
+// sits in the main site's folder, in <main site>/CDMOtest.
 const SITE_DIR = '/var/www/cdmotest.lambda-cro.com';
 const OUT = path.join(ROOT, 'deploy', 'server-package');
 const APP = path.join(OUT, 'app');
+const PUBLIC_ENTRY = path.join(OUT, 'public-entry');
 
 const step = (msg) => console.log(`\n== ${msg}`);
 const run = (cmd, env = {}) => execSync(cmd, { stdio: 'inherit', cwd: ROOT, env: { ...process.env, ...env } });
 const copy = (from, to, filter) => fs.cpSync(from, to, { recursive: true, dereference: true, filter });
 
-step('next build (standalone, tour at /virtualtour)');
-run('npx next build', { NEXT_STANDALONE: '1', VIRTUAL_TOUR_URL: '/virtualtour', NODE_ENV: 'production' });
+step(`next build (standalone, under ${BASE_PATH || '/'}, tour at ${BASE_PATH}/virtualtour)`);
+run('npx next build', {
+  NEXT_STANDALONE: '1',
+  NEXT_BASE_PATH: BASE_PATH,
+  VIRTUAL_TOUR_URL: '/virtualtour',
+  NODE_ENV: 'production',
+});
 
 const standalone = path.join(ROOT, '.next', 'standalone');
 if (!fs.existsSync(path.join(standalone, 'server.js'))) throw new Error('No .next/standalone/server.js - build did not produce a standalone app');
@@ -43,6 +54,28 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(APP, { recursive: true });
 copy(standalone, APP, (src) => !/[\\/]\.env[^\\/]*$/.test(src)); // never ship local .env files
 copy(path.join(ROOT, '.next', 'static'), path.join(APP, '.next', 'static'));
+if (BASE_PATH) {
+  // Fonts and other url(/...) in the built CSS: Next.js leaves them unprefixed
+  let fixed = 0;
+  const walkCss = (d) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) walkCss(p);
+      else if (e.name.endsWith('.css')) {
+        const css = fs.readFileSync(p, 'utf-8');
+        const out = css.replace(/url\((['"]?)\/(?!\/)/g, (m, q, off) =>
+          css.startsWith(BASE_PATH.slice(1) + '/', off + m.length) ? m : `url(${q}${BASE_PATH}/`
+        );
+        if (out !== css) {
+          fs.writeFileSync(p, out);
+          fixed++;
+        }
+      }
+    }
+  };
+  walkCss(path.join(APP, '.next', 'static'));
+  console.log(`CSS files with url(/...) prefixed by ${BASE_PATH}: ${fixed}`);
+}
 // public/ minus whatever git ignores there (the virtual tour, raw panorama photos...): only what the site ships
 const ignoredInPublic = execSync('git ls-files -o -i --exclude-standard --directory public', { cwd: ROOT, encoding: 'utf-8' })
   .split(/\r?\n/)
@@ -133,11 +166,15 @@ require('./server.js');
 );
 fs.writeFileSync(path.join(APP, 'restart.txt'), `${new Date().toISOString()}\n`);
 
-// Files for the site folder itself (Apache DocumentRoot, also the site user's home): .htaccess routes everything
-// except /virtualtour to the app through __node_bridge.php and hides app/ and hidden files.
+// Public entry, deployed to /var/www/lambda-cro.com/CDMOtest: .htaccess routes everything except /virtualtour to
+// the app through __node_bridge.php.
+fs.mkdirSync(PUBLIC_ENTRY, { recursive: true });
 for (const f of ['.htaccess', '__node_bridge.php']) {
-  fs.copyFileSync(path.join(ROOT, 'server', 'cdmotest', f), path.join(OUT, f));
+  fs.copyFileSync(path.join(ROOT, 'server', 'cdmotest-subfolder', f), path.join(PUBLIC_ENTRY, f));
 }
+// The site user's own folder (old cdmotest.lambda-cro.com DocumentRoot): serves nothing, sends visitors to the
+// new address.
+fs.copyFileSync(path.join(ROOT, 'server', 'cdmotest', '.htaccess'), path.join(OUT, '.htaccess'));
 
 const bytes = (() => {
   let total = 0;

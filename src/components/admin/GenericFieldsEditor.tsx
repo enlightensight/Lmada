@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useRef } from 'react';
 import { ChevronDown, ChevronUp, FolderOpen, Plus, Trash2, Upload } from 'lucide-react';
 
@@ -111,10 +112,10 @@ function StringField({
         </div>
         {value &&
           (isVideoUrl(value) ? (
-            <video src={value} muted playsInline className="h-20 rounded-lg border border-slate-200 bg-slate-900" />
+            <video src={withBase(value)} muted playsInline className="h-20 rounded-lg border border-slate-200 bg-slate-900" />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={value} alt="" className="h-20 rounded-lg border border-slate-200 bg-slate-50 object-contain" />
+            <img src={withBase(value)} alt="" className="h-20 rounded-lg border border-slate-200 bg-slate-50 object-contain" />
           ))}
       </div>
     );

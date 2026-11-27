@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React from 'react';
 import Reveal from '@/components/Reveal';
 
@@ -73,7 +74,7 @@ export default function FacilityGallery({
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={item.image}
+                  src={withBase(item.image)}
                   alt={item.name}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -283,7 +284,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   return (
                     <motion.div key={group.label} variants={linkVariants}>
                       <a
-                        href={group.href}
+                        href={withBase(group.href)}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={onClose}
@@ -387,7 +388,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                     <li key={link.href}>
                                       {isExternal ? (
                                         <a
-                                          href={link.href}
+                                          href={withBase(link.href)}
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           onClick={onClose}
@@ -446,7 +447,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {/* CTA */}
           <motion.div variants={linkVariants} className="mt-8 pt-6 border-t border-neutral-100 flex flex-col gap-3">
             <a
-              href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+              href={withBase("/virtual-tour/00%20MAIN%20BUILDING/index.htm")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={onClose}

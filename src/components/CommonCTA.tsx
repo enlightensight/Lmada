@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -37,7 +38,7 @@ export default function CommonCTA({
   return (
     <section className="relative overflow-hidden bg-brand-navy text-white px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-20 select-none">
       <video
-        src="/videos/Floating-Molecule-Video.mp4"
+        src={withBase("/videos/Floating-Molecule-Video.mp4")}
         autoPlay
         loop
         muted
@@ -56,7 +57,7 @@ export default function CommonCTA({
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {isPrimaryExternal ? (
               <a
-                href={primaryButtonHref}
+                href={withBase(primaryButtonHref)}
                 target={primaryButtonTarget || "_blank"}
                 rel={primaryButtonRel || "noopener noreferrer"}
                 className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] bg-brand-yellow hover:bg-brand-yellow-hover text-black font-medium text-sm uppercase tracking-wider shadow-md hover:shadow active:scale-95 transition-all"
@@ -77,7 +78,7 @@ export default function CommonCTA({
             {secondaryButtonText && (
               isSecondaryExternal ? (
                 <a
-                  href={secondaryButtonHref}
+                  href={withBase(secondaryButtonHref)}
                   target={secondaryButtonTarget || "_blank"}
                   rel={secondaryButtonRel || "noopener noreferrer"}
                   className="inline-flex items-center justify-center px-8 py-3.5 rounded-[10px] border border-white/40 text-white hover:bg-white hover:text-brand-blue font-medium text-sm uppercase tracking-wider transition-all"

@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -405,7 +406,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
                   <div className="h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
                     <div className="relative aspect-[4/3] overflow-hidden bg-[#000a1c]">
                       <img
-                        src={modal.image}
+                        src={withBase(modal.image)}
                         alt={modal.title}
                         className="w-full h-full object-fill transition-transform duration-700 group-hover:scale-105"
                         style={{ objectFit: 'fill' }}
@@ -542,7 +543,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
                     <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
                       <img
-                        src={featuredArticle.image}
+                        src={withBase(featuredArticle.image)}
                         alt={featuredArticle.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
@@ -579,7 +580,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
                         <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-yellow scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-10" />
                         <div className="relative w-2/5 overflow-hidden bg-neutral-100 flex-shrink-0">
                           <img
-                            src={article.image}
+                            src={withBase(article.image)}
                             alt={article.title}
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           />

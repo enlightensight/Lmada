@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import FAQSection from '@/components/FAQSection';
@@ -85,7 +86,7 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
               {heroVideo ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
                   <video
-                    src={heroVideo}
+                    src={withBase(heroVideo)}
                     autoPlay
                     loop
                     muted
@@ -100,7 +101,7 @@ export default function CharacterizationLayout({ page }: CharacterizationLayoutP
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
-                    src="/images/hero_cleanroom.png"
+                    src={withBase("/images/hero_cleanroom.png")}
                     alt={page.title}
                     className="w-full h-full object-cover"
                   />

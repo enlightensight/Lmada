@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useEffect, useRef, useState } from 'react';
 import { ExternalLink, Loader2, Monitor, RefreshCw, Smartphone, X } from 'lucide-react';
 import type { CDMOPage } from '@/data/cdmoData';
@@ -37,7 +38,7 @@ export default function LivePreviewPane({ page, storedKey, path, topOffset, onCl
     const timer = setTimeout(async () => {
       setBusy(true);
       try {
-        const res = await fetch('/api/admin/preview', {
+        const res = await fetch(withBase('/api/admin/preview'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id: idRef.current, page: { ...page, category: storedKey.category, slug: storedKey.slug } }),
@@ -128,7 +129,7 @@ export default function LivePreviewPane({ page, storedKey, path, topOffset, onCl
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
           </button>
           {previewId && (
-            <a href={src} target="_blank" rel="noreferrer" title="Open preview in a new tab" className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100">
+            <a href={withBase(src)} target="_blank" rel="noreferrer" title="Open preview in a new tab" className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100">
               <ExternalLink className="w-4 h-4" />
             </a>
           )}
@@ -144,7 +145,7 @@ export default function LivePreviewPane({ page, storedKey, path, topOffset, onCl
           <div className="relative w-full h-full overflow-hidden">
             <iframe
               ref={iframeRef}
-              src={src}
+              src={withBase(src)}
               onLoad={restoreScroll}
               title="Live page preview"
               className="absolute top-0 left-0 bg-white border-0 origin-top-left"
@@ -155,7 +156,7 @@ export default function LivePreviewPane({ page, storedKey, path, topOffset, onCl
         ) : (
           <iframe
             ref={iframeRef}
-            src={src}
+            src={withBase(src)}
             onLoad={restoreScroll}
             title="Live page preview (phone)"
             className="bg-white border-0 my-3 rounded-xl shadow-lg"

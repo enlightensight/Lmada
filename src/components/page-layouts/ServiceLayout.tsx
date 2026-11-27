@@ -1,3 +1,4 @@
+import { withBase } from '@/lib/basePath';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -98,7 +99,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center shrink-0 group-hover/pill:bg-brand-yellow group-hover/pill:border-brand-yellow transition-colors duration-200 p-2">
                     {svgIcon ? (
                       <img
-                        src={svgIcon}
+                        src={withBase(svgIcon)}
                         alt=""
                         aria-hidden="true"
                         // The client SVGs have a fixed blue stroke; brightness(0) turns them black on hover like the other icons
@@ -167,7 +168,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
               {heroVideo ? (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-neutral-950">
                   <video
-                    src={heroVideo}
+                    src={withBase(heroVideo)}
                     autoPlay
                     loop
                     muted
@@ -182,7 +183,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
               ) : (
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[10px] border border-neutral-200 shadow-lg bg-white">
                   <img
-                    src={heroSlides[0] || '/images/hero_cleanroom.png'}
+                    src={withBase(heroSlides[0] || '/images/hero_cleanroom.png')}
                     alt={page.title}
                     className="w-full h-full object-cover brightness-[1.05] contrast-[1.03]"
                   />
@@ -231,7 +232,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
                 ) : video ? (
                   <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-950 border border-neutral-200 shadow-sm">
                     <video
-                      src={video}
+                      src={withBase(video)}
                       autoPlay
                       loop
                       muted
@@ -243,7 +244,7 @@ export default function ServiceLayout({ page }: ServiceLayoutProps) {
                   <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden bg-neutral-100 border border-neutral-200/90 shadow-inner group">
                     {slides[0] && (
                       <img
-                        src={slides[0]}
+                        src={withBase(slides[0])}
                         alt={section.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.05] contrast-[1.03]"
                       />

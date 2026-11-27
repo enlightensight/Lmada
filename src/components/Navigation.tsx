@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -163,7 +164,7 @@ export default function Navigation() {
             className="flex items-center shrink-0 outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 active:outline-none active:ring-0 border-none ring-0 select-none cursor-pointer"
           >
             <Image
-              src="/images/lambda_novum_logo.png"
+              src={withBase("/images/lambda_novum_logo.png")}
               alt="Lambda & Novum"
               width={2991}
               height={358}
@@ -183,7 +184,7 @@ export default function Navigation() {
                   return (
                     <a
                       key={item.label}
-                      href={item.href}
+                      href={withBase(item.href)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative h-full flex items-center px-4 text-[17px] font-light md:font-normal tracking-tight transition-colors text-neutral-900 hover:text-brand-blue"
@@ -410,7 +411,7 @@ export default function Navigation() {
                                           <li key={link.href}>
                                             {link.isExternal || link.href.endsWith('.htm') || link.href.startsWith('http') ? (
                                               <a
-                                                href={link.href}
+                                                href={withBase(link.href)}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className={`text-[15px] font-light md:font-normal tracking-tight flex items-center gap-2.5 transition-colors ${isLinkActive
@@ -460,7 +461,7 @@ export default function Navigation() {
 
             {/* Desktop Virtual Tour CTA */}
             <a
-              href="/virtual-tour/00%20MAIN%20BUILDING/index.htm"
+              href={withBase("/virtual-tour/00%20MAIN%20BUILDING/index.htm")}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden xl:inline-flex items-center justify-center px-5 py-2 rounded-full border border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white text-[15px] font-light md:font-normal tracking-tight transition-all shadow-sm"

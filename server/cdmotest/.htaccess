@@ -1,40 +1,15 @@
-# cdmotest.lambda-cro.com
-# - /virtualtour: the virtual tour, served by Apache straight from disk
-# - everything else: the Next.js app (pm2 "lambda-cdmotest" on 127.0.0.1:3107), reached through __node_bridge.php
-#   because Apache's proxy module is not enabled here (see docs/DEPLOY_CDMOTEST.md)
+# /var/www/cdmotest.lambda-cro.com: the old address of the test site, now retired.
+# The site lives at https://www.lambda-cro.com/CDMOtest. This folder holds the running app (app/), its data and
+# settings; nothing here is ever served. Every request is sent to the new address.
 Options -Indexes
 DirectoryIndex disabled
 
-# Never serve the app (code, CMS data, contact submissions) or hidden files/folders (.ssh, .pm2, .env...)
-RedirectMatch 404 ^/app(/|$)
-RedirectMatch 404 (^|/)\.
-
-# Let the bridge read raw request bodies (file uploads in /admin) instead of PHP parsing them
-<IfModule php_module>
-    php_flag enable_post_data_reading Off
-    php_value post_max_size 64M
-    php_value upload_max_filesize 64M
-    php_value max_execution_time 180
-</IfModule>
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^ https://www.lambda-cro.com/CDMOtest [R=301,L]
+</IfModule>
 
-    # HTTPS only
-    RewriteCond %{HTTPS} off
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-    # The virtual tour: files on disk (its own index.html opens the start scene with relative links,
-    # so the address must end in a slash)
-    RewriteRule ^virtualtour$ /virtualtour/ [R=301,L]
-    RewriteRule ^virtualtour/$ virtualtour/index.html [L]
-    RewriteRule ^virtualtour/ - [L]
-
-    # The bridge itself is not a page
-    RewriteCond %{ENV:REDIRECT_STATUS} ^$
-    RewriteRule ^__node_bridge\.php$ - [R=404,L]
-    RewriteRule ^__node_bridge\.php$ - [L]
-
-    # Everything else goes to the app
-    RewriteRule ^ __node_bridge.php [L]
+# If mod_rewrite were ever missing: refuse everything rather than serve files
+<IfModule !mod_rewrite.c>
+    Require all denied
 </IfModule>

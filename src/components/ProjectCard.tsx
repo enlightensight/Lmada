@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { Project } from '@/data/projects';
@@ -19,7 +20,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Project Image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={project.image}
+          src={withBase(project.image)}
           alt={project.title}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103 group-hover:filter group-hover:brightness-95"
         />

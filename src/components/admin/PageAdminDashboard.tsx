@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -59,7 +60,7 @@ export default function PageAdminDashboard() {
     const key = `${category}-${slug}`;
     setPublishingKey(key);
     try {
-      const res = await fetch(`/api/admin/pages/${encodeURIComponent(category)}/${encodeURIComponent(slug)}`, {
+      const res = await fetch(withBase(`/api/admin/pages/${encodeURIComponent(category)}/${encodeURIComponent(slug)}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'publish' })
@@ -95,7 +96,7 @@ export default function PageAdminDashboard() {
   const loadPages = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/pages');
+      const res = await fetch(withBase('/api/admin/pages'));
       const data = await res.json();
       if (data.success && Array.isArray(data.pages)) {
         setPages(data.pages);
@@ -126,7 +127,7 @@ export default function PageAdminDashboard() {
     setDeletingKey(key);
 
     try {
-      const res = await fetch(`/api/admin/pages/${encodeURIComponent(category)}/${encodeURIComponent(slug)}`, {
+      const res = await fetch(withBase(`/api/admin/pages/${encodeURIComponent(category)}/${encodeURIComponent(slug)}`), {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -157,7 +158,7 @@ export default function PageAdminDashboard() {
   const handlePageCreated = async (newPage: CDMOPage) => {
     setIsCreateModalOpen(false);
     try {
-      const res = await fetch('/api/admin/pages', {
+      const res = await fetch(withBase('/api/admin/pages'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: newPage })
@@ -362,7 +363,7 @@ export default function PageAdminDashboard() {
                         <div className="flex items-center gap-3.5 max-w-md">
                           <div className="relative w-14 h-11 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                             <img
-                              src={p.image || '/images/hero_cleanroom.png'}
+                              src={withBase(p.image || '/images/hero_cleanroom.png')}
                               alt={p.title}
                               className="w-full h-full object-cover"
                             />

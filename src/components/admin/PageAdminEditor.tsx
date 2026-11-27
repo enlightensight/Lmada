@@ -1,5 +1,6 @@
 'use client';
 
+import { withBase } from '@/lib/basePath';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
@@ -608,7 +609,7 @@ function MediaControlWithPreview({
             <>
               <video
                 key={mediaUrl}
-                src={mediaUrl}
+                src={withBase(mediaUrl)}
                 controls
                 loop
                 muted
@@ -623,7 +624,7 @@ function MediaControlWithPreview({
           ) : (
             <>
               <img
-                src={mediaUrl}
+                src={withBase(mediaUrl)}
                 alt="Media Preview"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
@@ -828,7 +829,7 @@ function PhotoCarouselManager({
             >
               {/* Thumbnail Container */}
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-900 border border-slate-100 group">
-                <img src={photo} alt={`Carousel Slide ${pIdx + 1}`} className="w-full h-full object-cover" />
+                <img src={withBase(photo)} alt={`Carousel Slide ${pIdx + 1}`} className="w-full h-full object-cover" />
                 
                 {/* Slide Number Badge */}
                 <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-white text-[10px] font-bold border border-white/20">
@@ -1010,7 +1011,7 @@ export default function PageAdminEditor({
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await fetch('/api/admin/upload', {
+      const res = await fetch(withBase('/api/admin/upload'), {
         method: 'POST',
         body: formData
       });
@@ -1042,7 +1043,7 @@ export default function PageAdminEditor({
         const file = files[i];
         const formData = new FormData();
         formData.append('file', file);
-        const res = await fetch('/api/admin/upload', {
+        const res = await fetch(withBase('/api/admin/upload'), {
           method: 'POST',
           body: formData
         });
@@ -1951,7 +1952,7 @@ export default function PageAdminEditor({
     try {
       const pageToSave = sanitizePageForSave(page);
 
-      const res = await fetch(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`, {
+      const res = await fetch(withBase(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: pageToSave, action: 'save_draft', renameFrom: addressChanged ? savedKey : undefined })
@@ -1988,7 +1989,7 @@ export default function PageAdminEditor({
     try {
       const pageToSave = sanitizePageForSave(page);
 
-      const res = await fetch(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`, {
+      const res = await fetch(withBase(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: pageToSave, action: 'save_draft', renameFrom: addressChanged ? savedKey : undefined })
@@ -2009,7 +2010,7 @@ export default function PageAdminEditor({
       console.error('Error saving draft before preview:', err);
     } finally {
       setSavingDraft(false);
-      window.open(previewUrl, '_blank');
+      window.open(withBase(previewUrl), '_blank');
     }
   };
 
@@ -2019,7 +2020,7 @@ export default function PageAdminEditor({
     try {
       const pageToPublish = sanitizePageForSave(page);
 
-      const res = await fetch(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`, {
+      const res = await fetch(withBase(`/api/admin/pages/${encodeURIComponent(page.category)}/${encodeURIComponent(page.slug)}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: pageToPublish, action: 'publish', renameFrom: addressChanged ? savedKey : undefined })
@@ -2058,7 +2059,7 @@ export default function PageAdminEditor({
     }
     setReverting(true);
     try {
-      const res = await fetch(`/api/admin/pages/${encodeURIComponent(savedKey.category)}/${encodeURIComponent(savedKey.slug)}`, {
+      const res = await fetch(withBase(`/api/admin/pages/${encodeURIComponent(savedKey.category)}/${encodeURIComponent(savedKey.slug)}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'revert' })
@@ -2091,7 +2092,7 @@ export default function PageAdminEditor({
       return;
     }
     try {
-      const res = await fetch(`/api/admin/pages/${encodeURIComponent(savedKey.category)}/${encodeURIComponent(savedKey.slug)}`, {
+      const res = await fetch(withBase(`/api/admin/pages/${encodeURIComponent(savedKey.category)}/${encodeURIComponent(savedKey.slug)}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'unpublish' })
@@ -5805,7 +5806,7 @@ export default function PageAdminEditor({
                                             {/* Interactive Carousel Box (Matching EquipmentCarousel on the live website) */}
                                             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-neutral-800 shadow-md bg-neutral-900 group select-none">
                                               <img
-                                                src={encodeURI(currentSlideUrl)}
+                                                src={withBase(encodeURI(currentSlideUrl))}
                                                 alt={sec.title || 'Section Equipment'}
                                                 className="relative z-10 w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
                                               />
@@ -7480,7 +7481,7 @@ export default function PageAdminEditor({
                     </span>
                     <div className="relative rounded-2xl overflow-hidden bg-brand-navy p-8 sm:p-12 text-white text-center border border-slate-700 shadow-md">
                       <video
-                        src="/videos/Floating-Molecule-Video.mp4"
+                        src={withBase("/videos/Floating-Molecule-Video.mp4")}
                         autoPlay
                         loop
                         muted
@@ -7542,7 +7543,7 @@ export default function PageAdminEditor({
                   <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                     <video
                       key={page.heroVideo || page.image || '/videos/hero5.mp4'}
-                      src={page.heroVideo || page.image || '/videos/hero5.mp4'}
+                      src={withBase(page.heroVideo || page.image || '/videos/hero5.mp4')}
                       autoPlay
                       loop
                       muted
@@ -7833,7 +7834,7 @@ export default function PageAdminEditor({
                       {/* Current Slide Image */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={activeSlideUrl}
+                        src={withBase(activeSlideUrl)}
                         alt="Hero Slide"
                         className="w-full h-full object-cover transition-all duration-500"
                       />
@@ -8324,7 +8325,7 @@ export default function PageAdminEditor({
                       {isVideo ? (
                         <>
                           <video
-                            src={item.url}
+                            src={withBase(item.url)}
                             loop
                             muted
                             playsInline
@@ -8343,7 +8344,7 @@ export default function PageAdminEditor({
                       ) : (
                         <>
                           <img
-                            src={item.url}
+                            src={withBase(item.url)}
                             alt={item.label}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                           />
