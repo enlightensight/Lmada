@@ -7,19 +7,19 @@ export interface EquipmentItem {
 
 export const CELL_DEV_EQUIPMENT: EquipmentItem[] = [
   {
-    src: '/images/celldev/AMBR15.png',
+    src: '/images/celldev/AMBR15.webp',
     title: 'Ambr® 15 Automated Microbioreactor',
     subtitle: 'High-throughput micro-scale cell culture screening with automated sampling and feedback control.',
     tag: 'Cell Line Screening',
   },
   {
-    src: '/images/celldev/Biosafety_Cabinet.png',
+    src: '/images/celldev/Biosafety_Cabinet.webp',
     title: 'Class II Type A2 Biosafety Cabinet',
     subtitle: 'Certified sterile environment for cell line transfection, single-cell cloning, and aseptic manipulation.',
     tag: 'Aseptic Processing',
   },
   {
-    src: '/images/celldev/CLD_Lab.png',
+    src: '/images/celldev/CLD_Lab.webp',
     title: 'Cell Line Development Suite',
     subtitle: 'Integrated laboratory with high-throughput clone screening, automated liquid handling, and cell banking.',
     tag: 'Facility Suite',
@@ -28,19 +28,19 @@ export const CELL_DEV_EQUIPMENT: EquipmentItem[] = [
 
 export const UPSTREAM_EQUIPMENT: EquipmentItem[] = [
   {
-    src: '/images/upstream/AMBR250.png',
+    src: '/images/upstream/AMBR250.webp',
     title: 'Ambr® 250 High-Throughput Bioreactor',
     subtitle: 'Automated 24-way parallel mini-bioreactor system for DoE process optimization and scale-down modeling.',
     tag: 'Process Optimization',
   },
   {
-    src: '/images/upstream/Bioreactor_control.png',
+    src: '/images/upstream/Bioreactor_control.webp',
     title: 'Automated Bioreactor Control & Skid System',
     subtitle: 'Precision process automation for pH, dissolved oxygen, gas mixing, nutrient feed, and temperature loops.',
     tag: 'Process Control',
   },
   {
-    src: '/images/upstream/Biosaftey_cabinet.png',
+    src: '/images/upstream/Biosaftey_cabinet.webp',
     title: 'Upstream Biosafety Cabinet Suite',
     subtitle: 'Dedicated Grade B/C containment for sterile inoculum prep, vial thawing, and seed train expansion.',
     tag: 'Inoculum Prep',
@@ -52,7 +52,7 @@ export const UPSTREAM_EQUIPMENT: EquipmentItem[] = [
     tag: 'Suspension Culture',
   },
   {
-    src: '/images/upstream/Cedex_automated_cell_counter.png',
+    src: '/images/upstream/Cedex_automated_cell_counter.webp',
     title: 'Cedex Automated Cell Counter & Analyzer',
     subtitle: 'High-resolution trypan blue image analysis for viable cell density, viability percentage, and aggregation index.',
     tag: 'Cell Analytics',
@@ -67,25 +67,25 @@ export const UPSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
     tag: 'Cleanroom Suite',
   },
   {
-    src: '/images/upstream_GMP/GMP Production bioreactor.png',
+    src: '/images/upstream_GMP/GMP Production bioreactor.webp',
     title: 'GMP Production Bioreactor (200 L)',
     subtitle: 'Single-use production bioreactor train for clinical and commercial-ready biologic drug substance manufacturing.',
     tag: '200L SUB',
   },
   {
-    src: '/images/upstream_GMP/GMP Seed bioreactor.png',
+    src: '/images/upstream_GMP/GMP Seed bioreactor.webp',
     title: 'GMP Seed Bioreactor (50 L)',
     subtitle: 'Intermediate scale-up bioreactor with automated feed and perfusion integration.',
     tag: '50L Seed Train',
   },
   {
-    src: '/images/upstream_GMP/GMP Wave Bioreactor.png',
+    src: '/images/upstream_GMP/GMP Wave Bioreactor.webp',
     title: 'GMP Wave Bioreactor System',
     subtitle: 'Low-shear rocking motion cultivation system for gentle seed train amplification and cell expansion.',
     tag: 'Seed Expansion',
   },
   {
-    src: '/images/upstream_GMP/GMP Automated Bioanalyzer.png',
+    src: '/images/upstream_GMP/GMP Automated Bioanalyzer.webp',
     title: 'GMP Automated Bioanalyzer',
     subtitle: 'Rapid multi-parameter metabolite testing (glucose, lactate, glutamine, electrolytes) for in-process monitoring.',
     tag: 'In-Process Testing',
@@ -97,13 +97,13 @@ export const UPSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
     tag: 'Cleanroom QC',
   },
   {
-    src: '/images/upstream_GMP/GMP Bentch top centrifuge.png',
+    src: '/images/upstream_GMP/GMP Bentch top centrifuge.webp',
     title: 'GMP Benchtop Centrifuge',
     subtitle: 'High-speed refrigerated benchtop centrifuge for sample clarification and in-process cell pelleting.',
     tag: 'Centrifugation',
   },
   {
-    src: '/images/upstream_GMP/GMP CO2 shaker incubator.png',
+    src: '/images/upstream_GMP/GMP CO2 shaker incubator.webp',
     title: 'GMP Cleanroom CO2 Shaker Incubator',
     subtitle: 'Grade C cleanroom incubator train supporting initial vial thaw and shake flask seed progression.',
     tag: 'Vial Thaw',
@@ -121,25 +121,25 @@ export const UPSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
     tag: 'Harvest Clarification',
   },
   {
-    src: '/images/upstream_GMP/GMP Inverted Microscope.png',
+    src: '/images/upstream_GMP/GMP Inverted Microscope.webp',
     title: 'GMP Inverted Phase Contrast Microscope',
     subtitle: 'High-optical-resolution morphological evaluation and sterility check during seed train cultivation.',
     tag: 'Morphology QC',
   },
   {
-    src: '/images/upstream_GMP/GMP Overhead stirrer.png',
+    src: '/images/upstream_GMP/GMP Overhead stirrer.webp',
     title: 'GMP Overhead Stirrer & Media Prep Tank',
     subtitle: 'Homogeneous sterile media and buffer preparation with continuous impeller speed control.',
     tag: 'Media Compounding',
   },
   {
-    src: '/images/upstream_GMP/GMP Quattroflow pump.png',
+    src: '/images/upstream_GMP/GMP Quattroflow pump.webp',
     title: 'GMP Quattroflow Diaphragm Pump',
     subtitle: 'Four-piston low-shear diaphragm pump ensuring zero product degradation during delicate biologic fluid transfer.',
     tag: 'Fluid Transfer',
   },
   {
-    src: '/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png',
+    src: '/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).webp',
     title: '50 L Single-Use Mixer (SUM)',
     subtitle: 'Closed single-use mixing system for sterile media hydration, buffer compounding, and harvest conditioning.',
     tag: 'Single-Use Mixer',
@@ -223,31 +223,31 @@ export const DOWNSTREAM_GMP_EQUIPMENT: EquipmentItem[] = [
 
 export const DOWNSTREAM_EQUIPMENT: EquipmentItem[] = [
   {
-    src: '/images/down stream/AKTA Pilot.png',
+    src: '/images/down stream/AKTA Pilot.webp',
     title: 'ÄKTA Pilot System',
     subtitle: 'Pilot-scale purification system bridging laboratory benchtop development and full cGMP commercial processing.',
     tag: 'Pilot Purification',
   },
   {
-    src: '/images/down stream/AKTA Pure 150_Akta Avant.png',
+    src: '/images/down stream/AKTA Pure 150_Akta Avant.webp',
     title: 'ÄKTA Pure 150 & ÄKTA Avant Systems',
     subtitle: 'High-speed automated chromatography for resin screening, DoE method development, and impurity clearance.',
     tag: 'Method Development',
   },
   {
-    src: '/images/down stream/Tecan Freedom EVO.png',
+    src: '/images/down stream/Tecan Freedom EVO.webp',
     title: 'Tecan Freedom EVO Liquid Handler',
     subtitle: 'Robotic high-throughput liquid handling workstation for 96-well microscale chromatography resin plate screening.',
     tag: 'High-Throughput DSP',
   },
   {
-    src: '/images/down stream/TFF System.png',
+    src: '/images/down stream/TFF System.webp',
     title: 'Tangential Flow Filtration (TFF) System',
     subtitle: 'Precision lab and pilot-scale cassette ultrafiltration & diafiltration for product concentration and buffer exchange.',
     tag: 'UF/DF Skid',
   },
   {
-    src: '/images/down stream/Column Storage Rack.png',
+    src: '/images/down stream/Column Storage Rack.webp',
     title: 'Sanitized Column Storage & Handling Rack',
     subtitle: 'Dedicated cleanroom storage rack maintaining sanitized, pressure-tested chromatography columns ready for operation.',
     tag: 'Column Management',
@@ -256,19 +256,19 @@ export const DOWNSTREAM_EQUIPMENT: EquipmentItem[] = [
 
 export const DRUG_PRODUCT_EQUIPMENT: EquipmentItem[] = [
   {
-    src: '/images/Drugproductdev/FDL Lab.png',
+    src: '/images/Drugproductdev/FDL Lab.webp',
     title: 'Formulation & Drug Product (FDL) Laboratory',
     subtitle: 'State-of-the-art facility for formulation screening, excipient compatibility, and container closure integrity studies.',
     tag: 'Formulation Lab',
   },
   {
-    src: '/images/Drugproductdev/Lyophilizer in FDL Lab.png',
+    src: '/images/Drugproductdev/Lyophilizer in FDL Lab.webp',
     title: 'Development Lyophilizer (Freeze Dryer)',
     subtitle: 'Precision freeze-dryer equipped with 0.5 m² shelf area, Pirani gauge vacuum sensors, and controlled nucleation.',
     tag: 'Lyophilization',
   },
   {
-    src: '/images/Drugproductdev/Cooling Chamber in FDL Lab.png',
+    src: '/images/Drugproductdev/Cooling Chamber in FDL Lab.webp',
     title: 'Precision Temperature & Cooling Chamber',
     subtitle: 'ICH Q1A stability chambers for real-time, accelerated, and freeze-thaw thermal stability evaluations.',
     tag: 'Stability Chamber',
@@ -386,13 +386,13 @@ export const ANALYTICAL_EQUIPMENT: EquipmentItem[] = [
 
 export const UK_UPSTREAM_EQUIPMENT: EquipmentItem[] = [
   {
-    src: '/images/uk/upstream/Ambr 250 High-Throughput Bioreactor System.png',
+    src: '/images/uk/upstream/Ambr 250 High-Throughput Bioreactor System.webp',
     title: 'Ambr® 250 High-Throughput Bioreactor',
     subtitle: 'Automated parallel mini-bioreactor system for upstream clone screening, media evaluation, and DoE process optimization.',
     tag: 'Ambr 250 HT',
   },
   {
-    src: '/images/uk/upstream/Integrated ATF Perfusion Bioreactor System.png',
+    src: '/images/uk/upstream/Integrated ATF Perfusion Bioreactor System.webp',
     title: 'Integrated ATF Perfusion Bioreactor',
     subtitle: 'Alternating Tangential Flow (ATF) perfusion system enabling high-density continuous cell culture intensification.',
     tag: 'ATF Perfusion',
@@ -437,13 +437,13 @@ export const UK_UPSTREAM_EQUIPMENT: EquipmentItem[] = [
 
 export const UK_DOWNSTREAM_EQUIPMENT: EquipmentItem[] = [
   {
-    src: '/images/uk/downstream/Akta Avant automated chromatography system.png',
+    src: '/images/uk/downstream/Akta Avant automated chromatography system.webp',
     title: 'ÄKTA™ Avant Chromatography System',
     subtitle: 'High-performance automated chromatography system for fast, secure resin screening and robust DSP method development.',
     tag: 'ÄKTA Avant',
   },
   {
-    src: '/images/uk/downstream/Akta Pure automated chromatography system.png',
+    src: '/images/uk/downstream/Akta Pure automated chromatography system.webp',
     title: 'ÄKTA™ Pure Chromatography System',
     subtitle: 'Flexible automated liquid chromatography system for purification of proteins, peptides, and monoclonal antibodies.',
     tag: 'ÄKTA Pure',
@@ -455,7 +455,7 @@ export const UK_DOWNSTREAM_EQUIPMENT: EquipmentItem[] = [
     tag: 'Prep Chromatography',
   },
   {
-    src: '/images/uk/downstream/Repligen automated Tangential flow filtration (TFF) system.png',
+    src: '/images/uk/downstream/Repligen automated Tangential flow filtration (TFF) system.webp',
     title: 'Repligen Automated TFF System',
     subtitle: 'Automated tangential flow filtration system for ultrafiltration, diafiltration, and high-concentration UF/DF.',
     tag: 'Automated TFF',
@@ -488,7 +488,7 @@ export const UK_ANALYTICAL_EQUIPMENT: EquipmentItem[] = [
     tag: 'CE-SDS / cIEF',
   },
   {
-    src: '/images/uk/analytical/HPLC systems with fraction collector.png',
+    src: '/images/uk/analytical/HPLC systems with fraction collector.webp',
     title: 'HPLC System with Automated Fraction Collector',
     subtitle: 'Preparative fraction collection for impurity isolation, post-translational modification analysis, and characterization.',
     tag: 'Fraction Collection',

@@ -77,13 +77,13 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       step: '01 — Development',
       desc: 'Cell line engineering, upstream and downstream process development, and analytical development built for scale-up and regulatory readiness.',
       icon: FlaskConical,
-      image: '/images/upstream/AMBR250.png',
+      image: '/images/upstream/AMBR250.webp',
       images: [
-        '/images/upstream/AMBR250.png',
-        '/images/upstream/Bioreactor_control.png',
-        '/images/upstream/Biosaftey_cabinet.png',
+        '/images/upstream/AMBR250.webp',
+        '/images/upstream/Bioreactor_control.webp',
+        '/images/upstream/Biosaftey_cabinet.webp',
         '/images/upstream/Carbon_di_Oxide_shaker_incubator.png',
-        '/images/upstream/Cedex_automated_cell_counter.png',
+        '/images/upstream/Cedex_automated_cell_counter.webp',
       ],
       items: [
         { name: 'Cell Line Development', icon: Dna, href: '/services/cell-line-development' },
@@ -97,13 +97,13 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       step: '02 — Manufacturing',
       desc: 'cGMP drug substance and drug product manufacturing in purpose-built cleanroom suites, designed for clinical supply.',
       icon: Factory,
-      image: '/images/down stream/AKTA Pilot.png',
+      image: '/images/down stream/AKTA Pilot.webp',
       images: [
-        '/images/down stream/AKTA Pilot.png',
-        '/images/down stream/AKTA Pure 150_Akta Avant.png',
-        '/images/down stream/Column Storage Rack.png',
-        '/images/down stream/TFF System.png',
-        '/images/down stream/Tecan Freedom EVO.png',
+        '/images/down stream/AKTA Pilot.webp',
+        '/images/down stream/AKTA Pure 150_Akta Avant.webp',
+        '/images/down stream/Column Storage Rack.webp',
+        '/images/down stream/TFF System.webp',
+        '/images/down stream/Tecan Freedom EVO.webp',
       ],
       items: [
         { name: 'Drug Substance Manufacturing', icon: Beaker, href: '/manufacturing/drug-substance-manufacturing' },
@@ -140,25 +140,25 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
       title: 'Monoclonal Antibodies',
       slug: 'monoclonal-antibodies',
       desc: 'Platform capabilities for IgG1, IgG2, and IgG4 subclasses.',
-      image: '/images/modalities/mAb.png',
+      image: '/images/modalities/mAb.webp',
     },
     {
       title: 'Bispecific Antibodies',
       slug: 'bispecific-antibodies',
       desc: 'Addressing chain pairing, homodimer, and mispairing challenges.',
-      image: '/images/modalities/Bispecific_Antibody.png',
+      image: '/images/modalities/Bispecific_Antibody.webp',
     },
     {
       title: 'Antibody-Drug Conjugates',
       slug: 'antibody-drug-conjugates',
       desc: 'Conjugation process development, DAR characterization, and GMP manufacturing.',
-      image: '/images/modalities/Antibody-Drug_Conjugate.png',
+      image: '/images/modalities/Antibody-Drug_Conjugate.webp',
     },
     {
       title: 'Proteins & Peptides',
       slug: 'proteins-peptides',
       desc: 'Recombinant proteins, fusion proteins, and synthetic peptides.',
-      image: '/images/modalities/Proteins_and_Peptides.png',
+      image: '/images/modalities/Proteins_and_Peptides.webp',
     },
   ];
 
@@ -244,7 +244,7 @@ export default function HomeClientView({ pageData }: HomeClientViewProps) {
   const insightsTitle = insightsSection?.title || 'Featured Research and Insights';
   const insightsSubtitle = insightsSection?.subtitle || 'SCIENTIFIC PERSPECTIVES & NEWS';
   const insightsText = insightsSection?.text || 'Explore the latest perspectives from our scientists — blogs, news, and upcoming events.';
-  const insightsImage = insightsSection?.image || '/images/working employee2.png';
+  const insightsImage = insightsSection?.image || '/images/working employee2.webp';
   const insightsButtonText = insightsSection?.buttonText || 'VIEW ALL INSIGHTS';
   const insightsButtonLink = insightsSection?.buttonLink || '/insights/blogs';
 

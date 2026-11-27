@@ -14,9 +14,9 @@ export const MODALITIES_BLOCK_DEFAULTS = {
 
 /** Default slides of the equipment carousel inside the Drug Product capabilities card. */
 const DRUG_PRODUCT_CAROUSEL_DEFAULTS = [
-  '/images/Drugproductdev/FDL Lab.png',
-  '/images/Drugproductdev/Lyophilizer in FDL Lab.png',
-  '/images/Drugproductdev/Cooling Chamber in FDL Lab.png',
+  '/images/Drugproductdev/FDL Lab.webp',
+  '/images/Drugproductdev/Lyophilizer in FDL Lab.webp',
+  '/images/Drugproductdev/Cooling Chamber in FDL Lab.webp',
 ];
 
 /** Number of slides in the Drug Product capabilities carousel (slots capabilitiesImage1 … capabilitiesImageN). */

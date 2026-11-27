@@ -58,6 +58,10 @@ run('scp', [...SSH_OPTS, TAR, `${HOST}:app.tar.gz`]);
 ssh(`mkdir -p ${ENTRY_DIR} && chmod 755 ${ENTRY_DIR}`);
 run('scp', [...SSH_OPTS, path.join(PKG, 'public-entry', '.htaccess'), path.join(PKG, 'public-entry', '__node_bridge.php'), `${HOST}:${ENTRY_DIR}/`]);
 run('scp', [...SSH_OPTS, path.join(PKG, '.htaccess'), `${HOST}:.htaccess`]);
+// Images converted to WebP (scripts/convert_images_webp.mjs): the server's CMS data is renamed to match below
+const IMAGE_MAP = path.join(ROOT, 'deploy', 'webp-map.json');
+const hasImageMap = fs.existsSync(IMAGE_MAP);
+if (hasImageMap) run('scp', [...SSH_OPTS, IMAGE_MAP, path.join(ROOT, 'scripts', 'apply_image_map.mjs'), `${HOST}:`]);
 
 step('unpack, keep server content, swap, restart');
 ssh(`set -e
@@ -68,6 +72,7 @@ if [ -d app ]; then
   mkdir -p app.next/public/uploads && cp -rp app/public/uploads/. app.next/public/uploads/ 2>/dev/null || true
   [ -f app/.env.production ] && cp -p app/.env.production app.next/.env.production
 fi
+${hasImageMap ? 'node apply_image_map.mjs webp-map.json app.next/src/data/storedPages.json app.next/src/data/storedInsights.json && rm -f webp-map.json apply_image_map.mjs' : ''}
 chmod 600 app.next/.env.production 2>/dev/null || true
 rm -rf app.prev
 [ -d app ] && mv app app.prev

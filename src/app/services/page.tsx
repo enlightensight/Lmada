@@ -39,11 +39,11 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 }
 
 const UPSTREAM_HERO_IMAGES = [
-  '/images/upstream/AMBR250.png',
-  '/images/upstream/Bioreactor_control.png',
-  '/images/upstream/Biosaftey_cabinet.png',
+  '/images/upstream/AMBR250.webp',
+  '/images/upstream/Bioreactor_control.webp',
+  '/images/upstream/Biosaftey_cabinet.webp',
   '/images/upstream/Carbon_di_Oxide_shaker_incubator.png',
-  '/images/upstream/Cedex_automated_cell_counter.png',
+  '/images/upstream/Cedex_automated_cell_counter.webp',
 ];
 
 const DEFAULT_SUB_SERVICES = [
@@ -51,7 +51,7 @@ const DEFAULT_SUB_SERVICES = [
     title: 'Cell Line Development',
     slug: 'cell-line',
     href: '/services/cell-line-development',
-    image: '/images/celldev/CLD_Lab.png',
+    image: '/images/celldev/CLD_Lab.webp',
     description: 'A well-characterized, productive cell line provides the foundation for a robust biologics manufacturing process across mammalian expression platforms.',
     capabilities: [
       'Gene construct design and optimization',
@@ -64,7 +64,7 @@ const DEFAULT_SUB_SERVICES = [
     title: 'Process Development',
     slug: 'process',
     href: '/services/process-development',
-    image: '/images/upstream/AMBR250.png',
+    image: '/images/upstream/AMBR250.webp',
     description: 'Upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability from bench to pilot scale.',
     capabilities: [
       'Media and feed optimization',
@@ -149,7 +149,7 @@ export default async function DevelopmentServicesPage({ searchParams }: PageProp
         title,
         slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `service-${idx + 1}`,
         href: card.link || card.href || DEFAULT_SUB_SERVICES[idx]?.href || '/services',
-        image: card.image || DEFAULT_SUB_SERVICES[idx]?.image || '/images/celldev/CLD_Lab.png',
+        image: card.image || DEFAULT_SUB_SERVICES[idx]?.image || '/images/celldev/CLD_Lab.webp',
         description: card.description || DEFAULT_SUB_SERVICES[idx]?.description || '',
         capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_SUB_SERVICES[idx]?.capabilities || []),
         // Short label for the hero quick-jump button

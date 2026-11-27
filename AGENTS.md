@@ -218,6 +218,10 @@ Rules the audit enforces — keep them true when changing a layout:
   alias in `getStoredPage` and add a redirect in `next.config.ts`; the audit fails if the admin's address redirects.
 - Change stored content with `node scripts/cms_data_patch.mjs patch.json` (updates the live data and the
   defaults together) rather than editing the JSON by hand.
+- Large images: `node scripts/convert_images_webp.mjs [--min-mb 1]` converts the PNG/JPEG files the site uses
+  to WebP and rewrites every reference (code, defaults and CMS data, so the admin shows the .webp). It writes
+  `deploy/webp-map.json`; the next `deploy_cdmotest.mjs` renames the server's own CMS data with it
+  (`scripts/apply_image_map.mjs`). Images named by the committed `src/app/globals.css` keep their original.
 - Icons of points, cards, steps and headings are replaceable from the admin ("Icons on This Page"). Choices are stored in
   `page.itemIcons` keyed by the item text; layouts must resolve every such icon with `pickIcon(page.itemIcons, text, auto)`
   or `getListIcons(points, page.itemIcons)` from `src/components/icons/SiteIcon.tsx`. After adding or removing icons in a

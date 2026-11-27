@@ -139,19 +139,19 @@ function getDynamicContent(
     }
     if ((cat === 'overview' || cat === 'facility&location') && (pageSlug === 'facility' || pageSlug === 'India' || pageSlug.toLowerCase() === 'india')) {
       const imgs = [
-        '/images/CDMOblue.png',
+        '/images/CDMOblue.webp',
         '/images/celldev.png',
         '/images/equipment1.png',
         '/images/cgmp2.png',
         '/images/equipment2.png',
         '/images/equipment3.png',
-        '/images/cGMP.png',
+        '/images/cGMP.webp',
       ];
       return imgs[idx % imgs.length];
     }
     if ((cat === 'overview' || cat === 'facility&location') && (pageSlug === 'london' || pageSlug === 'UK' || pageSlug.toLowerCase() === 'uk')) {
       const imgs = [
-        '/images/Lab.jpg',
+        '/images/Lab.webp',
         '/images/development.jpg',
         '/images/default_scientist.jpg',
       ];
@@ -167,7 +167,7 @@ function getDynamicContent(
     }
     if (cat === 'overview' && pageSlug === 'quality') {
       const imgs = [
-        '/images/Lab.jpg',
+        '/images/Lab.webp',
         '/images/development.jpg',
         '/images/default_scientist.jpg',
       ];
@@ -239,7 +239,7 @@ function getDynamicContent(
     }
     if (cat === 'characterization' && pageSlug === 'bioassays') {
       const imgs = [
-        '/images/upstream/Biosaftey_cabinet.png',
+        '/images/upstream/Biosaftey_cabinet.webp',
         '/images/cdn/pexels-4033148.jpg',
         '/images/cdn/unsplash-1614935151651-0bea6508db6b.jpg',
       ];

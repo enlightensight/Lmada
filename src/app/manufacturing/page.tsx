@@ -46,12 +46,12 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 const MANUFACTURING_HERO_IMAGES = [
   '/images/manufacturing/1-gmp-production-bioreactor.webp',
   '/images/manufacturing/2-gmp-seed-bioreactor.webp',
-  '/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png',
+  '/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).webp',
   '/images/Stainless Steel NBD1 Control Cabinet.webp',
-  '/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png',
-  '/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).png',
-  '/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png',
-  '/images/Drugproductdev/Lyophilizer in FDL Lab.png',
+  '/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).webp',
+  '/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).webp',
+  '/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).webp',
+  '/images/Drugproductdev/Lyophilizer in FDL Lab.webp',
 ];
 
 const DEFAULT_MANUFACTURING_SUB_SERVICES = [
@@ -59,7 +59,7 @@ const DEFAULT_MANUFACTURING_SUB_SERVICES = [
     title: 'Drug Substance Manufacturing',
     slug: 'drug-substance',
     href: '/manufacturing/drug-substance-manufacturing',
-    image: '/images/upstream_GMP/GMP Production bioreactor.png',
+    image: '/images/upstream_GMP/GMP Production bioreactor.webp',
     description: 'Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.',
     capabilities: [
       'GMP seed train and production bioreactor operations',
@@ -72,7 +72,7 @@ const DEFAULT_MANUFACTURING_SUB_SERVICES = [
     title: 'Drug Product Manufacturing',
     slug: 'drug-product',
     href: '/manufacturing/drug-product-manufacturing',
-    image: '/images/insights/robotic_fill_finish.png',
+    image: '/images/insights/robotic_fill_finish.webp',
     description: 'Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products across liquid and lyophilized forms.',
     capabilities: [
       'Formulation development and optimization',
@@ -169,7 +169,7 @@ export default async function ManufacturingServicesPage({ searchParams }: PagePr
           title,
           slug: card.title?.toLowerCase().replace(/\s+/g, '-') || `cap-${idx + 1}`,
           href: card.link || card.href || DEFAULT_MANUFACTURING_SUB_SERVICES[idx]?.href || '/manufacturing',
-          image: card.image || DEFAULT_MANUFACTURING_SUB_SERVICES[idx]?.image || '/images/upstream_GMP/GMP Production bioreactor.png',
+          image: card.image || DEFAULT_MANUFACTURING_SUB_SERVICES[idx]?.image || '/images/upstream_GMP/GMP Production bioreactor.webp',
           description: card.description || DEFAULT_MANUFACTURING_SUB_SERVICES[idx]?.description || '',
           capabilities: (card.bullets && card.bullets.length > 0) ? card.bullets : (DEFAULT_MANUFACTURING_SUB_SERVICES[idx]?.capabilities || []),
           // Short label for the hero quick-jump button

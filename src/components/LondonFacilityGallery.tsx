@@ -6,43 +6,43 @@ import Reveal from '@/components/Reveal';
 
 const ukEquipment = [
   {
-    image: '/images/uk/xcell.png',
+    image: '/images/uk/xcell.webp',
     alt: 'London Facility Equipment 1',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173413.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173413.webp',
     alt: 'London Facility Equipment 2',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173425.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173425.webp',
     alt: 'London Facility Equipment 3',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173433.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173433.webp',
     alt: 'London Facility Equipment 4',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173453.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173453.webp',
     alt: 'London Facility Equipment 5',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173506.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173506.webp',
     alt: 'London Facility Equipment 6',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173524.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173524.webp',
     alt: 'London Facility Equipment 7',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173552.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173552.webp',
     alt: 'London Facility Equipment 8',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173605.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173605.webp',
     alt: 'London Facility Equipment 9',
   },
   {
-    image: '/images/uk/Screenshot%202026-09-26%20173622.png',
+    image: '/images/uk/Screenshot%202026-09-26%20173622.webp',
     alt: 'London Facility Equipment 10',
   },
 ];

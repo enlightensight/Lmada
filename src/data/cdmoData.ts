@@ -281,13 +281,13 @@ export const cdmoData: CDMOPage[] = [
             "link": "/services",
             "badge": "01 — Development",
             "step": "01 — Development",
-            "image": "/images/upstream/AMBR250.png",
+            "image": "/images/upstream/AMBR250.webp",
             "images": [
-              "/images/upstream/AMBR250.png",
-              "/images/upstream/Bioreactor_control.png",
-              "/images/upstream/Biosaftey_cabinet.png",
+              "/images/upstream/AMBR250.webp",
+              "/images/upstream/Bioreactor_control.webp",
+              "/images/upstream/Biosaftey_cabinet.webp",
               "/images/upstream/Carbon_di_Oxide_shaker_incubator.png",
-              "/images/upstream/Cedex_automated_cell_counter.png"
+              "/images/upstream/Cedex_automated_cell_counter.webp"
             ],
             "items": [
               {
@@ -314,13 +314,13 @@ export const cdmoData: CDMOPage[] = [
             "link": "/manufacturing",
             "badge": "02 — Manufacturing",
             "step": "02 — Manufacturing",
-            "image": "/images/down stream/AKTA Pilot.png",
+            "image": "/images/down stream/AKTA Pilot.webp",
             "images": [
-              "/images/down stream/AKTA Pilot.png",
-              "/images/down stream/AKTA Pure 150_Akta Avant.png",
-              "/images/down stream/Column Storage Rack.png",
-              "/images/down stream/TFF System.png",
-              "/images/down stream/Tecan Freedom EVO.png"
+              "/images/down stream/AKTA Pilot.webp",
+              "/images/down stream/AKTA Pure 150_Akta Avant.webp",
+              "/images/down stream/Column Storage Rack.webp",
+              "/images/down stream/TFF System.webp",
+              "/images/down stream/Tecan Freedom EVO.webp"
             ],
             "items": [
               {
@@ -391,25 +391,25 @@ export const cdmoData: CDMOPage[] = [
             "title": "Monoclonal Antibodies",
             "description": "Platform capabilities for IgG1, IgG2, and IgG4 subclasses.",
             "link": "/modalities/monoclonal-antibodies",
-            "image": "/images/modalities/mAb.png"
+            "image": "/images/modalities/mAb.webp"
           },
           {
             "title": "Bispecific Antibodies",
             "description": "Addressing chain pairing, homodimer, and mispairing challenges.",
             "link": "/modalities/bispecific-antibodies",
-            "image": "/images/modalities/Bispecific_Antibody.png"
+            "image": "/images/modalities/Bispecific_Antibody.webp"
           },
           {
             "title": "Antibody-Drug Conjugates",
             "description": "Conjugation process development, DAR characterization, and GMP manufacturing.",
             "link": "/modalities/antibody-drug-conjugates",
-            "image": "/images/modalities/Antibody-Drug_Conjugate.png"
+            "image": "/images/modalities/Antibody-Drug_Conjugate.webp"
           },
           {
             "title": "Proteins & Peptides",
             "description": "Recombinant proteins, fusion proteins, and synthetic peptides.",
             "link": "/modalities/proteins-peptides",
-            "image": "/images/modalities/Proteins_and_Peptides.png"
+            "image": "/images/modalities/Proteins_and_Peptides.webp"
           }
         ]
       },
@@ -689,9 +689,9 @@ export const cdmoData: CDMOPage[] = [
           "Bioprocess monitoring using bioprofile analyzers"
         ],
         "images": [
-          "/images/celldev/AMBR15.png",
-          "/images/celldev/Biosafety_Cabinet.png",
-          "/images/celldev/CLD_Lab.png"
+          "/images/celldev/AMBR15.webp",
+          "/images/celldev/Biosafety_Cabinet.webp",
+          "/images/celldev/CLD_Lab.webp"
         ]
       },
       {
@@ -711,11 +711,11 @@ export const cdmoData: CDMOPage[] = [
           "Monitoring of cell growth, metabolites, and key process parameters"
         ],
         "images": [
-          "/images/upstream/AMBR250.png",
-          "/images/upstream/Bioreactor_control.png",
-          "/images/upstream/Biosaftey_cabinet.png",
+          "/images/upstream/AMBR250.webp",
+          "/images/upstream/Bioreactor_control.webp",
+          "/images/upstream/Biosaftey_cabinet.webp",
           "/images/upstream/Carbon_di_Oxide_shaker_incubator.png",
-          "/images/upstream/Cedex_automated_cell_counter.png"
+          "/images/upstream/Cedex_automated_cell_counter.webp"
         ]
       },
       {
@@ -726,19 +726,19 @@ export const cdmoData: CDMOPage[] = [
         "dark": false,
         "images": [
           "/images/upstream_GMP/549A7821.png",
-          "/images/upstream_GMP/GMP Production bioreactor.png",
-          "/images/upstream_GMP/GMP Seed bioreactor.png",
-          "/images/upstream_GMP/GMP Wave Bioreactor.png",
-          "/images/upstream_GMP/GMP Automated Bioanalyzer.png",
+          "/images/upstream_GMP/GMP Production bioreactor.webp",
+          "/images/upstream_GMP/GMP Seed bioreactor.webp",
+          "/images/upstream_GMP/GMP Wave Bioreactor.webp",
+          "/images/upstream_GMP/GMP Automated Bioanalyzer.webp",
           "/images/upstream_GMP/GMP Automated cell counter.png",
-          "/images/upstream_GMP/GMP Bentch top centrifuge.png",
-          "/images/upstream_GMP/GMP CO2 shaker incubator.png",
+          "/images/upstream_GMP/GMP Bentch top centrifuge.webp",
+          "/images/upstream_GMP/GMP CO2 shaker incubator.webp",
           "/images/upstream_GMP/GMP Cell bank storage system.png",
           "/images/upstream_GMP/GMP Depth filter holder.png",
-          "/images/upstream_GMP/GMP Inverted Microscope.png",
-          "/images/upstream_GMP/GMP Overhead stirrer.png",
-          "/images/upstream_GMP/GMP Quattroflow pump.png",
-          "/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png"
+          "/images/upstream_GMP/GMP Inverted Microscope.webp",
+          "/images/upstream_GMP/GMP Overhead stirrer.webp",
+          "/images/upstream_GMP/GMP Quattroflow pump.webp",
+          "/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).webp"
         ],
         "imageSide": "left",
         "bullets": [
@@ -771,11 +771,11 @@ export const cdmoData: CDMOPage[] = [
           "Process scale-up and technology transfer"
         ],
         "images": [
-          "/images/down stream/AKTA Pilot.png",
-          "/images/down stream/AKTA Pure 150_Akta Avant.png",
-          "/images/down stream/Tecan Freedom EVO.png",
-          "/images/down stream/TFF System.png",
-          "/images/down stream/Column Storage Rack.png"
+          "/images/down stream/AKTA Pilot.webp",
+          "/images/down stream/AKTA Pure 150_Akta Avant.webp",
+          "/images/down stream/Tecan Freedom EVO.webp",
+          "/images/down stream/TFF System.webp",
+          "/images/down stream/Column Storage Rack.webp"
         ]
       },
       {
@@ -785,11 +785,11 @@ export const cdmoData: CDMOPage[] = [
         "text": "The GMP downstream platform supports processing of biologic harvest through purification to drug substance.",
         "dark": false,
         "images": [
-          "/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png",
-          "/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png",
-          "/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).png",
-          "/images/downstream_GMP/Axichrom column controller(DSP25-0230).png",
-          "/images/downstream_GMP/HiScale Column.png"
+          "/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).webp",
+          "/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).webp",
+          "/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).webp",
+          "/images/downstream_GMP/Axichrom column controller(DSP25-0230).webp",
+          "/images/downstream_GMP/HiScale Column.webp"
         ],
         "imageSide": "left",
         "bullets": [
@@ -828,9 +828,9 @@ export const cdmoData: CDMOPage[] = [
           "Visual Inspection Suite and secondary packaging suite"
         ],
         "images": [
-          "/images/Drugproductdev/FDL Lab.png",
-          "/images/Drugproductdev/Lyophilizer in FDL Lab.png",
-          "/images/Drugproductdev/Cooling Chamber in FDL Lab.png"
+          "/images/Drugproductdev/FDL Lab.webp",
+          "/images/Drugproductdev/Lyophilizer in FDL Lab.webp",
+          "/images/Drugproductdev/Cooling Chamber in FDL Lab.webp"
         ]
       },
       {
@@ -921,16 +921,16 @@ export const cdmoData: CDMOPage[] = [
     "heading": "Biologics Development & Analytical Sciences",
     "description": "The London facility provides specialized capabilities in biologics development, process development, and analytical characterization for drug substance process development and process characterisation.\n\nThe facility supports programs from early-stage development through late-stage process characterization, bringing together upstream process development, downstream process development, and analytical development capabilities.",
     "images": [
-      "/images/uk/xcell.png",
-      "/images/uk/Screenshot 2026-09-26 173413.png",
-      "/images/uk/Screenshot 2026-09-26 173425.png",
-      "/images/uk/Screenshot 2026-09-26 173433.png",
-      "/images/uk/Screenshot 2026-09-26 173453.png",
-      "/images/uk/Screenshot 2026-09-26 173506.png",
-      "/images/uk/Screenshot 2026-09-26 173524.png",
-      "/images/uk/Screenshot 2026-09-26 173552.png",
-      "/images/uk/Screenshot 2026-09-26 173605.png",
-      "/images/uk/Screenshot 2026-09-26 173622.png"
+      "/images/uk/xcell.webp",
+      "/images/uk/Screenshot 2026-09-26 173413.webp",
+      "/images/uk/Screenshot 2026-09-26 173425.webp",
+      "/images/uk/Screenshot 2026-09-26 173433.webp",
+      "/images/uk/Screenshot 2026-09-26 173453.webp",
+      "/images/uk/Screenshot 2026-09-26 173506.webp",
+      "/images/uk/Screenshot 2026-09-26 173524.webp",
+      "/images/uk/Screenshot 2026-09-26 173552.webp",
+      "/images/uk/Screenshot 2026-09-26 173605.webp",
+      "/images/uk/Screenshot 2026-09-26 173622.webp"
     ],
     "sections": [
       {
@@ -950,12 +950,12 @@ export const cdmoData: CDMOPage[] = [
         ],
         "footerText": "The team supports development across monoclonal antibodies, complex proteins, biosimilars, novel biologics, and animal therapeutics.",
         "images": [
-          "/images/uk/upstream/Integrated ATF Perfusion Bioreactor System.png",
+          "/images/uk/upstream/Integrated ATF Perfusion Bioreactor System.webp",
           "/images/uk/upstream/Parallel 5 L Bench-Scale Bioreactor Platform for Upstream Process Development.jpg",
           "/images/uk/upstream/Shake Flask Culture and Seed Train Development.jpg",
           "/images/uk/upstream/Automated Cell Viability and Cell Density Analysis.jpg",
           "/images/uk/upstream/Cell Culture Analytics and Process Monitoring.jpg",
-          "/images/uk/upstream/Ambr 250 High-Throughput Bioreactor System.png",
+          "/images/uk/upstream/Ambr 250 High-Throughput Bioreactor System.webp",
           "/images/uk/upstream/Automated Osmolality Measurement.png",
           "/images/uk/upstream/Milli-Q Water Purification Platform.png"
         ]
@@ -977,10 +977,10 @@ export const cdmoData: CDMOPage[] = [
           "Technology transfer support"
         ],
         "images": [
-          "/images/uk/downstream/Akta Avant automated chromatography system.png",
-          "/images/uk/downstream/Akta Pure automated chromatography system.png",
+          "/images/uk/downstream/Akta Avant automated chromatography system.webp",
+          "/images/uk/downstream/Akta Pure automated chromatography system.webp",
           "/images/uk/downstream/Avant automated chromatography system.png",
-          "/images/uk/downstream/Repligen automated Tangential flow filtration (TFF) system.png"
+          "/images/uk/downstream/Repligen automated Tangential flow filtration (TFF) system.webp"
         ]
       },
       {
@@ -1004,7 +1004,7 @@ export const cdmoData: CDMOPage[] = [
           "/images/uk/analytical/Advanced HPLC systems.jpg",
           "/images/uk/analytical/UPLC systems.jpg",
           "/images/uk/analytical/Capillary Electrophoresis system.jpg",
-          "/images/uk/analytical/HPLC systems with fraction collector.png"
+          "/images/uk/analytical/HPLC systems with fraction collector.webp"
         ]
       },
       {
@@ -1145,7 +1145,7 @@ export const cdmoData: CDMOPage[] = [
         "subtitle": "Lifecycle CMC Alignment",
         "text": "Our Regulatory Affairs team works closely with development, manufacturing, analytical, and quality functions to support Chemistry, Manufacturing, and Controls (CMC) requirements throughout the product lifecycle.",
         "dark": false,
-        "image": "/images/insights/regulatory_cmc_roadmap.png",
+        "image": "/images/insights/regulatory_cmc_roadmap.webp",
         "imageSide": "right",
         "bullets": [
           "IND and IMPD submissions",
@@ -1266,9 +1266,9 @@ export const cdmoData: CDMOPage[] = [
     "status": "published",
     "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
     "images": [
-      "/images/celldev/AMBR15.png",
-      "/images/celldev/Biosafety_Cabinet.png",
-      "/images/celldev/CLD_Lab.png"
+      "/images/celldev/AMBR15.webp",
+      "/images/celldev/Biosafety_Cabinet.webp",
+      "/images/celldev/CLD_Lab.webp"
     ]
   },
   {
@@ -1302,11 +1302,11 @@ export const cdmoData: CDMOPage[] = [
           "Monitoring of cell growth, metabolites, productivity, and process parameters"
         ],
         "images": [
-          "/images/upstream/AMBR250.png",
-          "/images/upstream/Bioreactor_control.png",
-          "/images/upstream/Biosaftey_cabinet.png",
+          "/images/upstream/AMBR250.webp",
+          "/images/upstream/Bioreactor_control.webp",
+          "/images/upstream/Biosaftey_cabinet.webp",
           "/images/upstream/Carbon_di_Oxide_shaker_incubator.png",
-          "/images/upstream/Cedex_automated_cell_counter.png"
+          "/images/upstream/Cedex_automated_cell_counter.webp"
         ],
         "bulletsTitle": "Key Capabilities"
       },
@@ -1333,11 +1333,11 @@ export const cdmoData: CDMOPage[] = [
           "Technology transfer support"
         ],
         "images": [
-          "/images/down stream/AKTA Pilot.png",
-          "/images/down stream/AKTA Pure 150_Akta Avant.png",
-          "/images/down stream/Tecan Freedom EVO.png",
-          "/images/down stream/TFF System.png",
-          "/images/down stream/Column Storage Rack.png"
+          "/images/down stream/AKTA Pilot.webp",
+          "/images/down stream/AKTA Pure 150_Akta Avant.webp",
+          "/images/down stream/Tecan Freedom EVO.webp",
+          "/images/down stream/TFF System.webp",
+          "/images/down stream/Column Storage Rack.webp"
         ],
         "bulletsTitle": "Key Capabilities"
       }
@@ -1358,16 +1358,16 @@ export const cdmoData: CDMOPage[] = [
     ],
     "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
     "images": [
-      "/images/down stream/AKTA Pure 150_Akta Avant.png",
-      "/images/upstream/AMBR250.png",
-      "/images/upstream/Bioreactor_control.png",
-      "/images/upstream/Biosaftey_cabinet.png",
+      "/images/down stream/AKTA Pure 150_Akta Avant.webp",
+      "/images/upstream/AMBR250.webp",
+      "/images/upstream/Bioreactor_control.webp",
+      "/images/upstream/Biosaftey_cabinet.webp",
       "/images/upstream/Carbon_di_Oxide_shaker_incubator.png",
-      "/images/upstream/Cedex_automated_cell_counter.png",
-      "/images/down stream/AKTA Pilot.png",
-      "/images/down stream/Tecan Freedom EVO.png",
-      "/images/down stream/TFF System.png",
-      "/images/down stream/Column Storage Rack.png"
+      "/images/upstream/Cedex_automated_cell_counter.webp",
+      "/images/down stream/AKTA Pilot.webp",
+      "/images/down stream/Tecan Freedom EVO.webp",
+      "/images/down stream/TFF System.webp",
+      "/images/down stream/Column Storage Rack.webp"
     ]
   },
   {
@@ -1502,19 +1502,19 @@ export const cdmoData: CDMOPage[] = [
     "faqSubtitle": "TECHNICAL & OPERATIONAL CLARIFICATIONS",
     "images": [
       "/images/upstream_GMP/549A7821.png",
-      "/images/upstream_GMP/GMP Production bioreactor.png",
-      "/images/upstream_GMP/GMP Seed bioreactor.png",
-      "/images/upstream_GMP/GMP Wave Bioreactor.png",
-      "/images/upstream_GMP/GMP Automated Bioanalyzer.png",
+      "/images/upstream_GMP/GMP Production bioreactor.webp",
+      "/images/upstream_GMP/GMP Seed bioreactor.webp",
+      "/images/upstream_GMP/GMP Wave Bioreactor.webp",
+      "/images/upstream_GMP/GMP Automated Bioanalyzer.webp",
       "/images/upstream_GMP/GMP Automated cell counter.png",
-      "/images/upstream_GMP/GMP Bentch top centrifuge.png",
-      "/images/upstream_GMP/GMP CO2 shaker incubator.png",
+      "/images/upstream_GMP/GMP Bentch top centrifuge.webp",
+      "/images/upstream_GMP/GMP CO2 shaker incubator.webp",
       "/images/upstream_GMP/GMP Cell bank storage system.png",
       "/images/upstream_GMP/GMP Depth filter holder.png",
-      "/images/upstream_GMP/GMP Inverted Microscope.png",
-      "/images/upstream_GMP/GMP Overhead stirrer.png",
-      "/images/upstream_GMP/GMP Quattroflow pump.png",
-      "/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png",
+      "/images/upstream_GMP/GMP Inverted Microscope.webp",
+      "/images/upstream_GMP/GMP Overhead stirrer.webp",
+      "/images/upstream_GMP/GMP Quattroflow pump.webp",
+      "/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).webp",
       "/images/downstream_GMP/300x300-axichrom-column.webp",
       "/images/downstream_GMP/hiscale-column.webp",
       "/images/downstream_GMP/chromatography-skid-coprime.webp",
@@ -1532,7 +1532,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Manufacturing",
     "heading": "Reliable Drug Product Manufacturing for Clinical Supply",
     "description": "Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products. The platform supports formulation, aseptic fill-finish, lyophilization, packaging, and quality control for clinical supply.",
-    "image": "/images/menufacturing.png",
+    "image": "/images/menufacturing.webp",
     "capabilities": [
       "Formulation development and optimization",
       "Excipient compatibility studies",
@@ -1777,7 +1777,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Modalities",
     "heading": "Integrated Capabilities for mAb Development and Manufacturing",
     "description": "Monoclonal antibodies (mAbs) continue to be one of the most widely developed biologic modalities, driving innovation across oncology, immunology, and other therapeutic areas. Lambda CDMO offers integrated development and manufacturing capabilities for monoclonal antibodies, supporting sponsors from cell line development and process optimization through analytical characterization and GMP manufacturing.",
-    "image": "/images/modalities/mAb.png",
+    "image": "/images/modalities/mAb.webp",
     "capabilities": [
       "Mammalian cell line development and clone selection",
       "High-throughput clone screening and selection",
@@ -1813,7 +1813,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Modalities",
     "heading": "Development Strategies for Complex Antibody Formats",
     "description": "Bispecific antibodies present unique development and manufacturing challenges due to their structural complexity, product heterogeneity, and analytical requirements. Lambda CDMO supports bispecific antibody programs through coordinated cell line, process development, analytical characterization, and manufacturing capabilities.",
-    "image": "/images/modalities/Bispecific_Antibody.png",
+    "image": "/images/modalities/Bispecific_Antibody.webp",
     "capabilities": [
       "Cell line development for bispecific and bifunctional antibodies",
       "Clone screening and selection",
@@ -1849,7 +1849,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Modalities",
     "heading": "Integrated Development for ADC Programs",
     "description": "Antibody-drug conjugates (ADCs) combine monoclonal antibodies with highly potent payloads, requiring specialized development, analytical characterization, and manufacturing strategies. Lambda CDMO supports ADC programs through capabilities spanning monoclonal antibody development, conjugation process development, analytical characterization, and manufacturing.",
-    "image": "/images/modalities/Antibody-Drug_Conjugate.png",
+    "image": "/images/modalities/Antibody-Drug_Conjugate.webp",
     "capabilities": [
       "Monoclonal antibody development for ADC programs",
       "Conjugation process development",
@@ -1884,7 +1884,7 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Modalities",
     "heading": "Development and Manufacturing for Proteins and Peptides",
     "description": "Lambda CDMO offers development and manufacturing capabilities for recombinant proteins and therapeutic peptides across a range of biologic applications. Our integrated platform combines process development, analytical characterization, quality control, and manufacturing to support the development of protein- and peptide-based therapeutics.",
-    "image": "/images/modalities/Proteins_and_Peptides.png",
+    "image": "/images/modalities/Proteins_and_Peptides.webp",
     "capabilities": [
       "Mammalian expression platforms",
       "Recombinant protein expression using CHO, HEK293, and E. coli expression systems",
@@ -1980,13 +1980,13 @@ export const cdmoData: CDMOPage[] = [
     "badge": "Development Services",
     "heading": "Development Designed for Manufacturing",
     "description": "Lambda CDMO brings together cell line development, upstream and downstream process development, and analytical development to establish robust processes, generate meaningful development data, and support efficient technology transfer into GMP manufacturing.\n\nOur development approach spans early-stage development through process characterization and technology transfer, with capabilities supporting monoclonal antibodies, bispecific antibodies, biosimilars, recombinant proteins, peptides, and other biologic modalities.",
-    "image": "/images/upstream/AMBR250.png",
+    "image": "/images/upstream/AMBR250.webp",
     "images": [
-      "/images/upstream/AMBR250.png",
-      "/images/upstream/Bioreactor_control.png",
-      "/images/upstream/Biosaftey_cabinet.png",
+      "/images/upstream/AMBR250.webp",
+      "/images/upstream/Bioreactor_control.webp",
+      "/images/upstream/Biosaftey_cabinet.webp",
       "/images/upstream/Carbon_di_Oxide_shaker_incubator.png",
-      "/images/upstream/Cedex_automated_cell_counter.png"
+      "/images/upstream/Cedex_automated_cell_counter.webp"
     ],
     "sections": [
       {
@@ -2000,7 +2000,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Cell Line Development",
             "link": "/services/cell-line-development",
             "badge": "Cell Line Development",
-            "image": "/images/celldev/CLD_Lab.png",
+            "image": "/images/celldev/CLD_Lab.webp",
             "description": "A well-characterized, productive cell line provides the foundation for a robust biologics manufacturing process across mammalian expression platforms.",
             "bullets": [
               "Gene construct design and optimization",
@@ -2014,7 +2014,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Process Development",
             "link": "/services/process-development",
             "badge": "Process Development",
-            "image": "/images/upstream/AMBR250.png",
+            "image": "/images/upstream/AMBR250.webp",
             "description": "Upstream and downstream processes with a focus on product quality, process robustness, scalability, and manufacturability from bench to pilot scale.",
             "bullets": [
               "Media and feed optimization",
@@ -2087,12 +2087,12 @@ export const cdmoData: CDMOPage[] = [
     "images": [
       "/images/manufacturing/1-gmp-production-bioreactor.webp",
       "/images/manufacturing/2-gmp-seed-bioreactor.webp",
-      "/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png",
+      "/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).webp",
       "/images/Stainless Steel NBD1 Control Cabinet.webp",
-      "/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png",
-      "/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).png",
-      "/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png",
-      "/images/Drugproductdev/Lyophilizer in FDL Lab.png"
+      "/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).webp",
+      "/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).webp",
+      "/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).webp",
+      "/images/Drugproductdev/Lyophilizer in FDL Lab.webp"
     ],
     "sections": [
       {
@@ -2106,7 +2106,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Drug Substance Manufacturing",
             "link": "/manufacturing/drug-substance-manufacturing",
             "badge": "Drug Substance",
-            "image": "/images/upstream_GMP/GMP Production bioreactor.png",
+            "image": "/images/upstream_GMP/GMP Production bioreactor.webp",
             "description": "Lambda CDMO provides cGMP drug substance manufacturing for biologics, supporting clinical development from First-in-Human (FIH) studies through later-phase programs.",
             "bullets": [
               "GMP seed train and production bioreactor operations",
@@ -2120,7 +2120,7 @@ export const cdmoData: CDMOPage[] = [
             "title": "Drug Product Manufacturing",
             "link": "/manufacturing/drug-product-manufacturing",
             "badge": "Drug Product",
-            "image": "/images/insights/robotic_fill_finish.png",
+            "image": "/images/insights/robotic_fill_finish.webp",
             "description": "Lambda CDMO provides drug product manufacturing capabilities supporting the transition from bulk drug substance to finished clinical products across liquid and lyophilized forms.",
             "bullets": [
               "Formulation development and optimization",

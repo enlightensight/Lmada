@@ -7,43 +7,43 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const UK_FACILITY_IMAGES = [
   {
-    src: '/images/uk/xcell.png',
+    src: '/images/uk/xcell.webp',
     alt: 'London Biologics Development & Analytical Sciences',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173413.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173413.webp',
     alt: 'London Biologics Development Suite',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173425.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173425.webp',
     alt: 'London Upstream Process Development',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173433.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173433.webp',
     alt: 'London Downstream Purification Skids',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173453.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173453.webp',
     alt: 'London Analytical Characterization Instruments',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173506.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173506.webp',
     alt: 'London Mass Spectrometry and HPLC Systems',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173524.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173524.webp',
     alt: 'London Bioprocess Testing & Bioassays',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173552.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173552.webp',
     alt: 'London Automated Liquid Handling & Chromatography',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173605.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173605.webp',
     alt: 'London Bioreactors & Process Optimization',
   },
   {
-    src: '/images/uk/Screenshot%202026-09-26%20173622.png',
+    src: '/images/uk/Screenshot%202026-09-26%20173622.webp',
     alt: 'London Physicochemical Characterization Lab',
   },
 ];

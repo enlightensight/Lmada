@@ -148,14 +148,14 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
   },
   {
     label: 'Ahmedabad CDMO Facility (Blue Facade)',
-    url: '/images/CDMOblue.png',
+    url: '/images/CDMOblue.webp',
     type: 'image',
     category: 'cleanroom',
     badge: 'Facility'
   },
   {
     label: 'London Innovation Laboratory',
-    url: '/images/Lab.jpg',
+    url: '/images/Lab.webp',
     type: 'image',
     category: 'cleanroom',
     badge: 'London Lab'
@@ -169,7 +169,7 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
   },
   {
     label: 'cGMP Manufacturing Operations',
-    url: '/images/cGMP.png',
+    url: '/images/cGMP.webp',
     type: 'image',
     category: 'cleanroom',
     badge: 'Manufacturing'
@@ -192,28 +192,28 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
   },
   {
     label: 'GMP Production Bioreactor (200 L)',
-    url: '/images/upstream_GMP/GMP Production bioreactor.png',
+    url: '/images/upstream_GMP/GMP Production bioreactor.webp',
     type: 'image',
     category: 'upstream',
     badge: '200L SUB'
   },
   {
     label: 'GMP Seed Bioreactor (50 L)',
-    url: '/images/upstream_GMP/GMP Seed bioreactor.png',
+    url: '/images/upstream_GMP/GMP Seed bioreactor.webp',
     type: 'image',
     category: 'upstream',
     badge: '50L Seed Train'
   },
   {
     label: 'GMP Wave Bioreactor System',
-    url: '/images/upstream_GMP/GMP Wave Bioreactor.png',
+    url: '/images/upstream_GMP/GMP Wave Bioreactor.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Wave Bioreactor'
   },
   {
     label: 'GMP Automated Bioanalyzer',
-    url: '/images/upstream_GMP/GMP Automated Bioanalyzer.png',
+    url: '/images/upstream_GMP/GMP Automated Bioanalyzer.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Bioanalyzer'
@@ -227,14 +227,14 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
   },
   {
     label: 'GMP Refrigerated Benchtop Centrifuge',
-    url: '/images/upstream_GMP/GMP Bentch top centrifuge.png',
+    url: '/images/upstream_GMP/GMP Bentch top centrifuge.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Centrifuge'
   },
   {
     label: 'GMP Cleanroom CO2 Shaker Incubator',
-    url: '/images/upstream_GMP/GMP CO2 shaker incubator.png',
+    url: '/images/upstream_GMP/GMP CO2 shaker incubator.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Vial Thaw'
@@ -255,49 +255,49 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
   },
   {
     label: 'GMP Inverted Phase Contrast Microscope',
-    url: '/images/upstream_GMP/GMP Inverted Microscope.png',
+    url: '/images/upstream_GMP/GMP Inverted Microscope.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Microscope'
   },
   {
     label: 'GMP Overhead Stirrer & Media Prep Tank',
-    url: '/images/upstream_GMP/GMP Overhead stirrer.png',
+    url: '/images/upstream_GMP/GMP Overhead stirrer.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Media Prep'
   },
   {
     label: 'GMP Quattroflow Diaphragm Fluid Transfer Pump',
-    url: '/images/upstream_GMP/GMP Quattroflow pump.png',
+    url: '/images/upstream_GMP/GMP Quattroflow pump.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Fluid Pump'
   },
   {
     label: '50 L Single-Use Mixer (SUM)',
-    url: '/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).png',
+    url: '/images/upstream_GMP/50 L Single use mixer (SUM)(DSP25-0106).webp',
     type: 'image',
     category: 'upstream',
     badge: 'Single-Use Mixer'
   },
   {
     label: 'Ambr 250 High-Throughput Bioreactor',
-    url: '/images/upstream/AMBR250.png',
+    url: '/images/upstream/AMBR250.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Micro-Bioreactor'
   },
   {
     label: 'Bioreactor SCADA Control Skid',
-    url: '/images/upstream/Bioreactor_control.png',
+    url: '/images/upstream/Bioreactor_control.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Automation'
   },
   {
     label: 'Biosafety Cabinet Grade A Workstation',
-    url: '/images/upstream/Biosaftey_cabinet.png',
+    url: '/images/upstream/Biosaftey_cabinet.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Sterile Culture'
@@ -311,7 +311,7 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
   },
   {
     label: 'Cedex Automated Cell Viability Counter',
-    url: '/images/upstream/Cedex_automated_cell_counter.png',
+    url: '/images/upstream/Cedex_automated_cell_counter.webp',
     type: 'image',
     category: 'upstream',
     badge: 'Viability Analytics'
@@ -320,70 +320,70 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
   // 4. Downstream Chromatography & GMP Purification
   {
     label: '300x300 AxiChrom Chromatography Column (GMP)',
-    url: '/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).png',
+    url: '/images/downstream_GMP/300X300 Axichrom column(DSP25-0222).webp',
     type: 'image',
     category: 'downstream',
     badge: 'AxiChrom Column'
   },
   {
     label: 'ÄKTA Pilot Chromatography Skid (GMP)',
-    url: '/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).png',
+    url: '/images/downstream_GMP/AKTA Pilot Chromatography system(DSP25-0116).webp',
     type: 'image',
     category: 'downstream',
     badge: 'GMP Skid'
   },
   {
     label: 'Automated TFF System with SUM (GMP)',
-    url: '/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).png',
+    url: '/images/downstream_GMP/Automated TFF system with SUM(DSP25-0117).webp',
     type: 'image',
     category: 'downstream',
     badge: 'UF/DF System'
   },
   {
     label: 'AxiChrom Column Intelligent Controller (GMP)',
-    url: '/images/downstream_GMP/Axichrom column controller(DSP25-0230).png',
+    url: '/images/downstream_GMP/Axichrom column controller(DSP25-0230).webp',
     type: 'image',
     category: 'downstream',
     badge: 'Column Control'
   },
   {
     label: 'HiScale High-Resolution Column (GMP)',
-    url: '/images/downstream_GMP/HiScale Column.png',
+    url: '/images/downstream_GMP/HiScale Column.webp',
     type: 'image',
     category: 'downstream',
     badge: 'Column Hardware'
   },
   {
     label: 'AKTA Pilot Chromatography Skid (Process Dev)',
-    url: '/images/down stream/AKTA Pilot.png',
+    url: '/images/down stream/AKTA Pilot.webp',
     type: 'image',
     category: 'downstream',
     badge: 'Purification Skid'
   },
   {
     label: 'AKTA Pure 150 & Avant Systems',
-    url: '/images/down stream/AKTA Pure 150_Akta Avant.png',
+    url: '/images/down stream/AKTA Pure 150_Akta Avant.webp',
     type: 'image',
     category: 'downstream',
     badge: 'FPLC Skid'
   },
   {
     label: 'Process Column Storage Rack',
-    url: '/images/down stream/Column Storage Rack.png',
+    url: '/images/down stream/Column Storage Rack.webp',
     type: 'image',
     category: 'downstream',
     badge: 'Columns'
   },
   {
     label: 'Tangential Flow Filtration (TFF) Skid',
-    url: '/images/down stream/TFF System.png',
+    url: '/images/down stream/TFF System.webp',
     type: 'image',
     category: 'downstream',
     badge: 'Ultrafiltration'
   },
   {
     label: 'Tecan Freedom EVO Liquid Handler',
-    url: '/images/down stream/Tecan Freedom EVO.png',
+    url: '/images/down stream/Tecan Freedom EVO.webp',
     type: 'image',
     category: 'downstream',
     badge: 'Robotics'
@@ -436,28 +436,28 @@ export const PRESET_MEDIA_GALLERY: PresetMediaItem[] = [
   // 6. Therapeutic Modalities
   {
     label: 'Monoclonal Antibodies (mAbs)',
-    url: '/images/modalities/mAb.png',
+    url: '/images/modalities/mAb.webp',
     type: 'image',
     category: 'modalities',
     badge: 'IgG1 / IgG4'
   },
   {
     label: 'Bispecific Antibodies & Dual Targeting',
-    url: '/images/modalities/Bispecific_Antibody.png',
+    url: '/images/modalities/Bispecific_Antibody.webp',
     type: 'image',
     category: 'modalities',
     badge: 'BsAb'
   },
   {
     label: 'Antibody-Drug Conjugates (ADCs)',
-    url: '/images/modalities/Antibody-Drug_Conjugate.png',
+    url: '/images/modalities/Antibody-Drug_Conjugate.webp',
     type: 'image',
     category: 'modalities',
     badge: 'Conjugates'
   },
   {
     label: 'Recombinant Proteins & Synthetic Peptides',
-    url: '/images/modalities/Proteins_and_Peptides.png',
+    url: '/images/modalities/Proteins_and_Peptides.webp',
     type: 'image',
     category: 'modalities',
     badge: 'Fusion Proteins'
@@ -4376,7 +4376,7 @@ export default function PageAdminEditor({
                                         title: 'New Biologic Modality',
                                         description: 'Platform capabilities for next-gen therapeutic class.',
                                         link: '/modalities/mabs',
-                                        image: '/images/modalities/mAb.png'
+                                        image: '/images/modalities/mAb.webp'
                                       }
                                     ];
                                     updateSectionField(idx, 'cards', cards);
@@ -4752,8 +4752,8 @@ export default function PageAdminEditor({
                                         description: 'Detailed description of capability',
                                         icon: 'FlaskConical',
                                         link: '/services',
-                                        image: '/images/upstream/AMBR250.png',
-                                        images: ['/images/upstream/AMBR250.png'],
+                                        image: '/images/upstream/AMBR250.webp',
+                                        images: ['/images/upstream/AMBR250.webp'],
                                         items: [
                                           { name: 'Sub Capability 1', href: '/services', icon: 'Dna' }
                                         ]
@@ -7737,23 +7737,23 @@ export default function PageAdminEditor({
               ? page.images
               : (page.slug?.toLowerCase() === 'india' || page.title?.toLowerCase().includes('ahmedabad'))
               ? [
-                  '/images/ahmedabad/Screenshot4.png',
-                  '/images/Screenshot 2026-09-11 132304.png',
-                  '/images/Screenshot 2026-09-11 132325.png',
-                  '/images/Screenshot 2026-09-11 131847.png',
+                  '/images/ahmedabad/Screenshot4.webp',
+                  '/images/Screenshot 2026-09-11 132304.webp',
+                  '/images/Screenshot 2026-09-11 132325.webp',
+                  '/images/Screenshot 2026-09-11 131847.webp',
                 ]
               : (page.slug?.toLowerCase() === 'uk' || page.slug?.toLowerCase() === 'london' || page.title?.toLowerCase().includes('london'))
               ? [
-                  '/images/uk/Screenshot 2026-09-26 173413.png',
-                  '/images/uk/Screenshot 2026-09-26 173649.png',
-                  '/images/uk/Screenshot 2026-09-26 173425.png',
-                  '/images/uk/Screenshot 2026-09-26 173433.png',
-                  '/images/uk/Screenshot 2026-09-26 173453.png',
-                  '/images/uk/Screenshot 2026-09-26 173506.png',
-                  '/images/uk/Screenshot 2026-09-26 173524.png',
-                  '/images/uk/Screenshot 2026-09-26 173552.png',
-                  '/images/uk/Screenshot 2026-09-26 173605.png',
-                  '/images/uk/Screenshot 2026-09-26 173622.png',
+                  '/images/uk/Screenshot 2026-09-26 173413.webp',
+                  '/images/uk/Screenshot 2026-09-26 173649.webp',
+                  '/images/uk/Screenshot 2026-09-26 173425.webp',
+                  '/images/uk/Screenshot 2026-09-26 173433.webp',
+                  '/images/uk/Screenshot 2026-09-26 173453.webp',
+                  '/images/uk/Screenshot 2026-09-26 173506.webp',
+                  '/images/uk/Screenshot 2026-09-26 173524.webp',
+                  '/images/uk/Screenshot 2026-09-26 173552.webp',
+                  '/images/uk/Screenshot 2026-09-26 173605.webp',
+                  '/images/uk/Screenshot 2026-09-26 173622.webp',
                 ]
               : (page.image ? [page.image] : ['/images/about/about-hero-1.png', '/images/about/about-hero-2.png', '/images/about/about-hero-3.png', '/images/about/about-hero-4.png']);
 

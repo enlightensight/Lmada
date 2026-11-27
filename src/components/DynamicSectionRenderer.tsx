@@ -598,7 +598,7 @@ export default function DynamicSectionRenderer({
                   <div className="h-full glass-card rounded-[10px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
                     <div className="relative aspect-[4/3] overflow-hidden bg-[#000a1c]">
                       <img
-                        src={withBase(modal.image || '/images/modalities/mAb.png')}
+                        src={withBase(modal.image || '/images/modalities/mAb.webp')}
                         alt={modal.title}
                         className="w-full h-full object-fill transition-transform duration-700 group-hover:scale-105"
                         style={{ objectFit: 'fill' }}

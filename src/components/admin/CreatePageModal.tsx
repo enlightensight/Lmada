@@ -39,7 +39,7 @@ const TEMPLATE_PRESETS = [
         title: 'High-Performance Process Sciences',
         subtitle: 'BENCH TO BIOREACTOR SCALE',
         text: 'Custom media optimization, feed strategies, and purification runs engineered for high product titer and critical quality attribute control.',
-        image: '/images/upstream/AMBR250.png',
+        image: '/images/upstream/AMBR250.webp',
         imageSide: 'right' as const,
         bulletsTitle: 'CORE DEVELOPMENT CAPABILITIES',
         bullets: [
@@ -84,7 +84,7 @@ const TEMPLATE_PRESETS = [
         title: 'cGMP Cleanroom Biomanufacturing',
         subtitle: 'GRADE A/B/C PRODUCTION SUITES',
         text: 'Advanced single-use bioreactor facilities and automated isolator filling systems built to produce clinical and commercial biologics under strict cGMP compliance.',
-        image: '/images/down stream/AKTA Pilot.png',
+        image: '/images/down stream/AKTA Pilot.webp',
         imageSide: 'left' as const,
         bulletsTitle: 'MANUFACTURING HIGHLIGHTS',
         bullets: [
@@ -185,7 +185,7 @@ const TEMPLATE_PRESETS = [
         title: 'Specialized Biologic Modality Platform',
         subtitle: 'MOLECULE-SPECIFIC EXPERTISE',
         text: 'Tailored expression and purification strategies designed to address molecule-specific challenges such as aggregation, chain pairing, and stability.',
-        image: '/images/modalities/mAb.png',
+        image: '/images/modalities/mAb.webp',
         imageSide: 'left' as const,
         bullets: [
           'High specific productivity in stable mammalian expression lineages',

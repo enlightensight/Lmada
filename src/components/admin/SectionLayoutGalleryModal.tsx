@@ -167,7 +167,7 @@ export const SECTION_LAYOUTS: SectionLayoutOption[] = [
           icon: 'Dna',
           badge: '01 — Gene to Clone',
           link: '/services/cell-line',
-          image: '/images/celldev/CLD_Lab.png'
+          image: '/images/celldev/CLD_Lab.webp'
         },
         {
           title: 'Process Sciences & Scale-Up',
@@ -175,7 +175,7 @@ export const SECTION_LAYOUTS: SectionLayoutOption[] = [
           icon: 'Settings',
           badge: '02 — Upstream & Downstream',
           link: '/services/process',
-          image: '/images/upstream/AMBR250.png'
+          image: '/images/upstream/AMBR250.webp'
         },
         {
           title: 'cGMP Manufacturing Suites',
@@ -183,7 +183,7 @@ export const SECTION_LAYOUTS: SectionLayoutOption[] = [
           icon: 'Factory',
           badge: '03 — GMP Production',
           link: '/manufacturing/drug-substance',
-          image: '/images/down stream/AKTA Pilot.png'
+          image: '/images/down stream/AKTA Pilot.webp'
         }
       ]
     }
@@ -271,10 +271,10 @@ export const SECTION_LAYOUTS: SectionLayoutOption[] = [
       text: 'Our integrated development and manufacturing platform is tailored to the specific biochemical and biophysical properties of each molecule.',
       dark: false,
       cards: [
-        { title: 'Monoclonal Antibodies', description: 'Platform capabilities for IgG1, IgG2, and IgG4 subclasses with high titers and purity.', link: '/modalities/mabs', image: '/images/modalities/mAb.png' },
-        { title: 'Bispecific Antibodies', description: 'Overcoming chain pairing, homodimer formation, and mispairing with tailored purification.', link: '/modalities/bispecifics', image: '/images/modalities/Bispecific_Antibody.png' },
-        { title: 'Antibody-Drug Conjugates (ADCs)', description: 'Conjugation process development, drug-to-antibody ratio (DAR) optimization, and aseptic manufacturing.', link: '/modalities/adcs', image: '/images/modalities/Antibody-Drug_Conjugate.png' },
-        { title: 'Proteins & Peptides', description: 'Recombinant proteins, fusion constructs, and synthetic peptides produced with high purity.', link: '/modalities/proteins-peptides', image: '/images/modalities/Proteins_and_Peptides.png' }
+        { title: 'Monoclonal Antibodies', description: 'Platform capabilities for IgG1, IgG2, and IgG4 subclasses with high titers and purity.', link: '/modalities/mabs', image: '/images/modalities/mAb.webp' },
+        { title: 'Bispecific Antibodies', description: 'Overcoming chain pairing, homodimer formation, and mispairing with tailored purification.', link: '/modalities/bispecifics', image: '/images/modalities/Bispecific_Antibody.webp' },
+        { title: 'Antibody-Drug Conjugates (ADCs)', description: 'Conjugation process development, drug-to-antibody ratio (DAR) optimization, and aseptic manufacturing.', link: '/modalities/adcs', image: '/images/modalities/Antibody-Drug_Conjugate.webp' },
+        { title: 'Proteins & Peptides', description: 'Recombinant proteins, fusion constructs, and synthetic peptides produced with high purity.', link: '/modalities/proteins-peptides', image: '/images/modalities/Proteins_and_Peptides.webp' }
       ]
     }
   },

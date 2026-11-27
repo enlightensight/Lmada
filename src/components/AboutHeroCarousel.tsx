@@ -12,17 +12,17 @@ const CAROUSEL_IMAGES = [
     title: 'Facility Infrastructure & Architecture',
   },
   {
-    src: '/images/Screenshot%202026-09-11%20132518.png',
+    src: '/images/Screenshot%202026-09-11%20132518.webp',
     alt: 'Lambda CDMO Advanced Cleanroom Suites',
     title: 'cGMP Cleanroom Bioprocess Suites',
   },
   {
-    src: '/images/Screenshot%202026-09-11%20131810.png',
+    src: '/images/Screenshot%202026-09-11%20131810.webp',
     alt: 'Lambda CDMO Biologics Laboratory Operations',
     title: 'Biologics Development Laboratories',
   },
   {
-    src: '/images/Screenshot%202026-09-11%20131847.png',
+    src: '/images/Screenshot%202026-09-11%20131847.webp',
     alt: 'Lambda CDMO Scientific Instrumentation & Analytics',
     title: 'Advanced Analytical & Quality Control',
   },
