@@ -226,7 +226,8 @@ Rules the audit enforces — keep them true when changing a layout:
   `page.itemIcons` keyed by the item text; layouts must resolve every such icon with `pickIcon(page.itemIcons, text, auto)`
   or `getListIcons(points, page.itemIcons)` from `src/components/icons/SiteIcon.tsx`. After adding or removing icons in a
   layout, regenerate the panel's list: `node scripts/cms_icons_e2e.mjs --usage-out src/data/cmsIconUsage.json`.
-- The editor's Live Preview renders the real page from unsaved edits (`/api/admin/preview`, in-memory, `?previewId=`).
+- The editor has no side-by-side Live Preview any more (removed at the client's request: it squeezed the editor);
+  "Preview Draft" opens the saved draft in a new tab. `/api/admin/preview` (in-memory, `?previewId=`) is still there.
   Editor blocks are ordered like the live layout (`blockSequence` in `PageAdminEditor.tsx`); update it when a layout
   moves a block.
 - The editor shows no "not shown on this page" notices (removed at the client's request).

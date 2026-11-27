@@ -1,7 +1,7 @@
 'use client';
 
 import { withBase } from '@/lib/basePath';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -77,7 +77,6 @@ import { parseFacilityListParagraph } from '@/lib/facilityList';
 import IconSlotButton from './IconSlotButton';
 import { getSlotIcon, splitPosition } from '@/lib/autoIcons';
 import { itemIconKey } from '@/components/icons/SiteIcon';
-import LivePreviewPane from './LivePreviewPane';
 import { getSectionEquipment, ALL_EQUIPMENT_ITEMS } from '@/data/equipmentData';
 import SectionLayoutGalleryModal, {
   SectionLayoutOption,
@@ -920,43 +919,7 @@ export default function PageAdminEditor({
   const [savedKey, setSavedKey] = useState({ category: initialPage.category, slug: initialPage.slug });
   const addressChanged = savedKey.category !== page.category || savedKey.slug !== page.slug;
 
-  // Side-by-side live preview of the real page, rendered from the unsaved edits
-  const [isLivePreviewOpen, setIsLivePreviewOpen] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    try {
-      const saved = window.localStorage.getItem('lambda_admin_live_preview');
-      if (saved) return saved === 'on';
-    } catch {
-      /* preference only */
-    }
-    // Side by side by default on wide screens, where the editor still has room
-    return window.innerWidth >= 1700;
-  });
-  const toggleLivePreview = (open: boolean) => {
-    setIsLivePreviewOpen(open);
-    try {
-      window.localStorage.setItem('lambda_admin_live_preview', open ? 'on' : 'off');
-    } catch {
-      /* preference only */
-    }
-  };
   const headerRef = useRef<HTMLElement>(null);
-  const [headerBottom, setHeaderBottom] = useState(72);
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-    const update = () => setHeaderBottom(Math.max(0, Math.round(header.getBoundingClientRect().bottom)));
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(header);
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
-  }, []);
   const [activeTab, setActiveTab] = useState<'sections' | 'hero' | 'settings' | 'publish'>('sections');
   const [openSectionId, setOpenSectionId] = useState<number | null>(0);
   // 50/50 sections without media are full-width on the site; their media column opens on request
@@ -1943,9 +1906,6 @@ export default function PageAdminEditor({
     });
   };
 
-  // What the live preview renders: the editor's page, cleaned exactly as a save would clean it
-  const previewPage = useMemo(() => sanitizePageForSave(page), [page]); // eslint-disable-line react-hooks/exhaustive-deps
-
   // 1. SAVE DRAFT (Does NOT change the live website)
   const handleSaveDraft = async () => {
     setSavingDraft(true);
@@ -2130,16 +2090,7 @@ export default function PageAdminEditor({
   });
 
   return (
-    <div className={`min-h-screen bg-slate-100 text-neutral-900 pb-28 transition-[padding] ${isLivePreviewOpen ? 'lg:pr-[46vw]' : ''}`}>
-      {isLivePreviewOpen && (
-        <LivePreviewPane
-          page={previewPage}
-          storedKey={savedKey}
-          path={liveUrl}
-          topOffset={headerBottom}
-          onClose={() => toggleLivePreview(false)}
-        />
-      )}
+    <div className="min-h-screen bg-slate-100 text-neutral-900 pb-28">
       {/* 1. TOP STICKY BAR */}
       {/* Same column as the content below (max width + side padding), drawn as a rounded card like the pages list's bar */}
       {/* The page-coloured band (box-shadow + clip-path) spans the full window so nothing peeks out beside the card while scrolling */}
@@ -2190,17 +2141,6 @@ export default function PageAdminEditor({
           </div>
 
           <div className="flex items-center gap-2.5 flex-wrap xl:flex-nowrap xl:shrink-0">
-            {/* Live preview toggle */}
-            <button
-              type="button"
-              onClick={() => toggleLivePreview(!isLivePreviewOpen)}
-              className={`p-2.5 px-3.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${isLivePreviewOpen ? 'border-brand-blue bg-brand-blue text-white' : 'border-brand-blue/40 bg-brand-blue/5 text-brand-blue hover:bg-brand-blue/10'}`}
-              title="Show the real page beside the editor, updating as you edit (nothing is saved)"
-            >
-              <Eye className="w-3.5 h-3.5" />
-              <span>{isLivePreviewOpen ? 'Hide Live Preview' : 'Live Preview'}</span>
-            </button>
-
             {/* Preview Draft button */}
             <button
               onClick={handlePreviewDraft}
