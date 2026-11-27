@@ -230,7 +230,7 @@ body {
   background-color: transparent;
   background-image:
     linear-gradient(rgba(245, 245, 245, 0.99), rgba(245, 245, 245, 0.99)),
-    url('/images/glass_molicules.png');
+    url('/images/glass_molicules.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -240,7 +240,7 @@ body {
   background-color: transparent;
   background-image:
     linear-gradient(rgba(245, 245, 245, 0.9), rgba(245, 245, 245, 0.9)),
-    url('/images/glass_molicules.png');
+    url('/images/glass_molicules.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
