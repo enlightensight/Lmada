@@ -8,7 +8,10 @@ import type { NextConfig } from "next";
 // It can also be a path on this same site, e.g. VIRTUAL_TOUR_URL=/virtualtour on the client's server, where
 // the tour files sit in public/virtualtour next to the site: links then stay on the site's own domain.
 const HOSTED_VIRTUAL_TOUR_URL = 'https://lambda-virtual-tour.onrender.com';
-const TOUR_START = '00%20MAIN%20BUILDING/index.htm';
+// Bump TOUR_VERSION (and the ?v= on the zone links inside the tour) after changing tour files: a CDN in front of
+// the client's server (Sucuri) keeps tour pages for days, and a new ?v= is a new address it has not cached yet.
+const TOUR_VERSION = '2';
+const TOUR_START = `00%20MAIN%20BUILDING/index.htm?v=${TOUR_VERSION}`;
 const virtualTourUrl = (
   process.env.VIRTUAL_TOUR_URL || (process.env.NODE_ENV === 'production' ? HOSTED_VIRTUAL_TOUR_URL : '')
 )
@@ -24,7 +27,7 @@ const virtualTourRedirects = virtualTourUrl
       },
       {
         source: '/virtual-tour/:path*',
-        destination: `${virtualTourUrl}/:path*`,
+        destination: `${virtualTourUrl}/:path*?v=${TOUR_VERSION}`,
         permanent: false,
       },
       // The bare address of a tour hosted on this site opens its start scene
